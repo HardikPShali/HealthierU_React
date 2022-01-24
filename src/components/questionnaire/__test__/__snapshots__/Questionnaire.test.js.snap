@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Questionnaire /> should render my component 1`] = `
+Array [
+  <div>
+    <div
+      className="Questionnaire-header"
+    >
+      <h1>
+        Health Behaviuor
+      </h1>
+      <p>
+         Do you suffer from any of following ?
+      </p>
+    </div>
+    <h3>
+      Loading...
+    </h3>
+    <div />
+    <br />
+  </div>,
+]
+`;

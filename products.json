@@ -1,0 +1,121 @@
+{
+    "products": [
+        {
+            "name": "Fitness Tracker",
+            "rating": 4,
+            "productImage": "http://localhost:3006/static/media/Fitbit.d4b2e49b.jpg",
+            "price": 15,
+            "videoUrl": "RarcD0Q50nU",
+            "discount": 20,
+            "id": 1
+        },
+        {
+            "name": "Cardiology",
+            "rating": 3.5,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 20,
+            "videoUrl": "n69-eVLtevc",
+            "discount": 30,
+            "id": 2
+        },
+        {
+            "name": "Weight Loss",
+            "rating": 5,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 15.25,
+            "videoUrl": "Tz9d7By2ytQ",
+            "discount": 15,
+            "id": 3
+        },
+        {
+            "name": "Test Kits",
+            "rating": 2,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 23.45,
+            "videoUrl": "RarcD0Q50nU",
+            "discount": 20,
+            "id": 4
+        },
+        {
+            "name": "Joints",
+            "rating": 4,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 21,
+            "videoUrl": "Tz9d7By2ytQ",
+            "discount": 40,
+            "id": 5
+        },
+        {
+            "name": "Test Kits",
+            "rating": 3,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 14,
+            "videoUrl": "RarcD0Q50nU",
+            "discount": 23,
+            "id": 6
+        },
+        {
+            "name": "Joints",
+            "rating": 5,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 12,
+            "videoUrl": "Tz9d7By2ytQ",
+            "discount": 20,
+            "id": 7
+        },
+        {
+            "name": "Cardiology",
+            "rating": 3.5,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 20,
+            "videoUrl": "Tz9d7By2ytQ",
+            "discount": 27,
+            "id": 8
+        },
+        {
+            "name": "Weight Loss",
+            "rating": 5,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 15.25,
+            "videoUrl": "Tz9d7By2ytQ",
+            "discount": 10,
+            "id": 9
+        },
+        {
+            "name": "Test Kits",
+            "rating": 2,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 23.45,
+            "videoUrl": "Tz9d7By2ytQ",
+            "discount": 20,
+            "id": 10
+        },
+        {
+            "name": "Joints",
+            "rating": 4,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 21,
+            "videoUrl": "Tz9d7By2ytQ",
+            "discount": 20,
+            "id": 11
+        },
+        {
+            "name": "Test Kits",
+            "rating": 3,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 14,
+            "videoUrl": "Tz9d7By2ytQ",
+            "discount": 50,
+            "id": 12
+        },
+        {
+            "name": "Joints",
+            "rating": 5,
+            "productImage": "http://localhost:3006/static/media/breakfast.b5eb1601.jpg",
+            "price": 12,
+            "videoUrl": "Tz9d7By2ytQ",
+            "discount": 35,
+            "id": 13
+        }
+    ]
+}

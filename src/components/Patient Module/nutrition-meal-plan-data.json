@@ -1,0 +1,571 @@
+{
+    "nutrition": [
+        {
+            "KCAL": 1100,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Boiled eggs with spinach:\n2 hard-boiled eggs (large size at 50 grams each) and one cup of raw or steamed baby spinach"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": " 1 cup of grapes"
+                },
+                {
+                    "id": 2,
+                    "name": "5 almonds "
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Veggie Wrap:\n 8\u201d Tortilla Vegetable Wrap "
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 cup of low-fat Greek yogurt"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Fish and chickpeas:\nOne-Pot Curried Codfish  with Chick Peas"
+                }
+            ]
+        },
+        {
+            "KCAL": 1200,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Omelette:\n2 large eggs, 2 slices whole grain bread, 1 Tbsp. olive oil spread."
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 medium apple"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Tuna and mozzarella sandwich:\n2 slices whole grain bread, 3 oz. tuna (canned in water), 1 slice low-fat mozzarella cheese, 1 Tbsp. olive oil mayo."
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 cup skim milk"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Chicken with baked potato:\n4 oz. grilled chicken, 1 medium Idaho baked potato, 1-1\/2 cups green beans "
+                }
+            ]
+        },
+        {
+            "KCAL": 1300,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Avocado and eggs:\n1\u20442 avocado spread on whole grain toast with2 eggs on top"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "1\/2 medium green bell pepper, sliced, and approximately 3 Tbsp hummus"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Cheeseless quesadilla:\nSouthwestern cheeseless quesadilla on corn tortilla, 1\u20442 c spinach, 4 to 5 mushrooms, lettuce, 1 Tbsp guacamole and 1\nTbsp Greek yogurt dollop and pico de gallo"
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": " 3\/4 cup berries"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Chicken or tofu with cauliflower:\n5 oz. chicken breast or tofu\/tempeh and 4 broccolinis in a bowl with a choice of a handful of cauliflower"
+                },
+                {
+                    "id": 2,
+                    "name": "Dried tomato slices or mushrooms with tamari sauce"
+                }
+            ]
+        },
+        {
+            "KCAL": 1400,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Butter sandwich:\n1 whole grain toast, 2 Tbsp nut butter spread, 1\u20442 sliced banana topped with drizzle of honey"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "Greek yogurt parfait with 1\/3 cup yogurt"
+                },
+                {
+                    "id": 2,
+                    "name": "1\u20442 cup berries"
+                },
+                {
+                    "id": 3,
+                    "name": "sprinkle of nuts"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Salmon and quinoa with fruits:\nCitrus salmon salad: 5 oz. salmon served with farm lettuce, 1\u20444 cup quinoa, Handful of sliced apple, grapefruit, and orange, Sprinkled with mint and maple vinaigrette"
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "1\/2 cup fruit slices and dices of choice, or mix with some veggies for more variety"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Shrips and veggies:\n1\/3 cup chickpeas, 1\u20442 cup wild rice, 4 shrimp with 4 asparagus and\u00a0coconut curry sauce"
+                }
+            ]
+        },
+        {
+            "KCAL": 1500,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Egg sandwich:\n2 large eggs, 1 slice whole grain bread, Peanut butter."
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "\u00bd cup fresh pineapple"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Chicken with green leaft salad:\n140 grams of chicken with any green leafy vegetables "
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "\u00bd cup cottage cheese"
+                },
+                {
+                    "id": 2,
+                    "name": "1 slice whole grain bread"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Salmon with brown rice:\n4 oz. salmon, 1 cup brown rice, 1 cup broccoli, 2 tsp. olive oil, 2 Tbsp. grated Parmesan cheese"
+                }
+            ]
+        },
+        {
+            "KCAL": 1600,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Granola:\n50g granola along with 125ml semi skimmed milk"
+                },
+                {
+                    "id": 2,
+                    "name": "1 medium sized apple"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 small glass of orange juice"
+                },
+                {
+                    "id": 2,
+                    "name": "6 grapes"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Chicken pasta salad: \n50g fusilli pasta until al dente.\nServe with cherry tomatoes, halved, spinach and 80g roast chicken breast."
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "2 crispbreads with 30g plain houmous\n\n"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Lamb chop with potato and vegetables: \n 1 lean loin lamb chop with 1 jacket potato, topped with 1tsp low-fat spread, vegetables and 1tbsp mint sauce"
+                }
+            ]
+        },
+        {
+            "KCAL": 1700,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Scrambled eggs:\nTwo eggs, scrambled\nOne slice 100% whole-grain toast with one tablespoon 100% fruit spread\n"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "One apple + 14 walnuts "
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 3,
+                    "name": "Chicken wrap: \nOne whole grain tortilla, one-half cup chopped chicken, three tomato slices, one tablespoon light mayonnaise, lots of lettuce, and one ounce shredded cheese\n"
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "Three-fourths cup plain yogurt with one tablespoon honey\n"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Sirloin steak with cooked veggies:\nOne three-ounce sirloin steak\nOne cup cooked green beans\nOne medium sweet potato, baked\n "
+                }
+            ]
+        },
+        {
+            "KCAL": 1800,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Oatmeal and banana: \n1\/2 cup oatmeal with 1 cup skimmed milk and 1 small banana "
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 slice of toast bread with 1 tbsp. peanut butter and 1 small apple \n"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Chicken with brown rice: \n1 cup brown rice, 1 cup cooked not-starchy vegetables, i.e. doesn\u2019t including potatoes, corn or peas, 90 grams chicken breast, skinless  "
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 tablespoon raisins, 3 tablespoons soy nuts "
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "White cheese sandwich: \n1\/2 small loaf brown pita bread with 2 pieces of white cheese, 1 cup of tomato and cucumber salad without oil \n\n2\/3 cup yogurt, skimmed or low fat"
+                }
+            ]
+        },
+        {
+            "KCAL": 1900,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Cream cheese bagel:  \n1 whole wheat bagel, 1 table spoon of cream cheese, 1 cup of orange juice."
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 cup of yogurt"
+                },
+                {
+                    "id": 2,
+                    "name": "1 apple."
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Hamburger with a side salad: \n3 oz lean hamburger, grilled or broiled, 1 cup of steamed asparagus, large tossed vegetable salad with yogurt dressing, \u00bd cup of cottage cheese."
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "2 oz of graham crackers"
+                },
+                {
+                    "id": 2,
+                    "name": " \u00bd cup of strawberries"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Shrimp pasta: \n2 \u00bd cup of pasta with 3 oz of cooked shrimp and 1 \/2 cup of broccoli, 1 slice of Italian bread, 1 teaspoon of garlic olive oil, mixed greens salad with oil and vinegar."
+                }
+            ]
+        },
+        {
+            "KCAL": 2000,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Muesli with yoghurt: \n\u00bd cup muesli\n3 tablespoons natural or Greek yoghurt\n\u00be cup fresh mixed berries\nSprinkle of cinnamon"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "Regular skim latte + 2 squares dark chocolate\n"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Tuna and Avocado Salad:\nA large salad consisting of:\n\n1 cup salad greens, 90grams tin tuna, 1 tablespoon balsamic, lemon juice and olive oil dressing, \u00bc small avocado, a small handful of cherry tomatoes, \u00bc cup capsicum. 1 teaspoon pumpkin seeds\n "
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 apple\nHandful of walnuts\n "
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Chicken breast and quinoa:\n160g chicken breast, cooked, \u00bd cup steamed broccoli, \u00bd cup steamed beans, 1 small carrot, \u00bd cup green peas, \u00bd cup quinoa, cooked, 1 tablespoon olive oil\n "
+                }
+            ]
+        },
+        {
+            "KCAL": 2100,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": " Granola and bagel with peanut butter: \n1 1\/4 cup granola, 1 cup skim milk, 1 whole wheat bagel thin, 2 tablespoon peanut butter"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 apple\nHandful of walnuts\n "
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Spaghetti and meatballs\n1 cup Barilla Plus noodles"
+                },
+                {
+                    "id": 2,
+                    "name": "3 turkey meatballs"
+                },
+                {
+                    "id": 3,
+                    "name": "1\/2 cup marinara sauce"
+                },
+                {
+                    "id": 4,
+                    "name": "2 cups spinach\/lettuce salad"
+                },
+                {
+                    "id": 5,
+                    "name": "2 tablespoon light balsamic dressing"
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "Regular skim latte + 2 squares dark chocolate\n"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Chicken Tacos\n5 oz. chicken breast"
+                },
+                {
+                    "id": 2,
+                    "name": "2 whole wheat tortilla\n2 tablespoon salsa"
+                },
+                {
+                    "id": 3,
+                    "name": "1\/4 avocado, 1\/2 cup black beans"
+                }
+            ]
+        },
+        {
+            "KCAL": 2200,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "1 cup of nonfat cottage cheese with 1 cup of strawberries"
+                },
+                {
+                    "id": 2,
+                    "name": "Sprinkled with cinnamon\n1 slice whole grain toast topped with:\n85 grams of sliced turkey breast"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "\u00bd cup nonfat vanilla yogurt\n"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Large Salad made with:\n\nLeafy greens (lettuce, spinach) \u2013 any amount\n2 cups (160g) chopped mixed vegetables (carrots, peppers, tomato)\n6 ounces (170g) grilled chicken breast\n\u00bd cup (150g) cooked white beans\n2 tablespoons (30g) reduced-calorie salad dressing\n1 tangerine\n"
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "30g soy nuts, carrot and celery sticks "
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Grilled salmon and  veggies:\n200g grilled salmon with lemon\n2 cups steamed green beans with garlic\n1 cup cooked brown rice\nlarge leafy green salad \u2013 any amount, \u00bc medium avocado for salad\n2 Tablespoons  reduced calorie salad dressing"
+                }
+            ]
+        },
+        {
+            "KCAL": 2300,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Banana Oatmeal Smoothie: \n 1.5 tablespoon of  Organic Plant Protein\n1 cup of Coconut Milk (Unsweetened)\n1 Banana\n3 tablespoons of rolled oats "
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "30g Vegan Dark Chocolate 70%\n"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Chickpea vegetable stir fry  \n100g Chickpeas\n100g Green Peas\n150g Broccolini\n100g Cauliflower\n15ml Olive Oil"
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 apple "
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Chicken salad: \n90grams of chicken breast with green salad, 2 tablespoon olive oil, lemon, vinegar"
+                }
+            ]
+        },
+        {
+            "KCAL": 2400,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Scrambled eggs and peanut butter oatmeal:  \n3 eggs, scrambled cooked with 2 tsp. extra virgin olive oil\n1 \u00bd cup oatmeal, cooked with 2 tsp. natural peanut butter\n1 banana, sliced"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "\u00bc cup unsalted almonds"
+                },
+                {
+                    "id": 2,
+                    "name": "1 medium orange"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Grilled chicken with quinoa and salad: \nSalad: bed of spinach, \u00bc cup tomatoes, \u00bc cup chopped cucumbers, \u00bc cup shredded carrots, \u00bc cup mushrooms, \u00bd cup, cooked quinoa, 5 oz. grilled chicken, 2 Tbsp. regular salad dressing,  1 whole wheat pita (6\u201d across), 1 cup strawberries"
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "1 string cheese with  5-6 whole grain crackers"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Baked chicken with mashed potato and veggies: \n4 oz. baked chicken breast cooked with 2 tsp. extra olive oil, 1 cup mashed sweet potatoes with 1 Tbsp. light butter spread, 2 cups steamed broccoli, 1 cup blueberries"
+                }
+            ]
+        },
+        {
+            "KCAL": 2500,
+            "Breakfast": [
+                {
+                    "id": 1,
+                    "name": "Breakfast Parfait: \n16 oz Nonfat greek yogurt, 1 cup blueberries, 1 cup, halves Strawberries, 1\/2 cup granola with almonds\n"
+                }
+            ],
+            "MorningSnack": [
+                {
+                    "id": 1,
+                    "name": "2 medium apples\n\n"
+                }
+            ],
+            "Lunch": [
+                {
+                    "id": 1,
+                    "name": "Strawberry protein smoothie: \n1 1\/2 cup Water, 60 grams Whey protein powder, 1 tbsp Almond butter, 8 large strawberries\n"
+                }
+            ],
+            "EveningSnack": [
+                {
+                    "id": 1,
+                    "name": "1\/2 cup Hummus"
+                },
+                {
+                    "id": 2,
+                    "name": "2 medium red bell pepper"
+                }
+            ],
+            "Dinner": [
+                {
+                    "id": 1,
+                    "name": "Southwest Chicken and Bacon Wrap: \n3 tbsp Canola oil\n3 breast, bone and skin removed Chicken breast\n3 dash Salt\n3 dash Pepper\n6 strip Bacon\n3 tortilla (approx 7-8\" dia) Tortillas\n1 1\/2 cup, shredded Monterey cheese\n3 leaf inner Lettuce\n1 1\/2 cup, chopped or sliced Tomatoes\n\n\n"
+                }
+            ]
+        }
+    ]
+}

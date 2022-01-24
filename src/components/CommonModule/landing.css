@@ -1,0 +1,1297 @@
+@font-face {
+  font-family: Avenir;
+  src: url(../../static/font/Avenir.ttc);
+}
+
+:root {
+  --primary: #00d0cc;
+  --primarysecond: #f6ceb4;
+  --secondary: #FF6563;
+}
+
+* {
+  font-family: "Avenir", sans-serif;
+}
+
+body {
+  background: #fff !important;
+}
+
+/*
+* Header Navbar
+*/
+
+nav#navbar {
+  background-color: var(--primary);
+  padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+a.nav-link.active {
+  background: none !important;
+}
+
+#navbar a {
+  color: #fff;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.header-btn {
+  border: 2px solid #fff !important;
+  border-radius: 22px;
+  padding: 2px 60px;
+  margin-right: 10px;
+}
+
+/* .nav-border {
+    border-right: 2px solid #fff;
+} */
+
+.nav-link {
+  padding: 0 10px;
+}
+
+svg#search-icon {
+  color: #fff;
+  margin: 4px 5px;
+}
+
+/*
+* Footer Navbar
+*/
+
+#footer {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 40px 60px 20px;
+  display: flex;
+  align-items: flex-end;
+}
+
+footer .row {
+  align-items: flex-end;
+}
+
+a#footer-link {
+  display: block;
+  color: #fff !important;
+  text-decoration: none !important;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+div#active-user {
+  font-size: 18px;
+  color: #fff;
+}
+
+#active-user b {
+  font-weight: 500;
+}
+
+#active-user b span {
+  font-size: 30px;
+}
+
+b#right-border {
+  padding-right: 15px !important;
+  border-right: 1px solid;
+  padding: 15px 0 0;
+}
+
+#footer-input {
+  width: 53%;
+  border: none !important;
+  border-radius: 22px;
+  padding: 10px 20px;
+  outline: none;
+  box-shadow: none;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+input.btn.submit-btn {
+  padding: 10px 20px;
+  background-color: var(--primarysecond);
+  color: #fff;
+  border-radius: 22px;
+  width: 30%;
+  position: relative;
+  right: 3.5%;
+  bottom: 1px;
+}
+
+#last-col {
+  text-align: right;
+}
+
+p#download-statement {
+  font-size: 12px;
+  margin: 20px 0;
+  color: #fff;
+}
+
+img#store-icon {
+  width: 90%;
+}
+
+a#copy-link {
+  color: #000;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 0 20px 0 0;
+}
+
+div#copyright {
+  padding: 15px 0;
+}
+
+p#copyright-text {
+  margin: 15px 0 0;
+  font-size: 12px;
+  color: #999;
+}
+
+p#lang-select {
+  font-size: 12px;
+}
+
+#lang-select select {
+  border: none;
+  border-bottom: 1px solid;
+  outline: none;
+  box-shadow: none;
+}
+
+div#social-icon {
+  justify-content: flex-end;
+}
+
+#foot-icon img {
+  width: 80%;
+}
+
+#copyright .row {
+  align-items: flex-start;
+}
+
+/*
+* Patient home
+*/
+
+/* div#dorctor-list {
+    padding: 30px 10px;
+    margin: 30px 0;
+    background: #f8f8f8;
+    border-radius: 22px;
+    height: 550px;
+} */
+
+#card-list {
+  overflow-y: scroll;
+  height: 460px;
+}
+
+#shop-col .Togglebar {
+  width: 100%;
+  background: #efefef;
+  display: inline-block;
+  border-radius: 25px;
+  text-align: right;
+}
+
+.MuiBottomNavigation-root {
+  height: 66px !important;
+  display: flex;
+  justify-content: center;
+  background-color: #eee !important;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+  font-family: "Avenir", sans-serif;
+  z-index: 1;
+}
+
+.MuiBottomNavigationAction-root {
+  border: none !important;
+  outline: none !important;
+}
+
+.MuiBottomNavigationAction-wrapper img {
+  padding: 0;
+  width: 25px;
+  height: 25px;
+}
+
+.MuiBottomNavigationAction-label {
+  font-family: "Avenir", sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700;
+}
+
+.content {
+  padding-bottom: 66px;
+  padding-top: 125px;
+}
+
+.doc-content {
+  padding-bottom: 66px;
+  padding-top: 125px;
+}
+
+.MuiIconButton-label svg.MuiSvgIcon-root {
+  width: 26px !important;
+  height: 26px !important;
+}
+
+.MuiAppBar-root {
+  min-height: 100px !important;
+  position: fixed !important;
+  top: 0;
+  background-color: var(--primary) !important;
+}
+
+.menu-tab {
+  position: relative;
+  left: calc(100% - 320px);
+}
+
+span.emergency {
+  font-size: 9px;
+  font-weight: 700;
+  background: #ff4500;
+  padding: 2px 10px 4px;
+  border-radius: 10px;
+}
+
+.nav-divider {
+  display: block;
+  width: 100%;
+  height: 40px;
+  position: relative;
+  top: 15px;
+  background: #fff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.user-details {
+  display: inline-flex;
+}
+
+.user-name {
+  font-size: 10px;
+  text-align: left;
+  position: relative;
+  top: 20px;
+}
+
+.user-name p {
+  margin-bottom: 0;
+}
+
+img.profile-icon {
+  padding-right: 5px;
+}
+
+button.MuiButtonBase-root {
+  border: none !important;
+  outline: none !important;
+}
+
+.MuiBadge-badge {
+  height: 12px !important;
+  min-width: 12px !important;
+  padding: 0px 0px !important;
+  font-size: 10px !important;
+  transform: scale(1) translate(0%, -15%) !important;
+  font-weight: 700 !important;
+}
+
+.card-deck {
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.card-deck .card {
+  margin: 10px 10px !important;
+  height: 115px;
+  background: #efefef;
+  border: none;
+  border-radius: 15px;
+  width: 140px;
+}
+
+.card-deck .card:hover {
+  background: var(--primary);
+  color: #fff;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.card-body {
+  padding: 0 1.2rem 10px !important;
+  align-items: flex-end;
+  display: flex;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.dot-container {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 85px;
+  width: 100%;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  display: inline-block;
+  margin: 5px;
+}
+
+span.dot.active {
+  background: var(--primary) !important;
+  width: 25px;
+  border-radius: 22px;
+}
+
+#card {
+  margin: 0 10%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+}
+
+#card .card-body {
+  padding: 10px !important;
+}
+@media (min-width: 481px) and (max-width: 990px) {
+  #card .card-body {
+    font-size: 13px;
+  }
+}
+#arrowright {
+  position: absolute;
+  width: 100%;
+  text-align: right;
+  right: 16px;
+}
+
+#menuLinks {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+#menuLinks:hover #card {
+  background: var(--primary);
+}
+
+#menuLinks:hover {
+  color: #fff;
+  transition: 0.5s;
+}
+
+svg#fav-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.MuiGridListTile-tile {
+  border-radius: 10px;
+  background: #efefef;
+}
+
+li.MuiGridListTile-root {
+  padding: 5px !important;
+}
+
+ul.MuiGridList-root {
+  margin: 0 5% !important;
+}
+
+.MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
+  background: var(--primary);
+  cursor: pointer;
+}
+
+.MuiGridListTileBar-titleWrap {
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 10px;
+}
+
+.MuiGridListTileBar-title {
+  font-size: 10px !important;
+}
+
+.MuiGridListTileBar-subtitle {
+  font-size: 10px !important;
+}
+
+.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
+  width: 65%;
+  display: inline-flex;
+  border-radius: 27px;
+  box-shadow: none !important;
+  background: var(--primary);
+}
+@media (min-width: 481px) and (max-width: 1200px) {
+  .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
+    width: auto;
+  }
+}
+
+div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
+  color: #fff;
+}
+
+input#doctor-search {
+  color: #fff;
+}
+
+#appointment-card {
+  margin: 0 6%;
+  background: #efefef;
+  border: none;
+  border-radius: 10px;
+}
+
+#appointment-card .card-body {
+  padding: 10px !important;
+}
+
+#menuLinks:hover #appointment-card {
+  background: var(--primary);
+}
+
+#appointment-card .card-body #arrowright {
+  position: relative;
+  left: calc(100% - 160px);
+}
+
+a.back-btn {
+  width: 8%;
+  display: flex;
+  margin: 0px 10% 10px;
+}
+
+svg#back {
+  background: #efefef;
+  border-radius: 50%;
+  padding: 2px;
+  width: 28px;
+  height: 26px;
+}
+
+li#doctor-pro-pic {
+  width: 100% !important;
+  text-align: center;
+}
+
+#doctor-name .MuiGridListTileBar-titleWrap .MuiGridListTileBar-title {
+  color: var(--primary);
+}
+
+div#doctor-name {
+  background: transparent;
+}
+
+.cal-view {
+  width: 90%;
+  margin: 0 5% !important;
+}
+
+.appointment-list {
+  margin: 20px 0px;
+  font-weight: 700;
+}
+
+span.MuiRating-root {
+  color: var(--primary) !important;
+}
+
+span.price {
+  color: var(--primary);
+  font-size: 35px;
+}
+
+button.continue-btn {
+  background-color: var(--primary) !important;
+  width: 100%;
+  border-radius: 30px;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.MuiBottomNavigationAction-root.MuiBottomNavigationAction-iconOnly {
+  padding-top: 2px !important;
+}
+
+.MuiBottomNavigationAction-label.MuiBottomNavigationAction-iconOnly {
+  opacity: 1 !important;
+  transition-delay: 0.2s !important;
+}
+
+span.MuiBottomNavigationAction-wrapper {
+  margin: 0 13px;
+}
+
+.doc-img {
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  border-radius: 22px;
+  background: #f8f8f8;
+}
+
+.doc-img img {
+  width: 140px;
+  border-radius: 22px;
+}
+
+b.doc-name {
+  color: var(--primary);
+  font-size: 15px;
+}
+
+.MuiFormControl-root.MuiTextField-root {
+  width: 100%;
+}
+
+#menuLinks li.MuiGridListTile-root {
+  width: 100% !important;
+  text-align: center;
+}
+
+#menuLinks li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+  background-color: var(--primary);
+}
+
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+  background: var(--primary);
+  transition: 0.5s;
+}
+
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
+  .MuiGridListTileBar-title {
+  color: #fff;
+  transition: 0.5s;
+}
+
+/* width */
+
+#card-list::-webkit-scrollbar,
+#calendar-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+#card-list::-webkit-scrollbar-track,
+#calendar-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+#card-list::-webkit-scrollbar-thumb,
+#calendar-list::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+#card-list::-webkit-scrollbar-thumb:hover,
+#calendar-list::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+div#doc-row {
+  margin: 0;
+}
+
+div#doc-details {
+  display: flex;
+  align-items: center;
+}
+
+.blue {
+  color: var(--primary);
+}
+
+div#price-box {
+  padding: 20px;
+  background: #efefef;
+  border-radius: 22px;
+  text-align: center;
+  position: relative;
+}
+
+div#price-box:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 46%;
+  z-index: 1;
+  border: solid 15px transparent;
+  border-top-color: #efefef;
+}
+
+#calendar-list span.MuiTypography-root {
+  font-size: 12px;
+}
+
+#promo-code {
+  font-size: 12px;
+  text-align: right;
+  position: relative;
+  top: -4px;
+}
+
+#payment-form .MuiFormControl-root.MuiTextField-root {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#payment-form .MuiInputBase-formControl {
+  border-radius: 10px;
+}
+
+#payment-form input#standard-basic {
+  padding: 10px;
+  border: none !important;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #000;
+  font-weight: 600;
+}
+
+#payment-form .MuiFilledInput-underline:after {
+  display: none;
+}
+
+#payment-form .MuiFilledInput-underline:before {
+  display: none;
+}
+
+/*
+* Card
+*/
+
+#patient-card {
+  border-radius: 22px !important;
+}
+
+#patient-card .card-title.h5 {
+  font-size: 22px;
+  font-weight: 400;
+}
+
+#patient-card .card,
+img.card-img-top {
+  border-radius: 20px;
+  border: none !important;
+}
+
+#patient-card .card-body {
+  position: absolute;
+  bottom: 0;
+  color: #EEE9DF;
+  background-color: var(--primary);
+  width: 100%;
+  height: 130px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+#patient-card p.card-text {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+#patient-card .card-body {
+  padding: 1.25rem !important;
+  display: unset;
+  align-items: unset;
+}
+@media (min-width: 481px) and (max-width: 990px) {
+  #patient-card .card-body {
+    position: relative;
+    height: auto;
+  }
+
+  .card-body > p.card-text {
+    min-height: 40px;
+  }
+  #patient-card .card-title.h5 {
+    min-height: 50px;
+  }
+  #patient-card button.assessment-btn {
+    position: static;
+  }
+}
+@media (max-width: 480px) {
+  #patient-card .card-body {
+    position: relative;
+    height: auto;
+  }
+  .card-body > p.card-text {
+    min-height: 40px;
+  }
+  #patient-card .card-title.h5,
+  .card-body > p.card-text {
+    min-height: auto;
+  }
+  #patient-card button.assessment-btn {
+    position: static;
+    padding: 6px 12px;
+  }
+}
+
+/*
+* Boxes
+*/
+
+div.card-box {
+  display: flex;
+  height: 200px;
+  background: #efefef;
+  border-radius: 22px;
+  align-items: flex-end;
+  padding: 1.25rem;
+  color: #fff;
+  text-shadow: 0px 0px 15px #000;
+}
+
+#Box1 {
+  background-image: url(../../images/nutrition.png);
+  background-size: cover;
+}
+
+#Box2 {
+  background-image: url(../../images/workout.png);
+  background-size: cover;
+}
+
+#Box3 {
+  background-image: url(../../images/lifestyle.png);
+  background-size: cover;
+}
+
+#Box4 {
+  background-image: url(../../images/shop.png);
+  background-size: cover;
+}
+
+#Box5 {
+  background-image: url(../../images/articles.png);
+  background-size: cover;
+}
+
+#Box6 {
+  background-image: url(../../images/educate.png);
+  background-size: cover;
+}
+
+.MuiSelect-filled.MuiSelect-filled {
+  padding: 10px !important;
+}
+
+.react-tel-input .form-control {
+  width: 100% !important;
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0.09) !important;
+  padding: 8px 10px 8px 48px !important;
+  height: auto !important;
+  border-radius: 10px !important;
+}
+
+.sign-box {
+  background: #fff;
+  border-radius: 22px;
+  padding: 10px 10%;
+}
+
+.sign-box .MuiFormControl-root.MuiTextField-root {
+  width: 100%;
+}
+
+.sign-box .MuiInputBase-formControl {
+  border-radius: 10px;
+}
+
+.sign-box input#standard-basic {
+  padding: 10px;
+  border: none !important;
+  border-radius: 10px;
+}
+
+.sign-box .MuiFilledInput-underline:after {
+  display: none;
+}
+
+.sign-box .MuiFilledInput-underline:before {
+  display: none;
+}
+
+h2#signin-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.sign-box p {
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+p.forget-text {
+  text-align: right;
+  font-size: 12px;
+}
+
+input.btn.sign-btn {
+  width: 100%;
+  border-radius: 22px;
+  margin-top: 20px;
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+p.signup-text {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 12px;
+}
+
+button.btn.btn-outline-primary.sign-btn {
+  width: 50%;
+  margin: 0 25% 20px;
+  border-radius: 22px;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+button.btn.btn-outline-primary.sign-btn:hover {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: #fff;
+}
+
+#welcome-bg {
+  background-image: url(../../images/welcomebg.png);
+  background-size: cover;
+  background-position: center;
+}
+
+.MuiFormControl-root {
+  width: 100% !important;
+}
+
+div#gender-radio {
+  display: block;
+}
+
+h2#welcome-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+select#coutry-select {
+  width: 100% !important;
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0.09) !important;
+  padding: 8px 10px 8px 10px !important;
+  height: auto !important;
+  border-radius: 10px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: 8px;
+  outline: none !important;
+}
+
+@media (max-width: 700px) {
+  #footer .row > div {
+    margin-bottom: 40px;
+  }
+  #footer {
+    padding: 40px 20px 20px !important;
+  }
+  #footer-input {
+    width: 63% !important;
+  }
+  input.btn.submit-btn {
+    width: 37% !important;
+    right: 6.5% !important;
+  }
+  div#copyright {
+    text-align: center !important;
+    background-color: #eee9df;
+  }
+  #copyright .row > div {
+    margin-bottom: 20px;
+  }
+  #copyright #last-col {
+    text-align: center !important;
+  }
+  div#social-icon {
+    justify-content: center !important;
+  }
+  .header-btn {
+    font-size: 11px;
+    padding: 2px 9px !important;
+    width: 130px;
+  }
+}
+
+/*
+* Profile Pic
+*/
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  display: block;
+  border-radius: 50%;
+  border: 6px solid #eee;
+}
+
+.file-upload {
+  display: none;
+}
+.p-image {
+  position: relative;
+  bottom: 70px;
+  left: 48px;
+  color: #000;
+  text-shadow: 0px 0px 5px #fff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.p-image:hover {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.upload-button {
+  font-size: 1.2em;
+}
+
+.upload-button:hover {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: #999;
+}
+
+.multiselect div {
+  border: none;
+  background: #e8e8e8;
+  border-radius: 10px;
+}
+
+div.card-box {
+  display: flex;
+  height: 200px;
+  background: #efefef;
+  border-radius: 22px;
+  align-items: flex-end;
+  padding: 1.25rem;
+  color: #fff;
+  text-shadow: 0px 0px 15px #000;
+}
+#Box1 {
+  background-image: url(../../images/nutrition.png);
+  background-size: cover;
+}
+#Box2 {
+  background-image: url(../../images/workout.png);
+  background-size: cover;
+}
+#Box3 {
+  background-image: url(../../images/lifestyle.png);
+  background-size: cover;
+}
+#Box4 {
+  background-image: url(../../images/shop.png);
+  background-size: cover;
+}
+#Box5 {
+  background-image: url(../../images/articles.png);
+  background-size: cover;
+}
+#Box6 {
+  background-image: url(../../images/educate.png);
+  background-size: cover;
+}
+
+#nutrition-col {
+  padding: 20px 15px;
+  margin: 30px 0;
+  background: #f8f8f8;
+  border-radius: 22px;
+  height: 450px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+div.nutrition-card-box {
+  display: flex;
+  height: 100px;
+  background: #efefef;
+  border-radius: 22px;
+  align-items: flex-end;
+  padding: 1rem;
+  color: #fff;
+  text-shadow: 0px 0px 15px #000;
+  cursor: pointer;
+}
+
+#nutrition-col h4 {
+  color: var(--primary);
+  font-size: 20px;
+}
+
+/* width */
+
+#nutrition-col::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+#nutrition-col::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+#nutrition-col::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+#nutrition-col::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* React multi carousel */
+
+.react-multi-carousel-item {
+  padding: 10px;
+}
+
+.react-multiple-carousel__arrow::before {
+  font-size: 23px !important;
+  color: var(--primary) !important;
+}
+
+.react-multiple-carousel__arrow--right {
+  right: 1px !important;
+  background: #fff !important;
+  color: var(--primary) !important;
+  box-shadow: -2px 2px 4px #00000045;
+  outline: none !important;
+}
+
+.react-multiple-carousel__arrow--left {
+  left: 1px !important;
+  background: #fff !important;
+  color: var(--primary) !important;
+  box-shadow: 2px 2px 4px #00000045;
+  outline: none !important;
+}
+
+h2#Article-title {
+  font-size: 35px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+div#article-card-body {
+  position: unset;
+  height: auto;
+  background: #fff;
+  color: #000;
+  height: 200px;
+  display: block !important;
+  padding: 2rem 1.25rem !important;
+}
+
+#article-card-body .card-title.h5 {
+  font-size: 17px;
+  color: var(--primary);
+}
+
+#article-card-body button.assessment-btn {
+  position: relative;
+  right: 0;
+}
+p#button-cover {
+  text-align: right;
+  margin: 0;
+  position: absolute;
+  right: 10px;
+  bottom: 15px;
+}
+
+img#article-card-img {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  height: 200px;
+}
+
+#article-row .card {
+  border: 1px solid #efefef !important;
+  border-radius: 20px !important;
+}
+
+.card-body {
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  background-color: var(--primary);
+  width: 100%;
+  height: 130px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: block !important;
+  padding-top: 1.25rem !important;
+  font-weight: normal !important;
+}
+
+p.card-text {
+  font-size: 12px;
+}
+
+/* Change Password */
+
+#profile-form {
+  background: #f4f4f4;
+  border-radius: 22px;
+  padding: 50px 10%;
+  margin: 20px 0;
+}
+#profile-form .MuiFormControl-root.MuiTextField-root {
+  width: 100%;
+}
+#profile-form .MuiInputBase-formControl {
+  border-radius: 10px;
+}
+#profile-form input#standard-basic {
+  padding: 10px;
+  border: none !important;
+  border-radius: 10px;
+}
+#profile-form .MuiFilledInput-underline:after {
+  display: none;
+}
+#profile-form .MuiFilledInput-underline:before {
+  display: none;
+}
+h2#signin-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--primary);
+}
+#profile-form p {
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+p.forget-text {
+  text-align: right;
+  font-size: 12px;
+}
+.sign-btn {
+  width: 100%;
+  border-radius: 22px;
+  margin-top: 20px;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: #fff !important;
+}
+p.signup-text {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 12px;
+}
+button.btn.btn-outline-primary.sign-btn {
+  width: 50%;
+  margin: 0 25% 20px;
+  border-radius: 22px;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+button.btn.btn-outline-primary.sign-btn:hover {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.closeButton {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  outline: none !important;
+  background-color: unset !important;
+  border-radius: 0px !important;
+  border: 0px !important;
+}
+
+.modal-content {
+  min-height: 80vh !important;
+}
+
+.disable-footer-links {
+  pointer-events: none;
+}
+
+#copyright-text a, #nutrition-col a {
+  color: var(--primary);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--primary) !important;
+}
+
+#foot-icon svg {
+  color: #fff;
+  background: #00d0cc;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 30px !important;
+  margin: 2px 0 0 10px;
+}
+
+.multiselect .highlight.option, .multiselect .option:hover {
+  background: var(--primary)!important;
+}

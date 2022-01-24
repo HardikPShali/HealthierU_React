@@ -1,0 +1,16 @@
+# First stage, build the application
+FROM node:lts-alpine3.9 as build-stage
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm cache clean -f
+RUN npm run build
+
+# Second stage, copy the artifacts in a new stage and
+# build the image
+FROM nginx:stable-alpine
+COPY --from=build-stage /app/build /usr/share/nginx/html
+COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

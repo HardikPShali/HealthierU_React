@@ -1,0 +1,22 @@
+<svg id="Reminder_Icon" data-name="Reminder Icon" xmlns="http://www.w3.org/2000/svg" width="18.941" height="21.197" viewBox="0 0 18.941 21.197">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff4500;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="label" transform="translate(12.232)">
+    <g id="Group_85" data-name="Group 85" transform="translate(0)">
+      <ellipse id="Ellipse_30" data-name="Ellipse 30" class="cls-1" cx="2.928" cy="2.928" rx="2.928" ry="2.928" transform="translate(0 5.783) rotate(-80.899)"/>
+    </g>
+    <g id="Group_86" data-name="Group 86" transform="translate(2.165 1.659)">
+      <path id="Path_133" data-name="Path 133" class="cls-2" d="M327,116.952h-.717V114.99l.007-.322.012-.353q-.179.179-.248.234l-.39.313-.346-.431,1.092-.87H327Z" transform="translate(-325.314 -113.561)"/>
+    </g>
+  </g>
+  <path id="Path_134" data-name="Path 134" class="cls-2" d="M124.459,112.9a2.956,2.956,0,0,0,2.951-2.961h-5.9A2.956,2.956,0,0,0,124.459,112.9Zm9.07-5.5-2.15-2.434a2,2,0,0,1-.5-1.323v-3.455a6.751,6.751,0,0,0-.127-1.3,3.689,3.689,0,0,1-3.6-3.73,3.82,3.82,0,0,1,.114-.929,6.175,6.175,0,0,0-1.692-.568v-.55a1.116,1.116,0,1,0-2.232,0v.547a6.437,6.437,0,0,0-5.3,6.345v3.637a2,2,0,0,1-.5,1.323l-2.15,2.434a.79.79,0,0,0,.589,1.314H132.94A.79.79,0,0,0,133.529,107.4Z" transform="translate(-115.189 -91.703)"/>
+</svg>

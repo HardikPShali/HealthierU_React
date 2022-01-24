@@ -1,0 +1,18 @@
+<svg id="logo" xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #4f80e2;
+      }
+    </style>
+  </defs>
+  <rect id="Rectangle_25" data-name="Rectangle 25" class="cls-1" width="41" height="41" rx="9"/>
+  <g id="Group_572" data-name="Group 572" transform="translate(-54.334 -46.303)">
+    <path id="Path_461" data-name="Path 461" class="cls-2" d="M80.712,96.433a8.625,8.625,0,0,1-11.592,0,9.654,9.654,0,0,0-5.7,8.78v1.193a2.556,2.556,0,0,0,2.556,2.556H83.858a2.556,2.556,0,0,0,2.556-2.556v-1.193A9.653,9.653,0,0,0,80.712,96.433Z" transform="translate(0 -28.832)"/>
+    <circle id="Ellipse_77" data-name="Ellipse 77" class="cls-2" cx="6.811" cy="6.811" r="6.811" transform="translate(68.105 54.386)"/>
+  </g>
+</svg>
