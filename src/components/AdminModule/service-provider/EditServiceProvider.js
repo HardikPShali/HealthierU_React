@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {
-    editQuestionnaire,
-    getQuestionnaire
-} from "../../questionnaire/QuestionnaireService";
+// import {
+//     editQuestionnaire,
+//     getQuestionnaire
+// } from "../../questionnaire/QuestionnaireService";
 import { Link, useParams } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
-import {
-    deleteQuestion,
-    saveQuestion
-} from "../../questionnaire/QuestionService";
+// import {
+//     deleteQuestion,
+//     saveQuestion
+// } from "../../questionnaire/QuestionService";
 import "../../questionnaire/Questionnaire.css";
 import "mdbreact/dist/css/mdb.css";
 import Navbar from "../layout/Navbar";
-import editIcon from "../../../images/icons used/edit icon_40 pxl.svg";
-import deleteIcon from "../../../images/icons used/delete_icon_40 pxl.svg";
+// import editIcon from "../../../images/icons used/edit icon_40 pxl.svg";
+// import deleteIcon from "../../../images/icons used/delete_icon_40 pxl.svg";
 import TransparentLoader from "../../Loader/transparentloader";
 import {
     getServiceProviderById,
@@ -26,8 +26,8 @@ import {
 } from "./../../../service/adminbackendservices";
 import { Tab, Tabs, Row, Col } from "react-bootstrap";
 import moment from "moment";
-import $ from "jquery";
-import { toDate } from "date-fns/esm";
+// import $ from "jquery";
+// import { toDate } from "date-fns/esm";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
@@ -35,7 +35,7 @@ const EditServiceProvider = props => {
     //let history = useHistory()
     console.log("props", props);
     const { id } = useParams();
-    const { list } = props.location;
+    // const { list } = props.location;
     //let selectedQuestion = null;
 
     const [serviceProvider, setServiceProvider] = useState({
@@ -112,7 +112,7 @@ const EditServiceProvider = props => {
     };
 
     const [showContact, setShowContact] = useState(false);
-    const [questionId, setQuestionId] = useState(null);
+    // const [questionId, setQuestionId] = useState(null);
     const [contactDetails, setContactDetails] = useState({
         id: "",
         serviceProviderId: "",
@@ -271,7 +271,7 @@ const EditServiceProvider = props => {
     const handleOpeningHoursSubmission = async event => {
         setIsLoading(true);
         event.preventDefault();
-        const data = new FormData(event.target);
+        // const data = new FormData(event.target);
         const resp = await addOpeningHours(id, openingHoursDetails);
         if (resp) {
             setShowOpeningHours(false);
@@ -302,7 +302,7 @@ const EditServiceProvider = props => {
                             id="questionnaireId"
                             name="questionnaireId"
                             defaultValue={id}
-                            //value={id}
+                        //value={id}
                         ></input>
                         <div className="form-group row">
                             <label
@@ -470,7 +470,7 @@ const EditServiceProvider = props => {
                         <Tabs
                             className="justify-content-center"
                             defaultActiveKey="contact"
-                            //</div>onSelect={clickTabEvent}
+                        //</div>onSelect={clickTabEvent}
                         >
                             <Tab eventKey="contact" title="Contact Details">
                                 <br />

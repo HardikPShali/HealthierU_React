@@ -1,10 +1,10 @@
 import './patient-document.css';
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Tab, Tabs } from 'react-bootstrap';
-import Footer from '../Footer';
+// import Footer from '../Footer';
 import editIcon from '../../../images/Icons/edit icon_40 pxl.svg';
 import Pagination from 'react-bootstrap/Pagination'
-import documentViewImage from '../../../images/icons used/document icon@2x.png';
+// import documentViewImage from '../../../images/icons used/document icon@2x.png';
 import { formatDate } from "../../questionnaire/QuestionnaireService";
 import { getCurrentPatientInfo,getCurrentUserInfo } from "../../../service/AccountService";
 import {

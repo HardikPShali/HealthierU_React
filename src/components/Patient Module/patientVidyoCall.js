@@ -4,7 +4,7 @@ import Header from './Header'
 import { Link } from 'react-router-dom'
 import './patient.css'
 import { Container, Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import patientprofile from '../../images/patientprof.png';
 import CallEndIcon from '@material-ui/icons/CallEnd';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
@@ -25,10 +25,10 @@ const PatientVidyoCall = () => {
         element.scrollTop = element.scrollHeight;
     }, []);
 
-    const updateScroll = () => {
-        const element = document.getElementById("chat-panel");
-        element.scrollTop = element.scrollHeight;
-    }
+    // const updateScroll = () => {
+    //     const element = document.getElementById("chat-panel");
+    //     element.scrollTop = element.scrollHeight;
+    // }
 
     return (
         <div>
@@ -55,7 +55,7 @@ const PatientVidyoCall = () => {
                             <Row id="patient-row" style={{ padding: '0px' }}>
                                 <Col xs={6} style={{ padding: '0px' }}>
                                     <div className="user-img">
-                                        <img src={patientprofile} style={{ width: "60px", height: "60px" }} />
+                                        <img alt='patient-profile' src={patientprofile} style={{ width: "60px", height: "60px" }} />
                                         <div className="ml-2">
                                             <b className="doc-name">Daniel Smith</b><br />
                                             <span style={{ fontSize: 12, display: "block" }}>Chronic Diabetes</span>
@@ -81,7 +81,7 @@ const PatientVidyoCall = () => {
                             <Row id="chat-heads">
                                 <Col xs={8}>
                                     <Row style={{ alignItems: "center" }}>
-                                        <Col xs={4}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                        <Col xs={4}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                         <Col xs={8} style={{ padding: 0 }}><div id="chat-name"><b>Dora Herrera</b><br />A small river named Duden flows by their place and</div></Col>
                                     </Row>
                                 </Col>
@@ -91,7 +91,7 @@ const PatientVidyoCall = () => {
                             <Row id="chat-heads">
                                 <Col xs={8}>
                                     <Row style={{ alignItems: "center" }}>
-                                        <Col xs={4}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                        <Col xs={4}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                         <Col xs={8} style={{ padding: 0 }}><div id="chat-name"><b>Dora Herrera</b><br />A small river named Duden flows by their place and</div></Col>
                                     </Row>
                                 </Col>
@@ -101,7 +101,7 @@ const PatientVidyoCall = () => {
                             <Row id="chat-heads">
                                 <Col xs={8}>
                                     <Row style={{ alignItems: "center" }}>
-                                        <Col xs={4}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                        <Col xs={4}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                         <Col xs={8} style={{ padding: 0 }}><div id="chat-name"><b>Dora Herrera</b><br />A small river named Duden flows by their place and</div></Col>
                                     </Row>
                                 </Col>
@@ -111,7 +111,7 @@ const PatientVidyoCall = () => {
                             <Row id="chat-heads">
                                 <Col xs={8}>
                                     <Row style={{ alignItems: "center" }}>
-                                        <Col xs={4}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                        <Col xs={4}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                         <Col xs={8} style={{ padding: 0 }}><div id="chat-name"><b>Dora Herrera</b><br />A small river named Duden flows by their place and</div></Col>
                                     </Row>
                                 </Col>
@@ -121,7 +121,7 @@ const PatientVidyoCall = () => {
                             <Row id="chat-heads">
                                 <Col xs={8}>
                                     <Row style={{ alignItems: "center" }}>
-                                        <Col xs={4}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                        <Col xs={4}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                         <Col xs={8} style={{ padding: 0 }}><div id="chat-name"><b>Dora Herrera</b><br />A small river named Duden flows by their place and</div></Col>
                                     </Row>
                                 </Col>
@@ -131,7 +131,7 @@ const PatientVidyoCall = () => {
                             <Row id="chat-heads">
                                 <Col xs={8}>
                                     <Row style={{ alignItems: "center" }}>
-                                        <Col xs={4}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                        <Col xs={4}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                         <Col xs={8} style={{ padding: 0 }}><div id="chat-name"><b>Dora Herrera</b><br />A small river named Duden flows by their place and</div></Col>
                                     </Row>
                                 </Col>
@@ -147,26 +147,26 @@ const PatientVidyoCall = () => {
                             <div className="chat-panel mb-4" id="chat-panel">
                                 <Row className="sent">
                                     <Col md={10} className="messageBody"><p>Hello Sir, my wife is not well we want to meet you.</p><span className="messageTime">Just now</span></Col>
-                                    <Col md={2}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                    <Col md={2}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                 </Row>
                                 <Row className="reply">
-                                    <Col md={2}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                    <Col md={2}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                     <Col md={10} className="messageBody"><p>Hello, you can book appointment and you can choose time from working hours.</p><span className="messageTime">Just now</span></Col>
                                 </Row>
                                 <Row className="sent">
                                     <Col md={10} className="messageBody"><p>Hello Sir, my wife is not well we want to meet you.</p><span className="messageTime">Just now</span></Col>
-                                    <Col md={2}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                    <Col md={2}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                 </Row>
                                 <Row className="reply">
-                                    <Col md={2}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                    <Col md={2}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                     <Col md={10} className="messageBody"><p>Hello, you can book appointment and you can choose time from working hours.</p><span className="messageTime">Just now</span></Col>
                                 </Row>
                                 <Row className="sent">
                                     <Col md={10} className="messageBody"><p>Hello Sir, my wife is not well we want to meet you.</p><span className="messageTime">Just now</span></Col>
-                                    <Col md={2}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                    <Col md={2}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                 </Row>
                                 <Row className="reply">
-                                    <Col md={2}><img src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
+                                    <Col md={2}><img alt='patient-profile' src={patientprofile} style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
                                     <Col md={10} className="messageBody"><p>Hello, you can book appointment and you can choose time from working hours.</p><span className="messageTime">Just now</span></Col>
                                 </Row>
                             </div>

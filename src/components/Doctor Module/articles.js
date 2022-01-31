@@ -1,5 +1,5 @@
 import React from 'react';
-import DoctorFooter from './Footer';
+// import DoctorFooter from './Footer';
 //import './doctor.css';
 import CommonViewArticle from '../CommonModule/commonviewarticle';
 

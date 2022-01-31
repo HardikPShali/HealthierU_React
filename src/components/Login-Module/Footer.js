@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react' //{ Component }
 import logo from '../../images/logo/logo_white.svg';
 import './landing.css';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -45,9 +45,9 @@ const Footer = () => {
                                     <span>128</span> Expert Doctors
                                         </b>
                             </div><br /> */}
-                            <div style={{width: "100%"}}>
+                            <div style={{ width: "100%" }}>
                                 <p>Email Newsletters</p>
-                                <p style={{ fontSize: 11}}>Stay up-to-date with the latest content and offers from HealthierU</p>
+                                <p style={{ fontSize: 11 }}>Stay up-to-date with the latest content and offers from HealthierU</p>
                                 <form>
                                     <input type="email" placeholder="Email Address" name="email" id="footer-input" />
                                     <input type="submit" value="Subscribe" className="btn submit-btn" />
@@ -74,11 +74,11 @@ const Footer = () => {
                     <Row>
                         <Col md={8}>
                             <div className="d-flex">
-                                <Link to="" className = "disable-footer-links" id="copy-link">Privacy Policy</Link>
-                                <Link to="" className = "disable-footer-links" id="copy-link">Terms and Conditions</Link>
-                                <Link to="" className = "disable-footer-links" id="copy-link">Help</Link>
-                                <Link to="" className = "disable-footer-links" id="copy-link">HealthierU Licenses</Link>
-                                <Link to="" className = "disable-footer-links" id="copy-link">Partners</Link>
+                                <Link to="" className="disable-footer-links" id="copy-link">Privacy Policy</Link>
+                                <Link to="" className="disable-footer-links" id="copy-link">Terms and Conditions</Link>
+                                <Link to="" className="disable-footer-links" id="copy-link">Help</Link>
+                                <Link to="" className="disable-footer-links" id="copy-link">HealthierU Licenses</Link>
+                                <Link to="" className="disable-footer-links" id="copy-link">Partners</Link>
                             </div>
                             <p id="copyright-text">© 2021 <Link to="/">HealthierU</Link> - All Rights Reserved.</p>
                         </Col>
@@ -89,12 +89,12 @@ const Footer = () => {
                                 <option>English (UK)</option>
                             </select></p>
                             <div id="social-icon" className="d-flex">
-                                <a href="https://www.facebook.com/HealthierU-109526728064645" target="_blank" className = "" id="foot-icon"><img src={fbicon} alt="" /></a>
-                                <a href="https://twitter.com/healthierU_ae?s=08" target="_blank" className = "" id="foot-icon"><img src={twittericon} alt="" /></a>
-                                <a href="#" target="_blank"  className = "disable-footer-links" id="foot-icon"><img src={gplusicon} alt="" /></a>
-                                <a href="https://www.instagram.com/healthieru_ae/" target="_blank"  className = "" id="foot-icon"><img src={instaicon} alt="" /></a>
-                                <a href="https://www.linkedin.com/company/healthieruae/" target="_blank"  className = "" id="foot-icon"><LinkedInIcon /></a>
-                                <a href="https://www.youtube.com/channel/UCRAOeEpbC3sekMbOWgdTTPQ" target="_blank"  className = "" id="foot-icon"><YouTubeIcon /></a>
+                                <Link to="https://www.facebook.com/HealthierU-109526728064645" target="_blank" className="" id="foot-icon"><img src={fbicon} alt="" /></Link>
+                                <Link to="https://twitter.com/healthierU_ae?s=08" target="_blank" className="" id="foot-icon"><img src={twittericon} alt="" /></Link>
+                                <Link to="#" target="_blank" className="disable-footer-links" id="foot-icon"><img src={gplusicon} alt="" /></Link>
+                                <Link to="https://www.instagram.com/healthieru_ae/" target="_blank" className="" id="foot-icon"><img src={instaicon} alt="" /></Link>
+                                <Link to="https://www.linkedin.com/company/healthieruae/" target="_blank" className="" id="foot-icon"><LinkedInIcon /></Link>
+                                <Link to="https://www.youtube.com/channel/UCRAOeEpbC3sekMbOWgdTTPQ" target="_blank" className="" id="foot-icon"><YouTubeIcon /></Link>
                             </div>
                         </Col>
                     </Row>

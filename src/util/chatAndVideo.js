@@ -108,5 +108,5 @@ function isAppoinmentTimeUnderActiveCondition(appointmentDetailsObject, setActiv
   }, timeNowUtc);
   // nearestTriggeringMilisecond === time in milisecond for next nearest time for active or deactivation
 
-  if (nearestTriggeringMilisecond != timeNowUtc) return nearestTriggeringMilisecond;
+  if (nearestTriggeringMilisecond !== timeNowUtc) return nearestTriggeringMilisecond;
 }

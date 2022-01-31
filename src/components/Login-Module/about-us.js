@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
-import PatientHeader from "./../Patient Module/Header";
-import DoctorHeader from "./../Doctor Module/Header";
+// import PatientHeader from "./../Patient Module/Header";
+// import DoctorHeader from "./../Doctor Module/Header";
 import Footer from "./Footer";
-import PatientFooter from "./../Patient Module/Footer";
-import DoctorFooter from "./../Doctor Module/Footer";
+// import PatientFooter from "./../Patient Module/Footer";
+// import DoctorFooter from "./../Doctor Module/Footer";
 import "./landing.css";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import aboutUsimg from "../../images/macbook-iphone-healthyU.png";
@@ -236,7 +236,7 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step3} />
                           <MDBCardBody>
                             <MDBCardText>
-                             Consult and chat with your
+                              Consult and chat with your
                               <br />
                               patient according to your
                               <br />
@@ -313,7 +313,7 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step9} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Review your doctor’s report.
+                              Review your doctor's report.
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -386,7 +386,7 @@ const AboutUs = ({ currentuserInfo }) => {
                   personal data.
                 </p>
 
-                <h5>Innovative AI – powered app</h5>
+                <h5>Innovative AI - powered app</h5>
                 <p>
                   Our AI technology will help personalize and optimize your
                   <br />

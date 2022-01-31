@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import Footer from './Footer';
+// import Footer from './Footer';
 import './patient.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import Avatar from 'react-avatar';
-import LocalStorageService from './../../util/LocalStorageService';
-import axios from "axios";
+// import LocalStorageService from './../../util/LocalStorageService';
+// import axios from "axios";
 import Loader from './../Loader/Loader';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
@@ -165,7 +165,7 @@ const Profile = () => {
         bodyFormData.append('profilePicture', profilePicture);
         const response = await updatePatientData(bodyFormData);
         if (response.status === 200 || response.status === 201) {
-             window.location.reload();
+            window.location.reload();
             ////console.log("response.data ::::::", response.data);
             // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
             // setTransparentLoading(false);
@@ -204,7 +204,7 @@ const Profile = () => {
         if (bg === "ABNEG") {
             return "AB -ve";
         }
-        
+
     }
 
     return (
@@ -404,7 +404,7 @@ const Profile = () => {
                                                     variant="filled"
                                                     name="maritalStatus"
                                                     value={maritalStatus}
-                                                    inputProps = {{
+                                                    inputProps={{
                                                         required: true
                                                     }}
                                                     displayEmpty

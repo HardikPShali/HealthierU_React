@@ -2,7 +2,7 @@ import "./admin-document.css";
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Tab, Tabs } from "react-bootstrap";
 import Pagination from "react-bootstrap/Pagination";
-import documentViewImage from "../../../../images/icons used/document icon@2x.png";
+// import documentViewImage from "../../../../images/icons used/document icon@2x.png";
 import editIcon from "../../../../images/icons used/edit icon_40 pxl.svg";
 import deleteIcon from "../../../../images/icons used/delete_icon_40 pxl.svg";
 import Navbar from "../../layout/Navbar";

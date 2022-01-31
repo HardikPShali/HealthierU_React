@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Footer from './Footer';
+// import Footer from './Footer';
 import Header from './Header';
 import './landing.css';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -30,11 +30,11 @@ import $ from 'jquery';
 import { Multiselect } from 'multiselect-react-dropdown';
 import Cookies from 'universal-cookie';
 import momentTz from 'moment-timezone';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
+// import CreateIcon from '@material-ui/icons/Create';
+// import IconButton from '@material-ui/core/IconButton';
+// import VisibilityIcon from '@material-ui/icons/Visibility';
+// import DeleteIcon from '@material-ui/icons/Delete';
+// import TextField from '@material-ui/core/TextField';
 
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 import {
@@ -49,10 +49,10 @@ import {
     getUpdatedUserData,
 } from '../../service/frontendapiservices';
 import ImageCropper from './ImageCroper';
-import TimezoneSelect from 'react-timezone-select';
+// import TimezoneSelect from 'react-timezone-select';
 import DoctorDocumentUpload from "./doctordocumentupload";
 import { getCurrentDoctorInfo } from "../../service/AccountService";
-import {firestoreService} from "../../util";
+import { firestoreService } from "../../util";
 
 
 $(document).ready(function () {
@@ -288,18 +288,18 @@ const Welcome = ({ currentuserInfo }) => {
                     }
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
-                    const {email,firebasePwd}=response.data;
-                    firestoreService.createNewUser(email,firebasePwd)
-                    .then((userRecord) => {    
-                          var loginUser = userRecord.userd;
-                          console.log('user Created',loginUser.email,loginUser.uid)
+                    const { email, firebasePwd } = response.data;
+                    firestoreService.createNewUser(email, firebasePwd)
+                        .then((userRecord) => {
+                            var loginUser = userRecord.userd;
+                            console.log('user Created', loginUser.email, loginUser.uid)
                         })
                         .catch((error) => {
                             var errorCode = error.code;
                             var errorMessage = error.message;
-                            console.log('user Created failed',errorCode,errorMessage)
+                            console.log('user Created failed', errorCode, errorMessage)
                         });
-                        updateCurrentUserData();                          
+                    updateCurrentUserData();
                 }
             }
         }
@@ -325,23 +325,23 @@ const Welcome = ({ currentuserInfo }) => {
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
                     //updateCurrentUserData();
-                    const {email,firebasePwd}=response.data;
-                    firestoreService.createNewUser(email,firebasePwd)
-                    .then((userRecord) => {    
-                        var loginUser = userRecord.userd;
-                        console.log('user Created',loginUser.email,loginUser.uid);
-                        
-                      })
-                      .catch((error) => {
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        console.log('user Created failed',errorCode,errorMessage)
-                      });
-                      const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
+                    const { email, firebasePwd } = response.data;
+                    firestoreService.createNewUser(email, firebasePwd)
+                        .then((userRecord) => {
+                            var loginUser = userRecord.userd;
+                            console.log('user Created', loginUser.email, loginUser.uid);
+
+                        })
+                        .catch((error) => {
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            console.log('user Created failed', errorCode, errorMessage)
+                        });
+                    const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
                     if (res) {
                         setCurrentDoctor(res);
                         updateCurrentUserData();
-                    }                    
+                    }
                 }
             }
         }

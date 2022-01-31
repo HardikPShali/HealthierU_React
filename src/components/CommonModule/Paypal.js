@@ -4,14 +4,14 @@ const Paypal = (props) => {
   const { appointment, bookappointment, currentPatient, doctor } = props;
   const { appointmentMode, id: appointmentId } = appointment;
   const {
-    address,
+    // address,
     email,
     firstName,
     lastName,
     middleName,
-    phone,
+    // phone,
     userId,
-    countryName,
+    // countryName,
   } = currentPatient;
   const paypalButton = useRef();
 
@@ -66,7 +66,7 @@ const Paypal = (props) => {
               status: state,
               purchase_units: [
                 {
-                  payee: { merchant_id },
+                  // payee: { merchant_id },
                   soft_descriptor: paymentmethod,
                   payments: {
                     captures: [{ id: transactionId, amount: {

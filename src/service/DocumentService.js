@@ -1,6 +1,6 @@
 import * as axios from "axios";
 import LocalStorageService from "../util/LocalStorageService";
-import properties from "../properties";
+// import properties from "../properties";
 
 // If you enabled Analytics in your project, add the Firebase SDK for Analytics
 //import "firebase/analytics";

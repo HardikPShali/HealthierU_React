@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Footer from './Footer';
+// import Footer from './Footer';
 import './doctor.css';
 import { Container, Row, Col } from 'react-bootstrap';
 // import Cookies from 'universal-cookie';
@@ -7,10 +7,10 @@ import Avatar from 'react-avatar';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import CreateIcon from '@material-ui/icons/Create';
+// import IconButton from '@material-ui/core/IconButton';
+// import VisibilityIcon from '@material-ui/icons/Visibility';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import DialogContent from '@material-ui/core/DialogContent';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { uploadDoctorDocument, getDoctorDocument } from "../../service/frontendapiservices";
@@ -158,7 +158,7 @@ const Profile = ({ currentDoctor }) => {
                             </table>
                             <br />
                             <DoctorDocumentUpload currentDoctor={currentDoctor} isDoctor={true} />
-                                                       {/* <button
+                            {/* <button
                                 className="btn btn-primary float-right"
                                 onClick={() => setUploadOpen(true)}
                             >

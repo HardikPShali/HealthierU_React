@@ -64,7 +64,7 @@ const ViewArticle = () => {
                         <div id="Box6" className="nutrition-card-box">Education</div>
                     </Col> */}
                 </Row>
-                <br/>
+                <br />
                 <IconButton style={{ background: '#00D0CC', color: '#fff', marginRight: "10px" }} onClick={() => {
                     history.goBack();
                 }}><KeyboardBackspaceIcon /> </IconButton>

@@ -42,7 +42,7 @@ const AddArticle = () => {
     });
 
     const [imageError, setImageError] = useState();
-    const [fileKey, setFileKey] = useState();
+    // const [fileKey, setFileKey] = useState();
 
     const handleRedirect = (e) => {
         if (e) {
