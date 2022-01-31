@@ -13,8 +13,8 @@ import {
   getCurrentPatientInfo,
 } from '../../../service/AccountService';
 import '../patient.css';
-import Footer from '../../Login-Module/Footer';
-import Header from '../../CommonModule/Header';
+// import Footer from '../../Login-Module/Footer';
+// import Header from '../../CommonModule/Header';
 import TransparentLoader from '../../Loader/transparentloader';
 
 class QuestionnaireView extends React.Component {
@@ -49,7 +49,7 @@ class QuestionnaireView extends React.Component {
   }
 
   render() {
-    const { isLoading, questionnaire, error, currentPanel } = this.state;
+    const { isLoading, questionnaire } = this.state; //error, currentPanel
     var topicSet = new Set();
     return (
       <div>
@@ -162,7 +162,7 @@ class QuestionnaireView extends React.Component {
                     <div></div>
                   )
                 )
-                // If there is a delay in data, let's let the user know it's loading
+              // If there is a delay in data, let's let the user know it's loading
               }
 
               <div className="Questionnaire-Area-continue-button">

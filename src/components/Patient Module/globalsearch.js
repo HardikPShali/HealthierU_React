@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Footer from './Footer';
+// import Footer from './Footer';
 import './patient.css';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import SearchBar from "material-ui-search-bar";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 //import IconButton from '@material-ui/core/IconButton';
 //import { Link } from 'react-router-dom';
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,10 +16,10 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import 'react-calendar/dist/Calendar.css';
 import Avatar from 'react-avatar';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
-import LocalStorageService from './../../util/LocalStorageService';
+// import LocalStorageService from './../../util/LocalStorageService';
 //import Cookies from 'universal-cookie';
 import Loader from './../Loader/Loader';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
 import { getDoctorList } from '../../service/adminbackendservices';
 //const rightArrow = <FontAwesomeIcon icon={faChevronRight} />;
 
@@ -91,7 +91,7 @@ const GlobalSearch = () => {
                             <div id="global-list">
                                 <GridList cellHeight={220}>
                                     {filterData && filterData.map((user, index) => (
-                                            <GridListTile key={index}>
+                                        <GridListTile key={index}>
                                             {/* {!user.liked && (
                                                 <FavoriteBorderIcon id="fav-icon" />
                                             )}
@@ -100,8 +100,8 @@ const GlobalSearch = () => {
                                             )} */}
                                             {user.picture ? (<img src={user.picture} alt="" />)
                                                 : (<Avatar name={user.firstName + " " + user.lastName} />)}
-                                            
-                                        <Link to={{pathname: '/patient/mydoctor', state: user}}><GridListTileBar style={{ cursor: 'pointer' }}
+
+                                            <Link to={{ pathname: '/patient/mydoctor', state: user }}><GridListTileBar style={{ cursor: 'pointer' }}
                                                 title={<span>Dr. {user.firstName} {user.lastName}</span>}
                                                 subtitle={<ul className="list--tags">{user.specialities &&
                                                     user.specialities.map((speciality, index) => (
@@ -110,7 +110,7 @@ const GlobalSearch = () => {
                                                 </ul>}
                                             /> </Link>
                                         </GridListTile>
-                                       
+
                                     ))}
 
                                 </GridList>

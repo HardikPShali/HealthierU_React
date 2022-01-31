@@ -6,7 +6,7 @@ import editIcon from '../../../images/Icons/edit icon_40 pxl.svg';
 import Pagination from 'react-bootstrap/Pagination'
 // import documentViewImage from '../../../images/icons used/document icon@2x.png';
 import { formatDate } from "../../questionnaire/QuestionnaireService";
-import { getCurrentPatientInfo,getCurrentUserInfo } from "../../../service/AccountService";
+import { getCurrentPatientInfo, getCurrentUserInfo } from "../../../service/AccountService";
 import {
     validateEmail,
     getDocument,
@@ -210,11 +210,11 @@ const PatientDocument = (props) => {
         setLabDocumentUrl(res);
     }
 
-    const handlePrescriptionUploadShow = () => {
-        setShowPrescriptionUpload(true);
-        setPrescriptionResult(null);
-        setDoctor(null);
-    }
+    // const handlePrescriptionUploadShow = () => {
+    //     setShowPrescriptionUpload(true);
+    //     setPrescriptionResult(null);
+    //     setDoctor(null);
+    // }
 
     const clickTabEvent = async (event) => {
         //let documents;
@@ -259,7 +259,7 @@ const PatientDocument = (props) => {
             patientId: item.patient.id,
         };
         const res = await getDocumentById(payload);
-        if(res && res.data){
+        if (res && res.data) {
             if (res.data?.documentUrl !== "") {
                 setEditDocument(true)
             }
@@ -269,7 +269,7 @@ const PatientDocument = (props) => {
             setPrescriptionResult(res.data);
             setShowPrescriptionUpload(true);
             setDoctor(item.doctor);
-        } 
+        }
     }
     const handleEditLabModal = async item => {
         const payload = {
@@ -277,7 +277,7 @@ const PatientDocument = (props) => {
             patientId: item.patient.id,
         };
         const res = await getDocumentById(payload);
-        if(res && res.data){
+        if (res && res.data) {
             if (res.data?.documentUrl !== "") {
                 setEditDocument(true)
             }
