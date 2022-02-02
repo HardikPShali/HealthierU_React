@@ -89,12 +89,12 @@ const Footer = () => {
                                 <option>English (UK)</option>
                             </select></p>
                             <div id="social-icon" className="d-flex">
-                                <Link to="https://www.facebook.com/HealthierU-109526728064645" target="_blank" className="" id="foot-icon"><img src={fbicon} alt="" /></Link>
-                                <Link to="https://twitter.com/healthierU_ae?s=08" target="_blank" className="" id="foot-icon"><img src={twittericon} alt="" /></Link>
-                                <Link to="#" target="_blank" className="disable-footer-links" id="foot-icon"><img src={gplusicon} alt="" /></Link>
-                                <Link to="https://www.instagram.com/healthieru_ae/" target="_blank" className="" id="foot-icon"><img src={instaicon} alt="" /></Link>
-                                <Link to="https://www.linkedin.com/company/healthieruae/" target="_blank" className="" id="foot-icon"><LinkedInIcon /></Link>
-                                <Link to="https://www.youtube.com/channel/UCRAOeEpbC3sekMbOWgdTTPQ" target="_blank" className="" id="foot-icon"><YouTubeIcon /></Link>
+                                <a href="https://www.facebook.com/HealthierU-109526728064645" target="_blank" className="" id="foot-icon"><img src={fbicon} alt="" /></a>
+                                <a href="https://twitter.com/healthierU_ae?s=08" target="_blank" className="" id="foot-icon"><img src={twittericon} alt="" /></a>
+                                <a href="#" target="_blank" className="disable-footer-links" id="foot-icon"><img src={gplusicon} alt="" /></a>
+                                <a href="https://www.instagram.com/healthieru_ae/" target="_blank" className="" id="foot-icon"><img src={instaicon} alt="" /></a>
+                                <a href="https://www.linkedin.com/company/healthieruae/" target="_blank" className="" id="foot-icon"><LinkedInIcon /></a>
+                                <a href="https://www.youtube.com/channel/UCRAOeEpbC3sekMbOWgdTTPQ" target="_blank" className="" id="foot-icon"><YouTubeIcon /></a>
                             </div>
                         </Col>
                     </Row>

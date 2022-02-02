@@ -57,9 +57,7 @@ const DoctorRoute = () => {
     const res = await getDoctorByUserId(loggedInUserId);
     //axios(payload).then(res => {
     if (res && res.data) {
-      res.data.doctors.map((value, index) => {
-        setCurrentDoctor(value);
-      });
+      res.data.doctors.map((value, index) => setCurrentDoctor(value));
     }
   };
 

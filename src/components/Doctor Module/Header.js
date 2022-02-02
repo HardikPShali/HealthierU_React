@@ -1,38 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Nav, Container, NavDropdown, Row, Col } from "react-bootstrap";
+import { Navbar, Container } from "react-bootstrap"; //NavDropdown, Row, Col, Nav
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../images/logo/logo_white.svg";
 import "./doctor.css";
-import SearchIcon from "@material-ui/icons/Search";
+// import SearchIcon from "@material-ui/icons/Search";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Cookies from 'universal-cookie';
-import LocalStorageService from "./../../util/LocalStorageService";
-import axios from "axios";
+// import LocalStorageService from "./../../util/LocalStorageService";
+// import axios from "axios";
 import profileicon from "../../images/Icons/profile.svg";
 import { getDoctorByUserId } from "../../service/frontendapiservices";
-import TimezoneSelect from "react-timezone-select";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import { ValidatorForm } from "react-material-ui-form-validator";
+// import TimezoneSelect from "react-timezone-select";
+// import Dialog from "@material-ui/core/Dialog";
+// import DialogContent from "@material-ui/core/DialogContent";
+// import DialogActions from "@material-ui/core/DialogActions";
+// import Button from "@material-ui/core/Button";
+// import { ValidatorForm } from "react-material-ui-form-validator";
 import { updateDoctorTimeZone } from "../../service/frontendapiservices";
 import { toast } from "react-toastify";
 import NotificationMenu from "../CommonModule/NotificationMenu";
 import momentTz from 'moment-timezone';
 
 const Header = (props) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [currentDoctorState, setCurrentDoctorState] = useState();
+  const [anchorEl, setAnchorEl] = useState(null);
+  // const [currentDoctorState, setCurrentDoctorState] = useState();
   //const cookies = new Cookies();
   console.log("props in head ::: ", props)
   const systemTimeZone = momentTz.tz.guess();
-  const docId = props.currentDoctor.id;
-  const currentTimezone = props.currentDoctor.doctorTimeZone;
+  // const docId = props.currentDoctor.id;
+  // const currentTimezone = props.currentDoctor.doctorTimeZone;
   // const [timeZone, setTimezone] = useState({
   //   id: "",
   //   doctorTimeZone: "",
@@ -45,14 +45,14 @@ const Header = (props) => {
   const currentLoggedInUser = cookies.get("currentUser");
   const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
   useEffect(() => {
-     getCurrentDoctor();
+    getCurrentDoctor();
   }, [])
   const getCurrentDoctor = async () => {
     const res = await getDoctorByUserId(loggedInUserId);
     //axios(payload).then(res => {
     if (res && res.data) {
       res.data.doctors.map((value, index) => {
-        if(value && value.doctorTimeZone !== systemTimeZone){
+        if (value && value.doctorTimeZone !== systemTimeZone) {
           handleSubmit(value.id, systemTimeZone);
         }
       });

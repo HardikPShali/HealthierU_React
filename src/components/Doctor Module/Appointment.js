@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import Footer from './Footer'
+// import Footer from './Footer'
 //import { Link } from 'react-router-dom'
 import './doctor.css'
 import { Container, Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
-import LocalStorageService from './../../util/LocalStorageService';
+// import LocalStorageService from './../../util/LocalStorageService';
 import Cookies from 'universal-cookie';
 import Loader from './../Loader/Loader';
 import TransparentLoader from './../Loader/transparentloader';
@@ -18,23 +18,24 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import { updateApprovedDoctorRRate } from '../../service/adminbackendservices';
+// import { updateApprovedDoctorRRate } from '../../service/adminbackendservices';
 import Avatar from 'react-avatar';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import ChatIcon from '@material-ui/icons/Chat';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-import { handleAgoraAccessToken } from '../../service/agoratokenservice';
+// import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 import {
     createAppointment,
     deleteAvailableAppointment,
     deleteBookedAppointment,
-    getDoctorAppointment, getDoctorByUserId
+    getDoctorAppointment,
+    // getDoctorByUserId
 } from '../../service/frontendapiservices';
 import momentTz from 'moment-timezone';
 import Tour from "reactour";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import HelpIcon from '@material-ui/icons/Help';
+// import HelpIcon from '@material-ui/icons/Help';
 import Tooltip from '@material-ui/core/Tooltip';
 import { firestoreService } from '../../util';
 
@@ -55,7 +56,7 @@ const Myappointment = (props) => {
 
     const [open, setOpen] = useState(false);
     const timeZone = momentTz.tz.guess();
-    const {timeZone:currentTimezone,currentDoctor} = props;
+    const { timeZone: currentTimezone, currentDoctor } = props;
     console.log(currentTimezone)
     const handleClickOpen = () => {
         setOpen(true);
@@ -268,7 +269,7 @@ const Myappointment = (props) => {
 
 
     useEffect(() => {
-        const {id}=currentDoctor
+        const { id } = currentDoctor
         id && loadAppointment(id);
     }, [currentDoctor]);
 
@@ -277,7 +278,7 @@ const Myappointment = (props) => {
     const loadAppointment = async (doctorId) => {
         //setLoading(true);
 
-        
+
         const dataForSelectedDay = {
             startTime: new Date(newStartDate).toISOString(),
             endTime: new Date(newEndDate).toISOString(),
@@ -370,7 +371,7 @@ const Myappointment = (props) => {
 
     // https://dev.healthieru.ae/doctor/chat?chatgroup=P83_D84
 
-    const handleSelect = async ({slots}) => {
+    const handleSelect = async ({ slots }) => {
         let slotStartTime;
         let slotEndTime;
         if (slots.length === 2) {
@@ -478,7 +479,7 @@ const Myappointment = (props) => {
             loadAppointment(currentDoctor.id);
             //selectedAppointmentData.doctorId = currentDoctor.id;
             //console.log("selectedAppointmentData on Appointment.js :: ", payload);
-            firestoreService.sendCancelAppointmentToFirestoreMessage(selectedAppointmentData, 'doctor',currentDoctor);
+            firestoreService.sendCancelAppointmentToFirestoreMessage(selectedAppointmentData, 'doctor', currentDoctor);
         }
     };
 
@@ -514,7 +515,7 @@ const Myappointment = (props) => {
         window.scrollTo(0, 0);
     };
 
-    const accentColor = "#5cb7b7";
+    // const accentColor = "#5cb7b7";
 
     const tourConfig = [
         {
@@ -556,11 +557,11 @@ const Myappointment = (props) => {
     }
 
 
-    const TouchCellWrapper = ({ children, value, handleSelect }) => 
+    const TouchCellWrapper = ({ children, value, handleSelect }) =>
         React.cloneElement(React.Children.only(children), {
             onTouchEnd: () => handleSelect({ slots: [value] })
         });
-    
+
 
     return (
         <div>
@@ -590,7 +591,7 @@ const Myappointment = (props) => {
                                 </button>
                             </Tooltip>
                             <br />
-                            <Calendar 
+                            <Calendar
                                 components={{
                                     dateCellWrapper: (props) => (
                                         <TouchCellWrapper onSelectSlot={handleSelect} {...props} />
@@ -779,9 +780,9 @@ const Myappointment = (props) => {
                         Do you want to Start Video Call
                     </DialogTitle>
                     <DialogActions>
-                        <Link to={`/doctor/chat?chatgroup=P${selectedAppointment?.patientId}_D${selectedAppointment?.doctorId}&openVideoCall=true`}><button autoFocus 
-                        //onClick={() => handleAgoraAccessToken({ name: "" + selectedAppointment.doctorId + "" + selectedAppointment.patientId + "" + selectedAppointment.id + "", id: selectedAppointment.id })} 
-                        className="btn btn-primary" id="close-btn">
+                        <Link to={`/doctor/chat?chatgroup=P${selectedAppointment?.patientId}_D${selectedAppointment?.doctorId}&openVideoCall=true`}><button autoFocus
+                            //onClick={() => handleAgoraAccessToken({ name: "" + selectedAppointment.doctorId + "" + selectedAppointment.patientId + "" + selectedAppointment.id + "", id: selectedAppointment.id })} 
+                            className="btn btn-primary" id="close-btn">
                             Yes
                         </button></Link>
                         <button autoFocus onClick={confirmVideoClose} className="btn btn-primary" id="close-btn">

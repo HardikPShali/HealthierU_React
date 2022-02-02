@@ -58,12 +58,15 @@ const Homepage = () => {
 
     const loadArticle = async () => {
         const response = await getArticles().catch(err => {
-            if (err.response.status === 500 || err.response.status === 504) {
+            if (err.response.status === 500 || err.response.status === 504 || err.response.status === 502) {
                 setLoading(false);
+                setArticle([]);
             }
         });
         setArticle(response?.articlesList);
         setTimeout(() => setLoading(false), 2000);
+        console.log(article);
+        console.log(response?.articlesList);
     }
 
     return (
@@ -263,36 +266,38 @@ const Homepage = () => {
                 <br />
                 <br />
                 <div id="article-row">
-                    <Carousel
-                        swipeable={true}
-                        draggable={true}
-                        responsive={responsive}
-                        autoPlaySpeed={1000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                    >
-                        {article && article.length > 0 && article.map((articleItem, index) => (
-                            //<Col md={4} key={index}>
-                            <Card key={articleItem.id}>
-                                <Card.Img variant="top" src={articleItem.picture} id="article-card-img" />
-                                <Card.Body id="article-card-body">
-                                    <Card.Title>{articleItem.title} </Card.Title>
-                                    <Card.Text>
-                                        {articleItem.description}
-                                    </Card.Text>
-                                    <p id="button-cover">
-                                        <Link to={{ pathname: `/article/${articleItem.id}` }} style={{ color: "#000" }}>Read More <ArrowForwardIcon /></Link>
-                                    </p>
-                                </Card.Body>
-                            </Card>
-                            //</Col>
-                        ))}
-                    </Carousel>
+                    {article && article.length > 0 && (
+                        <Carousel
+                            swipeable={true}
+                            draggable={true}
+                            responsive={responsive}
+                            autoPlaySpeed={1000}
+                            keyBoardControl={true}
+                            customTransition="all .5"
+                            transitionDuration={500}
+                            containerClass="carousel-container"
+                            removeArrowOnDeviceType={["tablet", "mobile"]}
+                            dotListClass="custom-dot-list-style"
+                            itemClass="carousel-item-padding-40-px"
+                        >
+                            {article && article.length > 0 && article.map((articleItem, index) => (
+                                //<Col md={4} key={index}>
+                                <Card key={articleItem.id}>
+                                    <Card.Img variant="top" src={articleItem.picture} id="article-card-img" />
+                                    <Card.Body id="article-card-body">
+                                        <Card.Title>{articleItem.title} </Card.Title>
+                                        <Card.Text>
+                                            {articleItem.description}
+                                        </Card.Text>
+                                        <p id="button-cover">
+                                            <Link to={{ pathname: `/article/${articleItem.id}` }} style={{ color: "#000" }}>Read More <ArrowForwardIcon /></Link>
+                                        </p>
+                                    </Card.Body>
+                                </Card>
+                                //</Col>
+                            ))}
+                        </Carousel>
+                    )}
 
                     {article && article.length === 0 && (
                         <div>No article found...</div>
@@ -307,3 +312,4 @@ const Homepage = () => {
 }
 
 export default Homepage
+

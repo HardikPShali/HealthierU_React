@@ -93,7 +93,7 @@
     "react-mobile-datepicker": "^4.0.2",
     "react-modal": "^2.3.2",
     "react-moment": "^0.6.5",
-    "react-multi-carousel": "^2.6.1",
+    "react-multi-carousel": "^2.6.5",
     "react-native-date-picker": "^3.1.0",
     "react-notify-toast": "^0.5.0",
     "react-otp-input": "^2.4.0",
@@ -134,7 +134,7 @@
     "validator": "^9.4.1"
   },
   "scripts": {
-    "start": "set PORT=3008 && react-scripts start",
+    "start": "set PORT=3000 && react-scripts start",
     "json-server-products": "json-server --watch products.json --port 3011",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
