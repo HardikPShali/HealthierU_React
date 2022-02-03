@@ -79,7 +79,7 @@ const ViewArticle = () => {
                         <Col md={8}>
                             <h4 className="mb-3">{article?.title}</h4>
 
-                            <h6 >Source: <a href={article?.source} target="_blank">{article?.source}</a></h6>
+                            <h6 >Source: <a href={article?.source} target="_blank" rel="noopener noreferrer">{article?.source}</a></h6>
                             <h6 className="mb-3">Published: {article.publishTime}</h6>
                             <p id="box-text">{article?.description}</p>
                         </Col>

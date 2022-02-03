@@ -366,11 +366,11 @@ const Welcome = ({ currentuserInfo }) => {
     const [languageError, setLanguageError] = useState(false);
     const [specialityError, setSpecialityError] = useState(false);
 
-    const [uploadOpen, setUploadOpen] = useState(false);
+    // const [uploadOpen, setUploadOpen] = useState(false);
 
-    const handleUploadClose = () => {
-        setUploadOpen(false);
-    }
+    // const handleUploadClose = () => {
+    //     setUploadOpen(false);
+    // }
 
     const [phoneError, setPhoneError] = useState();
     const [formError, setFormError] = useState();

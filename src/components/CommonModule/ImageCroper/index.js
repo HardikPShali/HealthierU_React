@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react' //Component, useEffect
 import Cropper from "react-easy-crop";
 import { Modal } from 'react-bootstrap';
 import * as imageConversion from 'image-conversion';
@@ -151,7 +151,7 @@ const ImageCropper = (props) => {
                                 classes={{ root: classes.sliderLabel }}
                             >
                                 Rotation
-                                </Typography>
+                            </Typography>
                             <Slider
                                 value={rotation}
                                 min={-180}
@@ -169,7 +169,7 @@ const ImageCropper = (props) => {
                             classes={{ root: classes.cropButton }}
                         >
                             Save
-                            </Button>
+                        </Button>
                     </div>
 
                 </Modal.Body>

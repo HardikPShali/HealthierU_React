@@ -2,8 +2,8 @@ import React from "react";
 import { toast } from "react-toastify";
 
 
-export const ToastNotification=(props)=> {
-    const {message}=props;
+export const ToastNotification = (props) => {
+  const { message } = props;
   return (
     <>
       <strong>Notification</strong>
@@ -24,7 +24,6 @@ export const AppointmentStatusToastify = (message, AppointmentStatus) => {
     draggable: true,
     autoClose: "3000",
     className: "NotificationToast",
-    closeOnClick: true,
     showEasing: "swing",
     showMethod: "fadeIn",
     showDuration: "3000",

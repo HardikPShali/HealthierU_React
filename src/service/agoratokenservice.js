@@ -4,10 +4,10 @@ import LocalStorageService from '../util/LocalStorageService';
 import Cookies from 'universal-cookie';
 //import { checkAccessToken } from './RefreshTokenService';
 
-export const handleAgoraAccessToken = async (currentGroup,openVideo) => {
-    const channelName=currentGroup.replace(/[^\d.-]/g, '')
+export const handleAgoraAccessToken = async (currentGroup, openVideo) => {
+    const channelName = currentGroup.replace(/[^\d.-]/g, '')
     const cookies = new Cookies();
-    const currentUser = cookies.get("currentUser");
+    // const currentUser = cookies.get("currentUser");
     var payload = {
         method: 'get',
         mode: 'no-cors',

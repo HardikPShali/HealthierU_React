@@ -160,7 +160,7 @@ const CommonViewArticle = () => {
                                 <Col md={8}>
                                     <h4 className="mb-3">{selectedArticle?.title}</h4>
 
-                                    <h6 >Source: <a href={selectedArticle?.source} target="_blank">{selectedArticle?.source}</a></h6>
+                                    <h6 >Source: <a href={selectedArticle?.source} target="_blank" rel="noopener noreferrer">{selectedArticle?.source}</a></h6>
                                     <h6 className="mb-3">Published: {moment(selectedArticle.publishTime).format("DD MMM, YYYY")}</h6>
                                     <p id="box-text">{selectedArticle?.description}</p>
                                 </Col>

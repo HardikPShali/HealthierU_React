@@ -7,7 +7,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 //import Cookies from 'universal-cookie';
 import SearchIcon from '@material-ui/icons/Search';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -112,18 +112,18 @@ const Navbar = (props) => {
       <Link to="/admin" style={{ textDecoration: "none" }}>
         <ListItem button className={props.pageTitle === "home" ? "active" : props.pageTitle === "doctorList" ? "active" : props.pageTitle === "patientList" ? "active" : ""}>
           <ListItemText primary={"User Management"} />
-          {props.pageTitle === "home" ? <ExpandLess/> : props.pageTitle === "doctorList" ? <ExpandLess/> : props.pageTitle === "patientList" ? <ExpandLess/> : <ExpandMore />}
+          {props.pageTitle === "home" ? <ExpandLess /> : props.pageTitle === "doctorList" ? <ExpandLess /> : props.pageTitle === "patientList" ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
       </Link>
-      <Collapse in={props.pageTitle === "home" || props.pageTitle === "doctorList" || props.pageTitle === "patientList" } timeout="auto" unmountOnExit>
+      <Collapse in={props.pageTitle === "home" || props.pageTitle === "doctorList" || props.pageTitle === "patientList"} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <Link to="/admin/doctorlist" style={{ textDecoration: "none" }}>
-            <ListItem button className={props.pageTitle === "doctorList" ? "active" : ""} style={{paddingLeft: "32px"}}>
+            <ListItem button className={props.pageTitle === "doctorList" ? "active" : ""} style={{ paddingLeft: "32px" }}>
               <ListItemText primary={"Doctor List"} />
             </ListItem>
           </Link>
           <Link to="/admin/patientlist" style={{ textDecoration: "none" }}>
-            <ListItem button className={props.pageTitle === "patientList" ? "active" : ""} style={{paddingLeft: "32px"}}>
+            <ListItem button className={props.pageTitle === "patientList" ? "active" : ""} style={{ paddingLeft: "32px" }}>
               <ListItemText primary={"Patient List"} />
             </ListItem>
           </Link>
@@ -141,7 +141,7 @@ const Navbar = (props) => {
           <ListItemText primary={"Article Management"} />
         </ListItem>
       </Link>
-      <Divider variant="middle"/>
+      <Divider variant="middle" />
       <Link to="/admin/workout/home" style={{ textDecoration: "none" }}>
         <ListItem button className={props.pageTitle === "workout" ? "active" : ""}>
           <ListItemText primary={"Workout Management"} />
@@ -165,10 +165,10 @@ const Navbar = (props) => {
           <ListItemText primary={"Service Provider Management"} />
         </ListItem>
       </Link>
-      <Collapse in={props.pageTitle === "serviceprovider" || props.pageTitle === "category" } timeout="auto" unmountOnExit>
+      <Collapse in={props.pageTitle === "serviceprovider" || props.pageTitle === "category"} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <Link to="/admin/serviceprovider/servicecategory" style={{ textDecoration: "none" }}>
-            <ListItem button className={props.pageTitle === "category" ? "active" : ""} style={{paddingLeft: "32px"}}>
+            <ListItem button className={props.pageTitle === "category" ? "active" : ""} style={{ paddingLeft: "32px" }}>
               <ListItemText primary={"Service Category"} />
             </ListItem>
           </Link>
@@ -252,9 +252,9 @@ const Navbar = (props) => {
           <NavLink to="/admin" className={classes.title}><Typography variant="h6" noWrap>
             Admin Dashboard
           </Typography></NavLink>
-          <div className="ml-auto" style={{display: "flex", alignItems: "center"}}>
+          <div className="ml-auto" style={{ display: "flex", alignItems: "center" }}>
             <NavLink style={style} className="text-light mr-4 ml-2" exact to="/admin/search"><SearchIcon /></NavLink>
-            <NavLink to="#"><img src={profileicon} onClick={handleClick} className="profile-icon" width="35" /></NavLink>
+            <NavLink to="#"><img alt='profile-icon' src={profileicon} onClick={handleClick} className="profile-icon" width="35" /></NavLink>
             <Menu
               id="simple-menu"
               anchorEl={anchorEl}

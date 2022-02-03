@@ -16,7 +16,7 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { HashLink } from 'react-router-hash-link';
 import moment from 'moment';
-import Welcome from './Welcome';
+// import Welcome from './Welcome';
 
 
 export class Footer extends Component {
@@ -92,12 +92,12 @@ export class Footer extends Component {
                                     <option>English (UK)</option>
                                 </select></p>
                                 <div id="social-icon" className="d-flex">
-                                    <a href="https://www.facebook.com/HealthierU-109526728064645" target="_blank" className="" id="foot-icon"><img src={fbicon} alt="" /></a>
-                                    <a href="https://twitter.com/healthierU_ae?s=08" target="_blank" className="" id="foot-icon"><img src={twittericon} alt="" /></a>
-                                    <a href="#" target="_blank" className="disable-footer-links" id="foot-icon"><img src={gplusicon} alt="" /></a>
-                                    <a href="https://www.instagram.com/healthieru_ae/" target="_blank" className="" id="foot-icon"><img src={instaicon} alt="" /></a>
-                                    <a href="https://www.linkedin.com/company/healthieruae/" target="_blank" className="" id="foot-icon"><LinkedInIcon /></a>
-                                    <a href="https://www.youtube.com/channel/UCRAOeEpbC3sekMbOWgdTTPQ" target="_blank" className="" id="foot-icon"><YouTubeIcon /></a>
+                                    <a href="https://www.facebook.com/HealthierU-109526728064645" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><img src={fbicon} alt="" /></a>
+                                    <a href="https://twitter.com/healthierU_ae?s=08" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><img src={twittericon} alt="" /></a>
+                                    <a href="#" target="_blank" rel="noopener noreferrer" className="disable-footer-links" id="foot-icon"><img src={gplusicon} alt="" /></a>
+                                    <a href="https://www.instagram.com/healthieru_ae/" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><img src={instaicon} alt="" /></a>
+                                    <a href="https://www.linkedin.com/company/healthieruae/" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><LinkedInIcon /></a>
+                                    <a href="https://www.youtube.com/channel/UCRAOeEpbC3sekMbOWgdTTPQ" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><YouTubeIcon /></a>
                                 </div>
                             </Col>
                         </Row>

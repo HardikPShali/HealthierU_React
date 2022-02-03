@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from "react";  //useEffect, useState 
+import { NavLink } from "react-router-dom"; //Link
 
 const NotificationMenu = (props) => {
   const { unReadMessageList, detailsList, module } = props;
 
-  const totalUnreadMessage=() =>
+  const totalUnreadMessage = () =>
     Object.values(unReadMessageList).length &&
     Object.values(unReadMessageList).reduce(
       (count, current) => count + current.length,
@@ -49,7 +49,7 @@ const NotificationMenu = (props) => {
           >
             <div className="d-flex align-items-center justify-content-between mb-2">
               <div className="text-sm font-weight-bold">
-                { `${detailsList[key]?.firstName} ${detailsList[key]?.lastName}`}
+                {`${detailsList[key]?.firstName} ${detailsList[key]?.lastName}`}
                 {unReadMessageList[key].new === "Booked" && (
                   <span className="badge ml-1 badge-success">New</span>
                 )}
