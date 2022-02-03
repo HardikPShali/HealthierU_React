@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+// import Axios from "axios";
 import { Link } from "react-router-dom";
 import Navbar from "../layout/Navbar";
 // import properties from "../../../properties";
 import moment from "moment";
-import LocalStorageService from "../../../util/LocalStorageService";
+// import LocalStorageService from "../../../util/LocalStorageService";
 import Loader from "../../Loader/Loader";
 import TransparentLoader from "../../Loader/transparentloader";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -18,7 +18,7 @@ import {
   getPaginatedDoctorList,
   changeDoctorStatusOnUserTable,
   changeDoctorStatusOnDoctorTable,
-  approveDoctorByAdmin,
+  // approveDoctorByAdmin,
 } from "../../../service/adminbackendservices";
 import EditIcon from "@material-ui/icons/Edit";
 import { doctorListLimit } from "../../../util/configurations";
@@ -29,13 +29,12 @@ import { IconButton } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
-import { DialogTitle } from "@material-ui/core";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import {
-  TextValidator,
-  ValidatorForm,
-  // TextValidator
-} from "react-material-ui-form-validator";
+// import { DialogTitle } from "@material-ui/core";
+// import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+// import {
+//   TextValidator,
+//   ValidatorForm,
+// } from "react-material-ui-form-validator";
 
 const DoctorList = () => {
   const [loading, setLoading] = useState(true);
@@ -151,6 +150,7 @@ const DoctorList = () => {
     setFilterData(filteredData);
     setTimeout(() => setDisplay({ ...display, suggestion: "block" }), 1500);
   };
+
   const loadMore = async () => {
     const result = await getPaginatedDoctorList(offset, doctorListLimit);
     if (result && result.data) {
@@ -307,14 +307,14 @@ const DoctorList = () => {
                     <td>{user.email}</td>
                     <td>Doctor</td>
                     <td>
-                        <div  style={{
-                          width: "250px",
-                          height: "auto",
-                          overflow: "unset",
-                        }}>
-                      {moment(user && user.createdDate).format(
-                        "DD MMM, YYYY hh:mm A"
-                      )}</div>
+                      <div style={{
+                        width: "250px",
+                        height: "auto",
+                        overflow: "unset",
+                      }}>
+                        {moment(user && user.createdDate).format(
+                          "DD MMM, YYYY hh:mm A"
+                        )}</div>
                     </td>
                     <td>
                       <div

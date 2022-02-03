@@ -54,7 +54,7 @@ const EditUser = (props) => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [transparentLoading, setTransparentLoading] = useState(false);
-  //const [currentUser, setCurrentUser] = useState({});
+  // const [currentUser, setCurrentUser] = useState({});
   const [speciality, setSpeciality] = useState({
     specialityOptions: []
   });

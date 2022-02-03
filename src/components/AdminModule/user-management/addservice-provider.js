@@ -24,9 +24,9 @@ import { Row } from 'react-bootstrap';
 
 $(document).ready(function () {
     $(".upload-button").on('click', function () {
-      $(".file-upload").click();
+        $(".file-upload").click();
     });
-  });
+});
 
 const AnyReactComponent = ({ text }) => <div style={{
     color: 'white',

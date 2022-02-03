@@ -1,4 +1,4 @@
-import React, { Suspense } from "react"; //Suspense
+import React from "react"; //Suspense
 //import Navbar from "./components/AdminModule/layout/Navbar";
 //import LocalStorageService from "./util/LocalStorageService";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";

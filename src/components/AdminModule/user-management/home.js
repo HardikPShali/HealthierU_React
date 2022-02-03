@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+// import Axios from "axios";
 import { Link } from "react-router-dom";
 import Navbar from "../layout/Navbar";
 // import properties from "../../../properties";
 import moment from "moment";
-import LocalStorageService from "../../../util/LocalStorageService";
+// import LocalStorageService from "../../../util/LocalStorageService";
 import Loader from "../../Loader/Loader";
 import TransparentLoader from "../../Loader/transparentloader";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -25,7 +25,7 @@ import {
   // TextValidator
 } from "react-material-ui-form-validator";
 // import { checkAccessToken } from '../../../service/RefreshTokenService';
-import SearchIcon from "@material-ui/icons/Search";
+// import SearchIcon from "@material-ui/icons/Search";
 import {
   getDoctorByUserID,
   getPaginatedUserList,
@@ -35,7 +35,7 @@ import {
   changeDoctorStatusOnDoctorTable,
 } from "../../../service/adminbackendservices";
 import EditIcon from "@material-ui/icons/Edit";
-import PublishIcon from "@material-ui/icons/Publish";
+// import PublishIcon from "@material-ui/icons/Publish";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Pagination from "../../CommonModule/pagination";
 
@@ -78,10 +78,10 @@ const Home = () => {
     }
   };
   const [uploadOpen, setUploadOpen] = useState(false);
-  const handleUploadOpen = (user) => {
-    setSelectedUser(user);
-    setUploadOpen(true);
-  };
+  // const handleUploadOpen = (user) => {
+  //   setSelectedUser(user);
+  //   setUploadOpen(true);
+  // };
   const handleUploadClose = () => {
     setUploadOpen(false);
   };
@@ -154,25 +154,25 @@ const Home = () => {
     setFilterData(filteredData);
     setTimeout(() => setDisplay({ ...display, suggestion: "block" }), 1500);
   };
-  const loadMore = async () => {
-    const result = await getPaginatedUserList(offset, limit);
-    if (result && result.data) {
-      // var existingUsersList = [];
-      var existingUsersList = userList;
-      result.data &&
-        result.data.map((newData) => {
-          existingUsersList.push(newData);
-        });
-      setOffset(offset + 1);
-      setUserList(existingUsersList);
-      setFilterData(existingUsersList);
-    }
-    // .catch(error => {
-    //   if (error.response && error.response.status === 401) {
-    //     checkAccessToken();
-    //   }
-    // })
-  };
+  // const loadMore = async () => {
+  //   const result = await getPaginatedUserList(offset, limit);
+  //   if (result && result.data) {
+  //     // var existingUsersList = [];
+  //     var existingUsersList = userList;
+  //     result.data &&
+  //       result.data.map((newData) => {
+  //         existingUsersList.push(newData);
+  //       });
+  //     setOffset(offset + 1);
+  //     setUserList(existingUsersList);
+  //     setFilterData(existingUsersList);
+  //   }
+  //   // .catch(error => {
+  //   //   if (error.response && error.response.status === 401) {
+  //   //     checkAccessToken();
+  //   //   }
+  //   // })
+  // };
   const approveDoctor = async (userData) => {
     setTransparentLoading(true);
     userData.approved = true;
@@ -205,10 +205,10 @@ const Home = () => {
       role === "ROLE_DOCTOR"
         ? cookies.set("authorities", "ROLE_DOCTOR")
         : role === "ROLE_PATIENT"
-        ? cookies.set("authorities", "ROLE_PATIENT")
-        : role === "ROLE_ADMIN"
-        ? cookies.set("authorities", "ROLE_ADMIN")
-        : "ROLE_USER"
+          ? cookies.set("authorities", "ROLE_PATIENT")
+          : role === "ROLE_ADMIN"
+            ? cookies.set("authorities", "ROLE_ADMIN")
+            : "ROLE_USER"
     );
   };
 
@@ -340,14 +340,14 @@ const Home = () => {
                       )
                         ? "Doctor"
                         : user.authorities.some(
-                            (userRole) => userRole === "ROLE_PATIENT"
-                          )
-                        ? "Patient"
-                        : user.authorities.some(
+                          (userRole) => userRole === "ROLE_PATIENT"
+                        )
+                          ? "Patient"
+                          : user.authorities.some(
                             (userRole) => userRole === "ROLE_ADMIN"
                           )
-                        ? "Administrator"
-                        : ""}
+                            ? "Administrator"
+                            : ""}
                     </td>
                     <td>
                       <div
@@ -388,7 +388,7 @@ const Home = () => {
                             </Link>
                           )}
                         {/* <button className="btn btn-red ml-0 mr-2 py-2 px-3" data-title="Upload" onClick={() => handleUploadOpen(user)}><PublishIcon /></button></>)} */}
-                        
+
                         {user.authorities.some(
                           (userRole) => userRole === "ROLE_PATIENT"
                         ) &&
@@ -427,7 +427,7 @@ const Home = () => {
                               className="alert alert-danger disabled py-2 px-2"
                               role="alert"
                             >
-                              Doctor didn’t yet complete his profile
+                              Doctor didn't yet complete his profile
                             </span>
                           )}
                         {user.authorities.some(
@@ -438,7 +438,7 @@ const Home = () => {
                               className="alert alert-danger disabled py-2 px-2"
                               role="alert"
                             >
-                              Patient didn’t yet complete his profile
+                              Patient didn't yet complete his profile
                             </span>
                           )}
                         {user.authorities.some(

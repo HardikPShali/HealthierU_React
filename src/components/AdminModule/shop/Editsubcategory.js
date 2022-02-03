@@ -69,7 +69,7 @@ const EditSubCategory = (props) => {
         const res = await addSubCategoryProduct(id, data);
         if (res && (res.status === 200 || res.status === 201)) {
             data.get('id') ? toast.success("Sub Category Product successfully updated.") : toast.success("Sub Category Product successfully added.");
-            setTimeout(() => window.location.reload(),1000 );
+            setTimeout(() => window.location.reload(), 1000);
             handleClose();
         }
     }
@@ -93,7 +93,7 @@ const EditSubCategory = (props) => {
         const res = await deleteSubCategoryProduct(productId);
         if (res) {
             toast.success("Sub Category Product successfully deleted.");
-            setTimeout(() => window.location.reload(),1000 );
+            setTimeout(() => window.location.reload(), 1000);
         }
     }
 
@@ -183,8 +183,8 @@ const EditSubCategory = (props) => {
                                     <td width="100">{product.name}</td>
                                     <td width="100">{product.brand}</td>
                                     <td width="100">{product.description}</td>
-                                    <td width="200"><a href={product.pictureUrl} target="_blank">Link</a></td>
-                                    <td width="200"><a href={product.linkUrl} target="_blank">Link</a></td>
+                                    <td width="200"><a href={product.pictureUrl} target="_blank" rel="noopener noreferrer" >Link</a></td>
+                                    <td width="200"><a href={product.linkUrl} target="_blank" rel="noopener noreferrer" >Link</a></td>
                                     <td width="100">{product.price}</td>
                                     <td width="100">{product.currency}</td>
                                     <td width="100">
@@ -305,10 +305,10 @@ const EditSubCategory = (props) => {
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
                                     Cancel
-                        </Button>
+                                </Button>
                                 <Button type="submit" variant="primary">
                                     Save
-                        </Button>
+                                </Button>
                             </Modal.Footer>
                         </form>
                     </Modal>
@@ -320,10 +320,10 @@ const EditSubCategory = (props) => {
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleDeleteClose}>
                                 Close
-                    </Button>
+                            </Button>
                             <Button variant="danger" onClick={() => handleDelete()}>
                                 Delete
-                    </Button>
+                            </Button>
                         </Modal.Footer>
                     </Modal>
                     <ToastContainer

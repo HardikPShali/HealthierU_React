@@ -114,7 +114,7 @@ const PatientChat = (props) => {
     }
   };
 
-  const { unReadMessageList, trigger, currentPatient, doctorDetailsList, chatGroupList, updateChatGroupListTrigger, addedNewChatGroupListTrigger } = props;
+  const { unReadMessageList, currentPatient, doctorDetailsList, chatGroupList, updateChatGroupListTrigger, addedNewChatGroupListTrigger } = props; // , trigger
 
   const currentDoctorDetails = doctorDetailsList[currentSelectedGroup];
   const currentDoctorFullName = currentDoctorDetails

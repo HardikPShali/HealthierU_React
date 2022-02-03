@@ -13,7 +13,7 @@ const ServiceProvidersHome = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [serviceProviders, setServiceProvider] = useState(null);
     const [selectedServiceProvider, setSelectedServiceProvider] = useState(null);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const [showDelete, setShowDelete] = useState(false);
 
 
@@ -38,7 +38,7 @@ const ServiceProvidersHome = () => {
     const handleDeleteServiceProvider = async (event) => {
         setIsLoading(true);
         const resp = deleteServiceProvider(selectedServiceProvider.id);
-        if(resp) {
+        if (resp) {
             setSelectedServiceProvider(null);
             setShowDelete(false);
             loadServiceProviders();
