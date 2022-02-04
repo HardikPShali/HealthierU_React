@@ -339,6 +339,7 @@ const Mypatient = (props) => {
                                                             </>)
                                                         }
                                                     }
+                                                    return user;
 
                                                 })}
                                                 <tr>
@@ -431,6 +432,7 @@ const Mypatient = (props) => {
                                                             </>)
                                                         }
                                                     }
+                                                    return user;
                                                 })}
 
                                                 <tr>

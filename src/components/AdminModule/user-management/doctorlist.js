@@ -52,7 +52,7 @@ const DoctorList = () => {
     cookies.remove("authorities", { path: "/" });
   }, []);
 
-  const [offset, setOffset] = useState(0);
+  const [offset] = useState(0);
   // const getUserList = (pageNumber) => {
   const getUserList = async () => {
     const res = await getPaginatedDoctorList(offset, doctorListLimit).catch(
@@ -158,7 +158,7 @@ const DoctorList = () => {
       var existingUsersList = userList;
       result.data &&
         result.data.doctors.map((newData) => {
-          existingUsersList.push(newData);
+          return existingUsersList.push(newData);
         });
       setUserList(existingUsersList);
       setFilterData(existingUsersList);

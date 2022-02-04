@@ -196,7 +196,7 @@ const Myappointment = (props) => {
 
     const [loading, setLoading] = useState(true);
     const [transparentLoading, setTransparentLoading] = useState(false);
-    const [serverError, setServerError] = useState(false);
+    const [serverError] = useState(false); //setServerError
     const [acceptedAppointment, setAcceptedAppointment] = useState([]);
 
     const [selectedAppointment, setSelectedAppointment] = useState();
@@ -304,6 +304,7 @@ const Myappointment = (props) => {
                 if (value.status === "ACCEPTED" && new Date(value.endTime) >= new Date()) {
                     acceptedArray.push({ id: value.id, startTime: new Date(value.startTime), endTime: new Date(value.endTime), remarks: value.remarks, status: value.status, doctorId: value.doctorId, patientId: value.patientId, patient: value.patient, unifiedAppointment: value.unifiedAppointment })
                 }
+                return value;
             })
             //setState({ ...state, data: updateArray });
             setState(updateArray);
@@ -391,6 +392,7 @@ const Myappointment = (props) => {
                     duplicateFlag = 1;
                     setWarningMsg({ ...warningMsg, message: 'You cannot create the slots twice for the same time!' });
                 }
+                return existingEvnts;
             })
             if (slots[0].toISOString() > new Date(new Date().setDate(new Date().getDate() + 21)).toISOString()) {
                 duplicateFlag = 1;
@@ -655,6 +657,7 @@ const Myappointment = (props) => {
                                                         deleteIcon={<CancelIcon />} />)
                                                 }
                                             }
+                                            return appointment;
                                         })}
                                     </div>
                                 )}
@@ -674,6 +677,7 @@ const Myappointment = (props) => {
                                                     onDelete={() => handleAvailableDeleteOpen(appointment)}
                                                     deleteIcon={<CancelIcon />} />)
                                             }
+                                            return appointment;
                                         })}
                                     </div>
                                 )}

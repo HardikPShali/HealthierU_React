@@ -202,7 +202,8 @@ const Myappointment = (props) => {
                             (value.unifiedAppointment !== (response.data[index - 1] && response.data[index - 1].unifiedAppointment)))) {
                             updateArray.push({ id: value.id, patientId: value.patientId, doctorId: value.doctorId, doctor: value.doctor, startTime: new Date(value.startTime), endTime: new Date(value.endTime), remarks: value.remarks, status: value.status, appointmentId: value.appointmentId, unifiedAppointment: value.unifiedAppointment });
                         }
-                    } //  
+                    }
+                    return value;
                 })
                 setMyAppoitment(updateArray);
                 setTimeout(() => setLoading(false), 1000);
@@ -298,6 +299,7 @@ const Myappointment = (props) => {
                                                     onDelete={() => handleClickOpen(appointment)}
                                                     deleteIcon={<CancelIcon />} />)
                                             }
+                                            return appointment;
                                         })}
                                     </div>
                                 )}

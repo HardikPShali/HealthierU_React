@@ -49,7 +49,7 @@ const Shop = () => {
     const [filterProducts, setFilterProducts] = useState();
     const [selectedProduct, setSelectedProduct] = useState();
     const [subCategories, setSubCategories] = useState();
-    const [selectedCategory, setSelectedCategory] = useState("Wearable");
+    const [setSelectedCategory] = useState("Wearable"); //selectedCategory
 
     const [productQuantity, setProductQuantity] = useState(1);
 
@@ -127,11 +127,11 @@ const Shop = () => {
             setDisplay({ ...display, simpleProducts: 'block', saleProducts: 'none', allProducts: 'block', singleProduct: 'none' })
         }
 
-        
+
         //else if (panel === "panel3") {
         //    setDisplay({ ...display, simpleProducts: 'none', saleProducts: 'block' })
         //    loadSaleProduct();
-       // }
+        // }
     };
 
     const handleProductClick = async (productId) => {

@@ -74,6 +74,7 @@ const Workout = () => {
                     setCurrentPatient({ ...currentPatient, id: currentPatientId });
                     loadProducts(currentPatientId);
                 }
+                return value;
             })
         }
     }

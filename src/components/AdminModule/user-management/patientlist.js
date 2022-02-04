@@ -82,7 +82,7 @@ const PatientList = () => {
       // var existingUsersList = [];
       var existingUsersList = userList;
       result.data && result.data.map(newData => {
-        existingUsersList.push(newData);
+        return existingUsersList.push(newData);
       })
       setOffset(offset + 1);
       setUserList(existingUsersList);
