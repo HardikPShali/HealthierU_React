@@ -1,22 +1,22 @@
 @font-face {
-    font-family: Avenir;
-    src: url(../../static/font/Avenir.ttc);
+  font-family: Avenir;
+  src: url(../../static/font/Avenir.ttc);
 }
 
 :root {
-    --primary: #00d0cc;
-    --primarysecond: #f6ceb4;
-    --secondary: #FF6563;
-    --primarybg: #f1e8db;
+  --primary: #00d0cc;
+  --primarysecond: #f6ceb4;
+  --secondary: #ff6563;
+  --primarybg: #f1e8db;
 }
 
 * {
-    font-family: "Avenir", sans-serif;
+  font-family: 'Avenir', sans-serif;
 }
 
 body {
-    background: #fff !important;
-    /*color: #2125296b;*/
+  background: #fff !important;
+  /*color: #2125296b;*/
 }
 
 /*
@@ -24,98 +24,104 @@ body {
 */
 
 nav#navbar {
-    background-color: var(--primary);
-    padding-top: 30px;
-    padding-bottom: 30px;
+  background-color: var(--primary);
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 a.nav-link.active {
-    background: none !important;
+  background: none !important;
 }
 
 #navbar a {
-    color: #fff;
-    margin-right: 15px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    font-size: 12px;
+  color: #fff;
+  margin-right: 18px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 14px;
 }
 
 #navbar a.dropdown-item {
-    color: #000 !important;
+  color: #000 !important;
 }
-  
+
 #navbar a.dropdown-item:hover {
-    background-color: var(--primary) !important;
-    color: #fff !important;
+  background-color: var(--primary) !important;
+  color: #fff !important;
 }
 
 #navbar button {
-    box-shadow: none !important;
+  box-shadow: none !important;
 }
-  
+
 #navbar a.dropdown-item.active {
-    background-color: var(--primary) !important;
-    color: #fff !important;
+  background-color: var(--primary) !important;
+  color: #fff !important;
 }
 
-.headerNavbar > button{
-    color: #fff;
-    font-size: 12px;
+.headerNavbar {
+  margin-right: 9px;
 }
 
-.headerNavbar > button:hover{
-    color:#fff;
+.headerNavbar > button {
+  color: #fff;
+  font-size: 14px;
 }
 
-.headerNavbar a{
-    font-weight: bolder;
+.headerNavbar > button:hover {
+  color: #fff;
+}
+
+.headerNavbar a {
+  font-weight: bolder;
 }
 
 .header-btn {
-    border: 2px solid #fff !important;
-    border-radius: 22px;
-    padding: 2px 60px;
-    margin-right: 10px;
+  border: 2px solid #fff !important;
+  border-radius: 22px;
+  padding: 2px 60px;
+  margin-right: 10px;
 }
 
 .nav-border {
-    border-right: 2px solid #fff;
+  border-right: 2px solid #fff;
 }
 
 .nav-link {
-    padding: 0 10px;
+  padding: 0 10px;
 }
 
 svg#search-icon {
-    color: #fff;
-    margin: 4px 5px;
+  color: #fff;
+  margin: 4px 5px;
 }
 
-@media (max-width : 992px){
-    #navbar a,.headerNavbar > button {
-        padding: 10px 20px;
-    }
+@media (max-width: 992px) {
+  #navbar a,
+  .headerNavbar > button {
+    padding: 10px 20px;
+  }
 
-    #navbarSupportedContent a, .headerNavbar{
-        border-bottom: 1px solid rgba(225, 225, 225, 0.1);
-    }
+  #navbarSupportedContent a,
+  .headerNavbar {
+    border-bottom: 1px solid rgba(225, 225, 225, 0.1);
+  }
 
-    .nav-link {
-        padding: 10px 0;
-    } 
-    svg#search-icon {
-        margin: 4px 0;
-    }
-    .MuiIconButton-root[aria-label="show 17 new notifications"]{
-        padding:0;
-    }
+  .nav-link {
+    padding: 10px 0;
+  }
+  svg#search-icon {
+    margin: 4px 0;
+  }
+  .MuiIconButton-root[aria-label='show 17 new notifications'] {
+    padding: 0;
+  }
 }
 
 .navbar-collapse {
-    justify-content: flex-end;
-    align-items: center;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 /*
@@ -123,119 +129,119 @@ svg#search-icon {
 */
 
 #footer {
-    background-color: var(--primary);
-    color: #fff;
-    padding: 40px 60px 20px;
-    display: flex;
-    align-items: flex-end;
+  background-color: var(--primary);
+  color: #fff;
+  padding: 40px 60px 20px;
+  display: flex;
+  align-items: flex-end;
 }
 
 footer .row {
-    align-items: flex-end;
+  align-items: flex-end;
 }
 
 a#footer-link {
-    display: block;
-    color: #fff !important;
-    text-decoration: none !important;
-    margin-top: 5px;
-    font-size: 15px;
+  display: block;
+  color: #fff !important;
+  text-decoration: none !important;
+  margin-top: 5px;
+  font-size: 15px;
 }
 
 div#active-user {
-    font-size: 18px;
-    color: var(--primarysecond) !important;
+  font-size: 18px;
+  color: var(--primarysecond) !important;
 }
 
 #active-user b {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 #active-user b span {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 b#right-border {
-    padding-right: 15px !important;
-    border-right: 1px solid;
-    padding: 15px 0 0;
+  padding-right: 15px !important;
+  border-right: 1px solid;
+  padding: 15px 0 0;
 }
 
 #footer-input {
-    width: 53%;
-    border: none !important;
-    border-radius: 22px;
-    padding: 10px 20px;
-    outline: none;
-    box-shadow: none;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+  width: 53%;
+  border: none !important;
+  border-radius: 22px;
+  padding: 10px 20px;
+  outline: none;
+  box-shadow: none;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
 }
 
 input.btn.submit-btn {
-    padding: 10px 20px;
-    background-color: var(--primarysecond);
-    color: #fff;
-    border-radius: 22px;
-    width: 30%;
-    position: relative;
-    right: 3.5%;
-    bottom: 1px;
+  padding: 10px 20px;
+  background-color: var(--primarysecond);
+  color: #fff;
+  border-radius: 22px;
+  width: 30%;
+  position: relative;
+  right: 3.5%;
+  bottom: 1px;
 }
 
 #last-col {
-    text-align: right;
+  text-align: right;
 }
 
 p#download-statement {
-    font-size: 12px;
-    margin: 20px 0;
-    color: #fff;
+  font-size: 12px;
+  margin: 20px 0;
+  color: #fff;
 }
 
 img#store-icon {
-    width: 90%;
+  width: 90%;
 }
 
 a#copy-link {
-    color: #000;
-    text-decoration: none;
-    font-size: 12px;
-    margin: 0 20px 0 0;
+  color: #000;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 0 20px 0 0;
 }
 
 div#copyright {
-    padding: 15px 0;
-    background-color: #eee9df;
+  padding: 15px 0;
+  background-color: #eee9df;
 }
 
 p#copyright-text {
-    margin: 15px 0 0;
-    font-size: 12px;
-    color: #999;
+  margin: 15px 0 0;
+  font-size: 12px;
+  color: #999;
 }
 
 p#lang-select {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 #lang-select select {
-    border: none;
-    border-bottom: 1px solid;
-    outline: none;
-    box-shadow: none;
+  border: none;
+  border-bottom: 1px solid;
+  outline: none;
+  box-shadow: none;
 }
 
 div#social-icon {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 #foot-icon img {
-    width: 80%;
+  width: 80%;
 }
 
 #copyright .row {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 
 /*
@@ -243,552 +249,561 @@ div#social-icon {
 */
 
 div#dorctor-list {
-    padding: 30px 10px;
-    margin: 30px 0;
-    background: var(--primarybg);
-    border-radius: 22px;
-    min-height: 550px; 
+  padding: 30px 10px;
+  margin: 30px 0;
+  background: var(--primarybg);
+  border-radius: 22px;
+  min-height: 550px;
 }
 
 .no-result {
-    height: 550px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #card-list {
-    overflow-y: scroll;
-    height: 360px !important;
+  overflow-y: scroll;
+  height: 360px !important;
 }
 
 .Togglebar {
-    width: 100%;
-    background: #efefef;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 25px;
-    /* text-align: right; */
+  width: 100%;
+  background: #efefef;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 25px;
+  /* text-align: right; */
 }
-#toggle-icons{
-    display: inline-flex;
+#toggle-icons {
+  display: inline-flex;
 }
 
 .MuiBottomNavigation-root {
-    height: 66px !important;
-    display: flex;
-    justify-content: center;
-    background-color: #eee !important;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 10px 0;
-    font-family: 'Avenir', sans-serif;
-    z-index: 1;
+  height: 66px !important;
+  display: flex;
+  justify-content: center;
+  background-color: #eee !important;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+  font-family: 'Avenir', sans-serif;
+  z-index: 1;
 }
 
 .MuiBottomNavigationAction-root {
-    border: none !important;
-    outline: none !important;
+  border: none !important;
+  outline: none !important;
 }
 
 .MuiBottomNavigationAction-wrapper img {
-    padding: 0;
-    width: 25px;
-    height: 25px;
+  padding: 0;
+  width: 25px;
+  height: 25px;
 }
 
 .MuiBottomNavigationAction-label {
-    font-family: 'Avenir', sans-serif !important;
-    font-size: 12px !important;
-    font-weight: 700;
+  font-family: 'Avenir', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700;
 }
 
 .content {
-    padding-bottom: 66px;
-    padding-top: 125px;
+  padding-bottom: 66px;
+  padding-top: 125px;
 }
 
 .doc-content {
-    padding-bottom: 66px;
-    padding-top: 125px;
+  padding-bottom: 66px;
+  padding-top: 125px;
 }
 
 .MuiIconButton-label svg.MuiSvgIcon-root {
-    width: 26px !important;
-    height: 26px !important;
+  width: 26px !important;
+  height: 26px !important;
 }
 
 .MuiAppBar-root {
-    min-height: 100px !important;
-    position: fixed !important;
-    top: 0;
-    background-color: var(--primary) !important;
+  min-height: 100px !important;
+  position: fixed !important;
+  top: 0;
+  background-color: var(--primary) !important;
 }
 
 .menu-tab {
-    position: relative;
-    left: calc(100% - 320px);
+  position: relative;
+  left: calc(100% - 320px);
 }
 
 span.emergency {
-    font-size: 9px;
-    font-weight: 700;
-    background: #FF4500;
-    padding: 2px 10px 4px;
-    border-radius: 10px;
+  font-size: 9px;
+  font-weight: 700;
+  background: #ff4500;
+  padding: 2px 10px 4px;
+  border-radius: 10px;
 }
 
 .nav-divider {
-    display: block;
-    width: 100%;
-    height: 40px;
-    position: relative;
-    top: 15px;
-    background: #fff;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  position: relative;
+  top: 15px;
+  background: #fff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 .user-details {
-    display: inline-flex;
+  display: inline-flex;
 }
 
 .user-name {
-    font-size: 10px;
-    text-align: left;
-    position: relative;
-    top: 20px;
+  font-size: 10px;
+  text-align: left;
+  position: relative;
+  top: 20px;
 }
 
 .user-name p {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 img.profile-icon {
-    padding-right: 0 !important;
-    height: 30px;
-    width: 30px;
-    border-radius: 5px;
+  padding-right: 0 !important;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
 }
 
 button.MuiButtonBase-root {
-    border: none !important;
-    outline: none !important;
+  border: none !important;
+  outline: none !important;
 }
 
 .MuiBadge-badge {
-    height: 12px !important;
-    min-width: 12px !important;
-    padding: 0px 0px !important;
-    font-size: 10px !important;
-    transform: scale(1) translate(0%, -15%) !important;
-    font-weight: 700 !important;
+  height: 12px !important;
+  min-width: 12px !important;
+  padding: 0px 0px !important;
+  font-size: 10px !important;
+  transform: scale(1) translate(0%, -15%) !important;
+  font-weight: 700 !important;
 }
 
 .card-deck {
-    display: flex;
-    justify-content: center;
-    margin: 0 20px;
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
 }
 
 .card-deck .card {
-    margin: 10px 10px !important;
-    height: 115px;
-    background: #EFEFEF;
-    border: none;
-    border-radius: 15px;
-    width: 140px;
+  margin: 10px 10px !important;
+  height: 115px;
+  background: #efefef;
+  border: none;
+  border-radius: 15px;
+  width: 140px;
 }
 
 .card-deck .card:hover {
-    background: var(--primary);
-    color: #fff;
-    transition: .3s;
-    cursor: pointer;
+  background: var(--primary);
+  color: #fff;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .card-body {
-    padding: 0 1.2rem 10px !important;
-    align-items: flex-end;
-    display: flex;
-    font-size: 17px;
-    font-weight: 700;
+  padding: 0 1.2rem 10px !important;
+  align-items: flex-end;
+  display: flex;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .dot-container {
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    bottom: 85px;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 85px;
+  width: 100%;
 }
 
 .dot {
-    height: 15px;
-    width: 15px;
-    background-color: transparent;
-    border-radius: 50%;
-    border: 1px solid var(--primary);
-    display: inline-block;
-    margin: 5px;
+  height: 15px;
+  width: 15px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  display: inline-block;
+  margin: 5px;
 }
 
 span.dot.active {
-    background: var(--primary) !important;
-    width: 25px;
-    border-radius: 22px;
+  background: var(--primary) !important;
+  width: 25px;
+  border-radius: 22px;
 }
 
 #card {
-    /* margin: 0 10%; */
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: 10px !important;
-    height: 45px;
+  /* margin: 0 10%; */
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px !important;
+  height: 45px;
 }
 
 #card .card-body {
-    padding: 10px !important;
-    border-radius: 10px;
-    position: unset;
+  padding: 10px !important;
+  border-radius: 10px;
+  position: unset;
 }
 
 #arrowright {
-    position: absolute;
-    width: 100%;
-    text-align: right;
-    right: 16px;
+  position: absolute;
+  width: 100%;
+  text-align: right;
+  right: 16px;
 }
 
 #menuLinks {
-    text-decoration: none;
-    color: var(--primary);
+  text-decoration: none;
+  color: var(--primary);
 }
 
 #menuLinks:hover #card {
-    background: var(--primary);
+  background: var(--primary);
 }
 
 #menuLinks:hover {
-    color: #fff;
-    transition: .5s;
+  color: #fff;
+  transition: 0.5s;
 }
 #toggle-icons svg {
-    color: var(--primary);
+  color: var(--primary);
 }
 svg#fav-icon {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 1;
-    cursor: pointer;
-    color: #fff;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 1;
+  cursor: pointer;
+  color: #fff;
 }
 
 .MuiGridListTile-tile {
-    border-radius: 10px;
-    background: #efefef;
+  border-radius: 10px;
+  background: #efefef;
 }
 
 li.MuiGridListTile-root {
-    padding: 5px !important;
+  padding: 5px !important;
 }
 
 ul.MuiGridList-root {
-    margin: 0 5% !important;
+  margin: 0 5% !important;
 }
 
 .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
-    background: var(--primary);
-    cursor: pointer;
+  background: var(--primary);
+  cursor: pointer;
 }
 
 .MuiGridListTileBar-titleWrap {
-    color: #fff !important;
-    font-weight: 700;
-    font-size: 10px;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 10px;
 }
 
 .MuiGridListTileBar-title {
-    font-size: 10px !important;
+  font-size: 10px !important;
 }
 
 .MuiGridListTileBar-subtitle {
-    font-size: 10px !important;
+  font-size: 10px !important;
 }
 
 #dorctor-list .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
-    width: 100%;
-    display: inline-flex;
-    border-radius: 27px;
-    box-shadow: none !important;
-    background: var(--primary);
+  width: 100%;
+  display: inline-flex;
+  border-radius: 27px;
+  box-shadow: none !important;
+  background: var(--primary);
 }
 
 div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
-    color: #fff;
+  color: #fff;
 }
 
 input#doctor-search {
-    color: #fff;
+  color: #fff;
 }
 
 #appointment-card {
-    margin: 0 6%;
-    background: #EFEFEF;
-    border: none;
-    border-radius: 10px;
+  margin: 0 6%;
+  background: #efefef;
+  border: none;
+  border-radius: 10px;
 }
 
 #appointment-card .card-body {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 
 #menuLinks:hover #appointment-card {
-    background: var(--primary);
+  background: var(--primary);
 }
 
 #appointment-card .card-body #arrowright {
-    position: relative;
-    left: calc(100% - 160px);
+  position: relative;
+  left: calc(100% - 160px);
 }
 
 a.back-btn {
-    width: 8%;
-    display: flex;
-    margin: 0px 10% 10px;
+  width: 8%;
+  display: flex;
+  margin: 0px 10% 10px;
 }
 
 svg#back {
-    background: #efefef;
-    border-radius: 50%;
-    padding: 2px;
-    width: 28px;
-    height: 26px;
+  background: #efefef;
+  border-radius: 50%;
+  padding: 2px;
+  width: 28px;
+  height: 26px;
 }
 
 li#doctor-pro-pic {
-    width: 100% !important;
-    text-align: center;
+  width: 100% !important;
+  text-align: center;
 }
 
 #doctor-name .MuiGridListTileBar-titleWrap .MuiGridListTileBar-title {
-    color: var(--primary);
+  color: var(--primary);
 }
 
 div#doctor-name {
-    background: transparent;
+  background: transparent;
 }
 
 .cal-view {
-    width: 90%;
-    margin: 0 5% !important;
+  width: 90%;
+  margin: 0 5% !important;
 }
 
 .appointment-list {
-    margin: 20px 0px;
-    font-weight: 700;
+  margin: 20px 0px;
+  font-weight: 700;
 }
 
 span.MuiRating-root {
-    color: var(--primary) !important;
+  color: var(--primary) !important;
 }
 
 span.price {
-    color: var(--primary);
-    font-size: 35px;
+  color: var(--primary);
+  font-size: 35px;
 }
 
 button.continue-btn {
-    background-color: var(--primary) !important;
-    width: 100%;
-    border-radius: 30px;
-    border-color: var(--primary) !important;
-    outline: none !important;
-    box-shadow: none !important;
-    font-size: 13px;
-    margin-top: 20px;
+  background-color: var(--primary) !important;
+  width: 100%;
+  border-radius: 30px;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  margin-top: 20px;
 }
 
 .MuiBottomNavigationAction-root.MuiBottomNavigationAction-iconOnly {
-    padding-top: 2px !important;
+  padding-top: 2px !important;
 }
 
 .MuiBottomNavigationAction-label.MuiBottomNavigationAction-iconOnly {
-    opacity: 1 !important;
-    transition-delay: 0.2s !important;
+  opacity: 1 !important;
+  transition-delay: 0.2s !important;
 }
 
 span.MuiBottomNavigationAction-wrapper {
-    margin: 0 13px;
+  margin: 0 13px;
 }
 
 .doc-img {
-    height: 140px;
-    display: flex;
-    justify-content: center;
-    border-radius: 22px;
-    background: #f8f8f8;
-    overflow: hidden;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  border-radius: 22px;
+  background: #f8f8f8;
+  overflow: hidden;
 }
 
 .doc-img img {
-    border-radius: 22px;
-    height: 214px;
-    width: auto !important;
+  border-radius: 22px;
+  height: 214px;
+  width: auto !important;
 }
 
 b.doc-name {
-    color: var(--primary) !important;
-    font-size: 15px;
+  color: var(--primary) !important;
+  font-size: 15px;
 }
 
 .MuiFormControl-root.MuiTextField-root {
-    width: 100%;
+  width: 100%;
 }
 
 #menuLinks li.MuiGridListTile-root {
-    width: 100% !important;
-    text-align: center;
+  width: 100% !important;
+  text-align: center;
 }
 
 #menuLinks li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
-    background-color: var(--primary);
+  background-color: var(--primary);
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
-    background: var(--primary);
-    transition: .5s;
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+  background: var(--primary);
+  transition: 0.5s;
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
-    color: #fff;
-    transition: .5s;
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
+  .MuiGridListTileBar-title {
+  color: #fff;
+  transition: 0.5s;
 }
 
 /* width */
 
-#card-list::-webkit-scrollbar, #calendar-list::-webkit-scrollbar {
-    width: 5px;
+#card-list::-webkit-scrollbar,
+#calendar-list::-webkit-scrollbar {
+  width: 5px;
 }
 
 /* Track */
 
-#card-list::-webkit-scrollbar-track, #calendar-list::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 15px #fff;
-    border-radius: 10px;
+#card-list::-webkit-scrollbar-track,
+#calendar-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
 }
 
 /* Handle */
 
-#card-list::-webkit-scrollbar-thumb, #calendar-list::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
+#card-list::-webkit-scrollbar-thumb,
+#calendar-list::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 
-#card-list::-webkit-scrollbar-thumb:hover, #calendar-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+#card-list::-webkit-scrollbar-thumb:hover,
+#calendar-list::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
 
 div#doc-row {
-    margin: 0;
+  margin: 0;
 }
 
 div#doc-details {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .blue {
-    color: var(--primary) !important;
+  color: var(--primary) !important;
 }
 
 div#price-box {
-    padding: 20px;
-    background: #efefef;
-    border-radius: 22px;
-    text-align: center;
-    position: relative;
+  padding: 20px;
+  background: #efefef;
+  border-radius: 22px;
+  text-align: center;
+  position: relative;
 }
 
 div#price-box:before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 46%;
-    z-index: 1;
-    border: solid 15px transparent;
-    border-top-color: #efefef;
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 46%;
+  z-index: 1;
+  border: solid 15px transparent;
+  border-top-color: #efefef;
 }
 
 #calendar-list span.MuiTypography-root {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 #promo-code {
-    font-size: 12px;
-    text-align: right;
-    position: relative;
-    top: -4px;
+  font-size: 12px;
+  text-align: right;
+  position: relative;
+  top: -4px;
 }
 #payment-form .MuiFormControl-root.MuiTextField-root {
-    width: 100%;
-    margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 #payment-form .MuiInputBase-formControl {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 #payment-form input#standard-basic {
-    padding: 10px;
-    border: none !important;
-    border-radius: 10px;
-    font-size: 12px;
-    color: #000;
-    font-weight: 600;
+  padding: 10px;
+  border: none !important;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #000;
+  font-weight: 600;
 }
 #payment-form .MuiFilledInput-underline:after {
-    display: none;
+  display: none;
 }
 #payment-form .MuiFilledInput-underline:before {
-    display: none;
-}   
-
+  display: none;
+}
 
 /*
 * Card
 */
 #patient-card {
-    border-radius: 22px !important;
+  border-radius: 22px !important;
 }
 #patient-card .card-title.h5 {
-    font-size: 22px;
-    font-weight: 400;
+  font-size: 22px;
+  font-weight: 400;
 }
-#patient-card .card, img.card-img-top {
-    border-radius: 20px;
-    border: none !important;
+#patient-card .card,
+img.card-img-top {
+  border-radius: 20px;
+  border: none !important;
 }
 #patient-card .card-body {
-    position: absolute;
-    bottom: 0;
-    color: #EEE9DF;
-    background-color: var(--primary);
-    width: 100%;
-    height: 130px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+  position: absolute;
+  bottom: 0;
+  color: #eee9df;
+  background-color: var(--primary);
+  width: 100%;
+  height: 130px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 #patient-card p.card-text {
-    font-size: 12px;
-    font-weight: 400;
-    color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  color: #fff;
 }
 #patient-card button.assessment-btn {
-    position: absolute;
+  position: absolute;
   bottom: 20%;
   right: 5%;
   border-radius: 22px;
@@ -799,9 +814,9 @@ div#price-box:before {
   border-color: 1px solid #fff;
 }
 #patient-card .card-body {
-    padding: 1.25rem !important;
-    display: unset;
-    align-items: unset;
+  padding: 1.25rem !important;
+  display: unset;
+  align-items: unset;
 }
 
 /*
@@ -809,143 +824,143 @@ div#price-box:before {
 */
 
 div.card-box {
-    display: flex;
-    height: 200px;
-    background: #efefef;
-    border-radius: 22px;
-    align-items: flex-end;
-    padding: 1.25rem;
-    color: #fff;
-    font-weight: 700 !important;
-    font-size: 20px !important;
-    text-shadow: 0px 0px 15px #000;
+  display: flex;
+  height: 200px;
+  background: #efefef;
+  border-radius: 22px;
+  align-items: flex-end;
+  padding: 1.25rem;
+  color: #fff;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  text-shadow: 0px 0px 15px #000;
 }
 #Box1 {
-    background-image: url(../../images/nutrition.png);
-    background-size: cover;
+  background-image: url(../../images/nutrition.png);
+  background-size: cover;
 }
 #Box2 {
-    background-image: url(../../images/workout.png);
-    background-size: cover;
+  background-image: url(../../images/workout.png);
+  background-size: cover;
 }
 #Box3 {
-    background-image: url(../../images/lifestyle.png);
-    background-size: cover;
+  background-image: url(../../images/lifestyle.png);
+  background-size: cover;
 }
 #Box4 {
-    background-image: url(../../images/shop.png);
-    background-size: cover;
+  background-image: url(../../images/shop.png);
+  background-size: cover;
 }
 #Box5 {
-    background-image: url(../../images/articles.png);
-    background-size: cover;
+  background-image: url(../../images/articles.png);
+  background-size: cover;
 }
 #Box6 {
-    background-image: url(../../images/educate.png);
-    background-size: cover;
+  background-image: url(../../images/educate.png);
+  background-size: cover;
 }
 
 .MuiSelect-filled.MuiSelect-filled {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 .react-tel-input .form-control {
-    width: 100% !important;
-    border: none !important;
-    background-color: rgba(0, 0, 0, 0.09) !important;
-    padding: 8px 10px 8px 48px !important;
-    height: auto !important;
-    border-radius: 10px !important;
+  width: 100% !important;
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0.09) !important;
+  padding: 8px 10px 8px 48px !important;
+  height: auto !important;
+  border-radius: 10px !important;
 }
 
 #profile-form {
-    background: #fff;
-    border-radius: 22px;
-    padding: 10px 10%;
+  background: #fff;
+  border-radius: 22px;
+  padding: 10px 10%;
 }
 #profile-form .MuiFormControl-root.MuiTextField-root {
-    width: 100%;
+  width: 100%;
 }
 #profile-form .MuiInputBase-formControl {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 #profile-form input#standard-basic {
-    padding: 10px;
-    border: none !important;
-    border-radius: 10px;
+  padding: 10px;
+  border: none !important;
+  border-radius: 10px;
 }
 #profile-form .MuiFilledInput-underline:after {
-    display: none;
+  display: none;
 }
 #profile-form .MuiFilledInput-underline:before {
-    display: none;
+  display: none;
 }
 h2#signin-title {
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--primary);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--primary);
 }
 #profile-form p {
-    margin-bottom: 5px;
-    font-size: 12px;
+  margin-bottom: 5px;
+  font-size: 12px;
 }
 
 p.forget-text {
-    text-align: right;
-    font-size: 12px;
+  text-align: right;
+  font-size: 12px;
 }
 input.btn.sign-btn {
-    width: 100%;
-    border-radius: 22px;
-    margin-top: 20px;
-    background-color: var(--primary);
-    border-color: var(--primary);
-    color: #fff;
+  width: 100%;
+  border-radius: 22px;
+  margin-top: 20px;
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
 }
 p.signup-text {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 12px;
+  margin-top: 30px;
+  text-align: center;
+  font-size: 12px;
 }
 button.btn.btn-outline-primary.sign-btn {
-    width: 50%;
-    margin: 0 25% 20px;
-    border-radius: 22px;
-    border:2px solid var(--primary);
-    color: var(--primary);
+  width: 50%;
+  margin: 0 25% 20px;
+  border-radius: 22px;
+  border: 2px solid var(--primary);
+  color: var(--primary);
 }
 button.btn.btn-outline-primary.sign-btn:hover {
-    border-color: var(--primary);
-    background-color: var(--primary);
-    color: #fff;
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: #fff;
 }
 
 #welcome-bg {
-    background-image: url(../../images/welcomebg.png);
-    background-size: cover;
-    background-position: center;
+  background-image: url(../../images/welcomebg.png);
+  background-size: cover;
+  background-position: center;
 }
 
 .MuiFormControl-root {
-    width: 100% !important;
+  width: 100% !important;
 }
 div#gender-radio {
-    display: block;
+  display: block;
 }
 
 h2#welcome-title {
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--primary);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--primary);
 }
 .timeSlot {
-    padding: 10px 5%;
-    font-size: 13px;
-    text-align: center;
-    background: var(--primary);
-    color: #fff;
-    border-radius: 22px;
-    cursor: pointer;
-    margin-bottom: 7px;
+  padding: 10px 5%;
+  font-size: 13px;
+  text-align: center;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 22px;
+  cursor: pointer;
+  margin-bottom: 7px;
 }
 
 /*
@@ -953,386 +968,391 @@ h2#welcome-title {
 */
 
 div#appointment-calendar {
-    width: 100%;
-    border-radius: 0px;
-    background-color: transparent;
+  width: 100%;
+  border-radius: 0px;
+  background-color: transparent;
 }
 
-#appointment-calendar .makeStyles-background-38, #appointment-calendar .Cell-dayOfMonth-45, #appointment-calendar .Cell-dayOfWeek-44 {
-    background-color: var(--primary);
-    color: #fff;
+#appointment-calendar .makeStyles-background-38,
+#appointment-calendar .Cell-dayOfMonth-45,
+#appointment-calendar .Cell-dayOfWeek-44 {
+  background-color: var(--primary);
+  color: #fff;
 }
 .makeStyles-stickyElement-27 {
-    background: transparent !important;
+  background: transparent !important;
 }
 #appointment-calendar .TodayButtonBase-button-10:first-child {
-    background: var(--primary) !important;
-    color: #fff;
+  background: var(--primary) !important;
+  color: #fff;
 }
 
 #appointment-calendar .NavigationButton-button-12 {
-    background: var(--primary) !important;
-    color: #fff;
-    padding: 5px;
-    margin: 0 5px;
+  background: var(--primary) !important;
+  color: #fff;
+  padding: 5px;
+  margin: 0 5px;
 }
 
 .OpenButton-textButton-13 {
-    background: var(--primary) !important;
-    color: #fff !important;
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 
 #appointment-calendar .MuiSelect-select.MuiSelect-select {
-    background: var(--primary);
-    color: #fff;
-    border: none;
+  background: var(--primary);
+  color: #fff;
+  border: none;
 }
 
 #appointment-calendar .MuiToolbar-gutters {
-    padding: 0;
+  padding: 0;
 }
 #appointment-calendar span.Label-text-56 {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #appointment-calendar .makeStyles-container-26 {
-    border: 1px solid rgba(224, 224, 224, 1);
+  border: 1px solid rgba(224, 224, 224, 1);
 }
 
 #appointment-calendar .makeStyles-appointment-1299 {
-    display: flex;
-    align-items: center;
-    font-size: 10px;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  justify-content: center;
 }
 
 button.btn.timeSlot:focus {
-    background: #00D1CD !important;
-    box-shadow: none !important;
+  background: #00d1cd !important;
+  box-shadow: none !important;
 }
 button.btn.timeSlot:active {
-    background: #00D1CD;
+  background: #00d1cd;
 }
 button.btn.timeSlot:hover {
-    color: #fff !important;
+  color: #fff !important;
 }
 
 .react-calendar__month-view__days__day--weekend {
-    color: #000 !important;
+  color: #000 !important;
 }
 
 .sb-avatar__text {
-    width: 138px !important;
-    height: 150px !important;
-    line-height: initial !important;
-    text-align: center !important;
-    color: var(--secondary) !important;
-    background:var(--primarysecond) !important;
-    border-radius: 15px;
+  width: 138px !important;
+  height: 150px !important;
+  line-height: initial !important;
+  text-align: center !important;
+  color: var(--secondary) !important;
+  background: var(--primarysecond) !important;
+  border-radius: 15px;
 }
 
 #card-list .sb-avatar__text {
-    width: 100% !important;
-    height: 150px !important;
-    line-height: initial !important;
-    text-align: center !important;
-    color: var(--secondary) !important;
-    background:var(--primarysecond) !important;
-    border-radius: 0px !important;
+  width: 100% !important;
+  height: 150px !important;
+  line-height: initial !important;
+  text-align: center !important;
+  color: var(--secondary) !important;
+  background: var(--primarysecond) !important;
+  border-radius: 0px !important;
 }
 
 #card-list .sb-avatar--text {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 .doc-img div {
-    height: 140px !important;
-    justify-content: center;
-    border-radius: 22px;
-    width: 140px !important;
+  height: 140px !important;
+  justify-content: center;
+  border-radius: 22px;
+  width: 140px !important;
 }
 
 .appointment-box {
-    padding: 10px 10%;
+  padding: 10px 10%;
 }
 .appointment-box .MuiFormControl-root.MuiTextField-root {
-    width: 100%;
+  width: 100%;
 }
 .appointment-box .MuiInputBase-formControl {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 .appointment-box input#standard-basic {
-    padding: 10px;
-    border: none !important;
-    border-radius: 10px;
+  padding: 10px;
+  border: none !important;
+  border-radius: 10px;
 }
 .appointment-box .MuiFilledInput-underline:after {
-    display: none;
+  display: none;
 }
 .appointment-box .MuiFilledInput-underline:before {
-    display: none;
+  display: none;
 }
 .appointment-box p {
-    margin-bottom: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--primary);
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary);
 }
 
 div#multiselectContainerReact div {
-    background: rgba(0, 0, 0, 0.09);
-    border: none;
-    border-radius: 10px;
+  background: rgba(0, 0, 0, 0.09);
+  border: none;
+  border-radius: 10px;
 }
 div#multiselectContainerReact div:hover {
-    background: rgba(0, 0, 0, 0.13);
+  background: rgba(0, 0, 0, 0.13);
 }
 
 #questionnaire-view-bg {
-    background-image: url(../../images/shutterstock_390236386.jpg);
-    background-size: cover;
-    background-position: center;
+  background-image: url(../../images/shutterstock_390236386.jpg);
+  background-size: cover;
+  background-position: center;
 }
-
 
 #questionnaire-bg {
-    background-image: url(../../images/home-2.png);
-    background-size: cover;
-    background-position: center;
+  background-image: url(../../images/home-2.png);
+  background-size: cover;
+  background-position: center;
 }
-
 
 #prescription-list {
-    padding: 10px;
-    background: var(--primarybg);
-    border-radius: 22px;
+  padding: 10px;
+  background: var(--primarybg);
+  border-radius: 22px;
 }
 #prescription-list tbody {
-    overflow-y: scroll;
-    height: 200px;
-    display: block;
+  overflow-y: scroll;
+  height: 200px;
+  display: block;
 }
 #prescription-list table {
-    width: 100%;
-    font-size: 12px;
-    text-align: left;
-    word-break: break-word;
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+  word-break: break-word;
 }
 
 #prescription-list th {
-    color: #999;
+  color: #999;
 }
 
 #prescription-list tr {
-    display: block;
-    margin-bottom: 15px;
+  display: block;
+  margin-bottom: 15px;
 }
 
 #prescription-list td {
-    font-weight: 600;
+  font-weight: 600;
 }
 
-#prescription-list tbody::-webkit-scrollbar, #report-result::-webkit-scrollbar, #ques-result::-webkit-scrollbar, #appointment-calendar .makeStyles-container-26::-webkit-scrollbar {
-    width: 5px;
+#prescription-list tbody::-webkit-scrollbar,
+#report-result::-webkit-scrollbar,
+#ques-result::-webkit-scrollbar,
+#appointment-calendar .makeStyles-container-26::-webkit-scrollbar {
+  width: 5px;
 }
 
 /* Track */
 
-#prescription-list tbody::-webkit-scrollbar-track, #report-result::-webkit-scrollbar-track, #ques-result::-webkit-scrollbar-track, #appointment-calendar .makeStyles-container-26::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 15px #fff;
-    border-radius: 10px;
+#prescription-list tbody::-webkit-scrollbar-track,
+#report-result::-webkit-scrollbar-track,
+#ques-result::-webkit-scrollbar-track,
+#appointment-calendar .makeStyles-container-26::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
 }
 
 /* Handle */
 
-#prescription-list tbody::-webkit-scrollbar-thumb, #report-result::-webkit-scrollbar-thumb, #ques-result::-webkit-scrollbar-thumb, #appointment-calendar .makeStyles-container-26::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
+#prescription-list tbody::-webkit-scrollbar-thumb,
+#report-result::-webkit-scrollbar-thumb,
+#ques-result::-webkit-scrollbar-thumb,
+#appointment-calendar .makeStyles-container-26::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 
-#prescription-list tbody::-webkit-scrollbar-thumb:hover, #report-result::-webkit-scrollbar-thumb:hover, #ques-result::-webkit-scrollbar-thumb:hover, #appointment-calendar .makeStyles-container-26::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+#prescription-list tbody::-webkit-scrollbar-thumb:hover,
+#report-result::-webkit-scrollbar-thumb:hover,
+#ques-result::-webkit-scrollbar-thumb:hover,
+#appointment-calendar .makeStyles-container-26::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
-
 
 .react-calendar__tile:disabled {
-    background-color: #f0f0f0 !important;
-    color: lightgray !important;
+  background-color: #f0f0f0 !important;
+  color: lightgray !important;
 }
-
 
 /*
 * Profile Page
 */
 
 div#profile-col-1 {
-    background: var(--primarybg);
-    padding: 20px;
-    margin: 50px -10px 50px 0px;
-    border-radius: 22px;
-    text-align: center;
-    height: 570px;
+  background: var(--primarybg);
+  padding: 20px;
+  margin: 50px -10px 50px 0px;
+  border-radius: 22px;
+  text-align: center;
+  height: 570px;
 }
 
 div#profile-col-2 {
-    background: var(--primarybg);
-    padding: 20px;
-    margin: 50px 0px 50px -10px;
-    border-radius: 22px;
-    text-align: center;
-    height: 570px;
+  background: var(--primarybg);
+  padding: 20px;
+  margin: 50px 0px 50px -10px;
+  border-radius: 22px;
+  text-align: center;
+  height: 570px;
 }
 img#profile-pic {
-    height: 150px;
-    width: 150px;
-    border-radius: 22px;
+  height: 150px;
+  width: 150px;
+  border-radius: 22px;
 }
-@media (max-width:480px){
-    img#profile-pic {
-        height: 80%;
-        width: auto;
-
-    }
+@media (max-width: 480px) {
+  img#profile-pic {
+    height: 80%;
+    width: auto;
+  }
 }
 
 #name {
-    color: var(--primary);
-    font-size: 20px;
-    line-height: 20px;
-    margin-top: 10px;
+  color: var(--primary);
+  font-size: 20px;
+  line-height: 20px;
+  margin-top: 10px;
 }
 #name span {
-    color: #000;
-    font-size: 15px;
+  color: #000;
+  font-size: 15px;
 }
 p#description {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 button.request-edit {
-    border-radius: 22px;
-    width: 50%;
-    font-size: 15px;
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
-    position: absolute;
-    bottom: 70px;
-    margin: 0 25%;
-    left: 0;
+  border-radius: 22px;
+  width: 50%;
+  font-size: 15px;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  position: absolute;
+  bottom: 70px;
+  margin: 0 25%;
+  left: 0;
 }
 
 table#user-info {
-    width: 100%;
-    text-align: left;
+  width: 100%;
+  text-align: left;
 }
 #user-info th {
-    width: 40%;
-    color: var(--primary);
+  width: 40%;
+  color: var(--primary);
 }
 #user-info td {
-    width: 60%;
+  width: 60%;
 }
 #user-info tr {
-    display: flex;
-    margin-bottom: 20px;
+  display: flex;
+  margin-bottom: 20px;
 }
-
-
 
 /*
 * Profile Pic
 */
 
 .profile-pic {
-    width: 120px;
-    height: 120px;
-    display: block;
-    border-radius: 50%;
-    border: 6px solid #eee;
+  width: 120px;
+  height: 120px;
+  display: block;
+  border-radius: 50%;
+  border: 6px solid #eee;
 }
 
 .file-upload {
-    display: none;
+  display: none;
 }
 .p-image {
-    position: relative;
-    bottom: 70px;
-    left: 48px;
-    color: #000;
-    text-shadow: 0px 0px 5px #fff;
-    cursor: pointer;
-    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  position: relative;
+  bottom: 70px;
+  left: 48px;
+  color: #000;
+  text-shadow: 0px 0px 5px #fff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .p-image:hover {
-  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .upload-button {
   font-size: 1.2em;
 }
 
 .upload-button:hover {
-  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   color: #999;
 }
 
 .multiselect div {
-    border: none;
-    background: #e8e8e8;
-    border-radius: 10px;
+  border: none;
+  background: #e8e8e8;
+  border-radius: 10px;
 }
 
-
 #profile-form {
-    background: #fff;
-    border-radius: 22px;
-    padding: 0px 40px;
+  background: #fff;
+  border-radius: 22px;
+  padding: 0px 40px;
 }
 
 #profile-form .MuiFormControl-root.MuiTextField-root {
-    width: 100%;
+  width: 100%;
 }
 
 #profile-form .MuiInputBase-formControl {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 
 #profile-form input#standard-basic {
-    padding: 10px;
-    border: none !important;
-    border-radius: 10px;
+  padding: 10px;
+  border: none !important;
+  border-radius: 10px;
 }
 
 #profile-form .MuiFilledInput-underline:after {
-    display: none;
+  display: none;
 }
 
 #profile-form .MuiFilledInput-underline:before {
-    display: none;
+  display: none;
 }
 
 h2#signin-title {
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--primary);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--primary);
 }
 
 #profile-form p {
-    margin-bottom: 5px;
-    font-size: 12px;
+  margin-bottom: 5px;
+  font-size: 12px;
 }
 
-
 div#editProfile-col {
-    background: #f4f4f4;
-    padding: 20px;
-    margin: 50px 0px 50px -10px;
-    border-radius: 22px;
+  background: #f4f4f4;
+  padding: 20px;
+  margin: 50px 0px 50px -10px;
+  border-radius: 22px;
 }
 
 div#multiselectContainerReact div {
-    background: #e8e8e8 !important;
+  background: #e8e8e8 !important;
 }
 
 /*
@@ -1340,19 +1360,19 @@ div#multiselectContainerReact div {
 */
 
 .list--tags {
-    padding-left: 0;
-    text-transform: capitalize;
+  padding-left: 0;
+  text-transform: capitalize;
 }
 
 .list--tags > li {
-    display: inline;
+  display: inline;
 }
 
 .list--tags > li:before {
-    content:',\0000a0'; /* Non-breaking space */
+  content: ',\0000a0'; /* Non-breaking space */
 }
 .list--tags > li:first-child:before {
-    content: normal;
+  content: normal;
 }
 
 /*
@@ -1360,464 +1380,461 @@ div#multiselectContainerReact div {
 */
 
 button.react-calendar__tile.react-calendar__month-view__days__day {
-    border-radius: 22px;
-    margin: 2px 2px 10px;
-    max-width: 41px !important;
-    height: 41px;
-    background: var(--primary);
-    color: #fff !important;
+  border-radius: 22px;
+  margin: 2px 2px 10px;
+  max-width: 41px !important;
+  height: 41px;
+  background: var(--primary);
+  color: #fff !important;
 }
 
 button.react-calendar__tile.react-calendar__month-view__days__day:hover {
-    background: #00D1CD;
+  background: #00d1cd;
 }
 
 button.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button {
-    border-top-left-radius: 22px;
-    border-bottom-left-radius: 22px;
+  border-top-left-radius: 22px;
+  border-bottom-left-radius: 22px;
 }
 
 button.react-calendar__navigation__arrow.react-calendar__navigation__next2-button {
-    border-top-right-radius: 22px;
-    border-bottom-right-radius: 22px;
+  border-top-right-radius: 22px;
+  border-bottom-right-radius: 22px;
 }
 
 .react-calendar__navigation button[disabled] {
-    color: #bab5b5 !important;
+  color: #bab5b5 !important;
 }
 
 .react-calendar__navigation button {
-    background: var(--primary) !important;
-    color: #fff;
+  background: var(--primary) !important;
+  color: #fff;
 }
 
 .react-calendar {
-    border: none !important;
-    background: transparent;
+  border: none !important;
+  background: transparent;
 }
 
 .react-calendar__tile--active {
-    background: #00D1CD !important;
+  background: #00d1cd !important;
 }
-#dropdown-item{
-    color:#498ce8 !important;
+#dropdown-item {
+  color: #498ce8 !important;
 }
-
-
 
 /*
 * Chat Page
 */
 
 div#videoChat-box {
-    background: #f4f4f4;
-    border-radius: 10px;
-    padding: 20px;
+  background: #f4f4f4;
+  border-radius: 10px;
+  padding: 20px;
 }
 div#message-box {
-    background: #f4f4f4;
-    border-radius: 10px;
-    padding: 10px;
+  background: #f4f4f4;
+  border-radius: 10px;
+  padding: 10px;
 }
 div#Chat-box {
-    background: #f4f4f4;
-    border-radius: 10px;
-    padding: 10px;
+  background: #f4f4f4;
+  border-radius: 10px;
+  padding: 10px;
 }
 
-
 div#call-box {
-    background: #BABABA;
-    display: block;
-    padding: 10px;
-    border-radius: 10px;
-    height: 350px;
+  background: #bababa;
+  display: block;
+  padding: 10px;
+  border-radius: 10px;
+  height: 350px;
 }
 
 span.live-indicator {
-    background: red;
-    color: #fff;
-    padding: 0 7px;
-    font-size: 12px;
-    font-weight: 700;
-    border-radius: 4px;
+  background: red;
+  color: #fff;
+  padding: 0 7px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 4px;
 }
 
 span.time-indicator {
-    background: #000;
-    color: #fff;
-    font-size: 12px;
-    padding: 0 5px;
-    border-radius: 4px;
-    margin-left: 5px;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  padding: 0 5px;
+  border-radius: 4px;
+  margin-left: 5px;
 }
 
 .user-img {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .user-img img {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 
 div#callBtn-group {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 button.call-end {
-    background: red;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 2px 5px;
-    outline: none;
+  background: red;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 2px 5px;
+  outline: none;
 }
 
 button.call {
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 2px 5px;
-    outline: none;
-    margin-left: 5px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 2px 5px;
+  outline: none;
+  margin-left: 5px;
 }
 
 .call-btn svg {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 #chat-heads {
-    align-items: center;
-    padding: 10px 0;
+  align-items: center;
+  padding: 10px 0;
 }
 
 hr.hr {
-    margin: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 textarea.input-text {
-    width: 100%;
-    border-radius: 10px !important;
-    outline: none;
-    padding: 5px;
-    border: none;
+  width: 100%;
+  border-radius: 10px !important;
+  outline: none;
+  padding: 5px;
+  border: none;
 }
 .message-area {
-    padding: 0 10px;
-    position: relative;
-    bottom: 0;
+  padding: 0 10px;
+  position: relative;
+  bottom: 0;
 }
 
 .chat-panel {
-    height: 370px;
-    overflow-y: scroll;
+  height: 370px;
+  overflow-y: scroll;
 }
-
 
 /* width */
 
 .chat-panel::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 /* Track */
 
 .chat-panel::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 15px #fff;
-    border-radius: 10px;
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
 }
 
 /* Handle */
 
 .chat-panel::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
+  background: var(--primary);
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 
 .chat-panel::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+  background: var(--primary);
 }
 
 .sent {
-    margin: 10px !important;
+  margin: 10px !important;
 }
 div.sent .messageBody {
-    background: #EFEFEF;
-    padding: 10px;
-    border-radius: 10px;
+  background: #efefef;
+  padding: 10px;
+  border-radius: 10px;
 }
 div.sent .messageBody p {
-    font-size: 11px;
-    margin-bottom: 5px;
+  font-size: 11px;
+  margin-bottom: 5px;
 }
 div.sent .messageBody span.messageTime {
-    font-size: 10px;
+  font-size: 10px;
 }
 
 .reply {
-    margin: 10px !important;
+  margin: 10px !important;
 }
 div.reply .messageBody {
-    background: var(--primary);
-    padding: 10px;
-    border-radius: 10px;
+  background: var(--primary);
+  padding: 10px;
+  border-radius: 10px;
 }
 div.reply .messageBody p {
-    font-size: 11px;
-    margin-bottom: 5px;
-    color: #fff;
+  font-size: 11px;
+  margin-bottom: 5px;
+  color: #fff;
 }
 div.reply .messageBody span.messageTime {
-    font-size: 10px;
-    color: #fff;
+  font-size: 10px;
+  color: #fff;
 }
 .reply .col-md-2 {
-    padding: 0;
+  padding: 0;
 }
 
 #chat-name {
-    font-size: 8px;
-    padding: 3px;
+  font-size: 8px;
+  padding: 3px;
 }
 span#chat-time {
-    font-size: 10px;
-    color: #999;
+  font-size: 10px;
+  color: #999;
 }
 
 #chat-buttons #active-video-icon {
-    width: 25px !important;
-    height: 25px !important;
-    color: var(--primary);
+  width: 25px !important;
+  height: 25px !important;
+  color: var(--primary);
 }
 
 #chat-buttons #inactive-video-icon {
-    width: 25px !important;
-    height: 25px !important;
-    color: #00D1CD;
+  width: 25px !important;
+  height: 25px !important;
+  color: #00d1cd;
 }
 
 /*
     Nutrition Page
 */
 #nutrition-col-3 .MuiTypography-body1 {
-    color: #fff;
+  color: #fff;
 }
 
 #nutrition-col {
-    padding: 20px 15px;
-    margin: 30px 0;
-    background: var(--primarybg) !important;
-    border-radius: 22px;
-    height: 450px;
+  padding: 20px 15px;
+  margin: 30px 0;
+  background: var(--primarybg) !important;
+  border-radius: 22px;
+  height: 450px;
 }
 
 #nutrition-col-3 {
-    margin: 30px 0;
-    height: 450px;
+  margin: 30px 0;
+  height: 450px;
 }
 
 div.nutrition-card-box {
-    display: flex;
-    height: 100px;
-    background: #efefef;
-    border-radius: 22px;
-    align-items: flex-end;
-    padding: 1rem;
-    color: #fff;
-    text-shadow: 0px 0px 15px #000;
-    cursor: pointer;
+  display: flex;
+  height: 100px;
+  background: #efefef;
+  border-radius: 22px;
+  align-items: flex-end;
+  padding: 1rem;
+  color: #fff;
+  text-shadow: 0px 0px 15px #000;
+  cursor: pointer;
 }
 
 #nutrition-col h4 {
-    color: var(--primary);
-    font-size: 20px;
+  color: var(--primary);
+  font-size: 20px;
 }
 
 #nutrition-col-3 h4 {
-    color: var(--primary);
-    font-size: 20px;
+  color: var(--primary);
+  font-size: 20px;
 }
 
 .bmi-cal-box {
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
-    width: 100%;
-    border-radius: 22px;
-    padding: 10px;
-    margin-bottom: 10px;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  width: 100%;
+  border-radius: 22px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .bmi-cal {
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
-    width: 100%;
-    border-radius: 22px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  width: 100%;
+  border-radius: 22px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .bmi-cal-box select {
-    background: none;
-    border: none;
-    border-bottom: 1px solid #fff;
-    width: 100%;
-    color: #fff;
-    outline: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #fff;
+  width: 100%;
+  color: #fff;
+  outline: none;
 }
 
 .bmi-cal-box option {
-    background-color: #00D1CD;
-    color: #fff;
+  background-color: #00d1cd;
+  color: #fff;
 }
 
 div#bmi-age {
-    color: #fff;
-    font-size: 14px;
+  color: #fff;
+  font-size: 14px;
 }
 div#bmi-age input {
-    background: #EFEFEF;
-    border: none;
-    border-radius: 22px;
-    width: 100%;
-    outline: none;
+  background: #efefef;
+  border: none;
+  border-radius: 22px;
+  width: 100%;
+  outline: none;
 }
 
 div#bmi-age small {
-    font-size: 9px;
+  font-size: 9px;
 }
 
 div#bmi-gender {
-    color: #fff;
-    font-size: 14px;
+  color: #fff;
+  font-size: 14px;
 }
 div#bmi-gender .MuiFormControlLabel-root {
-    margin-left: -5px !important;
-    margin-right: 10px !important;
+  margin-left: -5px !important;
+  margin-right: 10px !important;
 }
 div#bmi-gender .MuiIconButton-root {
-    padding: 0px 6px !important;
+  padding: 0px 6px !important;
 }
 div#bmi-gender .MuiIconButton-label svg.MuiSvgIcon-root {
-    width: 15px !important;
-    height: 15px !important;
-    color: #fff;
+  width: 15px !important;
+  height: 15px !important;
+  color: #fff;
 }
 div#bmi-gender svg.MuiSvgIcon-root.PrivateRadioButtonIcon-layer-6 {
-    color: #00D1CD;
+  color: #00d1cd;
 }
 div#bmi-gender .MuiTypography-body1 {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 div#bmi-mass {
-    color: #fff;
-    font-size: 14px;
+  color: #fff;
+  font-size: 14px;
 }
 div#bmi-mass input {
-    background: #EFEFEF;
-    border: none;
-    border-radius: 22px;
-    width: 100%;
-    outline: none;
+  background: #efefef;
+  border: none;
+  border-radius: 22px;
+  width: 100%;
+  outline: none;
 }
 
 #nutrition-col .react-calendar {
-    border: none;
-    background: none;
-    color: #999;
-    width: 100%;
+  border: none;
+  background: none;
+  color: #999;
+  width: 100%;
 }
 
-#nutrition-col .react-calendar .calendar-footer, #nutrition-col .react-calendar__navigation {
-    display: none !important;
+#nutrition-col .react-calendar .calendar-footer,
+#nutrition-col .react-calendar__navigation {
+  display: none !important;
 }
 
 #nutrition-col .react-calendar__tile--active {
-    background-color: transparent !important;
-    color: var(--primary) !important;
-    font-weight: 700 !important;
+  background-color: transparent !important;
+  color: var(--primary) !important;
+  font-weight: 700 !important;
 }
 
 #nutrition-col .react-calendar__month-view__weekdays {
-    border-bottom: 1px solid;
+  border-bottom: 1px solid;
 }
 
 #nutrition-col .react-calendar__tile {
-    color: #999;
+  color: #999;
 }
 
 .calories-info {
-    background-color: var(--primary);
-    color: #fff;
-    text-align: center;
-    font-size: 12px;
-    padding: 2px 0;
-    border-radius: 22px;
+  background-color: var(--primary);
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  padding: 2px 0;
+  border-radius: 22px;
 }
 
 .info-title {
-    text-align: center;
-    font-size: 12px;
+  text-align: center;
+  font-size: 12px;
 }
 
 .nutrition-info span {
-    font-size: 10px;
+  font-size: 10px;
 }
 
 b.nut-value {
-    font-size: 30px;
-    float: right;
+  font-size: 30px;
+  float: right;
 }
 
 .nutrition-info-row {
-    border-radius: 10px;
-    background: var(--primarysecond);
+  border-radius: 10px;
+  background: var(--primarysecond);
 }
 
 svg.nutrition-chart {
-    height: 100px;
-    display: flex;
-    width: 32%;
-    margin: 0 auto;
+  height: 100px;
+  display: flex;
+  width: 32%;
+  margin: 0 auto;
 }
 
 .chart-info {
-    font-size: 12px;
-    text-align: center;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 span.dot1 {
-    height: 15px;
-    width: 15px;
-    background-color: var(--secondary);
-    border-radius: 50%;
-    display: inline-block;
+  height: 15px;
+  width: 15px;
+  background-color: var(--secondary);
+  border-radius: 50%;
+  display: inline-block;
 }
 
 span.dot2 {
-    height: 15px;
-    width: 15px;
-    background-color: var(--primarysecond);
-    border-radius: 50%;
-    display: inline-block;
+  height: 15px;
+  width: 15px;
+  background-color: var(--primarysecond);
+  border-radius: 50%;
+  display: inline-block;
 }
 
 span.dot3 {
-    height: 15px;
-    width: 15px;
-    background-color: var(--primary);
-    border-radius: 50%;
-    display: inline-block;
+  height: 15px;
+  width: 15px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: inline-block;
 }
 
 /*
@@ -1825,259 +1842,262 @@ span.dot3 {
 */
 
 .loader-one {
-    background: #EFEFEF;
-    height: 20px;
-    width: 100%;
-    border-radius: 22px;
-    display: block;
-    overflow: hidden;
-    margin-bottom: 10px;
-  }
-  
-  .loader-two {
-    background: #EFEFEF;
-    height: 20px;
-    width: 100%;
-    border-radius: 22px;
-    display: block;
-    overflow: hidden;
-  }
-  
-  .loader-one .progress {
-    background: var(--primary);
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-    height: 20px;
-    color: #fff;
-    display: block;
-    transition: 0.5s;
-  }
-  
-  .loader-one .progress b {
-    margin-left: 10px;
-    margin-top: 10px;
-    font-size: 12px;
-  }
-  
-  .loader-two .progress {
-    background: var(--primarysecond);  
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-    height: 20px;
-    color: #fff;
-    display: block;
-    transition: 0.5s;
-  }
-  
-  .loader-two .progress b {
-    margin-left: 10px;
-    margin-top: 10px;
-    font-size: 12px;
-  }
-  
-  .loader-one p {
-    font-size: 12px;
-    font-weight: 700;
-    position: relative;
-    left: 65%;
-    bottom: 18px;
-  }
-  
-  .loader-two p {
-    font-size: 12px;
-    font-weight: 700;
-    position: relative;
-    left: 65%;
-    bottom: 18px;
-  }
+  background: #efefef;
+  height: 20px;
+  width: 100%;
+  border-radius: 22px;
+  display: block;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.loader-two {
+  background: #efefef;
+  height: 20px;
+  width: 100%;
+  border-radius: 22px;
+  display: block;
+  overflow: hidden;
+}
+
+.loader-one .progress {
+  background: var(--primary);
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  height: 20px;
+  color: #fff;
+  display: block;
+  transition: 0.5s;
+}
+
+.loader-one .progress b {
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.loader-two .progress {
+  background: var(--primarysecond);
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  height: 20px;
+  color: #fff;
+  display: block;
+  transition: 0.5s;
+}
+
+.loader-two .progress b {
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.loader-one p {
+  font-size: 12px;
+  font-weight: 700;
+  position: relative;
+  left: 65%;
+  bottom: 18px;
+}
+
+.loader-two p {
+  font-size: 12px;
+  font-weight: 700;
+  position: relative;
+  left: 65%;
+  bottom: 18px;
+}
 
 #panel-header {
-    background: var(--primary);
-    color: #fff;
-    margin: 0 !important;
-    border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  margin: 0 !important;
+  border-radius: 12px;
 }
 
 .MuiAccordionSummary-root.Mui-expanded {
-    display: none !important;
+  display: none !important;
 }
 
 .MuiAccordion-root {
-    box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .MuiAccordionDetails-root {
-    background-color: var(--primarybg);
-    border-radius: 12px !important;
-    height: 385px;
-    padding: 20px 15px !important;
-    display: block !important;
+  background-color: var(--primarybg);
+  border-radius: 12px !important;
+  height: 385px;
+  padding: 20px 15px !important;
+  display: block !important;
 }
 
 .MuiAccordionSummary-content {
-    justify-content: center !important;
+  justify-content: center !important;
 }
 
 #nutrition-col-3 .react-calendar {
-    border: none;
-    background: none;
-    color: #999;
-    width: 100%;
+  border: none;
+  background: none;
+  color: #999;
+  width: 100%;
 }
 
-#nutrition-col-3 .react-calendar .calendar-footer, #nutrition-col-3 .react-calendar__navigation {
-    display: none !important;
+#nutrition-col-3 .react-calendar .calendar-footer,
+#nutrition-col-3 .react-calendar__navigation {
+  display: none !important;
 }
 
 #nutrition-col-3 .react-calendar__tile--active {
-    background-color: transparent !important;
-    color: var(--primary) !important;
-    font-weight: 700 !important;
+  background-color: transparent !important;
+  color: var(--primary) !important;
+  font-weight: 700 !important;
 }
 
 #nutrition-col-3 .react-calendar__month-view__weekdays {
-    border-bottom: 1px solid;
+  border-bottom: 1px solid;
 }
 
 #nutrition-col-3 .react-calendar__tile {
-    color: #999;
+  color: #999;
 }
 
 .nutrition-list {
-    overflow-y: scroll;
-    height: 270px;
+  overflow-y: scroll;
+  height: 270px;
 }
 
 /* width */
 
 .nutrition-list::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 /* Track */
 
 .nutrition-list::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 15px #fff;
-    border-radius: 10px;
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
 }
 
 /* Handle */
 
 .nutrition-list::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
+  background: var(--primary);
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 
 .nutrition-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+  background: var(--primary);
 }
 
 ul.MuiGridList-root {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 #nutrition-col-3 .nutrition-list .MuiGridListTileBar-title {
-    font-size: 20px !important;
-    font-weight: 700;
-    text-decoration: underline;
+  font-size: 20px !important;
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 #nutrition-col-3 .nutrition-list .MuiGridListTileBar-titleWrap {
-    color: var(--primary) !important;
-    font-weight: 700;
-    position: absolute;
-    top: -145px;
-    left: 0 !important;
-    width: 100%;
-    margin: 0 !important;
-    padding: 20px;
+  color: var(--primary) !important;
+  font-weight: 700;
+  position: absolute;
+  top: -145px;
+  left: 0 !important;
+  width: 100%;
+  margin: 0 !important;
+  padding: 20px;
 }
 
 #nutrition-col-3 .nutrition-list .MuiGridListTileBar-subtitle ul {
-    padding-left: 17px;
-    font-size: 13px !important;
-    text-indent: 1px;
-    margin: 10px 0;
+  padding-left: 17px;
+  font-size: 13px !important;
+  text-indent: 1px;
+  margin: 10px 0;
 }
 #nutrition-col-3 .nutrition-list .MuiGridListTileBar-subtitle ul li {
-    margin: 5px 0;
-    white-space: normal;
-    float: left;
+  margin: 5px 0;
+  white-space: normal;
+  float: left;
 }
 
-#nutrition-col-3 .nutrition-list .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
-    background: none !important;
-    cursor: default !important;
+#nutrition-col-3
+  .nutrition-list
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
+  background: none !important;
+  cursor: default !important;
 }
 
 #nutrition-col-3 svg#fav-icon {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 1;
-    background: #fff;
-    color: var(--primary);
-    border-radius: 50%;
-    padding: 3px;
-    cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 1;
+  background: #fff;
+  color: var(--primary);
+  border-radius: 50%;
+  padding: 3px;
+  cursor: pointer;
 }
 
 #nutrition-col-3 .nutrition-list li.MuiGridListTile-root {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 #nutrition-col-3 span.calories {
-    width: 80px !important;
-    height: 22px!important;
-    background: var(--primary);
-    color: #fff;
-    text-align: center;
-    border-radius: 22px;
-    margin-right: 10px;
-    margin-left: 10px;
-    font-size: 12px;
+  width: 80px !important;
+  height: 22px !important;
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  border-radius: 22px;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 12px;
 }
 
 #nutrition-col-3 span.time {
-    width: 80px !important;
-    height: 22px!important;
-    background: #00d1cd;
-    color: #fff;
-    text-align: center;
-    border-radius: 22px;
-    margin-right: 10px;
-    font-size: 12px;
+  width: 80px !important;
+  height: 22px !important;
+  background: #00d1cd;
+  color: #fff;
+  text-align: center;
+  border-radius: 22px;
+  margin-right: 10px;
+  font-size: 12px;
 }
 
 #nutrition-col-3 span.type {
-    width: 80px !important;
-    height: 22px!important;
-    background: #3d3d3d;
-    color: #fff;
-    text-align: center;
-    border-radius: 22px;
-    margin-right: 10px;
-    font-size: 12px;
+  width: 80px !important;
+  height: 22px !important;
+  background: #3d3d3d;
+  color: #fff;
+  text-align: center;
+  border-radius: 22px;
+  margin-right: 10px;
+  font-size: 12px;
 }
 
 #nutrition-col-3 .doc-img img {
-    width: 100% !important;
-    border-radius: 22px;
+  width: 100% !important;
+  border-radius: 22px;
 }
 
 #nutrition-col-3 .doc-img {
-    height: 180px !important;
+  height: 180px !important;
 }
 
 #nutrition-col-3 button.book-appointment {
-    width: 100%;
-    border-radius: 30px;
-    height: 40px;
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
-    outline: none !important;
+  width: 100%;
+  border-radius: 30px;
+  height: 40px;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  outline: none !important;
 }
 
 /*
@@ -2085,1286 +2105,1299 @@ ul.MuiGridList-root {
 */
 
 #shop-col {
-    padding: 20px 15px;
-    margin: 30px 0;
-    background: #f8f8f8;
-    border-radius: 22px;
-    height: 450px;
+  padding: 20px 15px;
+  margin: 30px 0;
+  background: #f8f8f8;
+  border-radius: 22px;
+  height: 450px;
 }
 
 #shop-col-1 {
-    margin: 30px 0;
-    height: 450px;
+  margin: 30px 0;
+  height: 450px;
 }
 
 #shop-col-1 .MuiAccordionDetails-root {
-    background-color: #f8f8f8;
-    border-radius: 12px !important;
-    height: 320px;
-    padding: 20px 15px !important;
-    display: block !important;
+  background-color: #f8f8f8;
+  border-radius: 12px !important;
+  height: 320px;
+  padding: 20px 15px !important;
+  display: block !important;
 }
 
 #shop-col-1 #panel-header {
-    background: var(--primary);
-    color: #fff;
-    margin: 10px 0 0 !important;
-    border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  margin: 10px 0 0 !important;
+  border-radius: 12px;
 }
 
 #shop-col-1 .MuiAccordionSummary-content {
-    justify-content: left !important;
+  justify-content: left !important;
 }
 
 #shop-col-1 #panel1d-content .MuiAccordionDetails-root {
-    background-image: url(../../images/shop/wearable.jpg);
-    background-size: cover;
-    background-position: center;
+  background-image: url(../../images/shop/wearable.jpg);
+  background-size: cover;
+  background-position: center;
 }
 #shop-col-1 #panel2d-content .MuiAccordionDetails-root {
-    background-image: url(../../images/shop/suppliments.jpg);
-    background-size: cover;
-    background-position: 75% 50%;
+  background-image: url(../../images/shop/suppliments.jpg);
+  background-size: cover;
+  background-position: 75% 50%;
 }
 #shop-col-1 #panel3d-content .MuiAccordionDetails-root {
-    background-image: url(../../images/shop/offers.jpg);
-    background-size: cover;
-    background-position: center;
+  background-image: url(../../images/shop/offers.jpg);
+  background-size: cover;
+  background-position: center;
 }
 
 #shop-col-1 .MuiAccordionDetails-root div {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    height: 65px;
-    background: linear-gradient(180deg, transparent, #00000080);
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    color: #fff;
-    font-size: 18px;    
-    align-items: flex-end;
-    display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  height: 65px;
+  background: linear-gradient(180deg, transparent, #00000080);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  color: #fff;
+  font-size: 18px;
+  align-items: flex-end;
+  display: flex;
 }
 
 #shop-col .MuiCard-root {
-    background: no-repeat;
-    border: none;
+  background: no-repeat;
+  border: none;
 }
 
 #shop-col .MuiCardContent-root {
-    padding: 0 !important;
-    border-radius: 22px !important;
-    overflow: hidden;
-    height: 75px;
+  padding: 0 !important;
+  border-radius: 22px !important;
+  overflow: hidden;
+  height: 75px;
 }
 
 #shop-col .MuiCardContent-root .product-info {
-    background-color: #fff;
-    color: var(--primary);
+  background-color: #fff;
+  color: var(--primary);
 }
 #shop-col .MuiCardContent-root:hover .product-info {
-    background-color: var(--primary) !important;
-    color: #fff !important;
-    transition: 0.5s;   
+  background-color: var(--primary) !important;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root .active {
-    background-color: var(--primary) !important;
-    color: #fff !important;
-    transition: 0.5s;   
+  background-color: var(--primary) !important;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root p.product-name {
-    font-size: 13px;
-    margin: 10px 0 0;
-    padding-left: 10px;
-    cursor: pointer;
-    color: var(--primary);
+  font-size: 13px;
+  margin: 10px 0 0;
+  padding-left: 10px;
+  cursor: pointer;
+  color: var(--primary);
 }
 #shop-col .MuiCardContent-root .active p.product-name {
-    color: #fff !important;
-    transition: 0.5s;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root span.MuiRating-root {
-    color: var(--primary);
-    font-size: 13px;
-    padding-left: 10px;
+  color: var(--primary);
+  font-size: 13px;
+  padding-left: 10px;
 }
 
 #shop-col .MuiCardContent-root .active span.MuiRating-root {
-    color: #fff !important;
-    transition: 0.5s;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root:hover .product-info span.MuiRating-root {
-    color: #fff !important;
-    transition: 0.5s;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root:hover .product-info p.product-name {
-    color: #fff !important;
-    transition: 0.5s;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root .MuiBox-root-1 {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 #shop-col #card-list img.MuiGridListTile-imgFullHeight {
-    height: 95px !important;
+  height: 95px !important;
 }
 
 div#product-list {
-    overflow-y: scroll;
-    height: 410px;
-    padding-right: 5px;
+  overflow-y: scroll;
+  height: 410px;
+  padding-right: 5px;
 }
 
 /* width */
 
 #product-list::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 /* Track */
 
 #product-list::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 15px #fff;
-    border-radius: 10px;
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
 }
 
 /* Handle */
 
 #product-list::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
+  background: var(--primary);
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 
 #product-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+  background: var(--primary);
 }
 
-
 #product-list .product-icons {
-    text-align: end;
-    padding: 8px 20px 8px 0px;
+  text-align: end;
+  padding: 8px 20px 8px 0px;
 }
 
 #product-list .product-icons .MuiIconButton-root {
-    padding: 6px !important;
+  padding: 6px !important;
 }
 
 #product-list .product-icons .MuiIconButton-label svg.MuiSvgIcon-root {
-    width: 18px !important;
-    height: 18px !important;
-    color: var(--primary);
+  width: 18px !important;
+  height: 18px !important;
+  color: var(--primary);
 }
 
-#shop-col .MuiCardContent-root:hover .product-icons .MuiIconButton-label svg.MuiSvgIcon-root {
-    color: #fff !important;
-    transition: 0.5s;
+#shop-col
+  .MuiCardContent-root:hover
+  .product-icons
+  .MuiIconButton-label
+  svg.MuiSvgIcon-root {
+  color: #fff !important;
+  transition: 0.5s;
 }
 
-#shop-col .MuiCardContent-root .active .product-icons .MuiIconButton-label svg.MuiSvgIcon-root {
-    color: #fff !important;
-    transition: 0.5s;
+#shop-col
+  .MuiCardContent-root
+  .active
+  .product-icons
+  .MuiIconButton-label
+  svg.MuiSvgIcon-root {
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #shop-col .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
-    width: 68%;
-    display: inline-flex;
-    border-radius: 27px;
-    box-shadow: none !important;
-    background: var(--primary);
-    height: 32px !important;
+  width: 68%;
+  display: inline-flex;
+  border-radius: 27px;
+  box-shadow: none !important;
+  background: var(--primary);
+  height: 32px !important;
 }
 
 #shop-col .ForwardRef-root-1 {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 #shop-col #toggle-icons button {
-    padding: 6px;
+  padding: 6px;
 }
 
 #shop-col #toggle-icons button svg.MuiSvgIcon-root {
-    width: 20px !important;
-    height: 20px !important;
-    color: var(--primary);
+  width: 20px !important;
+  height: 20px !important;
+  color: var(--primary);
 }
 
 #shop-col input#product-search {
-    color: #fff;
+  color: #fff;
 }
 
 #shop-col li.MuiGridListTile-root {
-    width: 25% !important;
-    height: 150px !important;
+  width: 25% !important;
+  height: 150px !important;
 }
 
 #shop-col .MuiGridListTileBar-titleWrap {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 #shop-col .MuiGridListTileBar-rootSubtitle {
-    height: 50px;
-    align-items: flex-start;
+  height: 50px;
+  align-items: flex-start;
 }
 
 #shop-col svg#fav-icon {
-    z-index: 1;
-    color: #fff;
-    width: 16px;
-    height: 16px;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
+  z-index: 1;
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
 }
 
 button#back-button {
-    background: var(--primary);
-    color: #fff;
-    padding: 6px;
+  background: var(--primary);
+  color: #fff;
+  padding: 6px;
 }
 
 .awssld__controls button span {
-    height: 16px !important;
+  height: 16px !important;
 }
 
-.awssld__controls__arrow-left:before, .awssld__controls__arrow-right:before {
-    background: #fff !important;
+.awssld__controls__arrow-left:before,
+.awssld__controls__arrow-right:before {
+  background: #fff !important;
 }
 
-.awssld__controls__arrow-left:after, .awssld__controls__arrow-right:after {
-    background: #fff !important;
+.awssld__controls__arrow-left:after,
+.awssld__controls__arrow-right:after {
+  background: #fff !important;
 }
 
 .awssld__wrapper {
-    border-radius: 22px !important;
-    margin: 10px 0 !important;
+  border-radius: 22px !important;
+  margin: 10px 0 !important;
 }
 
 h3.product-name {
-    color: var(--primary);
-    font-size: 16px;
+  color: var(--primary);
+  font-size: 16px;
 }
 
 span.product-price {
-    color: var(--primary);
-    font-size: 20px;
+  color: var(--primary);
+  font-size: 20px;
 }
 
 p.product-desc {
-    font-size: 10px;
-    margin: 0;
+  font-size: 10px;
+  margin: 0;
 }
 
 button.quantity-button {
-    background: #fff;
-    color: #000;
-    padding: 4px;
-    margin: 10px;
+  background: #fff;
+  color: #000;
+  padding: 4px;
+  margin: 10px;
 }
 
 button.quantity-button svg.MuiSvgIcon-root {
-    width: 20px !important;
-    height: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
 span.quantity-value {
-    color: var(--primary);
-    font-size: 33px;
-    vertical-align: middle;
-    width: 26px !important;
+  color: var(--primary);
+  font-size: 33px;
+  vertical-align: middle;
+  width: 26px !important;
 }
 
 button.cart-button {
-    background: var(--primary) !important;
-    color: #fff;
-    width: 100%;
-    border-radius: 33px;
-    padding: 6px;
+  background: var(--primary) !important;
+  color: #fff;
+  width: 100%;
+  border-radius: 33px;
+  padding: 6px;
 }
 
 #sale-product-list {
-    overflow-y: scroll;
-    height: 410px;
+  overflow-y: scroll;
+  height: 410px;
 }
 
 /* width */
 
 #sale-product-list::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 /* Track */
 
 #sale-product-list::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 15px #fff;
-    border-radius: 10px;
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
 }
 
 /* Handle */
 
 #sale-product-list::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
+  background: var(--primary);
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 
 #sale-product-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+  background: var(--primary);
 }
 
 #shop-col #sale-product-list li.MuiGridListTile-root {
-    width: 50% !important;
-    height: 200px !important;
+  width: 50% !important;
+  height: 200px !important;
 }
 
 #shop-col #sale-product-list .MuiGridListTileBar-titleWrap {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 #shop-col #sale-product-list .MuiGridListTileBar-rootSubtitle {
-    height: 50px;
-    align-items: flex-start;
+  height: 50px;
+  align-items: flex-start;
 }
 
 #shop-col #sale-product-list svg#fav-icon {
-    z-index: 1;
-    color: #fff;
-    width: 16px;
-    height: 16px;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
+  z-index: 1;
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
 }
 
 button.product-discount {
-    z-index: 1;
-    position: absolute;
-    top: 134px;
-    display: flex;
-    font-size: 9px;
-    text-align: end;
-    right: 2px;
-    height: 36px;
-    background: url('../../images/shop/offer-back.png');
-    border: none;
-    background-size: cover;
-    color: #fff;
-    width: 40px;
-    align-items: center;
-    justify-content: flex-end;
-    outline: none !important;
+  z-index: 1;
+  position: absolute;
+  top: 134px;
+  display: flex;
+  font-size: 9px;
+  text-align: end;
+  right: 2px;
+  height: 36px;
+  background: url('../../images/shop/offer-back.png');
+  border: none;
+  background-size: cover;
+  color: #fff;
+  width: 40px;
+  align-items: center;
+  justify-content: flex-end;
+  outline: none !important;
 }
 
 button.single-product-discount {
-    background: url('../../images/shop/offer-back.png');
-    z-index: 2;
-    position: relative;
-    display: flex;
-    font-size: 15px;
-    bottom: 19px;
-    right: 30%;
-    height: 50px;
-    border: none;
-    background-size: cover;
-    color: #fff;
-    width: 60px;
-    align-items: center;
-    justify-content: flex-end;
-    outline: none !important;
-    padding: 10px;
+  background: url('../../images/shop/offer-back.png');
+  z-index: 2;
+  position: relative;
+  display: flex;
+  font-size: 15px;
+  bottom: 19px;
+  right: 30%;
+  height: 50px;
+  border: none;
+  background-size: cover;
+  color: #fff;
+  width: 60px;
+  align-items: center;
+  justify-content: flex-end;
+  outline: none !important;
+  padding: 10px;
 }
 
 a {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 #shop-col-1 .MuiTypography-body1 {
-    color: #fff !important;
+  color: #fff !important;
 }
-
 
 /*
     Workout page
 */
 
 ul.react-tabs__tab-list {
-    border: none !important;
-    background: #eee !important;
-    border-radius: 22px !important;
-    list-style: none;
-    padding: 0;
-    height: 35px;
+  border: none !important;
+  background: #eee !important;
+  border-radius: 22px !important;
+  list-style: none;
+  padding: 0;
+  height: 35px;
 }
 
 li.react-tabs__tab {
-    width: 33.33% !important;
-    text-align: center !important;
-    display: inline-block;
-    height: 35px;
-    padding: 5px;
-    font-weight: 700;
-    cursor: pointer;
+  width: 33.33% !important;
+  text-align: center !important;
+  display: inline-block;
+  height: 35px;
+  padding: 5px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .react-tabs__tab--selected {
-    border-radius: 22px !important;
-    border: none !important;
-    bottom: 0 !important;
-    background: var(--primary) !important;
-    color: #fff !important;
+  border-radius: 22px !important;
+  border: none !important;
+  bottom: 0 !important;
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 
 div#dashboard {
-    background: var(--primarybg);
-    width: 100%;
-    height: 520px;
-    margin-bottom: 30px;
-    border-radius: 22px;
-    padding: 20px;
+  background: var(--primarybg);
+  width: 100%;
+  height: 520px;
+  margin-bottom: 30px;
+  border-radius: 22px;
+  padding: 20px;
 }
 
 div#my-workout {
-    background: var(--primarybg);
-    width: 100%;
-    height: 520px;
-    margin-bottom: 30px;
-    border-radius: 22px;
-    padding: 20px;
+  background: var(--primarybg);
+  width: 100%;
+  height: 520px;
+  margin-bottom: 30px;
+  border-radius: 22px;
+  padding: 20px;
 }
 
 div#membership {
-    background: var(--primarybg);
-    width: 100%;
-    height: 520px;
-    margin-bottom: 30px;
-    border-radius: 22px;
-    padding: 20px;
+  background: var(--primarybg);
+  width: 100%;
+  height: 520px;
+  margin-bottom: 30px;
+  border-radius: 22px;
+  padding: 20px;
 }
 
 #dashboard iframe {
-    border-radius: 22px;
-    box-shadow: 0px 0px 10px #00000060;
-    width: 100%;
-    height: 475px;
+  border-radius: 22px;
+  box-shadow: 0px 0px 10px #00000060;
+  width: 100%;
+  height: 475px;
 }
 
 div#all-workout-list {
-    height: 475px;
-    overflow-y: scroll;
+  height: 475px;
+  overflow-y: scroll;
 }
 
 /* width */
 
-#all-workout-list::-webkit-scrollbar, #my-workout-list::-webkit-scrollbar {
-    width: 5px;
+#all-workout-list::-webkit-scrollbar,
+#my-workout-list::-webkit-scrollbar {
+  width: 5px;
 }
 
 /* Track */
 
-#all-workout-list::-webkit-scrollbar-track, #my-workout-list::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 15px #fff;
-    border-radius: 10px;
+#all-workout-list::-webkit-scrollbar-track,
+#my-workout-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
 }
 
 /* Handle */
 
-#all-workout-list::-webkit-scrollbar-thumb, #my-workout-list::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
+#all-workout-list::-webkit-scrollbar-thumb,
+#my-workout-list::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 
-#all-workout-list::-webkit-scrollbar-thumb:hover, #my-workout-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+#all-workout-list::-webkit-scrollbar-thumb:hover,
+#my-workout-list::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
 
 #all-workout-list li.MuiGridListTile-root {
-    width: 33.33% !important;
-    height: 170px !important;
+  width: 33.33% !important;
+  height: 170px !important;
 }
 
 #all-workout-list .MuiGridListTileBar-titleWrap {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
-#all-workout-list .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
-    height: 50px;
+#all-workout-list
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
+  height: 50px;
 }
 
 #all-workout-list svg#fav-icon {
-    font-size: 16px;
-    z-index: 1;
-    cursor: pointer;
+  font-size: 16px;
+  z-index: 1;
+  cursor: pointer;
 }
 
 #all-workout-list .video-time {
-    position: absolute;
-    z-index: 1;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 600;
-    top: 86%;
-    right: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+  position: absolute;
+  z-index: 1;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  top: 86%;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 #all-workout-list .video-time img {
-    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(250%) contrast(100%);
-    padding-right: 3px;
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(250%)
+    contrast(100%);
+  padding-right: 3px;
 }
 
 #my-workout .desc-bar {
-    color: #fff;
-    background: var(--primary);
-    border-radius: 22px;
-    padding: 5px 10px;
-    display: flex;
-    font-size: 13px;
-    align-items: center;
+  color: #fff;
+  background: var(--primary);
+  border-radius: 22px;
+  padding: 5px 10px;
+  display: flex;
+  font-size: 13px;
+  align-items: center;
 }
 
 #my-workout .save-btn {
-    border-color: var(--primary) !important;
-    border: 2px solid var(--primary) !important;
-    border-radius: 22px;
-    color: #000 !important;
+  border-color: var(--primary) !important;
+  border: 2px solid var(--primary) !important;
+  border-radius: 22px;
+  color: #000 !important;
 }
 
 #my-workout .save-btn:hover {
-    background-color: transparent !important;
-    border-radius: 22px;
+  background-color: transparent !important;
+  border-radius: 22px;
 }
 
 div#my-workout-list {
-    height: 380px;
-    overflow-y: scroll;
+  height: 380px;
+  overflow-y: scroll;
 }
 
 #my-workout-list .MuiCard-root {
-    background: no-repeat;
-    border: none;
+  background: no-repeat;
+  border: none;
 }
 
 #my-workout-list .MuiCardContent-root {
-    padding: 0 !important;
-    border-radius: 22px !important;
-    overflow: hidden;
-    height: 75px;
+  padding: 0 !important;
+  border-radius: 22px !important;
+  overflow: hidden;
+  height: 75px;
 }
 
 #my-workout-list .MuiCardContent-root .product-info {
-    background-color: #EFEFEF;
-    color: var(--primary);
+  background-color: #efefef;
+  color: var(--primary);
 }
 
 #my-workout-list .MuiCardContent-root .active {
-    background-color: var(--primary) !important;
-    color: #fff !important;
-    transition: 0.5s;   
+  background-color: var(--primary) !important;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #my-workout-list .MuiCardContent-root p.product-name {
-    font-size: 13px;
-    margin: 0;
-    padding-left: 10px;
-    cursor: pointer;
+  font-size: 13px;
+  margin: 0;
+  padding-left: 10px;
+  cursor: pointer;
 }
 
 #my-workout-list .MuiCardContent-root span.MuiRating-root {
-    color: var(--primary);
-    font-size: 13px;
-    padding-left: 10px;
+  color: var(--primary);
+  font-size: 13px;
+  padding-left: 10px;
 }
 
 #my-workout-list .MuiCardContent-root .MuiBox-root-1 {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 #my-workout-list #card-list img.MuiGridListTile-imgFullHeight {
-    height: 95px !important;
+  height: 95px !important;
 }
 
 #my-workout-list .my-video-time {
-    z-index: 1;
-    font-size: 11px;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+  z-index: 1;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 #my-workout-list .my-video-time img {
-    padding-right: 3px;
+  padding-right: 3px;
 }
 
 #my-workout iframe {
-    border-radius: 22px;
-    box-shadow: 0px 0px 10px #00000060;
-    width: 100%;
-    height: 410px;
+  border-radius: 22px;
+  box-shadow: 0px 0px 10px #00000060;
+  width: 100%;
+  height: 410px;
 }
 
 .workout-tabs ul.react-tabs__tab-list {
-    border: none !important;
-    background: #00D1CD !important;
-    color: #fff;
-    font-size: 11px;
-    border-radius: 22px !important;
-    list-style: none;
-    padding: 0;
-    height: 40px;
-    margin-bottom: 20px;
-    width: 100%;
+  border: none !important;
+  background: #00d1cd !important;
+  color: #fff;
+  font-size: 11px;
+  border-radius: 22px !important;
+  list-style: none;
+  padding: 0;
+  height: 40px;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .workout-tabs li.react-tabs__tab {
-    width: 33.33% !important;
-    text-align: center !important;
-    display: inline-block;
-    height: 40px;
-    padding: 12px 0;
-    font-weight: 700;
-    cursor: pointer;
+  width: 33.33% !important;
+  text-align: center !important;
+  display: inline-block;
+  height: 40px;
+  padding: 12px 0;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .workout-tabs .react-tabs__tab--selected {
-    border-radius: 22px !important;
-    border: none !important;
-    bottom: 0 !important;
-    background: var(--primary) !important;
-    color: #fff !important;
+  border-radius: 22px !important;
+  border: none !important;
+  bottom: 0 !important;
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 
 .desc-text {
-    margin-bottom: 5px;
-    font-size: 12px;
+  margin-bottom: 5px;
+  font-size: 12px;
 }
 
 #my-workout .fav-fill-icon {
-    background: #00D1CD;
-    color: #fff;
-    padding: 10px;
-    height: 40px;
-    width: 40px;
-    border-radius: 22px;
-    margin-left: 5px;
+  background: #00d1cd;
+  color: #fff;
+  padding: 10px;
+  height: 40px;
+  width: 40px;
+  border-radius: 22px;
+  margin-left: 5px;
 }
 
 .cal-button {
-    border-radius: 22px;
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
-    font-size: 12px;
-    width: 25%;
+  border-radius: 22px;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  font-size: 12px;
+  width: 25%;
 }
 
 .workout-button {
-    border-radius: 22px;
-    background-color: #00d1cd !important;
-    border-color: #00d1cd !important;
-    font-size: 12px;
-    width: 75%;
+  border-radius: 22px;
+  background-color: #00d1cd !important;
+  border-color: #00d1cd !important;
+  font-size: 12px;
+  width: 75%;
 }
 
 #membership-list li.MuiGridListTile-root {
-    height: 240px !important;
+  height: 240px !important;
 }
 
 #membership-list .MuiGridListTileBar-title {
-    font-size: 16px !important;
+  font-size: 16px !important;
 }
 
 #membership-card li.MuiGridListTile-root {
-    width: 100% !important;
-    height: 480px !important;
+  width: 100% !important;
+  height: 480px !important;
 }
 
-#membership-card .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
-    height: 150px;
+#membership-card
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
+  height: 150px;
 }
 
 #membership-card .MuiGridListTileBar-title {
-    font-size: 30px !important;
-    margin: 0 10px;
-    line-height: normal;
+  font-size: 30px !important;
+  margin: 0 10px;
+  line-height: normal;
 }
 
 #membership-card .MuiGridListTileBar-subtitle li {
-    margin: 6px 0;
-    font-size: 12px;
+  margin: 6px 0;
+  font-size: 12px;
 }
 
 select#workout-select {
-    border: none !important;
-    background: #00d1cd;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    padding: 10px 15px;
-    color: #fff !important;
+  border: none !important;
+  background: #00d1cd;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  color: #fff !important;
 }
 
 #workoutCategory-select .MuiInput-underline:before {
-    display: none;
+  display: none;
 }
 #workoutCategory-select .MuiInput-underline:after {
-    display: none;
+  display: none;
 }
 
 #workoutCategory-select option {
-    color: #000;
+  color: #000;
 }
 
 #workoutCategory-select option:focus {
-    color: #fff;
-    background-color: var(--primary) !important;
+  color: #fff;
+  background-color: var(--primary) !important;
 }
 
 #workoutCategory-select svg.MuiSvgIcon-root.MuiSelect-icon {
-    color: #fff;
-    top: 10px;
-    right: 10px;
+  color: #fff;
+  top: 10px;
+  right: 10px;
 }
 
 #all-workout-list img.MuiGridListTile-imgFullHeight {
-    bottom: 22px;
+  bottom: 22px;
 }
 #my-workout-list svg#fav-icon {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    z-index: 1;
-    cursor: pointer;
-    font-size: 16px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 16px;
 }
-
 
 /*
 global search
 */
 
 .suggestion-text {
-    position: absolute;
-    text-align: center;
-    width: 87%;
-    padding: 5px;
-    background: #00d1cd;
-    color: #fff;
-    z-index: 1;
-    border-radius: 10px;
-    transition: 0.5s;
-    box-shadow: 0px 8px 5px -5px #00000080;
-    top: 18%;
-    left: 6%;
+  position: absolute;
+  text-align: center;
+  width: 87%;
+  padding: 5px;
+  background: #00d1cd;
+  color: #fff;
+  z-index: 1;
+  border-radius: 10px;
+  transition: 0.5s;
+  box-shadow: 0px 8px 5px -5px #00000080;
+  top: 18%;
+  left: 6%;
 }
 
 div#global-list {
-    height: 430px;
-    overflow-y: scroll;
+  height: 430px;
+  overflow-y: scroll;
 }
 
 /* width */
 
 #global-list::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 /* Track */
 
 #global-list::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 15px #fff;
-    border-radius: 10px;
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
 }
 
 /* Handle */
 
 #global-list::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
+  background: var(--primary);
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 
 #global-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+  background: var(--primary);
 }
 
 #global-list li.MuiGridListTile-root {
-    width: 25% !important;
-    height: 272px !important;
+  width: 25% !important;
+  height: 272px !important;
 }
 
 .global-Togglebar {
-    width: 100%;
-    background: #efefef;
-    display: inline-block;
-    border-radius: 25px;
-    text-align: right;
+  width: 100%;
+  background: #efefef;
+  display: inline-block;
+  border-radius: 25px;
+  text-align: right;
 }
 
 .global-Togglebar .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 #global-list .sb-avatar.sb-avatar--text {
-    width: 100% !important;
-    height: 80% !important;
+  width: 100% !important;
+  height: 80% !important;
 }
 
 #global-list .sb-avatar__text {
-    width: 100% !important;
-    height: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 /* slot css */
 
 input.choseSlotInput {
-    margin-right: 10px;
-    margin-top: 25px;
+  margin-right: 10px;
+  margin-top: 25px;
 }
 
-input.choseSlotInput:checked~label {
-    /* border-color: #4062F6; */
-    background-color: var(--primarysecond);
-    color: #fff;
+input.choseSlotInput:checked ~ label {
+  /* border-color: #4062F6; */
+  background-color: var(--primarysecond);
+  color: #fff;
 }
 
 label.choseSlotLable {
-    width: 90%;
-    padding: 15px 20px;
-    border-radius: 6px;
-    border: 2px solid transparent;
-    background-color: rgba(0, 0, 0, 0.09);
-    transition: all 300ms ease-in;
+  width: 90%;
+  padding: 15px 20px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-color: rgba(0, 0, 0, 0.09);
+  transition: all 300ms ease-in;
 }
 
-label.choseSlotLable>p {
-    font-size: 16px;
+label.choseSlotLable > p {
+  font-size: 16px;
 }
 
-label.choseSlotLable>p:first-child {
-    font-weight: bold;
-    margin-bottom: 0px;
+label.choseSlotLable > p:first-child {
+  font-weight: bold;
+  margin-bottom: 0px;
 }
 
 label.choseSlotLable:hover {
-    border-color: var(--primarysecond);
+  border-color: var(--primarysecond);
 }
 
 input.appointmentDate {
-    width: 100%;
-    border: 0;
-    padding: 8px;
-    border-radius: 14px;
-    outline: 0;
+  width: 100%;
+  border: 0;
+  padding: 8px;
+  border-radius: 14px;
+  outline: 0;
 }
 
 .dateGroup {
-    margin: 0 5% !important;
+  margin: 0 5% !important;
 }
 
 .dateGroup p {
-    margin-bottom: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--primary);
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary);
 }
 
 .dateGroup .MuiFilledInput-underline:after {
-    display: none;
+  display: none;
 }
 
 .dateGroup .MuiFilledInput-underline:before {
-    display: none;
+  display: none;
 }
 
 .dateGroup .MuiInputBase-formControl {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 
 .dateGroup .MuiFilledInput-input {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 
 /* Consulation / followup slot color */
 
 .MuiChip-root.consultation {
-    background: #3157a3!important;
-    color: #fff!important;
+  background: #3157a3 !important;
+  color: #fff !important;
 }
 
 .MuiChip-root.followup {
-    background: #4f80e2 !important;
-    color: #fff!important;
+  background: #4f80e2 !important;
+  color: #fff !important;
 }
 
 .MuiChip-deleteIcon {
-    color: #fff !important;
+  color: #fff !important;
 }
 .disable-footer-links {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 @media (max-width: 992px) {
-    .notification-Navbar {
-      padding-left: 20px;
-    }
+  .notification-Navbar {
+    padding-left: 20px;
   }
+}
 
-  @media (min-width: 992px) and (max-width: 1350px) {
-    .notification-Menu {
-      transform: translate(-40%);
-    }
-  }
-  
+@media (min-width: 992px) and (max-width: 1350px) {
   .notification-Menu {
-    width: 16rem;
-    max-height: 315px;
-    overflow-y: auto;
+    transform: translate(-40%);
   }
-  .notification-Menu .dropdown-title {
-    font-weight: 700;
-    font-size: 0.825rem;
-    line-height: 1.25rem;
-    padding: 0.5rem 0.75rem;
-    text-transform: uppercase;
-  }
-  
-  .notification-Menu a {
-      color: inherit !important;
-      margin-right: inherit !important;
-      align-items: inherit !important;
-      font-size: inherit !important;
-    }
+}
 
-    .notification-Menu a:hover {
-        background-color: #e8e8e8;
-    }
+.notification-Menu {
+  width: 16rem;
+  max-height: 315px;
+  overflow-y: auto;
+}
+.notification-Menu .dropdown-title {
+  font-weight: 700;
+  font-size: 0.825rem;
+  line-height: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  text-transform: uppercase;
+}
+
+.notification-Menu a {
+  color: inherit !important;
+  margin-right: inherit !important;
+  align-items: inherit !important;
+  font-size: inherit !important;
+}
+
+.notification-Menu a:hover {
+  background-color: #e8e8e8;
+}
 .react-calendar {
-    padding-top: 9px;
+  padding-top: 9px;
 }
 
 .helper {
-    --reactour-accent: #5cb7b7 !important;
-    line-height: 1.3;
-    color: #2d2323;
-  }
+  --reactour-accent: #5cb7b7 !important;
+  line-height: 1.3;
+  color: #2d2323;
+}
 
-
-  button.howToBtn {
-    border-radius: 22px;
-    position: absolute;
-    right: 30px;
-    top: 5px;
-    background: var(--primary);
-    color: #fff;
-    border: 0;
-    padding: 5px 20px;
+button.howToBtn {
+  border-radius: 22px;
+  position: absolute;
+  right: 30px;
+  top: 5px;
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  padding: 5px 20px;
 }
 
 sup {
-    color: red;
-    font-size: 15px;
-    top: -1px !important;
-    left: 2px;
-  }
+  color: red;
+  font-size: 15px;
+  top: -1px !important;
+  left: 2px;
+}
 
-  .price sup {
-    color: var(--primary);
-    font-size: 35px;
-    top: -15px !important;
-    left: 0 !important;
+.price sup {
+  color: var(--primary);
+  font-size: 35px;
+  top: -15px !important;
+  left: 0 !important;
 }
 /* Filter Box */
 
 .filter-box {
-    background: #fff;
-    border-radius: 22px;
-    padding: 20px 5px;
-    position: absolute;
-    width: 87% !important;
-    z-index: 2;
-    display: block;
-    margin-top: 60px;
-    text-align: left;    
-    box-shadow: 0px 0px 10px #ddd;
+  background: #fff;
+  border-radius: 22px;
+  padding: 20px 5px;
+  position: absolute;
+  width: 87% !important;
+  z-index: 2;
+  display: block;
+  margin-top: 60px;
+  text-align: left;
+  box-shadow: 0px 0px 10px #ddd;
 }
 
 button.apply-btn {
-    background-color: var(--primarysecond) !important;
-    width: 100%;
-    border-radius: 30px;
-    border-color: var(--primarysecond) !important;
-    color: var(--secondary) !important;
-    outline: none !important;
-    box-shadow: none !important;
-    font-size: 13px;
+  background-color: var(--primarysecond) !important;
+  width: 100%;
+  border-radius: 30px;
+  border-color: var(--primarysecond) !important;
+  color: var(--secondary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
 }
 
 button.reset-btn {
-    background-color: #00d1cd !important;
-    width: 100%;
-    border-radius: 30px;
-    border-color: #00d1cd !important;
-    outline: none !important;
-    box-shadow: none !important;
-    font-size: 13px;
+  background-color: #00d1cd !important;
+  width: 100%;
+  border-radius: 30px;
+  border-color: #00d1cd !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
 }
 
 .filter-box .MuiFilledInput-underline:after {
-    display: none;
+  display: none;
 }
 
 .filter-box .MuiFilledInput-underline:before {
-    display: none;
+  display: none;
 }
 
 .filter-box .MuiInputBase-formControl {
-    border-radius: 30px;
-    text-align: left;
-    margin-bottom: 5px;
+  border-radius: 30px;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
 .filter-box .MuiFilledInput-input {
-    padding: 5px 10px !important;
-    font-size: 14px;
+  padding: 5px 10px !important;
+  font-size: 14px;
 }
 
 .filter-body p {
-    margin: 0 !important;
-    font-size: 14px;
+  margin: 0 !important;
+  font-size: 14px;
 }
 
 .filter-multiselect div {
-    border: none;
-    background: #e8e8e8;
-    border-radius: 22px !important;
-    margin-bottom: 5px;
+  border: none;
+  background: #e8e8e8;
+  border-radius: 22px !important;
+  margin-bottom: 5px;
 }
 
 /* btn primary */
 
 .btn-primary {
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
-  }
-  
-  button a {
-    color: var(--primary) !important;
-  }
-  
-  .record-tabs.nav-tabs .nav-link.active {
-    background-color: var(--primary) !important;
-    color: #fff;
-  }
-  
-  .record-tabs.nav-tabs .nav-link {
-    background-color:#efefef  !important;
-    color: var(--primary);
-  }
-
-  #prescription-list tbody tr {
-    border-bottom: 1px solid #fff;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
 }
-  
-  .pagination .page-item.active .page-link {
-    color: #fff;
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
-  }
-  
-  .pagination .page-link {
-    color: var(--primary);
-  }
-  
-  .MuiMenu-paper li.MuiButtonBase-root {
-    color: #000 !important;
-  }
-  
-  .MuiMenu-paper li.MuiButtonBase-root:hover {
-    color: #fff !important;
-    background-color: var(--primary) !important;
-  }
 
-  .MuiFormControlLabel-root span {
-    font-size: 14px !important;
-  }
+button a {
+  color: var(--primary) !important;
+}
 
-  .MuiBadge-colorSecondary {
-    background-color: var(--secondary) !important;
-  }
+.record-tabs.nav-tabs .nav-link.active {
+  background-color: var(--primary) !important;
+  color: #fff;
+}
 
+.record-tabs.nav-tabs .nav-link {
+  background-color: #efefef !important;
+  color: var(--primary);
+}
+
+#prescription-list tbody tr {
+  border-bottom: 1px solid #fff;
+}
+
+.pagination .page-item.active .page-link {
+  color: #fff;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.pagination .page-link {
+  color: var(--primary);
+}
+
+.MuiMenu-paper li.MuiButtonBase-root {
+  color: #000 !important;
+}
+
+.MuiMenu-paper li.MuiButtonBase-root:hover {
+  color: #fff !important;
+  background-color: var(--primary) !important;
+}
+
+.MuiFormControlLabel-root span {
+  font-size: 14px !important;
+}
+
+.MuiBadge-colorSecondary {
+  background-color: var(--secondary) !important;
+}
 
 #multiselectContainerReact span {
-    background: var(--primary);
+  background: var(--primary);
 }
 
-#multiselectContainerReact li.highlight.option, #multiselectContainerReact li.option:hover {
-    background-color: var(--primary) !important;
+#multiselectContainerReact li.highlight.option,
+#multiselectContainerReact li.option:hover {
+  background-color: var(--primary) !important;
 }
 
-#copyright-text a, #nutrition-col a {
-    color: var(--primary);
+#copyright-text a,
+#nutrition-col a {
+  color: var(--primary);
 }
 
 /* Search css */
 
 .searchForwardIcon {
-    position: absolute !important;
-    right: 60px;
-    color: #fff !important;
+  position: absolute !important;
+  right: 60px;
+  color: #fff !important;
 }
 
 /* Questionnaire css */
 
 .button-container button {
-    width: 50%;
-    background-color: #eee9df !important;
-    border-color: #eee9df !important;
-    color: var(--primary) !important;
-    border-radius: 10px;
-    box-shadow: none !important;
+  width: 50%;
+  background-color: #eee9df !important;
+  border-color: #eee9df !important;
+  color: var(--primary) !important;
+  border-radius: 10px;
+  box-shadow: none !important;
 }
-
 
 /* Hide the browser's default checkbox */
 .checkbox-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #eee;
-    border: 1px solid #00000060;
-  }
-  
-  /* On mouse-over, add a grey background color */
-  .checkbox-container:hover input ~ .checkmark {
-    background-color: #ccc;
-  }
-  
-  /* When the checkbox is checked, add a blue background */
-  .checkbox-container input:checked ~ .checkmark {
-    background-color: #00d0cc;
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  /* Style the checkmark/indicator */
-  .checkbox-container .checkmark:after {
-    left: 6px;
-    top: 3px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
 
-  .checkbox-container {
-      display:block;
-      position: relative;
-    padding-left: 30px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border: 1px solid #00000060;
+}
 
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
 
-  /* mydoctor calendar */
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #00d0cc;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+  left: 6px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* mydoctor calendar */
 
 button.react-calendar__tile--active.react-calendar__tile.react-calendar__month-view__days__day {
-    background: var(--primarysecond) !important;
-    border: 1px solid #fff !important;
+  background: var(--primarysecond) !important;
+  border: 1px solid #fff !important;
 }
 
 button.react-calendar__tile--active.react-calendar__tile.react-calendar__month-view__days__day:disabled {
-    background-color: #f0f0f0  !important;
-    border: none !important;
+  background-color: #f0f0f0 !important;
+  border: none !important;
 }
 ul.react-tabs__tab-list {
-    border: none !important;
-    background: var(--primarysecond) !important;
-    border-radius: 22px !important;
+  border: none !important;
+  background: var(--primarysecond) !important;
+  border-radius: 22px !important;
 }
 
 li.react-tabs__tab {
-    width: 33.33% !important;
-    text-align: center !important;
+  width: 33.33% !important;
+  text-align: center !important;
 }
 
 .react-tabs__tab--selected {
-    border-radius: 22px !important;
-    border: none !important;
-    bottom: 0 !important;
-    background: var(--primary) !important;
-    color: #fff !important;
+  border-radius: 22px !important;
+  border: none !important;
+  bottom: 0 !important;
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 
 .location-details p {
-    font-size: 14px;
-    margin: 0;
+  font-size: 14px;
+  margin: 0;
 }
 
 .location .sb-avatar__text {
-    width: auto !important;
-    height: 150px !important;
-    line-height: initial !important;
-    text-align: center !important;
-    color: var(--primary) !important;
-    background: #eee !important;
+  width: auto !important;
+  height: 150px !important;
+  line-height: initial !important;
+  text-align: center !important;
+  color: var(--primary) !important;
+  background: #eee !important;
 }
 
 .location .sb-avatar__text span {
-    font-size: 40px;
+  font-size: 40px;
 }
 
 .fulldetails h5 {
-    color: var(--primary);
-    font-size: 20px;
-    font-weight: 700;
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 700;
 }
 #foot-icon svg {
-    color: #fff;
-    background: #00d0cc;
-    border-radius: 50%;
-    padding: 4px;
-    font-size: 30px !important;
-    margin: 2px 0 0 10px;
+  color: #fff;
+  background: #00d0cc;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 30px !important;
+  margin: 2px 0 0 10px;
 }

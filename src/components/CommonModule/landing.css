@@ -6,11 +6,11 @@
 :root {
   --primary: #00d0cc;
   --primarysecond: #f6ceb4;
-  --secondary: #FF6563;
+  --secondary: #ff6563;
 }
 
 * {
-  font-family: "Avenir", sans-serif;
+  font-family: 'Avenir', sans-serif;
 }
 
 body {
@@ -24,7 +24,7 @@ body {
 nav#navbar {
   background-color: var(--primary);
   padding-top: 30px;
-    padding-bottom: 30px;
+  padding-bottom: 30px;
 }
 
 a.nav-link.active {
@@ -33,11 +33,11 @@ a.nav-link.active {
 
 #navbar a {
   color: #fff;
-  margin-right: 15px;
+  margin-right: 18px;
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .header-btn {
@@ -213,7 +213,7 @@ div#social-icon {
   bottom: 0;
   width: 100%;
   padding: 10px 0;
-  font-family: "Avenir", sans-serif;
+  font-family: 'Avenir', sans-serif;
   z-index: 1;
 }
 
@@ -229,7 +229,7 @@ div#social-icon {
 }
 
 .MuiBottomNavigationAction-label {
-  font-family: "Avenir", sans-serif !important;
+  font-family: 'Avenir', sans-serif !important;
   font-size: 12px !important;
   font-weight: 700;
 }
@@ -651,7 +651,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 46%;
@@ -719,7 +719,7 @@ img.card-img-top {
 #patient-card .card-body {
   position: absolute;
   bottom: 0;
-  color: #EEE9DF;
+  color: #eee9df;
   background-color: var(--primary);
   width: 100%;
   height: 130px;
@@ -1275,7 +1275,8 @@ button.btn.btn-outline-primary.sign-btn:hover {
   pointer-events: none;
 }
 
-#copyright-text a, #nutrition-col a {
+#copyright-text a,
+#nutrition-col a {
   color: var(--primary);
 }
 
@@ -1292,6 +1293,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
   margin: 2px 0 0 10px;
 }
 
-.multiselect .highlight.option, .multiselect .option:hover {
-  background: var(--primary)!important;
+.multiselect .highlight.option,
+.multiselect .option:hover {
+  background: var(--primary) !important;
 }
