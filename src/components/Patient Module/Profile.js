@@ -474,7 +474,7 @@ const Profile = () => {
                                                 onChange={e => handleInputChange(e)}
                                                 value={weight}
                                                 inputProps={{
-                                                    min: 0,
+                                                    min: 5,
                                                     max: 999
                                                 }}
                                                 variant="filled" />
@@ -485,7 +485,7 @@ const Profile = () => {
                                                 onChange={e => handleInputChange(e)}
                                                 value={height}
                                                 inputProps={{
-                                                    min: 0,
+                                                    min: 30,
                                                     max: 250
                                                 }}
                                                 variant="filled" />
@@ -500,7 +500,7 @@ const Profile = () => {
                                                 onChange={e => handleInputChange(e)}
                                                 value={highBp}
                                                 inputProps={{
-                                                    min: 0,
+                                                    min: 50,
                                                     max: 300
                                                 }}
                                                 variant="filled" />
@@ -511,7 +511,7 @@ const Profile = () => {
                                                 onChange={e => handleInputChange(e)}
                                                 value={lowBp}
                                                 inputProps={{
-                                                    min: 0,
+                                                    min: 50,
                                                     max: 200
                                                 }}
                                                 variant="filled" />
