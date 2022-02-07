@@ -86,7 +86,7 @@ const MyDoctor = (props) => {
 
   const [searchText, setSearchText] = useState("");
   const [filterData, setFilterData] = useState(users);
-  const [specialityArray, setSpecialityArray] = useState({
+  const [specialityArray] = useState({
     name: [],
   });
   const { name } = specialityArray;
@@ -123,6 +123,7 @@ const MyDoctor = (props) => {
           setCurrentPatient({ ...currentPatient, id: currentPatientId });
           loadUsers(currentPatientId);
         }
+        return value;
       });
     }
   };
@@ -144,6 +145,7 @@ const MyDoctor = (props) => {
           if (value.doctor) {
             doctorArray.push(value.doctor);
           }
+          return value;
         });
       setFilterData(doctorArray);
       setdoctor(doctorArray.length > 0 && doctorArray[0]);
@@ -271,15 +273,16 @@ const MyDoctor = (props) => {
       );
       if (result && result.data) {
         // var existingUsersList = [];
-        var existingUsersList = users;
+        var existingUsersList1 = users;
         result.data &&
           result.data.doctors.map((newData) => {
-            existingUsersList.push(newData);
+            existingUsersList1.push(newData);
           });
         setOffset(offset + 1);
-        setUser(existingUsersList);
-        setFilterData(existingUsersList);
+        setUser(existingUsersList1);
+        setFilterData(existingUsersList1);
       }
+      return existingUsersList;
     }
   };
 
@@ -333,6 +336,7 @@ const MyDoctor = (props) => {
       });
       setSpeciality({ ...speciality, specialityOptions: res.data });
     }
+    return name;
   };
 
   useEffect(() => {
@@ -443,6 +447,7 @@ const MyDoctor = (props) => {
             slotId: slot.id + slots[i + 1].id,
           });
         }
+        
       });
     }
     setCombinedSlots(combinedArray);

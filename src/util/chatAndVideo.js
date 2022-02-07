@@ -84,8 +84,8 @@ function isAppoinmentTimeUnderActiveCondition(appointmentDetailsObject, setActiv
     const { endTime, startTime } = appointmentDetailsObject[current];
     const appointmentStartTimeInutc = new Date(startTime).getTime(); // change startTime: "2021-09-15T20:49:00Z" to milisecon utc 88383828838382
     const appointmentEndTimeInutc = new Date(endTime).getTime();
-    chatButton = chatButton || appointmentStartTimeInutc + chatTiming.before <= timeNowUtc && timeNowUtc <= appointmentEndTimeInutc + chatTiming.after;
-    videoButton = videoButton || appointmentStartTimeInutc + videoTiming.before <= timeNowUtc && timeNowUtc <= appointmentEndTimeInutc + videoTiming.after;
+    chatButton = (chatButton || appointmentStartTimeInutc + chatTiming.before <= timeNowUtc) && (timeNowUtc <= appointmentEndTimeInutc + chatTiming.after);
+    videoButton = (videoButton || appointmentStartTimeInutc + videoTiming.before <= timeNowUtc) && (timeNowUtc <= appointmentEndTimeInutc + videoTiming.after);
   });
   setActiveButton({ chatButton, videoButton }); // function to set active or deactive button for showing 
 

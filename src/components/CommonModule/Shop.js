@@ -49,7 +49,7 @@ const Shop = () => {
     const [filterProducts, setFilterProducts] = useState();
     const [selectedProduct, setSelectedProduct] = useState();
     const [subCategories, setSubCategories] = useState();
-    const [selectedCategory, setSelectedCategory] = useState("Wearable");
+    const [setSelectedCategory] = useState("Wearable");
 
     const [productQuantity, setProductQuantity] = useState(1);
 
@@ -114,6 +114,7 @@ const Shop = () => {
             setProducts(result.data);
             loadSingleProduct(result.data[0].id);
         }
+        return loadSaleProduct;
     }
 
     const handleChange = (panel) => async (event, newExpanded) => {

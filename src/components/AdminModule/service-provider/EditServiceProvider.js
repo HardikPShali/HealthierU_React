@@ -77,8 +77,10 @@ const EditServiceProvider = props => {
         serviceCategories.length > 0 &&
             serviceCategories.map((category, index) => {
                 if (title === category.title) newArray.push(category);
+                return  handleCategoryChange;
             });
         setServiceProvider({ ...serviceProvider, categories: newArray });
+       
     };
     console.log("serviceProvider", serviceProvider);
 

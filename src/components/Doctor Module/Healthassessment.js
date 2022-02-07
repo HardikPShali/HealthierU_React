@@ -32,7 +32,7 @@ const Healthassessment = (props) => {
 
     //console.log("Props patient Data ::", props);
 
-    const { id } = useParams();
+    //const { id } = useParams();
 
     const topicSet = new Set();
     const [questionnaire, setQuestionnaire] = useState(null);

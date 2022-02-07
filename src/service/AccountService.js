@@ -147,9 +147,6 @@ export const sendOtpEmail = async () => {
 }
 
 export const verifyOtp = async (otp) => {
-    const data = {
-        key: otp
-    }
     var payload = {
         method: 'post',
         mode: 'no-cors',
@@ -158,6 +155,7 @@ export const verifyOtp = async (otp) => {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
         }
+        
     };
     const response = await axios(payload).then(res => {
         if (res) {

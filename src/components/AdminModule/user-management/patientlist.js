@@ -88,6 +88,7 @@ const PatientList = () => {
       setUserList(existingUsersList);
       setFilterData(existingUsersList);
     }
+    return result;
   }
 
 

@@ -43,7 +43,7 @@ const DoctorDocument = (props) => {
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
     const [prescriptionDocumentUrl, setPrescriptionDocumentUrl] = useState("");
     const [labDocumentUrl, setLabDocumentUrl] = useState("");
-    const [defaultPrescriptionDocumentUrl, setDefaultPrescriptionDocumentUrl] = useState("");
+    const [setDefaultPrescriptionDocumentUrl] = useState("");
     const [presecriptionDocument, setPresecriptionDocument] = useState({
         totalItems: 0,
         totalPages: 0,

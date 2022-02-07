@@ -52,7 +52,7 @@ const DoctorList = () => {
     cookies.remove("authorities", { path: "/" });
   }, []);
 
-  const [offset, setOffset] = useState(0);
+  const [offset] = useState(0);
   // const getUserList = (pageNumber) => {
   const getUserList = async () => {
     const res = await getPaginatedDoctorList(offset, doctorListLimit).catch(
@@ -102,6 +102,7 @@ const DoctorList = () => {
       setSearchText(searchValue);
       searchData(searchValue);
     }
+    return handleSearch;
   };
 
   const handleSearchInputChange = (searchValue) => {
@@ -168,6 +169,7 @@ const DoctorList = () => {
     //     checkAccessToken();
     //   }
     // })
+    return result;
   };
 
   const setCookies = (authority) => {
@@ -205,6 +207,7 @@ const DoctorList = () => {
         setActiveDialog(true);
       }
     }
+    return activateDoctor;
   };
 
   const deactivateDoctor = async (selectedUser) => {
@@ -230,6 +233,7 @@ const DoctorList = () => {
         setActiveDialog(true);
       }
     }
+    return deactivateDoctor;
   };
 
   return (

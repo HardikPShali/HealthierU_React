@@ -196,6 +196,7 @@ class QuestionnaireView extends React.Component {
     };
 
     //console.log(await saveQuestionAnswer(data));
+    return data;
   }
 
   async handleCheckBoxEvent(event) {
@@ -204,9 +205,10 @@ class QuestionnaireView extends React.Component {
     //console.log(event.target.id)
     //console.log(event)
     const currentUserId = this.state.currentPatientUser.id;
-    var data = '';
+    
 
     if (event.target.name === '') {
+      var data = '';
       data = {
         answer: event.target.checked === true ? 'Y' : 'N',
         patientId: currentUserId,

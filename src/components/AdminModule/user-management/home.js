@@ -191,7 +191,7 @@ const Home = () => {
     }
   };
 
-  const [uploadData, setUploadData] = useState();
+  const [setUploadData] = useState();
   const handleFileChange = (e) => {
     setUploadData(e.target.files);
   };

@@ -13,8 +13,9 @@ export const saveQuestion = async (data) => {
     }
 
     const methodType =  data.get('id') ? 'PUT' : 'POST';
-    let dataObj;
+    
     if(data.get('id')) {
+        let dataObj;
         dataObj = {
             
         }

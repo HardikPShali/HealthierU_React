@@ -57,6 +57,7 @@ const Header = (props) => {
         }
       });
     }
+    return res;
   };
   // const handleClickOpen = () => {
   //   setTimezone({

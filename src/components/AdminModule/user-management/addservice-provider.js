@@ -158,10 +158,10 @@ const AddServiceProvider = () => {
             title: title,
             profilePicture: profilePicture
         }
-        //console.log("serviceProviderData :::  ", serviceProviderData)
-        // e.preventDefault();
-        // await axios.post("http://localhost:3003/users", user);
-        // history.push("/");
+        console.log("serviceProviderData :::  ", serviceProviderData)
+         e.preventDefault();
+         //await axios.post("http://localhost:3003/users", user);
+         /*history.push("/");*/
     };
     const centers = {
         lat: lat,

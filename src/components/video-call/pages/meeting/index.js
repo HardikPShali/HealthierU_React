@@ -55,16 +55,8 @@ const Meeting = (props) => {
 
   const cookies = new UniversalCookies();
   const currentLoggedInUser = cookies.get("currentUser");
-  //console.log("currentLoggedInUser :::::", currentLoggedInUser);
-  const { authorities = [] } = currentLoggedInUser || {}
-  // const getRedirectUrl = () => {
-  //   if (authorities.some((user) => user === "ROLE_PATIENT")) {
-  //     return ('/patient/chat');
-  //   }
-  //   if (authorities.some((user) => user === "ROLE_DOCTOR")) {
-  //     return ('/doctor/chat');
-  //   }
-  // }
+  console.log("currentLoggedInUser :::::", currentLoggedInUser);
+  //const { authorities = [] } = currentLoggedInUser || {}
 
   // Initialize the options from cookies (set from index.js and precall.js)
 

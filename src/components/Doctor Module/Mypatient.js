@@ -304,6 +304,7 @@ const Mypatient = (props) => {
                                                                 </tr>
                                                             </>)
                                                         }
+                                                        
                                                     }
                                                     else if ((user.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) && (user.unifiedAppointment === (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment))) {
                                                         if (user && user.patient) {
@@ -339,7 +340,7 @@ const Mypatient = (props) => {
                                                             </>)
                                                         }
                                                     }
-
+                                                    return activeAppointments;
                                                 })}
                                                 <tr>
                                                     <td colSpan={4} style={{ width: '100%' }}>
@@ -396,6 +397,7 @@ const Mypatient = (props) => {
                                                                 </tr>
                                                             </>)
                                                         }
+                                                        
                                                     }
                                                     else if ((user.unifiedAppointment !== (pastAppointments[index + 1] && pastAppointments[index + 1].unifiedAppointment)) && (user.unifiedAppointment === (pastAppointments[index - 1] && pastAppointments[index - 1].unifiedAppointment))) {
                                                         if (user && user.patient) {
@@ -431,6 +433,7 @@ const Mypatient = (props) => {
                                                             </>)
                                                         }
                                                     }
+                                                    return pastAppointments;
                                                 })}
 
                                                 <tr>
