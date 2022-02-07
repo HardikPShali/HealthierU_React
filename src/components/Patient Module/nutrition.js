@@ -56,7 +56,7 @@ const Nutrition = () => {
 
     const [doctorList, setDoctorList] = useState([]);
 
-    console.log("doctorList: ", doctorList)
+    // console.log("doctorList: ", doctorList)
 
     const handleInputChange = (e) => {
         setBmiInfo({ ...bmiInfo, [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value });
@@ -283,7 +283,7 @@ const Nutrition = () => {
                                         <Row className="m-0">
                                             <Col xs={4} className="p-0">Age</Col>
                                             <Col xs={4} className="pl-0 pr-1">
-                                                <input type="number" value={age} name="age" onChange={(e) => handleInputChange(e)} className="pl-2 pr-2" />
+                                                <input type="number" min="0" value={age} name="age" onChange={(e) => handleInputChange(e)} className="pl-2 pr-2" />
                                             </Col>
                                             <Col xs={4} className="p-0"><small>Ages: 2 - 120</small></Col>
                                         </Row>
@@ -311,7 +311,7 @@ const Nutrition = () => {
                                         <Row className="m-0">
                                             <Col xs={4} className="p-0">Height</Col>
                                             <Col xs={8} className="pl-0 pr-1">
-                                                <input type="number" value={height} name="height" onChange={(e) => handleInputChange(e)} className="pl-2 pr-2" />
+                                                <input type="number" min="0" value={height} name="height" onChange={(e) => handleInputChange(e)} className="pl-2 pr-2" />
                                             </Col>
                                         </Row>
                                     </div>
@@ -320,7 +320,7 @@ const Nutrition = () => {
                                         <Row className="m-0">
                                             <Col xs={4} className="p-0">Weight</Col>
                                             <Col xs={8} className="pl-0 pr-1">
-                                                <input type="number" value={weight} name="weight" onChange={(e) => handleInputChange(e)} className="pl-2 pr-2" />
+                                                <input type="number" min="0" value={weight} name="weight" onChange={(e) => handleInputChange(e)} className="pl-2 pr-2" />
                                             </Col>
                                         </Row>
                                     </div>

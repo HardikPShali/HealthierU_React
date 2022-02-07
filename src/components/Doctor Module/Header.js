@@ -55,6 +55,7 @@ const Header = (props) => {
         if (value && value.doctorTimeZone !== systemTimeZone) {
           handleSubmit(value.id, systemTimeZone);
         }
+        return value;
       });
     }
     return res;

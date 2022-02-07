@@ -159,7 +159,7 @@ const DoctorList = () => {
       var existingUsersList = userList;
       result.data &&
         result.data.doctors.map((newData) => {
-          existingUsersList.push(newData);
+          return existingUsersList.push(newData);
         });
       setUserList(existingUsersList);
       setFilterData(existingUsersList);
