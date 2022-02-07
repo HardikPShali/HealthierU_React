@@ -49,7 +49,7 @@ const Shop = () => {
     const [filterProducts, setFilterProducts] = useState();
     const [selectedProduct, setSelectedProduct] = useState();
     const [subCategories, setSubCategories] = useState();
-    const [setSelectedCategory] = useState("Wearable"); //selectedCategory
+    const [selectedCategory, setSelectedCategory] = useState("Wearable"); //selectedCategory
 
     const [productQuantity, setProductQuantity] = useState(1);
 
@@ -190,7 +190,7 @@ const Shop = () => {
 
     return (
         <div>
-            <Container>
+            <Container className='mb-5'>
                 <br />
 
                 <Row className="justify-content-center">
