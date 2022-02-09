@@ -24,9 +24,9 @@ import { Row } from 'react-bootstrap';
 
 $(document).ready(function () {
     $(".upload-button").on('click', function () {
-        $(".file-upload").click();
+      $(".file-upload").click();
     });
-});
+  });
 
 const AnyReactComponent = ({ text }) => <div style={{
     color: 'white',
@@ -158,10 +158,10 @@ const AddServiceProvider = () => {
             title: title,
             profilePicture: profilePicture
         }
-        console.log("serviceProviderData :::  ", serviceProviderData)
-         e.preventDefault();
-         //await axios.post("http://localhost:3003/users", user);
-         /*history.push("/");*/
+        //console.log("serviceProviderData :::  ", serviceProviderData)
+        // e.preventDefault();
+        // await axios.post("http://localhost:3003/users", user);
+        // history.push("/");
     };
     const centers = {
         lat: lat,
@@ -181,7 +181,7 @@ const AddServiceProvider = () => {
                     <ValidatorForm onSubmit={e => onSubmit(e)} id="serviceProvide-form">
                         <Row style={{ justifyContent: 'center' }}>
                             <div className="small-12 medium-2 large-2 columns">
-                                <div className="circle">
+                                <div className="upload-button circle" style={{"cursor" : "pointer"}}>
                                     {/* <!-- User Profile Image --> */}
                                     <img className="profile-pic" src={preview ? preview : user && user.picture ? user.picture : previewImg} alt="" />
                                 </div>

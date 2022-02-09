@@ -92,7 +92,7 @@ const ImageCropper = (props) => {
         <>
 
             <div className="small-12 medium-2 large-2 columns m-auto">
-                <div className="circle">
+                <div className="upload-button circle" style={{"cursor" : "pointer"}}>
                     {/* <!-- User Profile Image --> */}
                     <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
                 </div>
