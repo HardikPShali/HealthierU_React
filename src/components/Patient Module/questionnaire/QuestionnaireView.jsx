@@ -1,21 +1,19 @@
 import React from 'react';
 import '../../questionnaire/Questionnaire.css';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-// import {
-//     saveQuestionAnswer,
-// } from "../../questionnaire/QuestionAnswerService";
-import {
-  getQuestionnaireByCategory,
-  // rif
-} from '../../questionnaire/QuestionnaireService';
+import { getQuestionnaireByCategory } from '../../questionnaire/QuestionnaireService'; // rif
 import {
   getCurrentUserInfo,
   getCurrentPatientInfo,
 } from '../../../service/AccountService';
 import '../patient.css';
+import TransparentLoader from '../../Loader/transparentloader';
+
 // import Footer from '../../Login-Module/Footer';
 // import Header from '../../CommonModule/Header';
-import TransparentLoader from '../../Loader/transparentloader';
+// import {
+//     saveQuestionAnswer,
+// } from "../../questionnaire/QuestionAnswerService";
 
 class QuestionnaireView extends React.Component {
   state = {
@@ -205,7 +203,6 @@ class QuestionnaireView extends React.Component {
     //console.log(event.target.id)
     //console.log(event)
     const currentUserId = this.state.currentPatientUser.id;
-    
 
     if (event.target.name === '') {
       var data = '';

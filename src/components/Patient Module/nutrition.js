@@ -59,6 +59,7 @@ const Nutrition = () => {
     // console.log("doctorList: ", doctorList)
 
     const handleInputChange = (e) => {
+
         setBmiInfo({ ...bmiInfo, [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value });
     }
 
@@ -289,7 +290,7 @@ const Nutrition = () => {
                                         </Row>
                                     </div>
 
-                                    <div id="bmi-gender" className="mb-2">
+                                    <div id="bmi-gender" className="mb-2 fixingRadioIssues">
                                         <Row className="m-0">
                                             <Col xs={4} className="p-0">Gender</Col>
                                             <Col xs={8} className="pl-0 pr-1 align-items-center d-flex" style={{ fontSize: 12 }}>

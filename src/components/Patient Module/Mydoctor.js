@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-// import Footer from "./Footer";
 import { Container, Row, Col } from "react-bootstrap"; //Button
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import TuneIcon from "@material-ui/icons/Tune";
@@ -31,7 +30,6 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paypal from "../CommonModule/Paypal";
 import TransparentLoader from "../Loader/transparentloader";
-// import SearchIcon from "@material-ui/icons/Search";
 import {
   getLoggedInUserDataByUserId,
   getLikedDoctorByPatientId,
@@ -64,6 +62,9 @@ import { firestoreService } from "../../util";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { doctorListLimit } from "../../util/configurations";
 
+// import SearchIcon from "@material-ui/icons/Search";
+// import Footer from "./Footer";
+
 const rightArrow = <FontAwesomeIcon icon={faChevronRight} />;
 
 const MyDoctor = (props) => {
@@ -86,7 +87,7 @@ const MyDoctor = (props) => {
 
   const [searchText, setSearchText] = useState("");
   const [filterData, setFilterData] = useState(users);
-  const [setSpecialityArray,specialityArray] = useState({   // setSpecialityArray
+  const [specialityArray, setSpecialityArray] = useState({   // setSpecialityArray
     name: [],
   });
   const { name } = specialityArray;
@@ -332,11 +333,12 @@ const MyDoctor = (props) => {
     const res = await getSpecialityList();
     if (res && res.data) {
       res.data.map((specialityName) => {
-        return name.push(specialityName.name);
+        name.push(specialityName.name);
+        return res;
       });
       setSpeciality({ ...speciality, specialityOptions: res.data });
     }
-    return name;
+
   };
 
   useEffect(() => {

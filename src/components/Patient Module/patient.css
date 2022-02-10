@@ -3401,3 +3401,8 @@ li.react-tabs__tab {
   font-size: 30px !important;
   margin: 2px 0 0 10px;
 }
+
+/* BMI Calculator Radio Button */
+div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
+  color: #fff !important;
+}
