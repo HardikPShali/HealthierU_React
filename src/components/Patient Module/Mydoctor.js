@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Row, Col } from "react-bootstrap"; //Button
+import { Container, Row, Col } from "react-bootstrap"; //  Button
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import TuneIcon from "@material-ui/icons/Tune";
 import axios from "axios";
@@ -62,8 +62,10 @@ import { firestoreService } from "../../util";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { doctorListLimit } from "../../util/configurations";
 
-// import SearchIcon from "@material-ui/icons/Search";
 // import Footer from "./Footer";
+// import SearchIcon from "@material-ui/icons/Search";
+
+
 
 const rightArrow = <FontAwesomeIcon icon={faChevronRight} />;
 
@@ -87,7 +89,7 @@ const MyDoctor = (props) => {
 
   const [searchText, setSearchText] = useState("");
   const [filterData, setFilterData] = useState(users);
-  const [specialityArray, setSpecialityArray] = useState({   // setSpecialityArray
+  const [specialityArray, setSpecialityArray] = useState({
     name: [],
   });
   const { name } = specialityArray;
@@ -258,7 +260,8 @@ const MyDoctor = (props) => {
         var existingUsersList = filterData;
         res.data &&
           res.data.doctors.map((newData) => {
-            return existingUsersList.push(newData);
+            existingUsersList.push(newData);
+            return newData;
           });
         setOffset(offset + 1);
         setFilterData(existingUsersList);
@@ -274,16 +277,16 @@ const MyDoctor = (props) => {
       );
       if (result && result.data) {
         // var existingUsersList = [];
-        var existingUsersList1 = users;
+        var existingUsersList = users;
         result.data &&
           result.data.doctors.map((newData) => {
-            return existingUsersList.push(newData);
+            existingUsersList.push(newData);
+            return newData;
           });
         setOffset(offset + 1);
-        setUser(existingUsersList1);
-        setFilterData(existingUsersList1);
+        setUser(existingUsersList);
+        setFilterData(existingUsersList);
       }
-      return existingUsersList;
     }
   };
 
@@ -298,7 +301,8 @@ const MyDoctor = (props) => {
       var existingUsersList = filterData;
       result.data &&
         result.data.doctors.map((newData) => {
-          return existingUsersList.push(newData);
+          existingUsersList.push(newData);
+          return newData;
         });
       setLikedOffset(likedOffset + 1);
       setFilterData(existingUsersList);
@@ -334,11 +338,10 @@ const MyDoctor = (props) => {
     if (res && res.data) {
       res.data.map((specialityName) => {
         name.push(specialityName.name);
-        return res;
+        return specialityName;
       });
       setSpeciality({ ...speciality, specialityOptions: res.data });
     }
-
   };
 
   useEffect(() => {
@@ -449,7 +452,7 @@ const MyDoctor = (props) => {
             slotId: slot.id + slots[i + 1].id,
           });
         }
-        return slot;
+        return slots;
       });
     }
     setCombinedSlots(combinedArray);
@@ -529,7 +532,8 @@ const MyDoctor = (props) => {
     if (response.status === 200 || response.status === 201) {
       const datesArray = [];
       response.data.map((inValidDates) => {
-        return datesArray.push(new Date(inValidDates));
+        datesArray.push(new Date(inValidDates));
+        return inValidDates;
       });
       if (datesArray) {
         setDisabledDates(datesArray);
@@ -2059,3 +2063,4 @@ const MyDoctor = (props) => {
 };
 
 export default MyDoctor;
+
