@@ -993,7 +993,7 @@ const MyDoctor = (props) => {
     <div>
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
-      <Container>
+      <Container className="my-doctor">
         <Row>
           <Col md={6} lg={4} style={{ display: display.doctor }}>
             <div id="dorctor-list">

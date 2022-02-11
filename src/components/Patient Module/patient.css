@@ -3184,7 +3184,7 @@ button.reset-btn {
 .filter-multiselect div {
   border: none;
   background: #e8e8e8;
-  border-radius: 22px !important;
+  border-radius: 20px !important;
   margin-bottom: 5px;
 }
 
@@ -3411,4 +3411,9 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .filter-box .MuiFilledInput-input {
   padding: 5px 5px !important;
   font-size: 14px;
+}
+
+.searchBox {
+  width: 100%;
+  max-height: 50px;
 }
