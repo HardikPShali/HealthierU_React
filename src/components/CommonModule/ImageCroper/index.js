@@ -92,7 +92,7 @@ const ImageCropper = (props) => {
         <>
 
             <div className="small-12 medium-2 large-2 columns m-auto">
-                <div className="upload-button circle" style={{ cursor: "pointer" }}>
+                <div className="circle upload-button" style={{ cursor: 'pointer' }}>
                     {/* <!-- User Profile Image --> */}
                     <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
                 </div>
@@ -103,6 +103,7 @@ const ImageCropper = (props) => {
                         variant="filled" />
                 </div>
             </div>
+
             <div style={{ fontSize: '12px', color: 'red', textAlign: 'center' }}>{msg}</div>
             <br />
 
@@ -180,3 +181,18 @@ const ImageCropper = (props) => {
     )
 }
 export default withStyles(styles)(ImageCropper)
+
+
+
+// <div className="small-12 medium-2 large-2 columns m-auto">
+//                 <div className="upload-button circle" style={{ cursor: "pointer" }}>
+//                     {/* <!-- User Profile Image --> */}
+//                     <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
+//                 </div>
+
+//                 <div className="p-image">
+//                     <AddAPhotoIcon className="upload-button" />
+//                     <input className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
+//                         variant="filled" />
+//                 </div>
+//             </div>

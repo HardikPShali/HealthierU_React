@@ -3406,3 +3406,9 @@ li.react-tabs__tab {
 div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   color: #fff !important;
 }
+
+/* BUG HU067 resolved */
+.filter-box .MuiFilledInput-input {
+  padding: 5px 5px !important;
+  font-size: 14px;
+}
