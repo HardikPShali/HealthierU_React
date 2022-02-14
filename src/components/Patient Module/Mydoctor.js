@@ -1624,20 +1624,20 @@ const MyDoctor = (props) => {
                         minDate={new Date()} //to disable past days
                         maxDate={
                           new Date(
-                            new Date().setDate(new Date().getDate() + 21)
+                            new Date().setDate(new Date().getDate() + 180)
                           )
                         } // next 3week condition
-                        tileDisabled={({ activeStartDate, date, view }) =>
-                          disabledDates &&
-                          disabledDates.some(
-                            (disabledDate) =>
-                              ////console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::",disabledDate)
-                              date.getFullYear() ===
-                              disabledDate.getFullYear() &&
-                              date.getMonth() === disabledDate.getMonth() &&
-                              date.getDate() === disabledDate.getDate()
-                          )
-                        } // greyout dates
+                      // tileDisabled={({ activeStartDate, date, view }) =>
+                      //   disabledDates &&
+                      //   disabledDates.some(
+                      //     (disabledDate) =>
+                      //       // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
+                      //       date.getFullYear() ===
+                      //       disabledDate.getFullYear() &&
+                      //       date.getMonth() === disabledDate.getMonth() &&
+                      //       date.getDate() === disabledDate.getDate()
+                      //   )
+                      // } // greyout dates
                       />
                     </>
                   )}
