@@ -1526,11 +1526,11 @@ const MyDoctor = (props) => {
                       <span>{doctor.certificates}</span>
                     </p>
                     <br />
-                    <div className="mx-3">
+                    <div className="mx-0">
                       <div className="row">
                         <div className="col-12">
                           <span className="price">
-                            <sup>$</sup>
+                            <span>$</span>
                             <b>
                               {appointment.appointmentMode === "CONSULTATION" ||
                                 appointment.appointmentMode === ""
