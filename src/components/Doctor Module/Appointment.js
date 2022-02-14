@@ -677,7 +677,7 @@ const Myappointment = (props) => {
                                                     onDelete={() => handleAvailableDeleteOpen(appointment)}
                                                     deleteIcon={<CancelIcon />} />)
                                             }
-                                            return appointment;
+
                                         })}
                                     </div>
                                 )}

@@ -1890,7 +1890,7 @@ const MyDoctor = (props) => {
                   <div className="row">
                     <div className="col-12">
                       <span className="price">
-                        <sup>$</sup>
+                        <span>$</span>
                         <b>
                           {appointment.appointmentMode === "CONSULTATION" ||
                             appointment.appointmentMode === ""
@@ -1925,7 +1925,7 @@ const MyDoctor = (props) => {
               <div id="calendar-list">
                 <div id="price-box">
                   <span className="price">
-                    <sup>$</sup>
+                    <span>$</span>
                     <b>
                       {appointment.appointmentMode === "CONSULTATION" ||
                         appointment.appointmentMode === ""
