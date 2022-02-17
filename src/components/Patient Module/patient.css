@@ -605,6 +605,7 @@ span.MuiRating-root {
 span.price {
   color: var(--primary);
   font-size: 35px;
+  
 }
 
 button.continue-btn {
@@ -3134,6 +3135,9 @@ sup {
   margin-top: 60px;
   text-align: left;
   box-shadow: 0px 0px 10px #ddd;
+ height: 100%;
+overflow: scroll;
+  
 }
 
 button.apply-btn {
@@ -3186,7 +3190,11 @@ button.reset-btn {
   background: #e8e8e8;
   border-radius: 22px !important;
   margin-bottom: 5px;
+  
+ 
+  
 }
+
 
 /* btn primary */
 
