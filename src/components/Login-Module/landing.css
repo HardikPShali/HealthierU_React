@@ -108,6 +108,18 @@ b#right-border {
     border-top-right-radius: 0;
 }
 
+#footer-input-arabic {
+    width: 53%;
+    border: none !important;
+    border-radius: 22px;
+    padding: 10px 20px;
+    outline: none;
+    box-shadow: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    direction: rtl;
+}
+
 input.btn.submit-btn {
     padding: 10px 20px;
     background-color: var(--primarysecond);
@@ -627,6 +639,9 @@ div#demo-simple-select {
     #footer-input {
         width: 63% !important;
     }
+    #footer-input-arabic {
+        width: 63% !important;
+    }
     input.btn.submit-btn {
         width: 37% !important;
         right: 6.5% !important;
@@ -847,6 +862,16 @@ div#aboutus-four {
     border-radius: 10px;
     background: #fff;
     box-shadow: 0 0 3px #00000030;
+}
+
+/* Styles for Arabic translation */
+#aboutus-last input#standard-basic-arabic {
+    padding: 10px;
+    border: none !important;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 0 3px #00000030;
+    direction: rtl;
 }
 
 #aboutus-last textarea {

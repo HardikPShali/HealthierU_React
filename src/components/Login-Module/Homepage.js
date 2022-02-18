@@ -13,19 +13,22 @@ import screen2 from '../../images/screen2.png'
 import screen3 from '../../images/screen3.png'
 import home2 from '../../images/home-2.png'
 import home3 from '../../images/home-3.png'
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Loader from './../Loader/Loader';
+import { getArticles } from "../../service/ArticleService";
+import { HOMEPAGE_GETHELP, HOMEPAGE_TAKEACTION, HOMEPAGE_LEARNMORE } from '../../util/constant';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { useTranslation } from 'react-i18next';
+
+
+//import firebase from './../../firebase';
+// import Cookies from 'universal-cookie';
 // import education from '../../images/education.png'
 // import article1 from '../../images/article1.png'
 // import article2 from '../../images/article2.png'
 // import article3 from '../../images/article3.png'
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-// import Cookies from 'universal-cookie';
-import Loader from './../Loader/Loader';
-import { getArticles } from "../../service/ArticleService";
-import { HOMEPAGE_GETHELP, HOMEPAGE_TAKEACTION, HOMEPAGE_LEARNMORE } from '../../util/constant';
-//import firebase from './../../firebase';
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 
 const Homepage = () => {
 
@@ -69,6 +72,8 @@ const Homepage = () => {
         console.log(response?.articlesList);
     }
 
+    const {t} = useTranslation(['home']);
+
     return (
         <div>
             {loading && (
@@ -93,10 +98,10 @@ const Homepage = () => {
                                 <MDBMask overlay="black-light" />
                             </MDBView>
                             <MDBCarouselCaption>
-                                <h3 className="h3-responsive">{HOMEPAGE_GETHELP.TITLE}</h3>
-                                <p className="help-desc">{HOMEPAGE_GETHELP.DESCRIPTION}</p>
+                                <h3 className="h3-responsive">{t(`${HOMEPAGE_GETHELP.TITLE}`)}</h3>
+                                <p className="help-desc">{t(`${HOMEPAGE_GETHELP.DESCRIPTION}`)}</p>
                                 <Link to="/signin">
-                                    <button className="btn btn-light get-started-btn">{HOMEPAGE_GETHELP.BTN_TEXT}</button>
+                                    <button className="btn btn-light get-started-btn">{t(`${HOMEPAGE_GETHELP.BTN_TEXT}`)}</button>
                                 </Link>
                             </MDBCarouselCaption>
                         </MDBCarouselItem>
@@ -110,10 +115,10 @@ const Homepage = () => {
                                 <MDBMask overlay="black-strong" />
                             </MDBView>
                             <MDBCarouselCaption>
-                                <h3 className="h3-responsive">{HOMEPAGE_TAKEACTION.TITLE}</h3>
-                                <p className="help-desc">{HOMEPAGE_TAKEACTION.DESCRIPTION}</p>
+                                <h3 className="h3-responsive">{t(`${HOMEPAGE_TAKEACTION.TITLE}`)}</h3>
+                                <p className="help-desc">{t(`${HOMEPAGE_TAKEACTION.DESCRIPTION}`)}</p>
                                 <Link to="/signin">
-                                    <button className="btn btn-light get-started-btn">{HOMEPAGE_TAKEACTION.BTN_TEXT}</button>
+                                    <button className="btn btn-light get-started-btn">{t(`${HOMEPAGE_TAKEACTION.BTN_TEXT}`)}</button>
                                 </Link>
                             </MDBCarouselCaption>
                         </MDBCarouselItem>
@@ -127,10 +132,10 @@ const Homepage = () => {
                                 <MDBMask overlay="black-slight" />
                             </MDBView>
                             <MDBCarouselCaption>
-                                <h3 className="h3-responsive">{HOMEPAGE_LEARNMORE.TITLE}</h3>
-                                <p className="help-desc">{HOMEPAGE_LEARNMORE.DESCRIPTION}</p>
+                                <h3 className="h3-responsive">{t(`${HOMEPAGE_LEARNMORE.TITLE}`)}</h3>
+                                <p className="help-desc">{t(`${HOMEPAGE_LEARNMORE.DESCRIPTION}`)}</p>
                                 <Link to="/signin">
-                                    <button className="btn btn-light get-started-btn">{HOMEPAGE_LEARNMORE.BTN_TEXT}</button>
+                                    <button className="btn btn-light get-started-btn">{t(`${HOMEPAGE_LEARNMORE.BTN_TEXT}`)}</button>
                                 </Link>
                             </MDBCarouselCaption>
                         </MDBCarouselItem>
@@ -146,13 +151,13 @@ const Homepage = () => {
                             <Card>
                                 <Card.Img variant="top" src={home2} />
                                 <Card.Body>
-                                    <Card.Title>How healthy are you?</Card.Title>
+                                    <Card.Title>{t('How healthy are you?')}</Card.Title>
                                     <Card.Text>
-                                        Find out how you measure with health and<br />
-                                        well-being assessment
+                                        {t('Find out how you measure with health and')}<br />
+                                        {t('well-being assessment')}
                                     </Card.Text>
                                     <Link to="/signin">
-                                        <button variant="primary" className="btn btn-outline-light assessment-btn">Take my assessment</button>
+                                        <button variant="primary" className="btn btn-outline-light assessment-btn">{t('Take my assessment')}</button>
                                     </Link>
                                 </Card.Body>
                             </Card>
@@ -161,12 +166,12 @@ const Homepage = () => {
                             <Card>
                                 <Card.Img variant="top" src={home3} />
                                 <Card.Body>
-                                    <Card.Title>Looking for an expert advise?</Card.Title>
+                                    <Card.Title>{t('Looking for an expert advise?')}</Card.Title>
                                     <Card.Text>
-                                        Check out our available wellness specialists
+                                        {t('Check out our available wellness specialists')}
                                     </Card.Text>
                                     <Link to="/signin">
-                                        <button variant="primary" className="btn btn-outline-light assessment-btn">Meet Our Doctors</button>
+                                        <button variant="primary" className="btn btn-outline-light assessment-btn">{t('Meet Our Doctors')}</button>
                                     </Link>
                                 </Card.Body>
                             </Card>
@@ -179,14 +184,12 @@ const Homepage = () => {
             <Container id="first-box">
                 <Row>
                     <Col md={6} id="col-card">
-                        <h2>Nutrition</h2>
-                        <p id="box-text">Eating smart has never been easier!
+                        <h2>{t('Nutrition')}</h2>
+                        <p id="box-text">{t('Eating smart has never been easier!')}
                             <br />
-                            Customize your meal plan with the click of a button, get in touch with our
-                            registered dietitians and fitness specialists, and get a list of healthy
-                            recipes you can make, all from the comfort of your own home.</p>
+                            {t('Customize your meal plan with the click of a button, get in touch with our registered dietitians and fitness specialists, and get a list of healthy recipes you can make, all from the comfort of your own home.')}</p>
                         <Link to="/signin">
-                            <button className="btn btn-outline-primary know-more-btn">Know More</button>
+                            <button className="btn btn-outline-primary know-more-btn">{t('Know More')}</button>
                         </Link>
                     </Col>
                     <Col md={6} id="bg-img"></Col>
@@ -196,14 +199,12 @@ const Homepage = () => {
                 <Row>
                     <Col md={6} id="bg-img-2"></Col>
                     <Col md={6} id="col-card-2">
-                        <h2>Workout</h2>
-                        <p id="box-text">Build workout plans that fit your schedule and goals!
+                        <h2>{t('Workout')}</h2>
+                        <p id="box-text">{t('Build workout plans that fit your schedule and goals!')}
                             <br />
-                            Our workout plans offer exercises and training routines for newbies and
-                            gym veterans alike. Choose from a list of basic free videos, and subscribe
-                            to any of our memberships to get in touch with our sports specialists.</p>
+                            {t('Our workout plans offer exercises and training routines for newbies and gym veterans alike. Choose from a list of basic free videos, and subscribe to any of our memberships to get in touch with our sports specialists.')}</p>
                         <Link to="/signin" >
-                            <button className="btn btn-outline-primary know-more-btn-2">Know More</button>
+                            <button className="btn btn-outline-primary know-more-btn-2">{t('Know More')}</button>
                         </Link>
                     </Col>
                 </Row>
@@ -218,7 +219,7 @@ const Homepage = () => {
                         Our shopping list will improve the quality of your grocery shopping by making
                         it easier, faster and, most importantly, smarter. Learn more about meditation
                         and mindfulness, and experience less stress, anxiety, and more restful sleep.</p>
-                        <button className="btn btn-outline-primary know-more-btn">Know More</button>
+                        <button className="btn btn-outline-primary know-more-btn">{t('Know More')}</button>
                     </Col>
                     <Col md={6} id="bg-img-3"></Col>
                 </Row>
@@ -226,14 +227,12 @@ const Homepage = () => {
             <Container id="first-box">
                 <Row>
                     <Col md={6} id="col-card">
-                        <h2>Shop</h2>
+                        <h2>{t('Shop')}</h2>
                         <p id="box-text">
-                            Order your own personalized wearables and supplements from our e-commerce shop.
-                            We offer a wide range of health devices and dietary supplements that your mind and
-                            body will thank you for.
+                            {t('Order your own personalized wearables and supplements from our e-commerce shop. We offer a wide range of health devices and dietary supplements that your mind and body will thank you for.')}
                         </p>
                         <Link to="/signin" >
-                            <button className="btn btn-outline-primary know-more-btn">Know More</button>
+                            <button className="btn btn-outline-primary know-more-btn">{t('Know More')}</button>
                         </Link>
                     </Col>
                     <Col md={6} id="bg-img-4"></Col>
@@ -251,7 +250,7 @@ const Homepage = () => {
                                 Lorem ipsum dolor iset eductaion
                             </Card.Text>
                         <Card.Text>
-                            <button className="btn btn-outline-primary know-more-btn">Know More</button>
+                            <button className="btn btn-outline-primary know-more-btn">{t('Know More')}</button>
                         </Card.Text>
                     </Card.ImgOverlay>
                 </Card>
@@ -259,9 +258,9 @@ const Homepage = () => {
             <br />
             <br />*/}
             <Container>
-                <h2 id="Article-title">Articles</h2>
+                <h2 id="Article-title">{t('Articles')}</h2>
                 <p id="Article-text">
-                    Get breaking scientific news and articles on longevity, nutrition, healthtech, agetech, gadgets, and much more.
+                    {t('Get breaking scientific news and articles on longevity, nutrition, healthtech, agetech, gadgets, and much more.')}
                 </p>
                 <br />
                 <br />
@@ -280,17 +279,17 @@ const Homepage = () => {
                             dotListClass="custom-dot-list-style"
                             itemClass="carousel-item-padding-40-px"
                         >
-                            {article && article.length > 0 && article.map((articleItem, index) => (
+                            {article && article.length > 0 && article.map((articleItem) => (
                                 //<Col md={4} key={index}>
                                 <Card key={articleItem.id}>
                                     <Card.Img variant="top" src={articleItem.picture} id="article-card-img" />
                                     <Card.Body id="article-card-body">
-                                        <Card.Title>{articleItem.title} </Card.Title>
+                                        <Card.Title>{t(`${articleItem.title}`)} </Card.Title>
                                         <Card.Text>
                                             {articleItem.description}
                                         </Card.Text>
                                         <p id="button-cover">
-                                            <Link to={{ pathname: `/article/${articleItem.id}` }} style={{ color: "#000" }}>Read More <ArrowForwardIcon /></Link>
+                                            <Link to={{ pathname: `/article/${articleItem.id}` }} style={{ color: "#000" }}>{t('Read More')} <ArrowForwardIcon /></Link>
                                         </p>
                                     </Card.Body>
                                 </Card>
@@ -300,7 +299,7 @@ const Homepage = () => {
                     )}
 
                     {article && article.length === 0 && (
-                        <div>No article found...</div>
+                        <div>{t('No article found...')}</div>
                     )}
                 </div>
             </Container>
