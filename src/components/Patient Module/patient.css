@@ -491,6 +491,7 @@ svg#fav-icon {
   z-index: 1;
   cursor: pointer;
   color: #fff;
+  
 }
 
 .MuiGridListTile-tile {
@@ -539,6 +540,11 @@ div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
 
 input#doctor-search {
   color: #fff;
+  
+}
+input#doctor-search :focus {
+   background-color: #00d1cd !important;
+
 }
 
 #appointment-card {
@@ -1078,6 +1084,7 @@ button.btn.timeSlot:hover {
 }
 .appointment-box .MuiInputBase-formControl {
   border-radius: 10px;
+  
 }
 .appointment-box input#standard-basic {
   padding: 10px;

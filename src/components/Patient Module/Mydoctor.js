@@ -256,6 +256,7 @@ const MyDoctor = (props) => {
         res.data &&
           res.data.doctors.map((newData) => {
             existingUsersList.push(newData);
+            return newData;
           });
         setOffset(offset + 1);
         setFilterData(existingUsersList);
@@ -271,17 +272,19 @@ const MyDoctor = (props) => {
       );
       if (result && result.data) {
         // var existingUsersList = [];
-        var existingUsersList1 = users;
+        var existingUsersList = users;
         result.data &&
           result.data.doctors.map((newData) => {
-            existingUsersList1.push(newData);
+            existingUsersList.push(newData);
+            return newData;
           });
         setOffset(offset + 1);
-        setUser(existingUsersList1);
-        setFilterData(existingUsersList1);
+        setUser(existingUsersList);
+        setFilterData(existingUsersList);
       }
     }
   };
+
 
   // Load more Liked Doctors
   const loadMoreLike = async () => {
@@ -295,6 +298,7 @@ const MyDoctor = (props) => {
       result.data &&
         result.data.doctors.map((newData) => {
           existingUsersList.push(newData);
+          return newData;
         });
       setLikedOffset(likedOffset + 1);
       setFilterData(existingUsersList);
@@ -1036,8 +1040,9 @@ const MyDoctor = (props) => {
                   type="text"
                   value={searchText}
                   id="doctor-search"
-                  
-                  onChange={(value) => handleSearchInputChange(value)}
+                 
+         
+                  onChange={(value) => handleSearchInputChange(value) }
                   onCancelSearch={() => handleSearchInputChange("")}
                   onRequestSearch={() => handleSearchData()}
                   cancelOnEscape={true}
@@ -1884,15 +1889,15 @@ const MyDoctor = (props) => {
                   <div className="row">
                     <div className="col-12">
                       <span className="price">
-                        <sup>$</sup>
-                        <b>
+                        $
+                        
                           {appointment.appointmentMode === "CONSULTATION" ||
                           appointment.appointmentMode === ""
                             ? doctor && doctor.rate
                             : appointment.appointmentMode === "FOLLOW_UP"
                             ? doctor && doctor.halfRate
                             : ""}
-                        </b>
+                        
                       </span>
                       <br />
                       <span>
@@ -1919,15 +1924,15 @@ const MyDoctor = (props) => {
               <div id="calendar-list">
                 <div id="price-box">
                   <span className="price">
-                    <sup>$</sup>
-                    <b>
+                    $
+                    
                       {appointment.appointmentMode === "CONSULTATION" ||
                       appointment.appointmentMode === ""
                         ? doctor && doctor.rate
                         : appointment.appointmentMode === "FOLLOW_UP"
                         ? doctor && doctor.halfRate
                         : ""}
-                    </b>
+                   
                   </span>
                   <br />
                   <span>
