@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react'
-// import Footer from './Footer'
 import './patient.css'
 import { Container, Row, Col } from 'react-bootstrap'
 import moment from 'moment';
-// import LocalStorageService from './../../util/LocalStorageService';
-// import axios from 'axios';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
-// import Cookies from 'universal-cookie';
 import Loader from './../Loader/Loader';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,16 +13,20 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
-//import { checkAccessToken } from '../../service/RefreshTokenService';
 import Avatar from 'react-avatar';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import ChatIcon from '@material-ui/icons/Chat';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-// import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 import { deleteAppointment, getAppointmentListByPatientId } from '../../service/frontendapiservices'; //getLoggedInUserDataByUserId
 import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';
+// import { handleAgoraAccessToken } from '../../service/agoratokenservice';
+//import { checkAccessToken } from '../../service/RefreshTokenService';
+// import Cookies from 'universal-cookie';
+// import Footer from './Footer'
+// import LocalStorageService from './../../util/LocalStorageService';
+// import axios from 'axios';
 
 //const docprofile = './src/images/doctor/'
 

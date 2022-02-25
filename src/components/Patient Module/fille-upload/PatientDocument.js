@@ -305,6 +305,10 @@ const PatientDocument = (props) => {
         }
     }
 
+    const autoComplete= ()=>{
+        console.log(doctor);
+    }
+
 
     return (
         <div>
@@ -596,7 +600,7 @@ const PatientDocument = (props) => {
                                     <input type="text" id="labName" name="labName" className="form-control"
                                         onChange={e => handleLabResultChange(e)}
                                         value={labResult?.labName}
-                                        placeholder="Lab Name" required></input>
+                                        placeholder="Lab Name" required autoComplete='off'></input>
                                 </div>
                             </div>
 
@@ -607,7 +611,7 @@ const PatientDocument = (props) => {
                                     <input type="text" id="decription" name="decription" className="form-control"
                                         onChange={e => handleLabResultChange(e)}
                                         value={labResult?.decription}
-                                        placeholder="Description" required></input>
+                                        placeholder="Description" required autoComplete='off'></input>
                                 </div>
                             </div>
                             <div className="form-group row">
@@ -645,7 +649,7 @@ const PatientDocument = (props) => {
                                     <input type="email" id="doctorEmail" name="doctorEmail" className="form-control"
                                         validate="true" value={doctor?.email}
                                         onChange={e => handleDoctorTag(e)}
-                                        placeholder="Doctor Email"></input>
+                                        placeholder="Doctor Email" autoComplete='off'></input>
                                     {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
                                         <input hidden={true} id="doctorId" name="doctorId" value={doctor?.id} /></b></span>
                                         : <span>No Doctor Found</span>}

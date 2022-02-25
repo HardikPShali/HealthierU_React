@@ -302,7 +302,7 @@ const MyDoctor = (props) => {
       result.data &&
         result.data.doctors.map((newData) => {
           existingUsersList.push(newData);
-          return newData;
+          return existingUsersList;
         });
       setLikedOffset(likedOffset + 1);
       setFilterData(existingUsersList);
@@ -1626,7 +1626,7 @@ const MyDoctor = (props) => {
                           new Date(
                             new Date().setDate(new Date().getDate() + 180)
                           )
-                        } // next 3week condition
+                        } // next 3months condition
                       // tileDisabled={({ activeStartDate, date, view }) =>
                       //   disabledDates &&
                       //   disabledDates.some(
