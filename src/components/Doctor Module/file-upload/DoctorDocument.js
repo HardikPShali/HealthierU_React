@@ -336,7 +336,7 @@ const DoctorDocument = (props) => {
     const [editDocument, setEditDocument] = useState(false);
 
 
-    const handleDeleteDocumentSubmission = async (event) => {
+    const handleDeleteDocumentSubmission = async () => {
         setPrescriptionDocumentUrl("");
         setLabDocumentUrl("");
         const resp = await deleteDocument(documentId);
@@ -348,7 +348,7 @@ const DoctorDocument = (props) => {
 
 
         const labDocument = await getDocuments("Lab", 0);
-        setLabDocument(labDocument)
+        setLabDocument(labDocument);
     }
 
 
