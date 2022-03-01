@@ -342,6 +342,7 @@ const DoctorDocument = (props) => {
         const resp = await deleteDocument(documentId);
         if (resp) {
             setDeleteShow(false);
+            handleDeleteShow();
         }
         const prescriptionDocument = await getDocuments("Prescription", 0);
         setPresecriptionDocument(prescriptionDocument);

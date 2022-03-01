@@ -266,26 +266,27 @@ const PatientDocument = (props) => {
         //console.log(currentPageNumber)
     }
 
+    /* NOT REQUIRED AS A PATIENT SHOULD NOT BE ABLE TO EDIT ANY DOCUMENT SENT BY DOCTOR */
 
+    // const handleEditModal = async item => {
+    //     const payload = {
+    //         id: item.id,
+    //         patientId: item.patient.id,
+    //     };
+    //     const res = await getDocumentById(payload);
+    //     if (res && res.data) {
+    //         if (res.data?.documentUrl !== "") {
+    //             setEditDocument(true)
+    //         }
+    //         else {
+    //             setEditDocument(false)
+    //         }
+    //         setPrescriptionResult(res.data);
+    //         setShowPrescriptionUpload(true);
+    //         setDoctor(item.doctor);
+    //     }
+    // }
 
-    const handleEditModal = async item => {
-        const payload = {
-            id: item.id,
-            patientId: item.patient.id,
-        };
-        const res = await getDocumentById(payload);
-        if (res && res.data) {
-            if (res.data?.documentUrl !== "") {
-                setEditDocument(true)
-            }
-            else {
-                setEditDocument(false)
-            }
-            setPrescriptionResult(res.data);
-            setShowPrescriptionUpload(true);
-            setDoctor(item.doctor);
-        }
-    }
     const handleEditLabModal = async item => {
         const payload = {
             id: item.id,
@@ -353,14 +354,14 @@ const PatientDocument = (props) => {
                                 <tbody>
                                     {presecriptionDocument?.documentsList ? presecriptionDocument?.documentsList.map((dataItem, subIndex) => {
                                         return <tr key={dataItem.id}>
-                                            <td width="80" key="Sr." style={{ cursor: "pointer" }}>
+                                            <td width="80" key="Sr.">
 
 
                                                 {/*<img width="20" height="20" onClick={e => showDocument(dataItem)} alt=""
                                                     src={documentViewImage} />*/}
-                                                <VisibilityIcon style={{ color: "#00D0CC" }} title="View" width="20" height="20" onClick={e => showDocument(dataItem)} />
-                                                <img width="15" height="15" onClick={() => handleEditModal(dataItem)} src={editIcon} alt=""
-                                                    style={{ marginLeft: '5%', marginRight: '5%' }} />
+                                                <VisibilityIcon style={{ color: "#00D0CC", cursor: "pointer", marginLeft: "5px" }} title="View" width="20" height="20" onClick={e => showDocument(dataItem)} />
+                                                {/* <img width="15" height="15" onClick={() => handleEditModal(dataItem)} src={editIcon} alt=""
+                                                    style={{ marginLeft: '5%', marginRight: '5%' }} /> */}
 
 
 
@@ -434,7 +435,7 @@ const PatientDocument = (props) => {
 
                                     {labDocument?.documentsList ? labDocument.documentsList.map((dataItem, subIndex) => {
                                         return <tr key={dataItem.id}>
-                                            <td width="80" key="Sr." style={{ cursor: "pointer" }}>
+                                            <td width="80" key="Sr." style={{ cursor: "pointer"}}>
                                                 {/*<img width="20" height="20" onClick={e => showLabDocument(dataItem)} alt=""
                                                     src={documentViewImage} />*/}
                                                 <VisibilityIcon style={{ color: "#00D0CC" }} title="View" width="20" height="20" onClick={e => showLabDocument(dataItem)} />
