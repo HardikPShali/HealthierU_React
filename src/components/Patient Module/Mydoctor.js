@@ -305,7 +305,7 @@ const MyDoctor = (props) => {
     }
   };
 
-  const createLikedDoctor = async (doctorId) => {
+   const createLikedDoctor = async (doctorId) => {
     setTransparentLoading(true);
     const likedData = {
       patientId: currentPatient.id,
@@ -1040,7 +1040,7 @@ const MyDoctor = (props) => {
                   type="text"
                   value={searchText}
                   id="doctor-search"
-                 
+                  autoComplete='off' 
          
                   onChange={(value) => handleSearchInputChange(value) }
                   onCancelSearch={() => handleSearchInputChange("")}
