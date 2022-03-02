@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import Footer from './Footer'
+// import Footer from './Footer'
 import { Link } from 'react-router-dom'
-import default_image from '../../images/default_image.png';
+// import default_image from '../../images/default_image.png';
 import './doctor.css'
 import { Container, Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 //import patientprofile from '../../images/patientprof.png';
 //import appointmentreq from '../../images/appointmentreq.png';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
-import LocalStorageService from "./../../util/LocalStorageService";
+// import LocalStorageService from "./../../util/LocalStorageService";
 import Cookies from 'universal-cookie';
 import Loader from './../Loader/Loader';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -23,13 +23,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import { handleAgoraAccessToken } from '../../service/agoratokenservice';
-import { handleSignin } from '../../service/AccountService';
-import momentTz from 'moment-timezone';
+// import { handleAgoraAccessToken } from '../../service/agoratokenservice';
+// import { handleSignin } from '../../service/AccountService';
+// import momentTz from 'moment-timezone';
 import { getDoctorByUserId, getPatientChiefComplaint, getPatientFamilyAndSocialHistoryData, loadActivePatient, loadPastPatient } from '../../service/frontendapiservices';
 
 const Mypatient = (props) => {
-    const currentTimezone = props.timeZone;
+    // const currentTimezone = props.timeZone;
     //const getMoment = (timezone) => {
     //    const m = (...args) => momentTz.tz(...args, timezone);
     //    m.localeData = momentTz.localeData;
@@ -42,7 +42,7 @@ const Mypatient = (props) => {
     const [loading, setLoading] = useState(true);
     const [dataLoading, setDataLoading] = useState(false);
     const cookies = new Cookies();
-    const [chatRooms, setChatRooms] = useState([])
+    // const [chatRooms, setChatRooms] = useState([])
 
     const [SelectedPatient, setSelectedPatient] = useState();
     const [currentDoctor, setCurrentDoctor] = useState({
@@ -160,7 +160,7 @@ const Mypatient = (props) => {
             setTimeout(() => setDataLoading(false), 1000);
             setPastAppointments(response.data);
             handleActivePastTab(response.data[0], (response.data[1] && response.data[1]));
-            if(response.data[0] && response.data[0].patient){
+            if (response.data[0] && response.data[0].patient) {
                 calculate_age(response.data[0].patient.dateOfBirth);
                 getChiefComplaintData(response.data[0].patient.id);
                 getFamilyAndSocialHistoryData(response.data[0].patient.id);
@@ -168,9 +168,9 @@ const Mypatient = (props) => {
         }
     };
 
-    const redirectToChat = () => {
-        window.location.assign('/doctor/chat');
-    }
+    // const redirectToChat = () => {
+    //     window.location.assign('/doctor/chat');
+    // }
     const loadMoreActiveAppointment = async (selectedDoctorId) => {
         const getPatientList = {
             doctorId: selectedDoctorId,
@@ -304,6 +304,7 @@ const Mypatient = (props) => {
                                                                 </tr>
                                                             </>)
                                                         }
+                                                        
                                                     }
                                                     else if ((user.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) && (user.unifiedAppointment === (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment))) {
                                                         if (user && user.patient) {
@@ -339,7 +340,7 @@ const Mypatient = (props) => {
                                                             </>)
                                                         }
                                                     }
-
+                                                    return activeAppointments;
                                                 })}
                                                 <tr>
                                                     <td colSpan={4} style={{ width: '100%' }}>
@@ -396,6 +397,7 @@ const Mypatient = (props) => {
                                                                 </tr>
                                                             </>)
                                                         }
+                                                        
                                                     }
                                                     else if ((user.unifiedAppointment !== (pastAppointments[index + 1] && pastAppointments[index + 1].unifiedAppointment)) && (user.unifiedAppointment === (pastAppointments[index - 1] && pastAppointments[index - 1].unifiedAppointment))) {
                                                         if (user && user.patient) {
@@ -431,6 +433,7 @@ const Mypatient = (props) => {
                                                             </>)
                                                         }
                                                     }
+                                                    return pastAppointments;
                                                 })}
 
                                                 <tr>
@@ -479,7 +482,7 @@ const Mypatient = (props) => {
                                                 <Col xs={7}>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.picture ?
                                                     (<div className="img-box" style={{ background: `url(${SelectedPatient.patient.picture})` }}>
                                                         {/*<img src={SelectedPatient.patient.picture} alt="" style={{ width: "auto", height: 214, borderRadius: 10 }} />*/}
-                                                        </div>)
+                                                    </div>)
                                                     :
                                                     (<Avatar name={SelectedPatient.patient.firstName + " " + SelectedPatient.patient.lastName} size="140" />)
 
@@ -552,7 +555,7 @@ const Mypatient = (props) => {
                                         </div>
                                         <Row>
                                             <Col className="profile-btn">
-                                                <Link to={{ pathname:`/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient}}><button className="btn btn-primary view-btn">View patient profile</button></Link>
+                                                <Link to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}><button className="btn btn-primary view-btn">View patient profile</button></Link>
                                             </Col>
                                         </Row>
                                     </div>
@@ -596,9 +599,9 @@ const Mypatient = (props) => {
                     Do you want to Start Video Call
                 </DialogTitle>
                 <DialogActions>
-                    <Link to={`/doctor/chat?chatgroup=P${SelectedPatient?.patientId}_D${SelectedPatient?.doctorId}&openVideoCall=true`}><button autoFocus 
-                    //onClick={() => handleAgoraAccessToken({name:`${SelectedPatient.doctorId}` + `${SelectedPatient.patientId}` + `${SelectedPatient.id}`, id: SelectedPatient.id})} 
-                    className="btn btn-primary" id="close-btn">
+                    <Link to={`/doctor/chat?chatgroup=P${SelectedPatient?.patientId}_D${SelectedPatient?.doctorId}&openVideoCall=true`}><button autoFocus
+                        //onClick={() => handleAgoraAccessToken({name:`${SelectedPatient.doctorId}` + `${SelectedPatient.patientId}` + `${SelectedPatient.id}`, id: SelectedPatient.id})} 
+                        className="btn btn-primary" id="close-btn">
                         Yes
                     </button></Link>
                     <button autoFocus onClick={confirmVideoClose} className="btn btn-primary" id="close-btn">

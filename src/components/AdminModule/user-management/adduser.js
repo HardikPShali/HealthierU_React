@@ -17,9 +17,10 @@ import Navbar from '../layout/Navbar';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import 'mdbreact/dist/css/mdb.css';
 
-const isnum = /\d/;
-const islow = "(?=.*[a-z])";
-const isup = "(?=.*[A-Z])";
+// const isnum = /\d/;
+// const islow = "(?=.*[a-z])";
+// const isup = "(?=.*[A-Z])";
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120

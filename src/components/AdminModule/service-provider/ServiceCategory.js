@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import '../../questionnaire/Questionnaire.css';
 import { Button, Modal } from "react-bootstrap";
 import Navbar from "../layout/Navbar";
@@ -14,7 +14,7 @@ const ServiceCategory = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [serviceCategorys, setServiceCategory] = useState(null);
     const [selectedServiceCategory, setSelectedServiceCategory] = useState(null);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const [showDelete, setShowDelete] = useState(false);
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import {
   //Link, 
@@ -11,7 +11,7 @@ import Navbar from "../layout/Navbar";
 import 'mdbreact/dist/css/mdb.css';
 import Loader from '../../Loader/Loader';
 import TransparentLoader from '../../Loader/transparentloader';
-import LocalStorageService from '../../../util/LocalStorageService';
+// import LocalStorageService from '../../../util/LocalStorageService';
 import Cookies from 'universal-cookie';
 import moment from 'moment';
 import { Multiselect } from 'multiselect-react-dropdown';
@@ -38,7 +38,7 @@ import {
   getLanguageList,
   updateRoleDoctor,
   updateRolePatient,
-  updateUserData
+  // updateUserData
 } from '../../../service/adminbackendservices';
 import DoctorDocumentUpload from '../../CommonModule/doctordocumentupload';
 
@@ -54,7 +54,7 @@ const EditUser = (props) => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [transparentLoading, setTransparentLoading] = useState(false);
-  //const [currentUser, setCurrentUser] = useState({});
+  // const [currentUser, setCurrentUser] = useState({});
   const [speciality, setSpeciality] = useState({
     specialityOptions: []
   });
@@ -115,7 +115,7 @@ const EditUser = (props) => {
     loadSpeciality();
     loadLanguage();
   }, []);
-  const userState = props.location.state;
+  // const userState = props.location.state;
   const currentUserAuthorities = cookies.get("authorities");
   const authorityName = currentUserAuthorities === "ROLE_DOCTOR" ? 'doctors'
     : currentUserAuthorities === "ROLE_PATIENT" ? 'patients' : '';
@@ -258,8 +258,8 @@ const EditUser = (props) => {
         // user.authorities = userState.authorities;
         // const userResponse = await updateUserData(user);
         // if (userResponse) {
-          //window.location.assign("/admin");
-          history.goBack();
+        //window.location.assign("/admin");
+        history.goBack();
         //}
       }
 
@@ -278,8 +278,8 @@ const EditUser = (props) => {
         // user.authorities = userState.authorities;
         // const userResponse = await updateUserData(user);
         // if (userResponse) {
-          //window.location.assign("/admin");
-          history.goBack();
+        //window.location.assign("/admin");
+        history.goBack();
         //}
       }
     }
@@ -313,11 +313,11 @@ const EditUser = (props) => {
       {transparentLoading && (
         <TransparentLoader />
       )}
-      <Navbar pageTitle="home"/>
+      <Navbar pageTitle="home" />
       <div className="container">
         <button className="btn btn-primary" onClick={() => history.goBack()} >
           Browse Back
-      </button>
+        </button>
         <div className="w-75 mx-auto shadow p-5 edit-box">
 
           <ValidatorForm onSubmit={handleClickOpen}>
@@ -583,7 +583,7 @@ const EditUser = (props) => {
                   <p>Years Of experience</p>
                   <TextValidator id="standard-basic" type="number" name="experience"
                     onChange={e => handleInputChange(e)}
-                    inputProps = {{
+                    inputProps={{
                       min: 0,
                       max: 80,
                       step: 0.1

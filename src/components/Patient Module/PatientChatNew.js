@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
-import { useParams, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { useLocation } from "react-router-dom"; // useParams, useHistory, useRouteMatch
 
 import "./patient-chat.css";
 import default_image from "../../images/default_image.png";
@@ -8,10 +8,10 @@ import { Button } from "react-bootstrap";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
 import IconButton from "@material-ui/core/IconButton";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions";
-import { encryptedRSA, decryptedRSA } from "./../CommonModule/rsaencryption";
+// import Dialog from "@material-ui/core/Dialog";
+// import DialogTitle from "@material-ui/core/DialogTitle";
+// import DialogActions from "@material-ui/core/DialogActions";
+// import { encryptedRSA, decryptedRSA } from "./../CommonModule/rsaencryption";
 import NoRecord from "./../CommonModule/noRecordTemplate/noRecord";
 import { handleAgoraAccessToken } from "../../service/agoratokenservice";
 import SmallLoader from "../Loader/smallLoader";
@@ -42,7 +42,7 @@ const PatientChat = (props) => {
     const searchParams = new URLSearchParams(location.search);
     let chatGroup = searchParams.get("chatgroup");
     let openVideoAndChat = searchParams.get("openVideoCall");
-    if(openVideoAndChat){
+    if (openVideoAndChat) {
       handleAgoraAccessToken(chatGroup, () => setOpenVideoCall(true))
     }
     chatGroup && openConversation(chatGroup);
@@ -114,7 +114,7 @@ const PatientChat = (props) => {
     }
   };
 
-  const { unReadMessageList, trigger, currentPatient, doctorDetailsList, chatGroupList, updateChatGroupListTrigger,addedNewChatGroupListTrigger } = props;
+  const { unReadMessageList, currentPatient, doctorDetailsList, chatGroupList, updateChatGroupListTrigger, addedNewChatGroupListTrigger } = props; // , trigger
 
   const currentDoctorDetails = doctorDetailsList[currentSelectedGroup];
   const currentDoctorFullName = currentDoctorDetails

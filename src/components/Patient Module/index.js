@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import Loadable from "react-loadable";
+// import Loadable from "react-loadable";
 import momentTz from "moment-timezone";
 
 import LocalStorageService from "./../../util/LocalStorageService";
@@ -11,7 +11,10 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { firestoreService, chatAndVideoService } from "../../util";
 import Loader from '../Loader/Loader'
-import { updatePatientTimeZone, getModulesDetailsByIds } from "../../service/frontendapiservices";
+import {
+  updatePatientTimeZone,
+  // getModulesDetailsByIds
+} from "../../service/frontendapiservices";
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
 
@@ -28,11 +31,11 @@ const PatientChatNew = React.lazy(() => import("../Patient Module/PatientChatNew
 
 const PatientDocument = React.lazy(() => import("../Patient Module/fille-upload/PatientDocument"));
 
-const Meeting = React.lazy(() => import("./../video-call/pages/meeting"));
+// const Meeting = React.lazy(() => import("./../video-call/pages/meeting"));
 const Nutrition = React.lazy(() => import("./nutrition"));
 const PatientShop = React.lazy(() => import("../Patient Module/patientshop"));
 const Workout = React.lazy(() => import("../Patient Module/workout"));
-const GlobalSearch = React.lazy(() => import("../Patient Module/globalsearch"));
+// const GlobalSearch = React.lazy(() => import("../Patient Module/globalsearch"));
 const AboutUs = React.lazy(() => import("../Login-Module/about-us"));
 const PatientArticle = React.lazy(() => import("./articles"));
 const ChangeAccountPassword = React.lazy(() => import("./changepassword"));
@@ -64,11 +67,14 @@ const PatientRoute = () => {
       firestoreService
         .signIn(email, firebasePwd)
         .then((userCredential) => {
-          firestoreService.makeChatGroupList("patientEmailId", email, setChatGroupList, setUpdateChatGroupListTrigger,setAddedNewUpdateChatGroupListTrigger);
+          firestoreService.makeChatGroupList("patientEmailId", email, setChatGroupList, setUpdateChatGroupListTrigger, setAddedNewUpdateChatGroupListTrigger);
         })
         .catch((err) => {
-          let { code, message } = err;
-          if (code == "auth/user-not-found") {
+          let {
+            code,
+            // message
+          } = err;
+          if (code === "auth/user-not-found") { //replaced '==' with '==='
             firestoreService
               .createNewUser(email, firebasePwd)
               .then((userRecord) => {

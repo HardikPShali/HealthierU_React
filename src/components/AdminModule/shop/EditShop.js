@@ -54,7 +54,7 @@ const EditShop = (props) => {
     const handleRedirect = (e) => {
         if (e) {
             toast.success("Category successfully updated.");
-           setTimeout(() => window.location.reload(),1000 );
+            setTimeout(() => window.location.reload(), 1000);
         }
     }
 
@@ -72,7 +72,7 @@ const EditShop = (props) => {
         const res = await addSubCategory(id, data);
         if (res && (res.status === 200 || res.status === 201)) {
             toast.success("Sub Category successfully added.");
-           setTimeout(() => window.location.reload(),1000 );
+            setTimeout(() => window.location.reload(), 1000);
             handleClose();
         }
     }
@@ -91,7 +91,7 @@ const EditShop = (props) => {
         const res = await deleteSubCategory(subCategoryId);
         if (res) {
             toast.success("Sub Category successfully deleted.");
-           setTimeout(() => window.location.reload(),1000 );
+            setTimeout(() => window.location.reload(), 1000);
         }
     }
 
@@ -176,7 +176,7 @@ const EditShop = (props) => {
                                     <tr key={subCat.id}>
                                         <td width="100">{index + 1}</td>
                                         <td width="200">{subCat.subCategoryName}</td>
-                                        <td width="200"><a href={subCat.pictureUrl} target="_blank">Link</a></td>
+                                        <td width="200"><a href={subCat.pictureUrl} target="_blank" rel="noopener noreferrer">Link</a></td>
                                         <td width="100">{subCat.subCategoryProductList.length > 0 ? "TRUE" : "FALSE"}</td>
                                         <td width="100">
 
@@ -227,10 +227,10 @@ const EditShop = (props) => {
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
                                     Cancel
-                        </Button>
+                                </Button>
                                 <Button type="submit" variant="primary">
                                     Save
-                        </Button>
+                                </Button>
                             </Modal.Footer>
                         </form>
                     </Modal>
@@ -242,10 +242,10 @@ const EditShop = (props) => {
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleDeleteClose}>
                                 Close
-                    </Button>
+                            </Button>
                             <Button variant="danger" onClick={() => handleDelete()}>
                                 Delete
-                    </Button>
+                            </Button>
                         </Modal.Footer>
                     </Modal>
                     <ToastContainer

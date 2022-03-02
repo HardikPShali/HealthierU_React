@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap'; //Container
 // import Cookies from 'universal-cookie';
-import Avatar from 'react-avatar';
+// import Avatar from 'react-avatar';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -23,7 +23,7 @@ import TransparentLoader from "../Loader/transparentloader";
 import GetApp from '@material-ui/icons/GetApp';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { getCurrentUserInfo } from '../../service/AccountService';
+// import { getCurrentUserInfo } from '../../service/AccountService';
 import { Document, Page } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { pdfjs } from 'react-pdf';
@@ -460,8 +460,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                 <DialogContent dividers>
                     {(selectedDocument?.documentType === "png" || selectedDocument?.documentType === "jpg" || selectedDocument?.documentType === "jpeg") && (
                         <div className="row">
-                            <img src={selectedDocumentUrl} frameBorder="0" height="100%"
-                                width="100%" />
+                            <img alt="" src={selectedDocumentUrl} frameBorder="0" height="100%" width="100%" />
                         </div>
                     )}
                     {selectedDocument?.documentType === "pdf" && (
@@ -476,19 +475,19 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                                 </Document>
                                 <br />
                                 {numPages && (
-                                <div class="page-controls">
-                                    <button
-                                        disabled={pageNumber === 1 ? true : false}
-                                        type="button"
-                                        onClick={() => setPageNumber(pageNumber - 1)}
-                                    >‹</button>
-                                    <span>{pageNumber} of {numPages}</span>
-                                    <button
-                                        disabled={pageNumber === numPages ? true : false}
-                                        type="button"
-                                        onClick={() => setPageNumber(pageNumber + 1)}
-                                    >›</button>
-                                </div>
+                                    <div class="page-controls">
+                                        <button
+                                            disabled={pageNumber === 1 ? true : false}
+                                            type="button"
+                                            onClick={() => setPageNumber(pageNumber - 1)}
+                                        >‹</button>
+                                        <span>{pageNumber} of {numPages}</span>
+                                        <button
+                                            disabled={pageNumber === numPages ? true : false}
+                                            type="button"
+                                            onClick={() => setPageNumber(pageNumber + 1)}
+                                        >›</button>
+                                    </div>
                                 )}
                             </div>
                         </div>

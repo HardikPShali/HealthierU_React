@@ -385,12 +385,14 @@ const Signupform = () => {
                     "maxStringLength:50",
                     "isValidName",
                     "isHavingSpace",
+                    "matchRegexp:^[a-zA-Z ]+$",
                   ]}
                   errorMessages={[
                     "This field is required",
-                    "First name should not exceed 50 characters.",
-                    "Please provide a valid first name.",
+                    "First name should not exceed 50 characters",
+                    "Please provide a valid first name",
                     "Please do not use whitespace in front First Name",
+                    "First Name cannot have any numeric values"
                   ]}
                   variant="filled"
                 />
@@ -413,12 +415,14 @@ const Signupform = () => {
                     "maxStringLength:50",
                     "isValidName",
                     "isHavingSpace",
+                    "matchRegexp:^[a-zA-Z ]+$",
                   ]}
                   errorMessages={[
                     "This field is required",
                     "Last name should not exceed 50 characters.",
                     "Please provide a valid last name.",
                     "Please do not use whitespace in front Last Name",
+                    "Last Name cannot have any numeric values"
                   ]}
                   variant="filled"
                 />
@@ -452,7 +456,7 @@ const Signupform = () => {
                   errorMessages={[
                     "Please provide valid email",
                     "",
-                    "Email should not exceed 50 characters.",
+                    "Email should not exceed 50 characters",
                   ]}
                   variant="filled"
                 />
@@ -485,8 +489,8 @@ const Signupform = () => {
                   ]}
                   errorMessages={[
                     "This field is required",
-                    "Please provide a valid username.",
-                    "Username should not exceed 30 characters.",
+                    "Please provide a valid username",
+                    "Username should not exceed 30 characters",
                   ]}
                   variant="filled"
                 />
@@ -517,7 +521,7 @@ const Signupform = () => {
                         "Include at least 1 upper case",
                         "At least 1 number Or 1 special character",
                         "Minimum of 8 characters",
-                        "Password should not exceed 30 characters.",
+                        "Password should not exceed 30 characters",
                       ]}
                       variant="filled"
                       InputProps={{

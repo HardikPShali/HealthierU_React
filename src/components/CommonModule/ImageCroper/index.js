@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react' //Component, useEffect
 import Cropper from "react-easy-crop";
 import { Modal } from 'react-bootstrap';
 import * as imageConversion from 'image-conversion';
@@ -92,7 +92,7 @@ const ImageCropper = (props) => {
         <>
 
             <div className="small-12 medium-2 large-2 columns m-auto">
-                <div className="circle">
+                <div className="circle upload-button" style={{ cursor: 'pointer' }}>
                     {/* <!-- User Profile Image --> */}
                     <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
                 </div>
@@ -103,6 +103,7 @@ const ImageCropper = (props) => {
                         variant="filled" />
                 </div>
             </div>
+
             <div style={{ fontSize: '12px', color: 'red', textAlign: 'center' }}>{msg}</div>
             <br />
 
@@ -125,6 +126,7 @@ const ImageCropper = (props) => {
                             onRotationChange={setRotation}
                             onCropComplete={onCropComplete}
                             onZoomChange={setZoom}
+                            id="cropper_1"
                         />
                     </div>
                     <div className={classes.controls}>
@@ -151,7 +153,7 @@ const ImageCropper = (props) => {
                                 classes={{ root: classes.sliderLabel }}
                             >
                                 Rotation
-                                </Typography>
+                            </Typography>
                             <Slider
                                 value={rotation}
                                 min={-180}
@@ -169,7 +171,7 @@ const ImageCropper = (props) => {
                             classes={{ root: classes.cropButton }}
                         >
                             Save
-                            </Button>
+                        </Button>
                     </div>
 
                 </Modal.Body>
@@ -179,3 +181,18 @@ const ImageCropper = (props) => {
     )
 }
 export default withStyles(styles)(ImageCropper)
+
+
+
+// <div className="small-12 medium-2 large-2 columns m-auto">
+//                 <div className="upload-button circle" style={{ cursor: "pointer" }}>
+//                     {/* <!-- User Profile Image --> */}
+//                     <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
+//                 </div>
+
+//                 <div className="p-image">
+//                     <AddAPhotoIcon className="upload-button" />
+//                     <input className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
+//                         variant="filled" />
+//                 </div>
+//             </div>

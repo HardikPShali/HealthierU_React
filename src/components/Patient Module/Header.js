@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Navbar, Nav, Container, NavDropdown, Row, Col } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
-import logo from "../../images/logo/logo_white.svg";
-import "./patient.css";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import profileicon from "../../images/Icons/profile.svg";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import NotificationMenu from "../CommonModule/NotificationMenu";
-import { updatePatientTimeZone } from "../../service/frontendapiservices";
-import { toast } from "react-toastify";
+import React, { useState } from 'react'; //useEffect
+import { Navbar, Container, } from 'react-bootstrap'; //NavDropdown, Row, Col, Nav
+import { Link, NavLink } from 'react-router-dom';
+import logo from '../../images/logo/logo_white.svg';
+import './patient.css';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
+import profileicon from '../../images/Icons/profile.svg';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import NotificationMenu from '../CommonModule/NotificationMenu';
+// import { updatePatientTimeZone } from '../../service/frontendapiservices';
+// import { toast } from 'react-toastify';
 
 const Header = (props) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);  
+  const [anchorEl, setAnchorEl] = useState(null);
 
-   const handleClick = (event) => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -28,9 +28,10 @@ const Header = (props) => {
     unReadMessageList,
     currentPatient: { picture = null },
   } = props;
-  const unReadMessageCount =
-    (unReadMessageList && Object.keys(unReadMessageList).length) || 0;
+  const unReadMessageCount = (unReadMessageList && Object.keys(unReadMessageList).length) || 0;
+
   const pathname = window.location.pathname;
+
   return (
     <Navbar variant="dark" expand="lg" id="navbar">
       <Container>
@@ -39,7 +40,7 @@ const Header = (props) => {
             src={logo}
             id="icon"
             alt="HealthierU Logo"
-            style={{ width: "70%" }}
+            style={{ width: '70%' }}
           />
         </NavLink>
         {/* <span className="ml-2 text-light" style={{fontSize: "12px"}}>Hi! &nbsp;{props.currentPatient.firstName}</span> */}
@@ -50,13 +51,12 @@ const Header = (props) => {
           data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle
-                            navigation"
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {pathname !== "/patient/questionnaire/view" && (
+          {pathname !== '/patient/questionnaire/view' && (
             <>
               <NavLink to="/patient">Home</NavLink>
               <div className="dropdown headerNavbar">
@@ -94,9 +94,9 @@ const Header = (props) => {
                         <NavDropdown.Item href="/patient/questionnaire/edit" style={{ color: '#498ce8' }}><b></b></NavDropdown.Item>
                         <NavDropdown.Item href="/patient/chat" style={{ color: '#498ce8' }}><b></b></NavDropdown.Item>
                     </NavDropdown> */}
-              <NavLink to="/patient/mydoctor">My Doctors</NavLink>
+              <NavLink to="/patient/mydoctor" style={{ marginRight: '22px' }}>My Doctors</NavLink>
               {/* <NavLink to="/patient/explore">Explore</NavLink> */}
-              <NavLink to="/patient/shop">Shop</NavLink>
+              <NavLink to="/patient/shop" style={{ marginRight: '25px' }}>Shop</NavLink>
               {/* <NavLink to="#search">
                         <SearchIcon id="search-icon" />
                     </NavLink>
@@ -117,12 +117,12 @@ const Header = (props) => {
                   </IconButton>
                   <div
                     className="dropdown-menu notification-Menu"
-                    style={{ width: "200px" }}
+                    style={{ width: '200px' }}
                   >
                     <NotificationMenu
                       unReadMessageList={unReadMessageList}
                       detailsList={doctorDetailsList}
-                      module={"patient"}
+                      module={'patient'}
                     />
                   </div>
                 </div>
@@ -161,20 +161,20 @@ const Header = (props) => {
             //     horizontal: 'center',
             // }}
             transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
+              vertical: 'top',
+              horizontal: 'center',
             }}
           >
-            <Link to="/patient/profile" style={{ textDecoration: "none" }}>
+            <Link to="/patient/profile" style={{ textDecoration: 'none' }}>
               <MenuItem>Profile</MenuItem>
             </Link>
             <Link
               to="/patient/changepassword"
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: 'none' }}
             >
               <MenuItem>Change Password</MenuItem>
             </Link>
-            <Link to="/patient/logout" style={{ textDecoration: "none" }}>
+            <Link to="/patient/logout" style={{ textDecoration: 'none' }}>
               <MenuItem>Logout</MenuItem>
             </Link>
           </Menu>

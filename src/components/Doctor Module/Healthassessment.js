@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Footer from './Footer';
+// import Footer from './Footer';
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import './doctor.css';
 import Pagination from 'react-bootstrap/Pagination'
-import documentViewImage from '../../images/icons used/document icon@2x.png';
+// import documentViewImage from '../../images/icons used/document icon@2x.png';
 import editIcon from '../../images/Icons/edit icon_40 pxl.svg';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -12,7 +12,11 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { formatDate, getPatientQuestionnaire } from '../questionnaire/QuestionnaireService';
-import { getCurrentDoctorInfo, getCurrentUserInfo, getPatientInfoByPatientId } from "../../service/AccountService";
+import {
+    getCurrentDoctorInfo,
+    getCurrentUserInfo,
+    // getPatientInfoByPatientId
+} from "../../service/AccountService";
 
 import {
     getDoctorPatientDocuments,
@@ -28,7 +32,7 @@ const Healthassessment = (props) => {
 
     //console.log("Props patient Data ::", props);
 
-    const { id } = useParams();
+    //const { id } = useParams();
 
     const topicSet = new Set();
     const [questionnaire, setQuestionnaire] = useState(null);
@@ -145,7 +149,7 @@ const Healthassessment = (props) => {
         const payload = {
             id: item.id,
             patientId: null,
-          };
+        };
         const res = await getDocumentById(payload);
         if (res && res.data) {
             if (res.data?.documentUrl !== "") {

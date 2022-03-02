@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react"; //useState
 import AgoraRTC from "agora-rtc-sdk";
 import "bulma";
 import $ from "jquery";
@@ -22,11 +22,11 @@ import Renderer from "../../utils/Render";
 import { SHARE_ID, RESOLUTION_ARR, APP_ID } from "../../../../util/configurations";
 import { logger, log } from "../../utils/Logger";
 // eslint-disable-next-line
-import Polyfill from "../../utils/Polyfill";
-import logo from '../../../../images/logo/logo_white.svg'
-import { Row, Container, Col } from "react-bootstrap";
-import qs from 'qs';
-import { Prompt } from 'react-router-dom';
+// import Polyfill from "../../utils/Polyfill";
+// import logo from '../../../../images/logo/logo_white.svg'
+// import { Row, Container, Col } from "react-bootstrap";
+// import qs from 'qs';
+// import { Prompt } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -55,16 +55,8 @@ const Meeting = (props) => {
 
   const cookies = new UniversalCookies();
   const currentLoggedInUser = cookies.get("currentUser");
-  //console.log("currentLoggedInUser :::::", currentLoggedInUser);
-  const { authorities = [] } = currentLoggedInUser || {}
-  const getRedirectUrl = () => {
-    if (authorities.some((user) => user === "ROLE_PATIENT")) {
-      return ('/patient/chat');
-    }
-    if (authorities.some((user) => user === "ROLE_DOCTOR")) {
-      return ('/doctor/chat');
-    }
-  }
+  console.log("currentLoggedInUser :::::", currentLoggedInUser);
+  //const { authorities = [] } = currentLoggedInUser || {}
 
   // Initialize the options from cookies (set from index.js and precall.js)
 
@@ -95,7 +87,7 @@ const Meeting = (props) => {
   };
 
   // Initalizes the User Interface
-  const agoraVersion = '4.2.1';
+  // const agoraVersion = '4.2.1';
   const uiInit = options => {
     Renderer.init("ag-canvas", 9 / 16, 8 / 5);
     // Mobile page should remove title and footer
@@ -686,14 +678,14 @@ const Meeting = (props) => {
   }, [])
 
 
-  const appointmentId = qs.parse(window.location.search, { ignoreQueryPrefix: true }).appointmentId;
-  
+  // const appointmentId = qs.parse(window.location.search, { ignoreQueryPrefix: true }).appointmentId;
+
   return (
     <>
       {/* <Row> */}
-        {/* <Col md={9}> */}
-          <div className="wrapper w-50" id="page-meeting">
-            {/*<div className="ag-header">
+      {/* <Col md={9}> */}
+      <div className="wrapper w-50" id="page-meeting">
+        {/*<div className="ag-header">
               <div className="ag-header-lead">
                 <img className="ag-header-logo" src={logo} alt="" />
               </div>
@@ -702,29 +694,29 @@ const Meeting = (props) => {
                 <span id="room-name">--</span>
               </div>
             </div>*/}
-            <div className="__ag-main">
-              <div className="ag-container" id="ag-canvas">
+        <div className="__ag-main">
+          <div className="ag-container" id="ag-canvas">
 
-                {/* <!-- btn group --> */}
-                <div className="ag-btn-group">
-                  <span className="ag-btn exitBtn" title="Exit">
-                    <i className="ag-icon icon-call-ends"></i>
-                  </span>
-                  <span className="ag-btn videoControlBtn" title="Enable/Disable Video">
-                    <i className="ag-icon icon-camera"></i>
-                    <i className="ag-icon icon-camera-off"></i>
-                  </span>
-                  <span className="ag-btn audioControlBtn" title="Enable/Disable Audio">
-                    <i className="ag-icon icon-mic"></i>
-                    <i className="ag-icon icon-mic-off"></i>
-                  </span>
-                  {/* <span className="ag-btn shareScreenBtn" title="Share Screen">
+            {/* <!-- btn group --> */}
+            <div className="ag-btn-group">
+              <span className="ag-btn exitBtn" title="Exit">
+                <i className="ag-icon icon-call-ends"></i>
+              </span>
+              <span className="ag-btn videoControlBtn" title="Enable/Disable Video">
+                <i className="ag-icon icon-camera"></i>
+                <i className="ag-icon icon-camera-off"></i>
+              </span>
+              <span className="ag-btn audioControlBtn" title="Enable/Disable Audio">
+                <i className="ag-icon icon-mic"></i>
+                <i className="ag-icon icon-mic-off"></i>
+              </span>
+              {/* <span className="ag-btn shareScreenBtn" title="Share Screen">
                     <i className="ag-icon icon-screen-share"></i>
                   </span> */}
-                  <span className="ag-btn displayModeBtn" title="Switch Display Mode">
-                    <i className="ag-icon icon-switch-layout"></i>
-                  </span>
-                  {/* <!-- <span class="ag-btn ctrlBtn" title="Control">
+              <span className="ag-btn displayModeBtn" title="Switch Display Mode">
+                <i className="ag-icon icon-switch-layout"></i>
+              </span>
+              {/* <!-- <span class="ag-btn ctrlBtn" title="Control">
             <i class="ag-icon icon-ctrl"></i>
           </span> -->
           <!-- <span class="ag-btn disableRemoteBtn" title="Hide/Show Remote Stream">
@@ -733,24 +725,24 @@ const Meeting = (props) => {
           </span> -->
           <!-- <span class="ag-btn inviteBtn"></span>
             <span class="ag-btn shareBtn"></span> --> */}
-                </div>
-              </div>
-
             </div>
-
-            {/* <!-- modal/messages/notifications --> */}
           </div>
-        {/* </Col>
+
+        </div>
+
+        {/* <!-- modal/messages/notifications --> */}
+      </div>
+      {/* </Col>
       </Row> */}
       {/* <Prompt when={true} message={handlePrompt} />
 
          */}
       <NavigationPrompt when={true}>
         {({ onConfirm, onCancel }) => (
-          <Dialog open={true} style={{zIndex: "99999"}}>
+          <Dialog open={true} style={{ zIndex: "99999" }}>
             <DialogTitle>You need to disconnect the video call before leaving this page.</DialogTitle>
             <DialogContent>
-              
+
             </DialogContent>
             <DialogActions>
               <Button onClick={() => onCancel()} color="primary" autoFocus>

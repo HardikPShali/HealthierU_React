@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Footer from './Footer';
+// import Footer from './Footer';
 import Shop from '../CommonModule/Shop';
 import Loader from './../Loader/Loader';
 
@@ -16,7 +16,7 @@ const PatientShop = () => {
             {loading && (
                 <Loader />
             )}
-            <Shop/>
+            <Shop />
             {/* <Footer /> */}
         </div>
     )

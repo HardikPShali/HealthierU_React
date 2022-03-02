@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+// import Axios from "axios";
 import { Link } from "react-router-dom";
 import Navbar from "../layout/Navbar";
 // import properties from "../../../properties";
 import moment from 'moment'
-import LocalStorageService from "../../../util/LocalStorageService";
+// import LocalStorageService from "../../../util/LocalStorageService";
 import Loader from '../../Loader/Loader';
 import TransparentLoader from '../../Loader/transparentloader';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -82,12 +82,13 @@ const PatientList = () => {
       // var existingUsersList = [];
       var existingUsersList = userList;
       result.data && result.data.map(newData => {
-        existingUsersList.push(newData);
+        return existingUsersList.push(newData);
       })
       setOffset(offset + 1);
       setUserList(existingUsersList);
       setFilterData(existingUsersList);
     }
+    return result;
   }
 
 
@@ -98,7 +99,7 @@ const PatientList = () => {
   const [display, setDisplay] = useState({
     suggestion: 'none'
   })
-  
+
   return (
     <div>
       {loading && (
@@ -110,7 +111,7 @@ const PatientList = () => {
       <Navbar pageTitle="patientList" />
       <div className="container">
         <div className="py-4">
-          <Row style={{alignItems: "center"}}>
+          <Row style={{ alignItems: "center" }}>
             <Col md={8}>
               <h1>Patient List</h1>
             </Col>
@@ -147,7 +148,7 @@ const PatientList = () => {
                   <td>{moment(user && user.createdDate).format("DD MMM, YYYY hh:mm A")}</td>
                   <td>
                     <div style={{ width: '265px', height: 'auto', overflow: 'unset' }}>
-                      <Link className="btn btn-info mr-2 py-2 px-3" data-title="Edit/View" to={{ pathname: `/admin/user-management/edit/${user.userId}`, state: user }} onClick={() => setCookies(user.authorities)}><EditIcon /></Link>                 
+                      <Link className="btn btn-info mr-2 py-2 px-3" data-title="Edit/View" to={{ pathname: `/admin/user-management/edit/${user.userId}`, state: user }} onClick={() => setCookies(user.authorities)}><EditIcon /></Link>
                     </div>
                   </td>
                 </tr>

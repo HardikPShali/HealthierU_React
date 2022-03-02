@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Footer from './Footer';
 import Header from './Header';
 import './landing.css';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -14,29 +13,17 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Select from '@material-ui/core/Select';
-//import axios from 'axios';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
-
-
-//import properties from "../../properties";
-//import LocalStorageService from '../../util/LocalStorageService';
 import Loader from '../Loader/Loader';
 import TransparentLoader from '../Loader/transparentloader';
 import $ from 'jquery';
 import { Multiselect } from 'multiselect-react-dropdown';
 import Cookies from 'universal-cookie';
 import momentTz from 'moment-timezone';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
-
-//import { checkAccessToken } from '../../service/RefreshTokenService';
 import {
     getCountryList,
     getSpecialityList,
@@ -49,10 +36,21 @@ import {
     getUpdatedUserData,
 } from '../../service/frontendapiservices';
 import ImageCropper from './ImageCroper';
-import TimezoneSelect from 'react-timezone-select';
 import DoctorDocumentUpload from "./doctordocumentupload";
 import { getCurrentDoctorInfo } from "../../service/AccountService";
-import {firestoreService} from "../../util";
+import { firestoreService } from "../../util";
+
+//import axios from 'axios';
+// import Footer from './Footer';
+//import properties from "../../properties";
+//import LocalStorageService from '../../util/LocalStorageService';
+// import CreateIcon from '@material-ui/icons/Create';
+// import IconButton from '@material-ui/core/IconButton';
+// import VisibilityIcon from '@material-ui/icons/Visibility';
+// import DeleteIcon from '@material-ui/icons/Delete';
+// import TextField from '@material-ui/core/TextField';
+//import { checkAccessToken } from '../../service/RefreshTokenService';
+// import TimezoneSelect from 'react-timezone-select';
 
 
 $(document).ready(function () {
@@ -98,6 +96,8 @@ const Welcome = ({ currentuserInfo }) => {
         languageOptions: []
     });
     const { languageOptions } = language;
+
+    const [defaultDate, setDefaultDate] = useState(new Date(moment().format('YYYY-MM-DD')));
 
     useEffect(() => {
         loadOptions();
@@ -216,6 +216,10 @@ const Welcome = ({ currentuserInfo }) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
         setstate({ ...state, dateOfBirth: isoDate });
+        setDefaultDate(dateOfBirth);
+        console.log("isoDate", isoDate);
+        console.log("d", d);
+        console.log("defaultDate", defaultDate);
     };
     const getUpdatedCurrentUserData = async () => {
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
@@ -288,18 +292,18 @@ const Welcome = ({ currentuserInfo }) => {
                     }
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
-                    const {email,firebasePwd}=response.data;
-                    firestoreService.createNewUser(email,firebasePwd)
-                    .then((userRecord) => {    
-                          var loginUser = userRecord.userd;
-                          console.log('user Created',loginUser.email,loginUser.uid)
+                    const { email, firebasePwd } = response.data;
+                    firestoreService.createNewUser(email, firebasePwd)
+                        .then((userRecord) => {
+                            var loginUser = userRecord.userd;
+                            console.log('user Created', loginUser.email, loginUser.uid)
                         })
                         .catch((error) => {
                             var errorCode = error.code;
                             var errorMessage = error.message;
-                            console.log('user Created failed',errorCode,errorMessage)
+                            console.log('user Created failed', errorCode, errorMessage)
                         });
-                        updateCurrentUserData();                          
+                    updateCurrentUserData();
                 }
             }
         }
@@ -325,23 +329,23 @@ const Welcome = ({ currentuserInfo }) => {
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
                     //updateCurrentUserData();
-                    const {email,firebasePwd}=response.data;
-                    firestoreService.createNewUser(email,firebasePwd)
-                    .then((userRecord) => {    
-                        var loginUser = userRecord.userd;
-                        console.log('user Created',loginUser.email,loginUser.uid);
-                        
-                      })
-                      .catch((error) => {
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        console.log('user Created failed',errorCode,errorMessage)
-                      });
-                      const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
+                    const { email, firebasePwd } = response.data;
+                    firestoreService.createNewUser(email, firebasePwd)
+                        .then((userRecord) => {
+                            var loginUser = userRecord.userd;
+                            console.log('user Created', loginUser.email, loginUser.uid);
+
+                        })
+                        .catch((error) => {
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            console.log('user Created failed', errorCode, errorMessage)
+                        });
+                    const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
                     if (res) {
                         setCurrentDoctor(res);
                         updateCurrentUserData();
-                    }                    
+                    }
                 }
             }
         }
@@ -366,11 +370,11 @@ const Welcome = ({ currentuserInfo }) => {
     const [languageError, setLanguageError] = useState(false);
     const [specialityError, setSpecialityError] = useState(false);
 
-    const [uploadOpen, setUploadOpen] = useState(false);
+    // const [uploadOpen, setUploadOpen] = useState(false);
 
-    const handleUploadClose = () => {
-        setUploadOpen(false);
-    }
+    // const handleUploadClose = () => {
+    //     setUploadOpen(false);
+    // }
 
     const [phoneError, setPhoneError] = useState();
     const [formError, setFormError] = useState();
@@ -400,7 +404,7 @@ const Welcome = ({ currentuserInfo }) => {
                             <br />
                             {!displaydocumentForm && (
                                 <ValidatorForm onSubmit={handleDetails} onError={(err) => console.log(err)}>
-                                    <Row style={{ justifyContent: 'center', flexDirection: "column" }}>
+                                    <Row style={{ justifyContent: 'center', flexDirection: "column" }} >
                                         {currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") &&
                                             <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentuserInfo.imageUrl} />
                                         }
@@ -432,7 +436,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 inputProps={maxDate}
                                                 InputLabelProps={{ shrink: true, }}
                                                 variant="filled"
-                                                value={dateOfBirth ? moment(dateOfBirth).format("YYYY-MM-DD") : ""}
+                                                value={dateOfBirth ? moment(dateOfBirth).format("YYYY-MM-DD") : moment(defaultDate).format("YYYY-MM-DD")}
                                                 validators={['required']}
                                                 errorMessages={['This field is required']}
                                                 onChange={e => handleDateChange(e)}

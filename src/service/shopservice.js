@@ -1,6 +1,6 @@
 import axios from 'axios';
 //import { rawListeners } from 'process';
-import properties from '../properties';
+// import properties from '../properties';
 //import Cookies from 'universal-cookie';
 import LocalStorageService from '../util/LocalStorageService';
 

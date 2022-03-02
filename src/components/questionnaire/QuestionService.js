@@ -1,7 +1,7 @@
 import * as axios from "axios";
 //import {getToken} from "../../service/TokenService";
 import LocalStorageService from "../../util/LocalStorageService";
-import properties from "../../properties";
+// import properties from "../../properties";
 
 
 export const saveQuestion = async (data) => {
@@ -13,8 +13,9 @@ export const saveQuestion = async (data) => {
     }
 
     const methodType =  data.get('id') ? 'PUT' : 'POST';
-    let dataObj;
+    
     if(data.get('id')) {
+        let dataObj;
         dataObj = {
             
         }

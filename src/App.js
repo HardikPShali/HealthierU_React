@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react"; //useEffect
 import ErrorBoundary from "./error-boundary/MyErrorBoundary";
 import Routes from "./routes";
 import "bootstrap/dist/css/bootstrap.css";

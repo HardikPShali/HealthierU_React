@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react"; //Suspense
 //import Navbar from "./components/AdminModule/layout/Navbar";
 //import LocalStorageService from "./util/LocalStorageService";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -50,28 +50,28 @@ const Routes = () => {
   const { authorities = [] } = currentUser || {}
   //console.log("currentUser ::::::::::",currentUser);
   return (
-      <Router>
-        <div>
-          <Switch>
-            {!currentUser && (
-              <Route component={MainRoute} />
-            )}
-            {authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER") && (<>
-              <Route path="/admin" component={AdminRoutes} />
-              <Route exact path="(/|/signin)" component={Logout} />
-            </>)}
-            {authorities.some((user) => user === "ROLE_PATIENT") && (<>
-              <Route path="/patient" component={PatientRoute} />
-              <Route exact path="(/|/signin)" component={Logout} />
-            </>)}
-            {authorities.some((user) => user === "ROLE_DOCTOR") && (<>
-              <Route path="/doctor" component={DoctorRoute} />
-              <Route exact path="(/|/signin)" component={Logout} />
-            </>)}
-          </Switch>
-          <ToastContainer />
-        </div>
-      </Router>
+    <Router>
+      <div>
+        <Switch>
+          {!currentUser && (
+            <Route component={MainRoute} />
+          )}
+          {authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER") && (<>
+            <Route path="/admin" component={AdminRoutes} />
+            <Route exact path="(/|/signin)" component={Logout} />
+          </>)}
+          {authorities.some((user) => user === "ROLE_PATIENT") && (<>
+            <Route path="/patient" component={PatientRoute} />
+            <Route exact path="(/|/signin)" component={Logout} />
+          </>)}
+          {authorities.some((user) => user === "ROLE_DOCTOR") && (<>
+            <Route path="/doctor" component={DoctorRoute} />
+            <Route exact path="(/|/signin)" component={Logout} />
+          </>)}
+        </Switch>
+        <ToastContainer />
+      </div>
+    </Router>
   )
 }
 export default Routes;

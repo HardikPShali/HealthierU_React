@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Footer from './Footer';
+// import Footer from './Footer';
 import './patient.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import Loader from '../Loader/Loader';
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import axios from 'axios';
+// import axios from 'axios';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 import Card from '@material-ui/core/Card';
@@ -26,7 +26,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Cookies from 'universal-cookie';
 import TransparentLoader from '../Loader/transparentloader';
-import LocalStorageService from '../../util/LocalStorageService';
+// import LocalStorageService from '../../util/LocalStorageService';
 import {
     getLoggedInUserDataByUserId
 } from '../../service/frontendapiservices';
@@ -74,8 +74,10 @@ const Workout = () => {
                     setCurrentPatient({ ...currentPatient, id: currentPatientId });
                     loadProducts(currentPatientId);
                 }
+                return getCurrentPatient;
             })
         }
+        
     }
 
     const loadProducts = async (patientId) => {
@@ -163,9 +165,9 @@ const Workout = () => {
         let newUrl;
         try {
             newUrl = new URL(link);
-          } catch (_) {
-            return false;  
-          }
+        } catch (_) {
+            return false;
+        }
         var videoKey = newUrl.searchParams.get("v");
         return videoKey
     }
@@ -194,7 +196,7 @@ const Workout = () => {
                         <Link to="/patient/shop"><div id="Box4" className="nutrition-card-box">Shop</div></Link>
                     </Col>
                     <Col md={3} className="mb-2">
-                    <Link to="/patient/article"><div id="Box5" className="nutrition-card-box">Articles</div></Link>
+                        <Link to="/patient/article"><div id="Box5" className="nutrition-card-box">Articles</div></Link>
                     </Col>
                     {/*<Col md={2} className="mb-2">
                         <div id="Box6" className="nutrition-card-box">Education</div>
@@ -223,7 +225,7 @@ const Workout = () => {
                                             <div id="all-workout-list">
                                                 <GridList cellHeight={220}>
                                                     {workout && workout.map((workoutData, index) => (
-                                                        
+
                                                         <GridListTile key={index}>
                                                             {!workoutData.liked && (
                                                                 <FavoriteBorderIcon id="fav-icon" onClick={() => createLike(workoutData.id)} />
@@ -297,26 +299,26 @@ const Workout = () => {
                                                     {console.log("LikedWorkout::", likedWorkout)}
                                                     {likedWorkout && likedWorkout.map((workoutData, index) => (
                                                         workoutData.workout && (
-                                                        <Card variant="outlined" className="mb-2" key={index} onClick={() => handleVideoClick(workoutData.workout)}>
-                                                            <CardContent>
-                                                                <Row>
-                                                                    <Col xs={4} className="p-0">
-                                                                        <FavoriteBorderIcon id="fav-icon" />
-                                                                        <img src={`https://img.youtube.com/vi/${getVideoKey(workoutData.workout.video_link)}/0.jpg`} alt={workoutData.workout.title} style={{ width: '100%', height: '120px', cursor: 'pointer', bottom: '17px', position: 'relative' }} />
-                                                                    </Col>
-                                                                    <Col xs={8} className={`p-0 product-info`}>
-                                                                        <Row className="m-0" style={{ height: '75px', alignItems: 'center' }}>
-                                                                            <Col xs={12} className="p-0">
-                                                                                <p className="product-name">{workoutData.workout.title}</p>
-                                                                            </Col>
-                                                                            {/* <Col xs={6} className="product-icons">
+                                                            <Card variant="outlined" className="mb-2" key={index} onClick={() => handleVideoClick(workoutData.workout)}>
+                                                                <CardContent>
+                                                                    <Row>
+                                                                        <Col xs={4} className="p-0">
+                                                                            <FavoriteBorderIcon id="fav-icon" />
+                                                                            <img src={`https://img.youtube.com/vi/${getVideoKey(workoutData.workout.video_link)}/0.jpg`} alt={workoutData.workout.title} style={{ width: '100%', height: '120px', cursor: 'pointer', bottom: '17px', position: 'relative' }} />
+                                                                        </Col>
+                                                                        <Col xs={8} className={`p-0 product-info`}>
+                                                                            <Row className="m-0" style={{ height: '75px', alignItems: 'center' }}>
+                                                                                <Col xs={12} className="p-0">
+                                                                                    <p className="product-name">{workoutData.workout.title}</p>
+                                                                                </Col>
+                                                                                {/* <Col xs={6} className="product-icons">
                                                                                         <div className="my-video-time"><img src={Timer} /> 5 min</div>
                                                                                     </Col> */}
-                                                                        </Row>
-                                                                    </Col>
-                                                                </Row>
-                                                            </CardContent>
-                                                        </Card>
+                                                                            </Row>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </CardContent>
+                                                            </Card>
                                                         )
                                                     )
                                                     )}

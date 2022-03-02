@@ -1,14 +1,17 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import Loadable from "react-loadable";
+// import Loadable from "react-loadable";
 import Cookies from "universal-cookie";
-import firebase from "firebase";
+// import firebase from "firebase";
+//import useAxios from "../../util/axiosService";
 
 import Header from "./Header";
 import Footer from "./Footer";
 import { firestoreService, chatAndVideoService } from "../../util";
-import useAxios from "../../util/axiosService";
-import { getDoctorByUserId, getModulesDetailsByIds } from "../../service/frontendapiservices";
+import {
+  getDoctorByUserId,
+  // getModulesDetailsByIds
+} from "../../service/frontendapiservices";
 import Loader from '../Loader/Loader'
 
 const Homepage = React.lazy(() => import("./Homepage"));
@@ -54,9 +57,7 @@ const DoctorRoute = () => {
     const res = await getDoctorByUserId(loggedInUserId);
     //axios(payload).then(res => {
     if (res && res.data) {
-      res.data.doctors.map((value, index) => {
-        setCurrentDoctor(value);
-      });
+      res.data.doctors.map((value, index) => setCurrentDoctor(value));
     }
   };
 
@@ -66,11 +67,14 @@ const DoctorRoute = () => {
       firestoreService
         .signIn(email, firebasePwd)
         .then((userCredential) => {
-          firestoreService.makeChatGroupList("doctorEmailId", email, setChatGroupList, setUpdateChatGroupListTrigger,setAddedNewUpdateChatGroupListTrigger);
+          firestoreService.makeChatGroupList("doctorEmailId", email, setChatGroupList, setUpdateChatGroupListTrigger, setAddedNewUpdateChatGroupListTrigger);
         })
         .catch((err) => {
-          let { code, message } = err;
-          if (code == "auth/user-not-found") {
+          let {
+            code,
+            // message
+          } = err;
+          if (code === "auth/user-not-found") { //replaced '==' with '==='
             firestoreService
               .createNewUser(email, firebasePwd)
               .then((userRecord) => {
@@ -84,7 +88,7 @@ const DoctorRoute = () => {
           }
           else console.log("error in firestore signIn", err);
         });
-        setTimeout(() => setHeaderFooterLoad(true), 1000);
+      setTimeout(() => setHeaderFooterLoad(true), 1000);
     }
   }, [currentDoctor, restartFirebaseLogin]);
 

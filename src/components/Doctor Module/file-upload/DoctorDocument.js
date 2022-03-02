@@ -2,9 +2,9 @@ import './doctor-document.css';
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Tab, Tabs } from 'react-bootstrap';
 import Pagination from 'react-bootstrap/Pagination'
-import documentViewImage from '../../../images/icons used/document icon@2x.png';
+// import documentViewImage from '../../../images/icons used/document icon@2x.png';
 import editIcon from '../../../images/Icons/edit icon_40 pxl.svg';
-import Footer from '../Footer';
+// import Footer from '../Footer';
 import { formatDate } from "../../questionnaire/QuestionnaireService";
 import { getCurrentUserInfo, getCurrentDoctorInfo } from "../../../service/AccountService";
 import {
@@ -43,7 +43,7 @@ const DoctorDocument = (props) => {
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
     const [prescriptionDocumentUrl, setPrescriptionDocumentUrl] = useState("");
     const [labDocumentUrl, setLabDocumentUrl] = useState("");
-    const [defaultPrescriptionDocumentUrl, setDefaultPrescriptionDocumentUrl] = useState("");
+    const [setDefaultPrescriptionDocumentUrl] = useState("");
     const [presecriptionDocument, setPresecriptionDocument] = useState({
         totalItems: 0,
         totalPages: 0,

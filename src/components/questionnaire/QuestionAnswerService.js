@@ -1,7 +1,7 @@
 import * as axios from "axios";
 //import { getToken } from "../../service/TokenService";
 import LocalStorageService from "../../util/LocalStorageService";
-import properties from "../../properties";
+// import properties from "../../properties";
 
 async function saveQuestionAnswer(data) {
 

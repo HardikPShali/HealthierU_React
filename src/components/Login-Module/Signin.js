@@ -3,7 +3,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "./landing.css";
 import { Container, Row, Col } from "react-bootstrap";
-// import Axios from 'axios';
 import {
   Link,
   // useHistory
@@ -25,9 +24,9 @@ import Loader from "./../Loader/Loader";
 import TransparentLoader from "./../Loader/transparentloader";
 import GoogleLogin from "react-google-login";
 import { handleGoogleAuth } from "./../../service/googleapiservice";
-import { GOOGLECLIENTID, CAPTCHA_SITE_KEY } from "../../util/configurations";
-import firebase from "firebase";
-import { sendFcmTokenToServer } from "../../service/firebaseservice";
+import { GOOGLECLIENTID } from "../../util/configurations"; //CAPTCHA_SITE_KEY
+// import firebase from "firebase";
+// import { sendFcmTokenToServer } from "../../service/firebaseservice";
 import {
   handleSignin,
   getCurrentUserInfo,
@@ -35,13 +34,13 @@ import {
   sendOtpEmail,
   verifyOtp,
 } from "../../service/AccountService";
-import { openStdin } from "process";
+// import { openStdin } from "process";
 import gmailIcon from "../../images/icons used/gmailIcon.png";
 import OtpInput from "react-otp-input";
 import OtpTimer from "otp-timer";
-import axios from "axios";
-import otpGenerator from "otp-generator";
-import ReCAPTCHA from "react-google-recaptcha";
+// import axios from "axios";
+// import otpGenerator from "otp-generator";
+// import ReCAPTCHA from "react-google-recaptcha";
 
 const Signin = () => {
   // const history = useHistory();
@@ -49,7 +48,7 @@ const Signin = () => {
   const [loader, setLoader] = useState(false);
   const [loading, setLoading] = useState(true);
   // const [firebaseToken, setFirebaseToken] = useState();
-  ////console.log("firebaseToken ::", firebaseToken);
+  // console.log("firebaseToken ::", firebaseToken);
 
   const cookies = new Cookies();
   const handleClickOpen = () => {
@@ -117,22 +116,22 @@ const Signin = () => {
     setUser({ ...user, [e.target.name]: e.target.value, msg: "" });
   };
 
-  const [captchaVerify, setCaptchaVerify] = useState(false);
+  // const [captchaVerify, setCaptchaVerify] = useState(false);
 
-  const handleRecaptchaChange = (value) => {
-    console.log(value);
-    if (value !== null || value !== "") {
-      setCaptchaVerify(true);
-      setUser({
-        ...user,
-        msg: "",
-      });
-    } else {
-      setCaptchaVerify(false);
-    }
-  };
+  // const handleRecaptchaChange = (value) => {
+  //   console.log(value);
+  //   if (value !== null || value !== "") {
+  //     setCaptchaVerify(true);
+  //     setUser({
+  //       ...user,
+  //       msg: "",
+  //     });
+  //   } else {
+  //     setCaptchaVerify(false);
+  //   }
+  // };
 
-  const [otpText, setOtpText] = useState();
+  // const [otpText, setOtpText] = useState();
 
   const handleOTPChange = (otpText) => {
     setUser({ ...user, otp: otpText, msg: "" });
@@ -148,11 +147,11 @@ const Signin = () => {
       }
     });
     setCurrentUser(currentUserInformation);
-    //cookies.set('currentUser', currentUserInformation);
+    // cookies.set('currentUser', currentUserInformation);
     // const fcmToken = getFirebaseToken(currentUserInformation.id);
-    // //console.log("fcmToken :::::::::::",fcmToken);
+    // console.log("fcmToken :::::::::::",fcmToken);
     // if (fcmToken) {
-    //const currentLoggedInUser = cookies.get("currentUser");
+    // const currentLoggedInUser = cookies.get("currentUser");
     const { authorities = [] } = currentUserInformation || {};
 
     if (!currentUserInformation) {
@@ -190,23 +189,23 @@ const Signin = () => {
 
   const handleLogin = async (e) => {
     //if (captchaVerify) {
-      setLoader(true);
-      const response = await handleSignin(username, password).catch((err) => {
-        if (err.response && err.response.status === 400) {
-          setUser({
-            ...user,
-            msg: "Invalid email and password combination. Please try again",
-          });
-          setLoader(false);
-        } else if (err.response && err.response.status === 401) {
-          setLoader(false);
-          handleActivateErrorOpen();
-        }
-      });
-      if (response && response.data) {
-        LocalStorageService.setToken(response.data);
-        getCurrentUserData();
+    setLoader(true);
+    const response = await handleSignin(username, password).catch((err) => {
+      if (err.response && err.response.status === 400) {
+        setUser({
+          ...user,
+          msg: "Invalid email and password combination. Please try again",
+        });
+        setLoader(false);
+      } else if (err.response && err.response.status === 401) {
+        setLoader(false);
+        handleActivateErrorOpen();
       }
+    });
+    if (response && response.data) {
+      LocalStorageService.setToken(response.data);
+      getCurrentUserData();
+    }
     // } else {
     //   setUser({
     //     ...user,
@@ -405,7 +404,7 @@ const Signin = () => {
               )}
               <div className="row">
                 <div className="col-12">
-                  <p className="signup-text">Don’t have an account yet?</p>
+                  <p className="signup-text">Don't have an account yet?</p>
                   <Link to="/signup">
                     <button className="btn btn-outline-primary sign-btn">
                       Sign Up

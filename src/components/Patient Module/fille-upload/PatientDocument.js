@@ -1,27 +1,28 @@
 import './patient-document.css';
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Tab, Tabs } from 'react-bootstrap';
-import Footer from '../Footer';
 import editIcon from '../../../images/Icons/edit icon_40 pxl.svg';
 import Pagination from 'react-bootstrap/Pagination'
-import documentViewImage from '../../../images/icons used/document icon@2x.png';
 import { formatDate } from "../../questionnaire/QuestionnaireService";
-import { getCurrentPatientInfo,getCurrentUserInfo } from "../../../service/AccountService";
+import { getCurrentPatientInfo, getCurrentUserInfo } from "../../../service/AccountService";
 import {
     validateEmail,
     getDocument,
     postDocument,
-    //getDocuments,
     postLabDocument,
     getDoctorDetail,
-    //getPatientDetail,
     getPatientDocuments,
-    getDocumentById
+    getDocumentById,
+    //getPatientDetail,
+    //getDocuments,
 } from "../../../service/DocumentService";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import TransparentLoader from '../../Loader/transparentloader';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { IconButton } from "@material-ui/core";
+
+// import documentViewImage from '../../../images/icons used/document icon@2x.png';
+// import Footer from '../Footer';
 
 const PatientDocument = (props) => {
 
@@ -31,8 +32,8 @@ const PatientDocument = (props) => {
 
     const [loading, setLoading] = useState(false);
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
-    //const [documentId, setDocumentId] = useState(null);
-    const [doctor, setDoctor] = useState(null);
+    const [doctor, setDoctor] = useState('');
+    const [suggestion, setSuggestion] = useState([]);
     const [patient, setPatient] = useState(null);
     const [showLabResultUpload, setShowLabResultUpload] = useState(false);
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
@@ -68,6 +69,9 @@ const PatientDocument = (props) => {
     });
 
     const [errorMsg, setErrorMsg] = useState("");
+
+    //const [documentId, setDocumentId] = useState(null);
+
 
     const handleUploadLabResultShow = () => {
         setShowLabResultUpload(true);
@@ -129,6 +133,17 @@ const PatientDocument = (props) => {
             const data = await getDoctorDetail(e.target.value);
             setDoctor(data);
         }
+
+        // autocomplete suggestions
+        // let matches = [];
+        // if (e.target.value.length > 0) {
+        //     matches = doctor.email.filter(doc => {
+        //         const regexp = new RegExp(`${e.target.value}`, 'gi');
+        //         return doc.email.match(regexp);
+        //     })
+        // }
+        // console.log("Matches::", matches)
+        // setSuggestion(matches);
     };
 
 
@@ -210,11 +225,11 @@ const PatientDocument = (props) => {
         setLabDocumentUrl(res);
     }
 
-    const handlePrescriptionUploadShow = () => {
-        setShowPrescriptionUpload(true);
-        setPrescriptionResult(null);
-        setDoctor(null);
-    }
+    // const handlePrescriptionUploadShow = () => {
+    //     setShowPrescriptionUpload(true);
+    //     setPrescriptionResult(null);
+    //     setDoctor(null);
+    // }
 
     const clickTabEvent = async (event) => {
         //let documents;
@@ -259,7 +274,7 @@ const PatientDocument = (props) => {
             patientId: item.patient.id,
         };
         const res = await getDocumentById(payload);
-        if(res && res.data){
+        if (res && res.data) {
             if (res.data?.documentUrl !== "") {
                 setEditDocument(true)
             }
@@ -269,7 +284,7 @@ const PatientDocument = (props) => {
             setPrescriptionResult(res.data);
             setShowPrescriptionUpload(true);
             setDoctor(item.doctor);
-        } 
+        }
     }
     const handleEditLabModal = async item => {
         const payload = {
@@ -277,7 +292,7 @@ const PatientDocument = (props) => {
             patientId: item.patient.id,
         };
         const res = await getDocumentById(payload);
-        if(res && res.data){
+        if (res && res.data) {
             if (res.data?.documentUrl !== "") {
                 setEditDocument(true)
             }
@@ -532,7 +547,7 @@ const PatientDocument = (props) => {
                                 <div className="col-sm-9">
                                     <input type="email" id="doctorEmail" name="doctorEmail" className="form-control"
                                         validate="true" value={doctor?.email}
-                                        placeholder="Doctor Email" onChange={e => handleDoctorTag(e)}></input>
+                                        placeholder="Doctor Email" onChange={e => handleDoctorTag(e.target.value)}></input>
                                     {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
                                         <input hidden={true} id="doctorId" name="doctorId" value={doctor?.id} /></b></span>
                                         : <span>No Doctor Found</span>}

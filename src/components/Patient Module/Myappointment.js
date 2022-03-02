@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import Footer from './Footer'
+// import Footer from './Footer'
 import './patient.css'
 import { Container, Row, Col } from 'react-bootstrap'
 import moment from 'moment';
-import LocalStorageService from './../../util/LocalStorageService';
-import axios from 'axios';
+// import LocalStorageService from './../../util/LocalStorageService';
+// import axios from 'axios';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 import Loader from './../Loader/Loader';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Dialog from '@material-ui/core/Dialog';
@@ -23,8 +23,8 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import ChatIcon from '@material-ui/icons/Chat';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-import { handleAgoraAccessToken } from '../../service/agoratokenservice';
-import { deleteAppointment, getAppointmentListByPatientId, getLoggedInUserDataByUserId } from '../../service/frontendapiservices';
+// import { handleAgoraAccessToken } from '../../service/agoratokenservice';
+import { deleteAppointment, getAppointmentListByPatientId } from '../../service/frontendapiservices'; //getLoggedInUserDataByUserId
 import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';
 
@@ -136,14 +136,14 @@ const Myappointment = (props) => {
         };
     }
 
-    const cookies = new Cookies();
+    // const cookies = new Cookies();
 
     const classes = useStyles();
     useEffect(() => {
         props.currentPatient.id && getMyAppointmentList(props.currentPatient.id);
     }, [props.currentPatient]);
-    
-    // current patient is comming from props delete in future ady-delete
+
+    // current patient is coming from props delete in future ady-delete
     // const currentLoggedInUser = cookies.get("currentUser");
     // const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
     // const getCurrentPatient = async () => {
@@ -170,7 +170,7 @@ const Myappointment = (props) => {
     // }
 
     const getMyAppointmentList = async (patientId) => {
-        const newStartDate = new Date().setDate(new Date().getDate() - 30);
+        // const newStartDate = new Date().setDate(new Date().getDate() - 30);
         const newEndDate = new Date().setDate(new Date().getDate() + 21);
 
         const myAppointmentFilter = {
@@ -202,17 +202,18 @@ const Myappointment = (props) => {
                             (value.unifiedAppointment !== (response.data[index - 1] && response.data[index - 1].unifiedAppointment)))) {
                             updateArray.push({ id: value.id, patientId: value.patientId, doctorId: value.doctorId, doctor: value.doctor, startTime: new Date(value.startTime), endTime: new Date(value.endTime), remarks: value.remarks, status: value.status, appointmentId: value.appointmentId, unifiedAppointment: value.unifiedAppointment });
                         }
-                    } //  
+                    }
+                    return value;
                 })
                 setMyAppoitment(updateArray);
                 setTimeout(() => setLoading(false), 1000);
             }
 
-        } 
+        }
     }
 
     const handleDelete = async (selectedAppointment) => {
-        const {currentPatient,doctorDetailsList}=props;
+        const { currentPatient, doctorDetailsList } = props;
         setLoading(true);
         handleClose();
         const payload = {
@@ -232,7 +233,7 @@ const Myappointment = (props) => {
             }
         });
         if (res?.status === 200 || res?.status === 201) {
-            firestoreService.sendCancelAppointmentToFirestoreMessage(selectedAppointment, 'patient',currentPatient,doctorDetailsList);
+            firestoreService.sendCancelAppointmentToFirestoreMessage(selectedAppointment, 'patient', currentPatient, doctorDetailsList);
             getMyAppointmentList(currentPatient.id);
             handleClose();
 
@@ -246,7 +247,7 @@ const Myappointment = (props) => {
         setHourDifference(hours);
     }
 
-    const {currentPatient,doctorDetailsList}=props;
+    // const {currentPatient,doctorDetailsList}=props;
 
     //console.log("myAppointment ::::::::", myAppointment);
     return (
@@ -298,6 +299,7 @@ const Myappointment = (props) => {
                                                     onDelete={() => handleClickOpen(appointment)}
                                                     deleteIcon={<CancelIcon />} />)
                                             }
+                                            return appointment;
                                         })}
                                     </div>
                                 )}
@@ -312,7 +314,7 @@ const Myappointment = (props) => {
                 <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                     <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                         Are you sure you want to cancel?
-                </DialogTitle>
+                    </DialogTitle>
                     <DialogContent dividers>
                         <Typography gutterBottom>
                             {hourDifference < 24 && (<span>You are cancelling less then 24h prior the appointment start time, unfortunately you will not be reimbursed</span>)}
@@ -322,17 +324,17 @@ const Myappointment = (props) => {
                     <DialogActions>
                         <button autoFocus onClick={() => handleDelete(selectedAppointment)} className="btn btn-primary">
                             Ok
-                    </button>
+                        </button>
                         <button autoFocus onClick={handleClose} className="btn btn-secondary">
                             Cancel
-                    </button>
+                        </button>
                     </DialogActions>
                 </Dialog>
 
                 <Dialog onClose={handleAppointmentInfoClose} aria-labelledby="customized-dialog-title" open={openAppointmentInfo}>
                     <DialogTitle id="customized-dialog-title" onClose={handleAppointmentInfoClose}>
                         Appointment Information!
-                </DialogTitle>
+                    </DialogTitle>
                     <DialogContent dividers>
                         {selectedAppointment && selectedAppointment.doctor && (
                             <div>
@@ -374,32 +376,32 @@ const Myappointment = (props) => {
                         </IconButton>
                         <button autoFocus onClick={handleAppointmentInfoClose} className="btn btn-primary">
                             Ok
-                    </button>
+                        </button>
                     </DialogActions>
                 </Dialog>
                 <Dialog onClose={confirmVideoClose} aria-labelledby="customized-dialog-title" open={confirmVideo}>
                     <DialogTitle id="customized-dialog-title" onClose={confirmVideoClose}>
                         Do you want to Start Video Call
-                </DialogTitle>
+                    </DialogTitle>
                     <DialogActions>
-                    <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus 
-                        //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
-                        className="btn btn-primary" id="close-btn">
+                        <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus
+                            //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
+                            className="btn btn-primary" id="close-btn">
                             Yes
-                    </button></Link>
+                        </button></Link>
                         <button autoFocus onClick={confirmVideoClose} className="btn btn-primary" id="close-btn">
                             No
-                    </button>
+                        </button>
                     </DialogActions>
                 </Dialog>
                 <Dialog onClose={alertVideoClose} aria-labelledby="customized-dialog-title" open={alertVideo}>
                     <DialogTitle id="customized-dialog-title" onClose={alertVideoClose}>
                         Video call is possible only starting 2 Minutes before the Appointment Time
-                </DialogTitle>
+                    </DialogTitle>
                     <DialogActions>
                         <button autoFocus onClick={alertVideoClose} className="btn btn-primary" id="close-btn">
                             Ok
-                    </button>
+                        </button>
                     </DialogActions>
                 </Dialog>
             </>)}
