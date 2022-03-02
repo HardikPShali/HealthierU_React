@@ -13,6 +13,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class QuestionnaireEdit extends React.Component {
   state = {
     isLoading: true,
@@ -224,6 +227,17 @@ class QuestionnaireEdit extends React.Component {
                     >
                       Continue
                     </Button>
+                    <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
                   </div>
                 </>
               )}
@@ -291,7 +305,18 @@ class QuestionnaireEdit extends React.Component {
   }
 
   async continue(event) {
-    window.location.assign('/patient');
+    toast.success('Good Job!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+    // alert("Successful");
+    setTimeout(() => window.location.assign('/patient'), 1000);
+    // window.location.assign('/patient');
   }
 }
 

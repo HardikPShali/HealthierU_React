@@ -659,6 +659,7 @@ const MyDoctor = (props) => {
     like: "none",
     unlike: "block",
     suggestion: "none",
+  
   });
   const [disable, setDisable] = useState({
     continue: true,
