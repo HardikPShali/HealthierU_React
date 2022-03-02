@@ -1,46 +1,46 @@
-import React, { useState, useEffect } from "react";
-// import Axios from "axios";
-import { Link } from "react-router-dom";
-import Navbar from "../layout/Navbar";
-// import properties from "../../../properties";
-import moment from "moment";
-// import LocalStorageService from "../../../util/LocalStorageService";
-import Loader from "../../Loader/Loader";
-import TransparentLoader from "../../Loader/transparentloader";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "mdbreact/dist/css/mdb.css";
-// import { MDBDataTableV5 } from 'mdbreact';
-import "../admin.css";
-import SearchBar from "material-ui-search-bar";
-import { Row, Col } from "react-bootstrap";
-import Cookies from "universal-cookie";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Navbar from '../layout/Navbar';
+import moment from 'moment';
+import Loader from '../../Loader/Loader';
+import TransparentLoader from '../../Loader/transparentloader';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'mdbreact/dist/css/mdb.css';
+import '../admin.css';
+import SearchBar from 'material-ui-search-bar';
+import { Row, Col } from 'react-bootstrap';
+import Cookies from 'universal-cookie';
 import {
   getPaginatedDoctorList,
   changeDoctorStatusOnUserTable,
   changeDoctorStatusOnDoctorTable,
   // approveDoctorByAdmin,
-} from "../../../service/adminbackendservices";
-import EditIcon from "@material-ui/icons/Edit";
-import { doctorListLimit } from "../../../util/configurations";
-import Pagination from "../../CommonModule/pagination";
-import { getSearchData } from "../../../service/frontendapiservices";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { IconButton } from "@material-ui/core";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
+} from '../../../service/adminbackendservices';
+import EditIcon from '@material-ui/icons/Edit';
+import { doctorListLimit } from '../../../util/configurations';
+import Pagination from '../../CommonModule/pagination';
+import { getSearchData } from '../../../service/frontendapiservices';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { IconButton } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 // import { DialogTitle } from "@material-ui/core";
 // import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 // import {
 //   TextValidator,
 //   ValidatorForm,
 // } from "react-material-ui-form-validator";
+// import { MDBDataTableV5 } from 'mdbreact';
+// import LocalStorageService from "../../../util/LocalStorageService";
+// import properties from "../../../properties";
+// import Axios from "axios";
 
 const DoctorList = () => {
   const [loading, setLoading] = useState(true);
   const [transparentLoading, setTransparentLoading] = useState(false);
   const [userList, setUserList] = useState();
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const [filterData, setFilterData] = useState();
   const [totalPages, setTotalPages] = useState();
   const [totalRecords, setTotalRecords] = useState();
@@ -49,7 +49,7 @@ const DoctorList = () => {
   const cookies = new Cookies();
   useEffect(() => {
     getUserList();
-    cookies.remove("authorities", { path: "/" });
+    cookies.remove('authorities', { path: '/' });
   }, []);
 
   const [offset] = useState(0);
@@ -76,7 +76,7 @@ const DoctorList = () => {
   const clickPagination = async (pageNumber) => {
     setTransparentLoading(true);
     setCurrentPageNumber(pageNumber);
-    if (searchText !== "") {
+    if (searchText !== '') {
       const res = await getSearchData(searchText, pageNumber, doctorListLimit);
       if (res.status === 200 && res.data?.doctors.length > 0) {
         setFilterData(res.data.doctors);
@@ -95,9 +95,9 @@ const DoctorList = () => {
   };
 
   const handleSearch = (searchValue) => {
-    if (searchValue === "") {
+    if (searchValue === '') {
       setFilterData(userList);
-      setDisplay({ ...display, suggestion: "none" });
+      setDisplay({ ...display, suggestion: 'none' });
     } else {
       setSearchText(searchValue);
       searchData(searchValue);
@@ -106,8 +106,8 @@ const DoctorList = () => {
   };
 
   const handleSearchInputChange = (searchValue) => {
-    if (searchValue === "") {
-      setSearchText("");
+    if (searchValue === '') {
+      setSearchText('');
       setFilterData(userList.doctors);
       setTotalPages(userList.totalPages);
       setTotalRecords(userList.totalItems);
@@ -118,7 +118,7 @@ const DoctorList = () => {
   };
 
   const handleSearchData = async () => {
-    if (searchText !== "") {
+    if (searchText !== '') {
       setTransparentLoading(true);
       setCurrentPageNumber(0);
       const res = await getSearchData(searchText, 0, doctorListLimit);
@@ -149,7 +149,7 @@ const DoctorList = () => {
       );
     });
     setFilterData(filteredData);
-    setTimeout(() => setDisplay({ ...display, suggestion: "block" }), 1500);
+    setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
   };
 
   const loadMore = async () => {
@@ -173,13 +173,13 @@ const DoctorList = () => {
   };
 
   const setCookies = (authority) => {
-    cookies.set("authorities", "ROLE_DOCTOR");
+    cookies.set('authorities', 'ROLE_DOCTOR');
   };
 
   const [display, setDisplay] = useState({
-    suggestion: "none",
+    suggestion: 'none',
   });
-  const [statusMsg, setStatusMsg] = useState("");
+  const [statusMsg, setStatusMsg] = useState('');
   const [activeDialog, setActiveDialog] = useState(false);
 
   const activateDoctor = async (selectedUser) => {
@@ -243,26 +243,26 @@ const DoctorList = () => {
       <Navbar pageTitle="doctorList" />
       <div className="container">
         <div className="py-4">
-          <Row style={{ alignItems: "center" }}>
+          <Row style={{ alignItems: 'center' }}>
             <Col md={8}>
               <h1>Doctor List</h1>
             </Col>
             <Col md={4}>
-              <div id="admin-search" style={{ textAlign: "end" }}>
+              <div id="admin-search" style={{ textAlign: 'end' }}>
                 <SearchBar
                   type="text"
                   value={searchText}
                   id="doctor-search"
                   onChange={(value) => handleSearchInputChange(value)}
-                  onCancelSearch={() => handleSearchInputChange("")}
+                  onCancelSearch={() => handleSearchInputChange('')}
                   onRequestSearch={() => handleSearchData()}
                   cancelOnEscape={true}
                   onKeyDown={(e) =>
-                    e.keyCode === 13 ? handleSearchData() : ""
+                    e.keyCode === 13 ? handleSearchData() : ''
                   }
                 />
-                {console.log("searchText", searchText)}
-                {searchText !== "" && (
+                {console.log('searchText', searchText)}
+                {searchText !== '' && (
                   <IconButton
                     onClick={() => handleSearchData()}
                     className="searchForwardIcon"
@@ -277,7 +277,7 @@ const DoctorList = () => {
             <Col>
               <div className="totalNumberOfDoctors">
                 <span>
-                  <b>Total Number of Doctors:{totalRecords}</b>
+                  <b>Total Number of Doctors: {totalRecords}</b>
                 </span>
               </div>
             </Col>
@@ -309,23 +309,33 @@ const DoctorList = () => {
                     <td>{user.firstName}</td>
                     <td>{user.lastName}</td>
                     <td>{user.email}</td>
-                    <td>Doctor</td>
                     <td>
-                      <div style={{
-                        width: "250px",
-                        height: "auto",
-                        overflow: "unset",
-                      }}>
-                        {moment(user && user.createdDate).format(
-                          "DD MMM, YYYY hh:mm A"
-                        )}</div>
+                      {/* {user.authorities.some(
+                        (userRole) => userRole === "ROLE_DOCTOR" ? "Doctor" : ""
+                      )} */}
+                      Doctor
                     </td>
                     <td>
                       <div
                         style={{
-                          width: "265px",
-                          height: "auto",
-                          overflow: "unset",
+                          width: '250px',
+                          height: 'auto',
+                          overflow: 'unset',
+                        }}
+                      >
+                        {(user.createTime &&
+                          moment(user.createTime).format(
+                            'DD MMM, YYYY hh:mm A'
+                          )) ||
+                          'Date Not Found'}
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        style={{
+                          width: '265px',
+                          height: 'auto',
+                          overflow: 'unset',
                         }}
                       >
                         <Link
@@ -352,7 +362,7 @@ const DoctorList = () => {
               ) : (
                 <>
                   <tr>
-                    <td colSpan="7" style={{ textAlign: "center" }}>
+                    <td colSpan="7" style={{ textAlign: 'center' }}>
                       No doctor found...
                     </td>
                   </tr>
