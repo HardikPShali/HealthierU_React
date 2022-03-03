@@ -164,7 +164,7 @@ const PatientList = () => {
                         moment(user.createTime).format(
                           'DD MMM, YYYY hh:mm A'
                         )) ||
-                        'Date Not Found'}
+                        ''}
                     </td>
                     <td>
                       <div

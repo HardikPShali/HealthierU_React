@@ -327,7 +327,7 @@ const DoctorList = () => {
                           moment(user.createTime).format(
                             'DD MMM, YYYY hh:mm A'
                           )) ||
-                          'Date Not Found'}
+                          ''}
                       </div>
                     </td>
                     <td>
