@@ -91,12 +91,14 @@ const GlobalSearch = () => {
 
     const handleFilterClick = (e) => {
         //console.log("value ::::", e.target.value)
+        setFilterData([]);
         if (e.target.value === "patient") {
             loadPatients();
         } else if (e.target.value === "doctor" || e.target.value === "") {
             loadDoctors();
         }
         setFilterText(e.target.value);
+        console.log(filterData);
     }
 
     const setCookies = (authority) => {
@@ -137,7 +139,7 @@ const GlobalSearch = () => {
                             {filterText === "doctor" && (
                                 <div id="global-list">
                                     <GridList cellHeight={220}>
-                                        {/* {filterData && filterData.map((user, index) => (
+                                        {filterData.doctors && filterData.doctors.map((user, index) => (
                                             <GridListTile key={index}>
                                                 {user.picture ? (<img src={user.picture} alt="" />)
                                                     : (<Avatar name={user.firstName + " " + user.lastName} />)}
@@ -158,13 +160,16 @@ const GlobalSearch = () => {
                                         ))}
                                         {filterData === "" && (
                                             <center><b>No Result Found</b></center>
-                                        )} */}
+                                        )}
 
                                     </GridList>
                                 </div>
                             )}
                             {filterText === "patient" && (
                                 <div id="global-list">
+                                    {
+                                            console.log("FilterData", filterData)
+                                        }
                                     <GridList cellHeight={220}>
                                         {filterData && filterData.map((user, index) => (
                                             <GridListTile key={index}>
@@ -182,6 +187,9 @@ const GlobalSearch = () => {
                                             </GridListTile>
 
                                         ))}
+                                        {
+                                            console.log("FilterData", filterData)
+                                        }
                                         {filterData === "" && (
                                             <center><b>No Result Found</b></center>
                                         )}
