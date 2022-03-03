@@ -225,6 +225,8 @@ select#coutry-select {
 .file-upload {
   /* display: none; */
   visibility: hidden;
+  /* font-size: 0%;
+  inline-size: 0%; */
 }
 .file-upload::before {
   content: "";
@@ -238,6 +240,7 @@ select#coutry-select {
   left: 2%;
 }
 .p-image {
+  
   position: relative;
   bottom: 70px;
   left: 48px;
