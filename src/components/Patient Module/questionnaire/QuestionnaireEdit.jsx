@@ -12,12 +12,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-<<<<<<< HEAD
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-=======
 // import Footer from '../Footer';
->>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
 
 class QuestionnaireEdit extends React.Component {
   state = {
