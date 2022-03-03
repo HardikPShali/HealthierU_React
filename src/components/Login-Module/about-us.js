@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
-// import PatientHeader from "./../Patient Module/Header";
-// import DoctorHeader from "./../Doctor Module/Header";
 import Footer from "./Footer";
-// import PatientFooter from "./../Patient Module/Footer";
-// import DoctorFooter from "./../Doctor Module/Footer";
 import "./landing.css";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import aboutUsimg from "../../images/macbook-iphone-healthyU.png";
 import features from "../../images/our-features.png";
 import { Container, Row, Col } from "react-bootstrap";
@@ -40,6 +35,14 @@ import axios from "axios";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
+import { HOMEPAGE_GETHELP } from '../../util/constant';
+import { useTranslation } from 'react-i18next';
+
+// import PatientFooter from "./../Patient Module/Footer";
+// import DoctorFooter from "./../Doctor Module/Footer";
+// import PatientHeader from "./../Patient Module/Header";
+// import DoctorHeader from "./../Doctor Module/Header";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AboutUs = ({ currentuserInfo }) => {
   const [loading, setLoading] = useState(true);
@@ -107,6 +110,9 @@ const AboutUs = ({ currentuserInfo }) => {
       });
   };
 
+  const { t } = useTranslation(['about-us']);
+  const language = localStorage.getItem('i18nextLng');
+
   return (
     <div>
       {loading && <Loader />}
@@ -135,18 +141,16 @@ const AboutUs = ({ currentuserInfo }) => {
           <div className="header-bgimage">
             <div className="header-caption">
               <h3 className="h3-responsive">
-                Healthcare at
+                {t('Healthcare at')}
                 <br />
-                your hands
+                {t('your hands')}
               </h3>
               <p className="help-desc">
-                Talk with one of our 108,000+ doctors <br />
-                by video/voice/text for advice, <br />
-                diagnosis and treatment.
+                {t(`${HOMEPAGE_GETHELP.DESCRIPTION}`)}
               </p>
               <Link to={redirectUrl}>
                 <button className="btn btn-light get-started-btn">
-                  Get Started Now
+                  {t('Get Started Now')}
                 </button>
               </Link>
             </div>
@@ -155,17 +159,15 @@ const AboutUs = ({ currentuserInfo }) => {
             <Row id="aboutus-two">
               <Col md={5}>
                 <h2>HealthierU</h2>
-                <h4>Wellness Optimized.</h4>
+                <h4>{t('Wellness Optimized')}</h4>
                 <br />
                 <p>
-                  HealthierU is an integrated and fully secured health
-                  communications platform that aims to bring the best
-                  international medical care to all users from across the globe.{" "}
+                  {t('HealthierU is an integrated and fully secured health communications platform that aims to bring the best international medical care to all users from across the globe.')}{" "}
                 </p>
                 <p>
-                  Get answers. Get well.
+                  {t('Get answers. Get well.')}
                   <br />
-                  Tap into the best virtual healthcare.
+                  {t('Tap into the best virtual healthcare.')}
                 </p>
               </Col>
               <Col md={7}>
@@ -177,14 +179,10 @@ const AboutUs = ({ currentuserInfo }) => {
             <Row>
               <Col md={6} id="why-choose"></Col>
               <Col md={6} id="col-card-2">
-                <h2>Why choose HealthierU?</h2>
+                <h2>{t('Why choose HealthierU?')}</h2>
                 <br />
                 <p id="doc-box-text">
-                  When it comes to your health, prevention is always much better
-                  than a cure; this is exactly what HealthierU does. Preventive
-                  care is important because it helps you stay healthy and
-                  enables you to access prompt treatment when necessary. It can
-                  also help reduce your overall medical expenses.
+                  {t('When it comes to your health, prevention is always much better than a cure; this is exactly what HealthierU does. Preventive care is important because it helps you stay healthy and enables you to access prompt treatment when necessary. It can also help reduce your overall medical expenses.')}
                 </p>
               </Col>
             </Row>
@@ -209,9 +207,9 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step1} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Set up your account
+                              {t('Set up your account')}
                               <br />
-                              within seconds and the team will get  <br />in touch with you for  <br />verification purposes.
+                              {t('within seconds and the team will get')}  <br />{t('in touch with you for verification purposes.')}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -222,9 +220,9 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step2} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Get easy access to your
+                              {t('Get easy access to your')}
                               <br />
-                              patient's medical records.
+                              {t("patient's medical records.")}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -236,11 +234,11 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step3} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Consult and chat with your
+                              {t('Consult and chat with your')}
                               <br />
-                              patient according to your
+                              {t('patient according to your')}
                               <br />
-                              availaibility and time zone.
+                              {t('availaibility and time zone.')}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -251,9 +249,9 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step4} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Access the latest updates in
+                              {t('Access the latest updates in')}
                               <br />
-                              the health and medical field.
+                              {t('the health and medical field.')}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -264,9 +262,10 @@ const AboutUs = ({ currentuserInfo }) => {
                         <MDBCard className="mb-2">
                           <MDBCardImage className="img-fluid" src={step5} />
                           <MDBCardBody>
-                            <MDBCardText>Connect with the right
+                            <MDBCardText>
+                              {t('Connect with the right')}
                               <br />
-                              medical care.
+                              {t('medical care.')}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -276,9 +275,9 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step6} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Schedule your online
+                              {t('Schedule your online')}
                               <br />
-                              consultation.
+                              {t('consultation.')}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -288,7 +287,7 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step7} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Pay as soon as you book.
+                              {t('Pay as soon as you book.')}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -300,9 +299,9 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step8} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Consult with your virtual
+                              {t('Consult with your')}
                               <br />
-                              doctor.
+                              {t('virtual doctor.')}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -313,7 +312,7 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step9} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Review your doctor's report.
+                              {t("Review your doctor's report.")}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -325,8 +324,8 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step10} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Access your personalized <br />
-                              supplements and wearables.
+                              {t('Access your personalized')} <br />
+                              {t('supplements and wearables.')}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -337,9 +336,9 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step11} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Find out more about our nutrition and <br />
-                              workout plans, courses and latest <br />{" "}
-                              scientific articles.
+                              {t('Find out more about our nutrition and')} <br />
+                              {t('workout plans, courses and latest')} <br />{" "}
+                              {t('scientific articles.')}
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -359,45 +358,45 @@ const AboutUs = ({ currentuserInfo }) => {
               </Col>
               <Col md={1}></Col>
               <Col md={6}>
-                <h2>Our Features</h2>
+                <h2>{t('Our Features')}</h2>
                 <br />
                 <br />
-                <h5>Robust &amp; scalable platform</h5>
+                <h5>{t('Robust & scalable platform')}</h5>
                 <p>
-                  A powerful technology stack for a highly-scalable
+                  {t('A powerful technology stack for a highly-scalable')}
                   <br />
-                  telemedicine platform.
+                  {t('telemedicine platform.')}
                 </p>
 
-                <h5>Unlimited access to accredited doctors</h5>
+                <h5>{t('Unlimited access to accredited doctors')}</h5>
                 <p>
-                  We offer access to the best accredited doctors and medical
+                  {t('We offer access to the best accredited doctors and medical')}
                   <br />
-                  institutions in Europe and the USA.
+                  {t('institutions in Europe and the USA.')}
                 </p>
 
-                <h5>Quick access to medical care</h5>
-                <p>Connect to any of our global doctors at your convenience.</p>
+                <h5>{t('Quick access to medical care')}</h5>
+                <p>{t('Connect to any of our global doctors at your convenience.')}</p>
 
-                <h5>Healthcare data security</h5>
+                <h5>{t('Healthcare data security')}</h5>
                 <p>
-                  We respect and commit to protecting your privacy and
+                  {t('We respect and commit to protecting your privacy and')}
                   <br />
-                  personal data.
+                  {t('personal data.')}
                 </p>
 
-                <h5>Innovative AI - powered app</h5>
+                <h5>{t('Innovative AI - powered app')}</h5>
                 <p>
-                  Our AI technology will help personalize and optimize your
+                  {t('Our AI technology will help personalize and optimize your')}
                   <br />
-                  needs based on a comprehensive assessment.
+                  {t('needs based on a comprehensive assessment.')}
                 </p>
 
-                <h5>Integration of wearable devices</h5>
+                <h5>{t('Integration of wearable devices')}</h5>
                 <p>
-                  Connect with any wearable device and allow us to remotely
+                  {t('Connect with any wearable device and allow us to remotely')}
                   <br />
-                  monitor your health.
+                  {t('monitor your health.')}
                 </p>
               </Col>
             </Row>
@@ -405,56 +404,56 @@ const AboutUs = ({ currentuserInfo }) => {
           <Container id="contact-us">
             <Row id="aboutus-last">
               <Col md={12} className="mt-5 mb-5">
-                <h2>Feel Free To Contact Us</h2>
-                <h5>Contact Our Support Team At Anytime</h5>
+                <h2>{t('Feel Free To Contact Us')}</h2>
+                <h5>{t('Contact Our Support Team At Anytime')}</h5>
                 <br />
                 <br />
                 <ValidatorForm onSubmit={() => sendContactDetails()}>
                   <Row>
                     <Col md={6}>
                       <TextValidator
-                        id="standard-basic"
+                        id={language === 'ar' ? "standard-basic-arabic" : "standard-basic"}
                         type="text"
                         name="senderName"
                         value={senderName}
                         onChange={(e) => handleInputChange(e)}
-                        placeholder="YOUR NAME*"
+                        placeholder={t("YOUR NAME*")}
                         validators={["required"]}
-                        errorMessages={["This field is required"]}
+                        errorMessages={[t("This field is required")]}
                         variant="filled"
                       />
                       <br />
                       <TextValidator
-                        id="standard-basic"
+                        id={language === 'ar' ? "standard-basic-arabic" : "standard-basic"}
                         type="text"
                         name="senderMail"
                         value={senderMail}
                         onChange={(e) => handleInputChange(e)}
-                        placeholder="EMAIL ADDRESS*"
+                        placeholder={t("EMAIL ADDRESS*")}
                         validators={["required"]}
-                        errorMessages={["This field is required"]}
+                        errorMessages={[t("This field is required")]}
                         variant="filled"
                       />
                       <br />
                       <TextValidator
-                        id="standard-basic"
+                        id={language === 'ar' ? "standard-basic-arabic" : "standard-basic"}
                         type="text"
                         name="subject"
                         value={subject}
                         onChange={(e) => handleInputChange(e)}
-                        placeholder="SUBJECT"
+                        placeholder={t("SUBJECT")}
                         variant="filled"
                       />
                       <br />
                     </Col>
                     <Col md={6}>
                       <TextValidator
-                        id="standard-basic"
+                        id={language === 'ar' ? "standard-basic-arabic" : "standard-basic"}
                         type="text"
                         name="message"
                         value={message}
                         onChange={(e) => handleInputChange(e)}
-                        placeholder="YOUR MESSAGE"
+                        placeholder={t("YOUR MESSAGE")}
                         multiline
                         rows={4}
                         variant="filled"
@@ -462,7 +461,7 @@ const AboutUs = ({ currentuserInfo }) => {
                       <input
                         className="btn btn-primary sign-btn"
                         type="submit"
-                        value="SEND MESSAGE"
+                        value={t("SEND MESSAGE")}
                       />
                     </Col>
                   </Row>
@@ -471,15 +470,15 @@ const AboutUs = ({ currentuserInfo }) => {
                 <br />
                 <Row id="contact-details">
                   <Col md={4}>
-                    <h6>Phone</h6>
+                    <h6>{t('Phone')}</h6>
                     <p>+971 2 650 2444</p>
                   </Col>
                   <Col md={4}>
-                    <h6>E-mail Address</h6>
+                    <h6>{t('E-mail Address')}</h6>
                     <p>customerservice@healthieru.ae</p>
                   </Col>
                   <Col md={4}>
-                    <h6>Office Address</h6>
+                    <h6>{t('Office Address')}</h6>
                     <p>Reem Island, Abu Dhabi, UAE</p>
                   </Col>
                 </Row>
@@ -501,7 +500,7 @@ const AboutUs = ({ currentuserInfo }) => {
             open={open}
           >
             <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-              Message sent successfully!
+              {t('Message sent successfully!')}
             </DialogTitle>
             <DialogActions>
               <button
@@ -510,7 +509,7 @@ const AboutUs = ({ currentuserInfo }) => {
                 className="btn btn-primary sign-btn"
                 id="close-btn"
               >
-                Ok
+                {t('Ok')}
               </button>
             </DialogActions>
           </Dialog>

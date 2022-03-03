@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
+<<<<<<< HEAD
 //import Footer from "./Footer";
 import { Container, Row, Col } from "react-bootstrap";
+=======
+import { Container, Row, Col } from "react-bootstrap"; //  Button
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import TuneIcon from "@material-ui/icons/Tune";
 import axios from "axios";
@@ -31,7 +35,10 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paypal from "../CommonModule/Paypal";
 import TransparentLoader from "../Loader/transparentloader";
+<<<<<<< HEAD
 //import SearchIcon from "@material-ui/icons/Search";
+=======
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
 import {
   getLoggedInUserDataByUserId,
   getLikedDoctorByPatientId,
@@ -63,6 +70,11 @@ import { searchFilterForDoctor } from "../../service/searchfilter";
 import { firestoreService } from "../../util";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { doctorListLimit } from "../../util/configurations";
+
+// import Footer from "./Footer";
+// import SearchIcon from "@material-ui/icons/Search";
+
+
 
 const rightArrow = <FontAwesomeIcon icon={faChevronRight} />;
 
@@ -334,6 +346,10 @@ const MyDoctor = (props) => {
     if (res && res.data) {
       res.data.map((specialityName) => {
         name.push(specialityName.name);
+<<<<<<< HEAD
+=======
+        return specialityName;
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
       });
       setSpeciality({ ...speciality, specialityOptions: res.data });
     }
@@ -448,6 +464,10 @@ const MyDoctor = (props) => {
             slotId: slot.id + slots[i + 1].id,
           });
         }
+<<<<<<< HEAD
+=======
+        return slots;
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
       });
     }
     setCombinedSlots(combinedArray);
@@ -530,6 +550,10 @@ const MyDoctor = (props) => {
       const datesArray = [];
       response.data.map((inValidDates) => {
         datesArray.push(new Date(inValidDates));
+<<<<<<< HEAD
+=======
+        return inValidDates;
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
       });
       if (datesArray) {
         setDisabledDates(datesArray);
@@ -989,7 +1013,7 @@ const MyDoctor = (props) => {
     <div>
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
-      <Container>
+      <Container className="my-doctor">
         <Row>
           <Col md={6} lg={4} style={{ display: display.doctor }}>
             <div id="dorctor-list">
@@ -1526,12 +1550,17 @@ const MyDoctor = (props) => {
                       <span>{doctor.certificates}</span>
                     </p>
                     <br />
-                    <div className="mx-3">
+                    <div className="mx-0">
                       <div className="row">
                         <div className="col-12">
                           <span className="price">
+<<<<<<< HEAD
                             $
                           
+=======
+                            <span>$</span>
+                            <b>
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
                               {appointment.appointmentMode === "CONSULTATION" ||
                               appointment.appointmentMode === ""
                                 ? doctor.rate
@@ -1624,9 +1653,10 @@ const MyDoctor = (props) => {
                         minDate={new Date()} //to disable past days
                         maxDate={
                           new Date(
-                            new Date().setDate(new Date().getDate() + 21)
+                            new Date().setDate(new Date().getDate() + 180)
                           )
                         } // next 3week condition
+<<<<<<< HEAD
                         tileDisabled={({ activeStartDate, date, view }) =>
                           disabledDates &&
                           disabledDates.some(
@@ -1638,6 +1668,19 @@ const MyDoctor = (props) => {
                               date.getDate() === disabledDate.getDate()
                           )
                         } // greyout dates
+=======
+                      // tileDisabled={({ activeStartDate, date, view }) =>
+                      //   disabledDates &&
+                      //   disabledDates.some(
+                      //     (disabledDate) =>
+                      //       // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
+                      //       date.getFullYear() ===
+                      //       disabledDate.getFullYear() &&
+                      //       date.getMonth() === disabledDate.getMonth() &&
+                      //       date.getDate() === disabledDate.getDate()
+                      //   )
+                      // } // greyout dates
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
                       />
                     </>
                   )}
@@ -1890,8 +1933,13 @@ const MyDoctor = (props) => {
                   <div className="row">
                     <div className="col-12">
                       <span className="price">
+<<<<<<< HEAD
                         $
                         
+=======
+                        <span>$</span>
+                        <b>
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
                           {appointment.appointmentMode === "CONSULTATION" ||
                           appointment.appointmentMode === ""
                             ? doctor && doctor.rate
@@ -1925,8 +1973,13 @@ const MyDoctor = (props) => {
               <div id="calendar-list">
                 <div id="price-box">
                   <span className="price">
+<<<<<<< HEAD
                     $
                     
+=======
+                    <span>$</span>
+                    <b>
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
                       {appointment.appointmentMode === "CONSULTATION" ||
                       appointment.appointmentMode === ""
                         ? doctor && doctor.rate
@@ -2063,3 +2116,4 @@ const MyDoctor = (props) => {
 };
 
 export default MyDoctor;
+

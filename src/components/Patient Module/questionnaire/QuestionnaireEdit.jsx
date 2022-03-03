@@ -8,13 +8,16 @@ import {
   getCurrentPatientInfo,
 } from '../../../service/AccountService';
 import '../patient.css';
-// import Footer from '../Footer';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+<<<<<<< HEAD
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+=======
+// import Footer from '../Footer';
+>>>>>>> ba0e48af76ab6c7255d2deace1a044e6430b39a1
 
 class QuestionnaireEdit extends React.Component {
   state = {
@@ -194,6 +197,7 @@ class QuestionnaireEdit extends React.Component {
                                         >
                                           {question.question}
                                         </label>
+
                                         <div className="col-sm-12">
                                           <input
                                             type="text"
@@ -261,6 +265,8 @@ pauseOnHover
       id: event.target.name === '' ? null : event.target.name,
     };
 
+    console.log('efefefef', data);
+
     saveQuestionAnswer(data);
   }
 
@@ -286,6 +292,8 @@ pauseOnHover
         id: event.target.name === '' ? null : event.target.name,
       };
     }
+
+    console.log('fzzz', data);
 
     saveQuestionAnswer(data);
   }
