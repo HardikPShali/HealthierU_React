@@ -376,6 +376,24 @@ export const updateWorkout = async (data) => {
     });
     return response;
 }
+
+export const deleteWorkout = async (data) => {
+    var payload = {
+        method: 'delete',
+        url: `/api/admin/workouts`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
 export const changeDoctorStatusOnUserTable = async (data) => {
     var payload = {
         method: 'post',
