@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
-// import Footer from './Footer';
 import './patient.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import Avatar from 'react-avatar';
-// import LocalStorageService from './../../util/LocalStorageService';
-// import axios from "axios";
 import Loader from './../Loader/Loader';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
@@ -19,9 +16,7 @@ import Select from '@material-ui/core/Select';
 import { Multiselect } from 'multiselect-react-dropdown';
 import moment from 'moment';
 import $ from 'jquery';
-
 import ImageCropper from '../CommonModule/ImageCroper';
-//import { checkAccessToken } from '../../service/RefreshTokenService';
 import {
     getCountryList,
     getLanguageList
@@ -31,10 +26,14 @@ import {
     updatePatientData
 } from '../../service/frontendapiservices';
 import TransparentLoader from '../Loader/transparentloader';
+//import { checkAccessToken } from '../../service/RefreshTokenService';
+// import LocalStorageService from './../../util/LocalStorageService';
+// import axios from "axios";
+// import Footer from './Footer';
 
 $(document).ready(function () {
     $(".upload-button").on('click', function () {
-        $(".file-upload").click();
+        $(".file-upload").trigger('click');
     });
 });
 const Profile = () => {
@@ -55,7 +54,8 @@ const Profile = () => {
         height: '',
         weight: '',
         bloodGroup: '',
-        address: ''
+        address: '',
+        picture: "",
     });
 
     const [loading, setLoading] = useState(true);
@@ -157,7 +157,7 @@ const Profile = () => {
     };
 
     const handleDetails = async e => {
-        //console.log("profilePicture ::::::", profilePicture);
+        console.log("profilePicture ::::::", profilePicture);
         setTransparentLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();

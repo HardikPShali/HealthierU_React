@@ -172,9 +172,9 @@ class QuestionnaireEdit extends React.Component {
                                         className="form-radio"
                                         name={question.answerId}
                                         onChange={this.handleCheckBoxEvent}
-                                        defaultChecked={
-                                          question.answer === 'Y' ? true : false
-                                        }
+                                        // defaultChecked={
+                                        //   question.answer === 'Y' ? true : false
+                                        // }
                                         id={question.id}
                                       />
                                       <label id="label_input_6_0">
@@ -202,7 +202,7 @@ class QuestionnaireEdit extends React.Component {
                                             id={question.id}
                                             name={question.answerId}
                                             defaultValue={question.answer}
-                                            placeholder={question.question}
+                                            // placeholder={question.question}
                                             onBlur={this.handleTextBoxEvent}
                                           ></input>
                                         </div>

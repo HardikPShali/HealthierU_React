@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import Axios from "axios";
 import { Link } from "react-router-dom";
 import Navbar from "../layout/Navbar";
-// import properties from "../../../properties";
 import moment from "moment";
-// import LocalStorageService from "../../../util/LocalStorageService";
 import Loader from "../../Loader/Loader";
 import TransparentLoader from "../../Loader/transparentloader";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdbreact/dist/css/mdb.css";
-// import { MDBDataTableV5 } from 'mdbreact';
 import "../admin.css";
 import SearchBar from "material-ui-search-bar";
 import Dialog from "@material-ui/core/Dialog";
@@ -24,8 +20,6 @@ import {
   ValidatorForm,
   // TextValidator
 } from "react-material-ui-form-validator";
-// import { checkAccessToken } from '../../../service/RefreshTokenService';
-// import SearchIcon from "@material-ui/icons/Search";
 import {
   getDoctorByUserID,
   getPaginatedUserList,
@@ -35,9 +29,15 @@ import {
   changeDoctorStatusOnDoctorTable,
 } from "../../../service/adminbackendservices";
 import EditIcon from "@material-ui/icons/Edit";
-// import PublishIcon from "@material-ui/icons/Publish";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Pagination from "../../CommonModule/pagination";
+// import PublishIcon from "@material-ui/icons/Publish";
+// import { checkAccessToken } from '../../../service/RefreshTokenService';
+// import SearchIcon from "@material-ui/icons/Search";
+// import { MDBDataTableV5 } from 'mdbreact';
+// import LocalStorageService from "../../../util/LocalStorageService";
+// import properties from "../../../properties";
+// import Axios from "axios";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -57,6 +57,7 @@ const Home = () => {
   const cookies = new Cookies();
 
   const [open, setOpen] = useState(false);
+  
   const handleClickOpen = async (userData) => {
     setSelectedUserData(userData);
     const currentUserData = await getDoctorByUserID(userData);

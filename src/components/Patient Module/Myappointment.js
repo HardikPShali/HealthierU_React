@@ -17,7 +17,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
-//import { checkAccessToken } from '../../service/RefreshTokenService';
 import Avatar from 'react-avatar';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -27,6 +26,12 @@ import { Link } from 'react-router-dom';
 import { deleteAppointment, getAppointmentListByPatientId } from '../../service/frontendapiservices';
 import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';
+// import { handleAgoraAccessToken } from '../../service/agoratokenservice';
+//import { checkAccessToken } from '../../service/RefreshTokenService';
+// import Cookies from 'universal-cookie';
+// import Footer from './Footer'
+// import LocalStorageService from './../../util/LocalStorageService';
+// import axios from 'axios';
 
 //const docprofile = './src/images/doctor/'
 

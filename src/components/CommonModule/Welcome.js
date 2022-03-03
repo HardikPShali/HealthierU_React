@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import Header from './Header';
 import './landing.css';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -432,7 +432,10 @@ const Welcome = ({ currentuserInfo }) => {
                                     <Row>
                                         <Col md={6}>
                                             <p>Date of Birth<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="date" name="dateOfBirth"
+                                            <TextValidator
+                                                id="standard-basic"
+                                                type="date"
+                                                name="dateOfBirth"
                                                 inputProps={maxDate}
                                                 InputLabelProps={{ shrink: true, }}
                                                 variant="filled"
@@ -440,7 +443,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 validators={['required']}
                                                 errorMessages={['This field is required']}
                                                 onChange={e => handleDateChange(e)}
-                                                onKeyDown={(e) => e.preventDefault()}
+                                                onKeyDown={(e) => handleDateChange(e)}
                                             />
                                         </Col>
                                         <Col md={6}>
