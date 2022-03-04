@@ -4,7 +4,6 @@ import './admin.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import { Container, Row, Col } from 'react-bootstrap';
-// import axios from 'axios';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -15,7 +14,6 @@ import Select from '@material-ui/core/Select';
 import { Link } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
 import Avatar from 'react-avatar';
-// import LocalStorageService from './../../util/LocalStorageService';
 import Loader from './../Loader/Loader';
 import { commonUtilFunction } from '../../util';
 import Cookies from 'universal-cookie';
@@ -24,6 +22,8 @@ import {
     getDoctorList,
     getPatientList
 } from '../../service/adminbackendservices';
+// import LocalStorageService from './../../util/LocalStorageService';
+// import axios from 'axios';
 
 const GlobalSearch = () => {
 
@@ -91,12 +91,14 @@ const GlobalSearch = () => {
 
     const handleFilterClick = (e) => {
         //console.log("value ::::", e.target.value)
+        setFilterData([]);
         if (e.target.value === "patient") {
             loadPatients();
         } else if (e.target.value === "doctor" || e.target.value === "") {
             loadDoctors();
         }
         setFilterText(e.target.value);
+        console.log(filterData);
     }
 
     const setCookies = (authority) => {
@@ -137,7 +139,7 @@ const GlobalSearch = () => {
                             {filterText === "doctor" && (
                                 <div id="global-list">
                                     <GridList cellHeight={220}>
-                                        {filterData && filterData.map((user, index) => (
+                                        {filterData.doctors && filterData.doctors.map((user, index) => (
                                             <GridListTile key={index}>
                                                 {user.picture ? (<img src={user.picture} alt="" />)
                                                     : (<Avatar name={user.firstName + " " + user.lastName} />)}
@@ -165,6 +167,9 @@ const GlobalSearch = () => {
                             )}
                             {filterText === "patient" && (
                                 <div id="global-list">
+                                    {
+                                            console.log("FilterData", filterData)
+                                        }
                                     <GridList cellHeight={220}>
                                         {filterData && filterData.map((user, index) => (
                                             <GridListTile key={index}>
@@ -182,6 +187,9 @@ const GlobalSearch = () => {
                                             </GridListTile>
 
                                         ))}
+                                        {
+                                            console.log("FilterData", filterData)
+                                        }
                                         {filterData === "" && (
                                             <center><b>No Result Found</b></center>
                                         )}

@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
-// import {
-//     editQuestionnaire,
-//     getQuestionnaire
-// } from "../../questionnaire/QuestionnaireService";
 import { Link, useParams } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
-// import {
-//     deleteQuestion,
-//     saveQuestion
-// } from "../../questionnaire/QuestionService";
 import "../../questionnaire/Questionnaire.css";
 import "mdbreact/dist/css/mdb.css";
 import Navbar from "../layout/Navbar";
-// import editIcon from "../../../images/icons used/edit icon_40 pxl.svg";
-// import deleteIcon from "../../../images/icons used/delete_icon_40 pxl.svg";
 import TransparentLoader from "../../Loader/transparentloader";
 import {
     getServiceProviderById,
@@ -26,10 +16,20 @@ import {
 } from "./../../../service/adminbackendservices";
 import { Tab, Tabs, Row, Col } from "react-bootstrap";
 import moment from "moment";
-// import $ from "jquery";
-// import { toDate } from "date-fns/esm";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+// import $ from "jquery";
+// import { toDate } from "date-fns/esm";
+// import editIcon from "../../../images/icons used/edit icon_40 pxl.svg";
+// import deleteIcon from "../../../images/icons used/delete_icon_40 pxl.svg";
+// import {
+//     deleteQuestion,
+//     saveQuestion
+// } from "../../questionnaire/QuestionService";
+// import {
+//     editQuestionnaire,
+//     getQuestionnaire
+// } from "../../questionnaire/QuestionnaireService";
 
 const EditServiceProvider = props => {
     //let history = useHistory()
@@ -141,6 +141,8 @@ const EditServiceProvider = props => {
     useEffect(() => {
         loadServiceProvider();
     }, []);
+
+    // Contact Details
 
     const handleContactModal = data => {
         setContactDetails({
@@ -496,8 +498,7 @@ const EditServiceProvider = props => {
                                                             <>
                                                                 <tr>
                                                                     <td>
-                                                                        {index +
-                                                                            1}
+                                                                        {index + 1}
                                                                     </td>
                                                                     <td>
                                                                         {
@@ -519,9 +520,7 @@ const EditServiceProvider = props => {
                                                                             type="button"
                                                                             className="btn btn-primary px-3 py-2"
                                                                             onClick={() =>
-                                                                                handleEditContactModal(
-                                                                                    contact
-                                                                                )
+                                                                                handleEditContactModal(contact)
                                                                             }
                                                                         >
                                                                             <EditIcon />
@@ -530,9 +529,7 @@ const EditServiceProvider = props => {
                                                                             type="button"
                                                                             className="btn btn-danger px-3 py-2"
                                                                             onClick={() =>
-                                                                                handleDeleteContactModal(
-                                                                                    contact
-                                                                                )
+                                                                                handleDeleteContactModal(contact)
                                                                             }
                                                                         >
                                                                             <DeleteIcon />

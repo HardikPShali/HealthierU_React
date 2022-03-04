@@ -303,7 +303,7 @@ const MyDoctor = (props) => {
       result.data &&
         result.data.doctors.map((newData) => {
           existingUsersList.push(newData);
-          return newData;
+          return existingUsersList;
         });
       setLikedOffset(likedOffset + 1);
       setFilterData(existingUsersList);

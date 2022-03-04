@@ -2,9 +2,7 @@ import './doctor-document.css';
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Tab, Tabs } from 'react-bootstrap';
 import Pagination from 'react-bootstrap/Pagination'
-// import documentViewImage from '../../../images/icons used/document icon@2x.png';
 import editIcon from '../../../images/Icons/edit icon_40 pxl.svg';
-// import Footer from '../Footer';
 import { formatDate } from "../../questionnaire/QuestionnaireService";
 import { getCurrentUserInfo, getCurrentDoctorInfo } from "../../../service/AccountService";
 import {
@@ -26,6 +24,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { IconButton } from "@material-ui/core";
+// import Footer from '../Footer';
+// import documentViewImage from '../../../images/icons used/document icon@2x.png';
 
 const DoctorDocument = (props) => {
 
@@ -336,19 +336,20 @@ const DoctorDocument = (props) => {
     const [editDocument, setEditDocument] = useState(false);
 
 
-    const handleDeleteDocumentSubmission = async (event) => {
+    const handleDeleteDocumentSubmission = async () => {
         setPrescriptionDocumentUrl("");
         setLabDocumentUrl("");
         const resp = await deleteDocument(documentId);
         if (resp) {
             setDeleteShow(false);
+            handleDeleteShow();
         }
         const prescriptionDocument = await getDocuments("Prescription", 0);
         setPresecriptionDocument(prescriptionDocument);
 
 
         const labDocument = await getDocuments("Lab", 0);
-        setLabDocument(labDocument)
+        setLabDocument(labDocument);
     }
 
 
@@ -479,11 +480,11 @@ const DoctorDocument = (props) => {
                                             <td width="130" key="Sr.">
                                                 {/*<img width="20" height="20" onClick={e => showLabDocument(dataItem)} alt=""
                                                     src={documentViewImage} style={{ cursor: 'pointer' }} />*/}
-                                                <VisibilityIcon style={{ color: "#00D0CC" }} title="View" width="20" height="20" onClick={e => showLabDocument(dataItem)} />
+                                                <VisibilityIcon style={{ color: "#00D0CC", cursor: "pointer" }} title="View" width="20" height="20" onClick={e => showLabDocument(dataItem)} />
 
                                                 <img width="15" height="15" onClick={() => handleEditLabModal(dataItem)} src={editIcon} alt=""
-                                                    style={{ marginLeft: '5%', marginRight: '5%' }} />
-                                                <DeleteIcon style={{ color: "#00D0CC" }} title="View" width="20" height="20" onClick={e => handleDeleteModal(dataItem.id)} />
+                                                    style={{ marginLeft: '5%', marginRight: '5%', cursor: "pointer" }} />
+                                                <DeleteIcon style={{ color: "#00D0CC", cursor: "pointer" }} title="View" width="20" height="20" onClick={e => handleDeleteModal(dataItem.id)} />
 
                                             </td>
                                             <td width="200">{dataItem.name}</td>
@@ -733,7 +734,7 @@ const DoctorDocument = (props) => {
                     </form>
                 </Modal>
 
-                <Modal show={showDelete} onHide={handleDeleteShow}>
+                <Modal show={showDelete} onHide={handleDeleteClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete Document</Modal.Title>
                     </Modal.Header>

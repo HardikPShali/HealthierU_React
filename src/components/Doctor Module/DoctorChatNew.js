@@ -27,7 +27,7 @@ let clearSetTimeoutInterval = 0;
 const DoctorChat = (props) => {
   const [currentSelectedGroup, setCurrentSelectedGroup] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
-  const [openVideoCall, setOpenVideoCall] = useState(false);
+  const [openVideoCall, setOpenVideoCall] = useState(true);
   const [filterText, setFilterText] = useState("");
   const [milisecondToRerender, setMilisecondToRerender] = useState(0); // milisecond to rerender chat and video button
   const [activeButton, setActiveButton] = useState({
