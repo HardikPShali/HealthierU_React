@@ -15,17 +15,12 @@ import gplusicon from '../../images/icons used/googleplus.png';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { HashLink } from 'react-router-hash-link';
-import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
     const change = (e) => {
         localStorage.setItem('language', e.target.value);
-        window.location.reload();
+        // window.location.reload();
     };
-
-    const lang = localStorage.getItem('language') || 'en';
-
-    const { t } = useTranslation('footer');
 
     return (
         <footer>
@@ -41,19 +36,19 @@ const Footer = () => {
                             />
                             <br />
                             <Link to="/about-us" id="footer-link">
-                                {t('About us')}
+                                About us
                             </Link>
                             <HashLink to="/about-us#how-it-work" id="footer-link">
-                                {t('How it Works')}
+                                How it Works
                             </HashLink>
                             <HashLink to="/about-us#our-services" id="footer-link">
-                                {t('Our services')}
+                                Our services
                             </HashLink>
                             <Link to="" id="footer-link">
-                                {t('Articles')}
+                                Articles
                             </Link>
                             <HashLink to="/about-us#contact-us" id="footer-link">
-                                {t('Contact us')}
+                                Contact us
                             </HashLink>
                         </Col>
                         <Col
@@ -69,31 +64,31 @@ const Footer = () => {
                                         </b>
                             </div><br /> */}
                             <div style={{ width: '100%' }}>
-                                <p>{t('Email Newsletters')}</p>
+                                <p>Email Newsletters</p>
                                 <p style={{ fontSize: 11 }}>
-                                    {t('Stay up-to-date with the latest content and offers from HealthierU')}
+                                    Stay up-to-date with the latest content and offers from HealthierU
                                 </p>
                                 <form>
                                     <input
                                         type="email"
-                                        placeholder={t("Email Address")}
+                                        placeholder="Email Address"
                                         name="email"
-                                        id={lang === 'ar' ? "footer-input-arabic" : "footer-input"}
+                                        id="footer-input"
                                     />
                                     <input
                                         type="submit"
-                                        value={t("Subscribe")}
+                                        value="Subscribe"
                                         className="btn submit-btn"
                                     />
                                 </form>
                             </div>
                         </Col>
                         <Col md={4} id="last-col">
-                            <h2>{t('Wellness Optimized')}</h2>
+                            <h2>Wellness Optimized</h2>
                             <p id="download-statement">
-                                {t('Unlock your health data and get instant insights')}
+                                Unlock your health data and get instant insights
                                 <br />
-                                {t('Download the HealthierU app today')}
+                                Download the HealthierU app today
                             </p>
                             <div className="d-flex">
                                 <img src={applestore} alt="" id="store-icon" />
@@ -110,32 +105,32 @@ const Footer = () => {
                         <Col md={8}>
                             <div className="d-flex">
                                 <Link to="" className="disable-footer-links" id="copy-link">
-                                    {t('Privacy Policy')}
+                                    Privacy Policy
                                 </Link>
                                 <Link to="" className="disable-footer-links" id="copy-link">
-                                    {t("Terms and Conditions")}
+                                    Terms and Conditions
                                 </Link>
                                 <Link to="" className="disable-footer-links" id="copy-link">
-                                    {t('Help')}
+                                    Help
                                 </Link>
                                 <Link to="" className="disable-footer-links" id="copy-link">
-                                    HealthierU {t('Licenses')}
+                                    HealthierU Licenses
                                 </Link>
                                 <Link to="" className="disable-footer-links" id="copy-link">
-                                    {t('Partners')}
+                                    Partners
                                 </Link>
                             </div>
                             <p id="copyright-text">
-                                © 2021 <Link to="/">HealthierU</Link> - {t('All Rights Reserved')}.
+                                © 2021 <Link to="/">HealthierU</Link> - All Rights Reserved.
                             </p>
                         </Col>
                         <Col id="last-col">
                             <p id="lang-select">
-                                {t('Language')}
-                                <select onChange={(e) => change(e)} value={lang}>
-                                    <option value="en">{t('English')}</option>
-                                    <option value="ar">{t('Arabic')}</option>
-                                    <option value="enuk">{t('English(UK)')}</option>
+                                Language
+                                <select onChange={(e) => change(e)}>
+                                    <option value="en">English</option>
+                                    <option value="ar">Arabic</option>
+                                    <option value="enuk">English(UK)</option>
                                 </select>
                             </p>
                             <div id="social-icon" className="d-flex">

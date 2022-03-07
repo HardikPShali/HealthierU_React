@@ -164,13 +164,33 @@ const Profile = () => {
         bodyFormData.append('profileData', JSON.stringify(currentPatient));
         bodyFormData.append('profilePicture', profilePicture);
         const response = await updatePatientData(bodyFormData);
+
         if (response.status === 200 || response.status === 201) {
-            window.location.reload();
-            ////console.log("response.data ::::::", response.data);
-            // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+            // location.reload();
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
             // setTransparentLoading(false);
+            // setTimeout(() => {
+            //     alert('2')
+            //     ////console.log("response.data ::::::", response.data);
+            //     setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture } });
+            //     setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+            //     setTransparentLoading(false);
+            //     console.log(JSON.stringify(response));
+            // }, 10000);
+
         }
     }
+
+    // useEffect(() => {
+    //     if (transparentLoading === false) {
+    //         // setCurrentPatient({ ...currentPatient, ...{ pic: "jsjsjsjs" } });
+    //         setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+
+    //         getCurrentPatient();
+
+    //     }
+    // }, [transparentLoading]);
 
     const now = new Date();
     const newDate = now.setDate(now.getDate() - 1);
