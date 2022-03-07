@@ -168,7 +168,7 @@ class QuestionnaireView extends React.Component {
                   type="submit"
                   variant="primary"
                   className="Questionnaire-Continue-Button"
-                  onClick={(e) => this.continue(e)}
+                  // onClick={(e) => this.continue(e)}
                 >
                   Continue
                 </Button>
@@ -203,9 +203,9 @@ class QuestionnaireView extends React.Component {
     //console.log(event.target.id)
     //console.log(event)
     const currentUserId = this.state.currentPatientUser.id;
-
+    let data = '';
     if (event.target.name === '') {
-      var data = '';
+      
       data = {
         answer: event.target.checked === true ? 'Y' : 'N',
         patientId: currentUserId,
@@ -221,10 +221,6 @@ class QuestionnaireView extends React.Component {
     }
 
     //console.log(await saveQuestionAnswer(data));
-  }
-
-  async continue(event) {
-    window.location.assign('/patient');
   }
 }
 
