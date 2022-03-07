@@ -17,6 +17,7 @@ const EditWorkout = () => {
         const res = await updateWorkout(workout);
         if (res && (res.status === 200 || res.status === 201)) {
             handleRedirect(res);
+        
         }
     }
 
