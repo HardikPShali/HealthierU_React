@@ -1,6 +1,42 @@
 import axios from 'axios';
 import LocalStorageService from '../util/LocalStorageService';
 //import { checkAccessToken } from './RefreshTokenService';
+export const getWorkouts = async () => {
+
+    var config = {
+        method: 'get',
+        url: `/api/admin/workouts`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+
+    return await axios(config).then(response => {
+        //console.log(response.data)
+        return response.data;
+    })
+
+}
+export const deleteWorkout = async (id) => {
+    var config = {
+        method: 'delete',
+        mode: 'no-cors',
+        url: `/api/admin/workouts/${id}`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(config).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
 
 export const getWorkoutVideos = async (patientId) => {
 

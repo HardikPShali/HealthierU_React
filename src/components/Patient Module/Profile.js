@@ -55,7 +55,6 @@ const Profile = () => {
         weight: '',
         bloodGroup: '',
         address: '',
-        picture: "",
     });
 
     const [loading, setLoading] = useState(true);
@@ -92,7 +91,7 @@ const Profile = () => {
             }
         });
         if (res && res.data) {
-            setCurrentPatient(res.data[0]);
+            setCurrentPatient({...res.data[0]});
             setTimeout(() => setLoading(false), 1000);
         }
     }
@@ -135,25 +134,25 @@ const Profile = () => {
         var array = languages;
         var index = array.indexOf(removedItem); // Let's say it's Bob.
         array.splice(index, 1);
-        setCurrentPatient({ ...currentPatient, languages: array });
+        // setCurrentPatient({ ...currentPatient, languages: array });
     }
 
     const handleInputChange = (e) => {
         e.preventDefault()
-        setCurrentPatient({ ...currentPatient, [e.target.name]: e.target.value });
+        // setCurrentPatient({ ...currentPatient, [e.target.name]: e.target.value });
     };
 
     const handlePhone = (e) => {
-        setCurrentPatient({ ...currentPatient, phone: e });
+        // setCurrentPatient({ ...currentPatient, phone: e });
     };
     const handleCountry = (e) => {
-        setCurrentPatient({ ...currentPatient, countryId: e.target.value });
+        // setCurrentPatient({ ...currentPatient, countryId: e.target.value });
     };
 
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
+        // setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
     };
 
     const handleDetails = async e => {
@@ -240,7 +239,7 @@ const Profile = () => {
                     <Row>
                         <Col md={4}>
                             <div id="profile-col-1">
-                                {currentPatient && currentPatient.picture ? (<img src={currentPatient.picture} alt="" id="profile-pic" />)
+                                {(currentPatient && currentPatient.picture) ? (<img src={currentPatient.picture} alt="" id="profile-pic" />)
                                     : (<Avatar name={currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)} size="150" />)}
                                 <div id="name">{currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)}</div>
                                 <br />
@@ -251,7 +250,7 @@ const Profile = () => {
                                 <div>
                                     <button className="btn btn-primary request-edit" onClick={() => {
                                         setDisplay({ ...display, profile: 'none', editProfile: 'block' })
-                                    }}>Edit</button>
+                                    }}>Edit Picture</button>
                                 </div>
                             </div>
                         </Col>

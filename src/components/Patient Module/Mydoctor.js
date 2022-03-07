@@ -1635,6 +1635,7 @@ const MyDoctor = (props) => {
                             new Date().setDate(new Date().getDate() + 180)
                           )
                         } // next 3week condition
+                      // Temporarily commented to enable calendar click functionality for appointment.
                       // tileDisabled={({ activeStartDate, date, view }) =>
                       //   disabledDates &&
                       //   disabledDates.some(
