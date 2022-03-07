@@ -412,6 +412,7 @@ const Meeting = (props) => {
         shareEnd();
       }
       if (id === mainId) {
+        
         let next = options.displayMode === 2 ? SHARE_ID : localStream.getId();
         setHighStream(mainId, next);
         mainId = next;
@@ -479,7 +480,7 @@ const Meeting = (props) => {
       try {
         shareClient && shareEnd();
         client && client.unpublish(localStream);
-        localStream && localStream.close();
+        // localStream && localStream.close();
         client &&
           client.leave(
             () => {
@@ -655,6 +656,7 @@ const Meeting = (props) => {
         mainId = uid;
         mainStream = localStream;
       }
+      alert(JSON.stringify(localStream));
       enableDualStream();
       localStream.init(
         () => {

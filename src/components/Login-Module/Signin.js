@@ -5,7 +5,7 @@ import "./landing.css";
 import { Container, Row, Col } from "react-bootstrap";
 import {
   Link,
-  // useHistory
+  useHistory
 } from "react-router-dom";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -43,7 +43,7 @@ import OtpTimer from "otp-timer";
 // import ReCAPTCHA from "react-google-recaptcha";
 
 const Signin = () => {
-  // const history = useHistory();
+  const history = useHistory();
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -75,6 +75,12 @@ const Signin = () => {
       handleActivateUser();
     }
   }, []);
+
+  useEffect(() => {
+    if(localStorage.getItem("currentUser")){
+      history.go(0);
+    }
+  }, [])
 
   const responseGoogle = async (response) => {
     setLoader(true);
