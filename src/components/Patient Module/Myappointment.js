@@ -374,9 +374,9 @@ const Myappointment = (props) => {
                                 <ChatIcon id="active-video-icon" />
                             </IconButton>
                         </Link>
-                        <IconButton onClick={() => handleVideoCall(selectedAppointment.startTime)}>
+                        {/* <IconButton onClick={() => handleVideoCall(selectedAppointment.startTime)}>
                             <VideocamIcon id="active-video-icon" />
-                        </IconButton>
+                        </IconButton> */}
                         <button autoFocus onClick={handleAppointmentInfoClose} className="btn btn-primary">
                             Ok
                     </button>
