@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
-// import Footer from './Footer';
 import './patient.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import Avatar from 'react-avatar';
-// import LocalStorageService from './../../util/LocalStorageService';
-// import axios from "axios";
 import Loader from './../Loader/Loader';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
@@ -19,9 +16,7 @@ import Select from '@material-ui/core/Select';
 import { Multiselect } from 'multiselect-react-dropdown';
 import moment from 'moment';
 import $ from 'jquery';
-
 import ImageCropper from '../CommonModule/ImageCroper';
-//import { checkAccessToken } from '../../service/RefreshTokenService';
 import {
     getCountryList,
     getLanguageList
@@ -31,10 +26,14 @@ import {
     updatePatientData
 } from '../../service/frontendapiservices';
 import TransparentLoader from '../Loader/transparentloader';
+//import { checkAccessToken } from '../../service/RefreshTokenService';
+// import LocalStorageService from './../../util/LocalStorageService';
+// import axios from "axios";
+// import Footer from './Footer';
 
 $(document).ready(function () {
     $(".upload-button").on('click', function () {
-        $(".file-upload").click();
+        $(".file-upload").trigger('click');
     });
 });
 const Profile = () => {
@@ -55,7 +54,7 @@ const Profile = () => {
         height: '',
         weight: '',
         bloodGroup: '',
-        address: ''
+        address: '',
     });
 
     const [loading, setLoading] = useState(true);
@@ -92,7 +91,7 @@ const Profile = () => {
             }
         });
         if (res && res.data) {
-            setCurrentPatient(res.data[0]);
+            setCurrentPatient({...res.data[0]});
             setTimeout(() => setLoading(false), 1000);
         }
     }
@@ -135,42 +134,62 @@ const Profile = () => {
         var array = languages;
         var index = array.indexOf(removedItem); // Let's say it's Bob.
         array.splice(index, 1);
-        setCurrentPatient({ ...currentPatient, languages: array });
+        // setCurrentPatient({ ...currentPatient, languages: array });
     }
 
     const handleInputChange = (e) => {
         e.preventDefault()
-        setCurrentPatient({ ...currentPatient, [e.target.name]: e.target.value });
+        // setCurrentPatient({ ...currentPatient, [e.target.name]: e.target.value });
     };
 
     const handlePhone = (e) => {
-        setCurrentPatient({ ...currentPatient, phone: e });
+        // setCurrentPatient({ ...currentPatient, phone: e });
     };
     const handleCountry = (e) => {
-        setCurrentPatient({ ...currentPatient, countryId: e.target.value });
+        // setCurrentPatient({ ...currentPatient, countryId: e.target.value });
     };
 
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
+        // setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
     };
 
     const handleDetails = async e => {
-        //console.log("profilePicture ::::::", profilePicture);
+        console.log("profilePicture ::::::", profilePicture);
         setTransparentLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
         bodyFormData.append('profileData', JSON.stringify(currentPatient));
         bodyFormData.append('profilePicture', profilePicture);
         const response = await updatePatientData(bodyFormData);
+
         if (response.status === 200 || response.status === 201) {
-            window.location.reload();
-            ////console.log("response.data ::::::", response.data);
-            // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+            // location.reload();
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
             // setTransparentLoading(false);
+            // setTimeout(() => {
+            //     alert('2')
+            //     ////console.log("response.data ::::::", response.data);
+            //     setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture } });
+            //     setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+            //     setTransparentLoading(false);
+            //     console.log(JSON.stringify(response));
+            // }, 10000);
+
         }
     }
+
+    // useEffect(() => {
+    //     if (transparentLoading === false) {
+    //         // setCurrentPatient({ ...currentPatient, ...{ pic: "jsjsjsjs" } });
+    //         setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+
+    //         getCurrentPatient();
+
+    //     }
+    // }, [transparentLoading]);
 
     const now = new Date();
     const newDate = now.setDate(now.getDate() - 1);
@@ -220,7 +239,7 @@ const Profile = () => {
                     <Row>
                         <Col md={4}>
                             <div id="profile-col-1">
-                                {currentPatient && currentPatient.picture ? (<img src={currentPatient.picture} alt="" id="profile-pic" />)
+                                {(currentPatient && currentPatient.picture) ? (<img src={currentPatient.picture} alt="" id="profile-pic" />)
                                     : (<Avatar name={currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)} size="150" />)}
                                 <div id="name">{currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)}</div>
                                 <br />
@@ -231,7 +250,7 @@ const Profile = () => {
                                 <div>
                                     <button className="btn btn-primary request-edit" onClick={() => {
                                         setDisplay({ ...display, profile: 'none', editProfile: 'block' })
-                                    }}>Edit</button>
+                                    }}>Edit Picture</button>
                                 </div>
                             </div>
                         </Col>

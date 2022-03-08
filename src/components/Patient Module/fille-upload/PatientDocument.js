@@ -266,26 +266,27 @@ const PatientDocument = (props) => {
         //console.log(currentPageNumber)
     }
 
+    /* NOT REQUIRED AS A PATIENT SHOULD NOT BE ABLE TO EDIT ANY DOCUMENT SENT BY DOCTOR */
 
+    // const handleEditModal = async item => {
+    //     const payload = {
+    //         id: item.id,
+    //         patientId: item.patient.id,
+    //     };
+    //     const res = await getDocumentById(payload);
+    //     if (res && res.data) {
+    //         if (res.data?.documentUrl !== "") {
+    //             setEditDocument(true)
+    //         }
+    //         else {
+    //             setEditDocument(false)
+    //         }
+    //         setPrescriptionResult(res.data);
+    //         setShowPrescriptionUpload(true);
+    //         setDoctor(item.doctor);
+    //     }
+    // }
 
-    const handleEditModal = async item => {
-        const payload = {
-            id: item.id,
-            patientId: item.patient.id,
-        };
-        const res = await getDocumentById(payload);
-        if (res && res.data) {
-            if (res.data?.documentUrl !== "") {
-                setEditDocument(true)
-            }
-            else {
-                setEditDocument(false)
-            }
-            setPrescriptionResult(res.data);
-            setShowPrescriptionUpload(true);
-            setDoctor(item.doctor);
-        }
-    }
     const handleEditLabModal = async item => {
         const payload = {
             id: item.id,
@@ -303,6 +304,10 @@ const PatientDocument = (props) => {
             setShowLabResultUpload(true);
             setDoctor(item.doctor)
         }
+    }
+
+    const autoComplete= ()=>{
+        console.log(doctor);
     }
 
 
@@ -349,14 +354,14 @@ const PatientDocument = (props) => {
                                 <tbody>
                                     {presecriptionDocument?.documentsList ? presecriptionDocument?.documentsList.map((dataItem, subIndex) => {
                                         return <tr key={dataItem.id}>
-                                            <td width="80" key="Sr." style={{ cursor: "pointer" }}>
+                                            <td width="80" key="Sr.">
 
 
                                                 {/*<img width="20" height="20" onClick={e => showDocument(dataItem)} alt=""
                                                     src={documentViewImage} />*/}
-                                                <VisibilityIcon style={{ color: "#00D0CC" }} title="View" width="20" height="20" onClick={e => showDocument(dataItem)} />
-                                                <img width="15" height="15" onClick={() => handleEditModal(dataItem)} src={editIcon} alt=""
-                                                    style={{ marginLeft: '5%', marginRight: '5%' }} />
+                                                <VisibilityIcon style={{ color: "#00D0CC", cursor: "pointer", marginLeft: "5px" }} title="View" width="20" height="20" onClick={e => showDocument(dataItem)} />
+                                                {/* <img width="15" height="15" onClick={() => handleEditModal(dataItem)} src={editIcon} alt=""
+                                                    style={{ marginLeft: '5%', marginRight: '5%' }} /> */}
 
 
 
@@ -430,7 +435,7 @@ const PatientDocument = (props) => {
 
                                     {labDocument?.documentsList ? labDocument.documentsList.map((dataItem, subIndex) => {
                                         return <tr key={dataItem.id}>
-                                            <td width="80" key="Sr." style={{ cursor: "pointer" }}>
+                                            <td width="80" key="Sr." style={{ cursor: "pointer"}}>
                                                 {/*<img width="20" height="20" onClick={e => showLabDocument(dataItem)} alt=""
                                                     src={documentViewImage} />*/}
                                                 <VisibilityIcon style={{ color: "#00D0CC" }} title="View" width="20" height="20" onClick={e => showLabDocument(dataItem)} />
@@ -596,7 +601,7 @@ const PatientDocument = (props) => {
                                     <input type="text" id="labName" name="labName" className="form-control"
                                         onChange={e => handleLabResultChange(e)}
                                         value={labResult?.labName}
-                                        placeholder="Lab Name" required></input>
+                                        placeholder="Lab Name" required autoComplete='off'></input>
                                 </div>
                             </div>
 
@@ -607,7 +612,7 @@ const PatientDocument = (props) => {
                                     <input type="text" id="decription" name="decription" className="form-control"
                                         onChange={e => handleLabResultChange(e)}
                                         value={labResult?.decription}
-                                        placeholder="Description" required></input>
+                                        placeholder="Description" required autoComplete='off'></input>
                                 </div>
                             </div>
                             <div className="form-group row">
@@ -645,7 +650,7 @@ const PatientDocument = (props) => {
                                     <input type="email" id="doctorEmail" name="doctorEmail" className="form-control"
                                         validate="true" value={doctor?.email}
                                         onChange={e => handleDoctorTag(e)}
-                                        placeholder="Doctor Email"></input>
+                                        placeholder="Doctor Email" autoComplete='off'></input>
                                     {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
                                         <input hidden={true} id="doctorId" name="doctorId" value={doctor?.id} /></b></span>
                                         : <span>No Doctor Found</span>}

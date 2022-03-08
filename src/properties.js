@@ -1,5 +1,6 @@
 const dev = {
-    CORE : "https://dev.healthy-u.ae",
+    // CORE : "https://dev.healthy-u.ae",
+    CORE: "https://dev.healthieru.ae",
     UAA : "https://dev.healthy-u.ae"
 
 };

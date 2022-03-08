@@ -376,6 +376,7 @@ export const updateWorkout = async (data) => {
     });
     return response;
 }
+
 export const changeDoctorStatusOnUserTable = async (data) => {
     var payload = {
         method: 'post',

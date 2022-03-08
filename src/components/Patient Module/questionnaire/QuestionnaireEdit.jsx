@@ -172,9 +172,9 @@ class QuestionnaireEdit extends React.Component {
                                         className="form-radio"
                                         name={question.answerId}
                                         onChange={this.handleCheckBoxEvent}
-                                        defaultChecked={
-                                          question.answer === 'Y' ? true : false
-                                        }
+                                        // defaultChecked={
+                                        //   question.answer === 'Y' ? true : false
+                                        // }
                                         id={question.id}
                                       />
                                       <label id="label_input_6_0">
@@ -202,7 +202,7 @@ class QuestionnaireEdit extends React.Component {
                                             id={question.id}
                                             name={question.answerId}
                                             defaultValue={question.answer}
-                                            placeholder={question.question}
+                                            // placeholder={question.question}
                                             onBlur={this.handleTextBoxEvent}
                                           ></input>
                                         </div>
@@ -229,16 +229,16 @@ class QuestionnaireEdit extends React.Component {
                       Continue
                     </Button>
                     <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-/>
+                      position="top-right"
+                      autoClose={5000}
+                      hideProgressBar
+                      newestOnTop={false}
+                      closeOnClick
+                      rtl={false}
+                      pauseOnFocusLoss
+                      draggable
+                      pauseOnHover
+                    />
                   </div>
                 </>
               )}
@@ -311,14 +311,14 @@ pauseOnHover
 
   async continue(event) {
     toast.success('Good Job!', {
-      position: "top-right",
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      });
+    });
     // alert("Successful");
     setTimeout(() => window.location.assign('/patient'), 1000);
     // window.location.assign('/patient');
