@@ -1,0 +1,24 @@
+.action-btn {
+    padding: 8px 15px;
+    min-width: 80px;
+}
+
+.table {
+    border-radius: 10px;
+}
+
+.table .thead-dark th {
+    border: none;
+}
+
+tr th:first-child {
+    border-top-left-radius: 10px;
+}
+
+tr th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.delete-icon {
+    cursor: pointer;
+}
