@@ -1,59 +1,87 @@
 import React from "react";
-import {
-    getShops,deleteShop
-} from "../../../service/shopservice";
-import {Link} from "react-router-dom";
-import './Shop.css';
-import {Button, Modal} from "react-bootstrap";
+import { getShops, deleteShop } from "../../../service/shopservice";
+import { Link } from "react-router-dom";
+import "./Shop.css";
+import { Button, Modal } from "react-bootstrap";
 import Navbar from "../layout/Navbar";
 //import {deleteQuestion} from "../../../component/questionnaire/QuestionService";
-import 'mdbreact/dist/css/mdb.css';
-
+import "mdbreact/dist/css/mdb.css";
+import "../components/Table/Table";
+import Table from "../components/Table/Table";
 
 class ShopHome extends React.Component {
+  state = {
+    isLoading: true,
+    shop: null,
+    selectedShop: null,
+    error: null,
+    showDelete: false,
+  };
 
+  headers = [
+    {
+      label: "Sr.",
+      key: "serialno",
+    },
+    {
+      label: "Category",
+      key: "category",
+    },
+    {
+      label: "Has Subcategory",
+      key: "hasSubcategoryDisplay",
+    },
+    {
+      label: "Action",
+      key: "action",
+    },
+  ];
 
-    state = {
-        isLoading: true,
-        shop: null,
-        selectedShop: null,
-        error: null,
-        showDelete: false
-    }
+  async componentDidMount() {
+    // GET request using fetch with async/await
+    const response = await getShops();
+    const data = response.map((d, i) => {
+      d.serialno = i + 1;
+      d.hasSubcategoryDisplay = d.hasSubcategory ? 'TRUE' : 'FALSE';
+      return d;
+    })
+    this.setState({ shop: data, isLoading: false });
+  }
 
+  handleDeleteModal = (remove) => {
+    this.setState({ selectedShop: remove });
+    this.setState({ showDelete: true });
+  };
 
-    async componentDidMount() {
-        // GET request using fetch with async/await
-        const response = await getShops();
-        this.setState({shop: response, isLoading: false})
-    }
+  render() {
+    const { isLoading } = this.state;
 
-     handleDeleteModal = remove => {
-
-         this.setState({selectedShop: remove});
-         this.setState({showDelete: true});
-    }
-
-    render() {
-        const {isLoading} = this.state;
-
-
-        return (
-            <div>
-             <Navbar pageTitle="shop"/>
-                <br/>
-                <div className="container">
-                    <div className="py-4">
-                        <div className="row">
-                            <div className="col-md-10"><h1>Shop</h1></div>
-                            <div className="col-md-2 text-right pr-0">
-                                <Link to="/admin/shop/add">
-                                    <button type="button" className="btn btn-primary">Add Shop</button>
-                                </Link>
-                            </div>
-                        </div>
-
-                        <table className="table border shadow">
+    return (
+      <div>
+        <Navbar pageTitle="shop" />
+        <br />
+        <div className="container">
+          <div className="py-4">
+            <div className="row">
+              <div className="col-md-10">
+                <h1>Shop</h1>
+              </div>
+              <div className="col-md-2 text-right pr-0">
+                <Link to="/admin/shop/add">
+                  <button type="button" className="btn btn-primary">
+                    Add Shop
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <Table
+              data={this.state.shop}
+              isLoading={isLoading}
+              headers={this.headers}
+              editLink='/admin/shop/edit/'
+              handleDelete={this.handleDeleteModal}
+            ></Table>
+            {/* <table className="table border shadow">
                             <thead className="thead-dark">
                             <tr>
                                 <th scope="col">Sr.</th>
@@ -87,40 +115,49 @@ class ShopHome extends React.Component {
                               <tr>Loading...</tr>
                               )}
                             </tbody>
-                        </table>
-                    </div>
-                </div>
+                        </table> */}
+          </div>
+        </div>
 
-                <Modal show={this.state.showDelete} onHide={() =>this.setState({showDelete: false})}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Delete Shop</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body><p>Are you sure to Delete the Shop ?</p></Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={() =>this.setState({showDelete: false})}>
-                            Close
-                        </Button>
-                        <Button variant="danger" onClick={() => this.handleDeleteShopSubmission()}>
-                            Delete
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        );
-    }
+        <Modal
+          show={this.state.showDelete}
+          onHide={() => this.setState({ showDelete: false })}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Shop</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure to Delete the Shop ?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => this.setState({ showDelete: false })}
+            >
+              Close
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => this.handleDeleteShopSubmission()}
+            >
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  }
 
+  handleDeleteShopSubmission = async (event) => {
+    //console.log(this.state.selectedShop)
+    const resp = deleteShop(this.state.selectedShop.id);
 
-    handleDeleteShopSubmission = async (event) => {
-        //console.log(this.state.selectedShop)
-        const resp = deleteShop(this.state.selectedShop.id);
-
-        await resp.then(response => {
-            this.setState({selectedShop: null,showDelete:false})
-            this.componentDidMount();
-            return response.data;
-        })
-    }
-
-};
+    await resp.then((response) => {
+      this.setState({ selectedShop: null, showDelete: false });
+      this.componentDidMount();
+      return response.data;
+    });
+  };
+}
 
 export default ShopHome;
