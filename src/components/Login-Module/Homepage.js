@@ -20,10 +20,10 @@ import { getArticles } from "../../service/ArticleService";
 import { HOMEPAGE_GETHELP, HOMEPAGE_TAKEACTION, HOMEPAGE_LEARNMORE } from '../../util/constant';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Cookies from 'universal-cookie';
 
 
 //import firebase from './../../firebase';
-// import Cookies from 'universal-cookie';
 // import education from '../../images/education.png'
 // import article1 from '../../images/article1.png'
 // import article2 from '../../images/article2.png'
@@ -33,7 +33,7 @@ const Homepage = () => {
 
     const [loading, setLoading] = useState(true);
     const [article, setArticle] = useState([]);
-    // const cookies = new Cookies();
+    const cookies = new Cookies();
 
     const responsive = {
         desktop: {
@@ -56,6 +56,18 @@ const Homepage = () => {
     useEffect(() => {
         loadArticle();
     }, []);
+
+    useEffect(() => {
+        if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_PATIENT") {
+            window.location.assign("/patient");
+        }
+        if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_DOCTOR") {
+            window.location.assign("/doctor");
+        }
+        if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_ADMIN") {
+            window.location.assign("/admin");
+        }
+    }, [cookies.get('currentUser')]);
 
 
     const loadArticle = async () => {

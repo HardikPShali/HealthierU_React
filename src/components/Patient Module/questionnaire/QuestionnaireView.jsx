@@ -205,7 +205,6 @@ class QuestionnaireView extends React.Component {
     const currentUserId = this.state.currentPatientUser.id;
     let data = '';
     if (event.target.name === '') {
-      
       data = {
         answer: event.target.checked === true ? 'Y' : 'N',
         patientId: currentUserId,

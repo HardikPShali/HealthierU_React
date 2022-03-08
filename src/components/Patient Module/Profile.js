@@ -167,9 +167,11 @@ const Profile = () => {
 
         if (response.status === 200 || response.status === 201) {
             // location.reload();
-            setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture } });
+            setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture + '?' + Math.random()} });
+            setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+            setTransparentLoading(false);
             // eslint-disable-next-line no-restricted-globals
-            window.location.reload();
+            // window.location.reload();
             // setTransparentLoading(false);
             // setTimeout(() => {
             //     alert('2')
