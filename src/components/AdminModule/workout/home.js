@@ -125,6 +125,7 @@ class WorkoutHome extends React.Component {
             this.componentDidMount();
             return response;
         })
+
     }
 
 };

@@ -5,7 +5,7 @@ export const getWorkouts = async () => {
 
     var config = {
         method: 'get',
-        url: `/api/admin/workouts`,
+        url: '/api/admin/workouts',
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
@@ -18,23 +18,25 @@ export const getWorkouts = async () => {
     })
 
 }
+
 export const deleteWorkout = async (id) => {
+    const headers = {
+        'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+        'Content-Type': 'application/json'
+    }
+
     var config = {
         method: 'delete',
-        mode: 'no-cors',
-        url: `/api/admin/workouts/${id}`,
-        headers: {
-            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        }
+        url: `/api/workouts/${id}`,
+      
+        headers: headers,
+        data : {
+            id : id
+        },
     };
-    const response = await axios(config).then(res => {
-        if (res) {
-            return res;
-        }
-    });
-    return response;
+    return await axios(config).then(response => {
+        return response;
+    })
 }
 
 

@@ -383,9 +383,9 @@ const Myappointment = (props) => {
                     </DialogActions>
                 </Dialog>
                 <Dialog onClose={confirmVideoClose} aria-labelledby="customized-dialog-title" open={confirmVideo}>
-                    <DialogTitle id="customized-dialog-title" onClose={confirmVideoClose}>
+                    {/* <DialogTitle id="customized-dialog-title" onClose={confirmVideoClose}>
                         Do you want to Start Video Call
-                </DialogTitle>
+                </DialogTitle> */}
                     <DialogActions>
                     <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus 
                         //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
