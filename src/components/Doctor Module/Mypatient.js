@@ -488,7 +488,7 @@ const Mypatient = (props) => {
 
                                                 )}
                                                 </Col>
-                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '88px' }}><DateRangeOutlinedIcon /></Col>
+                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px',display : 'flex' }}><DateRangeOutlinedIcon /></Col>
                                                 <Col xs={3} style={{ textAlign: 'right' }}><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col>
                                             </Row>
                                             <Row style={{ alignItems: "center", marginTop: "5px" }}>
