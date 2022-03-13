@@ -275,7 +275,7 @@ div#dorctor-list {
   justify-content: space-between;
   border-radius: 25px;
   /* text-align: right; */
-  -webkit-scrollbar :var(--reactour-accent)
+  -webkit-scrollbar: var(--reactour-accent);
 }
 #toggle-icons {
   display: inline-flex;
@@ -492,7 +492,6 @@ svg#fav-icon {
   z-index: 1;
   cursor: pointer;
   color: #fff;
-  
 }
 
 .MuiGridListTile-tile {
@@ -541,11 +540,9 @@ div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
 
 input#doctor-search {
   color: #fff;
-  
 }
 input#doctor-search :focus {
-   background-color: #00d1cd !important;
-
+  background-color: #00d1cd !important;
 }
 
 #appointment-card {
@@ -612,7 +609,6 @@ span.MuiRating-root {
 span.price {
   color: var(--primary);
   font-size: 35px;
-  
 }
 
 button.continue-btn {
@@ -1085,7 +1081,6 @@ button.btn.timeSlot:hover {
 }
 .appointment-box .MuiInputBase-formControl {
   border-radius: 10px;
-  
 }
 .appointment-box input#standard-basic {
   padding: 10px;
@@ -3142,12 +3137,10 @@ sup {
   display: block;
   margin-top: 60px;
   text-align: left;
- 
+
   box-shadow: 0px 0px 10px #ddd;
   height: 88%;
   overflow: scroll;
-  
-  
 }
 
 button.apply-btn {
@@ -3200,11 +3193,7 @@ button.reset-btn {
   background: #e8e8e8;
   border-radius: 20px !important;
   margin-bottom: 5px;
-  
- 
-  
 }
-
 
 /* btn primary */
 
@@ -3426,8 +3415,8 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 /* BUG HU067 resolved */
-.filter-box .MuiFilledInput-input {
-  padding: 5px 5px !important;
+.filter-box .filterDate .MuiFilledInput-input {
+  padding: 5px 2px !important;
   font-size: 14px;
 }
 
