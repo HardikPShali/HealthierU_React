@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px'
     },
 }));
+const app = makeStyles(() => ({
+    height:'4%',
+    width: '145px'
+}));
 
 const Myappointment = (props) => {
     const [myAppointment, setMyAppoitment] = useState([]);
@@ -183,21 +187,30 @@ const Myappointment = (props) => {
             endTime: new Date(newEndDate).toISOString(),
             patientId: patientId,
             status: "ACCEPTED"
+            
+            
         }
         const response = await getAppointmentListByPatientId(myAppointmentFilter).catch(err => {
             if (err.response.status === 500 || err.response.status === 504) {
                 setLoading(false);
             }
         });
+       
         if (response.status === 200 || response.status === 201) {
             if (response && response.data) {
                 //console.log("response.data ::: ", response.data)
                 const updateArray = [];
                 response.data.reverse();
                 response.data.map((value, index) => {
+                    
                     if (value.status === "ACCEPTED") {
                         if (value.unifiedAppointment === (response.data[index + 1] && response.data[index + 1].unifiedAppointment)) {
-                            updateArray.push({ id: value.id, patientId: value.patientId, doctorId: value.doctorId, doctor: value.doctor, title: `Appointment booked with Dr. ${value?.doctor?.firstName} with ${value.urgency ? value.urgency : "no"} urgency, comments : ${value.remarks ? value.remarks : "no comments"}`, startTime: new Date(value.startTime), endTime: new Date(response.data[index + 1].endTime), remarks: value.remarks, status: value.status, appointmentId: value.appointmentId, unifiedAppointment: value.unifiedAppointment });
+                       
+                   
+                            updateArray.push( 
+                                { id: value.id, patientId: value.patientId, doctorId: value.doctorId, doctor: value.doctor, title: `Appointment booked with Dr. ${value?.doctor?.firstName} with ${value.urgency ? value.urgency : "no"} urgency, comments : ${value.remarks ? value.remarks : "no comments"}`, startTime: new Date(value.startTime), endTime: new Date(response.data[index + 1].endTime), remarks: value.remarks, status: value.status, appointmentId: value.appointmentId, unifiedAppointment: value.unifiedAppointment}
+                                );
+                           
                         }
                         else if ((value.unifiedAppointment !== (response.data[index + 1] && response.data[index + 1].unifiedAppointment)) &&
                             (value.unifiedAppointment === (response[index - 1] && response[index - 1].unifiedAppointment))) {
@@ -206,14 +219,19 @@ const Myappointment = (props) => {
                         else if (((value.unifiedAppointment !== (response.data[index + 1] && response.data[index + 1].unifiedAppointment)) &&
                             (value.unifiedAppointment !== (response.data[index - 1] && response.data[index - 1].unifiedAppointment)))) {
                             updateArray.push({ id: value.id, patientId: value.patientId, doctorId: value.doctorId, doctor: value.doctor, startTime: new Date(value.startTime), endTime: new Date(value.endTime), remarks: value.remarks, status: value.status, appointmentId: value.appointmentId, unifiedAppointment: value.unifiedAppointment });
+                           
                         }
                     } //  
+                    
                 })
+             
                 setMyAppoitment(updateArray);
                 setTimeout(() => setLoading(false), 1000);
             }
 
         } 
+        
+
     }
 
     const handleDelete = async (selectedAppointment) => {

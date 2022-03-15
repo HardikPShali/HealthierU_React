@@ -135,9 +135,9 @@ const Header = (props) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <NavLink to="#">
+          <NavLink to="#" style={{ cursor : 'default' }}>
             Current TimeZone:{' '}
-            <span className="p-1 border ml-1 mr-1">{systemTimeZone}</span>
+            <span className="p-1 border ml-1 mr-1" style={{ cursor : 'default' }}>{systemTimeZone}</span>
           </NavLink>
           <NavLink to="/doctor">Home</NavLink>
           <div className="dropdown headerNavbar">
