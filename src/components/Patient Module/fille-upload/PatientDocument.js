@@ -663,6 +663,7 @@ const PatientDocument = (props) => {
                                     <input type="email" id="patientEmail" name="patientEmail" className="form-control"
                                         value={patient?.email}
                                         placeholder="Patient Email" readOnly></input>
+                                        
                                     {patient?.id ? <span>Patient Name: <b>{patient?.firstName + ' ' + patient?.lastName}
                                         <input hidden={true} id="patientId" name="patientId" value={patient?.id} /></b></span> : <span>No Patient found</span>}
                                 </div>

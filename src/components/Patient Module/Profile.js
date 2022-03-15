@@ -55,6 +55,7 @@ const Profile = () => {
         weight: '',
         bloodGroup: '',
         address: '',
+        picture: ''
     });
 
     const [loading, setLoading] = useState(true);
@@ -134,25 +135,25 @@ const Profile = () => {
         var array = languages;
         var index = array.indexOf(removedItem); // Let's say it's Bob.
         array.splice(index, 1);
-        // setCurrentPatient({ ...currentPatient, languages: array });
+        setCurrentPatient({ ...currentPatient, languages: array });
     }
 
     const handleInputChange = (e) => {
         e.preventDefault()
-        // setCurrentPatient({ ...currentPatient, [e.target.name]: e.target.value });
+        setCurrentPatient({ ...currentPatient, [e.target.name]: e.target.value });
     };
 
     const handlePhone = (e) => {
-        // setCurrentPatient({ ...currentPatient, phone: e });
+        setCurrentPatient({ ...currentPatient, phone: e });
     };
     const handleCountry = (e) => {
-        // setCurrentPatient({ ...currentPatient, countryId: e.target.value });
+        setCurrentPatient({ ...currentPatient, countryId: e.target.value });
     };
 
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        // setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
+        setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
     };
 
     const handleDetails = async e => {
@@ -166,8 +167,11 @@ const Profile = () => {
 
         if (response.status === 200 || response.status === 201) {
             // location.reload();
+            setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture + '?' + Math.random()} });
+            setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+            setTransparentLoading(false);
             // eslint-disable-next-line no-restricted-globals
-            location.reload();
+            // window.location.reload();
             // setTransparentLoading(false);
             // setTimeout(() => {
             //     alert('2')
@@ -250,7 +254,7 @@ const Profile = () => {
                                 <div>
                                     <button className="btn btn-primary request-edit" onClick={() => {
                                         setDisplay({ ...display, profile: 'none', editProfile: 'block' })
-                                    }}>Edit Picture</button>
+                                    }}>Edit</button>
                                 </div>
                             </div>
                         </Col>

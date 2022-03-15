@@ -5,7 +5,7 @@ import "./landing.css";
 import { Container, Row, Col } from "react-bootstrap";
 import {
   Link,
-  useHistory
+  // useHistory
 } from "react-router-dom";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -43,7 +43,7 @@ import OtpTimer from "otp-timer";
 // import ReCAPTCHA from "react-google-recaptcha";
 
 const Signin = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -76,11 +76,20 @@ const Signin = () => {
     }
   }, []);
 
+
+  //User won't land on the sign in page only even when user has not sign out from the application | HEAL-55 & HEAL-10
   useEffect(() => {
-    if(localStorage.getItem("currentUser")){
-      history.go(0);
+    
+    if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_PATIENT") {
+      window.location.assign("/patient");
     }
-  }, [])
+    if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_DOCTOR") {
+      window.location.assign("/doctor");
+    }
+    if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_ADMIN") {
+      window.location.assign("/admin");
+    }
+  }, [cookies.get('currentUser')]);
 
   const responseGoogle = async (response) => {
     setLoader(true);
@@ -160,13 +169,14 @@ const Signin = () => {
     // const currentLoggedInUser = cookies.get("currentUser");
     const { authorities = [] } = currentUserInformation || {};
 
-    if (!currentUserInformation) {
-      window.location.assign("/");
-    }
+    // if (!currentUserInformation) {
+    //   window.location.assign("/");
+    // }
     if (
       authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER")
     ) {
       cookies.set("currentUser", currentUserInformation);
+      // cookies.set('utype', 1);
       window.location.assign("/admin");
       // enable the below code for 2FA for admin
       //sendOtp();
@@ -174,10 +184,12 @@ const Signin = () => {
 
     if (authorities.some((user) => user === "ROLE_PATIENT")) {
       cookies.set("currentUser", currentUserInformation);
+      // cookies.set('utype', 2);
       window.location.assign("/patient");
     }
     if (authorities.some((user) => user === "ROLE_DOCTOR")) {
       cookies.set("currentUser", currentUserInformation);
+      // cookies.set('utype', 3);
       window.location.assign("/doctor");
     }
   };
