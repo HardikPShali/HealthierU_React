@@ -20,6 +20,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import TransparentLoader from '../../Loader/transparentloader';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { IconButton } from "@material-ui/core";
+import { getSearchData } from '../../../service/frontendapiservices';
 
 // import documentViewImage from '../../../images/icons used/document icon@2x.png';
 // import Footer from '../Footer';
@@ -33,7 +34,6 @@ const PatientDocument = (props) => {
     const [loading, setLoading] = useState(false);
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
     const [doctor, setDoctor] = useState('');
-    const [suggestion, setSuggestion] = useState([]);
     const [patient, setPatient] = useState(null);
     const [showLabResultUpload, setShowLabResultUpload] = useState(false);
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
@@ -306,10 +306,50 @@ const PatientDocument = (props) => {
         }
     }
 
-    const autoComplete= ()=>{
-        console.log(doctor);
+    // FOR HEAL-52
+    const [user, setUser] = useState([]);
+    const [searchText, setSearchText] = useState("a");
+    const [suggestion, setSuggestion] = useState([]);
+    useEffect(() => {
+        const loadUsers = async () => {
+            if (searchText) {
+                const res = await getSearchData(searchText, 0, 1000);
+                if (res.status === 200 && res.data?.doctors.length > 0) {
+                    console.log('res', res);
+                    console.log('res.data.doctors', res.data.doctors);
+                    setUser(res.data.doctors);
+                }
+            }
+            else {
+                setSearchText('');
+                setSuggestion([]);
+            }
+        }
+        loadUsers();
+    }, []);
+
+    const onChangeHandler = text => {
+        let matches = [];
+        console.log('onChangehandler')
+        if (text.length > 0) {
+            matches = user.filter(item => {
+                const regex = new RegExp(`${text}`, 'gi');
+                console.log('text', text);
+                return item.email.match(regex);
+            });
+        }
+        console.log('Matches', matches);
+        console.log('Suggestion', suggestion);
+        setSuggestion(matches);
+        setSearchText(text);
     }
 
+    const onSuggestHandler = async (text) => {
+        setSearchText(text);
+        setSuggestion([]);
+        const data = await getDoctorDetail(text);
+        setDoctor(data);
+    }
 
     return (
         <div>
@@ -320,7 +360,21 @@ const PatientDocument = (props) => {
 
                 <br />
                 <br />
-
+                {/* <div>{searchText}</div>
+                <input type='text' onChange={e => onChangeHandler(e.target.value)} value={searchText} placeholder='Search'
+                    id="doctorName" name="doctorName" className="form-control"
+                />
+                {suggestion.map((item, index) => {
+                    return (
+                        <div key={index} onClick={() => onSuggestHandler(item.email)} style={{ cursor: 'pointer' }}>
+                            {item.firstName}
+                        </div>
+                    )
+                })}
+                {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
+                    <input hidden={true} id="doctorId" name="doctorId" value={doctor?.id} /></b></span>
+                    : <span>No Doctor Found</span>}
+                <br /> */}
 
                 <Tabs className="justify-content-center record-tabs" defaultActiveKey="prescription" id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}>
@@ -435,7 +489,7 @@ const PatientDocument = (props) => {
 
                                     {labDocument?.documentsList ? labDocument.documentsList.map((dataItem, subIndex) => {
                                         return <tr key={dataItem.id}>
-                                            <td width="80" key="Sr." style={{ cursor: "pointer"}}>
+                                            <td width="80" key="Sr." style={{ cursor: "pointer" }}>
                                                 {/*<img width="20" height="20" onClick={e => showLabDocument(dataItem)} alt=""
                                                     src={documentViewImage} />*/}
                                                 <VisibilityIcon style={{ color: "#00D0CC" }} title="View" width="20" height="20" onClick={e => showLabDocument(dataItem)} />
@@ -645,15 +699,22 @@ const PatientDocument = (props) => {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="doctorEmail" className="col-sm-3 col-form-label">Doctor Email</label>
+                                <label htmlFor="doctorName" className="col-sm-3 col-form-label">Doctor Name</label>
                                 <div className="col-sm-9">
-                                    <input type="email" id="doctorEmail" name="doctorEmail" className="form-control"
-                                        validate="true" value={doctor?.email}
-                                        onChange={e => handleDoctorTag(e)}
-                                        placeholder="Doctor Email" autoComplete='off'></input>
-                                    {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
+                                    <input type="text" id="doctorName" name="doctorName" className="form-control"
+                                        validate="true" value={searchText}
+                                        onChange={e => { onChangeHandler(e.target.value); }}
+                                        placeholder="Doctor Name" autoComplete='off' required></input>
+                                    {suggestion.map((doc, index) => {
+                                        return (
+                                            <div key={index} onClick={() => onSuggestHandler(doc.firstName)} style={{ cursor: 'pointer' }}>
+                                                {doc.id? doc.firstName + ' ' + doc.lastName + ' ' + doc.id: <span>No Doctor Found</span>}
+                                            </div>
+                                        )
+                                    })}
+                                    {/* {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
                                         <input hidden={true} id="doctorId" name="doctorId" value={doctor?.id} /></b></span>
-                                        : <span>No Doctor Found</span>}
+                                        : <span>No Doctor Found</span>} */}
                                 </div>
                             </div>
 
@@ -663,7 +724,7 @@ const PatientDocument = (props) => {
                                     <input type="email" id="patientEmail" name="patientEmail" className="form-control"
                                         value={patient?.email}
                                         placeholder="Patient Email" readOnly></input>
-                                        
+
                                     {patient?.id ? <span>Patient Name: <b>{patient?.firstName + ' ' + patient?.lastName}
                                         <input hidden={true} id="patientId" name="patientId" value={patient?.id} /></b></span> : <span>No Patient found</span>}
                                 </div>
@@ -677,7 +738,7 @@ const PatientDocument = (props) => {
                             <Button variant="secondary" onClick={handleUploadLabResultClosed}>
                                 Close
                             </Button>
-                            <Button variant="primary" type="submit" disabled={!doctor?.id || !labResult.labResultDocument}>
+                            <Button variant="primary" type="submit" >
                                 Save
                             </Button>
                         </Modal.Footer>
