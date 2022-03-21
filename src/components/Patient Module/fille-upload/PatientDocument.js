@@ -315,8 +315,8 @@ const PatientDocument = (props) => {
             if (searchText) {
                 const res = await getSearchData(searchText, 0, 1000);
                 if (res.status === 200 && res.data?.doctors.length > 0) {
-                    console.log('res', res);
-                    console.log('res.data.doctors', res.data.doctors);
+                    // console.log('res', res);
+                    // console.log('res.data.doctors', res.data.doctors);
                     setUser(res.data.doctors);
                 }
             }
@@ -334,21 +334,24 @@ const PatientDocument = (props) => {
         if (text.length > 0) {
             matches = user.filter(item => {
                 const regex = new RegExp(`${text}`, 'gi');
-                console.log('text', text);
+                // console.log('text', text);
                 return item.email.match(regex);
             });
         }
-        console.log('Matches', matches);
-        console.log('Suggestion', suggestion);
+        // console.log('Matches', matches);
+        // console.log('Suggestion', suggestion);
         setSuggestion(matches);
         setSearchText(text);
     }
 
     const onSuggestHandler = async (text) => {
-        setSearchText(text);
-        setSuggestion([]);
+        // setDoctor(null);
         const data = await getDoctorDetail(text);
+        // console.log('Data', data);
         setDoctor(data);
+        setSearchText(data.firstName);
+        // console.log('Text', data.firstName);
+        setSuggestion([]);
     }
 
     return (
@@ -360,22 +363,6 @@ const PatientDocument = (props) => {
 
                 <br />
                 <br />
-                {/* <div>{searchText}</div>
-                <input type='text' onChange={e => onChangeHandler(e.target.value)} value={searchText} placeholder='Search'
-                    id="doctorName" name="doctorName" className="form-control"
-                />
-                {suggestion.map((item, index) => {
-                    return (
-                        <div key={index} onClick={() => onSuggestHandler(item.email)} style={{ cursor: 'pointer' }}>
-                            {item.firstName}
-                        </div>
-                    )
-                })}
-                {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
-                    <input hidden={true} id="doctorId" name="doctorId" value={doctor?.id} /></b></span>
-                    : <span>No Doctor Found</span>}
-                <br /> */}
-
                 <Tabs className="justify-content-center record-tabs" defaultActiveKey="prescription" id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}>
                     <Tab eventKey="prescription" title="Prescription">
@@ -700,21 +687,31 @@ const PatientDocument = (props) => {
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="doctorName" className="col-sm-3 col-form-label">Doctor Name</label>
-                                <div className="col-sm-9">
+                                <div className="col-sm-9 position-relative">
                                     <input type="text" id="doctorName" name="doctorName" className="form-control"
-                                        validate="true" value={searchText}
-                                        onChange={e => { onChangeHandler(e.target.value); }}
-                                        placeholder="Doctor Name" autoComplete='off' required></input>
-                                    {suggestion.map((doc, index) => {
-                                        return (
-                                            <div key={index} onClick={() => onSuggestHandler(doc.firstName)} style={{ cursor: 'pointer' }}>
-                                                {doc.id? doc.firstName + ' ' + doc.lastName + ' ' + doc.id: <span>No Doctor Found</span>}
-                                            </div>
-                                        )
-                                    })}
-                                    {/* {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
+                                        validate="true" value={doctor?.firstName}
+                                        onChange={e => onChangeHandler(e.target.value)}
+                                        placeholder="Doctor Name" required autoComplete='off'
+                                        onBlur={() => {
+                                            setTimeout(() => {
+                                                setSuggestion([]);
+                                            }, 100);
+                                        }}
+                                    />
+                                    {/* ADD DIV */}
+                                    <div className='suggestion-box'>
+                                        {suggestion && suggestion.map((doc, index) => {
+                                            return (
+                                                <div key={index} onClick={() => onSuggestHandler(doc.email)} className='suggestion col-md-12 justify-content-md-center'>
+                                                    {doc.firstName + ' ' + doc.lastName}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+
+                                    {doctor?.id ? <span>Doctor Email:  <b>{doctor?.email}
                                         <input hidden={true} id="doctorId" name="doctorId" value={doctor?.id} /></b></span>
-                                        : <span>No Doctor Found</span>} */}
+                                        : <span></span>}
                                 </div>
                             </div>
 
@@ -738,7 +735,7 @@ const PatientDocument = (props) => {
                             <Button variant="secondary" onClick={handleUploadLabResultClosed}>
                                 Close
                             </Button>
-                            <Button variant="primary" type="submit" >
+                            <Button variant="primary" type="submit" disabled={!doctor?.id || !labResult.labResultDocument}>
                                 Save
                             </Button>
                         </Modal.Footer>
