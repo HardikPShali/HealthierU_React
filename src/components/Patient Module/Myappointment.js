@@ -26,6 +26,8 @@ import { Link } from 'react-router-dom';
 import { deleteAppointment, getAppointmentListByPatientId } from '../../service/frontendapiservices';
 import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';
+import { Style } from '@material-ui/icons';
+
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 // import Cookies from 'universal-cookie';
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const app = makeStyles(() => ({
-    height:'4%',
+    height: '4%',
     width: '145px'
 }));
 
@@ -103,15 +105,54 @@ const Myappointment = (props) => {
         setAlertVideo(false);
     };
 
-    const handleVideoCall = (appointmentStartTime) => {
-        const AppointmnetBeforeTenMinutes = new Date(appointmentStartTime.getTime() - 2 * 60000);
-        const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 70 * 60000);
-        if (new Date().toISOString() >= AppointmnetBeforeTenMinutes.toISOString() && new Date().toISOString() <= AppointmnetAfter70Minutes.toISOString()) {
-            handleConfirmVideo();
-        }
+    //chat
+    const [confirmChat, setConfirmChat] = useState(false);
+    const [alertChat, setAlertChat] = useState(false);
+
+    const handleConfirmChat = () => {
+        setConfirmChat(true);
+    };
+    const confirmChatClose = () => {
+        setConfirmChat(false);
+    };
+    const handleAlertChat = () => {
+        setAlertChat(true);
+    };
+    const alertChatClose = () => {
+        setAlertChat(false);
+    };
+
+
+
+    // const handleVideoCall = (appointmentStartTime) => {
+    //     const AppointmnetBeforeTenMinutes = new Date(appointmentStartTime.getTime() - 2 * 60000);
+    //     const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 70 * 60000);
+    //     if (new Date().toISOString() >= AppointmnetBeforeTenMinutes.toISOString() && new Date().toISOString() <= AppointmnetAfter70Minutes.toISOString()) {
+            // handleConfirmVideo();
+    //     }
+    //     else {
+    //         handleAlertVideo();
+    //     }
+    // }
+
+    //Chat
+    const handleChat = (appointmentStartTime) => {
+        const AppointmnetBeforeSixyMinutes = new Date(appointmentStartTime.getTime() - 3600000);
+        const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 4200000);
+        if (new Date().getTime() >= AppointmnetBeforeSixyMinutes.getTime() && new Date().getTime() <= AppointmnetAfter70Minutes.getTime()) {
+            handleConfirmChat();        } 
         else {
-            handleAlertVideo();
+            handleAlertChat();
         }
+        // const AppointmentBeforeTwoHours = new Date(appointmentStartTime.getTime() - 2 * 60000);
+        // if (new Date().toISOString() <= AppointmentBeforeTwoHours.toISOString())
+        // {
+        //     handleConfirmChat();
+        // }
+        // else
+        // {
+        //     handleAlertChat();
+        // }
     }
 
     const eventStyleGetter = (event) => {
@@ -151,7 +192,7 @@ const Myappointment = (props) => {
     useEffect(() => {
         props.currentPatient.id && getMyAppointmentList(props.currentPatient.id);
     }, [props.currentPatient]);
-    
+
     // current patient is comming from props delete in future ady-delete
     // const currentLoggedInUser = cookies.get("currentUser");
     // const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
@@ -187,31 +228,37 @@ const Myappointment = (props) => {
             endTime: new Date(newEndDate).toISOString(),
             patientId: patientId,
             status: "ACCEPTED"
-            
-            
+
+
         }
         const response = await getAppointmentListByPatientId(myAppointmentFilter).catch(err => {
+
+
+
             if (err.response.status === 500 || err.response.status === 504) {
                 setLoading(false);
             }
         });
-       
+
         if (response.status === 200 || response.status === 201) {
             if (response && response.data) {
                 //console.log("response.data ::: ", response.data)
                 const updateArray = [];
                 response.data.reverse();
                 response.data.map((value, index) => {
-                    
+
                     if (value.status === "ACCEPTED") {
                         if (value.unifiedAppointment === (response.data[index + 1] && response.data[index + 1].unifiedAppointment)) {
-                       
-                   
-                            updateArray.push( 
-                                { id: value.id, patientId: value.patientId, doctorId: value.doctorId, doctor: value.doctor, title: `Appointment booked with Dr. ${value?.doctor?.firstName} with ${value.urgency ? value.urgency : "no"} urgency, comments : ${value.remarks ? value.remarks : "no comments"}`, startTime: new Date(value.startTime), endTime: new Date(response.data[index + 1].endTime), remarks: value.remarks, status: value.status, appointmentId: value.appointmentId, unifiedAppointment: value.unifiedAppointment}
-                                );
-                           
+
+
+                            updateArray.push(
+
+                                { id: value.id, patientId: value.patientId, doctorId: value.doctorId, doctor: value.doctor, title: `Appointment booked with Dr. ${value?.doctor?.firstName} with ${value.urgency ? value.urgency : "no"} urgency, comments : ${value.remarks ? value.remarks : "no comments"}`, startTime: new Date(value.startTime), endTime: new Date(response.data[index + 1].endTime), remarks: value.remarks, status: value.status, appointmentId: value.appointmentId, unifiedAppointment: value.unifiedAppointment }
+                            );
+
+
                         }
+
                         else if ((value.unifiedAppointment !== (response.data[index + 1] && response.data[index + 1].unifiedAppointment)) &&
                             (value.unifiedAppointment === (response[index - 1] && response[index - 1].unifiedAppointment))) {
                             return false;
@@ -219,23 +266,26 @@ const Myappointment = (props) => {
                         else if (((value.unifiedAppointment !== (response.data[index + 1] && response.data[index + 1].unifiedAppointment)) &&
                             (value.unifiedAppointment !== (response.data[index - 1] && response.data[index - 1].unifiedAppointment)))) {
                             updateArray.push({ id: value.id, patientId: value.patientId, doctorId: value.doctorId, doctor: value.doctor, startTime: new Date(value.startTime), endTime: new Date(value.endTime), remarks: value.remarks, status: value.status, appointmentId: value.appointmentId, unifiedAppointment: value.unifiedAppointment });
-                           
+
                         }
-                    } //  
-                    
+
+                    } // 
+
+
                 })
-             
+
+
                 setMyAppoitment(updateArray);
                 setTimeout(() => setLoading(false), 1000);
             }
 
-        } 
-        
+        }
+
 
     }
 
     const handleDelete = async (selectedAppointment) => {
-        const {currentPatient,doctorDetailsList}=props;
+        const { currentPatient, doctorDetailsList } = props;
         setLoading(true);
         handleClose();
         const payload = {
@@ -255,7 +305,7 @@ const Myappointment = (props) => {
             }
         });
         if (res?.status === 200 || res?.status === 201) {
-            firestoreService.sendCancelAppointmentToFirestoreMessage(selectedAppointment, 'patient',currentPatient,doctorDetailsList);
+            firestoreService.sendCancelAppointmentToFirestoreMessage(selectedAppointment, 'patient', currentPatient, doctorDetailsList);
             getMyAppointmentList(currentPatient.id);
             handleClose();
 
@@ -269,7 +319,7 @@ const Myappointment = (props) => {
         setHourDifference(hours);
     }
 
-    const {currentPatient,doctorDetailsList}=props;
+    const { currentPatient, doctorDetailsList } = props;
 
     //console.log("myAppointment ::::::::", myAppointment);
     return (
@@ -335,7 +385,7 @@ const Myappointment = (props) => {
                 <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                     <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                         Are you sure you want to cancel?
-                </DialogTitle>
+                    </DialogTitle>
                     <DialogContent dividers>
                         <Typography gutterBottom>
                             {hourDifference < 24 && (<span>You are cancelling less then 24h prior the appointment start time, unfortunately you will not be reimbursed</span>)}
@@ -345,17 +395,17 @@ const Myappointment = (props) => {
                     <DialogActions>
                         <button autoFocus onClick={() => handleDelete(selectedAppointment)} className="btn btn-primary">
                             Ok
-                    </button>
+                        </button>
                         <button autoFocus onClick={handleClose} className="btn btn-secondary">
                             Cancel
-                    </button>
+                        </button>
                     </DialogActions>
                 </Dialog>
 
                 <Dialog onClose={handleAppointmentInfoClose} aria-labelledby="customized-dialog-title" open={openAppointmentInfo}>
                     <DialogTitle id="customized-dialog-title" onClose={handleAppointmentInfoClose}>
                         Appointment Information!
-                </DialogTitle>
+                    </DialogTitle>
                     <DialogContent dividers>
                         {selectedAppointment && selectedAppointment.doctor && (
                             <div>
@@ -386,45 +436,98 @@ const Myappointment = (props) => {
                             </div>
                         )}
                     </DialogContent>
-                    <DialogActions id="chat-buttons">
-                        <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat">
-                            <IconButton>
+                    
+                
+                    <DialogActions id="chat-buttons" onClose={handleAppointmentInfoClose} aria-labelledby="customized-dialog-title"> 
+                      {/* <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
+                     <IconButton onClick={() => handleChat(selectedAppointment.startTime)}>
                                 <ChatIcon id="active-video-icon" />
-                            </IconButton>
-                        </Link>
-                        {/* <IconButton onClick={() => handleVideoCall(selectedAppointment.startTime)}>
-                            <VideocamIcon id="active-video-icon" />
-                        </IconButton> */}
-                        <button autoFocus onClick={handleAppointmentInfoClose} className="btn btn-primary">
+                            </IconButton> 
+                         {/* </Link>  */}
+                        <button autoFocus onClick={handleAppointmentInfoClose} className="btn btn-primary" id="close-btn">
                             Ok
-                    </button>
+                        </button>
                     </DialogActions>
+                
+                    {/* // <DialogActions id="chat-buttons" open={confirmChat}> */}
+                        {/* { <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
+                            {/* <IconButton>
+                                <ChatIcon id="active-video-icon" />
+                            </IconButton>  */}
+                         {/* </Link>  */}
+                        {/* /* <IconButton onClick={() => handleVideoCall(selectedAppointment.startTime)}>
+                            <VideocamIcon id="active-video-icon" />
+                        </IconButton> */} 
+                    {/* //     <button autoFocus onClick={handleAppointmentInfoClose} className="btn btn-primary">
+                    //         Ok
+                    //     </button>
+                    // </DialogActions> */}
                 </Dialog>
-                <Dialog onClose={confirmVideoClose} aria-labelledby="customized-dialog-title" open={confirmVideo}>
+                {/* <Dialog onClose={confirmVideoClose} aria-labelledby="customized-dialog-title" open={confirmVideo}> */}
                     {/* <DialogTitle id="customized-dialog-title" onClose={confirmVideoClose}>
                         Do you want to Start Video Call
                 </DialogTitle> */}
-                    <DialogActions>
-                    <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus 
-                        //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
-                        className="btn btn-primary" id="close-btn">
+                    {/* <DialogActions>
+                        <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus
+                            //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
+                            className="btn btn-primary" id="close-btn">
                             Yes
-                    </button></Link>
+                        </button></Link>
                         <button autoFocus onClick={confirmVideoClose} className="btn btn-primary" id="close-btn">
                             No
-                    </button>
+                        </button>
+                    </DialogActions>
+                </Dialog> */}
+                <Dialog onClose={confirmChatClose} aria-labelledby="customized-dialog-title" open={confirmChat}>
+                    { <DialogTitle id="customized-dialog-title" onClose={confirmChatClose}>
+                        Do you want to Start Chat 
+                </DialogTitle> }
+                     <DialogActions>
+                        <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus
+                            //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
+                            className="btn btn-primary" id="close-btn">
+                            Yes
+                        </button></Link>
+                        <button autoFocus onClick={confirmChatClose} className="btn btn-primary" id="close-btn">
+                            No
+                        </button>
                     </DialogActions>
                 </Dialog>
                 <Dialog onClose={alertVideoClose} aria-labelledby="customized-dialog-title" open={alertVideo}>
                     <DialogTitle id="customized-dialog-title" onClose={alertVideoClose}>
                         Video call is possible only starting 2 Minutes before the Appointment Time
-                </DialogTitle>
+                    </DialogTitle>
                     <DialogActions>
                         <button autoFocus onClick={alertVideoClose} className="btn btn-primary" id="close-btn">
                             Ok
-                    </button>
+                        </button>
                     </DialogActions>
                 </Dialog>
+                <Dialog onClose={alertChatClose} aria-labelledby="customized-dialog-title" open={alertChat}>
+                    <DialogTitle id="customized-dialog-title" onClose={alertChatClose}>
+                        Chat is possible only 2 Hours before the Appointment Time
+                    </DialogTitle>
+                    <DialogActions>
+                        <button autoFocus onClick={alertChatClose} className="btn btn-primary" id="close-btn">
+                            Ok
+                        </button>
+                    </DialogActions>
+                </Dialog>
+                {/* <Dialog onClose={confirmChatClose} aria-labelledby="customized-dialog-title" open={confirmChat}>
+                    {/* <DialogTitle id="customized-dialog-title" onClose={confirmVideoClose}>
+                        Do you want to Start Video Call
+                </DialogTitle> */}
+                    {/* <DialogActions>
+                        <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus
+                            //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
+                            className="btn btn-primary" id="close-btn">
+                            Yes
+                        </button></Link>
+                        <button autoFocus onClick={confirmChatClose} className="btn btn-primary" id="close-btn">
+                            No
+                        </button>
+                    </DialogActions>
+                </Dialog> */} 
             </>)}
         </div>
     )
