@@ -26,8 +26,18 @@ const DoctorRoute = Loadable({
   loader: () => import('./components/Doctor Module'),
   loading: () => <div></div>
 });
-const Logout = Loadable({
-  loader: () => import('./components/Logout'),
+// const Logout = Loadable({
+//   loader: () => import('./components/Logout'),
+//   loading: () => <div></div>
+// });
+
+const Signin = Loadable({
+  loader: () => import('./components/Login-Module/Signin'),
+  loading: () => <div></div>
+});
+
+const Homepage = Loadable({
+  loader: () => import('./components/Login-Module/Homepage'),
   loading: () => <div></div>
 });
 
@@ -53,20 +63,22 @@ const Routes = () => {
     <Router>
       <div>
         <Switch>
+          <Route exact path="/" component={Homepage} />
+          <Route exact path="/signin" component={Signin} />
           {!currentUser && (
             <Route component={MainRoute} />
           )}
           {authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER") && (<>
             <Route path="/admin" component={AdminRoutes} />
-            <Route exact path="(/|/signin)" component={Logout} />
+            {/* <Route exact path="(/|/signin)" component={Logout} /> */}
           </>)}
           {authorities.some((user) => user === "ROLE_PATIENT") && (<>
             <Route path="/patient" component={PatientRoute} />
-            <Route exact path="(/|/signin)" component={Logout} />
+            {/* <Route exact path="(/|/signin)" component={Logout} /> */}
           </>)}
           {authorities.some((user) => user === "ROLE_DOCTOR") && (<>
             <Route path="/doctor" component={DoctorRoute} />
-            <Route exact path="(/|/signin)" component={Logout} />
+            {/* <Route exact path="(/|/signin)" component={Logout} /> */}
           </>)}
         </Switch>
         <ToastContainer />

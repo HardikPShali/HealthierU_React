@@ -41,9 +41,9 @@ class ShopHome extends React.Component {
     // GET request using fetch with async/await
     const response = await getShops();
     const data = response.map((d, i) => {
-        d.serialno = i + 1;
-        d.hasSubcategoryDisplay = d.hasSubcategory ? 'TRUE' : 'FALSE';
-        return d;
+      d.serialno = i + 1;
+      d.hasSubcategoryDisplay = d.hasSubcategory ? 'TRUE' : 'FALSE';
+      return d;
     })
     this.setState({ shop: data, isLoading: false });
   }
