@@ -31,6 +31,8 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paypal from "../CommonModule/Paypal";
 import TransparentLoader from "../Loader/transparentloader";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import SearchIcon from "@material-ui/icons/Search";
 import {
   getLoggedInUserDataByUserId,
@@ -63,7 +65,7 @@ import { searchFilterForDoctor } from "../../service/searchfilter";
 import { firestoreService } from "../../util";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { doctorListLimit } from "../../util/configurations";
-
+import { Button, Modal } from "react-bootstrap";
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
 
@@ -112,6 +114,7 @@ const MyDoctor = (props) => {
     patientId: "",
     appointmentMode: "",
   });
+
 
   const [finalAppointmentData, setFinalAppointmentData] = useState([]);
   const { remarks, urgency } = appointment;
@@ -310,7 +313,7 @@ const MyDoctor = (props) => {
     }
   };
 
-   const createLikedDoctor = async (doctorId) => {
+  const createLikedDoctor = async (doctorId) => {
     setTransparentLoading(true);
     const likedData = {
       patientId: currentPatient.id,
@@ -433,7 +436,7 @@ const MyDoctor = (props) => {
 
   //console.log("combinedSlots :: ", combinedSlots);
   const createConsultationSlots = (slots) => {
-    console.log(slots,'in slots');
+    console.log(slots, 'in slots');
     const updatedArray = [];
     const combinedArray = [];
     if (slots && slots.length > 0) {
@@ -476,7 +479,7 @@ const MyDoctor = (props) => {
     const response = await getFilteredAppointmentData(dataForSelectedDay);
     // //console.log(response.status);
     if (response.status === 200 || response.status === 201) {
-      console.log(response.data,'in response');
+      console.log(response.data, 'in response');
       const arraySlot = [];
       response.data &&
         response.data.map((value) => {
@@ -485,7 +488,7 @@ const MyDoctor = (props) => {
             new Date(moment(new Date()).subtract(25, "minutes"))
           ) {
             arraySlot.push(value);
-          }else{
+          } else {
             arraySlot.push(value);
           }
         });
@@ -667,12 +670,20 @@ const MyDoctor = (props) => {
     like: "none",
     unlike: "block",
     suggestion: "none",
-  
+
   });
   const [disable, setDisable] = useState({
     continue: true,
     payment: true,
+  
+  
   });
+  //for payment waiting modal
+  const [show, setShow] = useState(false);
+
+  const handleClosemodal = () => setShow(false);
+  const handleShowmodal = () => setShow(true);
+
   const [slotError, setSlotError] = useState("");
 
   const checkSlot = () => {
@@ -714,7 +725,7 @@ const MyDoctor = (props) => {
   const tourConfig = [
     {
       selector: "li.MuiGridListTile-root:nth-child(2)",
-      content: `Select your doctor from the list.`,
+      content: `Select your doctor.`,
     },
     {
       selector: ".appointment-type",
@@ -1006,28 +1017,26 @@ const MyDoctor = (props) => {
                   <IconButton
                     onClick={() => toggleFilterBox()}
                     style={{
-                      backgroundColor: `${
-                        specialityFilter.length > 0 ||
-                        languageFilter.length > 0 ||
-                        genderFilter ||
-                        feesFilter[0] > 0 ||
-                        feesFilter[1] < 1000 ||
-                        docStartTime ||
-                        countryFilter
+                      backgroundColor: `${specialityFilter.length > 0 ||
+                          languageFilter.length > 0 ||
+                          genderFilter ||
+                          feesFilter[0] > 0 ||
+                          feesFilter[1] < 1000 ||
+                          docStartTime ||
+                          countryFilter
                           ? "#F6CEB4"
                           : ""
-                      }`,
-                      color: `${
-                        specialityFilter.length > 0 ||
-                        languageFilter.length > 0 ||
-                        genderFilter ||
-                        feesFilter[0] > 0 ||
-                        feesFilter[1] < 1000 ||
-                        docStartTime ||
-                        countryFilter
+                        }`,
+                      color: `${specialityFilter.length > 0 ||
+                          languageFilter.length > 0 ||
+                          genderFilter ||
+                          feesFilter[0] > 0 ||
+                          feesFilter[1] < 1000 ||
+                          docStartTime ||
+                          countryFilter
                           ? "#00d0cc"
                           : ""
-                      }`,
+                        }`,
                     }}
                   >
                     <TuneIcon />
@@ -1049,9 +1058,9 @@ const MyDoctor = (props) => {
                   type="text"
                   value={searchText}
                   id="doctor-search"
-                  autoComplete='off' 
-         
-                  onChange={(value) => handleSearchInputChange(value) }
+                  autoComplete='off'
+
+                  onChange={(value) => handleSearchInputChange(value)}
                   onCancelSearch={() => handleSearchInputChange("")}
                   onRequestSearch={() => handleSearchData()}
                   cancelOnEscape={true}
@@ -1336,8 +1345,8 @@ const MyDoctor = (props) => {
               <br />
               <div id="card-list">
                 {filterData &&
-                filterData.length > 0 &&
-                filterData[0] !== null ? (
+                  filterData.length > 0 &&
+                  filterData[0] !== null ? (
                   <GridList cellHeight={220}>
                     <GridListTile
                       key="Subheader"
@@ -1539,24 +1548,24 @@ const MyDoctor = (props) => {
                         <div className="col-12">
                           <span className="price">
                             $
-                          
-                              {appointment.appointmentMode === "CONSULTATION" ||
+
+                            {appointment.appointmentMode === "CONSULTATION" ||
                               appointment.appointmentMode === ""
-                                ? doctor.rate
-                                : appointment.appointmentMode === "FOLLOW_UP"
+                              ? doctor.rate
+                              : appointment.appointmentMode === "FOLLOW_UP"
                                 ? doctor.halfRate
                                 : ""}
-                            
+
                           </span>
                           <br />
                           <span>
                             USD /{" "}
                             {appointment.appointmentMode === "CONSULTATION" ||
-                            appointment.appointmentMode === ""
+                              appointment.appointmentMode === ""
                               ? "Consultation"
                               : appointment.appointmentMode === "FOLLOW_UP"
-                              ? "Follow up"
-                              : ""}
+                                ? "Follow up"
+                                : ""}
                           </span>
                         </div>
                       </div>
@@ -1636,17 +1645,17 @@ const MyDoctor = (props) => {
                           )
                         } // next 3week condition
                       // Temporarily commented to enable calendar click functionality for appointment.
-                      // tileDisabled={({ activeStartDate, date, view }) =>
-                      //   disabledDates &&
-                      //   disabledDates.some(
-                      //     (disabledDate) =>
-                      //       // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
-                      //       date.getFullYear() ===
-                      //       disabledDate.getFullYear() &&
-                      //       date.getMonth() === disabledDate.getMonth() &&
-                      //       date.getDate() === disabledDate.getDate()
-                      //   )
-                      // } // greyout dates
+                      tileDisabled={({ activeStartDate, date, view }) =>
+                        disabledDates &&
+                        disabledDates.some(
+                          (disabledDate) =>
+                            // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
+                            date.getFullYear() ===
+                            disabledDate.getFullYear() &&
+                            date.getMonth() === disabledDate.getMonth() &&
+                            date.getDate() === disabledDate.getDate()
+                        )
+                      } // greyout dates
                       />
                     </>
                   )}
@@ -1757,7 +1766,7 @@ const MyDoctor = (props) => {
                     doctor: "block",
                     appointment: "none",
                   });
-                  setDisable({...disable, payment: true});
+                  setDisable({ ...disable, payment: true });
                 }}
               >
                 <ArrowBackIcon />
@@ -1900,24 +1909,24 @@ const MyDoctor = (props) => {
                     <div className="col-12">
                       <span className="price">
                         $
-                        
-                          {appointment.appointmentMode === "CONSULTATION" ||
+
+                        {appointment.appointmentMode === "CONSULTATION" ||
                           appointment.appointmentMode === ""
-                            ? doctor && doctor.rate
-                            : appointment.appointmentMode === "FOLLOW_UP"
+                          ? doctor && doctor.rate
+                          : appointment.appointmentMode === "FOLLOW_UP"
                             ? doctor && doctor.halfRate
                             : ""}
-                        
+
                       </span>
                       <br />
                       <span>
                         USD /{" "}
                         {appointment.appointmentMode === "CONSULTATION" ||
-                        appointment.appointmentMode === ""
+                          appointment.appointmentMode === ""
                           ? "Consultation"
                           : appointment.appointmentMode === "FOLLOW_UP"
-                          ? "Follow up"
-                          : ""}
+                            ? "Follow up"
+                            : ""}
                       </span>
                     </div>
                   </div>
@@ -1935,24 +1944,24 @@ const MyDoctor = (props) => {
                 <div id="price-box">
                   <span className="price">
                     $
-                    
-                      {appointment.appointmentMode === "CONSULTATION" ||
+
+                    {appointment.appointmentMode === "CONSULTATION" ||
                       appointment.appointmentMode === ""
-                        ? doctor && doctor.rate
-                        : appointment.appointmentMode === "FOLLOW_UP"
+                      ? doctor && doctor.rate
+                      : appointment.appointmentMode === "FOLLOW_UP"
                         ? doctor && doctor.halfRate
                         : ""}
-                   
+
                   </span>
                   <br />
                   <span>
                     USD /{" "}
                     {appointment.appointmentMode === "CONSULTATION" ||
-                    appointment.appointmentMode === ""
+                      appointment.appointmentMode === ""
                       ? "Consultation"
                       : appointment.appointmentMode === "FOLLOW_UP"
-                      ? "Follow up"
-                      : ""}
+                        ? "Follow up"
+                        : ""}
                   </span>
                   <br />
                   <span style={{ fontSize: 12 }}>
@@ -1991,19 +2000,55 @@ const MyDoctor = (props) => {
                   <Row>
                     {/* <Col md={1}></Col> */}
                     {/* <Col md={5} style={{ paddingLeft: 0 }}><button type="button" className="btn btn-primary continue-btn" onClick={bookappointment}>Pay by PayPal</button></Col> */}
+
                     {disable.payment && (
                       <Col md={12} style={{ paddingLeft: 0 }}>
                         <button
                           className="btn btn-primary"
                           style={{ width: "100%" }}
-                          onClick={() =>
+                          onClick={() => {
                             setDisable({ ...disable, payment: false })
-                          }
+                            
+                           
+                            }}
+                         
                         >
                           Pay Now
                         </button>
+                        {/* <button  className="btn btn-primary"
+                          style={{ width: "100%" }} onClick={handleShowmodal}>
+                          Click to Pay
+                        </button> */}
                       </Col>
+
                     )}
+ 
+                    {/* <Modal  show={show} onHide={handleClosemodal}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Payment</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                      <button
+                          className="btn btn-primary"
+                          style={{ width: "40%" }}
+                          onClick={() => {
+                            setDisable({ ...disable, payment: false })
+                            
+                           
+                            }}
+                         
+                        >
+                         Proceed Now
+                        </button>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClosemodal}>
+                          Close
+                        </Button>
+                      </Modal.Footer>
+                    </Modal> */}
+                    
+
                     {!disable.payment && (
                       <Col md={12} style={{ paddingLeft: 0 }}>
                         <Paypal
