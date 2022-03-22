@@ -5,7 +5,9 @@ import 'mdbreact/dist/css/mdb.css';
 import editIcon from '../../../images/icons used/edit icon_40 pxl.svg';
 import deleteIcon from '../../../images/icons used/delete_icon_40 pxl.svg';
 import { Button, Modal } from "react-bootstrap";
-import { getWorkouts,deleteWorkout } from "../../../service/workoutservice";
+import { getWorkouts, deleteWorkout } from "../../../service/workoutservice";
+import "../components/Table/Table";
+import Table from "../components/Table/Table";
 class WorkoutHome extends React.Component {
 
 
@@ -16,24 +18,57 @@ class WorkoutHome extends React.Component {
         error: null,
         showDelete: false
     }
-
+    headers = [
+        {
+            label: "Sr.",
+            key: "serialno",
+        },
+        {
+            label: "Title",
+            key: "title",
+        },
+        {
+            label: "Video Link",
+            key: "videolink",
+        },
+        {
+            label: "Category",
+            key: "category",
+        },
+        {
+            label: "Published",
+            key: "published",
+        },
+        {
+            label: "Action",
+            key: "action",
+        },
+    ];
 
     async componentDidMount() {
         // GET request using fetch with async/await
         const response = await getWorkouts();
-        this.setState({ workouts: response, isLoading: false })
+    
+        const data = response.workoutsList.map((d, i) => {
+            d.serialno = i + 1;
+            d.videolink = d.video_link;
+            d.category = d.workoutCategory.name;
+            d.published = d.published ? 'TRUE' : 'FALSE';
+            return d;
+        })
+        this.setState({ workouts: data, isLoading: false })
     }
 
     handleDeleteModal = remove => {
 
         this.setState({ selectedWorkout: remove })
-        this.setState({showDelete: true});
+        this.setState({ showDelete: true });
     }
 
-    
+
 
     render() {
-    
+
         const { isLoading } = this.state;
 
         return (
@@ -44,14 +79,20 @@ class WorkoutHome extends React.Component {
                     <div className="py-4">
                         <div className="row">
                             <div className="col-md-6 col-sm-6"><h1>Workout</h1></div>
-                            <div className="col-md-6 col-sm-6 pr-0" style={{textAlign : "right"}}>
+                            <div className="col-md-6 col-sm-6 pr-0" style={{ textAlign: "right" }}>
                                 <Link to="/admin/workout/add">
                                     <button type="button" className="btn btn-primary">Add Workout</button>
                                 </Link>
                             </div>
                         </div>
-
-                        <table className="table border shadow">
+                        <Table
+                            data={this.state.workouts}
+                            isLoading={isLoading}
+                            headers={this.headers}
+                            editLink='/admin/workout/edit/'
+                            handleDelete={this.handleDeleteModal}
+                        ></Table>
+                        {/* <table className="table border shadow">
                             <thead className="thead-dark">
                                 <tr>
                                 <th scope="col">Sr.</th>
@@ -94,7 +135,7 @@ class WorkoutHome extends React.Component {
                                         <span>Loading...</span>
                                     )}
                             </tbody>
-                        </table>
+                        </table> */}
                     </div>
                 </div>
 

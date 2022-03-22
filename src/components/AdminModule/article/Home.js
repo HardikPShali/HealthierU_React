@@ -8,7 +8,8 @@ import Navbar from "../layout/Navbar";
 import 'mdbreact/dist/css/mdb.css';
 import editIcon from '../../../images/icons used/edit icon_40 pxl.svg';
 import deleteIcon from '../../../images/icons used/delete_icon_40 pxl.svg';
-
+import "../components/Table/Table";
+import Table from "../components/Table/Table";
 
 class ArticleHome extends React.Component {
 
@@ -20,12 +21,44 @@ class ArticleHome extends React.Component {
         error: null,
         showDelete: false
     }
-
+    headers = [
+        {
+            label: "Sr.",
+            key: "serialno",
+        },
+        {
+            label: "Title",
+            key: "title",
+        },
+        {
+            label: "Description",
+            key: "description",
+        },
+        {
+            label: "Name",
+            key: "name",
+        },
+        {
+            label: "Published",
+            key: "published",
+        },
+     
+        {
+            label: "Action",
+            key: "action",
+        },
+    ];
 
     async componentDidMount() {
         // GET request using fetch with async/await
         const response = await getArticles();
-        this.setState({ articles: response, isLoading: false })
+        
+        const data = response.articlesList.map((d, i) => {
+            d.serialno = i + 1;
+            d.published = d.published ? 'TRUE' : 'FALSE';
+            return d;
+        })
+        this.setState({ articles: data, isLoading: false })
     }
 
     handleDeleteModal = remove => {
@@ -54,8 +87,14 @@ class ArticleHome extends React.Component {
                                 </Link>
                             </div>
                         </div>
-
-                        <table className="table border shadow">
+                        <Table
+                            data={this.state.articles}
+                            isLoading={isLoading}
+                            headers={this.headers}
+                            editLink='/admin/article/edit/'
+                            handleDelete={this.handleDeleteModal}
+                        ></Table>
+                        {/* <table className="table border shadow">
                             <thead className="thead-dark">
                                 <tr>
                                     <th scope="col">Sr.</th>
@@ -98,7 +137,7 @@ class ArticleHome extends React.Component {
                                         <span>Loading...</span>
                                     )}
                             </tbody>
-                        </table>
+                        </table> */}
                     </div>
                 </div>
 
