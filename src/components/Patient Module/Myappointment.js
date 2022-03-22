@@ -137,9 +137,9 @@ const Myappointment = (props) => {
 
     //Chat
     const handleChat = (appointmentStartTime) => {
-        const AppointmnetBeforeSixyMinutes = new Date(appointmentStartTime.getTime() - 3600000);
-        const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 4200000);
-        if (new Date().getTime() >= AppointmnetBeforeSixyMinutes.getTime() && new Date().getTime() <= AppointmnetAfter70Minutes.getTime()) {
+        const AppointmnetBeforeSixyMinutes = new Date(appointmentStartTime.getTime() - 7200000);
+        // const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 4200000);
+        if (new Date().getTime() >= AppointmnetBeforeSixyMinutes.getTime()) {
             handleConfirmChat();        } 
         else {
             handleAlertChat();
