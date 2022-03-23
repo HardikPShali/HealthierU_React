@@ -675,8 +675,8 @@ const MyDoctor = (props) => {
   const [disable, setDisable] = useState({
     continue: true,
     payment: true,
-  
-  
+
+
   });
   //for payment waiting modal
   const [show, setShow] = useState(false);
@@ -1004,6 +1004,18 @@ const MyDoctor = (props) => {
 
   const [endtimeChecked, setEndTimeChecked] = useState(false);
 
+  const handleToast = () => {
+    toast.success('Please select a doctor before proceeding to appointment selection', {
+      position: 'top-right',
+      autoClose: 7000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+
   return (
     <div>
       {loading && <Loader />}
@@ -1018,24 +1030,24 @@ const MyDoctor = (props) => {
                     onClick={() => toggleFilterBox()}
                     style={{
                       backgroundColor: `${specialityFilter.length > 0 ||
-                          languageFilter.length > 0 ||
-                          genderFilter ||
-                          feesFilter[0] > 0 ||
-                          feesFilter[1] < 1000 ||
-                          docStartTime ||
-                          countryFilter
-                          ? "#F6CEB4"
-                          : ""
+                        languageFilter.length > 0 ||
+                        genderFilter ||
+                        feesFilter[0] > 0 ||
+                        feesFilter[1] < 1000 ||
+                        docStartTime ||
+                        countryFilter
+                        ? "#F6CEB4"
+                        : ""
                         }`,
                       color: `${specialityFilter.length > 0 ||
-                          languageFilter.length > 0 ||
-                          genderFilter ||
-                          feesFilter[0] > 0 ||
-                          feesFilter[1] < 1000 ||
-                          docStartTime ||
-                          countryFilter
-                          ? "#00d0cc"
-                          : ""
+                        languageFilter.length > 0 ||
+                        genderFilter ||
+                        feesFilter[0] > 0 ||
+                        feesFilter[1] < 1000 ||
+                        docStartTime ||
+                        countryFilter
+                        ? "#00d0cc"
+                        : ""
                         }`,
                     }}
                   >
@@ -1064,13 +1076,30 @@ const MyDoctor = (props) => {
                   onCancelSearch={() => handleSearchInputChange("")}
                   onRequestSearch={() => handleSearchData()}
                   cancelOnEscape={true}
-                  onKeyDown={(e) =>
-                    e.keyCode === 13 ? handleSearchData() : ""
+                  onKeyDown={(e) => {
+                      // e.keyCode === 13 ? handleSearchData() : ""
+                      if (e.keyCode === 13) {
+                        handleSearchData();
+                        handleToast();
+                      }
+                    }
                   }
+
+                />
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
                 />
                 {searchText !== "" && (
                   <IconButton
-                    onClick={() => handleSearchData()}
+                    onClick={() => { handleSearchData(); handleToast() }}
                     className="searchForwardIcon"
                   >
                     <ArrowForwardIcon />
@@ -1644,18 +1673,18 @@ const MyDoctor = (props) => {
                             new Date().setDate(new Date().getDate() + 180)
                           )
                         } // next 3week condition
-                      // Temporarily commented to enable calendar click functionality for appointment.
-                      tileDisabled={({ activeStartDate, date, view }) =>
-                        disabledDates &&
-                        disabledDates.some(
-                          (disabledDate) =>
-                            // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
-                            date.getFullYear() ===
-                            disabledDate.getFullYear() &&
-                            date.getMonth() === disabledDate.getMonth() &&
-                            date.getDate() === disabledDate.getDate()
-                        )
-                      } // greyout dates
+                        // Temporarily commented to enable calendar click functionality for appointment.
+                        tileDisabled={({ activeStartDate, date, view }) =>
+                          disabledDates &&
+                          disabledDates.some(
+                            (disabledDate) =>
+                              // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
+                              date.getFullYear() ===
+                              disabledDate.getFullYear() &&
+                              date.getMonth() === disabledDate.getMonth() &&
+                              date.getDate() === disabledDate.getDate()
+                          )
+                        } // greyout dates
                       />
                     </>
                   )}
@@ -2008,10 +2037,10 @@ const MyDoctor = (props) => {
                           style={{ width: "100%" }}
                           onClick={() => {
                             setDisable({ ...disable, payment: false })
-                            
-                           
-                            }}
-                         
+
+
+                          }}
+
                         >
                           Pay Now
                         </button>
@@ -2022,7 +2051,7 @@ const MyDoctor = (props) => {
                       </Col>
 
                     )}
- 
+
                     {/* <Modal  show={show} onHide={handleClosemodal}>
                       <Modal.Header closeButton>
                         <Modal.Title>Payment</Modal.Title>
@@ -2047,7 +2076,7 @@ const MyDoctor = (props) => {
                         </Button>
                       </Modal.Footer>
                     </Modal> */}
-                    
+
 
                     {!disable.payment && (
                       <Col md={12} style={{ paddingLeft: 0 }}>
