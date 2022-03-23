@@ -58,7 +58,7 @@ const Header = (props) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {pathname !== '/patient/questionnaire/view' && (
             <>
-              <NavLink to="/patient">Home</NavLink>
+              <NavLink to="/patient" style={{ margin: '5px' }}>Home</NavLink>
               <div className="dropdown headerNavbar">
                 <button
                   type="button"
@@ -94,9 +94,9 @@ const Header = (props) => {
                         <NavDropdown.Item href="/patient/questionnaire/edit" style={{ color: '#498ce8' }}><b></b></NavDropdown.Item>
                         <NavDropdown.Item href="/patient/chat" style={{ color: '#498ce8' }}><b></b></NavDropdown.Item>
                     </NavDropdown> */}
-              <NavLink to="/patient/mydoctor" style={{ marginRight: '22px' }}>My Doctors</NavLink>
+              <NavLink to="/patient/mydoctor" style={{ margin: '5px', marginRight: '15px' }}>My Doctors</NavLink>
               {/* <NavLink to="/patient/explore">Explore</NavLink> */}
-              <NavLink to="/patient/shop" style={{ marginRight: '25px' }}>Shop</NavLink>
+              <NavLink to="/patient/shop" style={{ marginRight: '22px' }}>Shop</NavLink>
               {/* <NavLink to="#search">
                         <SearchIcon id="search-icon" />
                     </NavLink>

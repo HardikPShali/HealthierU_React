@@ -35,7 +35,7 @@ a.nav-link.active {
 
 #navbar a {
   color: #fff;
-  margin-right: 18px;
+  margin-right: 12px;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -61,7 +61,7 @@ a.nav-link.active {
 }
 
 .headerNavbar {
-  margin-right: 9px;
+  margin: 0;
 }
 
 .headerNavbar > button {
