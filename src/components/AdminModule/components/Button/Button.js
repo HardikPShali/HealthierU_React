@@ -4,7 +4,7 @@ import { Link, MemoryRouter } from "react-router-dom";
 
 
 const Button = (props) => {
-    const { variant = 'primary', children,addLink } = props;
+    const { variant = 'primary', children, addLink } = props;
     return (
         <div>
             <MemoryRouter>
@@ -15,10 +15,11 @@ const Button = (props) => {
                     }}
                 >
                     <button className={`btn ${variant}`} onClick='${pathname}'>
-                       Add {children}
+                        Add {children}
                     </button>
                 </Link>
             </MemoryRouter>
+
 
         </div>
 

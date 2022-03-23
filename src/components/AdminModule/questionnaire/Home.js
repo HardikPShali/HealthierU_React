@@ -4,9 +4,9 @@ import {
     getQuestionnaires,
     //saveQuestionnaire
 } from "../../questionnaire/QuestionnaireService";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../../questionnaire/Questionnaire.css';
-import {Button, Modal} from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import Navbar from "../layout/Navbar";
 //import {deleteQuestion} from "../../../component/questionnaire/QuestionService";
 import 'mdbreact/dist/css/mdb.css';
@@ -56,33 +56,33 @@ class QuestionnaireHome extends React.Component {
             d.published = d.published ? 'TRUE' : 'FALSE';
             return d;
         })
-        this.setState({questionnaire: data, isLoading: false})
+        this.setState({ questionnaire: data, isLoading: false })
     }
 
-     handleDeleteModal = remove => {
+    handleDeleteModal = remove => {
 
-         this.setState({selectedQuestionnaire: remove})
-         this.setState({showDelete: true});
+        this.setState({ selectedQuestionnaire: remove })
+        this.setState({ showDelete: true });
     }
 
     render() {
         //const {isLoading, questionnaire, error} = this.state;
-        const {isLoading} = this.state;
+        const { isLoading } = this.state;
 
 
         return (
             <div>
-             <Navbar pageTitle="questionnaire" />
-                <br/>
+                <Navbar pageTitle="questionnaire" />
+                <br />
                 <div className="container">
                     <div className="py-4">
                         <div className="row">
                             <div className="col-md-6 col-sm-6"><h1>Questionnaires</h1></div>
-                            <div className="col-md-6 col-sm-6 pr-0" style={{textAlign : "right"}}>
+                            <div className="col-md-6 col-sm-6 pr-0" style={{ textAlign: "right" }}>
                                 {/* <Link to="/admin/questionnaire/add">
                                     <button type="button" className="btn btn-primary">Add Questionnaire</button>
                                 </Link> */}
-                                 <AddButton addLink='questionnaire'>Questionnaires</AddButton>
+                                <AddButton addLink='questionnaire'>Questionnaires</AddButton>
                             </div>
                         </div>
                         <Table
@@ -136,13 +136,13 @@ class QuestionnaireHome extends React.Component {
                     </div>
                 </div>
 
-                <Modal show={this.state.showDelete} onHide={() =>this.setState({showDelete: false})}>
+                <Modal show={this.state.showDelete} onHide={() => this.setState({ showDelete: false })}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete Questionnaire</Modal.Title>
                     </Modal.Header>
                     <Modal.Body><p>Are you sure to Delete the Question ?</p></Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() =>this.setState({showDelete: false})}>
+                        <Button variant="secondary" onClick={() => this.setState({ showDelete: false })}>
                             Close
                         </Button>
                         <Button variant="danger" onClick={() => this.handleDeleteQuestionSubmission()}>
@@ -159,7 +159,7 @@ class QuestionnaireHome extends React.Component {
         const resp = deleteQuestionnaire(this.state.selectedQuestionnaire);
 
         await resp.then(response => {
-            this.setState({selectedQuestionnaire: null,showDelete:false})
+            this.setState({ selectedQuestionnaire: null, showDelete: false })
             this.componentDidMount();
             return response.data;
         })

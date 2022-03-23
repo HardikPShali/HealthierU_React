@@ -12,10 +12,10 @@ export default {
 }
 const dummyData = [
     {
-        name: "A"
+        name: "ABC"
     },
     {
-        name: "B"
+        name: "XYZ"
     }
 ]
 

@@ -1,9 +1,9 @@
 import React from "react";
 
-import { getArticles,deleteArticle } from "../../../service/ArticleService";
+import { getArticles, deleteArticle } from "../../../service/ArticleService";
 import { Link } from "react-router-dom";
 
-import { Button,Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import Navbar from "../layout/Navbar";
 import 'mdbreact/dist/css/mdb.css';
 import editIcon from '../../../images/icons used/edit icon_40 pxl.svg';
@@ -44,7 +44,7 @@ class ArticleHome extends React.Component {
             label: "Published",
             key: "published",
         },
-     
+
         {
             label: "Action",
             key: "action",
@@ -54,7 +54,7 @@ class ArticleHome extends React.Component {
     async componentDidMount() {
         // GET request using fetch with async/await
         const response = await getArticles();
-        
+
         const data = response.articlesList.map((d, i) => {
             d.serialno = i + 1;
             d.published = d.published ? 'TRUE' : 'FALSE';
@@ -66,10 +66,10 @@ class ArticleHome extends React.Component {
     handleDeleteModal = remove => {
 
         this.setState({ selectedArticle: remove })
-        this.setState({showDelete: true});
+        this.setState({ showDelete: true });
     }
 
-    
+
 
     render() {
         //const { isLoading, article, error } = this.state;
@@ -87,7 +87,7 @@ class ArticleHome extends React.Component {
                                 {/* <Link to="/admin/article/add">
                                     <button type="button" className="btn btn-primary">Add Article</button>
                                 </Link> */}
-                                 <AddButton addLink='article'>Article</AddButton>
+                                <AddButton addLink='article'>Article</AddButton>
                             </div>
                         </div>
                         <Table

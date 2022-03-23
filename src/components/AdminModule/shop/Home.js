@@ -2,7 +2,7 @@ import React from "react";
 import { getShops, deleteShop } from "../../../service/shopservice";
 import { Link } from "react-router-dom";
 import "./Shop.css";
-import {Button, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import Navbar from "../layout/Navbar";
 //import {deleteQuestion} from "../../../component/questionnaire/QuestionService";
 import "mdbreact/dist/css/mdb.css";
