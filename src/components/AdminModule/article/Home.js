@@ -3,13 +3,15 @@ import React from "react";
 import { getArticles,deleteArticle } from "../../../service/ArticleService";
 import { Link } from "react-router-dom";
 
-import { Button, Modal } from "react-bootstrap";
+import { Button,Modal } from "react-bootstrap";
 import Navbar from "../layout/Navbar";
 import 'mdbreact/dist/css/mdb.css';
 import editIcon from '../../../images/icons used/edit icon_40 pxl.svg';
 import deleteIcon from '../../../images/icons used/delete_icon_40 pxl.svg';
 import "../components/Table/Table";
 import Table from "../components/Table/Table";
+import AddButton from "../components/Button/Button";
+import "../components/Button/Button";
 
 class ArticleHome extends React.Component {
 
@@ -82,9 +84,10 @@ class ArticleHome extends React.Component {
                         <div className="row">
                             <div className="col-md-10"><h1>Articles</h1></div>
                             <div className="col-md-2 text-right pr-0">
-                                <Link to="/admin/article/add">
+                                {/* <Link to="/admin/article/add">
                                     <button type="button" className="btn btn-primary">Add Article</button>
-                                </Link>
+                                </Link> */}
+                                 <AddButton addLink='article'>Article</AddButton>
                             </div>
                         </div>
                         <Table

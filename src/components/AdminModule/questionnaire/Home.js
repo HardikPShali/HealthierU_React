@@ -12,6 +12,8 @@ import Navbar from "../layout/Navbar";
 import 'mdbreact/dist/css/mdb.css';
 import "../components/Table/Table";
 import Table from "../components/Table/Table";
+import AddButton from "../components/Button/Button";
+import "../components/Button/Button";
 
 class QuestionnaireHome extends React.Component {
 
@@ -77,9 +79,10 @@ class QuestionnaireHome extends React.Component {
                         <div className="row">
                             <div className="col-md-6 col-sm-6"><h1>Questionnaires</h1></div>
                             <div className="col-md-6 col-sm-6 pr-0" style={{textAlign : "right"}}>
-                                <Link to="/admin/questionnaire/add">
+                                {/* <Link to="/admin/questionnaire/add">
                                     <button type="button" className="btn btn-primary">Add Questionnaire</button>
-                                </Link>
+                                </Link> */}
+                                 <AddButton addLink='questionnaire'>Questionnaires</AddButton>
                             </div>
                         </div>
                         <Table

@@ -2,12 +2,14 @@ import React from "react";
 import { getShops, deleteShop } from "../../../service/shopservice";
 import { Link } from "react-router-dom";
 import "./Shop.css";
-import { Button, Modal } from "react-bootstrap";
+import {Button, Modal } from "react-bootstrap";
 import Navbar from "../layout/Navbar";
 //import {deleteQuestion} from "../../../component/questionnaire/QuestionService";
 import "mdbreact/dist/css/mdb.css";
 import "../components/Table/Table";
 import Table from "../components/Table/Table";
+import AddButton from "../components/Button/Button";
+import "../components/Button/Button";
 
 class ShopHome extends React.Component {
   state = {
@@ -67,11 +69,12 @@ class ShopHome extends React.Component {
                 <h1>Shop</h1>
               </div>
               <div className="col-md-2 text-right pr-0">
-                <Link to="/admin/shop/add">
+                {/* <Link to="/admin/shop/add">
                   <button type="button" className="btn btn-primary">
                     Add Shop
                   </button>
-                </Link>
+                </Link> */}
+                <AddButton addLink='shop'>Shop</AddButton>
               </div>
             </div>
             <Table

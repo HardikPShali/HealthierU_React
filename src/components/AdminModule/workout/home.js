@@ -4,10 +4,12 @@ import Navbar from "../layout/Navbar";
 import 'mdbreact/dist/css/mdb.css';
 import editIcon from '../../../images/icons used/edit icon_40 pxl.svg';
 import deleteIcon from '../../../images/icons used/delete_icon_40 pxl.svg';
-import { Button, Modal } from "react-bootstrap";
+import {Button,Modal } from "react-bootstrap";
 import { getWorkouts, deleteWorkout } from "../../../service/workoutservice";
 import "../components/Table/Table";
 import Table from "../components/Table/Table";
+import AddButton from "../components/Button/Button";
+import "../components/Button/Button";
 class WorkoutHome extends React.Component {
 
 
@@ -80,9 +82,10 @@ class WorkoutHome extends React.Component {
                         <div className="row">
                             <div className="col-md-6 col-sm-6"><h1>Workout</h1></div>
                             <div className="col-md-6 col-sm-6 pr-0" style={{ textAlign: "right" }}>
-                                <Link to="/admin/workout/add">
+                                {/* <Link to="/admin/workout/add">
                                     <button type="button" className="btn btn-primary">Add Workout</button>
-                                </Link>
+                                </Link> */}
+                                 <AddButton addLink='workout'>Workout</AddButton>
                             </div>
                         </div>
                         <Table
@@ -164,7 +167,7 @@ class WorkoutHome extends React.Component {
         await resp.then(response => {
             this.setState({ selectedWorkout: null, showDelete: false })
             this.componentDidMount();
-            return response;
+            return response.data;
         })
 
     }
