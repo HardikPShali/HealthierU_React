@@ -111,3 +111,25 @@ a{
 .modal-body > .form-group > label.col-form-label {
     font-size: 14.5px;
 }
+
+
+/* AUTO-COMPLETE FEATURE | HEAL-52  */
+.suggestion-box{
+    position: absolute;
+    overflow-y: scroll;
+    height: 100px;
+    width: 92%;
+    z-index: 1;
+}
+
+.suggestion{
+    cursor: pointer;
+    border-right: 0.5px solid #000;
+    border-left: 0.5px solid #000;
+    border-bottom: 0.5px solid #000;
+    background-color: #fff;
+}
+
+.suggestion:hover{
+    background-color: #989191;
+}
