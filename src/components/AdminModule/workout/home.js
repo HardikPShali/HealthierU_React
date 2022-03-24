@@ -4,7 +4,7 @@ import Navbar from "../layout/Navbar";
 import 'mdbreact/dist/css/mdb.css';
 import editIcon from '../../../images/icons used/edit icon_40 pxl.svg';
 import deleteIcon from '../../../images/icons used/delete_icon_40 pxl.svg';
-import {Button,Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { getWorkouts, deleteWorkout } from "../../../service/workoutservice";
 import "../components/Table/Table";
 import Table from "../components/Table/Table";
@@ -50,7 +50,7 @@ class WorkoutHome extends React.Component {
     async componentDidMount() {
         // GET request using fetch with async/await
         const response = await getWorkouts();
-    
+
         const data = response.workoutsList.map((d, i) => {
             d.serialno = i + 1;
             d.videolink = d.video_link;
@@ -85,7 +85,7 @@ class WorkoutHome extends React.Component {
                                 {/* <Link to="/admin/workout/add">
                                     <button type="button" className="btn btn-primary">Add Workout</button>
                                 </Link> */}
-                                 <AddButton addLink='workout'>Workout</AddButton>
+                                <AddButton addLink='workout'>Workout</AddButton>
                             </div>
                         </div>
                         <Table
