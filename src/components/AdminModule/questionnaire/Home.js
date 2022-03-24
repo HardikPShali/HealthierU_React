@@ -10,7 +10,10 @@ import {Button, Modal} from "react-bootstrap";
 import Navbar from "../layout/Navbar";
 //import {deleteQuestion} from "../../../component/questionnaire/QuestionService";
 import 'mdbreact/dist/css/mdb.css';
-
+import "../components/Table/Table";
+import Table from "../components/Table/Table";
+import AddButton from "../components/Button/Button";
+import "../components/Button/Button";
 
 class QuestionnaireHome extends React.Component {
 
@@ -22,12 +25,38 @@ class QuestionnaireHome extends React.Component {
         error: null,
         showDelete: false
     }
-
+    headers = [
+        {
+            label: "Sr.",
+            key: "serialno",
+        },
+        {
+            label: "Description",
+            key: "description",
+        },
+        {
+            label: "Published",
+            key: "published",
+        },
+        {
+            label: "Category",
+            key: "category",
+        },
+        {
+            label: "Action",
+            key: "action",
+        },
+    ];
 
     async componentDidMount() {
         // GET request using fetch with async/await
         const response = await getQuestionnaires();
-        this.setState({questionnaire: response, isLoading: false})
+        const data = response.map((d, i) => {
+            d.serialno = i + 1;
+            d.published = d.published ? 'TRUE' : 'FALSE';
+            return d;
+        })
+        this.setState({questionnaire: data, isLoading: false})
     }
 
      handleDeleteModal = remove => {
@@ -50,13 +79,20 @@ class QuestionnaireHome extends React.Component {
                         <div className="row">
                             <div className="col-md-6 col-sm-6"><h1>Questionnaires</h1></div>
                             <div className="col-md-6 col-sm-6 pr-0" style={{textAlign : "right"}}>
-                                <Link to="/admin/questionnaire/add">
+                                {/* <Link to="/admin/questionnaire/add">
                                     <button type="button" className="btn btn-primary">Add Questionnaire</button>
-                                </Link>
+                                </Link> */}
+                                 <AddButton addLink='questionnaire'>Questionnaires</AddButton>
                             </div>
                         </div>
-
-                        <table className="table border shadow">
+                        <Table
+                            data={this.state.questionnaire}
+                            isLoading={isLoading}
+                            headers={this.headers}
+                            editLink='/admin/questionnaire/edit/'
+                            handleDelete={this.handleDeleteModal}
+                        ></Table>
+                        {/* <table className="table border shadow">
                             <thead className="thead-dark">
                             <tr>
                                 <th scope="col">Sr.</th>
@@ -96,7 +132,7 @@ class QuestionnaireHome extends React.Component {
                                 <span>Loading...</span>
                             )}
                             </tbody>
-                        </table>
+                        </table> */}
                     </div>
                 </div>
 
