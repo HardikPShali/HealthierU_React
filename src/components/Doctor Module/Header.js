@@ -135,11 +135,11 @@ const Header = (props) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <NavLink to="#" style={{ cursor : 'default' }}>
+          <NavLink to="#" style={{ cursor: 'default', margin: '5px' }}>
             Current TimeZone:{' '}
-            <span className="p-1 border ml-1 mr-1" style={{ cursor : 'default' }}>{systemTimeZone}</span>
+            <span className="p-1 border ml-1 mr-1" style={{ cursor: 'default' }}>{systemTimeZone}</span>
           </NavLink>
-          <NavLink to="/doctor">Home</NavLink>
+          <NavLink to="/doctor" style={{ margin: '5px' }}>Home</NavLink>
           <div className="dropdown headerNavbar">
             <button
               type="button"
@@ -170,7 +170,7 @@ const Header = (props) => {
                         <div className="dropdown-item" ><NavLink to="/doctor/appointment" className="dropdown-link"><b>My Calendar</b></NavLink></div>
                         <div className="dropdown-item" ><NavLink to="/doctor/chat" className="dropdown-link"><b>Chat</b></NavLink></div>
                     </NavDropdown> */}
-          <NavLink to="/doctor/shop" style={{ marginRight: '25px' }}>Shop</NavLink>
+          <NavLink to="/doctor/shop" style={{ marginRight: '20px' }}>Shop</NavLink>
           {/* ```<NavLink to="#search">
             <SearchIcon id="search-icon" />
           </NavLink>``` */}
