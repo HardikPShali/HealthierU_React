@@ -217,14 +217,13 @@ const Welcome = ({ currentuserInfo }) => {
     };
 
     const handleDateChange = (e) => {
-        const d = new Date(e);
+        // const d = new Date(e);
         // alert(d);
-        const isoDate = d.toISOString();
+        //const isoDate = d.toISOString();
         // let formattedDate = `${d.getFullYear()}/${d.getMonth()}/${d.getDate()}`
-        setstate({ ...state, dateOfBirth: isoDate });
-        setDefaultDate(dateOfBirth);
-        console.log("isoDate", isoDate);
-        console.log("d", d);
+        setstate({ ...state, dateOfBirth: e });
+        setDefaultDate(e);
+
         // console.log("defaultDate", defaultDate);
     };
     const getUpdatedCurrentUserData = async () => {
@@ -444,8 +443,14 @@ const Welcome = ({ currentuserInfo }) => {
                                                 className="fc_quickfixcal"
                                                 // value={new Date()}
                                                 clearIcon=""
-                                                value={dateOfBirth ? moment(dateOfBirth).format("YYYY-MM-DD") : ""}
+                                                value={dateOfBirth}
                                                 onChange={e => handleDateChange(e)}
+                                                format={'y-MM-dd'}
+                                                dayPlaceholder="DD"
+                                                monthPlaceholder="MM"
+                                                yearPlaceholder="YYYY"
+                                                required={true}
+                                                maxDate={new Date()}
                                             />
                                             {/* <TextValidator
                                                 id="standard-basic"

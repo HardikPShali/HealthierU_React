@@ -1320,3 +1320,13 @@ button.btn.btn-outline-primary.sign-btn:hover {
 .fc_quickfixcal .react-date-picker__inputGroup {
   padding: 0 10px !important;
 }
+.fc_quickfixcal :focus-visible {
+  outline: none !important;
+}
+:focus-visible {
+  outline: none !important;
+}
+
+.fc_quickfixcal .react-date-picker__inputGroup__input:invalid {
+  background: transparent !important;
+}
