@@ -39,6 +39,10 @@ import ImageCropper from './ImageCroper';
 import DoctorDocumentUpload from "./doctordocumentupload";
 import { getCurrentDoctorInfo } from "../../service/AccountService";
 import { firestoreService } from "../../util";
+import DatePicker from 'react-date-picker';
+
+
+// import 'react-calendar/dist/Calendar.css';
 
 //import axios from 'axios';
 // import Footer from './Footer';
@@ -213,13 +217,15 @@ const Welcome = ({ currentuserInfo }) => {
     };
 
     const handleDateChange = (e) => {
-        const d = new Date(e.target.value);
+        const d = new Date(e);
+        // alert(d);
         const isoDate = d.toISOString();
+        // let formattedDate = `${d.getFullYear()}/${d.getMonth()}/${d.getDate()}`
         setstate({ ...state, dateOfBirth: isoDate });
         setDefaultDate(dateOfBirth);
         console.log("isoDate", isoDate);
         console.log("d", d);
-        console.log("defaultDate", defaultDate);
+        // console.log("defaultDate", defaultDate);
     };
     const getUpdatedCurrentUserData = async () => {
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
@@ -431,8 +437,17 @@ const Welcome = ({ currentuserInfo }) => {
                                     </Row><br />
                                     <Row>
                                         <Col md={6}>
+                                            {console.log("wqfqwfqwfqwfqwff", dateOfBirth)}
                                             <p>Date of Birth<sup>*</sup></p>
-                                            <TextValidator
+                                            <DatePicker
+                                                name='dateOfBirth'
+                                                className="fc_quickfixcal"
+                                                // value={new Date()}
+                                                clearIcon=""
+                                                value={dateOfBirth ? moment(dateOfBirth).format("YYYY-MM-DD") : ""}
+                                                onChange={e => handleDateChange(e)}
+                                            />
+                                            {/* <TextValidator
                                                 id="standard-basic"
                                                 type="date"
                                                 name="dateOfBirth"
@@ -444,7 +459,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 errorMessages={['This field is required']}
                                                 onChange={e => handleDateChange(e)}
                                                 onKeyDown={(e) => handleDateChange(e)}
-                                            />
+                                            /> */}
                                         </Col>
                                         <Col md={6}>
                                             <p>Mobile Number<sup>*</sup></p>
