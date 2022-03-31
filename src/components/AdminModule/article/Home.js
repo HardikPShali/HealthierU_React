@@ -12,7 +12,11 @@ import "../components/Table/Table";
 import Table from "../components/Table/Table";
 import AddButton from "../components/Button/Button";
 import "../components/Button/Button";
-
+import ModalService from "../components/DeleteModal/ModalService"
+import DeleteModal from "../components/DeleteModal/DeleteModal"
+import ModalRoot from "../components/DeleteModal/ModalRoot"
+import { CompareArrowsOutlined } from "@material-ui/icons";
+import { toast } from 'react-toastify';
 class ArticleHome extends React.Component {
 
 
@@ -59,15 +63,16 @@ class ArticleHome extends React.Component {
             d.serialno = i + 1;
             d.published = d.published ? 'TRUE' : 'FALSE';
             return d;
+
         })
         this.setState({ articles: data, isLoading: false })
+
     }
-
-    handleDeleteModal = remove => {
-
+    handleDeleteModal = (remove) => {
         this.setState({ selectedArticle: remove })
-        this.setState({ showDelete: true });
+        ModalService.open(DeleteModal);
     }
+
 
 
 
@@ -88,14 +93,17 @@ class ArticleHome extends React.Component {
                                     <button type="button" className="btn btn-primary">Add Article</button>
                                 </Link> */}
                                 <AddButton addLink='article'>Article</AddButton>
+
+
                             </div>
                         </div>
+
                         <Table
                             data={this.state.articles}
                             isLoading={isLoading}
                             headers={this.headers}
                             editLink='/admin/article/edit/'
-                            handleDelete={this.handleDeleteModal}
+                            handleDelete={(e) => this.handleDeleteModal(e)}
                         ></Table>
                         {/* <table className="table border shadow">
                             <thead className="thead-dark">
@@ -143,8 +151,8 @@ class ArticleHome extends React.Component {
                         </table> */}
                     </div>
                 </div>
-
-                <Modal show={this.state.showDelete} onHide={() => this.setState({ showDelete: false })}>
+                <ModalRoot componentName="Article" handleDeleteSubmit={this.handleDeleteArticleSubmission} />
+                {/* <Modal show={this.state.showDelete} onHide={() => this.setState({ showDelete: false })}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete Article</Modal.Title>
                     </Modal.Header>
@@ -157,7 +165,7 @@ class ArticleHome extends React.Component {
                             Delete
                         </Button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
             </div>
         );
     }
@@ -167,10 +175,13 @@ class ArticleHome extends React.Component {
         const resp = deleteArticle(this.state.selectedArticle);
 
         await resp.then(response => {
-            this.setState({ selectedArticle: null, showDelete: false })
+            this.setState({ selectedArticle: null })
             this.componentDidMount();
-            return response;
+            return response.data;
+    
         })
+        toast.success("Article successfully Deleted.");
+        setTimeout(() => window.location.assign('/admin/article/home'), 500);
     }
 
 };

@@ -10,6 +10,10 @@ import "../components/Table/Table";
 import Table from "../components/Table/Table";
 import AddButton from "../components/Button/Button";
 import "../components/Button/Button";
+import ModalService from "../components/DeleteModal/ModalService"
+import DeleteModal from "../components/DeleteModal/DeleteModal"
+import ModalRoot from "../components/DeleteModal/ModalRoot"
+import { toast } from 'react-toastify';
 class WorkoutHome extends React.Component {
 
 
@@ -64,7 +68,7 @@ class WorkoutHome extends React.Component {
     handleDeleteModal = remove => {
 
         this.setState({ selectedWorkout: remove })
-        this.setState({ showDelete: true });
+        ModalService.open(DeleteModal);
     }
 
 
@@ -93,7 +97,7 @@ class WorkoutHome extends React.Component {
                             isLoading={isLoading}
                             headers={this.headers}
                             editLink='/admin/workout/edit/'
-                            handleDelete={this.handleDeleteModal}
+                            handleDelete={(e) => this.handleDeleteModal(e)}
                         ></Table>
                         {/* <table className="table border shadow">
                             <thead className="thead-dark">
@@ -141,8 +145,8 @@ class WorkoutHome extends React.Component {
                         </table> */}
                     </div>
                 </div>
-
-                <Modal show={this.state.showDelete} onHide={() => this.setState({ showDelete: false })}>
+                <ModalRoot componentName="Workout" handleDeleteSubmit={this.handleDeleteWorkoutSubmission} />
+                {/* <Modal show={this.state.showDelete} onHide={() => this.setState({ showDelete: false })}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete Workout</Modal.Title>
                     </Modal.Header>
@@ -155,7 +159,7 @@ class WorkoutHome extends React.Component {
                             Delete
                         </Button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
             </div>
         );
     }
@@ -169,7 +173,8 @@ class WorkoutHome extends React.Component {
             this.componentDidMount();
             return response.data;
         })
-
+        toast.success("Workout successfully Deleted.");
+        setTimeout(() => window.location.assign('/admin/workout/home'), 500);
     }
 
 };

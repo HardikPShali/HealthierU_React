@@ -6,7 +6,7 @@ import Navbar from "../layout/Navbar";
 import {
     postShop
 } from "../../../service/shopservice";
-
+import { toast } from 'react-toastify';
 const AddShop = () => {
 
 
@@ -20,7 +20,8 @@ const AddShop = () => {
 
     const handleRedirect = (e) => {
         if (e) {
-            window.location.assign('/admin/shop/home');
+            toast.success("Shop successfully Added.");
+            setTimeout(() => window.location.assign('/admin/shop/home'), 500);
         }
     }
 

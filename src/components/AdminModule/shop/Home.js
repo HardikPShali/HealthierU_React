@@ -9,8 +9,10 @@ import "mdbreact/dist/css/mdb.css";
 import "../components/Table/Table";
 import Table from "../components/Table/Table";
 import AddButton from "../components/Button/Button";
-import "../components/Button/Button";
-
+import ModalService from "../components/DeleteModal/ModalService"
+import DeleteModal from "../components/DeleteModal/DeleteModal"
+import ModalRoot from "../components/DeleteModal/ModalRoot"
+import { toast } from 'react-toastify';
 class ShopHome extends React.Component {
   state = {
     isLoading: true,
@@ -52,7 +54,8 @@ class ShopHome extends React.Component {
 
   handleDeleteModal = (remove) => {
     this.setState({ selectedShop: remove });
-    this.setState({ showDelete: true });
+  
+    ModalService.open(DeleteModal);
   };
 
   render() {
@@ -82,7 +85,7 @@ class ShopHome extends React.Component {
               isLoading={isLoading}
               headers={this.headers}
               editLink='/admin/shop/edit/'
-              handleDelete={this.handleDeleteModal}
+              handleDelete={(e) => this.handleDeleteModal(e)}
             ></Table>
             {/* <table className="table border shadow">
                             <thead className="thead-dark">
@@ -121,8 +124,8 @@ class ShopHome extends React.Component {
                         </table> */}
           </div>
         </div>
-
-        <Modal
+        <ModalRoot componentName="Shop" handleDeleteSubmit={this.handleDeleteShopSubmission} />
+        {/* <Modal
           show={this.state.showDelete}
           onHide={() => this.setState({ showDelete: false })}
         >
@@ -146,20 +149,22 @@ class ShopHome extends React.Component {
               Delete
             </Button>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
       </div>
     );
   }
 
   handleDeleteShopSubmission = async (event) => {
     //console.log(this.state.selectedShop)
-    const resp = deleteShop(this.state.selectedShop.id);
+    const resp = deleteShop(this.state.selectedShop);
 
     await resp.then((response) => {
       this.setState({ selectedShop: null, showDelete: false });
       this.componentDidMount();
       return response.data;
     });
+    toast.success("Shop successfully Deleted.");
+    setTimeout(() => window.location.assign('/admin/shop/home'), 500);
   };
 }
 

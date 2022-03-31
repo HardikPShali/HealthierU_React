@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import '../../questionnaire/Questionnaire.css';
 import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
-
+import { toast } from 'react-toastify';
 const AddWorkout = () => {
 
     const handleSubmit = async (event) => {
@@ -12,7 +12,7 @@ const AddWorkout = () => {
         //const data = new FormData(event.target);
         const resp = await postWorkout(workout);
         if (resp && (resp.status === 200 || resp.status === 201)) {
-            handleRedirect(resp);   
+            handleRedirect(resp);
         }
     }
 
@@ -52,7 +52,8 @@ const AddWorkout = () => {
 
     const handleRedirect = (e) => {
         if (e) {
-            window.location.assign('/admin/workout/home');
+            toast.success("Workout successfully Added.");
+            setTimeout(() => window.location.assign('/admin/workout/home'), 500);
         }
     }
 
@@ -73,7 +74,7 @@ const AddWorkout = () => {
 
                     <br />
 
-                    <form onSubmit={e =>handleSubmit(e)}> 
+                    <form onSubmit={e => handleSubmit(e)}>
                         <input hidden={true} id="id" name="id" value={workout?.id}
                             onChange={e => handleWorkoutChange(e)}
                         ></input>
@@ -122,8 +123,8 @@ const AddWorkout = () => {
                             <div className="col-md-6">
                             </div>
                             <div className="col-md-6 text-right">
-                                {/* <button className="btn btn-primary mr-2" type="button" onClick={e => handleSubmit(e)}>Save</button> */}
-                                <button className="btn btn-primary mr-2">Save</button>
+                                <button className="btn btn-primary mr-2" type="button" onClick={e => handleSubmit(e)}>Save</button>
+
                                 <Link to="/admin/workout/home">
                                     <button className="btn btn-light mr-2">Cancel</button>
                                 </Link>

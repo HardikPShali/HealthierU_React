@@ -360,21 +360,44 @@ export const postWorkout = async (data) => {
 }
 
 export const updateWorkout = async (data) => {
-    var payload = {
-        method: 'put',
+    // var payload = {
+    //     method: 'put',
+    //     url: `/api/admin/workouts`,
+    //     data: data,
+    //     headers: {
+    //         'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+    //         'Content-Type': 'application/json'
+    //     }
+    // };
+    // const response = await axios(payload).then(res => {
+    //     if (res) {
+    //         return res;
+    //     }
+    // });
+    // return response;
+    const headers = {
+        'mode': 'no-cors',
+        'Authorization': 'Bearer ' + LocalStorageService.getAccessToken()
+    }
+    const methodType = data.get('id') ? 'PUT' : 'POST';
+    const workoutData = {
+        "id": data.get('id'),
+        "title": data.get('title'),
+        "video_link": data.get('video_link'),
+        "workoutCategoryId": data.get('workoutCategoryId'),
+        "published": data.get('published'),
+      
+    }
+    var config = {
+        method: methodType,
         url: `/api/admin/workouts`,
-        data: data,
-        headers: {
-            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-            'Content-Type': 'application/json'
-        }
+        headers: headers,
+        data: workoutData
     };
-    const response = await axios(payload).then(res => {
-        if (res) {
-            return res;
-        }
-    });
-    return response;
+
+    return await axios(config).then(response => {
+        return response.data;
+    })
 }
 
 export const changeDoctorStatusOnUserTable = async (data) => {
