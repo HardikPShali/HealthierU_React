@@ -5,20 +5,21 @@ import { Link, useParams } from "react-router-dom";
 import '../../questionnaire/Questionnaire.css';
 import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
-
+import { ToastContainer, toast } from 'react-toastify';
 const EditWorkout = () => {
 
     //let history = useHistory();
     const { id } = useParams();
 
-    const handleSubmit = async () => {
-        //    event.preventDefault();
-        //    const data = new FormData(event.target);
-        const res = await updateWorkout(workout);
-        if (res && (res.status === 200 || res.status === 201)) {
-            handleRedirect(res);
-        
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        const res = await updateWorkout(data);
+        if (res) {
+            toast.success("Workout successfully updated.");
+            setTimeout(() => window.location.assign('/admin/workout/home'), 500);
         }
+
     }
 
     const loadWorkout = async () => {
@@ -78,7 +79,9 @@ const EditWorkout = () => {
 
     const handleRedirect = (e) => {
         if (e) {
-            window.location.assign('/admin/workout/home');
+            toast.success("Workout successfully updated.");
+            setTimeout(() => window.location.assign('/admin/workout/home'), 1000);
+
         }
     }
 
@@ -110,8 +113,8 @@ const EditWorkout = () => {
 
                     <br />
 
-                    <form>
-                        <input hidden={true} id="id" name="id" value={id}
+                    <form onSubmit={e => handleSubmit(e)}>
+                        <input hidden={true} id="id" name="id" value={workout?.id}
                             onChange={e => handleWorkoutChange(e)}
                         ></input>
                         <div className="form-group row">
@@ -136,7 +139,7 @@ const EditWorkout = () => {
                             <label htmlFor="published" className="col-sm-1 col-form-label">Category</label>
                             <div className="col-sm-11">
 
-                                <select className="form-control" name="workoutCategoryId" id="published"
+                                <select className="form-control" name="workoutCategoryId" id="category"
                                     value={workoutCategoryId}
                                     onChange={e => handleWorkoutCategoryChange(e)}>
                                     <option value="">Select Category</option>
@@ -164,7 +167,7 @@ const EditWorkout = () => {
                             <div className="col-md-6">
                             </div>
                             <div className="col-md-6 text-right">
-                                <button className="btn btn-primary mr-2" onClick={() => handleSubmit()}>Save</button>
+                                <button className="btn btn-primary mr-2">Edit</button>
                                 <Link to="/admin/workout/home">
                                     <button className="btn btn-light mr-2">Cancel</button>
                                 </Link>
@@ -172,6 +175,19 @@ const EditWorkout = () => {
                         </div>
 
                     </form>
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                    />
+                    {/* Same as */}
+                    <ToastContainer />
                 </div>
             </div>
         </div>

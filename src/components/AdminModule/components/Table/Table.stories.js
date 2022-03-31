@@ -6,15 +6,15 @@ export default {
   title: "Table",
   component: Table,
   argTypes: {
-      headers: {
-          description: 'Header for table - array of objects with key & label'
-      },
-      data: {
-          description: 'Each row data - array of objects with data'
-      },
-      isLoading: {
-          description: 'To enable loading state for the component'
-      }
+    headers: {
+      description: 'Header for table - array of objects with key & label'
+    },
+    data: {
+      description: 'Each row data - array of objects with data'
+    },
+    isLoading: {
+      description: 'To enable loading state for the component'
+    }
   }
 };
 
@@ -93,6 +93,6 @@ export const WithActions = Table.bind({});
 WithActions.args = {
   headers: dummyHeaderWithAction,
   data: dummyData,
-  editLink: "edit-row/",
-  handleDelete: action("Delete icon clicked"),
+  // editLink: action("Edit icon Clicked"),
+  // handleDelete: action("Delete icon clicked"),
 };

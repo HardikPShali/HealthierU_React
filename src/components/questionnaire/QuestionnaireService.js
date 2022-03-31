@@ -167,25 +167,23 @@ export const editQuestionnaire = async (id, data) => {
 }
 
 
-export const deleteQuestionnaire = async (data) => {
-
-
+export const deleteQuestionnaire = async (id) => {
     const headers = {
         'mode': 'no-cors',
-        'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-        'Content-Type': 'application/json'
+        'Authorization': 'Bearer ' + LocalStorageService.getAccessToken()
     }
 
-
-
-    const methodType = 'DELETE';
-    const config = {
-        method: methodType,
-        url: '/api/questionnaires/' + data.id,
+    var config = {
+        method: 'delete',
+        url: '/api/questionnaires/' + id,
         headers: headers
     };
 
-    return axios(config);
+    return await axios(config).then(response => {
+        return response;
+    })
+
+ 
 
 }
 

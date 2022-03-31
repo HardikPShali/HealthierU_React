@@ -14,7 +14,7 @@ const Button = (props) => {
 
                     }}
                 >
-                    <button className={`btn ${variant}`} onClick='${pathname}'>
+                    <button className={`addbtn ${variant}`} onClick='${pathname}'>
                         Add {children}
                     </button>
                 </Link>
