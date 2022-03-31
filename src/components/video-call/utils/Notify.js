@@ -32,10 +32,10 @@ const Notify = (() => {
                                 ${msg}
                             </div>`;
     container.append(notification);
-    $('#notify-' + id + ' .delete').on('click', function() {
+    $('#notify-' + id + ' .delete').on('click', function () {
       $('#notify-' + id).remove();
     });
-    setTimeout(function() {
+    setTimeout(function () {
       $('#notify-' + id).remove();
     }, secs);
   };
