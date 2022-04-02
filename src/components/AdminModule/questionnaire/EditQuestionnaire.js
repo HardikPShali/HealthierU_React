@@ -8,6 +8,7 @@ import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
 import editIcon from '../../../images/icons used/edit icon_40 pxl.svg';
 import deleteIcon from '../../../images/icons used/delete_icon_40 pxl.svg';
+import { ToastContainer, toast } from 'react-toastify';
 
 const EditQuestionnaire = (props) => {
 
@@ -163,6 +164,7 @@ const EditQuestionnaire = (props) => {
                             <div className="col-md-6">
                             </div>
                             <div className="col-md-6 text-right">
+                                
                                 <button className="btn btn-primary mr-2">Update</button>
                                 <Link
                                     to={{
@@ -331,6 +333,19 @@ const EditQuestionnaire = (props) => {
             </Modal>
             <br />
             <br />
+            <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                    />
+                    {/* Same as */}
+                    <ToastContainer />
         </div>
     );
 

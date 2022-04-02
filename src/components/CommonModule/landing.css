@@ -1297,3 +1297,36 @@ button.btn.btn-outline-primary.sign-btn:hover {
 .multiselect .option:hover {
   background: var(--primary) !important;
 }
+
+.fc_quickfixcal {
+  background-color: rgba(0, 0, 0, 0.09) !important;
+  border-radius: 10px !important;
+  height: 39px !important;
+  width: 100% !important;
+  margin-bottom: 5px !important;
+}
+
+.fc_quickfixcal .react-date-picker__wrapper {
+  border: 0 !important;
+}
+
+.fc_quickfixcal
+  .react-date-picker__calendar-button.react-date-picker__button
+  svg {
+  height: 16px !important;
+  margin-right: 8px;
+}
+
+.fc_quickfixcal .react-date-picker__inputGroup {
+  padding: 0 10px !important;
+}
+.fc_quickfixcal :focus-visible {
+  outline: none !important;
+}
+:focus-visible {
+  outline: none !important;
+}
+
+.fc_quickfixcal .react-date-picker__inputGroup__input:invalid {
+  background: transparent !important;
+}

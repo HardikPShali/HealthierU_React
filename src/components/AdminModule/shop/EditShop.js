@@ -35,7 +35,11 @@ const EditShop = (props) => {
         event.preventDefault();
         const data = new FormData(event.target);
         const resp = await postShop(data);
-        handleRedirect(resp)
+        if (resp) {
+            toast.success("Shop successfully updated.");
+            setTimeout(() => window.location.assign('/admin/shop/home'), 1000);
+        }
+
     }
 
     const [show, setShow] = useState(false);
@@ -54,7 +58,7 @@ const EditShop = (props) => {
     const handleRedirect = (e) => {
         if (e) {
             toast.success("Category successfully updated.");
-            setTimeout(() => window.location.reload(), 1000);
+            setTimeout(() => window.location.reload(), 500);
         }
     }
 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import '../../questionnaire/Questionnaire.css';
 import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
-
+import { toast } from 'react-toastify';
 const AddArticle = () => {
 
     const handleSubmit = async (event) => {
@@ -46,7 +46,8 @@ const AddArticle = () => {
 
     const handleRedirect = (e) => {
         if (e) {
-            window.location.assign('/admin/article/home');
+            toast.success("Article successfully Added.");
+            setTimeout(() => window.location.assign('/admin/article/home'), 500);
         }
     }
 

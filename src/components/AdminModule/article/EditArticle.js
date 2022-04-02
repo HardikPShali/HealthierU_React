@@ -6,7 +6,7 @@ import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import previewImg from '../../../images/default_image.jpg';
-
+import { ToastContainer, toast } from 'react-toastify';
 const EditArticle = () => {
 
     //let history = useHistory();
@@ -16,7 +16,11 @@ const EditArticle = () => {
         event.preventDefault();
         const data = new FormData(event.target);
         const resp = await postArticle(data);
-        handleRedirect(resp)
+        if (resp) {
+            toast.success("Article successfully updated.");
+            setTimeout(() => window.location.assign('/admin/article/home'), 500);
+        }
+      
 
     }
 
@@ -114,21 +118,21 @@ const EditArticle = () => {
                             onChange={e => handleArticleChange(e)}
                         ></input>
                         <div className="row">
-                        <div className="small-12 medium-2 large-2 columns m-auto" style={{width: "120px"}}>
-                            <div className="circle">
-                                {/* <!-- User Profile Image --> */}
-                                <img className="profile-pic" src={preview ? preview : article?.picture && isURL(article?.picture) ? article.picture : previewImg} alt="" />
-                            </div>
+                            <div className="small-12 medium-2 large-2 columns m-auto" style={{ width: "120px" }}>
+                                <div className="circle">
+                                    {/* <!-- User Profile Image --> */}
+                                    <img className="profile-pic" src={preview ? preview : article?.picture && isURL(article?.picture) ? article.picture : previewImg} alt="" />
+                                </div>
 
-                            <div className="p-image">
-                                <AddAPhotoIcon className="upload-button" />
-                                <input className="file-upload" id="articlePicture" name="articlePicture" type="file" accept="image/*" onChange={e => handleArticleChange(e)}
-                                    variant="filled" />
+                                <div className="p-image">
+                                    <AddAPhotoIcon className="upload-button" />
+                                    <input className="file-upload" id="articlePicture" name="articlePicture" type="file" accept="image/*" onChange={e => handleArticleChange(e)}
+                                        variant="filled" />
+                                </div>
                             </div>
-                        </div>
                         </div>
                         <div className="row">
-                        <div style={{ fontSize: '12px', color: 'red', margin: 'auto' }}>{imageError}</div>
+                            <div style={{ fontSize: '12px', color: 'red', margin: 'auto' }}>{imageError}</div>
                         </div>
                         <br />
                         <div className="form-group row">
@@ -208,6 +212,19 @@ const EditArticle = () => {
                         </div>
 
                     </form>
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                    />
+                    {/* Same as */}
+                    <ToastContainer />
                 </div>
             </div>
         </div>

@@ -50,6 +50,11 @@ const Home = () => {
   const [totalRecords, setTotalRecords] = useState();
   const [currentPageNumber, setCurrentPageNumber] = useState(0);
 
+
+
+
+
+
   // updating rate in doctor flow
   const [selectedUser, setSelectedUser] = useState({});
   const [selectedUserData, setSelectedUserData] = useState({});
@@ -57,7 +62,7 @@ const Home = () => {
   const cookies = new Cookies();
 
   const [open, setOpen] = useState(false);
-  
+
   const handleClickOpen = async (userData) => {
     setSelectedUserData(userData);
     const currentUserData = await getDoctorByUserID(userData);
