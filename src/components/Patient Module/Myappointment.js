@@ -128,7 +128,7 @@ const Myappointment = (props) => {
     //     const AppointmnetBeforeTenMinutes = new Date(appointmentStartTime.getTime() - 2 * 60000);
     //     const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 70 * 60000);
     //     if (new Date().toISOString() >= AppointmnetBeforeTenMinutes.toISOString() && new Date().toISOString() <= AppointmnetAfter70Minutes.toISOString()) {
-            // handleConfirmVideo();
+    // handleConfirmVideo();
     //     }
     //     else {
     //         handleAlertVideo();
@@ -140,7 +140,8 @@ const Myappointment = (props) => {
         const AppointmnetBeforeSixyMinutes = new Date(appointmentStartTime.getTime() - 7200000);
         // const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 4200000);
         if (new Date().getTime() >= AppointmnetBeforeSixyMinutes.getTime()) {
-            handleConfirmChat();        } 
+            handleConfirmChat();
+        }
         else {
             handleAlertChat();
         }
@@ -179,7 +180,10 @@ const Myappointment = (props) => {
             borderColor: borderColor,
             pointerEvents: pointerEvents,
             height: '25px',
-            padding: '0px 5px'
+            padding: '0px 4px',
+            fontSize: '12.5px',
+            marginLeft: '4.5px'
+          
         };
         return {
             style: style
@@ -246,7 +250,6 @@ const Myappointment = (props) => {
                 const updateArray = [];
                 response.data.reverse();
                 response.data.map((value, index) => {
-
                     if (value.status === "ACCEPTED") {
                         if (value.unifiedAppointment === (response.data[index + 1] && response.data[index + 1].unifiedAppointment)) {
 
@@ -270,13 +273,12 @@ const Myappointment = (props) => {
                         }
 
                     } // 
-
-
                 })
 
 
                 setMyAppoitment(updateArray);
                 setTimeout(() => setLoading(false), 1000);
+
             }
 
         }
@@ -436,38 +438,38 @@ const Myappointment = (props) => {
                             </div>
                         )}
                     </DialogContent>
-                    
-                
-                    <DialogActions id="chat-buttons" onClose={handleAppointmentInfoClose} aria-labelledby="customized-dialog-title"> 
-                      {/* <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
-                     <IconButton onClick={() => handleChat(selectedAppointment.startTime)}>
-                                <ChatIcon id="active-video-icon" />
-                            </IconButton> 
-                         {/* </Link>  */}
+
+
+                    <DialogActions id="chat-buttons" onClose={handleAppointmentInfoClose} aria-labelledby="customized-dialog-title">
+                        {/* <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
+                        <IconButton onClick={() => handleChat(selectedAppointment.startTime)}>
+                            <ChatIcon id="active-video-icon" />
+                        </IconButton>
+                        {/* </Link>  */}
                         <button autoFocus onClick={handleAppointmentInfoClose} className="btn btn-primary" id="close-btn">
                             Ok
                         </button>
                     </DialogActions>
-                
+
                     {/* // <DialogActions id="chat-buttons" open={confirmChat}> */}
-                        {/* { <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
-                            {/* <IconButton>
+                    {/* { <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
+                    {/* <IconButton>
                                 <ChatIcon id="active-video-icon" />
                             </IconButton>  */}
-                         {/* </Link>  */}
-                        {/* /* <IconButton onClick={() => handleVideoCall(selectedAppointment.startTime)}>
+                    {/* </Link>  */}
+                    {/* /* <IconButton onClick={() => handleVideoCall(selectedAppointment.startTime)}>
                             <VideocamIcon id="active-video-icon" />
-                        </IconButton> */} 
+                        </IconButton> */}
                     {/* //     <button autoFocus onClick={handleAppointmentInfoClose} className="btn btn-primary">
                     //         Ok
                     //     </button>
                     // </DialogActions> */}
                 </Dialog>
                 {/* <Dialog onClose={confirmVideoClose} aria-labelledby="customized-dialog-title" open={confirmVideo}> */}
-                    {/* <DialogTitle id="customized-dialog-title" onClose={confirmVideoClose}>
+                {/* <DialogTitle id="customized-dialog-title" onClose={confirmVideoClose}>
                         Do you want to Start Video Call
                 </DialogTitle> */}
-                    {/* <DialogActions>
+                {/* <DialogActions>
                         <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus
                             //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
                             className="btn btn-primary" id="close-btn">
@@ -479,10 +481,10 @@ const Myappointment = (props) => {
                     </DialogActions>
                 </Dialog> */}
                 <Dialog onClose={confirmChatClose} aria-labelledby="customized-dialog-title" open={confirmChat}>
-                    { <DialogTitle id="customized-dialog-title" onClose={confirmChatClose}>
-                        Do you want to Start Chat 
-                </DialogTitle> }
-                     <DialogActions>
+                    {<DialogTitle id="customized-dialog-title" onClose={confirmChatClose}>
+                        Do you want to Start Chat
+                    </DialogTitle>}
+                    <DialogActions>
                         <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus
                             //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
                             className="btn btn-primary" id="close-btn">
@@ -517,7 +519,7 @@ const Myappointment = (props) => {
                     {/* <DialogTitle id="customized-dialog-title" onClose={confirmVideoClose}>
                         Do you want to Start Video Call
                 </DialogTitle> */}
-                    {/* <DialogActions>
+                {/* <DialogActions>
                         <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`} title="Chat"><button autoFocus
                             //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})} 
                             className="btn btn-primary" id="close-btn">
@@ -527,7 +529,7 @@ const Myappointment = (props) => {
                             No
                         </button>
                     </DialogActions>
-                </Dialog> */} 
+                </Dialog> */}
             </>)}
         </div>
     )
