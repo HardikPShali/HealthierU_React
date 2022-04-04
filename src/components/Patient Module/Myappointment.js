@@ -183,7 +183,6 @@ const Myappointment = (props) => {
             padding: '0px 4px',
             fontSize: '12.5px',
             marginLeft: '4.5px'
-          
         };
         return {
             style: style
