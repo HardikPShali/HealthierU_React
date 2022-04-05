@@ -1671,6 +1671,7 @@ const MyDoctor = (props) => {
                         } // next 3week condition
                         // Temporarily commented to enable calendar click functionality for appointment.
                         tileDisabled={({ activeStartDate, date, view }) =>
+                          activeStartDate.getDate() === date.getDate() &&
                           disabledDates &&
                           disabledDates.some(
                             (disabledDate) =>
