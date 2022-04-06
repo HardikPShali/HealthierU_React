@@ -1368,7 +1368,7 @@ const MyDoctor = (props) => {
                 </Link>
               </div>
               <br />
-              <div id="card-list">
+              <div id="card-list" className="scroller-cardlist">
                 {filterData &&
                   filterData.length > 0 &&
                   filterData[0] !== null ? (
@@ -1484,7 +1484,7 @@ const MyDoctor = (props) => {
               </div>
             </div>
           </Col>
-          <Col md={6} lg={4} style={{ display: display.doctor }}>
+          <Col md={6} lg={4} style={{ display: display.doctor}}>
             <div id="dorctor-list">
               {doctor && doctor.activated ? (
                 <>
@@ -1618,7 +1618,7 @@ const MyDoctor = (props) => {
             </Tooltip>
             <div id="dorctor-list" style={{ background: "#fff" }}>
               <div
-                style={{ height: 470, overflowY: "scroll" }}
+                style={{ height: 470}}
                 id="calendar-list"
               >
                 <div className="dateGroup">
