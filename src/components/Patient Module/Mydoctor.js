@@ -375,7 +375,7 @@ const MyDoctor = (props) => {
     }
   };
 
-  const handleSearchData = async () => {
+  const handleSearchData = async (showToast = false) => {
     if (searchText !== "") {
       setTransparentLoading(true);
       const res = await getSearchData(searchText, 0, doctorListLimit);
@@ -391,6 +391,9 @@ const MyDoctor = (props) => {
         setdoctor("");
         setTransparentLoading(false);
       }
+    }
+    if (showToast) {
+      handleToast();
     }
   };
 
@@ -1074,16 +1077,9 @@ const MyDoctor = (props) => {
 
                   onChange={(value) => handleSearchInputChange(value)}
                   onCancelSearch={() => handleSearchInputChange("")}
-                  onRequestSearch={() => handleSearchData()}
+                  onRequestSearch={() => handleSearchData(false)}
                   cancelOnEscape={true}
-                  onKeyDown={(e) => {
-                      // e.keyCode === 13 ? handleSearchData() : ""
-                      if (e.keyCode === 13) {
-                        handleSearchData();
-                        handleToast();
-                      }
-                    }
-                  }
+                  onKeyDown={(e) => e.keyCode === 13 ? handleSearchData(true) : ""}
 
                 />
                 <ToastContainer
@@ -1099,7 +1095,7 @@ const MyDoctor = (props) => {
                 />
                 {searchText !== "" && (
                   <IconButton
-                    onClick={() => { handleSearchData(); handleToast() }}
+                    onClick={() => handleSearchData(true)}
                     className="searchForwardIcon"
                   >
                     <ArrowForwardIcon />

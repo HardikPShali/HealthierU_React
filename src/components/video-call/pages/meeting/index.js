@@ -412,7 +412,7 @@ const Meeting = (props) => {
         shareEnd();
       }
       if (id === mainId) {
-        
+
         let next = options.displayMode === 2 ? SHARE_ID : localStream.getId();
         setHighStream(mainId, next);
         mainId = next;
