@@ -12,10 +12,36 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import editIcon from '../../../images/icons used/edit icon_40 pxl.svg';
 import deleteIcon from '../../../images/icons used/delete_icon_40 pxl.svg';
-
+import ModalService from "../components/DeleteModal/ModalService"
+import DeleteModal from "../components/DeleteModal/DeleteModal"
+import ModalRoot from "../components/DeleteModal/ModalRoot"
+import "../components/Table/Table";
+import Table from "../components/Table/Table";
 const EditShop = (props) => {
-
+    const headers = [
+        {
+            label: "Sr.",
+            key: "serialno",
+        },
+        {
+            label: "Sub Category Name",
+            key: "subCategoryName",
+        },
+        {
+            label: "Picture URL",
+            key: "pictureUrl",
+        },
+        {
+            label: "Has Product",
+            key: "hasProduct",
+        },
+        {
+            label: "Action",
+            key: "action",
+        },
+    ];
     const [shop, setShop] = useState({});
+    const [subCatshop, setsubCatShop] = useState({});
 
 
     //let history = useHistory();
@@ -23,13 +49,25 @@ const EditShop = (props) => {
 
     useEffect(() => {
         loadShop();
+        loadsubCatShop();
     }, []);
 
     const loadShop = async () => {
         const result = await getShop(`${id}`);
-        //console.log(result)
         setShop(result);
+
     };
+    const loadsubCatShop = async () => {
+        const res = await getShop(`${id}`);
+        const data = res.productSubCategoryList.map((d, i) => {
+            d.serialno = i + 1;
+            d.hasProduct = d.hasProduct ? "TRUE" : "FALSE";
+            return d;
+        })
+        setsubCatShop(data);
+        setisLoading(false);
+        console.log(data)
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -43,6 +81,7 @@ const EditShop = (props) => {
     }
 
     const [show, setShow] = useState(false);
+    const [isLoading, setisLoading] = useState(true);
     const [showDelete, setDeleteShow] = useState(false);
     const [subCategoryId, setSubCategoryId] = useState(null);
     const [product, setProduct] = useState(null);
@@ -87,8 +126,9 @@ const EditShop = (props) => {
     }
 
     const handleDeleteModal = remove => {
-        setSubCategoryId(remove.id);
-        setDeleteShow(true);
+        setSubCategoryId(remove);
+        // setDeleteShow(true);
+        ModalService.open(DeleteModal);
     }
 
     const handleDelete = async () => {
@@ -100,6 +140,7 @@ const EditShop = (props) => {
     }
 
     return (
+
         <div>
             <Navbar pageTitle="shop" />
 
@@ -165,7 +206,14 @@ const EditShop = (props) => {
                                 <button type="button" className="btn btn-primary" onClick={handleAddModal}>Add Sub Categories</button>
                             </div>
                         </div>
-                        <table className="table border shadow">
+                        <Table
+                            data={subCatshop}
+                            isLoading={isLoading}
+                            headers={headers}
+                            editLink='/admin/shop/editsubcategory/'
+                            handleDelete={(e) => handleDeleteModal(e)}
+                        ></Table>
+                        {/* <table className="table shadow">
                             <thead className="thead-dark">
                                 <tr>
                                     <th width="100">S. No</th>
@@ -197,7 +245,7 @@ const EditShop = (props) => {
                                 ))
                                 }
                             </tbody>
-                        </table>
+                        </table> */}
                     </>)}
 
                     <Modal show={show} onHide={handleClose}>
@@ -238,7 +286,8 @@ const EditShop = (props) => {
                             </Modal.Footer>
                         </form>
                     </Modal>
-                    <Modal show={showDelete} onHide={handleDeleteClose}>
+                    <ModalRoot componentName="Sub Category" handleDeleteSubmit={handleDelete} />
+                    {/* <Modal show={showDelete} onHide={handleDeleteClose}>
                         <Modal.Header closeButton>
                             <Modal.Title>Delete Sub Category</Modal.Title>
                         </Modal.Header>
@@ -251,7 +300,7 @@ const EditShop = (props) => {
                                 Delete
                             </Button>
                         </Modal.Footer>
-                    </Modal>
+                    </Modal> */}
                     <ToastContainer
                         position="top-right"
                         autoClose={5000}
