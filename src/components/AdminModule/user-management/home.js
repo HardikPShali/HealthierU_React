@@ -316,8 +316,8 @@ const Home = () => {
           <br />
           {/* <MDBDataTableV5 hover entriesOptions={[10,20, 25]} data={datatable} onPageChange={ value => setPagination(value.activePage) } searchTop searchBottom={false} fullPagination={true} /> */}
 
-          <table className="table table-responsive table-borderless table-hover mdb-dataTable userTable">
-            <thead>
+          <table className="table shadow">
+            <thead className="thead-dark">
               <tr>
                 <th width={70}>S no.</th>
                 <th width={80}>First Name</th>

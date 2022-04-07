@@ -3141,6 +3141,28 @@ sup {
   box-shadow: 0px 0px 10px #ddd;
   height: 73%;
   overflow: scroll;
+ 
+}
+.scroller-cardlist {
+  scrollbar-color: #00d0cc white; /* thumb and track color */
+  scrollbar-width: thin !important;
+  -moz-appearance: none !important;
+  border-radius: 2px;
+}
+.scroller-cardlist::-webkit-scrollbar {
+  width: 7.5px;
+  -moz-appearance: none !important;
+}
+
+.scroller-cardlist::-webkit-scrollbar-track {
+  background: white;
+  -moz-appearance: none !important;
+}
+
+.scroller-cardlist::-webkit-scrollbar-thumb {
+  background: #7f7f7f;
+  border-right: 1px solid white;
+  -moz-appearance: none !important;
 }
 /* Css for overlay */
 #overlay {

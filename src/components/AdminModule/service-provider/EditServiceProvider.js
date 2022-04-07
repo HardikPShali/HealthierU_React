@@ -30,7 +30,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 //     editQuestionnaire,
 //     getQuestionnaire
 // } from "../../questionnaire/QuestionnaireService";
-
+import ModalService from "../components/DeleteModal/ModalService"
+import DeleteModal from "../components/DeleteModal/DeleteModal"
+import ModalRoot from "../components/DeleteModal/ModalRoot"
 const EditServiceProvider = props => {
     //let history = useHistory()
     console.log("props", props);
@@ -167,18 +169,19 @@ const EditServiceProvider = props => {
     };
 
     const [selectedContactId, setSelectedContactId] = useState("");
-    const [showDeleteContact, setShowDeleteContact] = useState(false);
+    // const [showDeleteContact, setShowDeleteContact] = useState(false);
 
     const handleDeleteContactModal = data => {
-        setSelectedContactId(data.id);
-        setShowDeleteContact(true);
+         setSelectedContactId(data.id);
+        // setShowDeleteContact(true);
+        ModalService.open(DeleteModal);
     };
 
     const handleDeleteContact = async () => {
-        setIsLoading(true);
+        //setIsLoading(true);
         const resp = deleteContact(selectedContactId);
         if (resp) {
-            setShowDeleteContact(false);
+          //  setShowDeleteContact(false);
             loadServiceProvider();
         }
     };
@@ -880,7 +883,8 @@ const EditServiceProvider = props => {
             </Modal>
 
             {/* Contact delete modal */}
-            <Modal
+            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact}/>
+            {/* <Modal
                 show={showDeleteContact}
                 onHide={() => setShowDeleteContact(false)}
             >
@@ -904,7 +908,7 @@ const EditServiceProvider = props => {
                         Delete
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
 
             {/* Location form modal */}
             <Modal show={showLocation}>
