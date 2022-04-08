@@ -1299,7 +1299,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
 }
 
 .fc_quickfixcal {
-  background-color: rgba(0, 0, 0, 0.09) !important;
+  background-color: rgba(180, 127, 127, 0.09) !important;
   border-radius: 10px !important;
   height: 39px !important;
   width: 100% !important;
@@ -1308,6 +1308,8 @@ button.btn.btn-outline-primary.sign-btn:hover {
 
 .fc_quickfixcal .react-date-picker__wrapper {
   border: 0 !important;
+  background-color: #e8e8e8 !important;
+  border-radius: 10px;
 }
 
 .fc_quickfixcal
@@ -1329,4 +1331,11 @@ button.btn.btn-outline-primary.sign-btn:hover {
 
 .fc_quickfixcal .react-date-picker__inputGroup__input:invalid {
   background: transparent !important;
+}
+
+.react-calendar.fc_quickfixcalendar {
+  /* width: 91%; */
+  background-color: #dadce0;
+  border-radius: 10px;
+  padding: 15px;
 }

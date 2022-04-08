@@ -96,7 +96,7 @@ const Header = (props) => {
                     </NavDropdown> */}
               <NavLink to="/patient/mydoctor" style={{ margin: '5px', marginRight: '15px' }}>My Doctors</NavLink>
               {/* <NavLink to="/patient/explore">Explore</NavLink> */}
-              <NavLink to="/patient/shop" style={{ marginRight: '22px' }}>Shop</NavLink>
+              {/* <NavLink to="/patient/shop" style={{ marginRight: '22px' }}>Shop</NavLink> */}
               {/* <NavLink to="#search">
                         <SearchIcon id="search-icon" />
                     </NavLink>
