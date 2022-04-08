@@ -99,13 +99,13 @@ function doctorHomePage() {
                             {/*<Col md={6}>
                                 <div id="Box3" className="card-box">Lifestyle</div>
                             </Col>*/}
-                            <Col md={12}>
+                            {/* <Col md={12}>
                                 <Link to="/doctor/shop">
                                     <div id="Box4" className="card-box">
                                         Shop
                                     </div>
                                 </Link>
-                            </Col>
+                            </Col> */}
                         </Row>
                         <Row>
                             <Col md={12}>
