@@ -507,7 +507,7 @@ export const getPatientFamilyAndSocialHistoryData = async (patientId) => {
     var payload = {
         method: 'get',
         mode: 'no-cors',
-        url: `/api/mobile-questionnaires?patientid=${patientId}&category=HealthBehaviour`,
+        url: `/api/mobile-questionnaires?patientid=${patientId}&category=Patient`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json',

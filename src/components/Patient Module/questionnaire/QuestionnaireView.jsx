@@ -168,7 +168,7 @@ class QuestionnaireView extends React.Component {
                   type="submit"
                   variant="primary"
                   className="Questionnaire-Continue-Button"
-                  // onClick={(e) => this.continue(e)}
+                  onClick={(e) => this.continue(e)}
                 >
                   Continue
                 </Button>
@@ -220,6 +220,10 @@ class QuestionnaireView extends React.Component {
     }
 
     //console.log(await saveQuestionAnswer(data));
+  }
+
+  continue() {
+    window.location.assign('/patient');
   }
 }
 

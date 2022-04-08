@@ -107,8 +107,8 @@ export const handleSignin = async (username, password) => {
     var config = {
         method: 'post',
         mode: 'no-cors',
-        url: `/oauth/token?username=${username}&password=${password}&grant_type=password&scope=openid`,
-        headers: {
+        url: `/oauth/token?grant_type=password&scope=openid&username=${username}&password=${password}`, //&grant_type=password&scope=openid
+        headers: { 
             'Authorization': 'Basic ' + AUTH_CODE,
         }
     }
