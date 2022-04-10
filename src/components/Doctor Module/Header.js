@@ -170,7 +170,7 @@ const Header = (props) => {
                         <div className="dropdown-item" ><NavLink to="/doctor/appointment" className="dropdown-link"><b>My Calendar</b></NavLink></div>
                         <div className="dropdown-item" ><NavLink to="/doctor/chat" className="dropdown-link"><b>Chat</b></NavLink></div>
                     </NavDropdown> */}
-          <NavLink to="/doctor/shop" style={{ marginRight: '20px' }}>Shop</NavLink>
+          {/* <NavLink to="/doctor/shop" style={{ marginRight: '20px' }}>Shop</NavLink> */}
           {/* ```<NavLink to="#search">
             <SearchIcon id="search-icon" />
           </NavLink>``` */}

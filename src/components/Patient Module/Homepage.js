@@ -96,20 +96,21 @@ function patientHomePage() {
                         <Link to="/patient/nutrition"><div id="Box1" className="card-box">Nutrition Plan</div></Link>
                     </Col>
                     <Col md={6}>
-                        <Link to="/patient/workout"><div id="Box2" className="card-box">Workout</div></Link>
+                        <Link to="/patient/article"><div id="Box5" className="card-box">Articles</div></Link>
                     </Col>
+                    
                     {/*<Col md={4}>
                         <div id="Box3" className="card-box">Lifestyle</div>
                     </Col>*/}
                 </Row>
                 <br />
                 <Row>
-                    <Col md={6}>
+                    {/* <Col md={6}>
                         <Link to="/patient/shop"><div id="Box4" className="card-box">Shop</div></Link>
-                    </Col>
-                    <Col md={6}>
-                        <Link to="/patient/article"><div id="Box5" className="card-box">Articles</div></Link>
-                    </Col>
+                    </Col> */}
+                    {/* <Col md={6}>
+                        <Link to="/patient/workout"><div id="Box2" className="card-box">Workout</div></Link>
+                    </Col> */}
                     {/*<Col md={4}>
                         <div id="Box6" className="card-box">Education</div>
                     </Col>*/}
