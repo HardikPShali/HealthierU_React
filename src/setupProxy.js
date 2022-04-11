@@ -96,30 +96,29 @@ module.exports = function (app) {
     // app.use('/api/call-logs', createProxyMiddleware({ target: 'https://dev.healthy-u.ae', changeOrigin: true }));
     // app.use('/api/appointments/bulk', createProxyMiddleware({ target: 'https://dev.healthy-u.ae', changeOrigin: true }));    
     //****** For AWS Services testing */ 
-    // const DEV_CLOUD = "https://dev.healthieru.ae";
-    const DEV_CLOUD = "https://api-healthieru.devtomaster.com/";
+    const DEV_CLOUD = "https://dev.healthieru.ae";
     //const PROD_CLOUD = "https://biogenix.ae/";
 
-    app.use(
-        "/api",
-        createProxyMiddleware({
-            // target: LOCAL_IP,
-            target: DEV_CLOUD,
-            //target: PROD_CLOUD,
-            // target: UAT_CLOUD,
-            changeOrigin: true,
-            secure: true,
-        })
-    );
-    app.use(
-        "/oauth",
-        createProxyMiddleware({
-            // target: LOCAL_IP,
-            target: DEV_CLOUD,
-            //target: PROD_CLOUD,
-            // target: UAT_CLOUD,
-            changeOrigin: true,
-            secure: true,
-        })
-    );
+    // app.use(
+    //     "/api",
+    //     createProxyMiddleware({
+    //         // target: LOCAL_IP,
+    //         target: DEV_CLOUD,
+    //         //target: PROD_CLOUD,
+    //         // target: UAT_CLOUD,
+    //         changeOrigin: true,
+    //         secure: true,
+    //     })
+    // );
+    // app.use(
+    //     "/oauth",
+    //     createProxyMiddleware({
+    //         // target: LOCAL_IP,
+    //         target: DEV_CLOUD,
+    //         //target: PROD_CLOUD,
+    //         // target: UAT_CLOUD,
+    //         changeOrigin: true,
+    //         secure: true,
+    //     })
+    // );
 };
