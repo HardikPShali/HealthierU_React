@@ -621,6 +621,44 @@ export const deleteContact = async (id) => {
     return response;
 
 }
+export const deleteLocation = async (id) => {
+
+    const config = {
+        method: "delete",
+        url: '/api/addresses/' + id,
+        headers: {
+            'mode': 'no-cors',
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+        }
+    };
+
+    const response = await axios(config).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+
+}
+export const deleteOpeningHours = async (id) => {
+
+    const config = {
+        method: "delete",
+        url: '/api/service-provider-hours/' + id,
+        headers: {
+            'mode': 'no-cors',
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+        }
+    };
+
+    const response = await axios(config).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+
+}
 
 export const addLocation = async (id, data) => {
     let method;
