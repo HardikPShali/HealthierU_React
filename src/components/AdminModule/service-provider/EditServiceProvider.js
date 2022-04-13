@@ -33,13 +33,14 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ModalService from "../components/DeleteModal/ModalService"
 import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
+import { useHistory } from 'react-router-dom';
 const EditServiceProvider = props => {
     //let history = useHistory()
     console.log("props", props);
     const { id } = useParams();
     // const { list } = props.location;
     //let selectedQuestion = null;
-
+    const history = useHistory();
     const [serviceProvider, setServiceProvider] = useState({
         description: "",
         title: "",
@@ -82,7 +83,7 @@ const EditServiceProvider = props => {
                 return serviceCategories;
             });
         setServiceProvider({ ...serviceProvider, categories: newArray });
-       
+
     };
     console.log("serviceProvider", serviceProvider);
 
@@ -100,7 +101,7 @@ const EditServiceProvider = props => {
         //const resp = await editQuestionnaire(id, data);
         const res = await updateServiceProvider(id, data, categories);
         if (res) {
-            window.location.assign("/admin/serviceprovider/home");
+            history.push("/admin/serviceprovider/home");
         }
     };
 
@@ -172,7 +173,7 @@ const EditServiceProvider = props => {
     // const [showDeleteContact, setShowDeleteContact] = useState(false);
 
     const handleDeleteContactModal = data => {
-         setSelectedContactId(data.id);
+        setSelectedContactId(data.id);
         // setShowDeleteContact(true);
         ModalService.open(DeleteModal);
     };
@@ -181,7 +182,7 @@ const EditServiceProvider = props => {
         //setIsLoading(true);
         const resp = deleteContact(selectedContactId);
         if (resp) {
-          //  setShowDeleteContact(false);
+            //  setShowDeleteContact(false);
             loadServiceProvider();
         }
     };
@@ -883,7 +884,7 @@ const EditServiceProvider = props => {
             </Modal>
 
             {/* Contact delete modal */}
-            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact}/>
+            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
             {/* <Modal
                 show={showDeleteContact}
                 onHide={() => setShowDeleteContact(false)}

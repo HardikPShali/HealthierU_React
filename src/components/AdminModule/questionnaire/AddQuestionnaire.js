@@ -4,9 +4,9 @@ import {Link} from "react-router-dom";
 import '../../questionnaire/Questionnaire.css';
 import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
-
+import { useHistory } from 'react-router-dom';
 const AddQuestionnaire = () => {
-
+    const history = useHistory();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
@@ -17,7 +17,7 @@ const AddQuestionnaire = () => {
 
     const handleRedirect = (e) => {
         if (e) {
-            window.location.assign('/admin/questionnaire/home');
+            history.push('/admin/questionnaire/home');
         }
     }
 
