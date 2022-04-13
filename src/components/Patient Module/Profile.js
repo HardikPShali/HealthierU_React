@@ -92,7 +92,7 @@ const Profile = () => {
             }
         });
         if (res && res.data) {
-            setCurrentPatient({...res.data[0]});
+            setCurrentPatient({ ...res.data[0] });
             setTimeout(() => setLoading(false), 1000);
         }
     }
@@ -167,7 +167,7 @@ const Profile = () => {
 
         if (response.status === 200 || response.status === 201) {
             // location.reload();
-            setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture + '?' + Math.random()} });
+            setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture + '?' + Math.random() } });
             setDisplay({ ...display, profile: 'block', editProfile: 'none' })
             setTransparentLoading(false);
             // eslint-disable-next-line no-restricted-globals
