@@ -175,22 +175,22 @@ const EditServiceProvider = props => {
     };
 
     const [selectedContactId, setSelectedContactId] = useState("");
-   
-   
+
+
     // const [showDeleteContact, setShowDeleteContact] = useState(false);
 
     const handleDeleteContactModal = contactData => {
         setSelectedContactId(contactData.id);
         ModalService.open(DeleteModal);
     };
-   
+
 
     const handleDeleteContact = async () => {
         setIsLoading(true);
         const resp = deleteContact(selectedContactId);
         if (resp) {
             toast.success("Contact successfully Deleted.");
-            setTimeout(() => window.location.reload(), 500);
+            setTimeout(() => history.go(0), 500);
             loadServiceProvider();
         }
 
@@ -215,7 +215,7 @@ const EditServiceProvider = props => {
         const resp = deleteLocation(selectedLocationId);
         if (resp) {
             toast.success("Location successfully Deleted.");
-            setTimeout(() => window.location.reload(), 500);
+            setTimeout(() => history.go(0), 500);
             loadServiceProvider();
         }
     };
@@ -288,7 +288,7 @@ const EditServiceProvider = props => {
         const resp = deleteOpeningHours(selectedOpeningHoursId);
         if (resp) {
             toast.success("Opening Hours successfully Deleted.");
-            setTimeout(() => window.location.reload(), 500);
+            setTimeout(() => history.go(0), 500);
             loadServiceProvider();
         }
     };
