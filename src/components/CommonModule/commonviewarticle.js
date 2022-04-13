@@ -81,10 +81,10 @@ const CommonViewArticle = () => {
                     <Row className="justify-content-center">
                         {authorities.some((user) => user === "ROLE_PATIENT") && (
                             <>
-                                <Col md={3} className="mb-2">
+                                <Col md={6} className="mb-2">
                                     <Link to="/patient/nutrition"><div id="Box1" className="nutrition-card-box">Nutrition Plan</div></Link>
                                 </Col>
-                                <Col md={3} className="mb-2">
+                                <Col md={6} className="mb-2">
                                     <Link to="/patient/workout"><div id="Box2" className="nutrition-card-box">Workout</div></Link>
                                 </Col>
                             </>
@@ -92,12 +92,13 @@ const CommonViewArticle = () => {
                         {/*<Col md={2} className="mb-2">
         <div id="Box3" className="nutrition-card-box">Lifestyle</div>
     </Col>*/}
-                        <Col md={3} className="mb-2">
-                            <Link to={authorities.some((user) => user === "ROLE_PATIENT") ? "/patient/shop" : "/doctor/shop"}><div id="Box4" className="nutrition-card-box">Shop</div></Link>
-                        </Col>
-                        <Col md={3} className="mb-2">
+                        {/* <Col md={6} className="mb-2">
                             <Link to={authorities.some((user) => user === "ROLE_PATIENT") ? "/patient/article" : "/doctor/article"}><div id="Box5" className="nutrition-card-box">Articles</div></Link>
-                        </Col>
+                        </Col> */}
+                        {/* <Col md={3} className="mb-2">
+                            <Link to={authorities.some((user) => user === "ROLE_PATIENT") ? "/patient/shop" : "/doctor/shop"}><div id="Box4" className="nutrition-card-box">Shop</div></Link>
+                        </Col> */}
+
                         {/*<Col md={2} className="mb-2">
         <div id="Box6" className="nutrition-card-box">Education</div>
     </Col>*/}

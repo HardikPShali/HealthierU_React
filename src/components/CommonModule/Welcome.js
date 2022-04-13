@@ -441,6 +441,7 @@ const Welcome = ({ currentuserInfo }) => {
                                             <DatePicker
                                                 name='dateOfBirth'
                                                 className="fc_quickfixcal"
+                                                calendarClassName='fc_quickfixcalendar'
                                                 // value={new Date()}
                                                 clearIcon=""
                                                 value={dateOfBirth}

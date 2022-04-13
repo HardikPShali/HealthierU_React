@@ -96,7 +96,7 @@ module.exports = function (app) {
     // app.use('/api/call-logs', createProxyMiddleware({ target: 'https://dev.healthy-u.ae', changeOrigin: true }));
     // app.use('/api/appointments/bulk', createProxyMiddleware({ target: 'https://dev.healthy-u.ae', changeOrigin: true }));    
     //****** For AWS Services testing */ 
-    const DEV_CLOUD = "https://dev.healthieru.ae";
+    const DEV_CLOUD = "https://api-healthieru.devtomaster.com";
     //const PROD_CLOUD = "https://biogenix.ae/";
 
     app.use(

@@ -4,12 +4,16 @@ import { Button, Modal } from "react-bootstrap";
 import "../../questionnaire/Questionnaire.css";
 import "mdbreact/dist/css/mdb.css";
 import Navbar from "../layout/Navbar";
+import editIcon from "../../../images/icons used/edit icon_40 pxl.svg";
+import deleteIcon from "../../../images/icons used/delete_icon_40 pxl.svg";
 import TransparentLoader from "../../Loader/transparentloader";
 import {
     getServiceProviderById,
     updateServiceProvider,
     addContacts,
     deleteContact,
+    deleteLocation,
+    deleteOpeningHours,
     addLocation,
     addOpeningHours,
     getServiceCategory
@@ -34,6 +38,7 @@ import ModalService from "../components/DeleteModal/ModalService"
 import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const EditServiceProvider = props => {
     //let history = useHistory()
     console.log("props", props);
@@ -170,33 +175,50 @@ const EditServiceProvider = props => {
     };
 
     const [selectedContactId, setSelectedContactId] = useState("");
+   
+   
     // const [showDeleteContact, setShowDeleteContact] = useState(false);
 
-    const handleDeleteContactModal = data => {
-        setSelectedContactId(data.id);
-        // setShowDeleteContact(true);
+    const handleDeleteContactModal = contactData => {
+        setSelectedContactId(contactData.id);
         ModalService.open(DeleteModal);
     };
+   
 
     const handleDeleteContact = async () => {
-        //setIsLoading(true);
+        setIsLoading(true);
         const resp = deleteContact(selectedContactId);
         if (resp) {
-            //  setShowDeleteContact(false);
+            toast.success("Contact successfully Deleted.");
+            setTimeout(() => window.location.reload(), 500);
             loadServiceProvider();
         }
+
     };
 
     // Location Code
 
     const [showLocation, setShowLocation] = useState(false);
+    const [selectedLocationId, setSelectedLocationId] = useState("");
     const [locationDetails, setLocationDetails] = useState({
         id: "",
         description: "",
         lon: "",
         lat: ""
     });
-
+    const handleDeleteLocationModal = locationdata => {
+        setSelectedLocationId(locationdata.id);
+        ModalService.open(DeleteModal);
+    };
+    const handleDeleteLocation = async () => {
+        setIsLoading(true);
+        const resp = deleteLocation(selectedLocationId);
+        if (resp) {
+            toast.success("Location successfully Deleted.");
+            setTimeout(() => window.location.reload(), 500);
+            loadServiceProvider();
+        }
+    };
     const handleLocationModal = data => {
         setLocationDetails({
             ...locationDetails,
@@ -240,13 +262,17 @@ const EditServiceProvider = props => {
     // Opening Hours
 
     const [showOpeningHours, setShowOpeningHours] = useState(false);
+    const [selectedOpeningHoursId, setSelectedOpeningHoursId] = useState("");
     const [openingHoursDetails, setOpeningHoursDetails] = useState({
         id: "",
         closeTime: "",
         day: "",
         openTime: ""
     });
-
+    const handleDeleteOpeningHoursModal = openingHoursData => {
+        setSelectedOpeningHoursId(openingHoursData.id);
+        ModalService.open(DeleteModal);
+    };
     const handleOpeningHoursModal = data => {
         setOpeningHoursDetails({
             ...openingHoursDetails,
@@ -257,7 +283,15 @@ const EditServiceProvider = props => {
         });
         setShowOpeningHours(true);
     };
-
+    const handleDeleteOpeningHours = async () => {
+        setIsLoading(true);
+        const resp = deleteOpeningHours(selectedOpeningHoursId);
+        if (resp) {
+            toast.success("Opening Hours successfully Deleted.");
+            setTimeout(() => window.location.reload(), 500);
+            loadServiceProvider();
+        }
+    };
     const handleEditOpeningHoursModal = data => {
         setOpeningHoursDetails({
             ...openingHoursDetails,
@@ -520,24 +554,30 @@ const EditServiceProvider = props => {
                                                                         }
                                                                     </td>
                                                                     <td>
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-primary px-3 py-2"
+                                                                        <img
+                                                                            width="15"
+                                                                            height="15"
+                                                                            src={editIcon}
                                                                             onClick={() =>
                                                                                 handleEditContactModal(contact)
                                                                             }
-                                                                        >
-                                                                            <EditIcon />
-                                                                        </button>
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-danger px-3 py-2"
+                                                                            alt=""
+                                                                            style={{ marginLeft: "5%", marginRight: "5%" }
+                                                                            }
+                                                                        />
+
+                                                                        <img
+                                                                            width="15"
+                                                                            height="15"
+                                                                            src={deleteIcon}
                                                                             onClick={() =>
                                                                                 handleDeleteContactModal(contact)
                                                                             }
-                                                                        >
-                                                                            <DeleteIcon />
-                                                                        </button>
+                                                                            className="delete-icon"
+                                                                            alt=""
+                                                                            style={{ marginLeft: "5%", marginRight: "5%" }}
+                                                                        />
+
                                                                     </td>
                                                                 </tr>
                                                             </>
@@ -615,23 +655,32 @@ const EditServiceProvider = props => {
                                                                         }
                                                                     </td>
                                                                     <td>
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-primary px-3 py-2"
+                                                                        <img
+                                                                            width="15"
+                                                                            height="15"
+                                                                            src={editIcon}
                                                                             onClick={() =>
                                                                                 handleEditLocationModal(
                                                                                     location
                                                                                 )
                                                                             }
-                                                                        >
-                                                                            <EditIcon />
-                                                                        </button>
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-danger px-3 py-2"
-                                                                        >
-                                                                            <DeleteIcon />
-                                                                        </button>
+                                                                            alt=""
+                                                                            style={{ marginLeft: "5%", marginRight: "5%" }
+                                                                            }
+                                                                        />
+
+                                                                        <img
+                                                                            width="15"
+                                                                            height="15"
+                                                                            src={deleteIcon}
+                                                                            onClick={() =>
+                                                                                handleDeleteLocationModal(location)
+                                                                            }
+                                                                            className="delete-icon"
+                                                                            alt=""
+                                                                            style={{ marginLeft: "5%", marginRight: "5%" }}
+                                                                        />
+
                                                                     </td>
                                                                 </tr>
                                                             </>
@@ -718,23 +767,31 @@ const EditServiceProvider = props => {
                                                                         )}
                                                                     </td>
                                                                     <td>
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-primary px-3 py-2"
+                                                                        <img
+                                                                            width="15"
+                                                                            height="15"
+                                                                            src={editIcon}
                                                                             onClick={() =>
                                                                                 handleEditOpeningHoursModal(
                                                                                     hour
                                                                                 )
                                                                             }
-                                                                        >
-                                                                            <EditIcon />
-                                                                        </button>
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-danger px-3 py-2"
-                                                                        >
-                                                                            <DeleteIcon />
-                                                                        </button>
+                                                                            alt=""
+                                                                            style={{ marginLeft: "5%", marginRight: "5%" }
+                                                                            }
+                                                                        />
+
+                                                                        <img
+                                                                            width="15"
+                                                                            height="15"
+                                                                            src={deleteIcon}
+                                                                            onClick={() =>
+                                                                                handleDeleteOpeningHoursModal(hour)
+                                                                            }
+                                                                            className="delete-icon"
+                                                                            alt=""
+                                                                            style={{ marginLeft: "5%", marginRight: "5%" }}
+                                                                        />
                                                                     </td>
                                                                 </tr>
                                                             </>
@@ -1015,7 +1072,10 @@ const EditServiceProvider = props => {
                     </Modal.Footer>
                 </form>
             </Modal>
-
+            {/* Location delete modal */}
+            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
+            {/* Opening Hours delete modal */}
+            <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} />
             {/* OpeningHours form modal */}
             <Modal show={showOpeningHours}>
                 <form onSubmit={e => handleOpeningHoursSubmission(e)}>
