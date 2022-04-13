@@ -99,26 +99,26 @@ module.exports = function (app) {
     const DEV_CLOUD = "https://api-healthieru.devtomaster.com";
     //const PROD_CLOUD = "https://biogenix.ae/";
 
-    // app.use(
-    //     "/api",
-    //     createProxyMiddleware({
-    //         // target: LOCAL_IP,
-    //         target: DEV_CLOUD,
-    //         //target: PROD_CLOUD,
-    //         // target: UAT_CLOUD,
-    //         changeOrigin: true,
-    //         secure: true,
-    //     })
-    // );
-    // app.use(
-    //     "/oauth",
-    //     createProxyMiddleware({
-    //         // target: LOCAL_IP,
-    //         target: DEV_CLOUD,
-    //         //target: PROD_CLOUD,
-    //         // target: UAT_CLOUD,
-    //         changeOrigin: true,
-    //         secure: true,
-    //     })
-    // );
+    app.use(
+        "/api",
+        createProxyMiddleware({
+            // target: LOCAL_IP,
+            target: DEV_CLOUD,
+            //target: PROD_CLOUD,
+            // target: UAT_CLOUD,
+            changeOrigin: true,
+            secure: true,
+        })
+    );
+    app.use(
+        "/oauth",
+        createProxyMiddleware({
+            // target: LOCAL_IP,
+            target: DEV_CLOUD,
+            //target: PROD_CLOUD,
+            // target: UAT_CLOUD,
+            changeOrigin: true,
+            secure: true,
+        })
+    );
 };
