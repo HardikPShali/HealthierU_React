@@ -25,7 +25,7 @@ function getAllModuleDetails(chatGroupList, moduleToFind, currentModuleId, setSt
       ]).then(([res1, res2]) => {
         if (res1.status === 'fulfilled') {
           const { [moduleToFind]: moduleName } = res1.value.data;
-          moduleName.forEach((current) => {
+          moduleName && moduleName.forEach((current) => {
             let chatGroupName = moduleToFind === "doctors" ? `P${currentModuleId}_D${current.id}` : `P${current.id}_D${currentModuleId}`;
             tempObject[chatGroupName] = { ...current };
           });
