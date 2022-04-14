@@ -40,7 +40,7 @@ import DoctorDocumentUpload from "./doctordocumentupload";
 import { getCurrentDoctorInfo } from "../../service/AccountService";
 import { firestoreService } from "../../util";
 import DatePicker from 'react-date-picker';
-
+import { useHistory } from "react-router";
 
 // import 'react-calendar/dist/Calendar.css';
 
@@ -66,7 +66,7 @@ $(document).ready(function () {
 
 
 const Welcome = ({ currentuserInfo }) => {
-
+    const history = useHistory();
     const [loading, setLoading] = useState(true);
     const [transparentLoading, setTransparentLoading] = useState(false);
 
@@ -232,7 +232,7 @@ const Welcome = ({ currentuserInfo }) => {
             cookies.set("currentUser", currentUserInformation.data);
             setCurrentUserDataAfterApproval(currentUserInformation.data);
             if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted) {
-                window.location.assign('/patient/questionnaire/view');
+                history.push('/patient/questionnaire/view');
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
@@ -243,7 +243,7 @@ const Welcome = ({ currentuserInfo }) => {
                 setTransparentLoading(false);
                 handleClickOpen();
             } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
-                window.location.assign('/doctor');
+                history.push('/doctor');
             }
         }
     }

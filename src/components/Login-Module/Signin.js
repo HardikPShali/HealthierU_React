@@ -41,9 +41,9 @@ import OtpTimer from "otp-timer";
 // import axios from "axios";
 // import otpGenerator from "otp-generator";
 // import ReCAPTCHA from "react-google-recaptcha";
-
+import { useHistory } from 'react-router-dom';
 const Signin = () => {
-  // const history = useHistory();
+  const history = useHistory();
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -79,15 +79,15 @@ const Signin = () => {
 
   //User won't land on the sign in page only even when user has not sign out from the application | HEAL-55 & HEAL-10
   useEffect(() => {
-    
+
     if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_PATIENT") {
-      window.location.assign("/patient");
+      history.push("/patient");
     }
     if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_DOCTOR") {
-      window.location.assign("/doctor");
+      history.push("/doctor");
     }
     if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_ADMIN") {
-      window.location.assign("/admin");
+      history.push("/admin");
     }
   }, [cookies.get('currentUser')]);
 
@@ -177,7 +177,7 @@ const Signin = () => {
     ) {
       cookies.set("currentUser", currentUserInformation);
       // cookies.set('utype', 1);
-      window.location.assign("/admin");
+      history.push("/admin");
       // enable the below code for 2FA for admin
       //sendOtp();
     }
@@ -185,12 +185,12 @@ const Signin = () => {
     if (authorities.some((user) => user === "ROLE_PATIENT")) {
       cookies.set("currentUser", currentUserInformation);
       // cookies.set('utype', 2);
-      window.location.assign("/patient");
+      history.push("/patient");
     }
     if (authorities.some((user) => user === "ROLE_DOCTOR")) {
       cookies.set("currentUser", currentUserInformation);
       // cookies.set('utype', 3);
-      window.location.assign("/doctor");
+      history.push("/doctor");
     }
   };
   // }
@@ -272,7 +272,7 @@ const Signin = () => {
       //  setUser({ ...user, msg: "Invalid OTP" });
       //} else if (otpText === otp) {
       cookies.set("currentUser", currentUser);
-      window.location.assign("/admin");
+      history.push("/admin");
     }
   };
 

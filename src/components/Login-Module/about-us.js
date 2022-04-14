@@ -36,7 +36,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import { HOMEPAGE_GETHELP } from '../../util/constant';
-
+import { useHistory } from 'react-router-dom';
 // import PatientFooter from "./../Patient Module/Footer";
 // import DoctorFooter from "./../Doctor Module/Footer";
 // import PatientHeader from "./../Patient Module/Header";
@@ -44,6 +44,7 @@ import { HOMEPAGE_GETHELP } from '../../util/constant';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AboutUs = ({ currentuserInfo }) => {
+  const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [serverError, setServerError] = useState(false);
   const [open, setOpen] = useState(false);
@@ -104,7 +105,7 @@ const AboutUs = ({ currentuserInfo }) => {
       .catch((error) => {
         if (error.response && error.response.status === 500) {
           setServerError(true);
-          setTimeout(() => window.location.assign("/"), 5000);
+          setTimeout(() => history.push("/"), 5000);
         }
       });
   };

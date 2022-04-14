@@ -15,9 +15,10 @@ import {
   handleChangePassword
 } from "../../service/frontendapiservices";
 import Loader from '../Loader/Loader';
+import { useHistory } from "react-router";
 
 const ChangePassword = (props) => {
-
+  const history =useHistory();
   const { homeUrl } = props;
 
   const [changePassword, setChangePassword] = useState({
@@ -41,7 +42,7 @@ const ChangePassword = (props) => {
   };
   const handleChangePasswordClose = () => {
     setChangePasswordOpen(false);
-    window.location.assign(homeUrl);
+    history.push(homeUrl);
   };
 
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
