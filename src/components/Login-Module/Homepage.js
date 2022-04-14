@@ -5,7 +5,7 @@ import './landing.css';
 import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from
     "mdbreact";
 import {
-    Link,
+    Link,useHistory
     // Redirect 
 } from 'react-router-dom'
 import screen1 from '../../images/screen1.png'
@@ -30,7 +30,7 @@ import Cookies from 'universal-cookie';
 // import article3 from '../../images/article3.png'
 
 const Homepage = () => {
-
+    const history = useHistory();
     const [loading, setLoading] = useState(true);
     const [article, setArticle] = useState([]);
     const cookies = new Cookies();
@@ -59,13 +59,13 @@ const Homepage = () => {
 
     useEffect(() => {
         if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_PATIENT") {
-            window.location.assign("/patient");
+            history.push("/patient");
         }
         if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_DOCTOR") {
-            window.location.assign("/doctor");
+            history.push("/doctor");
         }
         if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_ADMIN") {
-            window.location.assign("/admin");
+            history.push("/admin");
         }
     }, [cookies.get('currentUser')]);
 

@@ -1,7 +1,7 @@
 //import React from 'react';
 import axios from 'axios';
 //import {Redirect} from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 export const handleGoogleAuth = async (googleUserData) => {
 
     var config = {
@@ -22,14 +22,15 @@ export const handleGoogleAuth = async (googleUserData) => {
             }
         }
     }).catch(error => {
-        if(error.response && error.response.status === 500) {
-            window.location.assign('/signupform');
-        } else if(error.response && error.response.status === 400 && error.response.data.title === "User role required."){
-            window.location.assign('/signupform');
-        } else if( error.response && error.response.status === 405 ){
-            window.location.assign('/signupform');
+        const history = useHistory();
+        if (error.response && error.response.status === 500) {
+            history.push('/signupform');
+        } else if (error.response && error.response.status === 400 && error.response.data.title === "User role required.") {
+            history.push('/signupform');
+        } else if (error.response && error.response.status === 405) {
+            history.push('/signupform');
         }
-        
+
     })
     return googleResponse;
 }
