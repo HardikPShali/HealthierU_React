@@ -37,6 +37,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ModalService from "../components/DeleteModal/ModalService"
 import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 const EditServiceProvider = props => {
     //let history = useHistory()
@@ -44,7 +45,7 @@ const EditServiceProvider = props => {
     const { id } = useParams();
     // const { list } = props.location;
     //let selectedQuestion = null;
-
+    const history = useHistory();
     const [serviceProvider, setServiceProvider] = useState({
         description: "",
         title: "",
@@ -105,7 +106,7 @@ const EditServiceProvider = props => {
         //const resp = await editQuestionnaire(id, data);
         const res = await updateServiceProvider(id, data, categories);
         if (res) {
-            window.location.assign("/admin/serviceprovider/home");
+            history.push("/admin/serviceprovider/home");
         }
     };
 
@@ -174,22 +175,22 @@ const EditServiceProvider = props => {
     };
 
     const [selectedContactId, setSelectedContactId] = useState("");
-   
-   
+
+
     // const [showDeleteContact, setShowDeleteContact] = useState(false);
 
     const handleDeleteContactModal = contactData => {
         setSelectedContactId(contactData.id);
         ModalService.open(DeleteModal);
     };
-   
+
 
     const handleDeleteContact = async () => {
         setIsLoading(true);
         const resp = deleteContact(selectedContactId);
         if (resp) {
             toast.success("Contact successfully Deleted.");
-            setTimeout(() => window.location.reload(), 500);
+            setTimeout(() => history.go(0), 500);
             loadServiceProvider();
         }
 
@@ -214,7 +215,7 @@ const EditServiceProvider = props => {
         const resp = deleteLocation(selectedLocationId);
         if (resp) {
             toast.success("Location successfully Deleted.");
-            setTimeout(() => window.location.reload(), 500);
+            setTimeout(() => history.go(0), 500);
             loadServiceProvider();
         }
     };
@@ -287,7 +288,7 @@ const EditServiceProvider = props => {
         const resp = deleteOpeningHours(selectedOpeningHoursId);
         if (resp) {
             toast.success("Opening Hours successfully Deleted.");
-            setTimeout(() => window.location.reload(), 500);
+            setTimeout(() => history.go(0), 500);
             loadServiceProvider();
         }
     };
@@ -511,13 +512,13 @@ const EditServiceProvider = props => {
                         <Tabs
                             className="justify-content-center"
                             defaultActiveKey="contact"
-                        //</div>onSelect={clickTabEvent}
+
                         >
                             <Tab eventKey="contact" title="Contact Details">
                                 <br />
                                 <Row>
-                                    <Col md={3}></Col>
-                                    <Col md={6} className="info-box">
+                                    <Col md={2}></Col>
+                                    <Col md={8} className="info-box">
                                         <table className="table">
                                             <thead>
                                                 <tr>
@@ -940,7 +941,7 @@ const EditServiceProvider = props => {
             </Modal>
 
             {/* Contact delete modal */}
-            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
+            
             {/* <Modal
                 show={showDeleteContact}
                 onHide={() => setShowDeleteContact(false)}
@@ -1071,10 +1072,7 @@ const EditServiceProvider = props => {
                     </Modal.Footer>
                 </form>
             </Modal>
-            {/* Location delete modal */}
-            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
-            {/* Opening Hours delete modal */}
-            <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} />
+            
             {/* OpeningHours form modal */}
             <Modal show={showOpeningHours}>
                 <form onSubmit={e => handleOpeningHoursSubmission(e)}>
@@ -1185,7 +1183,11 @@ const EditServiceProvider = props => {
                     </Modal.Footer>
                 </form>
             </Modal>
-
+            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
+            {/* Location delete modal */}
+            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
+            {/* Opening Hours delete modal */}
+            <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} />
             <br />
             <br />
         </div>

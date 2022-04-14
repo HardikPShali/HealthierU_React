@@ -17,6 +17,8 @@ import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
 import "../components/Table/Table";
 import Table from "../components/Table/Table";
+import { useHistory } from 'react-router-dom';
+
 const EditShop = (props) => {
     const headers = [
         {
@@ -42,7 +44,7 @@ const EditShop = (props) => {
     ];
     const [shop, setShop] = useState({});
     const [subCatshop, setsubCatShop] = useState({});
-
+    const history= useHistory();
 
     //let history = useHistory();
     const { id } = useParams();
@@ -75,7 +77,7 @@ const EditShop = (props) => {
         const resp = await postShop(data);
         if (resp) {
             toast.success("Shop successfully updated.");
-            setTimeout(() => window.location.assign('/admin/shop/home'), 1000);
+            setTimeout(() => history.go(0), 1000);
         }
 
     }
@@ -97,7 +99,7 @@ const EditShop = (props) => {
     const handleRedirect = (e) => {
         if (e) {
             toast.success("Category successfully updated.");
-            setTimeout(() => window.location.reload(), 500);
+            setTimeout(() => history.go(0), 500);
         }
     }
 
@@ -115,7 +117,7 @@ const EditShop = (props) => {
         const res = await addSubCategory(id, data);
         if (res && (res.status === 200 || res.status === 201)) {
             toast.success("Sub Category successfully added.");
-            setTimeout(() => window.location.reload(), 1000);
+            setTimeout(() => history.go(0), 1000);
             handleClose();
         }
     }
@@ -135,7 +137,7 @@ const EditShop = (props) => {
         const res = await deleteSubCategory(subCategoryId);
         if (res) {
             toast.success("Sub Category successfully deleted.");
-            setTimeout(() => window.location.reload(), 1000);
+            setTimeout(() => history.go(0), 1000);
         }
     }
 

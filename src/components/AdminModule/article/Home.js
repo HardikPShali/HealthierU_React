@@ -17,6 +17,8 @@ import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
 import { CompareArrowsOutlined } from "@material-ui/icons";
 import { toast } from 'react-toastify';
+import { Redirect } from 'react-router-dom';
+
 class ArticleHome extends React.Component {
 
 
@@ -178,10 +180,11 @@ class ArticleHome extends React.Component {
             this.setState({ selectedArticle: null })
             this.componentDidMount();
             return response.data;
-    
+
         })
         toast.success("Article successfully Deleted.");
-        setTimeout(() => window.location.assign('/admin/article/home'), 500);
+
+        setTimeout(() => <Redirect to='/admin/article/home' />, 500);
     }
 
 };

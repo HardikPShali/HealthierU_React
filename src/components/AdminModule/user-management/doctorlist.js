@@ -25,6 +25,7 @@ import { IconButton } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import { useHistory } from 'react-router-dom';
 // import { DialogTitle } from "@material-ui/core";
 // import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 // import {
@@ -45,7 +46,7 @@ const DoctorList = () => {
   const [totalPages, setTotalPages] = useState();
   const [totalRecords, setTotalRecords] = useState();
   const [currentPageNumber, setCurrentPageNumber] = useState(0);
-
+  const history = useHistory();
   const cookies = new Cookies();
   useEffect(() => {
     getUserList();
@@ -386,7 +387,7 @@ const DoctorList = () => {
               type="button"
               autoFocus
               className="btn btn-info"
-              onClick={() => window.location.reload()}
+              onClick={() => history.go(0)}
             >
               ok
             </button>

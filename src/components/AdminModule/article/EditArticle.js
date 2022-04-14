@@ -7,20 +7,21 @@ import Navbar from "../layout/Navbar";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import previewImg from '../../../images/default_image.jpg';
 import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 const EditArticle = () => {
 
     //let history = useHistory();
     const { id } = useParams();
-
+    const history = useHistory();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
         const resp = await postArticle(data);
         if (resp) {
             toast.success("Article successfully updated.");
-            setTimeout(() => window.location.assign('/admin/article/home'), 500);
+            setTimeout(() => history.push('/admin/article/home'), 500);
         }
-      
+
 
     }
 
@@ -69,7 +70,7 @@ const EditArticle = () => {
 
     const handleRedirect = (e) => {
         if (e) {
-            window.location.assign('/admin/article/home');
+            history.push('/admin/article/home');
         }
     }
 

@@ -259,7 +259,8 @@ const EditUser = (props) => {
         // const userResponse = await updateUserData(user);
         // if (userResponse) {
         //window.location.assign("/admin");
-        history.goBack();
+
+        history.go(0);
         //}
       }
 
@@ -279,7 +280,8 @@ const EditUser = (props) => {
         // const userResponse = await updateUserData(user);
         // if (userResponse) {
         //window.location.assign("/admin");
-        history.goBack();
+
+        history.go(0);
         //}
       }
     }

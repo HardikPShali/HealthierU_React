@@ -12,6 +12,7 @@ import ModalRoot from "../components/DeleteModal/ModalRoot"
 import { toast } from 'react-toastify';
 import AddButton from "../components/Button/Button";
 import Table from "../components/Table/Table";
+import { useHistory } from 'react-router-dom';
 const ServiceProvidersHome = () => {
     const headers = [
         {
@@ -45,7 +46,7 @@ const ServiceProvidersHome = () => {
     ];
     const [isLoading, setIsLoading] = useState(true);
     const [serviceProviders, setServiceProvider] = useState(null);
-
+    const history = useHistory();
     const [selectedServiceProvider, setSelectedServiceProvider] = useState(null);
     // const [error, setError] = useState(null);
     const [showDelete, setShowDelete] = useState(false);
@@ -83,10 +84,10 @@ const ServiceProvidersHome = () => {
         setIsLoading(true);
         const resp = await deleteServiceProvider(selectedServiceProvider);
         if (resp) {
-             setSelectedServiceProvider(null);
+            setSelectedServiceProvider(null);
             // setShowDelete(false);
             toast.success("Service Provider successfully Deleted.");
-            setTimeout(() => window.location.reload(), 1000);
+            setTimeout(() => history.go(0), 1000);
             loadServiceProviders();
         }
     }

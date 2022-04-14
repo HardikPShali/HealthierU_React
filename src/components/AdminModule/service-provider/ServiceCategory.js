@@ -13,8 +13,9 @@ import ModalRoot from "../components/DeleteModal/ModalRoot"
 import { toast } from 'react-toastify';
 import editIcon from "../../../images/icons used/edit icon_40 pxl.svg";
 import deleteIcon from "../../../images/icons used/delete_icon_40 pxl.svg";
+import { useHistory } from 'react-router-dom';
 const ServiceCategory = () => {
-
+    const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [serviceCategorys, setServiceCategory] = useState(null);
     const [selectedServiceCategory, setSelectedServiceCategory] = useState(null);
@@ -48,7 +49,7 @@ const ServiceCategory = () => {
             // setSelectedServiceCategory(null);
             // setShowDelete(false);
             toast.success("Service Category successfully Deleted.");
-            setTimeout(() => window.location.reload(), 500);
+            setTimeout(() => history.go(0), 500);
             loadServiceCategory();
         }
     }
