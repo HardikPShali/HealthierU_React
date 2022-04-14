@@ -512,13 +512,13 @@ const EditServiceProvider = props => {
                         <Tabs
                             className="justify-content-center"
                             defaultActiveKey="contact"
-                        //</div>onSelect={clickTabEvent}
+
                         >
                             <Tab eventKey="contact" title="Contact Details">
                                 <br />
                                 <Row>
-                                    <Col md={3}></Col>
-                                    <Col md={6} className="info-box">
+                                    <Col md={2}></Col>
+                                    <Col md={8} className="info-box">
                                         <table className="table">
                                             <thead>
                                                 <tr>
@@ -941,7 +941,7 @@ const EditServiceProvider = props => {
             </Modal>
 
             {/* Contact delete modal */}
-            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
+            
             {/* <Modal
                 show={showDeleteContact}
                 onHide={() => setShowDeleteContact(false)}
@@ -1072,10 +1072,7 @@ const EditServiceProvider = props => {
                     </Modal.Footer>
                 </form>
             </Modal>
-            {/* Location delete modal */}
-            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
-            {/* Opening Hours delete modal */}
-            <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} />
+            
             {/* OpeningHours form modal */}
             <Modal show={showOpeningHours}>
                 <form onSubmit={e => handleOpeningHoursSubmission(e)}>
@@ -1186,7 +1183,11 @@ const EditServiceProvider = props => {
                     </Modal.Footer>
                 </form>
             </Modal>
-
+            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
+            {/* Location delete modal */}
+            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
+            {/* Opening Hours delete modal */}
+            <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} />
             <br />
             <br />
         </div>
