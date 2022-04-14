@@ -8,7 +8,8 @@ import {
 } from '../../../service/AccountService';
 import '../patient.css';
 import TransparentLoader from '../../Loader/transparentloader';
-
+import { useHistory } from 'react-router-dom';
+import { HighQualityTwoTone } from '@material-ui/icons';
 // import Footer from '../../Login-Module/Footer';
 // import Header from '../../CommonModule/Header';
 // import {
@@ -223,7 +224,8 @@ class QuestionnaireView extends React.Component {
   }
 
   continue() {
-    window.location.assign('/patient');
+    const history = useHistory();
+    history.push('/patient');
   }
 }
 

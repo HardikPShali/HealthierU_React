@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom';
 //import axios from 'axios'
 import Header from "../Login-Module/Header";
 import Footer from "../Login-Module/Footer";
@@ -49,7 +50,7 @@ const Signupform = () => {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
-
+  const history = useHistory();
   const googleAccessToken = cookies.get("GOOGLE_ACCESS_TOKEN");
   const googleProfileData = cookies.get("GOOGLE_PROFILE_DATA");
   //console.log("googleAccessToken :::::", googleAccessToken);
@@ -247,10 +248,10 @@ const Signupform = () => {
           const { authorities = [] } = currentLoggedInUser || {};
 
           if (authorities.some((user) => user === "ROLE_PATIENT")) {
-            window.location.assign("/patient");
+            history.push("/patient");
           }
           if (authorities.some((user) => user === "ROLE_DOCTOR")) {
-            window.location.assign("/doctor");
+            history.push("/doctor");
           }
         }
       }

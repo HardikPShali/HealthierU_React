@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 // import './style.css'
 
 export default class MyErrorBoundary extends Component {
+  
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -36,7 +38,8 @@ export default class MyErrorBoundary extends Component {
               <div className='_404'>ERROR</div>
               <hr />
               <div className='_1'>Sorry, An Error Occured</div>
-              <button className='btn' onClick={() => window.location.reload()}>Back to Home</button>
+              
+              <button className='btn' onClick={() => <Redirect to='/' />}>Back to Home</button>
           </div>
         </>
        

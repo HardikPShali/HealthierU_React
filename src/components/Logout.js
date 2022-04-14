@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
+import { useHistory } from "react-router";
 import Cookies from 'universal-cookie';
 import Loader from './Loader/Loader'
 
 const Logout = () => {
   const cookies = new Cookies();
+  const history =useHistory();
   useEffect(() => {
     cookies.remove("refresh_token", { path: '/' });
     cookies.remove("currentUser", { path: '/' });
@@ -15,7 +17,7 @@ const Logout = () => {
     //userProfileCompleted
     //setTimeout(()=>{window.location.reload()},500);
     //window.location.reload();
-    window.location.assign('/');
+    history.push('/');
   }, [cookies]);
   return (
     <><Loader /></>
