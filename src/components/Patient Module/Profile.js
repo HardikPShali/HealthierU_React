@@ -26,6 +26,7 @@ import {
     updatePatientData
 } from '../../service/frontendapiservices';
 import TransparentLoader from '../Loader/transparentloader';
+import { useHistory } from 'react-router-dom';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 // import LocalStorageService from './../../util/LocalStorageService';
 // import axios from "axios";
@@ -37,6 +38,7 @@ $(document).ready(function () {
     });
 });
 const Profile = () => {
+    const history = useHistory();
     const cookies = new Cookies();
     const [currentPatient, setCurrentPatient] = useState({
         userId: "",
@@ -167,11 +169,14 @@ const Profile = () => {
 
         if (response.status === 200 || response.status === 201) {
             // location.reload();
-            setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture + '?' + Math.random() } });
-            setDisplay({ ...display, profile: 'block', editProfile: 'none' })
-            setTransparentLoading(false);
+            // setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture + '?' + Math.random() } });
+            // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+            // setTransparentLoading(false);
+
+            history.go(0);
             // eslint-disable-next-line no-restricted-globals
             // window.location.reload();
+            // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
             // setTransparentLoading(false);
             // setTimeout(() => {
             //     alert('2')
