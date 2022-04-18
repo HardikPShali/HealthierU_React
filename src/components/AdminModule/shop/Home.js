@@ -13,6 +13,7 @@ import ModalService from "../components/DeleteModal/ModalService"
 import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
 import { toast } from 'react-toastify';
+import { Switch, Route, Redirect } from 'react-router-dom';
 class ShopHome extends React.Component {
   state = {
     isLoading: true,
@@ -54,7 +55,7 @@ class ShopHome extends React.Component {
 
   handleDeleteModal = (remove) => {
     this.setState({ selectedShop: remove });
-  
+
     ModalService.open(DeleteModal);
   };
 
@@ -164,7 +165,8 @@ class ShopHome extends React.Component {
       return response.data;
     });
     toast.success("Shop successfully Deleted.");
-    setTimeout(() => window.location.assign('/admin/shop/home'), 500);
+    setTimeout(() => <Redirect to='/admin/shop/home' />, 100);
+   
   };
 }
 

@@ -14,6 +14,7 @@ import ModalService from "../components/DeleteModal/ModalService"
 import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
 import { toast } from 'react-toastify';
+import { Redirect } from 'react-router-dom';
 class WorkoutHome extends React.Component {
 
 
@@ -173,8 +174,9 @@ class WorkoutHome extends React.Component {
             this.componentDidMount();
             return response.data;
         })
+
         toast.success("Workout successfully Deleted.");
-        setTimeout(() => window.location.assign('/admin/workout/home'), 500);
+        setTimeout(() => <Redirect to='/admin/workout/home' />, 500);
     }
 
 };

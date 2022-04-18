@@ -5,8 +5,9 @@ import '../../questionnaire/Questionnaire.css';
 import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 const AddArticle = () => {
-
+    const history = useHistory();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
@@ -21,7 +22,7 @@ const AddArticle = () => {
             const file = e.target.files[0];
             if (file && file.size > 1000000) {
                 setImageError("Document must be less than 1mb");
-                setArticle({...article, picture: ""});
+                setArticle({ ...article, picture: "" });
             }
             else {
                 setArticle({ ...article, picture: e.target.value });
@@ -47,7 +48,7 @@ const AddArticle = () => {
     const handleRedirect = (e) => {
         if (e) {
             toast.success("Article successfully Added.");
-            setTimeout(() => window.location.assign('/admin/article/home'), 500);
+            setTimeout(() => history.push('/admin/article/home'), 500);
         }
     }
 
@@ -115,7 +116,7 @@ const AddArticle = () => {
                                     onChange={e => handleArticleChange(e)}
                                     placeholder="Article Picture" accept="image/*" value={article.picture}
                                     required={true}></input>
-                                    {imageError && (<span style={{ color: "red", fontSize: "11px" }}>{imageError}</span>)}
+                                {imageError && (<span style={{ color: "red", fontSize: "11px" }}>{imageError}</span>)}
                             </div>
                         </div>
 

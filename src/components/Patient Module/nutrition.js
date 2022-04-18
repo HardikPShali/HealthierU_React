@@ -135,8 +135,7 @@ const Nutrition = () => {
     const loadDoctors = async () => {
         const res = await getNutritionDoctorList("", offset, doctorListLimit).catch(error => {
             if (error.response && (error.response.status === 502 || error.response.status === 500)) {
-                //setServerError(true);
-                // setTimeout(() => window.location.assign("/patient"), 5000);
+
                 setLoading(false);
             }
         })

@@ -12,11 +12,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import editIcon from '../../../images/icons used/edit icon_40 pxl.svg';
 import deleteIcon from '../../../images/icons used/delete_icon_40 pxl.svg';
-
+import { useHistory } from 'react-router-dom';
 const EditSubCategory = (props) => {
 
     const [shop, setShop] = useState({});
-
+    const history = useHistory();
 
     //let history = useHistory();
     const { id } = useParams();
@@ -37,7 +37,7 @@ const EditSubCategory = (props) => {
         const resp = await updateSubCategory(shop, data);
         if (resp && resp.data) {
             toast.success("Sub Category successfully updated.");
-            setTimeout(() => window.location.reload(), 1000);
+            setTimeout(() =>history.go(0), 1000);
         }
 
     }
@@ -69,7 +69,7 @@ const EditSubCategory = (props) => {
         const res = await addSubCategoryProduct(id, data);
         if (res && (res.status === 200 || res.status === 201)) {
             data.get('id') ? toast.success("Sub Category Product successfully updated.") : toast.success("Sub Category Product successfully added.");
-            setTimeout(() => window.location.reload(), 1000);
+            setTimeout(() => history.go(0), 1000);
             handleClose();
         }
     }
@@ -93,7 +93,7 @@ const EditSubCategory = (props) => {
         const res = await deleteSubCategoryProduct(productId);
         if (res) {
             toast.success("Sub Category Product successfully deleted.");
-            setTimeout(() => window.location.reload(), 1000);
+            setTimeout(() => history.go(0), 1000);
         }
     }
 

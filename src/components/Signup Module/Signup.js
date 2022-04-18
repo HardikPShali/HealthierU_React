@@ -13,9 +13,9 @@ import { getCurrentUserInfo } from '../../service/AccountService';
 import LocalStorageService from './../../util/LocalStorageService';
 import { GOOGLECLIENTID } from '../../util/configurations';
 import gmailIcon from '../../images/icons used/gmailIcon.png';
-
+import { useHistory } from 'react-router-dom';
 const Signup = () => {
-
+  const history = useHistory();
   const [loading, setLoading] = useState(true);
   const cookies = new Cookies();
   useEffect(() => {
@@ -45,10 +45,10 @@ const Signup = () => {
       const {authorities =[] } = currentLoggedInUser || {}
 
       if (authorities.some((user) => user === "ROLE_PATIENT")) {
-        window.location.assign('/patient');
+        history.push('/patient');
       }
       if (authorities.some((user) => user === "ROLE_DOCTOR")) {
-        window.location.assign('/doctor');
+        history.push('/doctor');
       }
     }
   }

@@ -28,7 +28,7 @@ import { Document, Page } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { pdfjs } from 'react-pdf';
 import "./pdf-viewer.css";
-
+import { useHistory } from "react-router";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
@@ -44,7 +44,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
     const [errorMsg, setErrorMsg] = useState("");
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
-
+    const history = useHistory();
     const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages);
     }
@@ -163,7 +163,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
             setLoading(false);
         });
         if (res && res.status === 200) {
-            window.location.reload();
+            history.go(0);
         }
     }
 
@@ -198,7 +198,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
 
         const res = await updateDoctorDocumentStatus(payloadData);
         if (res && res.status === 200) {
-            window.location.reload();
+            history.go(0);
         }
     }
 
@@ -216,7 +216,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
 
         const res = await updateDoctorDocumentStatus(payloadData);
         if (res && res.status === 200) {
-            window.location.reload();
+            history.go(0);
         }
     }
 
@@ -237,7 +237,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
         setLoading(true);
         const res = await deleteDoctorDocument(docId);
         if (res && res.status === 204) {
-            window.location.reload();
+            history.go(0);
         }
     }
 

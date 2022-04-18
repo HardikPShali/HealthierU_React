@@ -13,10 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import Loader from '../Loader/Loader';
 import { CAPTCHA_SITE_KEY } from './../../util/configurations';
 import ReCAPTCHA from 'react-google-recaptcha';
-
+import { useHistory } from 'react-router-dom';
 
 const ForgetPassword = () => {
-
+    const history = useHistory()
     const [open, setOpen] = useState(false);
 
     const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ const ForgetPassword = () => {
     };
     const handleClose = () => {
         setOpen(false);
-        window.location.assign("/signin");
+        history.push("/signin");
     };
     const [user, setUser] = useState({
         email: "",

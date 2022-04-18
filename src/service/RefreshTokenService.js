@@ -1,7 +1,7 @@
 import axios from 'axios';
 import LocalStorageService from '../util/LocalStorageService';
 import Cookies from 'universal-cookie';
-
+import { useHistory } from 'react-router-dom';
 export const checkAccessToken = (isReload=true) => {
 
     const cookies = new Cookies();
@@ -22,10 +22,11 @@ export const checkAccessToken = (isReload=true) => {
         }
     }
     return axios(config).then(response => {
+        const history =useHistory();
         if (response && response.data) {
             LocalStorageService.setToken(response.data);
             if(isReload){
-                window.location.reload();
+                history.go(0);
             }
             
         }

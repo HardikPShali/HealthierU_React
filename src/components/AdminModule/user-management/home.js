@@ -31,6 +31,7 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Pagination from "../../CommonModule/pagination";
+import { useHistory } from 'react-router-dom';
 // import PublishIcon from "@material-ui/icons/Publish";
 // import { checkAccessToken } from '../../../service/RefreshTokenService';
 // import SearchIcon from "@material-ui/icons/Search";
@@ -49,7 +50,7 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState();
   const [totalRecords, setTotalRecords] = useState();
   const [currentPageNumber, setCurrentPageNumber] = useState(0);
-
+  const history = useHistory();
 
 
 
@@ -184,7 +185,7 @@ const Home = () => {
     userData.approved = true;
     const response = await approveDoctorByAdmin(userData);
     if (response.status === 200 || response.status === 201) {
-      window.location.reload();
+      history.go(0);
     }
   };
 
@@ -596,13 +597,13 @@ const Home = () => {
             type="button"
             autoFocus
             className="btn btn-info"
-            onClick={() => window.location.reload()}
+            onClick={() => history.go(0)}
           >
-            ok
-          </button>
-        </DialogActions>
-      </Dialog>
-    </div>
+          ok
+        </button>
+      </DialogActions>
+    </Dialog>
+    </div >
   );
 };
 

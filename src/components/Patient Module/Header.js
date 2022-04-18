@@ -26,7 +26,7 @@ const Header = (props) => {
   const {
     doctorDetailsList,
     unReadMessageList,
-    currentPatient: { picture = null },
+    currentPatient: { picture },
   } = props;
   const unReadMessageCount = (unReadMessageList && Object.keys(unReadMessageList).length) || 0;
 

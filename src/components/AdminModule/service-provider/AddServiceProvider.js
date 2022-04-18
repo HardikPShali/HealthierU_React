@@ -4,9 +4,9 @@ import '../../questionnaire/Questionnaire.css';
 import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
 import { saveServiceProvider } from "./../../../service/adminbackendservices";
-
+import { useHistory } from 'react-router-dom';
 const AddServiceProvider = () => {
-
+    const history = useHistory();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
@@ -18,7 +18,7 @@ const AddServiceProvider = () => {
 
     const handleRedirect = (e) => {
         if (e) {
-            window.location.assign('/admin/serviceprovider/home');
+            history.push('/admin/serviceprovider/home');
         }
     }
 

@@ -18,7 +18,7 @@ import ModalService from "../components/DeleteModal/ModalService"
 import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
 import { toast } from 'react-toastify';
-
+import { Redirect } from 'react-router-dom';
 class QuestionnaireHome extends React.Component {
 
 
@@ -167,8 +167,9 @@ class QuestionnaireHome extends React.Component {
             this.componentDidMount();
             return response.data;
         })
+    
         toast.success("Questionnaire successfully Deleted.");
-        setTimeout(() => window.location.assign('/admin/questionnaire/home'), 500);
+        setTimeout(() => <Redirect to='/admin/questionnaire/home'/>, 500);
     }
 
 };

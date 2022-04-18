@@ -11,7 +11,7 @@ import '../patient.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import Footer from '../Footer';
@@ -319,9 +319,9 @@ class QuestionnaireEdit extends React.Component {
       draggable: true,
       progress: undefined,
     });
-    // alert("Successful");
-    setTimeout(() => window.location.assign('/patient'), 1000);
-    // window.location.assign('/patient');
+    const history = useHistory();
+    setTimeout(() => history.push('/patient'), 1000);
+
   }
 }
 

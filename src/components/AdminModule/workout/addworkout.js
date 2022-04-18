@@ -5,8 +5,9 @@ import '../../questionnaire/Questionnaire.css';
 import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 const AddWorkout = () => {
-
+    const history = useHistory();
     const handleSubmit = async (event) => {
         //event.preventDefault();
         //const data = new FormData(event.target);
@@ -53,7 +54,7 @@ const AddWorkout = () => {
     const handleRedirect = (e) => {
         if (e) {
             toast.success("Workout successfully Added.");
-            setTimeout(() => window.location.assign('/admin/workout/home'), 500);
+            setTimeout(() => history.push('/admin/workout/home'), 500);
         }
     }
 

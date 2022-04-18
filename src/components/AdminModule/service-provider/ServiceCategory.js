@@ -7,10 +7,15 @@ import Navbar from "../layout/Navbar";
 import 'mdbreact/dist/css/mdb.css';
 import TransparentLoader from "../../Loader/transparentloader";
 import { getServiceCategory, deleteServiceCategory, addServiceCategory } from "./../../../service/adminbackendservices";
-
-
+import ModalService from "../components/DeleteModal/ModalService"
+import DeleteModal from "../components/DeleteModal/DeleteModal"
+import ModalRoot from "../components/DeleteModal/ModalRoot"
+import { toast } from 'react-toastify';
+import editIcon from "../../../images/icons used/edit icon_40 pxl.svg";
+import deleteIcon from "../../../images/icons used/delete_icon_40 pxl.svg";
+import { useHistory } from 'react-router-dom';
 const ServiceCategory = () => {
-
+    const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [serviceCategorys, setServiceCategory] = useState(null);
     const [selectedServiceCategory, setSelectedServiceCategory] = useState(null);
@@ -33,15 +38,18 @@ const ServiceCategory = () => {
 
     const handleDeleteModal = remove => {
         setSelectedServiceCategory(remove);
-        setShowDelete(true);
+        // setShowDelete(true);
+        ModalService.open(DeleteModal);
     }
 
     const handleDeleteServiceCategory = async (event) => {
         setIsLoading(true);
         const resp = deleteServiceCategory(selectedServiceCategory.id);
         if (resp) {
-            setSelectedServiceCategory(null);
-            setShowDelete(false);
+            // setSelectedServiceCategory(null);
+            // setShowDelete(false);
+            toast.success("Service Category successfully Deleted.");
+            setTimeout(() => history.go(0), 500);
             loadServiceCategory();
         }
     }
@@ -120,10 +128,29 @@ const ServiceCategory = () => {
                                     <td key="action"
                                     >
                                         <div>
-                                            <button className="btn btn-info mr-2" onClick={() => handleEditModal(list)}>Edit</button>
+                                        <img
+                                                                            width="15"
+                                                                            height="15"
+                                                                            src={editIcon}
+                                                                            onClick={() => handleEditModal(list)}
+                                                                            alt=""
+                                                                            style={{ marginLeft: "5%", marginRight: "5%" }
+                                                                            }
+                                                                        />
+
+                                                                        <img
+                                                                            width="15"
+                                                                            height="15"
+                                                                            src={deleteIcon}
+                                                                            onClick={() => handleDeleteModal(list)}
+                                                                            className="delete-icon"
+                                                                            alt=""
+                                                                            style={{ marginLeft: "5%", marginRight: "5%" }}
+                                                                        />
+                                            {/* <button className="btn btn-info mr-2" onClick={() => handleEditModal(list)}>Edit</button>
                                             <button className="btn btn-danger"
                                                 onClick={() => handleDeleteModal(list)}>Delete
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </td>
                                 </tr>
@@ -137,8 +164,8 @@ const ServiceCategory = () => {
                     </table>
                 </div>
             </div>
-
-            <Modal show={showDelete} onHide={() => setShowDelete(false)}>
+            <ModalRoot componentName="Service Category" handleDeleteSubmit={handleDeleteServiceCategory} />
+            {/* <Modal show={showDelete} onHide={() => setShowDelete(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Delete Service Category</Modal.Title>
                 </Modal.Header>
@@ -151,7 +178,7 @@ const ServiceCategory = () => {
                         Delete
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
 
             {/* Location form modal */}
             <Modal show={show}>

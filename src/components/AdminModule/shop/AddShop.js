@@ -7,9 +7,10 @@ import {
     postShop
 } from "../../../service/shopservice";
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 const AddShop = () => {
 
-
+    const history = useHistory();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
@@ -21,7 +22,7 @@ const AddShop = () => {
     const handleRedirect = (e) => {
         if (e) {
             toast.success("Shop successfully Added.");
-            setTimeout(() => window.location.assign('/admin/shop/home'), 500);
+            setTimeout(() => history.push('/admin/shop/home'), 200);
         }
     }
 

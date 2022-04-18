@@ -6,18 +6,19 @@ import '../../questionnaire/Questionnaire.css';
 import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
 import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 const EditWorkout = () => {
 
     //let history = useHistory();
     const { id } = useParams();
-
+    const history = useHistory();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
         const res = await updateWorkout(data);
         if (res) {
             toast.success("Workout successfully updated.");
-            setTimeout(() => window.location.assign('/admin/workout/home'), 500);
+            setTimeout(() => history.push('/admin/workout/home'), 500);
         }
 
     }
@@ -80,7 +81,7 @@ const EditWorkout = () => {
     const handleRedirect = (e) => {
         if (e) {
             toast.success("Workout successfully updated.");
-            setTimeout(() => window.location.assign('/admin/workout/home'), 1000);
+            setTimeout(() => history.push('/admin/workout/home'), 1000);
 
         }
     }

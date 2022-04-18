@@ -6,12 +6,47 @@ import Navbar from "../layout/Navbar";
 import 'mdbreact/dist/css/mdb.css';
 import TransparentLoader from "../../Loader/transparentloader";
 import { getServiceProviders, deleteServiceProvider } from "./../../../service/adminbackendservices";
-
-
+import ModalService from "../components/DeleteModal/ModalService"
+import DeleteModal from "../components/DeleteModal/DeleteModal"
+import ModalRoot from "../components/DeleteModal/ModalRoot"
+import { toast } from 'react-toastify';
+import AddButton from "../components/Button/Button";
+import Table from "../components/Table/Table";
+import { useHistory } from 'react-router-dom';
 const ServiceProvidersHome = () => {
-
+    const headers = [
+        {
+            label: "Sr.",
+            key: "serialno",
+        },
+        {
+            label: "Title",
+            key: "title",
+        },
+        {
+            label: "Description",
+            key: "description",
+        },
+        {
+            label: "Longitude",
+            key: "lon",
+        },
+        {
+            label: "Latitude",
+            key: "lat",
+        },
+        {
+            label: "Active",
+            key: "active",
+        },
+        {
+            label: "Action",
+            key: "action",
+        },
+    ];
     const [isLoading, setIsLoading] = useState(true);
     const [serviceProviders, setServiceProvider] = useState(null);
+    const history = useHistory();
     const [selectedServiceProvider, setSelectedServiceProvider] = useState(null);
     // const [error, setError] = useState(null);
     const [showDelete, setShowDelete] = useState(false);
@@ -24,23 +59,35 @@ const ServiceProvidersHome = () => {
 
     const loadServiceProviders = async () => {
         const response = await getServiceProviders();
-        if (response) {
-            setServiceProvider(response.data);
-            setIsLoading(false);
-        }
+
+        const serviceproviderData = response.data.map((d, i) => {
+            d.serialno = i + 1;
+            d.active = String(d.active).toUpperCase()
+            return d;
+        })
+        //console.log(serviceproviderData);
+        setServiceProvider(serviceproviderData);
+        setIsLoading(false);
+        // if (response) {
+
+        // }
     }
 
     const handleDeleteModal = remove => {
         setSelectedServiceProvider(remove);
-        setShowDelete(true);
+        console.log(remove);
+        // setShowDelete(true);
+        ModalService.open(DeleteModal);
     }
 
-    const handleDeleteServiceProvider = async (event) => {
+    const handleDeleteServiceProvider = async () => {
         setIsLoading(true);
-        const resp = deleteServiceProvider(selectedServiceProvider.id);
+        const resp = await deleteServiceProvider(selectedServiceProvider);
         if (resp) {
             setSelectedServiceProvider(null);
-            setShowDelete(false);
+            // setShowDelete(false);
+            toast.success("Service Provider successfully Deleted.");
+            setTimeout(() => history.go(0), 1000);
             loadServiceProviders();
         }
     }
@@ -58,13 +105,21 @@ const ServiceProvidersHome = () => {
                     <div className="row">
                         <div className="col-md-6 col-sm-6"><h1>Service Providers</h1></div>
                         <div className="col-md-6 col-sm-6 pr-0" style={{ textAlign: "right" }}>
-                            <Link to="/admin/serviceprovider/add">
+                            {/* <Link to="/admin/serviceprovider/add">
                                 <button type="button" className="btn btn-primary">Add Service Provider</button>
-                            </Link>
+                            </Link> */}
+                            <AddButton addLink='serviceprovider'>Service Provider</AddButton>
                         </div>
                     </div>
+                    <Table
+                        data={serviceProviders}
+                        isLoading={isLoading}
+                        headers={headers}
+                        editLink='/admin/serviceprovider/edit/'
+                        handleDelete={(e) => handleDeleteModal(e)}
+                    ></Table>
 
-                    <table className="table border shadow">
+                    {/* <table className="table border shadow">
                         <thead className="thead-dark">
                             <tr>
                                 <th scope="col">Sr.</th>
@@ -111,11 +166,11 @@ const ServiceProvidersHome = () => {
                                     </td>
                                 </tr>)}
                         </tbody>
-                    </table>
+                    </table> */}
                 </div>
             </div>
-
-            <Modal show={showDelete} onHide={() => setShowDelete(false)}>
+            <ModalRoot componentName="Service Provider" handleDeleteSubmit={handleDeleteServiceProvider} />
+            {/* <Modal show={showDelete} onHide={() => setShowDelete(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Delete Service Provider</Modal.Title>
                 </Modal.Header>
@@ -128,7 +183,7 @@ const ServiceProvidersHome = () => {
                         Delete
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
         </div>
     );
 }
