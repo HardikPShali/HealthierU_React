@@ -114,6 +114,7 @@ const Welcome = ({ currentuserInfo }) => {
 
     useEffect(() => {
         loadOptions();
+        loadmaritalstatusOptions();
         // loadSpeciality();
         // loadLanguage();
         const profileStatus = cookies.get("userProfileCompleted");
@@ -168,10 +169,10 @@ const Welcome = ({ currentuserInfo }) => {
         //         setLoading(false);
         //     }
         // });
-        if (res && res.data) {
-            Setmaritalstatusoption({ maritalstatusList: res.data })
+       
+            Setmaritalstatusoption({ maritalstatusList })
             setTimeout(() => setLoading(false), 1000);
-        }
+        
     }
     const loadSpeciality = async () => {
         const res = await getSpecialityList().catch(err => {
