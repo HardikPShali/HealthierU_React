@@ -86,10 +86,19 @@ const Welcome = ({ currentuserInfo }) => {
     const [options, Setoption] = useState({
         countryList: []
     });
+    const [maritalstatusoptions, Setmaritalstatusoption] = useState({
+        maritalstatusList: [
+            { label: "Married", value: 1 },
+            { label: "Widowed", value: 2 },
+            { label: "Separated", value: 3 },
+            { label: "Divorced", value: 4 },
+            { label: "Single", value: 5 },
+        ]
+    });
     const [profilePicture, setProfilePicture] = useState({});
 
     const { countryList } = options;
-
+    const maritalstatusList = maritalstatusoptions
 
     const [speciality, setSpeciality] = useState({
         specialityOptions: []
@@ -152,6 +161,18 @@ const Welcome = ({ currentuserInfo }) => {
             setTimeout(() => setLoading(false), 1000);
         }
     }
+
+    const loadmaritalstatusOptions = async () => {
+        // const res = await getMaritalstatusList().catch(err => {
+        //     if (err.response.status === 500 || err.response.status === 504) {
+        //         setLoading(false);
+        //     }
+        // });
+        if (res && res.data) {
+            Setmaritalstatusoption({ maritalstatusList: res.data })
+            setTimeout(() => setLoading(false), 1000);
+        }
+    }
     const loadSpeciality = async () => {
         const res = await getSpecialityList().catch(err => {
             if (err.response.status === 500 || err.response.status === 504) {
@@ -166,14 +187,7 @@ const Welcome = ({ currentuserInfo }) => {
 
     const { userId, fullname, phone, countryId, dateOfBirth, maritalstatusId, gender, height, weight, highbp, lowbp, allergies } = state;
 
-    const maritalstatusList = [
-        { label: "Married", value: 1 },
-        { label: "Widowed", value: 2 },
-        { label: "Separated", value: 3 },
-        { label: "Divorced", value: 4 },
-        { label: "Single", value: 5 },
-    
-      ];
+
     // const handleSpecialities = (selectedList, selectedItem) => {
     //     // e.preventDefault()
     //     specialities.push({ id: selectedItem.id });
@@ -534,8 +548,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     onChange={e => handleMaritalStatus(e)}
                                                     options={maritalstatusList}
                                                 >
-                                            
-                                                
+
+
                                                 </Select>
                                             </FormControl>
                                         </Col>
