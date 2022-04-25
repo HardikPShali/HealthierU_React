@@ -105,8 +105,8 @@ const Welcome = ({ currentuserInfo }) => {
 
     useEffect(() => {
         loadOptions();
-        loadSpeciality();
-        loadLanguage();
+        // loadSpeciality();
+        // loadLanguage();
         const profileStatus = cookies.get("userProfileCompleted");
         if (profileStatus) {
             async function currentUserData() {
@@ -122,19 +122,17 @@ const Welcome = ({ currentuserInfo }) => {
 
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
-        firstName: (currentuserInfo && currentuserInfo.firstName) || "",
-        lastName: (currentuserInfo && currentuserInfo.lastName) || "",
-        dateOfBirth: "",
+        fullname: (currentuserInfo && currentuserInfo.fullname) || "",
         phone: "",
         countryId: "",
+        dateOfBirth: "",
+        maritalstatusId: "",
         gender: "",
-        email: (currentuserInfo && currentuserInfo.email) || "",
-        education: "",
-        specialities: [],
-        experience: "",
-        languages: [],
-        certificates: "",
-        awards: "",
+        height: "",
+        weight: "",
+        highbp: "",
+        lowbp: "",
+        allergies: ""
     });
 
     //const [timeZone, setTimezone] = useState("");
@@ -166,43 +164,50 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, lastName, dateOfBirth, phone, countryId, gender, email, education, specialities, experience, languages, certificates, awards } = state;
+    const { userId, fullname, phone, countryId, dateOfBirth, maritalstatusId, gender, height, weight, highbp, lowbp, allergies } = state;
 
+    const maritalstatusList = [
+        { label: "Married", value: 1 },
+        { label: "Widowed", value: 2 },
+        { label: "Separated", value: 3 },
+        { label: "Divorced", value: 4 },
+        { label: "Single", value: 5 },
+    
+      ];
+    // const handleSpecialities = (selectedList, selectedItem) => {
+    //     // e.preventDefault()
+    //     specialities.push({ id: selectedItem.id });
+    //     setSpecialityError(false);
+    // };
+    // const handleLanguages = (selectedList, selectedItem) => {
+    //     // e.preventDefault()
+    //     languages.push({ name: selectedItem.name });
+    //     setLanguageError(false);
+    // };
+    // const loadLanguage = async () => {
+    //     const res = await getLanguageList().catch(err => {
+    //         if (err.response.status === 500 || err.response.status === 504) {
+    //             setLoading(false);
+    //         }
+    //     });
+    //     if (res && res.data) {
+    //         setLanguage({ languageOptions: res.data })
+    //         setTimeout(() => setLoading(false), 1000);
+    //     }
+    // }
 
-    const handleSpecialities = (selectedList, selectedItem) => {
-        // e.preventDefault()
-        specialities.push({ id: selectedItem.id });
-        setSpecialityError(false);
-    };
-    const handleLanguages = (selectedList, selectedItem) => {
-        // e.preventDefault()
-        languages.push({ name: selectedItem.name });
-        setLanguageError(false);
-    };
-    const loadLanguage = async () => {
-        const res = await getLanguageList().catch(err => {
-            if (err.response.status === 500 || err.response.status === 504) {
-                setLoading(false);
-            }
-        });
-        if (res && res.data) {
-            setLanguage({ languageOptions: res.data })
-            setTimeout(() => setLoading(false), 1000);
-        }
-    }
-
-    const removeSpecialities = (selectedList, removedItem) => {
-        var array = specialities;
-        var index = array.indexOf(removedItem); // Let's say it's Bob.
-        array.splice(index, 1);
-        setstate({ ...state, specialities: array });
-    }
-    const removeLanguages = (selectedList, removedItem) => {
-        var array = languages;
-        var index = array.indexOf(removedItem); // Let's say it's Bob.
-        array.splice(index, 1);
-        setstate({ ...state, languages: array });
-    }
+    // const removeSpecialities = (selectedList, removedItem) => {
+    //     var array = specialities;
+    //     var index = array.indexOf(removedItem); // Let's say it's Bob.
+    //     array.splice(index, 1);
+    //     setstate({ ...state, specialities: array });
+    // }
+    // const removeLanguages = (selectedList, removedItem) => {
+    //     var array = languages;
+    //     var index = array.indexOf(removedItem); // Let's say it's Bob.
+    //     array.splice(index, 1);
+    //     setstate({ ...state, languages: array });
+    // }
 
     const handleInputChange = (e) => {
         e.preventDefault()
@@ -215,7 +220,9 @@ const Welcome = ({ currentuserInfo }) => {
     const handleCountry = (e) => {
         setstate({ ...state, countryId: e.target.value });
     };
-
+    const handleMaritalStatus = (e) => {
+        setstate({ ...state, maritalstatusId: e.target.value });
+    }
     const handleDateChange = (e) => {
         // const d = new Date(e);
         // alert(d);
@@ -268,91 +275,94 @@ const Welcome = ({ currentuserInfo }) => {
         e.preventDefault();
         const patientPayload = {
             userId: userId,
-            firstName: firstName,
-            lastName: lastName,
-            dateOfBirth: dateOfBirth,
-            languages: languages,
+            fullname: fullname,
             phone: phone,
             countryId: countryId,
+            dateOfBirth: dateOfBirth,
+            maritalstatusId: maritalstatusId,
             gender: gender,
-            email: email,
+            height: height,
+            weight: weight,
+            highbp: highbp,
+            lowbp: lowbp,
+            allergies: allergies,
             patientTimeZone: currentTimeZone
         };
         var bodyFormData = new FormData();
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
-            if (languages.length === 0) {
-                setLanguageError(true);
+            // if (languages.length === 0) {
+            //      setLanguageError(true);
+            // }
+
+            setTransparentLoading(true);
+            bodyFormData.append('profileData', JSON.stringify(patientPayload));
+            bodyFormData.append('profilePicture', profilePicture);
+            const response = await updateRolePatient(bodyFormData).catch(err => {
+                setTransparentLoading(false);
+                if (err.response.status === 400 && state.phone === "") {
+                    setPhoneError(err.response.data.title);
+                }
+                else if (err.response.status === 400 && state.phone !== "") {
+                    setFormError(err.response.data.title);
+                }
+            });
+            if (response && (response.status === 200 || response.status === 201)) {
+                const { email, firebasePwd } = response.data;
+                firestoreService.createNewUser(email, firebasePwd)
+                    .then((userRecord) => {
+                        var loginUser = userRecord.userd;
+                        console.log('user Created', loginUser.email, loginUser.uid)
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log('user Created failed', errorCode, errorMessage)
+                    });
+                updateCurrentUserData();
             }
-            else {
-                setTransparentLoading(true);
-                bodyFormData.append('profileData', JSON.stringify(patientPayload));
-                bodyFormData.append('profilePicture', profilePicture);
-                const response = await updateRolePatient(bodyFormData).catch(err => {
-                    setTransparentLoading(false);
-                    if (err.response.status === 400 && state.phone === "") {
-                        setPhoneError(err.response.data.title);
-                    }
-                    else if (err.response.status === 400 && state.phone !== "") {
-                        setFormError(err.response.data.title);
-                    }
-                });
-                if (response && (response.status === 200 || response.status === 201)) {
-                    const { email, firebasePwd } = response.data;
-                    firestoreService.createNewUser(email, firebasePwd)
-                        .then((userRecord) => {
-                            var loginUser = userRecord.userd;
-                            console.log('user Created', loginUser.email, loginUser.uid)
-                        })
-                        .catch((error) => {
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            console.log('user Created failed', errorCode, errorMessage)
-                        });
+
+        }
+        if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
+            // if (languages.length === 0) {
+            //     setLanguageError(true);
+            // }
+            // else if (specialities.length === 0) {
+            //     setSpecialityError(true);
+            // }
+
+            setTransparentLoading(true);
+            state.doctorTimeZone = currentTimeZone
+            bodyFormData.append('profileData', JSON.stringify(state));
+            const response = await updateRoleDoctor(bodyFormData).catch(err => {
+                setTransparentLoading(false);
+                if (err.response.status === 400 && state.phone === "") {
+                    setPhoneError(err.response.data.title);
+                }
+                else if (err.response.status === 400 && state.phone !== "") {
+                    setFormError(err.response.data.title);
+                }
+            });
+            if (response && (response.status === 200 || response.status === 201)) {
+                //updateCurrentUserData();
+                const { email, firebasePwd } = response.data;
+                firestoreService.createNewUser(email, firebasePwd)
+                    .then((userRecord) => {
+                        var loginUser = userRecord.userd;
+                        console.log('user Created', loginUser.email, loginUser.uid);
+
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log('user Created failed', errorCode, errorMessage)
+                    });
+                const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
+                if (res) {
+                    setCurrentDoctor(res);
                     updateCurrentUserData();
                 }
             }
-        }
-        if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-            if (languages.length === 0) {
-                setLanguageError(true);
-            }
-            else if (specialities.length === 0) {
-                setSpecialityError(true);
-            }
-            else {
-                setTransparentLoading(true);
-                state.doctorTimeZone = currentTimeZone
-                bodyFormData.append('profileData', JSON.stringify(state));
-                const response = await updateRoleDoctor(bodyFormData).catch(err => {
-                    setTransparentLoading(false);
-                    if (err.response.status === 400 && state.phone === "") {
-                        setPhoneError(err.response.data.title);
-                    }
-                    else if (err.response.status === 400 && state.phone !== "") {
-                        setFormError(err.response.data.title);
-                    }
-                });
-                if (response && (response.status === 200 || response.status === 201)) {
-                    //updateCurrentUserData();
-                    const { email, firebasePwd } = response.data;
-                    firestoreService.createNewUser(email, firebasePwd)
-                        .then((userRecord) => {
-                            var loginUser = userRecord.userd;
-                            console.log('user Created', loginUser.email, loginUser.uid);
 
-                        })
-                        .catch((error) => {
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            console.log('user Created failed', errorCode, errorMessage)
-                        });
-                    const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
-                    if (res) {
-                        setCurrentDoctor(res);
-                        updateCurrentUserData();
-                    }
-                }
-            }
         }
     }
     const now = new Date();
@@ -372,8 +382,8 @@ const Welcome = ({ currentuserInfo }) => {
         };
     }
 
-    const [languageError, setLanguageError] = useState(false);
-    const [specialityError, setSpecialityError] = useState(false);
+    // const [languageError, setLanguageError] = useState(false);
+    // const [specialityError, setSpecialityError] = useState(false);
 
     // const [uploadOpen, setUploadOpen] = useState(false);
 
@@ -404,7 +414,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                         <div className="sign-box">
                             <h2 id="welcome-title">
-                                Welcome
+                                Tell Us More About You!
                             </h2>
                             <br />
                             {!displaydocumentForm && (
@@ -415,16 +425,16 @@ const Welcome = ({ currentuserInfo }) => {
                                         }
                                     </Row>
                                     <Row>
-                                        <Col md={6}>
-                                            <p>First Name<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="firstName"
+                                        <Col md={12}>
+                                            <p>Full Name<sup>*</sup></p>
+                                            <TextValidator id="standard-basic" type="text" name="fullName"
                                                 onChange={e => handleInputChange(e)}
-                                                value={firstName}
+                                                value={fullname}
                                                 validators={['required']}
                                                 errorMessages={['This field is required']}
                                                 variant="filled" />
                                         </Col>
-                                        <Col md={6}>
+                                        {/* <Col md={6}>
                                             <p>Last Name<sup>*</sup></p>
                                             <TextValidator id="standard-basic" type="text" name="lastName"
                                                 onChange={e => handleInputChange(e)}
@@ -432,10 +442,52 @@ const Welcome = ({ currentuserInfo }) => {
                                                 validators={['required']}
                                                 errorMessages={['This field is required']}
                                                 variant="filled" />
-                                        </Col>
+                                        </Col> */}
                                     </Row><br />
                                     <Row>
                                         <Col md={6}>
+                                            <p>Mobile Number<sup>*</sup></p>
+                                            <PhoneInput
+                                                inputProps={{
+                                                    name: 'phone',
+                                                    required: true,
+                                                    maxLength: 16,
+                                                    minLength: 12
+                                                }}
+                                                country={'us'}
+                                                value={phone}
+                                                onChange={e => handlePhone(e)}
+                                                variant="filled"
+                                            />
+                                            {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
+                                        </Col>
+                                        <Col md={6}>
+                                            <p>Nationality<sup>*</sup></p>
+                                            <FormControl>
+                                                <Select
+                                                    id="demo-controlled-open-select"
+                                                    variant="filled"
+                                                    name="countryId"
+                                                    value={countryId}
+                                                    inputProps={{ required: true }}
+                                                    displayEmpty
+                                                    onChange={e => handleCountry(e)}
+                                                >
+                                                    <MenuItem value="">
+                                                        <em>Select</em>
+                                                    </MenuItem>
+                                                    {countryList && countryList.map((option, index) => (
+                                                        <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </Col>
+
+
+                                    </Row>
+                                    <br />
+                                    <Row>
+                                        <Col md={12}>
                                             {console.log("wqfqwfqwfqwfqwff", dateOfBirth)}
                                             <p>Date of Birth<sup>*</sup></p>
                                             <DatePicker
@@ -467,25 +519,26 @@ const Welcome = ({ currentuserInfo }) => {
                                                 onKeyDown={(e) => handleDateChange(e)}
                                             /> */}
                                         </Col>
-                                        <Col md={6}>
-                                            <p>Mobile Number<sup>*</sup></p>
-                                            <PhoneInput
-                                                inputProps={{
-                                                    name: 'phone',
-                                                    required: true,
-                                                    maxLength: 16,
-                                                    minLength: 12
-                                                }}
-                                                country={'us'}
-                                                value={phone}
-                                                onChange={e => handlePhone(e)}
-                                                variant="filled"
-                                            />
-                                            {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
-                                        </Col>
                                     </Row>
-                                    <br />
                                     <Row>
+                                        <Col md={6}>
+                                            <p>Marital Status<sup>*</sup></p>
+                                            <FormControl>
+                                                <Select
+                                                    id="demo-controlled-open-select"
+                                                    variant="filled"
+                                                    name="maritalstataus"
+                                                    value={maritalstatusId}
+                                                    inputProps={{ required: true }}
+                                                    displayEmpty
+                                                    onChange={e => handleMaritalStatus(e)}
+                                                    options={maritalstatusList}
+                                                >
+                                            
+                                                
+                                                </Select>
+                                            </FormControl>
+                                        </Col>
                                         <Col md={6}>
                                             <p>Gender <sup>*</sup></p>
                                             <FormControl component="fieldset">
@@ -497,30 +550,10 @@ const Welcome = ({ currentuserInfo }) => {
                                                 </RadioGroup>
                                             </FormControl>
                                         </Col>
-                                        <Col md={6}>
-                                            <p>Country Of Residence<sup>*</sup></p>
-                                            <FormControl>
-                                                <Select
-                                                    id="demo-controlled-open-select"
-                                                    variant="filled"
-                                                    name="countryId"
-                                                    value={countryId}
-                                                    inputProps={{ required: true }}
-                                                    displayEmpty
-                                                    onChange={e => handleCountry(e)}
-                                                >
-                                                    <MenuItem value="">
-                                                        <em>Select</em>
-                                                    </MenuItem>
-                                                    {countryList && countryList.map((option, index) => (
-                                                        <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
-                                                    ))}
-                                                </Select>
-                                            </FormControl>
-                                        </Col>
+
                                     </Row>
                                     <br />
-                                    {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
+                                    {/* {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
                                         <Row>
                                             <Col md={12}>
                                                 <p>Languages <sup>*</sup></p>
@@ -539,10 +572,10 @@ const Welcome = ({ currentuserInfo }) => {
                                                 )}
                                             </Col>
                                         </Row>
-                                    </>)}
-                                    {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
-                                        <Row>
-                                            {/* <Col md={6}>
+                                    </>)} */}
+                                    {/* {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
+                                        <Row> */}
+                                    {/* <Col md={6}>
                                             <p>Current Timezone</p>
                                             <TimezoneSelect
                                                 className="timezoneInput"
@@ -551,7 +584,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 onChange={handleTimezoneChange}
                                             />
                                         </Col> */}
-                                            <Col md={12}>
+                                    {/* <Col md={12}>
                                                 <p>Languages<sup>*<sup></sup></sup></p>
                                                 <FormControl>
                                                     <div className="multiselect">
@@ -568,9 +601,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                 )}
                                             </Col>
                                         </Row>
-                                        <br />
+                                        <br /> */}
 
-                                        <Row>
+                                    {/* <Row>
                                             <Col md={6}>
                                                 <p>Education<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="education"
@@ -595,9 +628,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled" />
                                             </Col>
                                         </Row>
-                                        <br />
+                                        <br /> */}
 
-                                        <p>Specialization<sup>*</sup></p>
+                                    {/* <p>Specialization<sup>*</sup></p>
                                         <FormControl>
                                             <div className="multiselect">
                                                 <Multiselect
@@ -635,7 +668,59 @@ const Welcome = ({ currentuserInfo }) => {
                                                 title: "Make it comma (,) separated."
                                             }} />
                                         <br />
-                                    </>)}
+                                    </>)} */}
+                                    <Row>
+                                        <Col md={6}>
+                                            <p>Height(CM)<sup>*</sup></p>
+                                            <TextValidator id="standard-basic" type="text" name="height"
+                                                onChange={e => handleInputChange(e)}
+                                                value={height}
+                                                validators={['required']}
+                                                errorMessages={['This field is required']}
+                                                variant="filled" />
+                                        </Col>
+                                        <Col md={6}>
+                                            <p>Weight(KG)<sup>*</sup></p>
+                                            <TextValidator id="standard-basic" type="text" name="weight"
+                                                onChange={e => handleInputChange(e)}
+                                                value={weight}
+                                                validators={['required']}
+                                                errorMessages={['This field is required']}
+                                                variant="filled" />
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md={6}>
+                                            <p>High BP(mmHg)<sup>*</sup></p>
+                                            <TextValidator id="standard-basic" type="text" name="highbp"
+                                                onChange={e => handleInputChange(e)}
+                                                value={highbp}
+                                                validators={['required']}
+                                                errorMessages={['This field is required']}
+                                                variant="filled" />
+                                        </Col>
+                                        <Col md={6}>
+                                            <p>Low BP(mmHg)<sup>*</sup></p>
+                                            <TextValidator id="standard-basic" type="text" name="lowbp"
+                                                onChange={e => handleInputChange(e)}
+                                                value={lowbp}
+                                                validators={['required']}
+                                                errorMessages={['This field is required']}
+                                                variant="filled" />
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md={12}>
+                                            <p>Allergies<sup>*</sup></p>
+                                            <TextValidator id="standard-basic" type="text" name="allergies"
+                                                onChange={e => handleInputChange(e)}
+                                                value={allergies}
+                                                validators={['required']}
+                                                errorMessages={['This field is required']}
+                                                variant="filled" />
+                                        </Col>
+
+                                    </Row>
                                     {formError && (<span style={{ color: "red", fontSize: "12px" }}>{formError}</span>)}
                                     <br />
                                     <small className="left">By providing your mobile number, you give us permission to contact you via text. View terms.</small>
@@ -650,7 +735,7 @@ const Welcome = ({ currentuserInfo }) => {
                             {displaydocumentForm && (<>
                                 <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} />
                                 <br />
-                                <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>
+                                <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Proceed</button>
                             </>)}
                         </div>
                     </Col>
