@@ -632,7 +632,8 @@ const Signupform = () => {
                 >
                   <img src={doctorSVG} alt="" className="sub nopadd" />
                   <br />
-                  Individual
+                  Provider
+
                 </button>
               </div>
               <div className="col-md-4">
@@ -643,7 +644,7 @@ const Signupform = () => {
                 >
                   <img src={patientSVG} alt="" className="sub nopadd" />
                   <br />
-                  Provider
+                  Individual
                 </button>
               </div>
               <div className="col-md-4">
