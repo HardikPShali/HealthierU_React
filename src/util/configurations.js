@@ -113,4 +113,4 @@ export const SECRET_KEY = "healthyU42123456";
 
 export const doctorListLimit = 15;
 
-export const CAPTCHA_SITE_KEY = "6LdxcggdAAAAAJRWX3FbHQKCo8yF8yFWfanoMP82";
+export const CAPTCHA_SITE_KEY = "6Lf7eKYfAAAAAEJJo8Coy99WTeDXdxMHsSZAVtl0";
