@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import Footer from './Footer';
 import './doctor.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 // import Cookies from 'universal-cookie';
 import Avatar from 'react-avatar';
 import Dialog from '@material-ui/core/Dialog';
@@ -92,8 +92,9 @@ const Profile = ({ currentDoctor }) => {
                     <Col md={4}>
                         <div id="profile-col-1">
                             {currentDoctor && currentDoctor.picture ? (<img src={currentDoctor.picture} id="profile-pic" alt="" />)
-                                : (<Avatar name={currentDoctor.firstName + " " + currentDoctor.lastName} size="150" />)}
-                            <div id="name">{currentDoctor.firstName + " " + currentDoctor.lastName}<br />
+                                : (<Avatar className='avatar-profile' name={currentDoctor.firstName + " " + currentDoctor.lastName} size="150" />)}
+
+                            <div id="name"><br />{currentDoctor.firstName + " " + currentDoctor.lastName}<br />
                                 <ul style={{ margin: '0px', fontSize: '12px', color: '#000' }} className="list--tags">
                                     {currentDoctor && currentDoctor.specialities && currentDoctor.specialities.map((speciality, index) => (
                                         <li key={index}>{speciality.name}</li>
@@ -113,7 +114,7 @@ const Profile = ({ currentDoctor }) => {
                     </Col>
                     <Col md={8}>
                         <div id="profile-col-2">
-                            <table id="user-info">
+                            {/* <table id="user-info">
                                 <tbody>
                                     <tr>
                                         <th>Mobile Number</th>
@@ -155,7 +156,83 @@ const Profile = ({ currentDoctor }) => {
                                         <td>{currentDoctor.awards}</td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> */}
+                            <Tabs defaultActiveKey='general' id='uncontrolled-tab-example' className='record-tabs mb-3'>
+                                <Tab eventKey='general' title='General'>
+                                    <div className='general-tab'>
+                                        <table id="user-info">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Phone Number</th>
+                                                    <td>{currentDoctor.phone}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Gender</th>
+                                                    <td>{currentDoctor.gender}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Date of Birth</th>
+                                                    <td>{currentDoctor.dateOfBirth}</td>
+                                                </tr>
+                                                {/* <tr>
+                                                    <th>Marital Status</th>
+                                                    <td>{currentDoctor.experience}</td>
+                                                </tr> */}
+                                                <tr>
+                                                    <th>Nationality</th>
+                                                    <td>{currentDoctor.countryName}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Specialities</th>
+                                                    <td>
+                                                        <ul style={{ margin: '0px' }} className="list--tags">
+                                                            {currentDoctor && currentDoctor.languages && currentDoctor.languages.map((language, index) => (
+                                                                <li key={index}>{language.name}</li>
+                                                            )
+                                                            )}
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>About</th>
+                                                    <td>{currentDoctor.bio}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </Tab>
+
+                                <Tab eventKey='education' title='Education'>
+                                    <div className='general-tab'>
+                                        <table id="user-info">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Education</th>
+                                                    <td>{currentDoctor.education}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Experience</th>
+                                                    <td>{currentDoctor.experience}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>Languages</th>
+                                                    <td>
+
+                                                        <ul style={{ margin: '0px' }} className="list--tags">
+                                                            {currentDoctor && currentDoctor.specialities && currentDoctor.specialities.map((specialities, index) => (
+                                                                <li key={index}>{specialities.name}</li>
+                                                            )
+                                                            )}
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </Tab>
+                            </Tabs>
                             <br />
                             <DoctorDocumentUpload currentDoctor={currentDoctor} isDoctor={true} />
                             {/* <button
