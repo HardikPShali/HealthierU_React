@@ -86,29 +86,29 @@ const Welcome = ({ currentuserInfo }) => {
     const [options, Setoption] = useState({
         countryList: []
     });
-    const [maritalstatusoptions, Setmaritalstatusoption] = useState({
-        maritalstatusList: []
-    });
+    // const [maritalstatusoptions, Setmaritalstatusoption] = useState({
+    //     maritalstatusList: []
+    // });
     const [profilePicture, setProfilePicture] = useState({});
 
     const { countryList } = options;
-    const maritalstatusList = maritalstatusoptions;
+    // const { maritalstatusList } = maritalstatusoptions;
 
-    const [speciality, setSpeciality] = useState({
-        specialityOptions: []
-    });
-    const { specialityOptions } = speciality;
+    // const [speciality, setSpeciality] = useState({
+    //     specialityOptions: []
+    // });
+    // const { specialityOptions } = speciality;
 
-    const [language, setLanguage] = useState({
-        languageOptions: []
-    });
-    const { languageOptions } = language;
+    // const [language, setLanguage] = useState({
+    //     languageOptions: []
+    // });
+    // const { languageOptions } = language;
 
     const [defaultDate, setDefaultDate] = useState(new Date(moment().format('YYYY-MM-DD')));
 
     useEffect(() => {
         loadOptions();
-        loadmaritalstatusOptions();
+        //loadmaritalstatusOptions();
         // loadSpeciality();
         // loadLanguage();
         const profileStatus = cookies.get("userProfileCompleted");
@@ -158,17 +158,17 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const loadmaritalstatusOptions = async () => {
-        // const res = await getMaritalstatusList().catch(err => {
-        //     if (err.response.status === 500 || err.response.status === 504) {
-        //         setLoading(false);
-        //     }
-        // });
+    // const loadmaritalstatusOptions = async () => {
+    // const res = await getMaritalstatusList().catch(err => {
+    //     if (err.response.status === 500 || err.response.status === 504) {
+    //         setLoading(false);
+    //     }
+    // });
 
-        Setmaritalstatusoption({ maritalstatusList })
-        setTimeout(() => setLoading(false), 1000);
+    //     Setmaritalstatusoption({ maritalstatusList })
+    //     setTimeout(() => setLoading(false), 1000);
 
-    }
+    // }
     // const loadSpeciality = async () => {
     //     const res = await getSpecialityList().catch(err => {
     //         if (err.response.status === 500 || err.response.status === 504) {
@@ -181,7 +181,7 @@ const Welcome = ({ currentuserInfo }) => {
     //     }
     // }
 
-    const { userId, firstName,lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies } = state;
+    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies } = state;
 
 
     // const handleSpecialities = (selectedList, selectedItem) => {
@@ -222,6 +222,7 @@ const Welcome = ({ currentuserInfo }) => {
     const handleInputChange = (e) => {
         e.preventDefault()
         setstate({ ...state, [e.target.name]: e.target.value });
+        console.log({ [e.target.name]: e.target.value });
     };
 
     const handlePhone = (e) => {
@@ -286,7 +287,7 @@ const Welcome = ({ currentuserInfo }) => {
         const patientPayload = {
             userId: userId,
             firstName: firstName,
-            lastName:lastName,
+            lastName: lastName,
             phone: phone,
             countryId: countryId,
             dateOfBirth: dateOfBirth,
@@ -445,7 +446,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 errorMessages={['This field is required']}
                                                 variant="filled" />
                                         </Col> */}
-                                        {/* <Col md={6}>
+                                    {/* <Col md={6}>
                                             <p>Last Name<sup>*</sup></p>
                                             <TextValidator id="standard-basic" type="text" name="lastName"
                                                 onChange={e => handleInputChange(e)}
@@ -589,7 +590,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     <MenuItem value="single">
                                                         <em>Single</em>
                                                     </MenuItem>
-                                                   
+
                                                 </Select>
                                             </FormControl>
                                         </Col>
@@ -604,7 +605,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     inputProps={{ required: true }}
                                                     displayEmpty
                                                     onChange={e => handleInputChange(e)}
-                                                
+
                                                 >
                                                     <MenuItem value="">
                                                         <em>Select</em>
