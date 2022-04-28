@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './patient.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import Avatar from 'react-avatar';
 import Loader from './../Loader/Loader';
@@ -27,6 +27,7 @@ import {
 } from '../../service/frontendapiservices';
 import TransparentLoader from '../Loader/transparentloader';
 import { useHistory } from 'react-router-dom';
+import calendarIcon from '../../../src/images/icons used/calendar.png';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 // import LocalStorageService from './../../util/LocalStorageService';
 // import axios from "axios";
@@ -249,7 +250,7 @@ const Profile = () => {
                         <Col md={4}>
                             <div id="profile-col-1">
                                 {(currentPatient && currentPatient.picture) ? (<img src={currentPatient.picture} alt="" id="profile-pic" />)
-                                    : (<Avatar name={currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)} size="150" />)}
+                                    : (<Avatar className='avatar-profile' name={currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)} size="150" />)}
                                 <div id="name">{currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)}</div>
                                 <br />
                                 <p id="description">
@@ -265,60 +266,90 @@ const Profile = () => {
                         </Col>
                         <Col md={8}>
                             <div id="profile-col-2">
-                                <table id="user-info">
-                                    <tbody>
-                                        <tr>
-                                            <th>Name</th>
-                                            <td>{currentPatient.firstName + " " + currentPatient.lastName}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Address</th>
-                                            <td>{currentPatient.address}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Contact Number</th>
-                                            <td>{currentPatient.phone}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Email</th>
-                                            <td>{currentPatient.email}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Gender</th>
-                                            <td>{currentPatient.gender}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Date of birth</th>
-                                            <td>
-                                                {moment(currentPatient.dateOfBirth).format("DD/MM/YY")}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Marital Status</th>
-                                            <td>{currentPatient.maritalStatus}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Blood Group</th>
-                                            <td>{showBloodGroup(currentPatient.bloodGroup)}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Height</th>
-                                            <td>{currentPatient.height} cm</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Weight</th>
-                                            <td>{currentPatient.weight} kg</td>
-                                        </tr>
-                                        <tr>
-                                            <th>High BP</th>
-                                            <td>{currentPatient.highBp} mmHg</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Low BP</th>
-                                            <td>{currentPatient.lowBp} mmHg</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <Tabs defaultActiveKey='general' id='uncontrolled-tab-example' className='record-tabs mb-3'>
+                                    <Tab eventKey='general' title='General'>
+                                        <div className='general-tab'>
+                                            <table id="user-info">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Phone Number</th>
+                                                        <td>{currentPatient.phone}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Gender</th>
+                                                        <td>{currentPatient.gender}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <img src={calendarIcon} alt='icons' className='icon-tabs' />
+                                                        <th>Date of Birth</th>
+                                                        <td>{currentPatient.dateOfBirth}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Marital Status</th>
+                                                        <td>{currentPatient.maritalStatus}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Nationality</th>
+                                                        <td>{currentPatient.countryName}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Languages</th>
+                                                        <td>
+                                                            <ul style={{ margin: '0px' }} className="list--tags">
+                                                                {currentPatient && currentPatient.languages && currentPatient.languages.map((language, index) => (
+                                                                    <li key={index}>{language.name}</li>
+                                                                )
+                                                                )}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </Tab>
+
+                                    <Tab eventKey='lifestyle' title='Lifestyle'>
+                                        <div className='general-tab'>
+                                            <h1>LIFE STYLE TABLE COMES HERE</h1>
+                                        </div>
+                                    </Tab>
+
+                                    <Tab eventKey='medical' title='Medical'>
+                                        <div className='general-tab'>
+                                            <table id="user-info">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Blood Group</th>
+                                                        <td>{currentPatient.bloodGroup}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>Height(CM)</th>
+                                                        <td>{currentPatient.height}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>Weight(KG)</th>
+                                                        <td>{currentPatient.weight}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>Blood Pressure</th>
+                                                        <td>
+                                                            {currentPatient.highBp}/{currentPatient.lowBp}
+                                                            {/* <ul style={{ margin: '0px' }} className="list--tags">
+                                                            {currentPatient && currentPatient.specialities && currentPatient.specialities.map((specialities, index) => (
+                                                                <li key={index}>{specialities.name}</li>
+                                                            )
+                                                            )}
+                                                        </ul> */}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </Tab>
+                                </Tabs>
                             </div>
                         </Col>
                     </Row>

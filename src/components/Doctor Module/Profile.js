@@ -114,49 +114,6 @@ const Profile = ({ currentDoctor }) => {
                     </Col>
                     <Col md={8}>
                         <div id="profile-col-2">
-                            {/* <table id="user-info">
-                                <tbody>
-                                    <tr>
-                                        <th>Mobile Number</th>
-                                        <td>{currentDoctor.phone}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Email</th>
-                                        <td>{currentDoctor.email}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Education</th>
-                                        <td>{currentDoctor.education}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Years of experience</th>
-                                        <td>{currentDoctor.experience}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Country Of Residence</th>
-                                        <td>{currentDoctor.countryName}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Languages</th>
-                                        <td>
-                                            <ul style={{ margin: '0px' }} className="list--tags">
-                                                {currentDoctor && currentDoctor.languages && currentDoctor.languages.map((language, index) => (
-                                                    <li key={index}>{language.name}</li>
-                                                )
-                                                )}
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Other Certifications</th>
-                                        <td>{currentDoctor.certificates}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Awards</th>
-                                        <td>{currentDoctor.awards}</td>
-                                    </tr>
-                                </tbody>
-                            </table> */}
                             <Tabs defaultActiveKey='general' id='uncontrolled-tab-example' className='record-tabs mb-3'>
                                 <Tab eventKey='general' title='General'>
                                     <div className='general-tab'>
@@ -183,7 +140,7 @@ const Profile = ({ currentDoctor }) => {
                                                     <td>{currentDoctor.countryName}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Specialities</th>
+                                                    <th>Languages</th>
                                                     <td>
                                                         <ul style={{ margin: '0px' }} className="list--tags">
                                                             {currentDoctor && currentDoctor.languages && currentDoctor.languages.map((language, index) => (
@@ -217,7 +174,7 @@ const Profile = ({ currentDoctor }) => {
                                                 </tr>
 
                                                 <tr>
-                                                    <th>Languages</th>
+                                                    <th>Specialities</th>
                                                     <td>
 
                                                         <ul style={{ margin: '0px' }} className="list--tags">
