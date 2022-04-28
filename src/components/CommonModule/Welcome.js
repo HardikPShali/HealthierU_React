@@ -42,19 +42,19 @@ import { firestoreService } from "../../util";
 import DatePicker from 'react-date-picker';
 import { useHistory } from "react-router";
 
-// import 'react-calendar/dist/Calendar.css';
+import 'react-calendar/dist/Calendar.css';
 
-//import axios from 'axios';
-// import Footer from './Footer';
-//import properties from "../../properties";
-//import LocalStorageService from '../../util/LocalStorageService';
-// import CreateIcon from '@material-ui/icons/Create';
-// import IconButton from '@material-ui/core/IconButton';
-// import VisibilityIcon from '@material-ui/icons/Visibility';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import TextField from '@material-ui/core/TextField';
-//import { checkAccessToken } from '../../service/RefreshTokenService';
-// import TimezoneSelect from 'react-timezone-select';
+import axios from 'axios';
+import Footer from './Footer';
+import properties from "../../properties";
+import LocalStorageService from '../../util/LocalStorageService';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import DeleteIcon from '@material-ui/icons/Delete';
+import TextField from '@material-ui/core/TextField';
+import { checkAccessToken } from '../../service/RefreshTokenService';
+import TimezoneSelect from 'react-timezone-select';
 
 
 $(document).ready(function () {
@@ -92,25 +92,25 @@ const Welcome = ({ currentuserInfo }) => {
     const [profilePicture, setProfilePicture] = useState({});
 
     const { countryList } = options;
-    // const { maritalstatusList } = maritalstatusoptions;
+    const { maritalstatusList } = maritalstatusoptions;
 
-    // const [speciality, setSpeciality] = useState({
-    //     specialityOptions: []
-    // });
-    // const { specialityOptions } = speciality;
+    const [speciality, setSpeciality] = useState({
+        specialityOptions: []
+    });
+    const { specialityOptions } = speciality;
 
-    // const [language, setLanguage] = useState({
-    //     languageOptions: []
-    // });
-    // const { languageOptions } = language;
+    const [language, setLanguage] = useState({
+        languageOptions: []
+    });
+    const { languageOptions } = language;
 
     const [defaultDate, setDefaultDate] = useState(new Date(moment().format('YYYY-MM-DD')));
 
     useEffect(() => {
         loadOptions();
         //loadmaritalstatusOptions();
-        // loadSpeciality();
-        // loadLanguage();
+        loadSpeciality();
+        loadLanguage();
         const profileStatus = cookies.get("userProfileCompleted");
         if (profileStatus) {
             async function currentUserData() {
@@ -137,14 +137,25 @@ const Welcome = ({ currentuserInfo }) => {
         weight: "",
         highbp: "",
         lowbp: "",
-        allergies: ""
+        allergies: "",
+        //Doctor
+        email: (currentuserInfo && currentuserInfo.email) || "",
+        education: "",
+        institution: "",
+        modeodemployement: "",
+        affiliation: "",
+        specialities: [],
+        experience: "",
+        languages: [],
+        certificates: "",
+        awards: "",
     });
 
-    //const [timeZone, setTimezone] = useState("");
+    const [timeZone, setTimezone] = useState("");
 
-    //const handleTimezoneChange = (e) => {
-    //    setTimezone(e.value);
-    //};
+    const handleTimezoneChange = (e) => {
+        setTimezone(e.value);
+    };
 
     const loadOptions = async () => {
         const res = await getCountryList().catch(err => {
@@ -158,66 +169,66 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    // const loadmaritalstatusOptions = async () => {
-    // const res = await getMaritalstatusList().catch(err => {
-    //     if (err.response.status === 500 || err.response.status === 504) {
-    //         setLoading(false);
-    //     }
-    // });
+    const loadmaritalstatusOptions = async () => {
+        const res = await getMaritalstatusList().catch(err => {
+            if (err.response.status === 500 || err.response.status === 504) {
+                setLoading(false);
+            }
+        });
 
-    //     Setmaritalstatusoption({ maritalstatusList })
-    //     setTimeout(() => setLoading(false), 1000);
+        Setmaritalstatusoption({ maritalstatusList })
+        setTimeout(() => setLoading(false), 1000);
 
-    // }
-    // const loadSpeciality = async () => {
-    //     const res = await getSpecialityList().catch(err => {
-    //         if (err.response.status === 500 || err.response.status === 504) {
-    //             setLoading(false);
-    //         }
-    //     });
-    //     if (res && res.data) {
-    //         setSpeciality({ specialityOptions: res.data })
-    //         setTimeout(() => setLoading(false), 1000);
-    //     }
-    // }
+    }
+    const loadSpeciality = async () => {
+        const res = await getSpecialityList().catch(err => {
+            if (err.response.status === 500 || err.response.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (res && res.data) {
+            setSpeciality({ specialityOptions: res.data })
+            setTimeout(() => setLoading(false), 1000);
+        }
+    }
 
     const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies } = state;
 
 
-    // const handleSpecialities = (selectedList, selectedItem) => {
-    //     // e.preventDefault()
-    //     specialities.push({ id: selectedItem.id });
-    //     setSpecialityError(false);
-    // };
-    // const handleLanguages = (selectedList, selectedItem) => {
-    //     // e.preventDefault()
-    //     languages.push({ name: selectedItem.name });
-    //     setLanguageError(false);
-    // };
-    // const loadLanguage = async () => {
-    //     const res = await getLanguageList().catch(err => {
-    //         if (err.response.status === 500 || err.response.status === 504) {
-    //             setLoading(false);
-    //         }
-    //     });
-    //     if (res && res.data) {
-    //         setLanguage({ languageOptions: res.data })
-    //         setTimeout(() => setLoading(false), 1000);
-    //     }
-    // }
+    const handleSpecialities = (selectedList, selectedItem) => {
+        // e.preventDefault()
+        specialities.push({ id: selectedItem.id });
+        setSpecialityError(false);
+    };
+    const handleLanguages = (selectedList, selectedItem) => {
+        // e.preventDefault()
+        languages.push({ name: selectedItem.name });
+        setLanguageError(false);
+    };
+    const loadLanguage = async () => {
+        const res = await getLanguageList().catch(err => {
+            if (err.response.status === 500 || err.response.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (res && res.data) {
+            setLanguage({ languageOptions: res.data })
+            setTimeout(() => setLoading(false), 1000);
+        }
+    }
 
-    // const removeSpecialities = (selectedList, removedItem) => {
-    //     var array = specialities;
-    //     var index = array.indexOf(removedItem); // Let's say it's Bob.
-    //     array.splice(index, 1);
-    //     setstate({ ...state, specialities: array });
-    // }
-    // const removeLanguages = (selectedList, removedItem) => {
-    //     var array = languages;
-    //     var index = array.indexOf(removedItem); // Let's say it's Bob.
-    //     array.splice(index, 1);
-    //     setstate({ ...state, languages: array });
-    // }
+    const removeSpecialities = (selectedList, removedItem) => {
+        var array = specialities;
+        var index = array.indexOf(removedItem); // Let's say it's Bob.
+        array.splice(index, 1);
+        setstate({ ...state, specialities: array });
+    }
+    const removeLanguages = (selectedList, removedItem) => {
+        var array = languages;
+        var index = array.indexOf(removedItem); // Let's say it's Bob.
+        array.splice(index, 1);
+        setstate({ ...state, languages: array });
+    }
 
     const handleInputChange = (e) => {
         e.preventDefault()
@@ -298,13 +309,23 @@ const Welcome = ({ currentuserInfo }) => {
             highbp: highbp,
             lowbp: lowbp,
             allergies: allergies,
+            // email: email,
+            // education: education,
+            // institution: institution,
+            // modeodemployement: modeodemployement,
+            // affiliation: affiliation,
+            // specialities: specialities,
+            // experience: experience,
+            // languages: languages,
+            // certificates: certificates,
+            // awards: awards,
             patientTimeZone: currentTimeZone
         };
         var bodyFormData = new FormData();
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
-            // if (languages.length === 0) {
-            //      setLanguageError(true);
-            // }
+            if (languages.length === 0) {
+                setLanguageError(true);
+            }
 
             setTransparentLoading(true);
             bodyFormData.append('profileData', JSON.stringify(patientPayload));
@@ -335,12 +356,12 @@ const Welcome = ({ currentuserInfo }) => {
 
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-            // if (languages.length === 0) {
-            //     setLanguageError(true);
-            // }
-            // else if (specialities.length === 0) {
-            //     setSpecialityError(true);
-            // }
+            if (languages.length === 0) {
+                setLanguageError(true);
+            }
+            else if (specialities.length === 0) {
+                setSpecialityError(true);
+            }
 
             setTransparentLoading(true);
             state.doctorTimeZone = currentTimeZone
@@ -355,7 +376,7 @@ const Welcome = ({ currentuserInfo }) => {
                 }
             });
             if (response && (response.status === 200 || response.status === 201)) {
-                //updateCurrentUserData();
+                updateCurrentUserData();
                 const { email, firebasePwd } = response.data;
                 firestoreService.createNewUser(email, firebasePwd)
                     .then((userRecord) => {
@@ -394,14 +415,14 @@ const Welcome = ({ currentuserInfo }) => {
         };
     }
 
-    // const [languageError, setLanguageError] = useState(false);
-    // const [specialityError, setSpecialityError] = useState(false);
+    const [languageError, setLanguageError] = useState(false);
+    const [specialityError, setSpecialityError] = useState(false);
 
-    // const [uploadOpen, setUploadOpen] = useState(false);
+    const [uploadOpen, setUploadOpen] = useState(false);
 
-    // const handleUploadClose = () => {
-    //     setUploadOpen(false);
-    // }
+    const handleUploadClose = () => {
+        setUploadOpen(false);
+    }
 
     const [phoneError, setPhoneError] = useState();
     const [formError, setFormError] = useState();
@@ -456,93 +477,94 @@ const Welcome = ({ currentuserInfo }) => {
                                                 variant="filled" />
                                         </Col> */}
                                     {/* </Row> */}
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>First Name<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="firstName"
-                                                onChange={e => handleInputChange(e)}
-                                                value={firstName}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Last Name<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="lastName"
-                                                onChange={e => handleInputChange(e)}
-                                                value={lastName}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    <Row>
-                                        <Col md={12}>
-                                            <p>Phone Number<sup>*</sup></p>
-                                            <PhoneInput
-                                                inputProps={{
-                                                    name: 'phone',
-                                                    required: true,
-                                                    maxLength: 16,
-                                                    minLength: 12
-                                                }}
-                                                country={'us'}
-                                                value={phone}
-                                                onChange={e => handlePhone(e)}
-                                                variant="filled"
-                                            />
-                                            {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
-                                        </Col>
-
-
-
-                                    </Row>
-                                    <br />
-                                    <Row>
-                                        <Col md={12}>
-                                            <p>Nationality<sup>*</sup></p>
-                                            <FormControl>
-                                                <Select
-                                                    id="demo-controlled-open-select"
+                                    {currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
+                                        <Row>
+                                            <Col md={6}>
+                                                <p>First Name<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="firstName"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={firstName}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+                                            </Col>
+                                            <Col md={6}>
+                                                <p>Last Name<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="lastName"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={lastName}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+                                            </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={12}>
+                                                <p>Phone Number<sup>*</sup></p>
+                                                <PhoneInput
+                                                    inputProps={{
+                                                        name: 'phone',
+                                                        required: true,
+                                                        maxLength: 16,
+                                                        minLength: 12
+                                                    }}
+                                                    country={'us'}
+                                                    value={phone}
+                                                    onChange={e => handlePhone(e)}
                                                     variant="filled"
-                                                    name="countryId"
-                                                    value={countryId}
-                                                    inputProps={{ required: true }}
-                                                    displayEmpty
-                                                    onChange={e => handleCountry(e)}
-                                                >
-                                                    <MenuItem value="">
-                                                        <em>Select</em>
-                                                    </MenuItem>
-                                                    {countryList && countryList.map((option, index) => (
-                                                        <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
-                                                    ))}
-                                                </Select>
-                                            </FormControl>
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    <Row>
-                                        <Col md={12}>
-                                            {console.log("wqfqwfqwfqwfqwff", dateOfBirth)}
-                                            <p>Date of Birth<sup>*</sup></p>
-                                            <DatePicker
-                                                name='dateOfBirth'
-                                                className="fc_quickfixcal"
-                                                calendarClassName='fc_quickfixcalendar'
-                                                // value={new Date()}
-                                                clearIcon=""
-                                                value={dateOfBirth}
-                                                onChange={e => handleDateChange(e)}
-                                                format={'y-MM-dd'}
-                                                dayPlaceholder="DD"
-                                                monthPlaceholder="MM"
-                                                yearPlaceholder="YYYY"
-                                                required={true}
-                                                maxDate={new Date()}
-                                            />
-                                            {/* <TextValidator
+                                                />
+                                                {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
+                                            </Col>
+
+
+
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={12}>
+                                                <p>Nationality<sup>*</sup></p>
+                                                <FormControl>
+                                                    <Select
+                                                        id="demo-controlled-open-select"
+                                                        variant="filled"
+                                                        name="countryId"
+                                                        value={countryId}
+                                                        inputProps={{ required: true }}
+                                                        displayEmpty
+                                                        onChange={e => handleCountry(e)}
+                                                    >
+                                                        <MenuItem value="">
+                                                            <em>Select</em>
+                                                        </MenuItem>
+                                                        {countryList && countryList.map((option, index) => (
+                                                            <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
+                                                        ))}
+                                                    </Select>
+                                                </FormControl>
+                                            </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={12}>
+                                                {console.log("wqfqwfqwfqwfqwff", dateOfBirth)}
+                                                <p>Date of Birth<sup>*</sup></p>
+                                                <DatePicker
+                                                    name='dateOfBirth'
+                                                    className="fc_quickfixcal"
+                                                    calendarClassName='fc_quickfixcalendar'
+                                                    // value={new Date()}
+                                                    clearIcon=""
+                                                    value={dateOfBirth}
+                                                    onChange={e => handleDateChange(e)}
+                                                    format={'y-MM-dd'}
+                                                    dayPlaceholder="DD"
+                                                    monthPlaceholder="MM"
+                                                    yearPlaceholder="YYYY"
+                                                    required={true}
+                                                    maxDate={new Date()}
+                                                />
+                                                {/* <TextValidator
                                                 id="standard-basic"
                                                 type="date"
                                                 name="dateOfBirth"
@@ -555,141 +577,142 @@ const Welcome = ({ currentuserInfo }) => {
                                                 onChange={e => handleDateChange(e)}
                                                 onKeyDown={(e) => handleDateChange(e)}
                                             /> */}
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>Marital Status<sup>*</sup></p>
-                                            <FormControl>
-                                                <Select
-                                                    id="demo-controlled-open-select"
-                                                    variant="filled"
-                                                    name="maritalstataus"
-                                                    value={maritalstatus}
-                                                    inputProps={{ required: true }}
-                                                    displayEmpty
-                                                    onChange={e => handleMaritalStatus(e)}
+                                            </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={6}>
+                                                <p>Marital Status<sup>*</sup></p>
+                                                <FormControl>
+                                                    <Select
+                                                        id="demo-controlled-open-select"
+                                                        variant="filled"
+                                                        name="maritalstataus"
+                                                        value={maritalstatus}
+                                                        inputProps={{ required: true }}
+                                                        displayEmpty
+                                                        onChange={e => handleMaritalStatus(e)}
 
-                                                >
-                                                    <MenuItem value="">
-                                                        <em>Select</em>
-                                                    </MenuItem>
-                                                    <MenuItem value="married">
-                                                        <em>Married</em>
-                                                    </MenuItem>
-                                                    <MenuItem value="widowed">
-                                                        <em>Widowed</em>
-                                                    </MenuItem>
-                                                    <MenuItem value="separated">
-                                                        <em>Separated</em>
-                                                    </MenuItem>
-                                                    <MenuItem value="divorced">
-                                                        <em>Divorced</em>
-                                                    </MenuItem>
-                                                    <MenuItem value="single">
-                                                        <em>Single</em>
-                                                    </MenuItem>
+                                                    >
+                                                        <MenuItem value="">
+                                                            <em>Select</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="married">
+                                                            <em>Married</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="widowed">
+                                                            <em>Widowed</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="separated">
+                                                            <em>Separated</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="divorced">
+                                                            <em>Divorced</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="single">
+                                                            <em>Single</em>
+                                                        </MenuItem>
 
-                                                </Select>
-                                            </FormControl>
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Gender <sup>*</sup></p>
-                                            <FormControl>
-                                                <Select
-                                                    id="demo-controlled-open-select"
-                                                    variant="filled"
-                                                    name="gender"
-                                                    value={gender}
-                                                    inputProps={{ required: true }}
-                                                    displayEmpty
-                                                    onChange={e => handleInputChange(e)}
+                                                    </Select>
+                                                </FormControl>
+                                            </Col>
+                                            <Col md={6}>
+                                                <p>Gender <sup>*</sup></p>
+                                                <FormControl>
+                                                    <Select
+                                                        id="demo-controlled-open-select"
+                                                        variant="filled"
+                                                        name="gender"
+                                                        value={gender}
+                                                        inputProps={{ required: true }}
+                                                        displayEmpty
+                                                        onChange={e => handleInputChange(e)}
 
-                                                >
-                                                    <MenuItem value="">
-                                                        <em>Select</em>
-                                                    </MenuItem>
-                                                    <MenuItem value="male">
-                                                        <em>Male</em>
-                                                    </MenuItem>
-                                                    <MenuItem value="female">
-                                                        <em>Female</em>
-                                                    </MenuItem>
-                                                    <MenuItem value="UNKNOWN">
-                                                        <em>Other</em>
-                                                    </MenuItem>
-                                                    {/* {genderList && genderList.map((option, index) => (
+                                                    >
+                                                        <MenuItem value="">
+                                                            <em>Select</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="male">
+                                                            <em>Male</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="female">
+                                                            <em>Female</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="UNKNOWN">
+                                                            <em>Other</em>
+                                                        </MenuItem>
+                                                        {/* {genderList && genderList.map((option, index) => (
                                                         <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
                                                     ))} */}
-                                                </Select>
-                                            </FormControl>
-                                            {/* <FormControl component="fieldset">
+                                                    </Select>
+                                                </FormControl>
+                                                {/* <FormControl component="fieldset">
                                                 <RadioGroup id="gender-radio" aria-label="gender" name="gender"
                                                     variant="filled" onChange={e => handleInputChange(e)} value={gender}>
                                                     <FormControlLabel value="FEMALE" control={<Radio color="primary" inputProps={{ required: true }} />} label="Female" />
                                                     <FormControlLabel value="MALE" control={<Radio color="primary" inputProps={{ required: true }} />} label="Male" /> */}
-                                            {/* <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" /> */}
-                                            {/* </RadioGroup>
+                                                {/* <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" /> */}
+                                                {/* </RadioGroup>
                                             </FormControl> */}
-                                        </Col>
+                                            </Col>
 
-                                    </Row>
-                                    <br />
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>Height(CM)<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="height"
-                                                onChange={e => handleInputChange(e)}
-                                                value={height}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Weight(KG)<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="weight"
-                                                onChange={e => handleInputChange(e)}
-                                                value={weight}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>High BP(mmHg)<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="highbp"
-                                                onChange={e => handleInputChange(e)}
-                                                value={highbp}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Low BP(mmHg)<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="lowbp"
-                                                onChange={e => handleInputChange(e)}
-                                                value={lowbp}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    <Row>
-                                        <Col md={12}>
-                                            <p>Allergies<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="allergies"
-                                                onChange={e => handleInputChange(e)}
-                                                value={allergies}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={6}>
+                                                <p>Height(CM)<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="height"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={height}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+                                            </Col>
+                                            <Col md={6}>
+                                                <p>Weight(KG)<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="weight"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={weight}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+                                            </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={6}>
+                                                <p>High BP(mmHg)<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="highbp"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={highbp}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+                                            </Col>
+                                            <Col md={6}>
+                                                <p>Low BP(mmHg)<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="lowbp"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={lowbp}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+                                            </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={12}>
+                                                <p>Allergies<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="allergies"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={allergies}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+                                            </Col>
 
-                                    </Row>
+                                        </Row>
+                                    </>)}
                                     {/* {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
                                         <Row>
                                             <Col md={12}>
@@ -710,18 +733,126 @@ const Welcome = ({ currentuserInfo }) => {
                                             </Col>
                                         </Row>
                                     </>)} */}
-                                    {/* {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
-                                        <Row> */}
-                                    {/* <Col md={6}>
-                                            <p>Current Timezone</p>
-                                            <TimezoneSelect
-                                                className="timezoneInput"
-                                                value={timeZone}
-                                                required={true}
-                                                onChange={handleTimezoneChange}
-                                            />
-                                        </Col> */}
-                                    {/* <Col md={12}>
+                                    {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
+                                        <Row>
+                                            <Col md={12}>
+                                                <p>Phone Number<sup>*</sup></p>
+                                                <PhoneInput
+                                                    inputProps={{
+                                                        name: 'phone',
+                                                        required: true,
+                                                        maxLength: 16,
+                                                        minLength: 12
+                                                    }}
+                                                    country={'us'}
+                                                    value={phone}
+                                                    onChange={e => handlePhone(e)}
+                                                    variant="filled"
+                                                />
+                                                {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
+                                            </Col>
+
+
+
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={12}>
+                                                <p>Nationality<sup>*</sup></p>
+                                                <FormControl>
+                                                    <Select
+                                                        id="demo-controlled-open-select"
+                                                        variant="filled"
+                                                        name="countryId"
+                                                        value={countryId}
+                                                        inputProps={{ required: true }}
+                                                        displayEmpty
+                                                        onChange={e => handleCountry(e)}
+                                                    >
+                                                        <MenuItem value="">
+                                                            <em>Select</em>
+                                                        </MenuItem>
+                                                        {countryList && countryList.map((option, index) => (
+                                                            <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
+                                                        ))}
+                                                    </Select>
+                                                </FormControl>
+                                            </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={6}>
+                                                {console.log("wqfqwfqwfqwfqwff", dateOfBirth)}
+                                                <p>Date of Birth<sup>*</sup></p>
+                                                <DatePicker
+                                                    name='dateOfBirth'
+                                                    className="fc_quickfixcal"
+                                                    calendarClassName='fc_quickfixcalendar'
+                                                    // value={new Date()}
+                                                    clearIcon=""
+                                                    value={dateOfBirth}
+                                                    onChange={e => handleDateChange(e)}
+                                                    format={'y-MM-dd'}
+                                                    dayPlaceholder="DD"
+                                                    monthPlaceholder="MM"
+                                                    yearPlaceholder="YYYY"
+                                                    required={true}
+                                                    maxDate={new Date()}
+                                                />
+
+                                            </Col>
+                                            <Col md={6}>
+                                                <p>Gender <sup>*</sup></p>
+                                                <FormControl>
+                                                    <Select
+                                                        id="demo-controlled-open-select"
+                                                        variant="filled"
+                                                        name="gender"
+                                                        value={gender}
+                                                        inputProps={{ required: true }}
+                                                        displayEmpty
+                                                        onChange={e => handleInputChange(e)}
+
+                                                    >
+                                                        <MenuItem value="">
+                                                            <em>Select</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="male">
+                                                            <em>Male</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="female">
+                                                            <em>Female</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="UNKNOWN">
+                                                            <em>Other</em>
+                                                        </MenuItem>
+                                                        {/* {genderList && genderList.map((option, index) => (
+                                                        <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
+                                                    ))} */}
+                                                    </Select>
+                                                </FormControl>
+                                                {/* <FormControl component="fieldset">
+                                                <RadioGroup id="gender-radio" aria-label="gender" name="gender"
+                                                    variant="filled" onChange={e => handleInputChange(e)} value={gender}>
+                                                    <FormControlLabel value="FEMALE" control={<Radio color="primary" inputProps={{ required: true }} />} label="Female" />
+                                                    <FormControlLabel value="MALE" control={<Radio color="primary" inputProps={{ required: true }} />} label="Male" /> */}
+                                                {/* <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" /> */}
+                                                {/* </RadioGroup>
+                                            </FormControl> */}
+                                            </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            {/* <Col md={6}>
+                                                <p>Current Timezone</p>
+                                                <TimezoneSelect
+                                                    className="timezoneInput"
+                                                    value={timeZone}
+                                                    required={true}
+                                                    onChange={handleTimezoneChange}
+                                                />
+                                            </Col> */}
+                                            <Col md={12}>
                                                 <p>Languages<sup>*<sup></sup></sup></p>
                                                 <FormControl>
                                                     <div className="multiselect">
@@ -738,9 +869,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                 )}
                                             </Col>
                                         </Row>
-                                        <br /> */}
+                                        <br />
 
-                                    {/* <Row>
+                                        <Row>
                                             <Col md={6}>
                                                 <p>Education<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="education"
@@ -751,6 +882,66 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled" />
 
                                             </Col>
+                                            <Col md={6}>
+                                                <p>Institution<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="institution"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={institution}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+
+                                            </Col>
+
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={6}>
+                                                <p>Mode Of Employement<sup>*</sup></p>
+                                                <FormControl>
+                                                    <Select
+                                                        id="demo-controlled-open-select"
+                                                        variant="filled"
+                                                        name="modeodemployement"
+                                                        value={modeodemployement}
+                                                        inputProps={{ required: true }}
+                                                        displayEmpty
+                                                        onChange={e => handleInputChange(e)}
+
+                                                    >
+                                                        <MenuItem value="">
+                                                            <em>Select Mode of Employement</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="employee">
+                                                            <em>Employee</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="worker">
+                                                            <em>Worker</em>
+                                                        </MenuItem>
+                                                        <MenuItem value="selfemployed">
+                                                            <em>Self-Employed</em>
+                                                        </MenuItem>
+                                                        {/* {genderList && genderList.map((option, index) => (
+                                                        <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
+                                                    ))} */}
+                                                    </Select>
+                                                </FormControl>
+                                            </Col>
+                                            <Col md={6}>
+                                                <p>Affiliation <sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="number" name="affiliation"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={affiliation}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    inputProps={{
+                                                        min: 0,
+                                                        max: 65
+                                                    }}
+                                                    variant="filled" />
+                                            </Col>
+                                        </Row>
+                                        <Row>
                                             <Col md={6}>
                                                 <p>Years Of experience<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="number" name="experience"
@@ -764,48 +955,52 @@ const Welcome = ({ currentuserInfo }) => {
                                                     }}
                                                     variant="filled" />
                                             </Col>
+                                            <Col md={6}>
+                                                <p>Specialization<sup>*</sup></p>
+                                                <FormControl>
+                                                    <div className="multiselect">
+                                                        <Multiselect
+                                                            options={specialityOptions}
+                                                            onSelect={handleSpecialities}
+                                                            onRemove={removeSpecialities}
+                                                            displayValue="name"
+                                                        />
+                                                    </div>
+                                                </FormControl>
+                                                {specialityError && (
+                                                    <p style={{ color: "red" }}>This field is required.</p>
+                                                )}
+                                            </Col>
+                                            <br />
+                                            <br />
                                         </Row>
-                                        <br /> */}
-
-                                    {/* <p>Specialization<sup>*</sup></p>
-                                        <FormControl>
-                                            <div className="multiselect">
-                                                <Multiselect
-                                                    options={specialityOptions}
-                                                    onSelect={handleSpecialities}
-                                                    onRemove={removeSpecialities}
-                                                    displayValue="name"
-                                                />
-                                            </div>
-                                        </FormControl>
-                                        {specialityError && (
-                                            <p style={{ color: "red" }}>This field is required.</p>
-                                        )}
-                                        <br />
-                                        <br />
-
-                                        <p>Other Certifications (optional)</p>
-                                        <TextValidator id="standard-basic" type="text" name="certificates"
-                                            onChange={e => handleInputChange(e)}
-                                            value={certificates}
-                                            variant="filled"
-                                            placeholder="Example: MBBS, MD ..."
-                                            inputProps={{
-                                                title: "Make it comma (,) separated."
-                                            }} />
-                                        <br />
-
-                                        <p>Awards (optional)</p>
-                                        <TextValidator id="standard-basic" type="text" name="awards"
-                                            onChange={e => handleInputChange(e)}
-                                            value={awards}
-                                            variant="filled"
-                                            placeholder="Example: People's Doctor of the USA, etc ..."
-                                            inputProps={{
-                                                title: "Make it comma (,) separated."
-                                            }} />
-                                        <br />
-                                    </>)} */}
+                                        <Row>
+                                            <Col md={6}>
+                                                <p>Other Certifications (optional)</p>
+                                                <TextValidator id="standard-basic" type="text" name="certificates"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={certificates}
+                                                    variant="filled"
+                                                    placeholder="Example: MBBS, MD ..."
+                                                    inputProps={{
+                                                        title: "Make it comma (,) separated."
+                                                    }} />
+                                                <br />
+                                            </Col>
+                                            <Col md={6}>
+                                                <p>Awards (optional)</p>
+                                                <TextValidator id="standard-basic" type="text" name="awards"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={awards}
+                                                    variant="filled"
+                                                    placeholder="Example: People's Doctor of the USA, etc ..."
+                                                    inputProps={{
+                                                        title: "Make it comma (,) separated."
+                                                    }} />
+                                                <br />
+                                            </Col>
+                                        </Row>
+                                    </>)}
 
                                     {formError && (<span style={{ color: "red", fontSize: "12px" }}>{formError}</span>)}
                                     <br />
@@ -846,9 +1041,9 @@ const Welcome = ({ currentuserInfo }) => {
                             </Typography>
                             )}
                     </>
-                    {/* <Typography gutterBottom>
+                    <Typography gutterBottom>
                         You have successfully complete your profile details.
-          </Typography> */}
+                    </Typography>
                 </DialogContent>
                 <DialogActions>
                     <>
