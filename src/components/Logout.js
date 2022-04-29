@@ -18,6 +18,7 @@ const Logout = () => {
     //setTimeout(()=>{window.location.reload()},500);
     //window.location.reload();
     history.push('/');
+    history.go(0);
   }, [cookies]);
   return (
     <><Loader /></>

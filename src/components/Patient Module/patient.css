@@ -1216,8 +1216,21 @@ div#profile-col-2 {
 img#profile-pic {
   height: 150px;
   width: 150px;
-  border-radius: 22px;
+  border-radius: 50%;
+  outline: 5px solid var(--primary);
 }
+.avatar-profile {
+  border-radius: 50% !important;
+  outline: 5px solid #00d0cc;
+}
+
+.icon-tabs {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
 @media (max-width: 480px) {
   img#profile-pic {
     height: 80%;
@@ -1265,6 +1278,52 @@ table#user-info {
 #user-info tr {
   display: flex;
   margin-bottom: 20px;
+}
+
+/* TABS IN PROFILE PAGE */
+.record-tabs {
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+  border-bottom: 0 !important;
+  height: 3.5em !important;
+  background-color: #fff !important;
+  width: 100%;
+}
+
+.record-tabs.nav-tabs .nav-link {
+  /*LOOK INTO THIS*/
+  background-color: #fff !important;
+}
+
+.record-tabs .nav-link {
+  border-radius: 30px !important;
+  width: 170px;
+  color: #00d0ce;
+  font-weight: bold;
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.record-tabs > .nav-link:hover {
+  color: #495057 !important;
+  text-decoration: none;
+  outline: none;
+}
+
+.record-tabs > .nav-link.active {
+  color: #fff !important;
+  background-color: #00d0ce !important;
+  border-color: #00d0ce !important;
+}
+
+.general-tab {
+  background-color: #fff;
+  color: #00d0cc;
+  padding: 25px;
+  border-radius: 20px;
 }
 
 /*
@@ -3141,7 +3200,6 @@ sup {
   box-shadow: 0px 0px 10px #ddd;
   height: 73%;
   overflow: scroll;
- 
 }
 .scroller-cardlist {
   scrollbar-color: #00d0cc white; /* thumb and track color */
@@ -3174,20 +3232,19 @@ sup {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer; /* Add a pointer on hover */
 }
-#text{
+#text {
   position: absolute;
   top: 50%;
   left: 50%;
   font-size: 50px;
   color: white;
-  transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
-
 
 button.apply-btn {
   background-color: var(--primarysecond) !important;

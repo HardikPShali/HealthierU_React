@@ -3,7 +3,7 @@ import axios from 'axios';
 //import {Redirect} from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 export const handleGoogleAuth = async (googleUserData) => {
-   
+
     var config = {
         method: 'post',
         mode: 'no-cors',
@@ -23,14 +23,14 @@ export const handleGoogleAuth = async (googleUserData) => {
         }
     }).catch(error => {
         const history = useHistory();
-        if(error.response && error.response.status === 500) {
-            window.location.assign('/signupform');
-        } else if(error.response && error.response.status === 400 && error.response.data.title === "User role required."){
-            window.location.assign('/signupform');
-        } else if( error.response && error.response.status === 405 ){
-            window.location.assign('/signupform');
+        if (error.response && error.response.status === 500) {
+            this.context.history.push('/signupform');
+        } else if (error.response && error.response.status === 400 && error.response.data.title === "User role required.") {
+            this.context.history.push('/signupform');
+        } else if (error.response && error.response.status === 405) {
+            this.context.history.push('/signupform');
         }
-        
+
     })
     return googleResponse;
 }

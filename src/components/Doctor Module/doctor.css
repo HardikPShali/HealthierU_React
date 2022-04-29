@@ -957,8 +957,15 @@ div#profile-col-2 {
 img#profile-pic {
   height: 150px;
   width: 150px;
-  border-radius: 22px;
+  border-radius: 50%;
+  outline: 5px solid #00d0cc;
 }
+
+.avatar-profile {
+  border-radius: 50% !important;
+  outline: 5px solid #00d0cc;
+}
+
 #name {
   color: var(--primary);
   font-size: 20px;
@@ -1001,6 +1008,52 @@ table#user-info {
   margin-bottom: 20px;
 }
 
+/* TABS IN PROFILE PAGE */
+.record-tabs {
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+  border-bottom: 0 !important;
+  height: 3.5em !important;
+  background-color: #fff !important;
+  width: 100%;
+}
+
+.record-tabs.nav-tabs .nav-link {
+  /*LOOK INTO THIS*/
+  background-color: #fff !important;
+}
+
+.record-tabs .nav-link {
+  border-radius: 30px !important;
+  width: 170px;
+  color: #00d0ce;
+  font-weight: bold;
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.record-tabs > .nav-link:hover {
+  color: #495057 !important;
+  text-decoration: none;
+  outline: none;
+}
+
+.record-tabs > .nav-link.active {
+  color: #fff !important;
+  background-color: #00d0ce !important;
+  border-color: #00d0ce !important;
+}
+
+.general-tab {
+  background-color: #fff;
+  color: #00d0cc;
+  padding: 25px;
+  border-radius: 20px;
+}
+
 /*
 * My Patient Page
 */
@@ -1015,7 +1068,6 @@ div#patient-col-2 {
   border-radius: 22px;
   text-align: center;
   padding-bottom: 15px;
- 
 }
 div#patient-col-3 {
   background: var(--primarybg);
@@ -1792,7 +1844,7 @@ div.reply .messageBody span.messageTime {
   text-align: center !important;
   color: var(--secondary) !important;
   background: var(--primarysecond) !important;
-  border-radius: 10px !important;
+  border-radius: 10px;
 }
 
 .questionnaire-preview-label {
