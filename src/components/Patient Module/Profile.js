@@ -372,210 +372,225 @@ const Profile = () => {
                                         <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentPatient.picture} />
                                     </Row>
 
-                                    <br />
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>First Name<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="firstName"
-                                                onChange={e => handleInputChange(e)}
-                                                value={firstName}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Last Name<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="lastName"
-                                                onChange={e => handleInputChange(e)}
-                                                value={lastName}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col>
-                                    </Row><br />
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>Date of Birth</p>
-                                            <TextValidator id="standard-basic" type="date" name="dateOfBirth" value={moment(dateOfBirth).format('YYYY-MM-DD')} inputProps={maxDate} InputLabelProps={{ shrink: true, }}
-                                                variant="filled" onChange={e => handleDateChange(e)} onKeyDown={(e) => e.preventDefault()} />
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Mobile Number<sup>*</sup></p>
-                                            <PhoneInput
-                                                inputProps={{
-                                                    name: 'phone',
-                                                    required: true,
-                                                    maxLength: 16,
-                                                    minLength: 12
-                                                }}
-                                                country={'us'}
-                                                value={phone}
-                                                onChange={e => handlePhone(e)}
-                                                variant="filled"
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    <p>Gender</p>
-                                    <FormControl component="fieldset">
-                                        <RadioGroup id="gender-radio" aria-label="gender" name="gender"
-                                            variant="filled" onChange={e => handleInputChange(e)} value={gender}>
-                                            <FormControlLabel value="FEMALE" control={<Radio color="primary" />} label="Female" />
-                                            <FormControlLabel value="MALE" control={<Radio color="primary" />} label="Male" />
-                                            {/* <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" /> */}
-                                        </RadioGroup>
-                                    </FormControl>
-                                    <br />
-                                    <p>Address<sup>*</sup></p>
-                                    <TextValidator id="standard-basic" type="text" name="address"
-                                        onChange={e => handleInputChange(e)}
-                                        value={address}
-                                        validators={['required']}
-                                        errorMessages={['This field is required']}
-                                        variant="filled" />
-                                    <br />
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>Country Of Residence</p>
-                                            <FormControl>
-                                                <Select
-                                                    id="demo-controlled-open-select"
-                                                    variant="filled"
-                                                    name="countryId"
-                                                    value={countryId}
-                                                    displayEmpty
-                                                    onChange={e => handleCountry(e)}
-                                                >
-                                                    <MenuItem value="">
-                                                        <em>Select</em>
-                                                    </MenuItem>
-                                                    {countryList && countryList.map((option, index) => (
-                                                        <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
-                                                    ))}
-                                                </Select>
-                                            </FormControl>
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Marital Status<sup>*</sup></p>
-                                            <FormControl>
-                                                <Select
-                                                    id="demo-controlled-open-select"
-                                                    variant="filled"
-                                                    name="maritalStatus"
-                                                    value={maritalStatus}
-                                                    inputProps={{
-                                                        required: true
-                                                    }}
-                                                    displayEmpty
+                                    <Tabs defaultActiveKey='general' id='uncontrolled-tab-example' className='record-tabs mb-3'>
+                                        <Tab eventKey='general' title='General'>
+                                            <div className='general-tab'>
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>First Name<sup>*</sup></p>
+                                                        <TextValidator id="standard-basic" type="text" name="firstName"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={firstName}
+                                                            validators={['required']}
+                                                            errorMessages={['This field is required']}
+                                                            variant="filled" />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Last Name<sup>*</sup></p>
+                                                        <TextValidator id="standard-basic" type="text" name="lastName"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={lastName}
+                                                            validators={['required']}
+                                                            errorMessages={['This field is required']}
+                                                            variant="filled" />
+                                                    </Col>
+                                                </Row><br />
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Date of Birth</p>
+                                                        <TextValidator id="standard-basic" type="date" name="dateOfBirth" value={moment(dateOfBirth).format('YYYY-MM-DD')} inputProps={maxDate} InputLabelProps={{ shrink: true, }}
+                                                            variant="filled" onChange={e => handleDateChange(e)} onKeyDown={(e) => e.preventDefault()} />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Phone Number<sup>*</sup></p>
+                                                        <PhoneInput
+                                                            inputProps={{
+                                                                name: 'phone',
+                                                                required: true,
+                                                                maxLength: 16,
+                                                                minLength: 12
+                                                            }}
+                                                            country={'us'}
+                                                            value={phone}
+                                                            onChange={e => handlePhone(e)}
+                                                            variant="filled"
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                                <br />
+                                                <p>Gender</p>
+                                                <FormControl component="fieldset">
+                                                    <RadioGroup id="gender-radio" aria-label="gender" name="gender"
+                                                        variant="filled" onChange={e => handleInputChange(e)} value={gender}>
+                                                        <FormControlLabel value="FEMALE" control={<Radio color="primary" />} label="Female" />
+                                                        <FormControlLabel value="MALE" control={<Radio color="primary" />} label="Male" />
+                                                        {/* <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" /> */}
+                                                    </RadioGroup>
+                                                </FormControl>
+                                                <br />
+                                                <p>Address<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="address"
                                                     onChange={e => handleInputChange(e)}
-                                                >
-                                                    <MenuItem value=""><em>Select</em></MenuItem>
-                                                    <MenuItem value="MARRIED">Married</MenuItem>
-                                                    <MenuItem value="SINGLE">Single</MenuItem>
-                                                    <MenuItem value="DIVORCED">Divorced</MenuItem>
-                                                    <MenuItem value="WIDOWED">Widowed</MenuItem>
-                                                    <MenuItem value="OTHER">Other</MenuItem>
-                                                </Select>
-                                            </FormControl>
+                                                    value={address}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+                                                <br />
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Nationality</p>
+                                                        <FormControl>
+                                                            <Select
+                                                                id="demo-controlled-open-select"
+                                                                variant="filled"
+                                                                name="countryId"
+                                                                value={countryId}
+                                                                displayEmpty
+                                                                onChange={e => handleCountry(e)}
+                                                            >
+                                                                <MenuItem value="">
+                                                                    <em>Select</em>
+                                                                </MenuItem>
+                                                                {countryList && countryList.map((option, index) => (
+                                                                    <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
+                                                                ))}
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Marital Status<sup>*</sup></p>
+                                                        <FormControl>
+                                                            <Select
+                                                                id="demo-controlled-open-select"
+                                                                variant="filled"
+                                                                name="maritalStatus"
+                                                                value={maritalStatus}
+                                                                inputProps={{
+                                                                    required: true
+                                                                }}
+                                                                displayEmpty
+                                                                onChange={e => handleInputChange(e)}
+                                                            >
+                                                                <MenuItem value=""><em>Select</em></MenuItem>
+                                                                <MenuItem value="MARRIED">Married</MenuItem>
+                                                                <MenuItem value="SINGLE">Single</MenuItem>
+                                                                <MenuItem value="DIVORCED">Divorced</MenuItem>
+                                                                <MenuItem value="WIDOWED">Widowed</MenuItem>
+                                                                <MenuItem value="OTHER">Other</MenuItem>
+                                                            </Select>
+                                                        </FormControl>
 
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>Languages</p>
-                                            <FormControl>
-                                                <div className="multiselect">
-                                                    <Multiselect
-                                                        options={languageOptions}
-                                                        onSelect={handleLanguages}
-                                                        onRemove={removeLanguages}
-                                                        selectedValues={languages}
-                                                        displayValue="name"
-                                                    />
-                                                </div>
-                                            </FormControl>
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Blood group<sup>*</sup></p>
-                                            <FormControl>
-                                                <Select
-                                                    id="demo-controlled-open-select"
-                                                    variant="filled"
-                                                    name="bloodGroup"
-                                                    value={bloodGroup}
-                                                    inputProps={{
-                                                        required: true
-                                                    }}
-                                                    displayEmpty
-                                                    onChange={e => handleInputChange(e)}
-                                                >
-                                                    <MenuItem value=""><em>Select</em></MenuItem>
-                                                    <MenuItem value="APOS">A +ve</MenuItem>
-                                                    <MenuItem value="ANEG">A -ve</MenuItem>
-                                                    <MenuItem value="BPOS">B +ve</MenuItem>
-                                                    <MenuItem value="BNEG">B -ve</MenuItem>
-                                                    <MenuItem value="OPOS">O +ve</MenuItem>
-                                                    <MenuItem value="ONEG">O -ve</MenuItem>
-                                                    <MenuItem value="ABPOS">AB +ve</MenuItem>
-                                                    <MenuItem value="ABNEG">AB -ve</MenuItem>
-                                                </Select>
-                                            </FormControl>
+                                                    </Col>
+                                                </Row>
+                                                <br />
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Languages</p>
+                                                        <FormControl>
+                                                            <div className="multiselect">
+                                                                <Multiselect
+                                                                    options={languageOptions}
+                                                                    onSelect={handleLanguages}
+                                                                    onRemove={removeLanguages}
+                                                                    selectedValues={languages}
+                                                                    displayValue="name"
+                                                                />
+                                                            </div>
+                                                        </FormControl>
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Blood group<sup>*</sup></p>
+                                                        <FormControl>
+                                                            <Select
+                                                                id="demo-controlled-open-select"
+                                                                variant="filled"
+                                                                name="bloodGroup"
+                                                                value={bloodGroup}
+                                                                inputProps={{
+                                                                    required: true
+                                                                }}
+                                                                displayEmpty
+                                                                onChange={e => handleInputChange(e)}
+                                                            >
+                                                                <MenuItem value=""><em>Select</em></MenuItem>
+                                                                <MenuItem value="A+ve">A +ve</MenuItem>
+                                                                <MenuItem value="A-ve">A -ve</MenuItem>
+                                                                <MenuItem value="B+ve">B +ve</MenuItem>
+                                                                <MenuItem value="BNEG">B -ve</MenuItem>
+                                                                <MenuItem value="OPOS">O +ve</MenuItem>
+                                                                <MenuItem value="ONEG">O -ve</MenuItem>
+                                                                <MenuItem value="ABPOS">AB +ve</MenuItem>
+                                                                <MenuItem value="ABNEG">AB -ve</MenuItem>
+                                                            </Select>
+                                                        </FormControl>
 
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    <br />
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>Weight (in Kg)</p>
-                                            <TextValidator id="standard-basic" type="number" name="weight"
-                                                onChange={e => handleInputChange(e)}
-                                                value={weight}
-                                                inputProps={{
-                                                    min: 5,
-                                                    max: 999
-                                                }}
-                                                variant="filled" />
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Height (in cm)</p>
-                                            <TextValidator id="standard-basic" type="number" name="height"
-                                                onChange={e => handleInputChange(e)}
-                                                value={height}
-                                                inputProps={{
-                                                    min: 30,
-                                                    max: 250
-                                                }}
-                                                variant="filled" />
-                                        </Col>
-                                    </Row>
-                                    <br />
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Tab>
 
-                                    <Row>
-                                        <Col md={6}>
-                                            <p>High BP(in mmHg)</p>
-                                            <TextValidator id="standard-basic" type="number" name="highBp"
-                                                onChange={e => handleInputChange(e)}
-                                                value={highBp}
-                                                inputProps={{
-                                                    min: 50,
-                                                    max: 300
-                                                }}
-                                                variant="filled" />
-                                        </Col>
-                                        <Col md={6}>
-                                            <p>Low BP(in mmHg)</p>
-                                            <TextValidator id="standard-basic" type="number" name="lowBp"
-                                                onChange={e => handleInputChange(e)}
-                                                value={lowBp}
-                                                inputProps={{
-                                                    min: 50,
-                                                    max: 200
-                                                }}
-                                                variant="filled" />
-                                        </Col>
-                                    </Row>
+                                        <Tab eventKey='lifestyle' title='Lifestyle'>
+                                            <div className='general-tab'>
+                                                <h1>LIFE STYLE TABLE COMES HERE</h1>
+                                            </div>
+                                        </Tab>
+
+                                        <Tab eventKey='education' title='Education'>
+                                            <div className='general-tab'>
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Weight (in Kg)</p>
+                                                        <TextValidator id="standard-basic" type="number" name="weight"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={weight}
+                                                            inputProps={{
+                                                                min: 5,
+                                                                max: 999
+                                                            }}
+                                                            variant="filled" />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Height (in cm)</p>
+                                                        <TextValidator id="standard-basic" type="number" name="height"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={height}
+                                                            inputProps={{
+                                                                min: 30,
+                                                                max: 250
+                                                            }}
+                                                            variant="filled" />
+                                                    </Col>
+                                                </Row>
+                                                <br />
+
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>High BP(in mmHg)</p>
+                                                        <TextValidator id="standard-basic" type="number" name="highBp"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={highBp}
+                                                            inputProps={{
+                                                                min: 50,
+                                                                max: 300
+                                                            }}
+                                                            variant="filled" />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Low BP(in mmHg)</p>
+                                                        <TextValidator id="standard-basic" type="number" name="lowBp"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={lowBp}
+                                                            inputProps={{
+                                                                min: 50,
+                                                                max: 200
+                                                            }}
+                                                            variant="filled" />
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Tab>
+                                    </Tabs>
+
                                     <br />
 
                                     <button className="btn btn-primary continue-btn" type="submit">Update</button>
