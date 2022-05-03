@@ -138,6 +138,10 @@ const Welcome = ({ currentuserInfo }) => {
         languages: [],
         certificates: "",
         awards: "",
+        license: "",
+        refphone: "",
+        certifyingbody: ""
+
     });
 
     const [timeZone, setTimezone] = useState("");
@@ -169,7 +173,7 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, education, specialities, languages, institution, modeodemployement, affiliation, certificates, awards, experience } = state;
+    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, education, specialities, languages, institution, modeodemployement, affiliation, certificates, awards, experience, license, refphone, certifyingbody } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
@@ -214,6 +218,9 @@ const Welcome = ({ currentuserInfo }) => {
 
     const handlePhone = (e) => {
         setstate({ ...state, phone: e });
+    };
+    const handleRefPhone = (e) => {
+        setstate({ ...state, refphone: e });
     };
     const handleCountry = (e) => {
         setstate({ ...state, countryId: e.target.value });
@@ -901,6 +908,55 @@ const Welcome = ({ currentuserInfo }) => {
                                                     <p style={{ color: "red" }}>This field is required.</p>
                                                 )}
                                             </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={6}>
+                                                <p>Licese Number<sup>*</sup></p>
+
+                                                <TextValidator id="standard-basic" type="text" name="license"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={license}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+
+                                            </Col>
+
+                                            <br />
+                                            <Col md={6}>
+                                                <p>Reference Phone Number<sup>*</sup></p>
+
+                                                <PhoneInput
+                                                    inputProps={{
+                                                        name: 'refphone',
+                                                        required: true,
+                                                        maxLength: 16,
+                                                        minLength: 12
+                                                    }}
+                                                    country={'us'}
+                                                    value={refphone}
+                                                    onChange={e => handleRefPhone(e)}
+                                                    variant="filled"
+                                                />
+                                                {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
+
+                                            </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={12}>
+                                                <p>Certifying Body<sup>*</sup></p>
+
+                                                <TextValidator id="standard-basic" type="text" name="certifyingbody"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={certifyingbody}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+
+                                            </Col>
+
                                         </Row>
                                         <br />
                                         <Row>

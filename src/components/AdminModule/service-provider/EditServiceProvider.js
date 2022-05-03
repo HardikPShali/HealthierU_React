@@ -1183,11 +1183,14 @@ const EditServiceProvider = props => {
                     </Modal.Footer>
                 </form>
             </Modal>
-            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
-            {/* Location delete modal */}
-            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
             {/* Opening Hours delete modal */}
             <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} />
+            {/* Location delete modal */}
+            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
+             {/* Contact delete modal */}
+            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
+            
+            
             <br />
             <br />
         </div>
