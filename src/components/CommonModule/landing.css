@@ -1344,3 +1344,9 @@ button.btn.btn-outline-primary.sign-btn:hover {
   border-radius: 10px;
   padding: 15px;
 }
+
+/* STATIC PAGES */
+.static-pages {
+  font-size: 14px !important;
+  text-align: justify !important;
+}
