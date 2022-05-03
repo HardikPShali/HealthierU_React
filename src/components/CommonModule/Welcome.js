@@ -42,19 +42,19 @@ import { firestoreService } from "../../util";
 import DatePicker from 'react-date-picker';
 import { useHistory } from "react-router";
 
-import 'react-calendar/dist/Calendar.css';
+// import 'react-calendar/dist/Calendar.css';
 
-import axios from 'axios';
-import Footer from './Footer';
-import properties from "../../properties";
-import LocalStorageService from '../../util/LocalStorageService';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
-import { checkAccessToken } from '../../service/RefreshTokenService';
-import TimezoneSelect from 'react-timezone-select';
+//import axios from 'axios';
+// import Footer from './Footer';
+//import properties from "../../properties";
+//import LocalStorageService from '../../util/LocalStorageService';
+// import CreateIcon from '@material-ui/icons/Create';
+// import IconButton from '@material-ui/core/IconButton';
+// import VisibilityIcon from '@material-ui/icons/Visibility';
+// import DeleteIcon from '@material-ui/icons/Delete';
+// import TextField from '@material-ui/core/TextField';
+//import { checkAccessToken } from '../../service/RefreshTokenService';
+// import TimezoneSelect from 'react-timezone-select';
 
 
 $(document).ready(function () {
@@ -86,13 +86,10 @@ const Welcome = ({ currentuserInfo }) => {
     const [options, Setoption] = useState({
         countryList: []
     });
-    // const [maritalstatusoptions, Setmaritalstatusoption] = useState({
-    //     maritalstatusList: []
-    // });
     const [profilePicture, setProfilePicture] = useState({});
 
     const { countryList } = options;
-    const { maritalstatusList } = maritalstatusoptions;
+
 
     const [speciality, setSpeciality] = useState({
         specialityOptions: []
@@ -108,7 +105,6 @@ const Welcome = ({ currentuserInfo }) => {
 
     useEffect(() => {
         loadOptions();
-        //loadmaritalstatusOptions();
         loadSpeciality();
         loadLanguage();
         const profileStatus = cookies.get("userProfileCompleted");
@@ -128,24 +124,17 @@ const Welcome = ({ currentuserInfo }) => {
         userId: (currentuserInfo && currentuserInfo.id) || "",
         firstName: (currentuserInfo && currentuserInfo.firstName) || "",
         lastName: (currentuserInfo && currentuserInfo.lastName) || "",
+        dateOfBirth: "",
         phone: "",
         countryId: "",
-        dateOfBirth: "",
-        maritalstatus: "",
         gender: "",
-        height: "",
-        weight: "",
-        highbp: "",
-        lowbp: "",
-        allergies: "",
-        //Doctor
         email: (currentuserInfo && currentuserInfo.email) || "",
         education: "",
         institution: "",
         modeodemployement: "",
         affiliation: "",
-        specialities: [],
         experience: "",
+        specialities: [],
         languages: [],
         certificates: "",
         awards: "",
@@ -168,18 +157,6 @@ const Welcome = ({ currentuserInfo }) => {
             setTimeout(() => setLoading(false), 1000);
         }
     }
-
-    const loadmaritalstatusOptions = async () => {
-        const res = await getMaritalstatusList().catch(err => {
-            if (err.response.status === 500 || err.response.status === 504) {
-                setLoading(false);
-            }
-        });
-
-        Setmaritalstatusoption({ maritalstatusList })
-        setTimeout(() => setLoading(false), 1000);
-
-    }
     const loadSpeciality = async () => {
         const res = await getSpecialityList().catch(err => {
             if (err.response.status === 500 || err.response.status === 504) {
@@ -192,7 +169,7 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies } = state;
+    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, education, specialities, languages, institution, modeodemployement, affiliation, certificates, awards, experience } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
@@ -233,7 +210,6 @@ const Welcome = ({ currentuserInfo }) => {
     const handleInputChange = (e) => {
         e.preventDefault()
         setstate({ ...state, [e.target.name]: e.target.value });
-        console.log({ [e.target.name]: e.target.value });
     };
 
     const handlePhone = (e) => {
@@ -242,9 +218,7 @@ const Welcome = ({ currentuserInfo }) => {
     const handleCountry = (e) => {
         setstate({ ...state, countryId: e.target.value });
     };
-    const handleMaritalStatus = (e) => {
-        setstate({ ...state, maritalstatus: e.target.value });
-    }
+
     const handleDateChange = (e) => {
         // const d = new Date(e);
         // alert(d);
@@ -309,16 +283,7 @@ const Welcome = ({ currentuserInfo }) => {
             highbp: highbp,
             lowbp: lowbp,
             allergies: allergies,
-            // email: email,
-            // education: education,
-            // institution: institution,
-            // modeodemployement: modeodemployement,
-            // affiliation: affiliation,
-            // specialities: specialities,
-            // experience: experience,
-            // languages: languages,
-            // certificates: certificates,
-            // awards: awards,
+            email: email,
             patientTimeZone: currentTimeZone
         };
         var bodyFormData = new FormData();
@@ -326,34 +291,34 @@ const Welcome = ({ currentuserInfo }) => {
             if (languages.length === 0) {
                 setLanguageError(true);
             }
-
-            setTransparentLoading(true);
-            bodyFormData.append('profileData', JSON.stringify(patientPayload));
-            bodyFormData.append('profilePicture', profilePicture);
-            const response = await updateRolePatient(bodyFormData).catch(err => {
-                setTransparentLoading(false);
-                if (err.response.status === 400 && state.phone === "") {
-                    setPhoneError(err.response.data.title);
+            else {
+                setTransparentLoading(true);
+                bodyFormData.append('profileData', JSON.stringify(patientPayload));
+                bodyFormData.append('profilePicture', profilePicture);
+                const response = await updateRolePatient(bodyFormData).catch(err => {
+                    setTransparentLoading(false);
+                    if (err.response.status === 400 && state.phone === "") {
+                        setPhoneError(err.response.data.title);
+                    }
+                    else if (err.response.status === 400 && state.phone !== "") {
+                        setFormError(err.response.data.title);
+                    }
+                });
+                if (response && (response.status === 200 || response.status === 201)) {
+                    const { email, firebasePwd } = response.data;
+                    firestoreService.createNewUser(email, firebasePwd)
+                        .then((userRecord) => {
+                            var loginUser = userRecord.userd;
+                            console.log('user Created', loginUser.email, loginUser.uid)
+                        })
+                        .catch((error) => {
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            console.log('user Created failed', errorCode, errorMessage)
+                        });
+                    updateCurrentUserData();
                 }
-                else if (err.response.status === 400 && state.phone !== "") {
-                    setFormError(err.response.data.title);
-                }
-            });
-            if (response && (response.status === 200 || response.status === 201)) {
-                const { email, firebasePwd } = response.data;
-                firestoreService.createNewUser(email, firebasePwd)
-                    .then((userRecord) => {
-                        var loginUser = userRecord.userd;
-                        console.log('user Created', loginUser.email, loginUser.uid)
-                    })
-                    .catch((error) => {
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        console.log('user Created failed', errorCode, errorMessage)
-                    });
-                updateCurrentUserData();
             }
-
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
             if (languages.length === 0) {
@@ -362,40 +327,41 @@ const Welcome = ({ currentuserInfo }) => {
             else if (specialities.length === 0) {
                 setSpecialityError(true);
             }
+            else {
+                setTransparentLoading(true);
+                state.doctorTimeZone = currentTimeZone
+                bodyFormData.append('profileData', JSON.stringify(state));
+                const response = await updateRoleDoctor(bodyFormData).catch(err => {
+                    setTransparentLoading(false);
+                    if (err.response.status === 400 && state.phone === "") {
+                        setPhoneError(err.response.data.title);
+                    }
+                    else if (err.response.status === 400 && state.phone !== "") {
+                        setFormError(err.response.data.title);
 
-            setTransparentLoading(true);
-            state.doctorTimeZone = currentTimeZone
-            bodyFormData.append('profileData', JSON.stringify(state));
-            const response = await updateRoleDoctor(bodyFormData).catch(err => {
-                setTransparentLoading(false);
-                if (err.response.status === 400 && state.phone === "") {
-                    setPhoneError(err.response.data.title);
-                }
-                else if (err.response.status === 400 && state.phone !== "") {
-                    setFormError(err.response.data.title);
-                }
-            });
-            if (response && (response.status === 200 || response.status === 201)) {
-                updateCurrentUserData();
-                const { email, firebasePwd } = response.data;
-                firestoreService.createNewUser(email, firebasePwd)
-                    .then((userRecord) => {
-                        var loginUser = userRecord.userd;
-                        console.log('user Created', loginUser.email, loginUser.uid);
-
-                    })
-                    .catch((error) => {
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        console.log('user Created failed', errorCode, errorMessage)
-                    });
-                const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
-                if (res) {
-                    setCurrentDoctor(res);
+                    }
+                });
+                if (response && (response.status === 200 || response.status === 201)) {
                     updateCurrentUserData();
+                    const { email, firebasePwd } = response.data;
+                    firestoreService.createNewUser(email, firebasePwd)
+                        .then((userRecord) => {
+                            var loginUser = userRecord.userd;
+                            console.log('user Created', loginUser.email, loginUser.uid);
+
+                        })
+                        .catch((error) => {
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            console.log('user Created failed', errorCode, errorMessage)
+                        });
+                    const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
+                    if (res) {
+                        setCurrentDoctor(res);
+                        updateCurrentUserData();
+                    }
                 }
             }
-
         }
     }
     const now = new Date();
@@ -457,26 +423,6 @@ const Welcome = ({ currentuserInfo }) => {
                                             <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentuserInfo.imageUrl} />
                                         }
                                     </Row>
-                                    {/* <Row>
-                                        <Col md={12}>
-                                            <p>Full Name<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="fullName"
-                                                onChange={e => handleInputChange(e)}
-                                                value={fullname}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col> */}
-                                    {/* <Col md={6}>
-                                            <p>Last Name<sup>*</sup></p>
-                                            <TextValidator id="standard-basic" type="text" name="lastName"
-                                                onChange={e => handleInputChange(e)}
-                                                value={lastName}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
-                                                variant="filled" />
-                                        </Col> */}
-                                    {/* </Row> */}
                                     {currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
                                         <Row>
                                             <Col md={6}>
@@ -547,7 +493,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         <br />
                                         <Row>
                                             <Col md={12}>
-                                                {console.log("wqfqwfqwfqwfqwff", dateOfBirth)}
+                                                {console.log("dob", dateOfBirth)}
                                                 <p>Date of Birth<sup>*</sup></p>
                                                 <DatePicker
                                                     name='dateOfBirth'
@@ -591,7 +537,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                         value={maritalstatus}
                                                         inputProps={{ required: true }}
                                                         displayEmpty
-                                                        onChange={e => handleMaritalStatus(e)}
+                                                    //onChange={e => handleMaritalStatus(e)}
 
                                                     >
                                                         <MenuItem value="">
@@ -713,26 +659,6 @@ const Welcome = ({ currentuserInfo }) => {
 
                                         </Row>
                                     </>)}
-                                    {/* {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
-                                        <Row>
-                                            <Col md={12}>
-                                                <p>Languages <sup>*</sup></p>
-                                                <FormControl>
-                                                    <div className="multiselect">
-                                                        <Multiselect
-                                                            options={languageOptions}
-                                                            onSelect={handleLanguages}
-                                                            onRemove={removeLanguages}
-                                                            displayValue="name"
-                                                        />
-                                                    </div>
-                                                </FormControl>
-                                                {languageError && (
-                                                    <p style={{ color: "red" }}>This field is required.</p>
-                                                )}
-                                            </Col>
-                                        </Row>
-                                    </>)} */}
                                     {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
                                         <Row>
                                             <Col md={12}>
@@ -896,7 +822,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         </Row>
                                         <br />
                                         <Row>
-                                            <Col md={6}>
+                                            <Col md={12}>
                                                 <p>Mode Of Employement<sup>*</sup></p>
                                                 <FormControl>
                                                     <Select
@@ -927,20 +853,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                     </Select>
                                                 </FormControl>
                                             </Col>
-                                            <Col md={6}>
-                                                <p>Affiliation <sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="number" name="affiliation"
-                                                    onChange={e => handleInputChange(e)}
-                                                    value={affiliation}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
-                                                    inputProps={{
-                                                        min: 0,
-                                                        max: 65
-                                                    }}
-                                                    variant="filled" />
-                                            </Col>
+
                                         </Row>
+                                        <br />
                                         <Row>
                                             <Col md={6}>
                                                 <p>Years Of experience<sup>*</sup></p>
@@ -956,6 +871,21 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled" />
                                             </Col>
                                             <Col md={6}>
+                                                <p>Affiliation <sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="affiliation"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={affiliation}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled" />
+                                            </Col>
+
+                                            <br />
+                                            <br />
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={12}>
                                                 <p>Specialization<sup>*</sup></p>
                                                 <FormControl>
                                                     <div className="multiselect">
@@ -971,9 +901,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     <p style={{ color: "red" }}>This field is required.</p>
                                                 )}
                                             </Col>
-                                            <br />
-                                            <br />
                                         </Row>
+                                        <br />
                                         <Row>
                                             <Col md={6}>
                                                 <p>Other Certifications (optional)</p>
@@ -1000,24 +929,24 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <br />
                                             </Col>
                                         </Row>
+                                        {displaydocumentForm && (<>
+                                            <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} />
+                                            <br />
+                                            <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>
+                                        </>)}
                                     </>)}
-
                                     {formError && (<span style={{ color: "red", fontSize: "12px" }}>{formError}</span>)}
                                     <br />
                                     <small className="left">By providing your mobile number, you give us permission to contact you via text. View terms.</small>
                                     {currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") &&
-                                        <button className="btn btn-primary continue-btn" type="submit">Proceed</button>
+                                        <button className="btn btn-primary continue-btn" type="submit">Continue</button>
                                     }
                                     {currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") &&
-                                        <button className="btn btn-primary continue-btn" type="submit">Proceed</button>
+                                        <button className="btn btn-primary continue-btn" type="submit">Continue</button>
                                     }
                                 </ValidatorForm>
                             )}
-                            {displaydocumentForm && (<>
-                                <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} />
-                                <br />
-                                <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Proceed</button>
-                            </>)}
+
                         </div>
                     </Col>
                 </Row>
@@ -1041,9 +970,9 @@ const Welcome = ({ currentuserInfo }) => {
                             </Typography>
                             )}
                     </>
-                    <Typography gutterBottom>
+                    {/* <Typography gutterBottom>
                         You have successfully complete your profile details.
-                    </Typography>
+          </Typography> */}
                 </DialogContent>
                 <DialogActions>
                     <>

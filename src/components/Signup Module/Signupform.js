@@ -205,20 +205,20 @@ const Signupform = () => {
     }
   });
 
-  const [captchaError, setCaptchaError] = useState("");
-  const [captchaVerify, setCaptchaVerify] = useState(false);
+  // const [captchaError, setCaptchaError] = useState("");
+  // const [captchaVerify, setCaptchaVerify] = useState(false);
 
-  const handleRecaptchaChange = (value) => {
-    if (value !== null || value !== "") {
-      setCaptchaVerify(true);
-      setCaptchaError("");
-    } else {
-      setCaptchaVerify(false);
-    }
-  };
+  // const handleRecaptchaChange = (value) => {
+  //   if (value !== null || value !== "") {
+  //     setCaptchaVerify(true);
+  //     setCaptchaError("");
+  //   } else {
+  //     setCaptchaVerify(false);
+  //   }
+  // };
 
   const handleSignup = async () => {
-    if (captchaVerify) {
+    //if (captchaVerify) {
       setTransparentLoading(true);
       if (googleAccessToken) {
         const googleUserData = {
@@ -302,10 +302,10 @@ const Signupform = () => {
         //  }
         //})
       }
-    } else {
-      setCaptchaError("Please verify captcha!");
-      setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
-    }
+    //} //else {
+      // setCaptchaError("Please verify captcha!");
+       setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
+    //}
   };
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -344,14 +344,14 @@ const Signupform = () => {
           <Col md={5}>
             <h2 id="signin-title">Sign up</h2>
             <div className="sign-box">
-              {captchaError && (
+              {/* {captchaError && (
                 <label
                   style={{ fontSize: 12, color: "#ff9393" }}
                   className="left"
                 >
                   {captchaError}
                 </label>
-              )}
+              )} */}
               <ValidatorForm
                 onError={(errors) => console.log(errors)}
                 onSubmit={() => {
@@ -559,10 +559,10 @@ const Signupform = () => {
                     </div>
                   </>
                 )}
-                <ReCAPTCHA
+                {/* <ReCAPTCHA
                   sitekey={CAPTCHA_SITE_KEY}
                   onChange={handleRecaptchaChange}
-                />
+                /> */}
                 <p className="signup-text">
                   By clicking Sign Up, you agree to our Term of Services.
                 </p>
