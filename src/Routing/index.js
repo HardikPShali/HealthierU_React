@@ -41,6 +41,31 @@ const ViewArticle = Loadable({
     loading: () => <div></div>
 });
 
+const PrivacyPolicyPage = Loadable({
+    loader: () => import('../components/CommonModule/PrivacyPolicy'),
+    loading: () => <div></div>
+});
+
+const TermsAndConditionsPage = Loadable({
+    loader: () => import('../components/CommonModule/TermsAndConditions'),
+    loading: () => <div></div>
+});
+
+const HelpAndSupportPage = Loadable({
+    loader: () => import('../components/CommonModule/HelpAndSupport'),
+    loading: () => <div></div>
+});
+
+const LicensesPage = Loadable({
+    loader: () => import('../components/CommonModule/Licenses'),
+    loading: () => <div></div>
+});
+
+const PartnersPage = Loadable({
+    loader: () => import('../components/CommonModule/Partners'),
+    loading: () => <div></div>
+});
+
 const MainRoute = () => (
     <Switch>
         <Route exact path="/" component={Homepage} />
@@ -52,6 +77,11 @@ const MainRoute = () => (
         <Route exact path="/createpassword" component={CreatePassword} />
         <Route exact path="/about-us" component={AboutUs} />
         <Route exact path="/article/:id" component={ViewArticle} />
+        <Route exact path="/privacy-policy" component={PrivacyPolicyPage} />
+        <Route exact path="/terms-and-conditions" component={TermsAndConditionsPage} />
+        <Route exact path="/help-and-support" component={HelpAndSupportPage} />
+        <Route exact path="/licenses" component={LicensesPage} />
+        <Route exact path="/partners" component={PartnersPage} />
 
         <Redirect to='/signin' />
     </Switch>

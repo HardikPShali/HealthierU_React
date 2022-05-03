@@ -104,19 +104,19 @@ const Footer = () => {
                     <Row>
                         <Col md={8}>
                             <div className="d-flex">
-                                <Link to="" className="disable-footer-links" id="copy-link">
+                                <Link to="/privacy-policy" className="" id="copy-link">
                                     Privacy Policy
                                 </Link>
-                                <Link to="" className="disable-footer-links" id="copy-link">
+                                <Link to="/terms-and-conditions" className="" id="copy-link">
                                     Terms and Conditions
                                 </Link>
-                                <Link to="" className="disable-footer-links" id="copy-link">
-                                    Help
+                                <Link to="/help-and-support" className="" id="copy-link">
+                                    Help And Support
                                 </Link>
-                                <Link to="" className="disable-footer-links" id="copy-link">
+                                <Link to="/licenses" className="" id="copy-link">
                                     HealthierU Licenses
                                 </Link>
-                                <Link to="" className="disable-footer-links" id="copy-link">
+                                <Link to="/partners" className="" id="copy-link">
                                     Partners
                                 </Link>
                             </div>
