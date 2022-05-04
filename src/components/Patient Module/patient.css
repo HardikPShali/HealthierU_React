@@ -1125,6 +1125,14 @@ div#multiselectContainerReact div:hover {
   background-position: center;
 }
 
+.questionnaire-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #prescription-list {
   padding: 10px;
   background: var(--primarybg);
