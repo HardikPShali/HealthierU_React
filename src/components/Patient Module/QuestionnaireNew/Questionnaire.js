@@ -23,7 +23,7 @@ const Questionnaire = () => {
                     <div className='questionnaire-header'>
                         <h1>Health Assessment</h1>
                     </div>
-                    <div>
+                    <div className='question-box'>
                         {questions && questions.map((question, index) => (
                             <Questions key={index} question={question} />
                         ))}

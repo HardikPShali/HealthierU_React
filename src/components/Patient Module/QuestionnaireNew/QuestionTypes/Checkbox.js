@@ -4,12 +4,12 @@ import React from 'react'
 export const Checkbox = ({ question, choices }) => {
     return (
         <div className="mb-3 form-check checkbox-div">
-            <label className="form-check-label question-label">{question}</label>
+            <label className="form-check-label col-form-label col-sm-12">{question}</label>
             {
                 choices.map((choice, index) => (
-                    <div key={index}>
-                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                        <label className="form-check-label checkbox-container" htmlFor="exampleCheck1">{choice}</label>
+                    <div key={index} className='col-sm-12' style={{ marginLeft: '20px' }}>
+                        <input type="checkbox" className="form-check-input" />
+                        <label className="form-check-label checkbox-container">{choice}</label>
                     </div>
                 ))
             }
