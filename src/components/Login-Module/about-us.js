@@ -138,12 +138,12 @@ const AboutUs = ({ currentuserInfo }) => {
           <div className="header-bgimage">
             <div className="header-caption">
               <h3 className="h3-responsive">
-                Healthcare at'
-              <br />
+                Healthcare at
+                <br />
                 your hands
               </h3>
               <p className="help-desc">
-                ${HOMEPAGE_GETHELP.DESCRIPTION}
+                {HOMEPAGE_GETHELP.DESCRIPTION}
               </p>
               <Link to={redirectUrl}>
                 <button className="btn btn-light get-started-btn">

@@ -203,6 +203,11 @@ a#copy-link {
   margin: 0 20px 0 0;
 }
 
+a#copy-link:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 div#copyright {
   padding: 15px 0;
 }

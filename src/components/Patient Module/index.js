@@ -39,6 +39,11 @@ const Workout = React.lazy(() => import("../Patient Module/workout"));
 const AboutUs = React.lazy(() => import("../Login-Module/about-us"));
 const PatientArticle = React.lazy(() => import("./articles"));
 const ChangeAccountPassword = React.lazy(() => import("./changepassword"));
+const PrivacyPolicyPage = React.lazy(() => import("../CommonModule/PrivacyPolicy"));
+const TermsAndConditionsPage = React.lazy(() => import("../CommonModule/TermsAndConditions"));
+const HelpAndSupportPage = React.lazy(() => import("../CommonModule/HelpAndSupport"));
+const LicensesPage = React.lazy(() => import("../CommonModule/Licenses"));
+const PartnersPage = React.lazy(() => import("../CommonModule/Partners"));
 
 // const Explore = Loadable({
 //   loader: () => import("./explore"),
@@ -163,6 +168,11 @@ const PatientRoute = () => {
         <Route exact path="/patient/article" component={PatientArticle} />
         <Route exact path="/patient/changepassword" component={ChangeAccountPassword} />
         <Route exact path="/patient/about-us" render={(props) => <AboutUs currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/privacy-policy" render={(props) => <PrivacyPolicyPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/terms-and-conditions" render={(props) => <TermsAndConditionsPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/help-and-support" render={(props) => <HelpAndSupportPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/licenses" render={(props) => <LicensesPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/partners" render={(props) => <PartnersPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/logout" component={Logout} />
       </Switch>
       <Footer />
