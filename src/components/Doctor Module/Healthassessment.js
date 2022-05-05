@@ -106,12 +106,13 @@ const Healthassessment = (props) => {
             }
         }
         else {
+
             setLabResult({ ...labResult, [e.target.name]: e.target.value });
         }
     };
 
     const handlePrescriptionChange = (e) => {
-        
+
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
             console.log("fileSize ::", fileSize)
@@ -126,18 +127,19 @@ const Healthassessment = (props) => {
             }
         }
         else {
-           
+
+
             setPrescriptionResult({ ...prescriptionResult, [e.target.name]: e.target.value });
-          
+
         }
     };
     // handle input change
-  const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...inputList];
-    list[index][name] = value;
-    setInputList(list);
-  };
+    const handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...inputList];
+        list[index][name] = value;
+        setInputList(list);
+    };
     // handle click event of the Remove button
     const handleRemoveClick = index => {
         const list = [...inputList];
@@ -316,8 +318,8 @@ const Healthassessment = (props) => {
         setLabDocumentUrl("");
         setCurrentPageNumber(1)
     }
-    
-  
+
+
 
 
     //Start and End Date
@@ -625,13 +627,13 @@ const Healthassessment = (props) => {
                                         <label htmlFor="topic" className="col-sm-3 col-form-label">Medicine</label>
                                         <div className="col-sm-9">
                                             <input type="text" id="medicine" name="medicine" className="form-control"
-                                                onChange={e => handleInputChange(e,i)}
+                                                onChange={e => handleInputChange(e, i)}
                                                 value={x.medicine}
                                                 placeholder="Medicine Name" required></input>
                                             <br />
                                             <div className="btn-box">
                                                 {inputList.length !== 1 &&
-                                                    <Button variant="secondary" onClick={handleRemoveClick}>
+                                                    <Button variant="secondary" onClick={() => handleRemoveClick(i)}>
                                                         Remove
                                                     </Button>
                                                 }
@@ -684,7 +686,7 @@ const Healthassessment = (props) => {
 
                                     <input type="text" id="noOfDays" name="noOfDays" className="form-control"
                                         onChange={e => handlePrescriptionChange(e)}
-                                        //value={date}
+                                        value={date}
                                         placeholder="Number Of Days" disabled></input>
                                 </div>
 
