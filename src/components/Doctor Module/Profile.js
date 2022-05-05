@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from 'react';
-// import Footer from './Footer';
 import './doctor.css';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
-// import Cookies from 'universal-cookie';
 import Avatar from 'react-avatar';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-// import CreateIcon from '@material-ui/icons/Create';
-// import IconButton from '@material-ui/core/IconButton';
-// import VisibilityIcon from '@material-ui/icons/Visibility';
-// import DeleteIcon from '@material-ui/icons/Delete';
 import DialogContent from '@material-ui/core/DialogContent';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { uploadDoctorDocument, getDoctorDocument } from "../../service/frontendapiservices";
 import TransparentLoader from "../Loader/transparentloader";
 import DoctorDocumentUpload from "../CommonModule/doctordocumentupload"
+import moment from 'moment';
+import calendarIcon from '../../../src/images/icons used/calendar-dob.png';
+import callIcon from '../../../src/images/icons used/phone-white.png';
+import flagIcon from '../../../src/images/icons used/nationality.png';
+import languageIcon from '../../../src/images/icons used/language.png';
+import genderIcon from '../../../src/images/icons used/gender.png';
+import educationIcon from '../../../src/images/icons used/education.png';
+import experienceIcon from '../../../src/images/icons used/experience.png';
+import specialitiesIcon from '../../../src/images/icons used/specialities.png';
+
+// import Cookies from 'universal-cookie';
+// import CreateIcon from '@material-ui/icons/Create';
+// import IconButton from '@material-ui/core/IconButton';
+// import VisibilityIcon from '@material-ui/icons/Visibility';
+// import DeleteIcon from '@material-ui/icons/Delete';
+// import Footer from './Footer';
+// import aboutIcon from '../../../src/images/icons used/about.png';
 
 const Profile = ({ currentDoctor }) => {
     //const cookies = new Cookies();
@@ -94,17 +105,16 @@ const Profile = ({ currentDoctor }) => {
                             {currentDoctor && currentDoctor.picture ? (<img src={currentDoctor.picture} id="profile-pic" alt="" />)
                                 : (<Avatar className='avatar-profile' name={currentDoctor.firstName + " " + currentDoctor.lastName} size="150" />)}
 
-                            <div id="name"><br />{currentDoctor.firstName + " " + currentDoctor.lastName}<br />
-                                <ul style={{ margin: '0px', fontSize: '12px', color: '#000' }} className="list--tags">
+                            <div id="name"><br />{currentDoctor.firstName + " " + currentDoctor.lastName}
+                                {/* <ul style={{ margin: '0px', fontSize: '12px', color: '#000' }} className="list--tags">
                                     {currentDoctor && currentDoctor.specialities && currentDoctor.specialities.map((speciality, index) => (
                                         <li key={index}>{speciality.name}</li>
                                     )
                                     )}
-                                </ul>
+                                </ul> */}
                             </div>
-                            <br />
                             <p id="description">
-                                {currentDoctor.bio}
+                                {currentDoctor.email}
                             </p>
                             <br />
                             <div>
@@ -120,26 +130,29 @@ const Profile = ({ currentDoctor }) => {
                                         <table id="user-info">
                                             <tbody>
                                                 <tr>
+                                                    <img src={callIcon} alt='icons' className='icon-tabs call-icon' />
                                                     <th>Phone Number</th>
                                                     <td>{currentDoctor.phone}</td>
                                                 </tr>
                                                 <tr>
+                                                    <img src={genderIcon} alt='icons' className='icon-tabs gender-icon' />
+
                                                     <th>Gender</th>
                                                     <td>{currentDoctor.gender}</td>
                                                 </tr>
                                                 <tr>
+                                                    <img src={calendarIcon} alt='icons' className='icon-tabs calendar-icon' />
                                                     <th>Date of Birth</th>
-                                                    <td>{currentDoctor.dateOfBirth}</td>
+                                                    <td>{moment(currentDoctor.dateOfBirth).format("DD/MM/YY")}</td>
                                                 </tr>
-                                                {/* <tr>
-                                                    <th>Marital Status</th>
-                                                    <td>{currentDoctor.experience}</td>
-                                                </tr> */}
+
                                                 <tr>
+                                                    <img src={flagIcon} alt='icons' className='icon-tabs nationality-icon' />
                                                     <th>Nationality</th>
                                                     <td>{currentDoctor.countryName}</td>
                                                 </tr>
                                                 <tr>
+                                                    <img src={languageIcon} alt='icons' className='icon-tabs language-icon' />
                                                     <th>Languages</th>
                                                     <td>
                                                         <ul style={{ margin: '0px' }} className="list--tags">
@@ -150,10 +163,11 @@ const Profile = ({ currentDoctor }) => {
                                                         </ul>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                {/* <tr>
+                                                    <img src={aboutIcon} alt='icons' className='icon-tabs about-icon' />
                                                     <th>About</th>
                                                     <td>{currentDoctor.bio}</td>
-                                                </tr>
+                                                </tr> */}
                                             </tbody>
                                         </table>
                                     </div>
@@ -164,16 +178,20 @@ const Profile = ({ currentDoctor }) => {
                                         <table id="user-info">
                                             <tbody>
                                                 <tr>
+                                                    <img src={educationIcon} alt='icons' className='icon-tabs education-icon' />
                                                     <th>Education</th>
                                                     <td>{currentDoctor.education}</td>
                                                 </tr>
 
                                                 <tr>
+                                                    <img src={experienceIcon} alt='icons' className='icon-tabs experience-icon' />
+
                                                     <th>Experience</th>
                                                     <td>{currentDoctor.experience}</td>
                                                 </tr>
 
                                                 <tr>
+                                                    <img src={specialitiesIcon} alt='icons' className='icon-tabs specialities-icon' />
                                                     <th>Specialities</th>
                                                     <td>
 
