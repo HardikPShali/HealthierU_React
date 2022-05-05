@@ -7,6 +7,7 @@ import '../patient.css';
 
 const Questionnaire = () => {
     const [questions, setQuestions] = useState(null);
+    // const [loading]
 
     useEffect(() => {
         setQuestions(quesJson);
@@ -23,7 +24,7 @@ const Questionnaire = () => {
                     <div className='questionnaire-header'>
                         <h1>Health Assessment</h1>
                     </div>
-                    <div className='question-box'>
+                    <div className='question-box scroller-cardlist'>
                         {questions && questions.map((question, index) => (
                             <Questions key={index} question={question} />
                         ))}
@@ -33,7 +34,7 @@ const Questionnaire = () => {
                             type="submit"
                             variant="primary"
                             className="Questionnaire-Continue-Button"
-                        // onClick={(e) => this.continue(e)}
+                            onClick={(e) => console.log(questions)}
                         >
                             Continue
                         </Button>

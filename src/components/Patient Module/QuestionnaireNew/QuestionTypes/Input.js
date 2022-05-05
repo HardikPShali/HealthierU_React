@@ -1,24 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const Input = ({ question }) => {
-    return (
-        // <div className="mb-3 input-div">
-        //     <label className="form-label col-sm-12">{question}</label>
-        //     <input type="text" className="form-control col-sm-12" id="exampleInputEmail1" style={{ marginLeft: '20px' }} />
-        // </div>
+    const [value, setValue] = useState('');
 
+    const handleChange = (e) => {
+        setValue(e.target.value);
+        question.value = e.target.value;
+    }
+
+    return (
         <div className="form-group row input-div">
             <label
                 htmlFor="description"
                 className="col-sm-8 col-form-label"
             >
-                {question}
+                {question.question}
             </label>
             <div className="col-sm-8 input-place">
                 <input
                     type="text"
                     className="form-control"
-                //placeholder={question.question}
+                    value={value}
+                    onChange={handleChange}
                 ></input>
                 <span style={{ marginLeft: '20px' }}>Drinks</span>
             </div>

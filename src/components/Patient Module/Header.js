@@ -78,7 +78,7 @@ const Header = (props) => {
                     My Appointments
                   </NavLink>
                   <NavLink
-                    to="/patient/questionnaire/edit"
+                    to="/patient/questionnaire"
                     className="dropdown-item"
                   >
                     Health Assessment
