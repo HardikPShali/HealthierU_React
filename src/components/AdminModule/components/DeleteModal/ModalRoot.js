@@ -27,6 +27,7 @@ export default function ModalRoot(props) {
             {ModalComponent && (
                 <ModalComponent
                     {...modal.props}
+                    id={props.id}
                     componentName={props.componentName}
                     handleDeleteSubmit={props.handleDeleteSubmit}
                     close={modal.close}
