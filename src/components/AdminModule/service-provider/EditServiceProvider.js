@@ -1207,12 +1207,20 @@ const EditServiceProvider = props => {
 
 
          
-                <ModalRoot componentName={serviceProvider} handleDeleteSubmit={handleDeleteContact} />
+                {/* <ModalRoot componentName={serviceProvider} handleDeleteSubmit={handleDeleteContact} /> */}
               
 
             {/* <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
          <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
          <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} /> */}
+            {/* Opening Hours delete modal */}
+            <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} />
+            {/* Location delete modal */}
+            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
+             {/* Contact delete modal */}
+            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
+            
+            
             <br />
             <br />
         </div >

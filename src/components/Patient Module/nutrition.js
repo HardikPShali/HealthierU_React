@@ -251,17 +251,18 @@ const Nutrition = () => {
                         <Link to="/patient/nutrition"><div id="Box1" className="nutrition-card-box">Nutrition Plan</div></Link>
                     </Col>
                     <Col md={3} className="mb-2">
-                        <Link to="/patient/workout"><div id="Box2" className="nutrition-card-box">Workout</div></Link>
+                        <Link to="/patient/shop"><div id="Box5" className="nutrition-card-box">Articles</div></Link>
                     </Col>
                     {/*<Col md={2} className="mb-2">
                                 <div id="Box3" className="nutrition-card-box">Lifestyle</div>
                             </Col>*/}
-                    <Col md={3} className="mb-2">
+                    {/* <Col md={3} className="mb-2">
                         <Link to="/patient/shop"><div id="Box4" className="nutrition-card-box">Shop</div></Link>
                     </Col>
                     <Col md={3} className="mb-2">
-                        <Link to="/patient/shop"><div id="Box5" className="nutrition-card-box">Articles</div></Link>
-                    </Col>
+                        <Link to="/patient/workout"><div id="Box2" className="nutrition-card-box">Workout</div></Link>
+                    </Col> */}
+                    
                     {/*<Col md={2} className="mb-2">
                                 <div id="Box6" className="nutrition-card-box">Education</div>
                             </Col>*/}

@@ -74,11 +74,21 @@ const Footer = () => {
                     <Row>
                         <Col md={8}>
                             <div className="d-flex">
-                                <Link to="" className="disable-footer-links" id="copy-link">Privacy Policy</Link>
-                                <Link to="" className="disable-footer-links" id="copy-link">Terms and Conditions</Link>
-                                <Link to="" className="disable-footer-links" id="copy-link">Help</Link>
-                                <Link to="" className="disable-footer-links" id="copy-link">HealthierU Licenses</Link>
-                                <Link to="" className="disable-footer-links" id="copy-link">Partners</Link>
+                                <Link to="/patient/privacy-policy" className="" id="copy-link">
+                                    Privacy Policy
+                                </Link>
+                                <Link to="/patient/terms-and-conditions" className="" id="copy-link">
+                                    Terms and Conditions
+                                </Link>
+                                <Link to="/patient/help-and-support" className="" id="copy-link">
+                                    Help And Support
+                                </Link>
+                                <Link to="/patient/licenses" className="" id="copy-link">
+                                    HealthierU Licenses
+                                </Link>
+                                <Link to="/patient/partners" className="" id="copy-link">
+                                    Partners
+                                </Link>
                             </div>
                             <p id="copyright-text">© {moment(new Date()).format("YYYY")} <Link to="/patient">HealthierU</Link> - All Rights Reserved.</p>
                         </Col>

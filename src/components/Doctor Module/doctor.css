@@ -207,6 +207,11 @@ a#copy-link {
   margin: 0 20px 0 0;
 }
 
+a#copy-link:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 div#copyright {
   padding: 15px 0;
 }
@@ -999,9 +1004,9 @@ img#profile-pic {
 
 #name {
   color: var(--primary);
-  font-size: 20px;
+  font-size: 25px;
   line-height: 20px;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 #name span {
@@ -1010,7 +1015,8 @@ img#profile-pic {
 }
 
 p#description {
-  font-size: 12px;
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 button.request-edit {
@@ -1042,6 +1048,29 @@ table#user-info {
 #user-info tr {
   display: flex;
   margin-bottom: 20px;
+}
+
+.icon-tabs {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin-right: 30px;
+  padding: 5px;
+}
+
+.gender-icon,
+.nationality-icon,
+.about-icon,
+.experience-icon {
+  background-color: #f6ceb4;
+}
+
+.call-icon,
+.calendar-icon,
+.language-icon,
+.education-icon,
+.specialities-icon {
+  background-color: #00d0cc;
 }
 
 /* TABS IN PROFILE PAGE */
@@ -1086,7 +1115,7 @@ table#user-info {
 .general-tab {
   background-color: #fff;
   color: #00d0cc;
-  padding: 25px;
+  padding: 20px;
   border-radius: 20px;
 }
 

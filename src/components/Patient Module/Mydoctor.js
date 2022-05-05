@@ -164,12 +164,15 @@ const MyDoctor = (props) => {
     }
   };
   const allDoctorData = () => {
-    setDisplay({ ...display, like: "none", unlike: "block" });
-    setFilterData(users);
-    setdoctor(users[0]);
-    const docId = users[0].id;
-    getInValidAppointments(docId);
-    setLikedOffset(0);
+    // history.go(0);
+    if (history.go(0) === true) {
+      setFilterData(users);
+      setdoctor(users[0]);
+      const docId = users[0].id;
+      getInValidAppointments(docId);
+      setLikedOffset(0);
+      setDisplay({ ...display, like: "none", unlike: "block" });
+    }
   };
 
   const [offset, setOffset] = useState(0);
@@ -1387,7 +1390,7 @@ const MyDoctor = (props) => {
                                 id="fav-icon"
                                 onClick={() => createLikedDoctor(user.id)}
                               />
-                              
+
                             )}
                             console.log(user.liked)
 
@@ -1486,7 +1489,7 @@ const MyDoctor = (props) => {
               </div>
             </div>
           </Col>
-          <Col md={6} lg={4} style={{ display: display.doctor}}>
+          <Col md={6} lg={4} style={{ display: display.doctor }}>
             <div id="dorctor-list">
               {doctor && doctor.activated ? (
                 <>
@@ -1620,7 +1623,7 @@ const MyDoctor = (props) => {
             </Tooltip>
             <div id="dorctor-list" style={{ background: "#fff" }}>
               <div
-                style={{ height: 470}}
+                style={{ height: 470 }}
                 id="calendar-list"
               >
                 <div className="dateGroup">

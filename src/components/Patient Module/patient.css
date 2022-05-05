@@ -209,6 +209,10 @@ a#copy-link {
   font-size: 12px;
   margin: 0 20px 0 0;
 }
+a#copy-link:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
 
 div#copyright {
   padding: 15px 0;
@@ -1229,6 +1233,22 @@ img#profile-pic {
   width: 30px;
   border-radius: 50%;
   margin-right: 30px;
+  padding: 5px;
+}
+
+.call-icon,
+.marital-status-icon,
+.language-icon,
+.blood-group-icon,
+.weight-icon {
+  background-color: #00d0cc;
+}
+
+.calendar-icon,
+.nationality-icon,
+.height-icon,
+.blood-pressure-icon {
+  background-color: #f6ceb4;
 }
 
 @media (max-width: 480px) {
@@ -1240,16 +1260,17 @@ img#profile-pic {
 
 #name {
   color: var(--primary);
-  font-size: 20px;
+  font-size: 25px;
   line-height: 20px;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 #name span {
   color: #000;
   font-size: 15px;
 }
 p#description {
-  font-size: 12px;
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 button.request-edit {
@@ -1322,7 +1343,7 @@ table#user-info {
 .general-tab {
   background-color: #fff;
   color: #00d0cc;
-  padding: 25px;
+  padding: 30px;
   border-radius: 20px;
 }
 
