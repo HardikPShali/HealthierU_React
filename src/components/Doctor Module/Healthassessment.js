@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 // import Footer from './Footer';
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
+import FormControl from '@material-ui/core/FormControl';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import './doctor.css';
+import DatePicker from 'react-date-picker';
 import Pagination from 'react-bootstrap/Pagination'
 // import documentViewImage from '../../images/icons used/document icon@2x.png';
 import editIcon from '../../images/Icons/edit icon_40 pxl.svg';
@@ -12,12 +16,17 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { formatDate, getPatientQuestionnaire } from '../questionnaire/QuestionnaireService';
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import moment from "moment";
 import {
     getCurrentDoctorInfo,
     getCurrentUserInfo,
     // getPatientInfoByPatientId
 } from "../../service/AccountService";
-
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import {
     getDoctorPatientDocuments,
     getDocument,
@@ -73,8 +82,11 @@ const Healthassessment = (props) => {
 
     const [prescriptionResult, setPrescriptionResult] = useState({
         name: "",
+        medicine: "",
+        dose: "",
         duration: null,
-        decription: "",
+        noOfDays: "",
+        interval: "",
         prescriptionDocument: null,
     });
     const handleLabResultChange = e => {
@@ -229,7 +241,7 @@ const Healthassessment = (props) => {
         const response = await postDocument(data).catch(err => {
             console.log("Error :: ", err);
             if (err.response.status === 400) {
-                setErrorMsg("Please upalod the document in PDF format.");
+                setErrorMsg("Please upload the document in PDF format.");
             }
         });
         if (response) {
@@ -272,8 +284,33 @@ const Healthassessment = (props) => {
         setLabDocumentUrl("");
         setCurrentPageNumber(1)
     }
+    //Adding Textbox Dynamically
+    const [counter, setCounter] = useState(0);
+    const handleClick = () => {
+        setCounter(counter + 1);
+        console.log("Counter", counter);
+    };
 
+    //Start and End Date
 
+    const [date, setDate] = useState({
+
+        DurationStartDate: "",
+        DurationEndDate: "",
+
+    });
+    const
+        {
+            DurationStartDate,
+            DurationEndDate
+        } = date;
+
+    // const startDate = moment(DurationStartDate);
+    // const endDate = moment(DurationEndDate);
+    // const diff = endDate.diff(startDate);
+    // const diffDuration = moment.duration(diff);
+    // setDate(diffDuration.days());
+    // console.log("Days:", diffDuration.days());
     return (
         <>
             <Container>
@@ -553,6 +590,38 @@ const Healthassessment = (props) => {
                         <input hidden={true} id="id" name="id" value={prescriptionResult?.id}
                             onChange={e => handlePrescriptionChange(e)}
                         ></input>
+
+                        <div className="form-group row">
+                            <label htmlFor="topic" className="col-sm-3 col-form-label">Medicine</label>
+                            <div className="col-sm-9">
+                                <input type="text" id="medicine" name="medicine" className="form-control"
+                                    onChange={e => handlePrescriptionChange(e)}
+                                    value={prescriptionResult?.medicine}
+                                    placeholder="Medicine Name" required></input>
+                            </div>
+                        </div>
+                        {Array.from(Array(counter)).map((c, index) => {
+                            return <div className="form-group row">
+                                <label htmlFor="topic" className="col-sm-3 col-form-label">Medicine</label>
+                                <div className="col-sm-9">
+                                    <input type="text" id="medicine" name="medicine" className="form-control"
+                                        onChange={e => handlePrescriptionChange(e)}
+                                        value={prescriptionResult?.medicine}
+                                        placeholder="Medicine Name"></input>
+                                </div>
+                            </div>
+                                ;
+                        })}
+
+                        <div className="form-group row">
+                            <label htmlFor="topic" className="col-sm-3 col-form-label">Dose</label>
+                            <div className="col-sm-9">
+                                <input type="text" id="dose" name="dose" className="form-control"
+                                    onChange={e => handlePrescriptionChange(e)}
+                                    value={prescriptionResult?.dose}
+                                    placeholder="Dose" required></input>
+                            </div>
+                        </div>
                         <div className="form-group row">
                             <label htmlFor="topic" className="col-sm-3 col-form-label">Duration</label>
                             <div className="col-sm-9">
@@ -562,13 +631,109 @@ const Healthassessment = (props) => {
                                     placeholder="Duration" required></input>
                             </div>
                         </div>
+                        {/* <div className="form-group row">
+                            <label htmlFor="topic" className="col-sm-3 col-form-label">Duration</label>
+                            <div className="col-sm-9">
+                                <TextField
+                                    type="date"
+                                    onChange={(e) =>
+                                        setDate({
+                                            ...date,
+                                            DurationStartDate:
+                                                e.target.value === ""
+                                                    ? ""
+                                                    : new Date(e.target.value),
+                                        })
+                                    }
+                                    className="filterDate"
+                                    inputProps={{
+                                        min: moment(new Date()).format(
+                                            "YYYY-MM-DD"
+                                        ),
+                                    }}
+                                    value={moment(new Date(DurationStartDate)).format(
+                                        "YYYY-MM-DD"
+                                    )}
+                                    variant="filled"
+                                    onKeyDown={(e) => e.preventDefault()}
+                                />
+                                <TextField
+                                    type="date"
+                                    onChange={(e) =>
+                                        setDate({
+                                            ...date,
+                                            DurationEndDate:
+                                                e.target.value === ""
+                                                    ? ""
+                                                    : new Date(e.target.value),
+                                        })
+                                    }
+                                    className="filterDate"
+                                    inputProps={{
+                                        min: moment(new Date(DurationStartDate)).format(
+                                            "YYYY-MM-DD"
+                                        ),
+                                    }}
+                                    value={moment(new Date(DurationEndDate)).format(
+                                        "YYYY-MM-DD"
+                                    )}
+                                    variant="filled"
+                                    onKeyDown={(e) => e.preventDefault()}
+                                />
+                            </div>
+                        </div> */}
                         <div className="form-group row">
+                            <label htmlFor="topic" className="col-sm-3 col-form-label">Number Of Days</label>
+                            <div className="col-sm-9">
+                                <input type="text" id="noOfDays" name="noOfDays" className="form-control"
+                                    onChange={e => handlePrescriptionChange(e)}
+                                    value={prescriptionResult?.noOfDays}
+                                    placeholder="Number Of Days" required></input>
+                            </div>
+
+                        </div>
+                        {/* <div className="form-group row">
                             <label htmlFor="decription" className="col-sm-3 col-form-label">Description</label>
                             <div className="col-sm-9">
                                 <input type="text" id="decription" name="decription" className="form-control"
                                     onChange={e => handlePrescriptionChange(e)}
                                     value={prescriptionResult?.decription}
                                     placeholder="Description" required></input>
+                            </div>
+                        </div> */}
+
+                        <div className="form-group row">
+                            <label htmlFor="topic" className="col-sm-3 col-form-label">Interval</label>
+                            <div className="col-sm-9">
+
+                                <FormControl>
+                                    <Select
+                                        style={{ width: '340px' }}
+                                        id="demo-controlled-open-select"
+                                        variant="filled"
+                                        name="interval"
+                                        value={prescriptionResult?.noOfDays}
+                                        inputProps={{ required: true }}
+
+                                        placeholder="interval"
+                                        onChange={e => handlePrescriptionChange(e)}
+
+                                    >
+                                        <MenuItem value="">
+                                            <em>Select</em>
+                                        </MenuItem>
+                                        <MenuItem value="daily">
+                                            <em>Daily</em>
+                                        </MenuItem>
+                                        <MenuItem value="2xday">
+                                            <em>2x Day</em>
+                                        </MenuItem>
+                                        <MenuItem value="3xday">
+                                            <em>3x Day</em>
+                                        </MenuItem>
+
+                                    </Select>
+                                </FormControl>
                             </div>
                         </div>
                         <div className="form-group row">
@@ -600,8 +765,13 @@ const Healthassessment = (props) => {
                                 </>)}
                             </div>
                         </div>
+                        <br />
+                        <center>
+                            <button type="button" className="btn btn-primary mr-2" onClick={handleClick}> +  Add Medicine</button>
+                        </center>
+                        <br />
 
-                        <div className="form-group row">
+                        {/* <div className="form-group row">
                             <label htmlFor="doctorEmail" className="col-sm-3 col-form-label">Doctor Email</label>
                             <div className="col-sm-9">
                                 <input type="email" id="doctorEmail" name="doctorEmail" className="form-control"
@@ -624,7 +794,7 @@ const Healthassessment = (props) => {
                                     <input hidden={true} id="patientId" name="patientId"
                                         value={patient?.id} /></b></span> : <span>No Patient found</span>}
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="container">
                             <div className="row">
