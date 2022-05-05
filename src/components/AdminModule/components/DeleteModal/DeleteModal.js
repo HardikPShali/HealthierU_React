@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 export default function DeleteModal(props) {
   return (
 
-    <Modal>
+    <Modal id={props.id}>
       <ModalHeader>
         <h3>Delete {props.componentName}</h3>
       </ModalHeader>
