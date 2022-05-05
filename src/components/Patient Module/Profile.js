@@ -89,6 +89,11 @@ const Profile = () => {
     const { firstName, lastName, dateOfBirth, phone, countryId, bloodGroup, gender, languages, highBp, height, weight, maritalStatus, lowBp, address } = currentPatient;
 
 
+    const [toggleProfile, setToggleProfile] = useState({
+        profile: false,
+        editProfile: false
+    });
+
     useEffect(() => {
         getCurrentPatient();
         loadOptions();
@@ -253,8 +258,8 @@ const Profile = () => {
             {transparentLoading && (
                 <TransparentLoader />
             )}
-            {currentPatient && (
-                <Container style={{ display: display.profile }}>
+            {currentPatient && toggleProfile.editProfile === false && (
+                <Container >
                     <Row>
                         <Col md={4}>
                             <div id="profile-col-1">
@@ -269,7 +274,8 @@ const Profile = () => {
                                 <br />
                                 <div>
                                     <button className="btn btn-primary request-edit" onClick={() => {
-                                        setDisplay({ ...display, profile: 'none', editProfile: 'block' })
+                                        // setDisplay({ ...display, profile: 'none', editProfile: 'block' })
+                                        setToggleProfile({ ...toggleProfile, editProfile: true })
                                     }}>Edit</button>
                                 </div>
                             </div>
@@ -375,14 +381,15 @@ const Profile = () => {
                     </Row>
                 </Container>
             )}
-            {currentPatient && (
-                <Container style={{ display: display.editProfile }}>
-                    <Row>
+            {currentPatient && toggleProfile.editProfile === true && (
+                <Container >
+                    <Row className='conflict_profile-form'>
                         <Col md={2}></Col>
-                        <Col md={8} id="profile-form">
+                        <Col md={8} id="profile-form" className='conflict_profile'>
                             <br />
                             <button className="btn btn-primary" onClick={() => {
-                                setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+                                // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+                                setToggleProfile({ ...toggleProfile, editProfile: false })
                             }}>
                                 back to Profile
                             </button>

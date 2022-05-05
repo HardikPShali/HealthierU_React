@@ -1200,10 +1200,10 @@ p.card-text {
 /* Change Password */
 
 #profile-form {
-  background: #f4f4f4;
+  /* background: #f4f4f4; */
   border-radius: 22px;
-  padding: 50px 10%;
-  margin: 20px 0;
+  /* padding: 50px 10%; */
+  /* margin: 20px 0; */
 }
 #profile-form .MuiFormControl-root.MuiTextField-root {
   width: 100%;
@@ -1349,4 +1349,11 @@ button.btn.btn-outline-primary.sign-btn:hover {
 .static-pages {
   font-size: 14px !important;
   text-align: justify !important;
+}
+
+.helper_forgot-password {
+  background: #f4f4f4 !important;
+  padding: 0 20px 0 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

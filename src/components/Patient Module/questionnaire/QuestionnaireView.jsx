@@ -9,7 +9,7 @@ import {
 import '../patient.css';
 import TransparentLoader from '../../Loader/transparentloader';
 import { useHistory } from 'react-router-dom';
-import { HighQualityTwoTone } from '@material-ui/icons';
+// import { HighQualityTwoTone } from '@material-ui/icons';
 // import Footer from '../../Login-Module/Footer';
 // import Header from '../../CommonModule/Header';
 // import {

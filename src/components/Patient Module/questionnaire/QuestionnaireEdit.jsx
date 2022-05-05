@@ -321,7 +321,6 @@ class QuestionnaireEdit extends React.Component {
     });
     const history = useHistory();
     setTimeout(() => history.push('/patient'), 1000);
-
   }
 }
 

@@ -5,7 +5,7 @@ import './landing.css';
 import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from
     "mdbreact";
 import {
-    Link,useHistory
+    Link, useHistory
     // Redirect 
 } from 'react-router-dom'
 import screen1 from '../../images/screen1.png'
@@ -247,8 +247,8 @@ const Homepage = () => {
                     <Col md={6} id="bg-img-4"></Col>
                 </Row>
             </Container>
-            <br />
-            <br />
+            {/* <br />
+            <br /> */}
             {/*<Container>
                 <Card id="education-card">
                     <Card.Img src={education} alt="Card image" />
@@ -266,7 +266,7 @@ const Homepage = () => {
             </Container>
             <br />
             <br />*/}
-            <Container>
+            {/* <Container>
                 <h2 id="Article-title">Articles</h2>
                 <p id="Article-text">
                     Get breaking scientific news and articles on longevity, nutrition, healthtech, agetech, gadgets, and much more.
@@ -311,9 +311,9 @@ const Homepage = () => {
                         <div>No article found...</div>
                     )}
                 </div>
-            </Container>
-            <br />
-            <br />
+            </Container> */}
+            {/* <br />
+            <br /> */}
             <Footer />
         </div>
     )
