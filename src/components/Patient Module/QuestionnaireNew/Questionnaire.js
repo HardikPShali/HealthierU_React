@@ -16,7 +16,7 @@ const Questionnaire = () => {
 
 
     const onContinue = async (event) => {
-        toast.success('Good Job!', {
+        toast.success('Saved Successfully!', {
             position: 'top-right',
             autoClose: 2000,
             hideProgressBar: true,
