@@ -219,90 +219,91 @@ const Signupform = () => {
 
   const handleSignup = async () => {
     if (captchaVerify) {
-      setTransparentLoading(true);
-      if (googleAccessToken) {
-        const googleUserData = {
-          token: googleAccessToken,
-          authorities: authorities,
-        };
-        const _accessToken = await handleGoogleAuth(googleUserData).catch(
+    setTransparentLoading(true);
+    if (googleAccessToken) {
+      const googleUserData = {
+        token: googleAccessToken,
+        authorities: authorities,
+      };
+      const _accessToken = await handleGoogleAuth(googleUserData).catch(
+        (err) => {
+          if (err.response.status === 500 || err.response.status === 504) {
+            setTransparentLoading(false);
+          }
+        }
+      );
+
+      //console.log(_accessToken);
+      if (_accessToken) {
+        LocalStorageService.setToken(_accessToken);
+        const currentUserInformation = await getCurrentUserInfo().catch(
           (err) => {
             if (err.response.status === 500 || err.response.status === 504) {
               setTransparentLoading(false);
             }
           }
         );
+        cookies.set("currentUser", currentUserInformation);
+        const currentLoggedInUser = cookies.get("currentUser");
+        const { authorities = [] } = currentLoggedInUser || {};
 
-        //console.log(_accessToken);
-        if (_accessToken) {
-          LocalStorageService.setToken(_accessToken);
-          const currentUserInformation = await getCurrentUserInfo().catch(
-            (err) => {
-              if (err.response.status === 500 || err.response.status === 504) {
-                setTransparentLoading(false);
-              }
-            }
-          );
-          cookies.set("currentUser", currentUserInformation);
-          const currentLoggedInUser = cookies.get("currentUser");
-          const { authorities = [] } = currentLoggedInUser || {};
-
-          if (authorities.some((user) => user === "ROLE_PATIENT")) {
-            history.push("/patient");
-          }
-          if (authorities.some((user) => user === "ROLE_DOCTOR")) {
-            history.push("/doctor");
-          }
+        if (authorities.some((user) => user === "ROLE_PATIENT")) {
+          history.push("/patient");
+        }
+        if (authorities.some((user) => user === "ROLE_DOCTOR")) {
+          history.push("/doctor");
         }
       }
-      if (!googleAccessToken) {
-        //var config = {
-        //  method: 'post',
-        //  mode: 'no-cors',
-        //  data: JSON.stringify(user),
-        //  url: properties.UAA + '/api/register',
-        //  headers: {
-        //    'Content-Type': 'application/json',
-        //    'Access-Control-Allow-Origin': '*'
-        //  }
-        //}
+    }
+    if (!googleAccessToken) {
+      //var config = {
+      //  method: 'post',
+      //  mode: 'no-cors',
+      //  data: JSON.stringify(user),
+      //  url: properties.UAA + '/api/register',
+      //  headers: {
+      //    'Content-Type': 'application/json',
+      //    'Access-Control-Allow-Origin': '*'
+      //  }
+      //}
 
-        const response = await signupWithEmail(user).catch((error) => {
-          setTransparentLoading(false);
-          setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
-          if (
-            error.response &&
-            error.response.status === 400 &&
-            error.response.data.errorKey === "emailexists"
-          ) {
-            setErrorMsg({
-              ...errorMsg,
-              emailExistance: error.response.data.title,
-            });
-          } else if (
-            error.response &&
-            error.response.status === 400 &&
-            error.response.data.errorKey === "userexists"
-          ) {
-            setErrorMsg({
-              ...errorMsg,
-              userNameExistance: error.response.data.title,
-            });
-          }
-        });
-        if (response && response.status === 201) {
-          setTransparentLoading(false);
-          handleClickOpen();
+      const response = await signupWithEmail(user).catch((error) => {
+        setTransparentLoading(false);
+        setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
+        if (
+          error.response &&
+          error.response.status === 400 &&
+          error.response.data.errorKey === "emailexists"
+        ) {
+          setErrorMsg({
+            ...errorMsg,
+            emailExistance: error.response.data.title,
+          });
+        } else if (
+          error.response &&
+          error.response.status === 400 &&
+          error.response.data.errorKey === "userexists"
+        ) {
+          setErrorMsg({
+            ...errorMsg,
+            userNameExistance: error.response.data.title,
+          });
         }
-        //}).catch(error => {
-        //  if (error.response && error.response.status === 400 && error.response.data.errorKey === "emailexists") {
-        //    setErrorMsg({ ...errorMsg, emailExistance: error.response.data.title });
-        //  } else if (error.response && error.response.status === 400 && error.response.data.errorKey === "userexists") {
-        //    setErrorMsg({ ...errorMsg, userNameExistance: error.response.data.title });
-        //  }
-        //})
+      });
+      if (response && response.status === 201) {
+        setTransparentLoading(false);
+        handleClickOpen();
       }
-    } else {
+      //}).catch(error => {
+      //  if (error.response && error.response.status === 400 && error.response.data.errorKey === "emailexists") {
+      //    setErrorMsg({ ...errorMsg, emailExistance: error.response.data.title });
+      //  } else if (error.response && error.response.status === 400 && error.response.data.errorKey === "userexists") {
+      //    setErrorMsg({ ...errorMsg, userNameExistance: error.response.data.title });
+      //  }
+      //})
+    }
+    } 
+    else {
       setCaptchaError("Please verify captcha!");
       setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
     }
@@ -559,10 +560,10 @@ const Signupform = () => {
                     </div>
                   </>
                 )}
-                <ReCAPTCHA
+                {/* <ReCAPTCHA
                   sitekey={CAPTCHA_SITE_KEY}
                   onChange={handleRecaptchaChange}
-                />
+                /> */}
                 <p className="signup-text">
                   By clicking Sign Up, you agree to our Term of Services.
                 </p>
