@@ -39,6 +39,13 @@ const Workout = React.lazy(() => import("../Patient Module/workout"));
 const AboutUs = React.lazy(() => import("../Login-Module/about-us"));
 const PatientArticle = React.lazy(() => import("./articles"));
 const ChangeAccountPassword = React.lazy(() => import("./changepassword"));
+const PrivacyPolicyPage = React.lazy(() => import("../CommonModule/PrivacyPolicy"));
+const TermsAndConditionsPage = React.lazy(() => import("../CommonModule/TermsAndConditions"));
+const HelpAndSupportPage = React.lazy(() => import("../CommonModule/HelpAndSupport"));
+const LicensesPage = React.lazy(() => import("../CommonModule/Licenses"));
+const PartnersPage = React.lazy(() => import("../CommonModule/Partners"));
+
+const Questionnaire = React.lazy(() => import("./QuestionnaireNew/Questionnaire"));
 
 // const Explore = Loadable({
 //   loader: () => import("./explore"),
@@ -101,8 +108,9 @@ const PatientRoute = () => {
   const getCurrentPatient = async () => {
     const currentPatient = await getCurrentPatientInfo(currentuserInfo.id, currentuserInfo.login);
     setCurrentPatient(currentPatient);
+
     if (currentPatient?.patientTimeZone !== systemTimeZone) {
-      handleSubmit(currentPatient.id, systemTimeZone);
+      handleSubmit(currentuserInfo.id, systemTimeZone);
     }
   };
 
@@ -122,8 +130,8 @@ const PatientRoute = () => {
         <Route exact path="/patient/mydoctor" render={(props) => <Mydoctor currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
         <Route exact path="/patient/profile" component={Profile} />
         <Route exact path="/patient/myappointment" render={(props) => <Myappointment currentPatient={currentPatient} doctorDetailsList={doctorDetailsList} {...props} />} />
-        <Route exact path="/patient/questionnaire/view" component={QuestionnaireView} />
-        <Route exact path="/patient/questionnaire/edit" component={QuestionnaireEdit} />
+        <Route exact path="/patient/questionnaire" component={Questionnaire} />
+        {/* <Route exact path="/patient/questionnaire/edit" component={QuestionnaireEdit} /> */}
         {/* <Route exact path="/patient/explore" component={Explore} /> */}
         <Route
           exact
@@ -163,6 +171,11 @@ const PatientRoute = () => {
         <Route exact path="/patient/article" component={PatientArticle} />
         <Route exact path="/patient/changepassword" component={ChangeAccountPassword} />
         <Route exact path="/patient/about-us" render={(props) => <AboutUs currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/privacy-policy" render={(props) => <PrivacyPolicyPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/terms-and-conditions" render={(props) => <TermsAndConditionsPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/help-and-support" render={(props) => <HelpAndSupportPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/licenses" render={(props) => <LicensesPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/partners" render={(props) => <PartnersPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/logout" component={Logout} />
       </Switch>
       <Footer />

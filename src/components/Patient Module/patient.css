@@ -209,6 +209,10 @@ a#copy-link {
   font-size: 12px;
   margin: 0 20px 0 0;
 }
+a#copy-link:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
 
 div#copyright {
   padding: 15px 0;
@@ -879,7 +883,7 @@ div.card-box {
 #profile-form {
   background: #fff;
   border-radius: 22px;
-  padding: 10px 10%;
+  /* padding: 10px 10%; */
 }
 #profile-form .MuiFormControl-root.MuiTextField-root {
   width: 100%;
@@ -1121,6 +1125,50 @@ div#multiselectContainerReact div:hover {
   background-position: center;
 }
 
+.questionnaire-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.question-box {
+  width: 80%;
+  background-color: #fdf7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  padding: 10px;
+  height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.radio-div,
+.checkbox-div {
+  margin-top: 20px;
+}
+
+.input-div {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.input-place {
+  display: flex;
+  align-items: baseline;
+}
+
+.col-form-label {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: justify;
+}
+
 #prescription-list {
   padding: 10px;
   background: var(--primarybg);
@@ -1229,6 +1277,22 @@ img#profile-pic {
   width: 30px;
   border-radius: 50%;
   margin-right: 30px;
+  padding: 5px;
+}
+
+.call-icon,
+.marital-status-icon,
+.language-icon,
+.blood-group-icon,
+.weight-icon {
+  background-color: #00d0cc;
+}
+
+.calendar-icon,
+.nationality-icon,
+.height-icon,
+.blood-pressure-icon {
+  background-color: #f6ceb4;
 }
 
 @media (max-width: 480px) {
@@ -1240,16 +1304,17 @@ img#profile-pic {
 
 #name {
   color: var(--primary);
-  font-size: 20px;
+  font-size: 25px;
   line-height: 20px;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 #name span {
   color: #000;
   font-size: 15px;
 }
 p#description {
-  font-size: 12px;
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 button.request-edit {
@@ -1322,7 +1387,7 @@ table#user-info {
 .general-tab {
   background-color: #fff;
   color: #00d0cc;
-  padding: 25px;
+  padding: 30px;
   border-radius: 20px;
 }
 
@@ -1371,7 +1436,7 @@ table#user-info {
 #profile-form {
   background: #fff;
   border-radius: 22px;
-  padding: 0px 40px;
+  /* padding: 0px 40px; */
 }
 
 #profile-form .MuiFormControl-root.MuiTextField-root {
@@ -3441,9 +3506,9 @@ button a {
 .checkbox-container {
   display: block;
   position: relative;
-  padding-left: 30px;
-  margin-bottom: 12px;
-  cursor: pointer;
+  /* padding-left: 30px; */
+  /* margin-bottom: 12px; */
+  /* cursor: pointer; */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -3526,4 +3591,10 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .searchBox {
   width: 100%;
   max-height: 50px;
+}
+
+/* PROFILE NEW CSS */
+
+.conflict_profile-form #profile-form.conflict_profile {
+  /* padding: 20px 20px; */
 }

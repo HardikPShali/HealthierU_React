@@ -27,7 +27,16 @@ import {
 } from '../../service/frontendapiservices';
 import TransparentLoader from '../Loader/transparentloader';
 import { useHistory } from 'react-router-dom';
-import calendarIcon from '../../../src/images/icons used/calendar.png';
+import calendarIcon from '../../../src/images/icons used/calendar-dob.png';
+import callIcon from '../../../src/images/icons used/phone-white.png';
+import ringIcon from '../../../src/images/icons used/marital-status.png';
+import flagIcon from '../../../src/images/icons used/nationality.png';
+import languageIcon from '../../../src/images/icons used/language.png';
+import bloodGroupIcon from '../../../src/images/icons used/blood-group.png';
+import heightIcon from '../../../src/images/icons used/height.png';
+import weightIcon from '../../../src/images/icons used/weight-scale.png';
+import bloodPressureIcon from '../../../src/images/icons used/blood-pressure.png';
+
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 // import LocalStorageService from './../../util/LocalStorageService';
 // import axios from "axios";
@@ -79,6 +88,11 @@ const Profile = () => {
 
     const { firstName, lastName, dateOfBirth, phone, countryId, bloodGroup, gender, languages, highBp, height, weight, maritalStatus, lowBp, address } = currentPatient;
 
+
+    const [toggleProfile, setToggleProfile] = useState({
+        profile: false,
+        editProfile: false
+    });
 
     useEffect(() => {
         getCurrentPatient();
@@ -244,22 +258,24 @@ const Profile = () => {
             {transparentLoading && (
                 <TransparentLoader />
             )}
-            {currentPatient && (
-                <Container style={{ display: display.profile }}>
+            {currentPatient && toggleProfile.editProfile === false && (
+                <Container >
                     <Row>
                         <Col md={4}>
                             <div id="profile-col-1">
                                 {(currentPatient && currentPatient.picture) ? (<img src={currentPatient.picture} alt="" id="profile-pic" />)
                                     : (<Avatar className='avatar-profile' name={currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)} size="150" />)}
-                                <div id="name">{currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)}</div>
                                 <br />
+                                <div id="name">{currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)}</div>
+                                {/* <br /> */}
                                 <p id="description">
-                                    {currentPatient.bio}
+                                    {currentPatient.email}
                                 </p>
                                 <br />
                                 <div>
                                     <button className="btn btn-primary request-edit" onClick={() => {
-                                        setDisplay({ ...display, profile: 'none', editProfile: 'block' })
+                                        // setDisplay({ ...display, profile: 'none', editProfile: 'block' })
+                                        setToggleProfile({ ...toggleProfile, editProfile: true })
                                     }}>Edit</button>
                                 </div>
                             </div>
@@ -272,27 +288,31 @@ const Profile = () => {
                                             <table id="user-info">
                                                 <tbody>
                                                     <tr>
+                                                        <img src={callIcon} alt='icons' className='icon-tabs call-icon' />
+
                                                         <th>Phone Number</th>
                                                         <td>{currentPatient.phone}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Gender</th>
-                                                        <td>{currentPatient.gender}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <img src={calendarIcon} alt='icons' className='icon-tabs' />
+                                                        <img src={calendarIcon} alt='icons' className='icon-tabs calendar-icon' />
                                                         <th>Date of Birth</th>
-                                                        <td>{currentPatient.dateOfBirth}</td>
+                                                        <td>{moment(currentPatient.dateOfBirth).format("DD/MM/YY")}</td>
                                                     </tr>
                                                     <tr>
+                                                        <img src={ringIcon} alt='icons' className='icon-tabs marital-status-icon' />
+
                                                         <th>Marital Status</th>
                                                         <td>{currentPatient.maritalStatus}</td>
                                                     </tr>
                                                     <tr>
+                                                        <img src={flagIcon} alt='icons' className='icon-tabs nationality-icon' />
+
                                                         <th>Nationality</th>
                                                         <td>{currentPatient.countryName}</td>
                                                     </tr>
                                                     <tr>
+                                                        <img src={languageIcon} alt='icons' className='icon-tabs language-icon' />
+
                                                         <th>Languages</th>
                                                         <td>
                                                             <ul style={{ margin: '0px' }} className="list--tags">
@@ -319,30 +339,36 @@ const Profile = () => {
                                             <table id="user-info">
                                                 <tbody>
                                                     <tr>
+                                                        <img src={bloodGroupIcon} alt='icons' className='icon-tabs blood-group-icon' />
                                                         <th>Blood Group</th>
-                                                        <td>{currentPatient.bloodGroup}</td>
+                                                        <td>{showBloodGroup(currentPatient.bloodGroup)}</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <th>Height(CM)</th>
+                                                        <img src={heightIcon} alt='icons' className='icon-tabs height-icon' />
+                                                        <th>Height (CM)</th>
                                                         <td>{currentPatient.height}</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <th>Weight(KG)</th>
+                                                        <img src={weightIcon} alt='icons' className='icon-tabs weight-icon' />
+                                                        <th>Weight (KG)</th>
                                                         <td>{currentPatient.weight}</td>
                                                     </tr>
 
                                                     <tr>
+                                                        <img src={bloodPressureIcon} alt='icons' className='icon-tabs blood-pressure-icon' />
                                                         <th>Blood Pressure</th>
                                                         <td>
-                                                            {currentPatient.highBp}/{currentPatient.lowBp}
-                                                            {/* <ul style={{ margin: '0px' }} className="list--tags">
-                                                            {currentPatient && currentPatient.specialities && currentPatient.specialities.map((specialities, index) => (
-                                                                <li key={index}>{specialities.name}</li>
-                                                            )
-                                                            )}
-                                                        </ul> */}
+                                                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
+                                                                <span style={{ marginRight: '30px' }}>High (mmHg)<br />
+                                                                    {currentPatient.highBp}
+                                                                </span>
+
+                                                                <span style={{ marginRight: '10px' }}>Low (mmHg)<br />
+                                                                    {currentPatient.lowBp}
+                                                                </span>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -355,14 +381,15 @@ const Profile = () => {
                     </Row>
                 </Container>
             )}
-            {currentPatient && (
-                <Container style={{ display: display.editProfile }}>
-                    <Row>
+            {currentPatient && toggleProfile.editProfile === true && (
+                <Container >
+                    <Row className='conflict_profile-form'>
                         <Col md={2}></Col>
-                        <Col md={8} id="profile-form">
+                        <Col md={8} id="profile-form" className='conflict_profile'>
                             <br />
                             <button className="btn btn-primary" onClick={() => {
-                                setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+                                // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+                                setToggleProfile({ ...toggleProfile, editProfile: false })
                             }}>
                                 back to Profile
                             </button>

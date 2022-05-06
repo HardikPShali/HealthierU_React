@@ -66,7 +66,7 @@ function patientHomePage() {
                                     Find out how you measure with health and<br />
                                     well-being assessment
                                 </Card.Text>
-                                <Link to="/patient/questionnaire/edit">
+                                <Link to="/patient/questionnaire">
                                     <button variant="primary" className="btn btn-outline-light assessment-btn">Take my
                                         assessment
                                     </button>
@@ -98,7 +98,7 @@ function patientHomePage() {
                     <Col md={6}>
                         <Link to="/patient/article"><div id="Box5" className="card-box">Articles</div></Link>
                     </Col>
-                    
+
                     {/*<Col md={4}>
                         <div id="Box3" className="card-box">Lifestyle</div>
                     </Col>*/}

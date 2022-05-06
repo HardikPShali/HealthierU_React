@@ -18,14 +18,14 @@ import Loader from '../Loader/Loader';
 import { useHistory } from "react-router";
 
 const ChangePassword = (props) => {
-  const history =useHistory();
+  const history = useHistory();
   const { homeUrl } = props;
 
   const [changePassword, setChangePassword] = useState({
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
-    msg:""
+    msg: ""
   });
 
   const { currentPassword, newPassword, confirmPassword, msg } = changePassword;
@@ -63,8 +63,8 @@ const ChangePassword = (props) => {
       newPassword: newPassword,
     };
     const response = await handleChangePassword(changePasswordObj).catch(err => {
-      if(err && err.response.status === 400) {
-        setChangePassword({...changePassword, msg: "Incorrect current password."})
+      if (err && err.response.status === 400) {
+        setChangePassword({ ...changePassword, msg: "Incorrect current password." })
       }
     });
     if (response) {
@@ -78,13 +78,13 @@ const ChangePassword = (props) => {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const handleClickShowPassword = (val) => {
-    if(val==="current") {
+    if (val === "current") {
       setCurrentPasswordShown(currentPasswordShown ? false : true);
     }
-    if(val==="new") {
+    if (val === "new") {
       setNewPasswordShown(newPasswordShown ? false : true);
     }
-    if(val==="confirm") {
+    if (val === "confirm") {
       setPasswordShown(passwordShown ? false : true);
     }
   };
@@ -98,10 +98,10 @@ const ChangePassword = (props) => {
           <Col md={2}>
           </Col>
           <Col md={8}>
-            <div className="content" id="profile-form">
+            <div className="content helper_forgot-password" id="profile-form">
               <div className="signin-box">
-                <center><h4>Change Password</h4></center>
-                <br/>
+                <center><h4 style={{ paddingTop: '20px' }}>Change Password</h4></center>
+                <br />
                 <ValidatorForm
                   className="changepass-form"
                   onSubmit={() => handleSubmit()}
@@ -132,12 +132,12 @@ const ChangePassword = (props) => {
                             }}
                           />
                           {msg && (<p
-                              className="MuiFormHelperText-root MuiFormHelperText-contained Mui-error MuiFormHelperText-filled"
-                              id="standard-basic-helper-text"
-                              style={{ color: "#f44336" }}
-                            >
-                              {msg}
-                            </p>)}
+                            className="MuiFormHelperText-root MuiFormHelperText-contained Mui-error MuiFormHelperText-filled"
+                            id="standard-basic-helper-text"
+                            style={{ color: "#f44336" }}
+                          >
+                            {msg}
+                          </p>)}
                         </Col>
                       </Row>
                       <br />

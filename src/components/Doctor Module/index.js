@@ -33,6 +33,17 @@ const DoctorArticle = React.lazy(() => import("./articles"));
 
 const ChangeAccountPassword = React.lazy(() => import("./changepassword"));
 
+const PrivacyPolicyPage = React.lazy(() => import("../CommonModule/PrivacyPolicy"));
+
+const TermsAndConditionsPage = React.lazy(() => import("../CommonModule/TermsAndConditions"));
+
+const HelpAndSupportPage = React.lazy(() => import("../CommonModule/HelpAndSupport"));
+
+const LicensesPage = React.lazy(() => import("../CommonModule/Licenses"));
+
+const PartnersPage = React.lazy(() => import("../CommonModule/Partners"));
+
+
 const DoctorRoute = () => {
   const [currentDoctor, setCurrentDoctor] = useState({});
   const [chatGroupList, setChatGroupList] = useState({});
@@ -117,7 +128,11 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/article" component={DoctorArticle} />
         <Route exact path="/doctor/changepassword" component={ChangeAccountPassword} />
         <Route exact path="/doctor/about-us" render={(props) => <AboutUs currentuserInfo={currentLoggedInUser} {...props} />} />
-
+        <Route exact path="/doctor/privacy-policy" render={(props) => <PrivacyPolicyPage currentuserInfo={currentLoggedInUser} {...props} />} />
+        <Route exact path="/doctor/terms-and-conditions" render={(props) => <TermsAndConditionsPage currentuserInfo={currentLoggedInUser} {...props} />} />
+        <Route exact path="/doctor/help-and-support" render={(props) => <HelpAndSupportPage currentuserInfo={currentLoggedInUser} {...props} />} />
+        <Route exact path="/doctor/licenses" render={(props) => <LicensesPage currentuserInfo={currentLoggedInUser} {...props} />} />
+        <Route exact path="/doctor/partners" render={(props) => <PartnersPage currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route
           exact
           path="/doctor/chat"

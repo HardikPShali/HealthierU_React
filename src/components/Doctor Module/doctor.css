@@ -63,12 +63,12 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar > button {
+.headerNavbar>button {
   color: #fff;
   font-size: 14px;
 }
 
-.headerNavbar > button:hover {
+.headerNavbar>button:hover {
   color: #fff;
 }
 
@@ -97,8 +97,9 @@ svg#search-icon {
 }
 
 @media (max-width: 992px) {
+
   #navbar a,
-  .headerNavbar > button {
+  .headerNavbar>button {
     padding: 10px 20px;
   }
 
@@ -110,13 +111,16 @@ svg#search-icon {
   .nav-link {
     padding: 10px 0;
   }
+
   svg#search-icon {
     margin: 4px 0;
   }
+
   .MuiIconButton-root[aria-label='show 17 new notifications'] {
     padding: 0;
   }
 }
+
 /*
 * Footer Navbar
 */
@@ -201,6 +205,11 @@ a#copy-link {
   text-decoration: none;
   font-size: 12px;
   margin: 0 20px 0 0;
+}
+
+a#copy-link:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 div#copyright {
@@ -635,17 +644,12 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
-  .MuiGridListTileBar-title {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
   color: #fff;
   transition: 0.5s;
 }
@@ -721,13 +725,16 @@ div#price-box:before {
   position: relative;
   top: -4px;
 }
+
 #payment-form .MuiFormControl-root.MuiTextField-root {
   width: 100%;
   margin-bottom: 10px;
 }
+
 #payment-form .MuiInputBase-formControl {
   border-radius: 10px;
 }
+
 #payment-form input#standard-basic {
   padding: 10px;
   border: none !important;
@@ -736,9 +743,11 @@ div#price-box:before {
   color: #000;
   font-weight: 600;
 }
+
 #payment-form .MuiFilledInput-underline:after {
   display: none;
 }
+
 #payment-form .MuiFilledInput-underline:before {
   display: none;
 }
@@ -749,15 +758,18 @@ div#price-box:before {
 #patient-card {
   border-radius: 22px !important;
 }
+
 #patient-card .card-title.h5 {
   font-size: 20px;
   font-weight: 400;
 }
+
 #patient-card .card,
 img.card-img-top {
   border-radius: 20px;
   border: none !important;
 }
+
 #patient-card .card-body {
   position: absolute;
   top: 90%;
@@ -769,10 +781,12 @@ img.card-img-top {
   border-bottom-right-radius: 20px;
   bottom: 0;
 }
+
 #patient-card p.card-text {
   font-size: 12px;
   font-weight: 400;
 }
+
 #patient-card button.assessment-btn {
   position: absolute;
   bottom: 20%;
@@ -784,6 +798,7 @@ img.card-img-top {
   background-color: transparent !important;
   color: #fff !important;
 }
+
 #patient-card .card-body {
   padding: 1.25rem !important;
   display: unset;
@@ -807,26 +822,32 @@ div.card-box {
   text-shadow: 0px 0px 15px #000;
   margin-bottom: 30px;
 }
+
 #Box1 {
   background-image: url(../../images/nutrition.png);
   background-size: cover;
 }
+
 #Box2 {
   background-image: url(../../images/workout.png);
   background-size: cover;
 }
+
 #Box3 {
   background-image: url(../../images/lifestyle.png);
   background-size: cover;
 }
+
 #Box4 {
   background-image: url(../../images/shop.png);
   background-size: cover;
 }
+
 #Box5 {
   background-image: url(../../images/articles.png);
   background-size: cover;
 }
+
 #Box6 {
   background-image: url(../../images/educate.png);
   background-size: cover;
@@ -835,6 +856,7 @@ div.card-box {
 .MuiSelect-filled.MuiSelect-filled {
   padding: 10px !important;
 }
+
 .react-tel-input .form-control {
   width: 100% !important;
   border: none !important;
@@ -849,28 +871,35 @@ div.card-box {
   border-radius: 22px;
   padding: 10px 10%;
 }
+
 .sign-box .MuiFormControl-root.MuiTextField-root {
   width: 100%;
 }
+
 .sign-box .MuiInputBase-formControl {
   border-radius: 10px;
 }
+
 .sign-box input#standard-basic {
   padding: 10px;
   border: none !important;
   border-radius: 10px;
 }
+
 .sign-box .MuiFilledInput-underline:after {
   display: none;
 }
+
 .sign-box .MuiFilledInput-underline:before {
   display: none;
 }
+
 h2#signin-title {
   font-size: 40px;
   font-weight: 700;
   color: var(--primary);
 }
+
 .sign-box p {
   margin-bottom: 5px;
   font-size: 12px;
@@ -880,6 +909,7 @@ p.forget-text {
   text-align: right;
   font-size: 12px;
 }
+
 input.btn.sign-btn {
   width: 100%;
   border-radius: 22px;
@@ -888,6 +918,7 @@ input.btn.sign-btn {
   border-color: var(--primary);
   color: #fff;
 }
+
 .sign-btn {
   width: 100%;
   border-radius: 22px;
@@ -896,11 +927,13 @@ input.btn.sign-btn {
   border-color: var(--primary);
   color: #fff;
 }
+
 p.signup-text {
   margin-top: 30px;
   text-align: center;
   font-size: 12px;
 }
+
 button.btn.btn-outline-primary.sign-btn {
   width: 50%;
   margin: 0 25% 20px;
@@ -908,6 +941,7 @@ button.btn.btn-outline-primary.sign-btn {
   border: 2px solid var(--primary);
   color: var(--primary);
 }
+
 button.btn.btn-outline-primary.sign-btn:hover {
   border-color: var(--primary);
   background-color: var(--primary);
@@ -923,6 +957,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
 .MuiFormControl-root {
   width: 100% !important;
 }
+
 div#gender-radio {
   display: block;
 }
@@ -954,6 +989,7 @@ div#profile-col-2 {
   text-align: center;
   height: 650px;
 }
+
 img#profile-pic {
   height: 150px;
   width: 150px;
@@ -968,16 +1004,19 @@ img#profile-pic {
 
 #name {
   color: var(--primary);
-  font-size: 20px;
+  font-size: 25px;
   line-height: 20px;
-  margin-top: 10px;
+  margin-top: 30px;
 }
+
 #name span {
   color: #000;
   font-size: 15px;
 }
+
 p#description {
-  font-size: 12px;
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 button.request-edit {
@@ -996,16 +1035,42 @@ table#user-info {
   width: 100%;
   text-align: left;
 }
+
 #user-info th {
   width: 40%;
   color: var(--primary);
 }
+
 #user-info td {
   width: 60%;
 }
+
 #user-info tr {
   display: flex;
   margin-bottom: 20px;
+}
+
+.icon-tabs {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin-right: 30px;
+  padding: 5px;
+}
+
+.gender-icon,
+.nationality-icon,
+.about-icon,
+.experience-icon {
+  background-color: #f6ceb4;
+}
+
+.call-icon,
+.calendar-icon,
+.language-icon,
+.education-icon,
+.specialities-icon {
+  background-color: #00d0cc;
 }
 
 /* TABS IN PROFILE PAGE */
@@ -1035,13 +1100,13 @@ table#user-info {
   align-items: center;
 }
 
-.record-tabs > .nav-link:hover {
+.record-tabs>.nav-link:hover {
   color: #495057 !important;
   text-decoration: none;
   outline: none;
 }
 
-.record-tabs > .nav-link.active {
+.record-tabs>.nav-link.active {
   color: #fff !important;
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
@@ -1050,7 +1115,7 @@ table#user-info {
 .general-tab {
   background-color: #fff;
   color: #00d0cc;
-  padding: 25px;
+  padding: 20px;
   border-radius: 20px;
 }
 
@@ -1063,12 +1128,14 @@ div#patient-col-1 {
   border-radius: 22px;
   text-align: center;
 }
+
 div#patient-col-2 {
   background: var(--primarybg);
   border-radius: 22px;
   text-align: center;
   padding-bottom: 15px;
 }
+
 div#patient-col-3 {
   background: var(--primarybg);
   border-radius: 22px;
@@ -1089,11 +1156,13 @@ div#patient-heading {
 #patient-list {
   padding: 10px;
 }
+
 #patient-list tbody {
   overflow-y: scroll;
   height: 350px;
   display: block;
 }
+
 #patient-list table {
   width: 100%;
   font-size: 10px;
@@ -1160,12 +1229,15 @@ div#patient-row {
   margin: 0;
   padding: 15px;
 }
+
 .patient-img img {
   border-radius: 22px;
 }
+
 .symptoms {
   text-align: justify;
 }
+
 .symptoms p {
   font-size: 10px;
 }
@@ -1173,6 +1245,7 @@ div#patient-row {
 .Diagnosis {
   text-align: justify;
 }
+
 .Diagnosis p {
   font-size: 10px;
 }
@@ -1299,6 +1372,7 @@ div#chat-area {
   overflow-x: hidden;
   padding: 10px;
 }
+
 #chat-name {
   font-size: 7px;
   padding: 3px;
@@ -1330,6 +1404,7 @@ li.react-tabs__tab {
   width: 50% !important;
   text-align: center !important;
 }
+
 #mypatient-tabs .react-tabs__tab--selected {
   border-radius: 22px !important;
   border: none !important;
@@ -1337,6 +1412,7 @@ li.react-tabs__tab {
   background: var(--primary) !important;
   color: #fff !important;
 }
+
 .react-tabs__tab--selected {
   border-radius: 22px !important;
   border: none !important;
@@ -1344,11 +1420,13 @@ li.react-tabs__tab {
   background: var(--primary) !important;
   color: #fff !important;
 }
+
 #prescription-list {
   padding: 10px;
   background: var(--primarybg);
   border-radius: 22px;
 }
+
 #prescription-list tr {
   display: block;
   margin-bottom: 15px;
@@ -1359,6 +1437,7 @@ li.react-tabs__tab {
   height: 200px;
   display: block;
 }
+
 #prescription-list table {
   width: 100%;
   font-size: 12px;
@@ -1387,6 +1466,7 @@ svg#pre-icon {
   height: 30px;
   padding: 5px;
 }
+
 div#report {
   background: #f4f4f4;
   padding: 10px;
@@ -1417,6 +1497,7 @@ div#download-report {
 #download-btn {
   color: #fff;
 }
+
 div#ques-result {
   height: 485px;
   overflow-y: scroll;
@@ -1486,9 +1567,11 @@ div#appointment-calendar {
   background-color: var(--primary);
   color: #fff;
 }
+
 .makeStyles-stickyElement-27 {
   background: transparent !important;
 }
+
 #appointment-calendar .TodayButtonBase-button-10:first-child {
   background: var(--primary) !important;
   color: #fff;
@@ -1515,6 +1598,7 @@ div#appointment-calendar {
 #appointment-calendar .MuiToolbar-gutters {
   padding: 0;
 }
+
 #appointment-calendar span.Label-text-56 {
   font-weight: bold;
 }
@@ -1577,9 +1661,11 @@ h3.heading {
 div#primary-card {
   height: 71vh;
 }
+
 #first-td {
   width: 40%;
 }
+
 #rest-td {
   width: 15%;
 }
@@ -1595,10 +1681,12 @@ div#primary-card {
   background: #00000052;
   z-index: 1;
 }
+
 .MuiChip-root.available {
   background: #00d1cd !important;
   color: #fff !important;
 }
+
 .MuiChip-root.consultation {
   background: #3157a3 !important;
   color: #fff !important;
@@ -1608,40 +1696,51 @@ div#primary-card {
   background: #4f80e2 !important;
   color: #fff !important;
 }
+
 .MuiChip-deleteIcon {
   color: #fff !important;
 }
+
 @media (max-width: 700px) {
-  #footer .row > div {
+  #footer .row>div {
     margin-bottom: 40px;
   }
+
   #footer {
     padding: 40px 20px 20px !important;
   }
+
   #footer-input {
     width: 63% !important;
   }
+
   input.btn.submit-btn {
     width: 37% !important;
     right: 6.5% !important;
   }
+
   div#copyright {
     text-align: center !important;
   }
-  #copyright .row > div {
+
+  #copyright .row>div {
     margin-bottom: 20px;
   }
+
   #copyright #last-col {
     text-align: center !important;
   }
+
   div#social-icon {
     justify-content: center !important;
   }
+
   .header-btn {
     font-size: 11px;
     padding: 2px 10px;
     width: 130px;
   }
+
   div#primary-card {
     height: 71vh;
   }
@@ -1674,11 +1773,13 @@ div#videoChat-box {
   border-radius: 10px;
   padding: 20px;
 }
+
 div#message-box {
   background: #f4f4f4;
   border-radius: 10px;
   padding: 10px;
 }
+
 div#Chat-box {
   background: #f4f4f4;
   border-radius: 10px;
@@ -1715,6 +1816,7 @@ span.time-indicator {
   display: flex;
   align-items: center;
 }
+
 .user-img img {
   border-radius: 10px;
 }
@@ -1765,6 +1867,7 @@ textarea.input-text {
   padding: 5px;
   border: none;
 }
+
 .message-area {
   padding: 0 10px;
   position: relative;
@@ -1805,15 +1908,18 @@ textarea.input-text {
 .sent {
   margin: 10px !important;
 }
+
 div.sent .messageBody {
   background: #efefef;
   padding: 10px;
   border-radius: 10px;
 }
+
 div.sent .messageBody p {
   font-size: 11px;
   margin-bottom: 5px;
 }
+
 div.sent .messageBody span.messageTime {
   font-size: 10px;
 }
@@ -1821,20 +1927,24 @@ div.sent .messageBody span.messageTime {
 .reply {
   margin: 10px !important;
 }
+
 div.reply .messageBody {
   background: var(--primary);
   padding: 10px;
   border-radius: 10px;
 }
+
 div.reply .messageBody p {
   font-size: 11px;
   margin-bottom: 5px;
   color: #fff;
 }
+
 div.reply .messageBody span.messageTime {
   font-size: 10px;
   color: #fff;
 }
+
 .reply .col-md-2 {
   padding: 0;
 }
@@ -1860,14 +1970,16 @@ div.reply .messageBody span.messageTime {
   text-transform: capitalize;
 }
 
-.list--tags > li {
+.list--tags>li {
   display: inline;
 }
 
-.list--tags > li:before {
-  content: ',\0000a0'; /* Non-breaking space */
+.list--tags>li:before {
+  content: ',\0000a0';
+  /* Non-breaking space */
 }
-.list--tags > li:first-child:before {
+
+.list--tags>li:first-child:before {
   content: normal;
 }
 
@@ -1978,8 +2090,14 @@ Health Assessment
   background-repeat: no-repeat !important;
 }
 
-.modal-body > .form-group > label.col-form-label {
+.modal-body>.form-group>label.col-form-label {
   font-size: 14.5px;
+
+}
+
+.medicineButton {
+  margin-left: 10px;
+  
 }
 
 .disable-footer-links {
@@ -1991,6 +2109,7 @@ Health Assessment
 .rbc-time-slot.active:hover:after {
   display: block;
 }
+
 .rbc-time-slot.active:after {
   content: 'click here to create slot';
   position: absolute;
@@ -2098,6 +2217,7 @@ span.availableColor {
   max-height: 315px;
   overflow-y: auto;
 }
+
 .notification-Menu .dropdown-title {
   font-weight: 700;
   font-size: 0.825rem;
