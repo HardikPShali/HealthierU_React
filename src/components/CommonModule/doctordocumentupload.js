@@ -243,9 +243,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
 
     return (
         <div>
-            {loading && (
+            {/* {loading && (
                 <TransparentLoader />
-            )}
+            )} */}
             <Row style={{ alignItems: "center" }}>
                 <Col md={6} className="col-xs-6" style={{ textAlign: "left" }}>
                     <span style={{ fontSize: "15px" }}>Total Documents: {documentData?.length}</span>
