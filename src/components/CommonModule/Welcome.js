@@ -242,10 +242,11 @@ const Welcome = ({ currentuserInfo }) => {
             cookies.set("currentUser", currentUserInformation.data);
             setCurrentUserDataAfterApproval(currentUserInformation.data);
             if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted) {
-                history.push('/patient/questionnaire/view');
+                history.push('/patient/questionnaire');
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
+   
             const currentUserInformation = await getUpdatedUserData();
             cookies.set("currentUser", currentUserInformation.data);
             cookies.remove("userProfileCompleted");
@@ -253,6 +254,7 @@ const Welcome = ({ currentuserInfo }) => {
                 setTransparentLoading(false);
                 handleClickOpen();
             } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
+                
                 history.push('/doctor');
             }
         }
@@ -276,6 +278,7 @@ const Welcome = ({ currentuserInfo }) => {
 
     const handleDetails = async e => {
         e.preventDefault();
+
         const patientPayload = {
             userId: userId,
             firstName: firstName,
@@ -295,82 +298,87 @@ const Welcome = ({ currentuserInfo }) => {
         };
         var bodyFormData = new FormData();
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
-            if (languages.length === 0) {
-                setLanguageError(true);
-            }
-            else {
-                setTransparentLoading(true);
-                bodyFormData.append('profileData', JSON.stringify(patientPayload));
-                bodyFormData.append('profilePicture', profilePicture);
-                const response = await updateRolePatient(bodyFormData).catch(err => {
-                    setTransparentLoading(false);
-                    if (err.response.status === 400 && state.phone === "") {
-                        setPhoneError(err.response.data.title);
-                        console.log("1");
-                    }
-                    else if (err.response.status === 400 && state.phone !== "") {
-                        setFormError(err.response.data.title);
-                        console.log("2");
-                    }
-                });
-                if (response && (response.status === 200 || response.status === 201)) {
-                    const { email, firebasePwd } = response.data;
-                    firestoreService.createNewUser(email, firebasePwd)
-                        .then((userRecord) => {
-                            var loginUser = userRecord.userd;
-                            console.log('user Created', loginUser.email, loginUser.uid)
-                        })
-                        .catch((error) => {
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            console.log('user Created failed', errorCode, errorMessage)
-                        });
-                    updateCurrentUserData();
-                }
-            }
+console.log("Test",currentuserInfo);
+            // if (languages.length === 0) {
+            //     setLanguageError(true);
+            // }
+            // else {
+            //history.push('/patient/questionnaire');
+            // setTransparentLoading(true);
+            // bodyFormData.append('profileData', JSON.stringify(patientPayload));
+            // bodyFormData.append('profilePicture', profilePicture);
+            // const response = await updateRolePatient(bodyFormData).catch(err => {
+            //     setTransparentLoading(false);
+            //     if (err.response.status === 400 && state.phone === "") {
+            //         setPhoneError(err.response.data.title);
+            //         console.log("1");
+            //     }
+            //     else if (err.response.status === 400 && state.phone !== "") {
+            //         setFormError(err.response.data.title);
+            //         console.log("2");
+            //     }
+            // });
+            // if (response && (response.status === 200 || response.status === 201)) {
+
+            //     const { email, firebasePwd } = response.data;
+            //     firestoreService.createNewUser(email, firebasePwd)
+            //         .then((userRecord) => {
+            //             var loginUser = userRecord.userd;
+            //             console.log('user Created', loginUser.email, loginUser.uid)
+            //         })
+            //         .catch((error) => {
+            //             var errorCode = error.code;
+            //             var errorMessage = error.message;
+            //             console.log('user Created failed', errorCode, errorMessage)
+            //         });
+                 updateCurrentUserData();
+            // }
+            //}
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-            if (languages.length === 0) {
-                setLanguageError(true);
-            }
-            else if (specialities.length === 0) {
-                setSpecialityError(true);
-            }
-            else {
-                setTransparentLoading(true);
-                state.doctorTimeZone = currentTimeZone
-                bodyFormData.append('profileData', JSON.stringify(state));
-                const response = await updateRoleDoctor(bodyFormData).catch(err => {
-                    setTransparentLoading(false);
-                    if (err.response.status === 400 && state.phone === "") {
-                        setPhoneError(err.response.data.title);
-                    }
-                    else if (err.response.status === 400 && state.phone !== "") {
-                        setFormError(err.response.data.title);
+           
+           // history.push('/');
+            // if (languages.length === 0) {
+            //     setLanguageError(true);
+            // }
+            // else if (specialities.length === 0) {
+            //     setSpecialityError(true);
+            // }
+            // else {
+            //     setTransparentLoading(true);
+            //     state.doctorTimeZone = currentTimeZone
+            //     bodyFormData.append('profileData', JSON.stringify(state));
+            //     const response = await updateRoleDoctor(bodyFormData).catch(err => {
+            //         setTransparentLoading(false);
+            //         if (err.response.status === 400 && state.phone === "") {
+            //             setPhoneError(err.response.data.title);
+            //         }
+            //         else if (err.response.status === 400 && state.phone !== "") {
+            //             setFormError(err.response.data.title);
 
-                    }
-                });
-                if (response && (response.status === 200 || response.status === 201)) {
-                    updateCurrentUserData();
-                    const { email, firebasePwd } = response.data;
-                    firestoreService.createNewUser(email, firebasePwd)
-                        .then((userRecord) => {
-                            var loginUser = userRecord.userd;
-                            console.log('user Created', loginUser.email, loginUser.uid);
+            //         }
+            //     });
+            //     if (response && (response.status === 200 || response.status === 201)) {
+            //         updateCurrentUserData();
+            //         const { email, firebasePwd } = response.data;
+            //         firestoreService.createNewUser(email, firebasePwd)
+            //             .then((userRecord) => {
+            //                 var loginUser = userRecord.userd;
+            //                 console.log('user Created', loginUser.email, loginUser.uid);
 
-                        })
-                        .catch((error) => {
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            console.log('user Created failed', errorCode, errorMessage)
-                        });
-                    const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
-                    if (res) {
-                        setCurrentDoctor(res);
-                        updateCurrentUserData();
-                    }
-                }
-            }
+            //             })
+            //             .catch((error) => {
+            //                 var errorCode = error.code;
+            //                 var errorMessage = error.message;
+            //                 console.log('user Created failed', errorCode, errorMessage)
+            //             });
+                    // const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
+                    // if (res) {
+                    //    setCurrentDoctor(res);
+                         updateCurrentUserData();
+                    // }
+            //     }
+            // }
         }
     }
     const now = new Date();
@@ -408,12 +416,12 @@ const Welcome = ({ currentuserInfo }) => {
 
     return (
         <div>
-            {loading && (
+            {/* {loading && (
                 <Loader />
-            )}
-            {transparentLoading && (
+            )} */}
+            {/* {transparentLoading && (
                 <TransparentLoader />
-            )}
+            )} */}
             <Header />
             <Container style={{ maxWidth: "100%" }}>
                 <Row>
@@ -468,6 +476,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 value={phone}
                                                 onChange={e => handlePhone(e)}
                                                 variant="filled"
+                                                required
                                             />
                                             {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
                                         </Col>
@@ -564,7 +573,8 @@ const Welcome = ({ currentuserInfo }) => {
                                     <TextValidator id="standard-basic" type="text" name="address"
                                         onChange={e => handleInputChange(e)}
                                         value={address}
-                                        variant="filled" />
+                                        variant="filled"
+                                        placeholder='Address' />
                                     <br />
                                     {currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
                                         <Row>
@@ -602,7 +612,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={height}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='Height' />
                                             </Col>
                                             <Col md={6}>
                                                 <p>Weight(KG)<sup>*</sup></p>
@@ -611,7 +622,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={weight}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='Weight' />
                                             </Col>
                                         </Row>
                                         <br />
@@ -623,7 +635,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={highbp}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='High BP' />
                                             </Col>
                                             <Col md={6}>
                                                 <p>Low BP(mmHg)<sup>*</sup></p>
@@ -632,7 +645,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={lowbp}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='Low BP' />
                                             </Col>
                                         </Row>
                                         <br />
@@ -644,7 +658,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={allergies}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='Allergies' />
                                             </Col>
 
                                         </Row>
@@ -679,7 +694,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={education}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='Education' />
 
                                             </Col>
                                             <Col md={6}>
@@ -689,7 +705,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={institution}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='Institution' />
 
                                             </Col>
 
@@ -742,7 +759,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                         min: 0,
                                                         max: 65
                                                     }}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='Years of Experience' />
                                             </Col>
                                             <Col md={6}>
                                                 <p>Affiliation <sup>*</sup></p>
@@ -751,7 +769,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={affiliation}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='Affiliation' />
                                             </Col>
 
                                             <br />
@@ -786,7 +805,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={license}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='License Number' />
 
                                             </Col>
 
@@ -805,6 +825,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={refphone}
                                                     onChange={e => handleRefPhone(e)}
                                                     variant="filled"
+                                                    placeholder='Reference Phone Number'
                                                 />
                                                 {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
 
@@ -820,7 +841,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={certifyingbody}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
-                                                    variant="filled" />
+                                                    variant="filled"
+                                                    placeholder='Certifying Body' />
 
                                             </Col>
 
@@ -873,7 +895,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                             )}
                             {displaydocumentForm && (<>
-                                <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} />
+                                <DoctorDocumentUpload isDoctor={true} currentDoctor={{}} />
                                 <br />
                                 <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>
                             </>)}
