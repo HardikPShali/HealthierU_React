@@ -183,7 +183,7 @@ const ServiceCategory = () => {
             {/* Location form modal */}
             <Modal show={show}>
                 <form onSubmit={e => handleSubmission(e)}>
-                    <Modal.Header closeButton>
+                    <Modal.Header>
                         {categoryDetails?.id ? <Modal.Title>Edit Category</Modal.Title> : <Modal.Title>Add Category</Modal.Title>}
                     </Modal.Header>
                     <Modal.Body>

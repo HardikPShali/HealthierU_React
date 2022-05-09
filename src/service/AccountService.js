@@ -83,8 +83,10 @@ export const getCurrentDoctorInfo = async (userId, username) => {
         }
     };
     const currentDoctorInformation = await axios(doctorInfoApiCall);
-
+    console.log("API",doctorInfoApiCall);
+    console.log("API1",currentDoctorInformation.data);
     return currentDoctorInformation.data
+   
 }
 
 

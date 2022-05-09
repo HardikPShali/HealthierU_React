@@ -372,11 +372,14 @@ console.log("Test",currentuserInfo);
             //                 var errorMessage = error.message;
             //                 console.log('user Created failed', errorCode, errorMessage)
             //             });
-                    // const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
-                    // if (res) {
-                    //    setCurrentDoctor(res);
+                     const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
+                     console.log("1",currentuserInfo.id);
+                     console.log("2",currentuserInfo.login);
+                     console.log("3",res);
+                     if (res) {
+                        setCurrentDoctor(res);
                          updateCurrentUserData();
-                    // }
+                     }
             //     }
             // }
         }
