@@ -31,8 +31,8 @@ const Questionnaire = () => {
     const history = useHistory();
 
 
-    const onContinue = async () => {
-        toast.success('Good Job!', {
+    const onContinue = async (event) => {
+        toast.success('Saved Successfully!', {
             position: 'top-right',
             autoClose: 2000,
             hideProgressBar: true,
