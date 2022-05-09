@@ -105,16 +105,16 @@ const Mypatient = (props) => {
     }
 
     const getChiefComplaintData = async (patientId) => {
-        const res = await getPatientChiefComplaint(patientId)
-        if (res && res.data) {
-            setChiefComplaint(res.data[0]);
-        }
+        // const res = await getPatientChiefComplaint(patientId)
+        // if (res && res.data) {
+        //     setChiefComplaint(res.data[0]);
+        // }
     }
     const getFamilyAndSocialHistoryData = async (patientId) => {
-        const res = await getPatientFamilyAndSocialHistoryData(patientId);
-        if (res && res.data) {
-            setFamilyAndSocialHistory(res.data[0]);
-        }
+        // const res = await getPatientFamilyAndSocialHistoryData(patientId);
+        // if (res && res.data) {
+        //     setFamilyAndSocialHistory(res.data[0]);
+        // }
     }
 
     const limit = 25;
@@ -304,7 +304,7 @@ const Mypatient = (props) => {
                                                                 </tr>
                                                             </>)
                                                         }
-                                                        
+
                                                     }
                                                     else if ((user.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) && (user.unifiedAppointment === (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment))) {
                                                         if (user && user.patient) {
@@ -397,7 +397,7 @@ const Mypatient = (props) => {
                                                                 </tr>
                                                             </>)
                                                         }
-                                                        
+
                                                     }
                                                     else if ((user.unifiedAppointment !== (pastAppointments[index + 1] && pastAppointments[index + 1].unifiedAppointment)) && (user.unifiedAppointment === (pastAppointments[index - 1] && pastAppointments[index - 1].unifiedAppointment))) {
                                                         if (user && user.patient) {
