@@ -39,6 +39,7 @@ import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { set } from "date-fns/fp";
 const EditServiceProvider = props => {
     //let history = useHistory()
     console.log("props", props);
@@ -192,7 +193,7 @@ const EditServiceProvider = props => {
         setIsLoading(true);
         const resp = deleteContact(selectedContactId);
         if (resp) {
-
+            setSelectedContactId("");
             toast.success("Contact successfully Deleted.");
             setTimeout(() => history.go(0), 500);
             loadServiceProvider();
@@ -223,7 +224,7 @@ const EditServiceProvider = props => {
         setIsLoading(true);
         const resp = deleteLocation(selectedLocationId);
         if (resp) {
-
+            setSelectedLocationId("")
             toast.success("Location successfully Deleted.");
             setTimeout(() => history.go(0), 500);
             loadServiceProvider();
@@ -301,7 +302,7 @@ const EditServiceProvider = props => {
         setIsLoading(true);
         const resp = deleteOpeningHours(selectedOpeningHoursId);
         if (resp) {
-
+            setSelectedOpeningHoursId("");
             toast.success("Opening Hours successfully Deleted.");
             setTimeout(() => history.go(0), 500);
             loadServiceProvider();
@@ -337,6 +338,11 @@ const EditServiceProvider = props => {
     };
 
 
+    const setClose = () => {
+        setSelectedContactId("");
+        setSelectedLocationId("");
+        setSelectedOpeningHoursId("");
+    }
 
     return (
         <div>
@@ -1204,23 +1210,34 @@ const EditServiceProvider = props => {
             </Modal>
 
 
+            {selectedContactId &&
+                <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} handleState={setClose} />
+
+            }
+
+            {selectedLocationId &&
+
+                <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} handleState={setClose} />
+            }
+
+            {selectedOpeningHoursId &&
+
+                <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} handleState={setClose} />
+            }
 
 
-         
-                {/* <ModalRoot componentName={serviceProvider} handleDeleteSubmit={handleDeleteContact} /> */}
-              
 
-            {/* <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
-         <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
-         <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} /> */}
+
+
+
             {/* Opening Hours delete modal */}
-            <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} />
+            {/* <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} /> */}
             {/* Location delete modal */}
-            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
-             {/* Contact delete modal */}
-            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
-            
-            
+            {/* <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} /> */}
+            {/* Contact delete modal */}
+            {/* <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} /> */}
+
+
             <br />
             <br />
         </div >

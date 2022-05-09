@@ -254,10 +254,10 @@ const Healthassessment = (props) => {
         );
         setPresecriptionDocument(presecriptionDocument);
 
-        const response = await getPatientQuestionnaire(
-            patientInfo && patientInfo.id
-        );
-        setQuestionnaire(response);
+        // const response = await getPatientQuestionnaire(
+        //     patientInfo && patientInfo.id
+        // );
+        // setQuestionnaire(response);
     };
 
     const handlePrescriptionUploadShow = () => {
