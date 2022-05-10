@@ -41,7 +41,7 @@ export const getCurrentPatientInfo = async (userid, userName) => {
 
     const patientInfoApiCall = {
         method: 'post',
-        url:  `/api/current-patient-info`,
+        url:  `/api/mobile/current-patient-info`,
         data: {
             userId: userid,
             firstName: userName
