@@ -83,8 +83,10 @@ export const getCurrentDoctorInfo = async (userId, username) => {
         }
     };
     const currentDoctorInformation = await axios(doctorInfoApiCall);
-
+    console.log("API",doctorInfoApiCall);
+    console.log("API1",currentDoctorInformation.data);
     return currentDoctorInformation.data
+   
 }
 
 
@@ -120,7 +122,7 @@ export const handleSignin = async (username, password) => {
 export const activateUser = async (key) => {
     var activateUserCall = {
         method: 'get',
-        url:  `/api/activate?key=${key}`,
+        url:  `/api/mobile/activate?key=${key}`,
     };
     const response = await axios(activateUserCall);
 

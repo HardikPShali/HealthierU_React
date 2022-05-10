@@ -246,7 +246,7 @@ const Welcome = ({ currentuserInfo }) => {
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-   
+
             const currentUserInformation = await getUpdatedUserData();
             cookies.set("currentUser", currentUserInformation.data);
             cookies.remove("userProfileCompleted");
@@ -254,7 +254,7 @@ const Welcome = ({ currentuserInfo }) => {
                 setTransparentLoading(false);
                 handleClickOpen();
             } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
-                
+
                 history.push('/doctor');
             }
         }
@@ -294,91 +294,94 @@ const Welcome = ({ currentuserInfo }) => {
             lowbp: lowbp,
             allergies: allergies,
             email: email,
-            patientTimeZone: currentTimeZone
+            // patientTimeZone: currentTimeZone
         };
         var bodyFormData = new FormData();
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
-console.log("Test",currentuserInfo);
+
             // if (languages.length === 0) {
             //     setLanguageError(true);
             // }
             // else {
-            //history.push('/patient/questionnaire');
-            // setTransparentLoading(true);
-            // bodyFormData.append('profileData', JSON.stringify(patientPayload));
-            // bodyFormData.append('profilePicture', profilePicture);
-            // const response = await updateRolePatient(bodyFormData).catch(err => {
-            //     setTransparentLoading(false);
-            //     if (err.response.status === 400 && state.phone === "") {
-            //         setPhoneError(err.response.data.title);
-            //         console.log("1");
-            //     }
-            //     else if (err.response.status === 400 && state.phone !== "") {
-            //         setFormError(err.response.data.title);
-            //         console.log("2");
-            //     }
-            // });
-            // if (response && (response.status === 200 || response.status === 201)) {
-
-            //     const { email, firebasePwd } = response.data;
-            //     firestoreService.createNewUser(email, firebasePwd)
-            //         .then((userRecord) => {
-            //             var loginUser = userRecord.userd;
-            //             console.log('user Created', loginUser.email, loginUser.uid)
-            //         })
-            //         .catch((error) => {
-            //             var errorCode = error.code;
-            //             var errorMessage = error.message;
-            //             console.log('user Created failed', errorCode, errorMessage)
-            //         });
-                 updateCurrentUserData();
-            // }
-            //}
+            console.log("1");
+            console.log("firstname",firstName);
+            // history.push('/patient/questionnaire');
+            setTransparentLoading(true);
+            bodyFormData.append('profileData', JSON.stringify(patientPayload));
+            bodyFormData.append('profilePicture', profilePicture);
+            const response = await updateRolePatient(bodyFormData).catch(err => {
+                setTransparentLoading(false);
+                if (err.response.status === 400 && state.phone === "") {
+                    setPhoneError(err.response.data.title);
+                    
+                }
+                else if (err.response.status === 400 && state.phone !== "") {
+                    setFormError(err.response.data.title);
+                    
+                }
+            });
+            if (response && (response.status === 200 || response.status === 201)) {
+                console.log("response", response.data);
+                const { email, firebasePwd } = response.data;
+                firestoreService.createNewUser(email, firebasePwd)
+                    .then((userRecord) => {
+                        var loginUser = userRecord.userd;
+                        console.log('user Created', loginUser.email, loginUser.uid)
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log('user Created failed', errorCode, errorMessage)
+                    });
+                updateCurrentUserData();
+                // }
+            }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-           
-           // history.push('/');
-            // if (languages.length === 0) {
-            //     setLanguageError(true);
-            // }
-            // else if (specialities.length === 0) {
-            //     setSpecialityError(true);
-            // }
-            // else {
-            //     setTransparentLoading(true);
-            //     state.doctorTimeZone = currentTimeZone
-            //     bodyFormData.append('profileData', JSON.stringify(state));
-            //     const response = await updateRoleDoctor(bodyFormData).catch(err => {
-            //         setTransparentLoading(false);
-            //         if (err.response.status === 400 && state.phone === "") {
-            //             setPhoneError(err.response.data.title);
-            //         }
-            //         else if (err.response.status === 400 && state.phone !== "") {
-            //             setFormError(err.response.data.title);
 
-            //         }
-            //     });
-            //     if (response && (response.status === 200 || response.status === 201)) {
-            //         updateCurrentUserData();
-            //         const { email, firebasePwd } = response.data;
-            //         firestoreService.createNewUser(email, firebasePwd)
-            //             .then((userRecord) => {
-            //                 var loginUser = userRecord.userd;
-            //                 console.log('user Created', loginUser.email, loginUser.uid);
+            history.push('/');
+            if (languages.length === 0) {
+                setLanguageError(true);
+            }
+            else if (specialities.length === 0) {
+                setSpecialityError(true);
+            }
+            else {
+                setTransparentLoading(true);
+                state.doctorTimeZone = currentTimeZone
+                bodyFormData.append('profileData', JSON.stringify(state));
+                const response = await updateRoleDoctor(bodyFormData).catch(err => {
+                    setTransparentLoading(false);
+                    if (err.response.status === 400 && state.phone === "") {
+                        setPhoneError(err.response.data.title);
+                    }
+                    else if (err.response.status === 400 && state.phone !== "") {
+                        setFormError(err.response.data.title);
 
-            //             })
-            //             .catch((error) => {
-            //                 var errorCode = error.code;
-            //                 var errorMessage = error.message;
-            //                 console.log('user Created failed', errorCode, errorMessage)
-            //             });
-                    // const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
-                    // if (res) {
-                    //    setCurrentDoctor(res);
-                         updateCurrentUserData();
-                    // }
-            //     }
-            // }
+                    }
+                });
+                if (response && (response.status === 200 || response.status === 201)) {
+                    updateCurrentUserData();
+                    const { email, firebasePwd } = response.data;
+                    firestoreService.createNewUser(email, firebasePwd)
+                        .then((userRecord) => {
+                            var loginUser = userRecord.userd;
+                            console.log('user Created', loginUser.email, loginUser.uid);
+
+                        })
+                        .catch((error) => {
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            console.log('user Created failed', errorCode, errorMessage)
+                        });
+                    const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
+
+                    if (res) {
+                        setCurrentDoctor(res);
+                        updateCurrentUserData();
+                    }
+                }
+            }
         }
     }
     const now = new Date();
@@ -564,6 +567,7 @@ console.log("Test",currentuserInfo);
                                             <p>Email</p>
                                             <TextValidator id="standard-basic" type="text" name="email"
                                                 value={email}
+                                                onChange={e => handleInputChange(e)}
                                                 disabled
                                                 variant="filled" />
                                         </Col>

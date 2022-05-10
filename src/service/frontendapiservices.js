@@ -27,7 +27,7 @@ export const updateRolePatient = async (bodyFormData) => {
         method: 'post',
         mode: 'no-cors',
         data: bodyFormData,
-        url: '/api/patients/',
+        url: '/api/mobile/patients/',
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'multipart/form-data',
@@ -84,7 +84,7 @@ export const signupWithEmail = async (userData) => {
         method: 'post',
         mode: 'no-cors',
         data: JSON.stringify(userData),
-        url: '/api/register',
+        url: '/api/mobile/register',
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
@@ -95,7 +95,9 @@ export const signupWithEmail = async (userData) => {
             return res;
         }
     });
+    console.log(response);
     return response;
+   
 }
 
 export const getLoggedInUserDataByUserId = async (userId) => {
@@ -565,7 +567,7 @@ export const updatePatientTimeZone = async (data) => {
     var payload = {
         method: 'put',
         mode: 'no-cors',
-        url: `/api/patients/timezone?patientId=${data.id}&patientTimeZone=${data.patientTimeZone}`,
+        url: `/api/mobile/patients/timezone?patientId=${data.id}&patientTimeZone=${data.patientTimeZone}`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json',

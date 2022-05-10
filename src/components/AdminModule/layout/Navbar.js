@@ -271,7 +271,7 @@ const Navbar = (props) => {
               }}
             >
               {/* <Link to="/admin/user-management/users/add" style={{ textDecoration: "none" }}><MenuItem>Add User</MenuItem></Link> */}
-              <Link to="/admin/addservice-provider" style={{ textDecoration: "none" }}><MenuItem>Add Service Provider</MenuItem></Link>
+              {/* <Link to="/admin/addservice-provider" style={{ textDecoration: "none" }}><MenuItem>Add Service Provider</MenuItem></Link> */}
               <Link to="/admin/changepassword" style={{ textDecoration: "none" }}><MenuItem>Change Password</MenuItem></Link>
               <Link to="/admin/logout" style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
             </Menu>
