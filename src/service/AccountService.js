@@ -122,7 +122,7 @@ export const handleSignin = async (username, password) => {
 export const activateUser = async (key) => {
     var activateUserCall = {
         method: 'get',
-        url:  `/api/activate?key=${key}`,
+        url:  `/api/mobile/activate?key=${key}`,
     };
     const response = await axios(activateUserCall);
 

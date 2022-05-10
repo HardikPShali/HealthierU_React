@@ -6,7 +6,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import './App.css';
 import Cookies from 'universal-cookie';
 
-axios.defaults.baseURL = 'https://api-healthieru.devtomaster.com/';
+axios.defaults.baseURL = 'https://api-healthieru-mob.devtomaster.com/';
 
 const errorHandler = (error) => {
     const cookies = new Cookies();
