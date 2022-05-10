@@ -12,10 +12,8 @@ import {
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -56,14 +54,11 @@ const Signupform = () => {
   //console.log("googleAccessToken :::::", googleAccessToken);
   //console.log("googleProfileData ::::::", googleProfileData);
   // let history = useHistory();
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const [user, setUser] = useState({
     firstName:
@@ -256,7 +251,7 @@ const Signupform = () => {
       }
     }
     if (!googleAccessToken) {
-      //var config = {
+      // var config = {
       //  method: 'post',
       //  mode: 'no-cors',
       //  data: JSON.stringify(user),
@@ -265,7 +260,7 @@ const Signupform = () => {
       //    'Content-Type': 'application/json',
       //    'Access-Control-Allow-Origin': '*'
       //  }
-      //}
+      // }
 
       const response = await signupWithEmail(user).catch((error) => {
         setTransparentLoading(false);
@@ -290,9 +285,16 @@ const Signupform = () => {
           });
         }
       });
-      if (response && response.status === 201) {
+      if (response && response.status === 200) {
         setTransparentLoading(false);
-        handleClickOpen();
+
+        if (authorities.some((user) => user === "ROLE_PATIENT")) {
+          history.push("/otp");
+        }
+        if (authorities.some((user) => user === "ROLE_DOCTOR")) {
+          history.push("/doctor");
+        }
+        // handleClickOpen();
       }
       //}).catch(error => {
       //  if (error.response && error.response.status === 400 && error.response.data.errorKey === "emailexists") {
@@ -579,37 +581,6 @@ const Signupform = () => {
                 </button>
               </Link>
 
-              <Dialog aria-labelledby="customized-dialog-title" open={open}>
-                <DialogTitle id="customized-dialog-title">
-                  Account Created Successfully!
-                </DialogTitle>
-                <DialogContent dividers>
-                  <Typography gutterBottom>
-                    Activation Email has been sent to your Email Address. Please
-                    check your inbox.
-                    <br />
-                    <br />
-                    <b>
-                      <i>
-                        Warning : Beware email might take up to 10 mins to
-                        arrive. Please check your spam folder as well.
-                      </i>
-                    </b>
-                  </Typography>
-                </DialogContent>
-                <DialogActions>
-                  <Link to="/signin">
-                    <button
-                      autoFocus
-                      onClick={handleClose}
-                      className="btn btn-primary sign-btn"
-                      id="close-btn"
-                    >
-                      Ok
-                    </button>
-                  </Link>
-                </DialogActions>
-              </Dialog>
             </div>
           </Col>
         </Row>

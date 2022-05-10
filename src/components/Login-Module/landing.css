@@ -1177,3 +1177,24 @@ button {
   padding-left: 12px;
   height: 40px;
 }
+
+.otp-verify {
+  /* width: 50%;
+  margin: 0 25% 20px; */
+  width: 120px;
+  margin: 10px 10% 20px;
+  height: 45px;
+  border-radius: 22px;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  background-color: transparent !important;
+}
+
+.otp-verify:hover {
+  background-color: var(--primary) !important;
+  color: #fff !important;
+}
+
+.otp-box-div {
+  margin: 50px;
+}
