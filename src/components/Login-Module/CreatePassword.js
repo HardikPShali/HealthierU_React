@@ -26,7 +26,14 @@ const isup = "(?=.*[A-Z])";
 const CreatePassword = () => {
   //let history = useHistory();
   const [open, setOpen] = React.useState(false);
+  const [otpBox, setOtpBox] = useState(new Array(4).fill(''));
+
   //const [loading, setLoading] = useState(true);
+
+  const [display, setDisplay] = useState({
+    otpPage: "block",
+    createPasswordPage: "none",
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -75,7 +82,9 @@ const CreatePassword = () => {
       });
     }
   };
-  const createNewPasswordKey = qs.parse(window.location.search, { ignoreQueryPrefix: true }).resetkey;
+  // const createNewPasswordKey = qs.parse(window.location.search, { ignoreQueryPrefix: true }).resetkey;
+  const createNewPasswordKey = otpBox.join('');
+
   const resetPasswordPayload = {
     key: createNewPasswordKey,
     newPassword: newPassword
@@ -85,7 +94,7 @@ const CreatePassword = () => {
       method: 'post',
       mode: 'no-cors',
       data: resetPasswordPayload,
-      url: `/api/account/reset-password/finish`,
+      url: `/api/mobile/account/reset-password/finish`,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -109,16 +118,88 @@ const CreatePassword = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  //LOGIC FOR OTP BOXES
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+
+    setOtpBox([
+      ...otpBox.map((ele, i) =>
+        i === index ? element.value : ele
+      ),
+    ]);
+
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
+
+  const handleOTPSubmit = () => {
+    setDisplay({ ...display, otpPage: "none", createPasswordPage: "block" });
+  };
+
+
+
+
   return (
     <div>
       <Header />
-      <Container id="signin-bg">
+      <Container id="signupform-bg" style={{ display: display.otpPage }}>
+        <Row>
+          <Col md={6}></Col>
+          <Col md={5}>
+
+            <div className="sign-box text-center">
+              <h2 id="signin-title">OTP Verification</h2>
+              <p style={{ fontSize: '14px' }}>OTP has been sent to "email"</p>
+
+              <div className='otp-box-div'>
+                {otpBox.map((data, index) => {
+                  return (
+                    <input
+                      type="text"
+                      className="otp-field"
+                      name="otp"
+                      maxLength="1"
+                      key={index}
+                      value={data}
+                      onChange={(e) => handleChange(e.target, index)}
+                      onFocus={(e) => e.target.select()}
+                    />
+                  );
+                })}
+              </div>
+
+              <div>
+                <button
+                  className='otp-verify'
+                  onClick={() => {
+                    setOtpBox(new Array(4).fill(''));
+                  }}
+                >
+                  Clear
+                </button>
+
+                <button className="otp-verify" onClick={() => handleOTPSubmit()}>
+                  Verify
+                </button>
+
+              </div>
+
+
+            </div>
+          </Col>
+        </Row>
+      </Container>
+
+
+      <Container id="signin-bg" style={{ display: display.createPasswordPage }}>
         <Row>
           <Col md={7}></Col>
           <Col md={5}>
             <h2 id="signin-title">
               Create Password
-                            </h2>
+            </h2>
             <div className="sign-box">
               <ValidatorForm onError={errors => console.log(errors)} onSubmit={e => handleCreatePassword(e)}>
                 <p>New Password<sup>*</sup></p>
@@ -171,16 +252,16 @@ const CreatePassword = () => {
               <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                   Password Changed Successfully!
-        </DialogTitle>
+                </DialogTitle>
                 <DialogContent dividers>
                   <Typography gutterBottom>
                     Your password is changed successfully. Please log in with your new password.
-          </Typography>
+                  </Typography>
                 </DialogContent>
                 <DialogActions>
                   <Link to="/signin"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
                     Ok
-          </button></Link>
+                  </button></Link>
                 </DialogActions>
               </Dialog>
             </div>
