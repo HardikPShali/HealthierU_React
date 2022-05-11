@@ -65,7 +65,10 @@ const PatientRoute = () => {
   const systemTimeZone = momentTz.tz.guess();
 
   useEffect(() => {
-    getCurrentPatient();
+    {
+      currentuserInfo.profileCompleted == true &&
+        getCurrentPatient();
+    }
   }, []);
 
   useEffect(() => {

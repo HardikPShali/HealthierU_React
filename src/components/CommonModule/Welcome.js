@@ -128,6 +128,12 @@ const Welcome = ({ currentuserInfo }) => {
         phone: "",
         countryId: "",
         gender: "",
+        highbp: 0,
+        lowbp: 0,
+        height: 0,
+        weight: 0,
+        maritalstatus: "",
+        allergies: "",
         email: (currentuserInfo && currentuserInfo.email) || "",
         inputList: "",
         modeodemployement: "",
@@ -261,6 +267,7 @@ const Welcome = ({ currentuserInfo }) => {
     const updateCurrentUserData = async () => {
         currentuserInfo.profileCompleted = true;
         const response = await updateUserAccount(currentuserInfo);
+        console.log(currentuserInfo)
         if (response.status === 200 || response.status === 201) {
             if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
                 const currentUserInformation = await getUpdatedUserData();
@@ -302,62 +309,60 @@ const Welcome = ({ currentuserInfo }) => {
             phone: phone,
             countryId: countryId,
             dateOfBirth: dateOfBirth,
-            maritalstatus: maritalstatus,
+            maritalStatus: maritalstatus,
             gender: gender,
             height: height,
             weight: weight,
-            highbp: highbp,
-            lowbp: lowbp,
+            highBp: highbp,
+            lowBp: lowbp,
             allergies: allergies,
             email: email,
             address: address,
             languages: languages,
-            //patientTimeZone: currentTimeZone
+            patientTimeZone: currentTimeZone
         };
         var bodyFormData = new FormData();
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
 
-            // if (languages.length === 0) {
-            //     setLanguageError(true);
-            // }
-            // else {
-            console.log("1");
-            console.log("firstname", firstName);
-            // history.push('/patient/questionnaire');
-            setTransparentLoading(true);
-            bodyFormData.append('profileData', JSON.stringify(patientPayload));
-            bodyFormData.append('profilePicture', profilePicture);
-            const response = await updateRolePatient(bodyFormData).catch(err => {
-                setTransparentLoading(false);
-                if (err.response.status === 400 && state.phone === "") {
-                    setPhoneError(err.response.data.title);
+            if (languages.length === 0) {
+                setLanguageError(true);
+            }
+            else {
+                setTransparentLoading(true);
+                bodyFormData.append('profileData', JSON.stringify(patientPayload));
+                bodyFormData.append('profilePicture', profilePicture);
+                const response = await updateRolePatient(bodyFormData).catch(err => {
+                    console.log("test")
+                    setTransparentLoading(false);
+                    if (err.response.status === 400 && state.phone === "") {
+                        setPhoneError(err.response.data.title);
 
-                }
-                else if (err.response.status === 400 && state.phone !== "") {
-                    setFormError(err.response.data.title);
+                    }
+                    else if (err.response.status === 400 && state.phone !== "") {
+                        setFormError(err.response.data.title);
 
+                    }
+                });
+                if (response && (response.status === 200 || response.status === 201)) {
+                    console.log("data", response.data);
+                    console.log("error-email", response.data.email);
+                    console.log("error-firebasePwd", response.data.firebasePwd);
+                    firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
+                        .then((userRecord) => {
+                            var loginUser = userRecord.userd;
+                            console.log('user Created', loginUser.email, loginUser.uid)
+                        })
+                        .catch((error) => {
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            console.log('user Created failed', errorCode, errorMessage)
+                        });
+                    updateCurrentUserData();
                 }
-            });
-            if (response && (response.status === 200 || response.status === 201)) {
-                console.log("response", response.data);
-                const { email, firebasePwd } = response.data;
-                firestoreService.createNewUser(email, firebasePwd)
-                    .then((userRecord) => {
-                        var loginUser = userRecord.userd;
-                        console.log('user Created', loginUser.email, loginUser.uid)
-                    })
-                    .catch((error) => {
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        console.log('user Created failed', errorCode, errorMessage)
-                    });
-                updateCurrentUserData();
-                // }
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
 
-            history.push('/');
             if (languages.length === 0) {
                 setLanguageError(true);
             }
@@ -379,7 +384,7 @@ const Welcome = ({ currentuserInfo }) => {
                     }
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
-                    updateCurrentUserData();
+
                     const { email, firebasePwd } = response.data;
                     firestoreService.createNewUser(email, firebasePwd)
                         .then((userRecord) => {
@@ -437,12 +442,13 @@ const Welcome = ({ currentuserInfo }) => {
 
     return (
         <div>
-            {/* {loading && (
+            {loading && (
                 <Loader />
-            )} */}
-            {/* {transparentLoading && (
+            )
+            }
+            {transparentLoading && (
                 <TransparentLoader />
-            )} */}
+            )}
             <Header />
             <Container style={{ maxWidth: "100%" }}>
                 <Row>
@@ -567,10 +573,10 @@ const Welcome = ({ currentuserInfo }) => {
                                                     <MenuItem value="">
                                                         <em>Select</em>
                                                     </MenuItem>
-                                                    <MenuItem value="male">
+                                                    <MenuItem value="MALE">
                                                         <em>Male</em>
                                                     </MenuItem>
-                                                    <MenuItem value="female">
+                                                    <MenuItem value="FEMALE">
                                                         <em>Female</em>
                                                     </MenuItem>
                                                     <MenuItem value="UNKNOWN">
@@ -591,13 +597,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         </Col>
                                     </Row>
                                     <br />
-                                    <p>Address</p>
-                                    <TextValidator id="standard-basic" type="text" name="address"
-                                        onChange={e => handleInputChange(e)}
-                                        value={address}
-                                        variant="filled"
-                                        placeholder='Address' />
-                                    <br />
+
                                     <Row>
 
                                         <Col md={12}>
@@ -698,16 +698,23 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="text" name="allergies"
                                                     onChange={e => handleInputChange(e)}
                                                     value={allergies}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
                                                     variant="filled"
-                                                    placeholder='Allergies' />
+                                                    placeholder="Allergies"
+                                                    inputProps={{
+                                                        title: "Make it comma (,) separated."
+                                                    }} />
                                             </Col>
 
                                         </Row>
                                     </>)}
                                     {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
-
+                                        <p>Address</p>
+                                        <TextValidator id="standard-basic" type="text" name="address"
+                                            onChange={e => handleInputChange(e)}
+                                            value={address}
+                                            variant="filled"
+                                            placeholder='Address' />
+                                        <br />
                                         {inputList.map((x, i) => {
                                             return (
                                                 <Row>
