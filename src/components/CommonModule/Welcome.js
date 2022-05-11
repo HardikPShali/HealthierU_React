@@ -41,7 +41,7 @@ import { getCurrentDoctorInfo } from "../../service/AccountService";
 import { firestoreService } from "../../util";
 import DatePicker from 'react-date-picker';
 import { useHistory } from "react-router";
-
+import { Button } from 'react-bootstrap';
 // import 'react-calendar/dist/Calendar.css';
 
 //import axios from 'axios';
@@ -119,7 +119,7 @@ const Welcome = ({ currentuserInfo }) => {
             currentUserData();
         }
     }, [])
-
+    const [inputList, setInputList] = useState([{ education: '', institution: '' }]);
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
         firstName: (currentuserInfo && currentuserInfo.firstName) || "",
@@ -129,8 +129,7 @@ const Welcome = ({ currentuserInfo }) => {
         countryId: "",
         gender: "",
         email: (currentuserInfo && currentuserInfo.email) || "",
-        education: "",
-        institution: "",
+        inputList: "",
         modeodemployement: "",
         address: "",
         affiliation: "",
@@ -174,7 +173,7 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, education, specialities, languages, institution, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody } = state;
+    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
@@ -276,6 +275,23 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
+    // handle input change
+    const handleEducationDetailsInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...inputList];
+        list[index][name] = value;
+        setInputList(list);
+    };
+    // handle click event of the Remove button
+    const handleRemoveClick = (index) => {
+        const list = [...inputList];
+        list.splice(index, 1);
+        setInputList(list);
+    };
+    // handle click event of the Add button
+    const handleAddClick = () => {
+        setInputList([...inputList, { education: '', institution: '' }]);
+    };
     const handleDetails = async e => {
         e.preventDefault();
 
@@ -294,7 +310,9 @@ const Welcome = ({ currentuserInfo }) => {
             lowbp: lowbp,
             allergies: allergies,
             email: email,
-            // patientTimeZone: currentTimeZone
+            address: address,
+            languages: languages,
+            //patientTimeZone: currentTimeZone
         };
         var bodyFormData = new FormData();
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
@@ -304,7 +322,7 @@ const Welcome = ({ currentuserInfo }) => {
             // }
             // else {
             console.log("1");
-            console.log("firstname",firstName);
+            console.log("firstname", firstName);
             // history.push('/patient/questionnaire');
             setTransparentLoading(true);
             bodyFormData.append('profileData', JSON.stringify(patientPayload));
@@ -313,11 +331,11 @@ const Welcome = ({ currentuserInfo }) => {
                 setTransparentLoading(false);
                 if (err.response.status === 400 && state.phone === "") {
                     setPhoneError(err.response.data.title);
-                    
+
                 }
                 else if (err.response.status === 400 && state.phone !== "") {
                     setFormError(err.response.data.title);
-                    
+
                 }
             });
             if (response && (response.status === 200 || response.status === 201)) {
@@ -451,7 +469,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 value={firstName}
                                                 validators={['required']}
                                                 errorMessages={['This field is required']}
-                                                variant="filled" disabled />
+                                                variant="filled" />
                                         </Col>
                                         <Col md={6}>
                                             <p>Last Name<sup>*</sup></p>
@@ -461,7 +479,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 validators={['required']}
                                                 errorMessages={['This field is required']}
                                                 variant="filled"
-                                                disabled />
+                                            />
                                         </Col>
                                     </Row>
                                     <br />
@@ -580,6 +598,26 @@ const Welcome = ({ currentuserInfo }) => {
                                         variant="filled"
                                         placeholder='Address' />
                                     <br />
+                                    <Row>
+
+                                        <Col md={12}>
+                                            <p>Languages<sup>*<sup></sup></sup></p>
+                                            <FormControl>
+                                                <div className="multiselect">
+                                                    <Multiselect
+                                                        options={languageOptions}
+                                                        onSelect={handleLanguages}
+                                                        onRemove={removeLanguages}
+                                                        displayValue="name"
+                                                    />
+                                                </div>
+                                            </FormControl>
+                                            {languageError && (
+                                                <p style={{ color: "red" }}>This field is required.</p>
+                                            )}
+                                        </Col>
+                                    </Row>
+                                    <br />
                                     {currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
                                         <Row>
                                             <Col md={12}>
@@ -669,28 +707,55 @@ const Welcome = ({ currentuserInfo }) => {
                                         </Row>
                                     </>)}
                                     {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
-                                        <Row>
 
-                                            <Col md={12}>
-                                                <p>Languages<sup>*<sup></sup></sup></p>
-                                                <FormControl>
-                                                    <div className="multiselect">
-                                                        <Multiselect
-                                                            options={languageOptions}
-                                                            onSelect={handleLanguages}
-                                                            onRemove={removeLanguages}
-                                                            displayValue="name"
-                                                        />
-                                                    </div>
-                                                </FormControl>
-                                                {languageError && (
-                                                    <p style={{ color: "red" }}>This field is required.</p>
-                                                )}
-                                            </Col>
-                                        </Row>
-                                        <br />
+                                        {inputList.map((x, i) => {
+                                            return (
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Education<sup>*</sup></p>
+                                                        <TextValidator id="standard-basic" type="text" name="education"
+                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
+                                                            value={x.education}
+                                                            validators={['required']}
+                                                            errorMessages={['This field is required']}
+                                                            variant="filled"
+                                                            placeholder='Education' />
 
-                                        <Row>
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Institution<sup>*</sup></p>
+                                                        <TextValidator id="standard-basic" type="text" name="institution"
+                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
+                                                            value={x.institution}
+                                                            validators={['required']}
+                                                            errorMessages={['This field is required']}
+                                                            variant="filled"
+                                                            placeholder='Institution' />
+
+                                                    </Col>
+                                                    {inputList.length !== 1 && (
+                                                        <Button
+                                                            variant="secondary"
+                                                            onClick={() => handleRemoveClick(i)}
+                                                        >
+                                                            Remove
+                                                        </Button>
+                                                    )}
+
+                                                    {inputList.length - 1 === i && (
+                                                        <Button
+                                                            className="medicineButton"
+                                                            variant="primary"
+                                                            onClick={handleAddClick}
+                                                        >
+                                                            Add Education
+                                                        </Button>
+                                                    )}
+
+                                                </Row>
+                                            );
+                                        })}
+                                        {/* <Row>
                                             <Col md={6}>
                                                 <p>Education<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="education"
@@ -714,7 +779,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                                             </Col>
 
-                                        </Row>
+                                        </Row> */}
                                         <br />
                                         <Row>
                                             <Col md={12}>

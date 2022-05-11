@@ -30,6 +30,7 @@ import LocalStorageService from "./../../util/LocalStorageService";
 import { signupWithEmail } from "../../service/frontendapiservices";
 import { CAPTCHA_SITE_KEY } from "./../../util/configurations";
 import ReCAPTCHA from "react-google-recaptcha";
+import SelectRole from "./components/selectRole";
 
 const isnum = "(?=.*[0-9!@*$_])";
 const islow = "(?=.*[a-z])";
@@ -597,71 +598,12 @@ const Signupform = () => {
         </Row>
       </Container>
 
-      <div className="wrapper" style={{ display: display.whoyouAre }}>
-        <div id="user-type">
-          {/* <!-- Tabs Titles --> */}
-          <h2 className="user-title">Who are you?</h2>
-          <br />
-          {/* <!-- Login Form --> */}
+      <SelectRole style={{ display: display.whoyouAre }}
+        handleDoctorClick={handleDoctorClick}
+        handlePatientClick={handlePatientClick}
+        handlePhysicaltrainerClick={handlePhysicaltrainerClick} />
 
-          <div className="wyr-form-box">
-            <div className="row">
-              <div className="col-md-4">
-                <br />
-                <button
-                  className="btn no-outline role"
-                  onClick={() => handleDoctorClick()}
-                >
-                  <img src={doctorSVG} alt="" className="sub nopadd" />
-                  <br />
-                  Provider
 
-                </button>
-              </div>
-              <div className="col-md-4">
-                <br />
-                <button
-                  className="btn no-outline role"
-                  onClick={() => handlePatientClick()}
-                >
-                  <img src={patientSVG} alt="" className="sub nopadd" />
-                  <br />
-                  Individual
-                </button>
-              </div>
-              <div className="col-md-4">
-                <br />
-                <button
-                  className="btn no-outline role"
-                  onClick={() => handlePhysicaltrainerClick()}
-                >
-                  <img
-                    src={physical_trainerSVG}
-                    alt=""
-                    className="sub nopadd"
-                  />
-                  <br />
-                  Employer
-                </button>
-              </div>
-            </div>
-          </div>
-          {/* <div className="wyr-form-box">
-            <div className="row">
-              <div className="col-12"><br />
-                <button type="button" className="btn no-outline" onClick={() => handlePatientClick()}><img src={patientSVG} className="sub nopadd" /><br />Patient</button>
-              </div>
-            </div>
-          </div>
-          <div className="wyr-form-box">
-            <div className="row">
-              <div className="col-12"><br />
-                <button type="button" className="btn no-outline" onClick={() => handlePhysicaltrainerClick()}><img src={physical_trainerSVG} className="sub nopadd" /><br />Physical<br />Trainer</button>
-              </div>
-            </div>
-          </div> */}
-        </div>
-      </div>
 
       <Footer />
       <Dialog aria-labelledby="customized-dialog-title" open={comingSoon}>
