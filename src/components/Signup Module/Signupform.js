@@ -304,7 +304,7 @@ const Signupform = () => {
           history.push("/otp");
         }
         if (authorities.some((user) => user === "ROLE_DOCTOR")) {
-          history.push("/doctor");
+          history.push("/otp");
         }
         // handleClickOpen();
       }

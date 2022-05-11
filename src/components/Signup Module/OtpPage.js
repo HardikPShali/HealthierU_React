@@ -60,7 +60,6 @@ const OtpPage = () => {
             }
         });
         if (res) {
-
             console.log(res);
             handleClickOpen();
         }
