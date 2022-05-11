@@ -4,7 +4,7 @@ import patientSVG from "../../../images/patientSVG.svg";
 import physical_trainerSVG from "../../../images/physicaltrainerSVG.svg";
 const SelectRole = (props) => {
     return (
-        <div className="wrapper" style={props.display}>
+        <div className="wrapper" style={props.style}>
             <div id="user-type">
                 {/* <!-- Tabs Titles --> */}
                 <h2 className="user-title">Who are you?</h2>
