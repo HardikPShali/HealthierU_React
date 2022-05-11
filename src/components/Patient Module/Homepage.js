@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Welcome from './../CommonModule/Welcome';
 import Loader from './../Loader/Loader'
 import SpecialitiesSection from './SpecialitiesSection'
+import UpcomingAppointments from './UpcomingAppointmentsSection/UpcomingAppointments'
 // import { getCurrentUserInfo } from "../../service/AccountService";
 // import LocalStorageService from './../../util/LocalStorageService';
 // import Footer from './Footer'
@@ -80,16 +81,17 @@ function patientHomePage() {
             <br />
             <Container>
                 <Row>
-                    {/*<Col md={6}>
-                        <Link to="/patient/nutrition"><div id="Box1" className="card-box">Nutrition Plan</div></Link>
-                    </Col>
                     <Col md={6}>
+                        <UpcomingAppointments />
+                    </Col>
+                    {/*<Col md={6}>
                         <Link to="/patient/article"><div id="Box5" className="card-box">Articles</div></Link>
                     </Col>
 
                     <Col md={4}>
                         <div id="Box3" className="card-box">Lifestyle</div>
                     </Col>*/}
+
                 </Row>
                 <br />
                 <Row>
