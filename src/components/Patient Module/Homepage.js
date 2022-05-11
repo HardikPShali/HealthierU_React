@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react'
-// import Footer from './Footer'
-// import QuestionnaireView from './questionnaire/QuestionnaireView'
-
 import './patient.css'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import home2 from '../../images/home-2.png'
-import home3 from '../../images/home-3.png'
 import { Link } from 'react-router-dom'
 import Welcome from './../CommonModule/Welcome';
-// import LocalStorageService from './../../util/LocalStorageService';
-// import CircularProgress from '@material-ui/core/CircularProgress';
-
 import Loader from './../Loader/Loader'
+import SpecialitiesSection from './SpecialitiesSection'
 // import { getCurrentUserInfo } from "../../service/AccountService";
+// import LocalStorageService from './../../util/LocalStorageService';
+// import Footer from './Footer'
+// import QuestionnaireView from './questionnaire/QuestionnaireView'
+// import CircularProgress from '@material-ui/core/CircularProgress';
 
 // const docprofile = './src/images/doctor/'
 
@@ -60,31 +58,21 @@ function patientHomePage() {
                     <Col md={6}>
                         <Card id="patient-card">
                             <Card.Img variant="top" src={home2} />
-                            <Card.Body>
-                                <Card.Title>How healthy are you?</Card.Title>
-                                <Card.Text>
-                                    Find out how you measure with health and<br />
-                                    well-being assessment
-                                </Card.Text>
-                                <Link to="/patient/questionnaire">
-                                    <button variant="primary" className="btn btn-outline-light assessment-btn">Take my
-                                        assessment
-                                    </button>
-                                </Link>
-                            </Card.Body>
+                            <Card.ImgOverlay>
+                                <Card.Body>
+                                    <Card.Title>How healthy are you?</Card.Title>
+                                    <Link to="/patient/questionnaire">
+                                        <button variant="primary" className="btn btn-outline-light assessment-btn">
+                                            Take my assessment
+                                        </button>
+                                    </Link>
+                                </Card.Body>
+                            </Card.ImgOverlay>
+
                         </Card>
                     </Col>
                     <Col md={6}>
-                        <Card id="patient-card">
-                            <Card.Img variant="top" src={home3} />
-                            <Card.Body>
-                                <Card.Title>Looking for an expert advise?</Card.Title>
-                                <Card.Text>
-                                    Check out our available wellness specialists
-                                </Card.Text>
-                                <Link to="/patient/mydoctor"><button variant="primary" className="btn btn-outline-light assessment-btn">Meet Our Doctors</button></Link>
-                            </Card.Body>
-                        </Card>
+                        <SpecialitiesSection />
                     </Col>
                 </Row>
             </Container>
@@ -92,14 +80,14 @@ function patientHomePage() {
             <br />
             <Container>
                 <Row>
-                    <Col md={6}>
+                    {/*<Col md={6}>
                         <Link to="/patient/nutrition"><div id="Box1" className="card-box">Nutrition Plan</div></Link>
                     </Col>
                     <Col md={6}>
                         <Link to="/patient/article"><div id="Box5" className="card-box">Articles</div></Link>
                     </Col>
 
-                    {/*<Col md={4}>
+                    <Col md={4}>
                         <div id="Box3" className="card-box">Lifestyle</div>
                     </Col>*/}
                 </Row>
