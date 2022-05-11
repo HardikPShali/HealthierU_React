@@ -151,7 +151,7 @@ export const getCountryList = async () => {
 export const getSpecialityList = async () => {
     var payload = {
         method: 'get',
-        url: `/api/specialities/all`,
+        url: `/api/mobile/specialities/all`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
