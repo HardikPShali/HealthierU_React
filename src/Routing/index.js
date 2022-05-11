@@ -70,6 +70,11 @@ const SelectRolePage = Loadable({
     loading: () => <div></div>
 });
 
+const OtpPageTest = Loadable({
+    loader: () => import('../components/Signup Module/OtpPage'),
+    loading: () => <div></div>
+})
+
 const MainRoute = () => (
     <Switch>
         <Route exact path="/" component={Homepage} />
@@ -87,6 +92,8 @@ const MainRoute = () => (
         <Route exact path="/licenses" component={LicensesPage} />
         <Route exact path="/partners" component={PartnersPage} />
         <Route exact path="/select-role" component={SelectRolePage} />
+
+        <Route exact path="/otp" component={OtpPageTest} />
 
         <Redirect to='/signin' />
     </Switch>

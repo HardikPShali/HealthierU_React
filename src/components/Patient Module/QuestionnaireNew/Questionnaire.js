@@ -7,10 +7,26 @@ import '../patient.css';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getPatientQuestionnaire } from '../../questionnaire/QuestionnaireService';
+import {
+    getCurrentUserInfo,
+} from '../../../service/AccountService';
 
 const Questionnaire = () => {
     const [questions, setQuestions] = useState(null);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
+
+    const [currentUser, setCurrentUser] = useState({
+        isLoading: true,
+        questionnaire: null,
+        currentPatientUser: null,
+    });
+
+    const [questionnaireState, setQuestionnaireState] = useState({
+        isLoading: true,
+        questionnaire: null,
+        selectedQuestionnaire: null,
+    })
 
     const history = useHistory();
 
@@ -28,12 +44,27 @@ const Questionnaire = () => {
         setTimeout(() => history.push('/patient'), 1000);
     }
 
+    const getCurrentUserInformation = async () => {
+        const currentUser = await getCurrentUserInfo();
+        setCurrentUser({ ...currentUser, currentLoggedInUser: currentUser });
+        console.log('currentUser', currentUser);
+    }
+
+    const getQuestionnaire = async () => {
+        const response = await getPatientQuestionnaire(currentUser.id);
+        setQuestions({ ...questionnaireState, questionnaire: response, isLoading: false });
+        console.log('response', response);
+    }
+
+
     useEffect(() => {
         setQuestions(quesJson);
+
+        getCurrentUserInformation();
+        getQuestionnaire();
+
     }, []);
 
-
-    console.log(questions);
 
     return (
         <Container style={{ maxWidth: '100%' }}>
