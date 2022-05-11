@@ -265,25 +265,36 @@ const Signupform = () => {
       const response = await signupWithEmail(user).catch((error) => {
         setTransparentLoading(false);
         setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
-        if (
-          error.response &&
-          error.response.status === 400 &&
-          error.response.data.errorKey === "emailexists"
-        ) {
+        console.log("Error", error);
+        console.log("Error.response", error.response);
+
+        if (error.response && error.response.status === 500 && error.response.data.message === "Login name already used!") {
+          console.log("Error Message", error.response.data.message);
           setErrorMsg({
             ...errorMsg,
-            emailExistance: error.response.data.title,
-          });
-        } else if (
-          error.response &&
-          error.response.status === 400 &&
-          error.response.data.errorKey === "userexists"
-        ) {
-          setErrorMsg({
-            ...errorMsg,
-            userNameExistance: error.response.data.title,
+            userNameExistance: error.response.data.message,
           });
         }
+
+        // if (
+        //   error.response &&
+        //   error.response.status === 400 &&
+        //   error.response.data.errorKey === "emailexists"
+        // ) {
+        //   setErrorMsg({
+        //     ...errorMsg,
+        //     emailExistance: error.response.data.title,
+        //   });
+        // } else if (
+        //   error.response &&
+        //   error.response.status === 400 &&
+        //   error.response.data.errorKey === "userexists"
+        // ) {
+        //   setErrorMsg({
+        //     ...errorMsg,
+        //     userNameExistance: error.response.data.title,
+        //   });
+        // }
       });
       if (response && response.status === 200) {
         setTransparentLoading(false);
@@ -296,13 +307,13 @@ const Signupform = () => {
         }
         // handleClickOpen();
       }
-      //}).catch(error => {
+      // }).catch(error => {
       //  if (error.response && error.response.status === 400 && error.response.data.errorKey === "emailexists") {
       //    setErrorMsg({ ...errorMsg, emailExistance: error.response.data.title });
       //  } else if (error.response && error.response.status === 400 && error.response.data.errorKey === "userexists") {
       //    setErrorMsg({ ...errorMsg, userNameExistance: error.response.data.title });
       //  }
-      //})
+      // })
     }
     //} //else {
     // setCaptchaError("Please verify captcha!");
