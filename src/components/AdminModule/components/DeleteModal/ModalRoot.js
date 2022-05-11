@@ -18,6 +18,7 @@ export default function ModalRoot(props) {
             });
         });
     }, []);
+ 
 
     const ModalComponent = modal.component ? modal.component : null;
 
@@ -27,10 +28,11 @@ export default function ModalRoot(props) {
             {ModalComponent && (
                 <ModalComponent
                     {...modal.props}
-                    id={props.id}
+                   
                     componentName={props.componentName}
                     handleDeleteSubmit={props.handleDeleteSubmit}
-                    close={modal.close}
+                    // close={modal.close}
+                    handleState={props.handleState || modal.close}
                     className={ModalComponent ? 'd-block' : ''}
                 />
             )}

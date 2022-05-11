@@ -39,6 +39,7 @@ import DeleteModal from "../components/DeleteModal/DeleteModal"
 import ModalRoot from "../components/DeleteModal/ModalRoot"
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { set } from "date-fns/fp";
 const EditServiceProvider = props => {
     //let history = useHistory()
     console.log("props", props);
@@ -147,6 +148,7 @@ const EditServiceProvider = props => {
 
     useEffect(() => {
         loadServiceProvider();
+
     }, []);
 
     // Contact Details
@@ -173,26 +175,28 @@ const EditServiceProvider = props => {
         setShowContact(true);
     };
 
-    const [selectedContactId, setSelectedContactId] = useState("");
+    const [selectedContactId, setSelectedContactId] = useState(0);
 
 
     // const [showDeleteContact, setShowDeleteContact] = useState(false);
 
-    const handleDeleteContactModal = contactData => {
-        setSelectedContactId(contactData.id);
-
-        ModalService.open(DeleteModal);
-
-
-
+    const handleDeleteContactModal = async (e, contactData) => {
+        console.log("first", selectedContactId);
+        const resp = contactData.id;
+        console.log("2nd", resp);
+        setSelectedContactId(resp);
+        console.log("final", selectedContactId);
+        if (resp) {
+            ModalService.open(DeleteModal);
+        }
     };
 
 
-    const handleDeleteContact = async () => {
+    const handleDeleteContact = async (e) => {
         setIsLoading(true);
         const resp = deleteContact(selectedContactId);
         if (resp) {
-
+            setSelectedContactId(0);
             toast.success("Contact successfully Deleted.");
             setTimeout(() => history.go(0), 500);
             loadServiceProvider();
@@ -203,27 +207,26 @@ const EditServiceProvider = props => {
     // Location Code
 
     const [showLocation, setShowLocation] = useState(false);
-    const [selectedLocationId, setSelectedLocationId] = useState("");
+    const [selectedLocationId, setSelectedLocationId] = useState(0);
     const [locationDetails, setLocationDetails] = useState({
         id: "",
         description: "",
         lon: "",
         lat: ""
     });
-    const handleDeleteLocationModal = locationdata => {
-        setSelectedLocationId(locationdata.id);
-
-
+    const handleDeleteLocationModal = (locationdata) => {
+        console.log("first", selectedLocationId);
+        console.log("3", locationdata.id);
         ModalService.open(DeleteModal);
-
-
+        setSelectedLocationId(locationdata.id);
+        console.log("second", selectedLocationId);
 
     };
-    const handleDeleteLocation = async () => {
+    const handleDeleteLocation = async (e) => {
         setIsLoading(true);
         const resp = deleteLocation(selectedLocationId);
         if (resp) {
-
+            setSelectedLocationId("");
             toast.success("Location successfully Deleted.");
             setTimeout(() => history.go(0), 500);
             loadServiceProvider();
@@ -297,11 +300,11 @@ const EditServiceProvider = props => {
         });
         setShowOpeningHours(true);
     };
-    const handleDeleteOpeningHours = async () => {
+    const handleDeleteOpeningHours = async (e) => {
         setIsLoading(true);
         const resp = deleteOpeningHours(selectedOpeningHoursId);
         if (resp) {
-
+            setSelectedOpeningHoursId("");
             toast.success("Opening Hours successfully Deleted.");
             setTimeout(() => history.go(0), 500);
             loadServiceProvider();
@@ -337,6 +340,13 @@ const EditServiceProvider = props => {
     };
 
 
+    const setClose = () => {
+        setSelectedContactId("");
+        setSelectedLocationId("");
+        setSelectedOpeningHoursId("");
+        loadServiceProvider();
+
+    }
 
     return (
         <div>
@@ -589,8 +599,8 @@ const EditServiceProvider = props => {
                                                                             width="15"
                                                                             height="15"
                                                                             src={deleteIcon}
-                                                                            onClick={() =>
-                                                                                handleDeleteContactModal(contact)
+                                                                            onClick={(e) =>
+                                                                                handleDeleteContactModal(e, contact)
                                                                             }
                                                                             className="delete-icon"
                                                                             alt=""
@@ -692,7 +702,7 @@ const EditServiceProvider = props => {
                                                                             width="15"
                                                                             height="15"
                                                                             src={deleteIcon}
-                                                                            onClick={() =>
+                                                                            onClick={(e) =>
                                                                                 handleDeleteLocationModal(location)
                                                                             }
                                                                             className="delete-icon"
@@ -1204,23 +1214,34 @@ const EditServiceProvider = props => {
             </Modal>
 
 
+            {selectedContactId &&
+                <ModalRoot componentName="Contact" handleDeleteSubmit={(e) => handleDeleteContact(e)} handleState={setClose} />
+
+            }
+
+            {selectedLocationId &&
+
+                <ModalRoot componentName="Location" handleDeleteSubmit={(e) => handleDeleteLocation(e)} handleState={setClose} />
+            }
+
+            {selectedOpeningHoursId &&
+
+                <ModalRoot componentName="Opening Hours" handleDeleteSubmit={(e) => handleDeleteOpeningHours(e)} handleState={setClose} />
+            }
 
 
-         
-                {/* <ModalRoot componentName={serviceProvider} handleDeleteSubmit={handleDeleteContact} /> */}
-              
 
-            {/* <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
-         <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
-         <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} /> */}
+
+
+
             {/* Opening Hours delete modal */}
-            <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} />
+            {/* <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} /> */}
             {/* Location delete modal */}
-            <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} />
-             {/* Contact delete modal */}
-            <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} />
-            
-            
+            {/* <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} /> */}
+            {/* Contact delete modal */}
+            {/* <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} /> */}
+
+
             <br />
             <br />
         </div >
