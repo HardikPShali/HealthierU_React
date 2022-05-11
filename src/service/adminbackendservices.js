@@ -134,7 +134,7 @@ export const getUserByUserId = async (apiName, selectedId) => {
 export const getCountryList = async () => {
     var payload = {
         method: 'get',
-        url: `/api/countries`,
+        url: `/api/mobile/countries`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
@@ -168,7 +168,7 @@ export const getSpecialityList = async () => {
 export const getLanguageList = async () => {
     var payload = {
         method: 'get',
-        url: `/api/languages`,
+        url: `/api/mobile/languages`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'

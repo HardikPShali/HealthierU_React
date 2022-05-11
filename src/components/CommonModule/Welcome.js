@@ -167,7 +167,7 @@ const Welcome = ({ currentuserInfo }) => {
             }
         });
         if (res && res.data) {
-            Setoption({ countryList: res.data })
+            Setoption({ countryList: res.data.data })
             setTimeout(() => setLoading(false), 1000);
         }
     }
@@ -205,7 +205,7 @@ const Welcome = ({ currentuserInfo }) => {
             }
         });
         if (res && res.data) {
-            setLanguage({ languageOptions: res.data })
+            setLanguage({ languageOptions: res.data.data })
             setTimeout(() => setLoading(false), 1000);
         }
     }
@@ -746,54 +746,6 @@ const Welcome = ({ currentuserInfo }) => {
                                             </Col>
                                         </Row>
                                         <br />
-
-                                        {/* {inputList.map((x, i) => {
-                                            return (
-                                                <Row>
-                                                    <Col md={6}>
-                                                        <p>Education<sup>*</sup></p>
-                                                        <TextValidator id="standard-basic" type="text" name="education"
-                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
-                                                            value={x.education}
-                                                            validators={['required']}
-                                                            errorMessages={['This field is required']}
-                                                            variant="filled"
-                                                            placeholder='Education' />
-
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        <p>Institution<sup>*</sup></p>
-                                                        <TextValidator id="standard-basic" type="text" name="institution"
-                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
-                                                            value={x.institution}
-                                                            validators={['required']}
-                                                            errorMessages={['This field is required']}
-                                                            variant="filled"
-                                                            placeholder='Institution' />
-
-                                                    </Col>
-                                                    {inputList.length !== 1 && (
-                                                        <Button
-                                                            variant="secondary"
-                                                            onClick={() => handleRemoveClick(i)}
-                                                        >
-                                                            Remove
-                                                        </Button>
-                                                    )}
-
-                                                    {inputList.length - 1 === i && (
-                                                        <Button
-                                                            className="medicineButton"
-                                                            variant="primary"
-                                                            onClick={handleAddClick}
-                                                        >
-                                                            Add Education
-                                                        </Button>
-                                                    )}
-
-                                                </Row>
-                                            );
-                                        })} */}
                                         <Row>
                                             <Col md={12}>
                                                 <p>Education<sup>*</sup></p>
@@ -806,53 +758,10 @@ const Welcome = ({ currentuserInfo }) => {
                                                     placeholder='Education' />
 
                                             </Col>
-                                            {/* <Col md={6}>
-                                                <p>Institution<sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="text" name="institution"
-                                                    onChange={e => handleInputChange(e)}
-                                                    value={institution}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
-                                                    variant="filled"
-                                                    placeholder='Institution' />
-
-                                            </Col> */}
+                                   
 
                                         </Row>
                                         <br />
-
-                                        {/* <Row>
-                                            <Col md={12}>
-                                                <p>Mode Of Employement<sup>*</sup></p>
-                                                <FormControl>
-                                                    <Select
-                                                        id="demo-controlled-open-select"
-                                                        variant="filled"
-                                                        name="modeodemployement"
-                                                        value={modeodemployement}
-                                                        inputProps={{ required: true }}
-                                                        displayEmpty
-                                                        onChange={e => handleInputChange(e)}
-
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>Select Mode of Employement</em>
-                                                        </MenuItem>
-                                                        <MenuItem value="employee">
-                                                            <em>Employee</em>
-                                                        </MenuItem>
-                                                
-                                                        <MenuItem value="selfemployed">
-                                                            <em>Self-Employed</em>
-                                                        </MenuItem>
-
-                                                    </Select>
-                                                </FormControl>
-                                            </Col>
-
-                                        </Row>
-                                        <br /> */}
-
 
                                         <Row>
                                             <Col md={4}>
@@ -891,17 +800,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     placeholder='HalfRate' />
 
                                             </Col>
-                                            {/* <Col md={6}>
-                                                <p>Affiliation <sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="text" name="affiliation"
-                                                    onChange={e => handleInputChange(e)}
-                                                    value={affiliation}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
-                                                    variant="filled"
-                                                    placeholder='Affiliation' />
-                                            </Col> */}
-
+                                        
                                             <br />
                                             <br />
                                         </Row>
@@ -939,43 +838,7 @@ const Welcome = ({ currentuserInfo }) => {
 
 
                                         <br />
-                                        {/* <Col md={6}>
-                                                <p>Reference Phone Number<sup>*</sup></p>
-
-                                                <PhoneInput
-                                                    inputProps={{
-                                                        name: 'refphone',
-                                                        required: true,
-                                                        maxLength: 16,
-                                                        minLength: 12
-                                                    }}
-                                                    country={'us'}
-                                                    value={refphone}
-                                                    onChange={e => handleRefPhone(e)}
-                                                    variant="filled"
-                                                    placeholder='Reference Phone Number'
-                                                />
-                                                {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
-
-                                            </Col> */}
-
-
-                                        {/* <Row>
-                                            <Col md={12}>
-                                                <p>Certifying Body<sup>*</sup></p>
-
-                                                <TextValidator id="standard-basic" type="text" name="certifyingbody"
-                                                    onChange={e => handleInputChange(e)}
-                                                    value={certifyingbody}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
-                                                    variant="filled"
-                                                    placeholder='Certifying Body' />
-
-                                            </Col>
-
-                                        </Row> */}
-
+                                       
                                         <Row>
                                             <Col md={6}>
                                                 <p>Other Certifications (optional)</p>
