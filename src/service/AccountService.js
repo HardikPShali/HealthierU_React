@@ -76,15 +76,14 @@ export const getCurrentDoctorInfo = async (userId, username) => {
 
     const doctorInfoApiCall = {
         method: 'get',
-        url: `/api/current-doctor-info?userid=${userId}&username=${username}`,
+        url: `/api/mobile/current-doctor-info?userid=${userId}&username=${username}`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
         }
     };
     const currentDoctorInformation = await axios(doctorInfoApiCall);
-    console.log("API", doctorInfoApiCall);
-    console.log("API1", currentDoctorInformation.data);
+  
     return currentDoctorInformation.data
 
 }

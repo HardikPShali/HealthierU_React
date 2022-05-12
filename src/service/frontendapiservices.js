@@ -42,11 +42,11 @@ export const updateRolePatient = async (bodyFormData) => {
     return response;
 }
 
-export const updateRoleDoctor = async (bodyFormData) => {
+export const updateRoleDoctor = async (bodyFormDataDoctor) => {
     var payload = {
         method: 'post',
         mode: 'no-cors',
-        data: bodyFormData,
+        data: bodyFormDataDoctor,
         url: '/api/mobile/doctors',
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
@@ -95,7 +95,6 @@ export const signupWithEmail = async (userData) => {
             return res;
         }
     });
-    console.log(response);
     return response;
    
 }
@@ -652,7 +651,7 @@ export const uploadDoctorDocument = async (files, info) => {
     var newData = new FormData();
     newData.append(`doctorDocumentFile`, files);
     newData.append("doctorDocumentInfo", JSON.stringify(info));
-
+    console.log("info",info)
     var payload = {
         method: 'post',
         mode: 'no-cors',
