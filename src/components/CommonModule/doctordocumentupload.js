@@ -114,6 +114,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
 
     const handleUpload = async (e) => {
         setLoading(true);
+        console.log("currentDoctor",currentDoctor)
         const info = {
             doctorId: currentDoctor.id,
             doctor_email: currentDoctor.email,

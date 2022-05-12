@@ -29,7 +29,7 @@ const ForgetPassword = () => {
     };
     const handleClose = () => {
         setOpen(false);
-        history.push("/signin");
+        history.push("/createpassword");
     };
     const [user, setUser] = useState({
         email: "",
@@ -63,30 +63,30 @@ const ForgetPassword = () => {
     }
 
     const handleEmailVerification = async () => {
-        if (captchaVerify) {
-            var payload = {
-                method: 'post',
-                mode: 'no-cors',
-                data: email,
-                url: `/api/account/reset-password/init?accessPlatform=web`,
-                headers: {
-                    'Content-Type': 'text/plain',
-                    'Access-Control-Allow-Origin': '*'
-                }
-            };
-            axios(payload).then(response => {
-                if (response.status === 200 || response.status === 201) {
-                    handleClickOpen();
-                }
-            }).catch(err => {
-                if (err.response.status === 400) {
-                    setErrMsg("Email address not registered.");
-                }
-            })
-        }
-        else {
-            setCaptchaError("Please verify captcha!")
-        }
+        // if (captchaVerify) {
+        var payload = {
+            method: 'post',
+            mode: 'no-cors',
+            data: email,
+            url: `/api/mobile/account/reset-password/init`,
+            headers: {
+                'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*'
+            }
+        };
+        axios(payload).then(response => {
+            if (response.status === 200 || response.status === 201) {
+                handleClickOpen();
+            }
+        }).catch(err => {
+            if (err.response.status === 400) {
+                setErrMsg("Email address not registered.");
+            }
+        })
+        // }
+        // else {
+        //     setCaptchaError("Please verify captcha!")
+        // }
     }
     return (
         <div>
@@ -111,12 +111,12 @@ const ForgetPassword = () => {
                                     validators={['required', 'isEmail']}
                                     errorMessages={['This field is required', 'Please provide valid email']}
                                     variant="filled" />
-                                    <label style={{ fontSize: 12, color: '#ff9393' }} className="left">{errMsg}</label>
+                                <label style={{ fontSize: 12, color: '#ff9393' }} className="left">{errMsg}</label>
                                 <br />
-                                <ReCAPTCHA
+                                {/* <ReCAPTCHA
                                     sitekey={CAPTCHA_SITE_KEY}
                                     onChange={handleRecaptchaChange}
-                                />
+                                /> */}
 
                                 <input className="btn btn-primary sign-btn" type="submit" value="Submit" />
                             </ValidatorForm>

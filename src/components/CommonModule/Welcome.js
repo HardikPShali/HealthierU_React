@@ -119,7 +119,7 @@ const Welcome = ({ currentuserInfo }) => {
             currentUserData();
         }
     }, [])
-    const [inputList, setInputList] = useState([{ education: '', institution: '' }]);
+    //const [inputList, setInputList] = useState([{ education: '', institution: '' }]);
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
         firstName: (currentuserInfo && currentuserInfo.firstName) || "",
@@ -128,19 +128,29 @@ const Welcome = ({ currentuserInfo }) => {
         phone: "",
         countryId: "",
         gender: "",
+        highbp: 0,
+        lowbp: 0,
+        height: 0,
+        weight: 0,
+        maritalstatus: "",
+        allergies: "",
         email: (currentuserInfo && currentuserInfo.email) || "",
-        inputList: "",
-        modeodemployement: "",
+        education: "",
+        institution: "",
+        rate: 0,
+        halfRate: 0,
+        bio: "",
+        //modeodemployement: "",
         address: "",
-        affiliation: "",
-        experience: "",
+        //affiliation: "",
+        experience: 0,
         specialities: [],
         languages: [],
         certificates: "",
         awards: "",
-        license: "",
-        refphone: "",
-        certifyingbody: ""
+        // license: "",
+        // refphone: "",
+        // certifyingbody: ""
 
     });
 
@@ -157,7 +167,7 @@ const Welcome = ({ currentuserInfo }) => {
             }
         });
         if (res && res.data) {
-            Setoption({ countryList: res.data })
+            Setoption({ countryList: res.data.data })
             setTimeout(() => setLoading(false), 1000);
         }
     }
@@ -167,18 +177,20 @@ const Welcome = ({ currentuserInfo }) => {
                 setLoading(false);
             }
         });
+
         if (res && res.data) {
-            setSpeciality({ specialityOptions: res.data })
+            setSpeciality({ specialityOptions: res.data.data })
+          
             setTimeout(() => setLoading(false), 1000);
         }
     }
 
-    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody } = state;
+    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, education, institution } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
         // e.preventDefault()
-        specialities.push({ id: selectedItem.id });
+        specialities.push({ id: selectedItem.id, name: selectedItem.name });
         setSpecialityError(false);
     };
     const handleLanguages = (selectedList, selectedItem) => {
@@ -193,7 +205,7 @@ const Welcome = ({ currentuserInfo }) => {
             }
         });
         if (res && res.data) {
-            setLanguage({ languageOptions: res.data })
+            setLanguage({ languageOptions: res.data.data })
             setTimeout(() => setLoading(false), 1000);
         }
     }
@@ -233,7 +245,7 @@ const Welcome = ({ currentuserInfo }) => {
         setstate({ ...state, dateOfBirth: e });
         setDefaultDate(e);
 
-        // console.log("defaultDate", defaultDate);
+        
     };
     const getUpdatedCurrentUserData = async () => {
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
@@ -276,22 +288,22 @@ const Welcome = ({ currentuserInfo }) => {
     }
 
     // handle input change
-    const handleEducationDetailsInputChange = (e, index) => {
-        const { name, value } = e.target;
-        const list = [...inputList];
-        list[index][name] = value;
-        setInputList(list);
-    };
+    // const handleEducationDetailsInputChange = (e, index) => {
+    //     const { name, value } = e.target;
+    //     const list = [...inputList];
+    //     list[index][name] = value;
+    //     setInputList(list);
+    // };
     // handle click event of the Remove button
-    const handleRemoveClick = (index) => {
-        const list = [...inputList];
-        list.splice(index, 1);
-        setInputList(list);
-    };
+    // const handleRemoveClick = (index) => {
+    //     const list = [...inputList];
+    //     list.splice(index, 1);
+    //     setInputList(list);
+    // };
     // handle click event of the Add button
-    const handleAddClick = () => {
-        setInputList([...inputList, { education: '', institution: '' }]);
-    };
+    // const handleAddClick = () => {
+    //     setInputList([...inputList, { education: '', institution: '' }]);
+    // };
     const handleDetails = async e => {
         e.preventDefault();
 
@@ -302,62 +314,81 @@ const Welcome = ({ currentuserInfo }) => {
             phone: phone,
             countryId: countryId,
             dateOfBirth: dateOfBirth,
-            maritalstatus: maritalstatus,
+            maritalStatus: maritalstatus,
             gender: gender,
             height: height,
             weight: weight,
-            highbp: highbp,
-            lowbp: lowbp,
+            highBp: highbp,
+            lowBp: lowbp,
             allergies: allergies,
             email: email,
             address: address,
             languages: languages,
-            //patientTimeZone: currentTimeZone
+            patientTimeZone: currentTimeZone
         };
+        const doctorPayload = {
+            userId: (currentuserInfo && currentuserInfo.id) || "",
+            firstName: (currentuserInfo && currentuserInfo.firstName) || "",
+            lastName: (currentuserInfo && currentuserInfo.lastName) || "",
+            phone: phone,
+            countryId: countryId,
+            dateOfBirth: dateOfBirth,
+            gender: gender,
+            education: education,
+            //institution: institution,
+            rate: rate,
+            halfRate: halfRate,
+            bio: bio,
+            experience: experience,
+            specialities: specialities,
+            languages: languages,
+            certificates: certificates,
+            awards: awards,
+            email: (currentuserInfo && currentuserInfo.email) || "",
+            address: address,
+            languages: languages,
+            doctorTimeZone: currentTimeZone
+        };
+
         var bodyFormData = new FormData();
+        var bodyFormDataDoctor = new FormData();
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
 
-            // if (languages.length === 0) {
-            //     setLanguageError(true);
-            // }
-            // else {
-            console.log("1");
-            console.log("firstname", firstName);
-            // history.push('/patient/questionnaire');
-            setTransparentLoading(true);
-            bodyFormData.append('profileData', JSON.stringify(patientPayload));
-            bodyFormData.append('profilePicture', profilePicture);
-            const response = await updateRolePatient(bodyFormData).catch(err => {
-                setTransparentLoading(false);
-                if (err.response.status === 400 && state.phone === "") {
-                    setPhoneError(err.response.data.title);
+            if (languages.length === 0) {
+                setLanguageError(true);
+            }
+            else {
+                setTransparentLoading(true);
+                bodyFormData.append('profileData', JSON.stringify(patientPayload));
+                bodyFormData.append('profilePicture', profilePicture);
+                const response = await updateRolePatient(bodyFormData).catch(err => {
+                    setTransparentLoading(false);
+                    if (err.response.status === 400 && state.phone === "") {
+                        setPhoneError(err.response.data.title);
 
-                }
-                else if (err.response.status === 400 && state.phone !== "") {
-                    setFormError(err.response.data.title);
+                    }
+                    else if (err.response.status === 400 && state.phone !== "") {
+                        setFormError(err.response.data.title);
 
+                    }
+                });
+                if (response && (response.status === 200 || response.status === 201)) {
+                    firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
+                        .then((userRecord) => {
+                            var loginUser = userRecord.userd;
+                            console.log('user Created', loginUser.email, loginUser.uid)
+                        })
+                        .catch((error) => {
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            console.log('user Created failed', errorCode, errorMessage)
+                        });
+                    updateCurrentUserData();
                 }
-            });
-            if (response && (response.status === 200 || response.status === 201)) {
-                console.log("response", response.data);
-                const { email, firebasePwd } = response.data;
-                firestoreService.createNewUser(email, firebasePwd)
-                    .then((userRecord) => {
-                        var loginUser = userRecord.userd;
-                        console.log('user Created', loginUser.email, loginUser.uid)
-                    })
-                    .catch((error) => {
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        console.log('user Created failed', errorCode, errorMessage)
-                    });
-                updateCurrentUserData();
-                // }
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-
-            history.push('/');
+            
             if (languages.length === 0) {
                 setLanguageError(true);
             }
@@ -366,9 +397,12 @@ const Welcome = ({ currentuserInfo }) => {
             }
             else {
                 setTransparentLoading(true);
-                state.doctorTimeZone = currentTimeZone
-                bodyFormData.append('profileData', JSON.stringify(state));
-                const response = await updateRoleDoctor(bodyFormData).catch(err => {
+                // state.doctorTimeZone = currentTimeZone
+                // bodyFormData.append('profileData', JSON.stringify(state));
+                bodyFormDataDoctor.append('profileData', JSON.stringify(doctorPayload));
+                bodyFormDataDoctor.append('profilePicture', profilePicture);
+               
+                const response = await updateRoleDoctor(bodyFormDataDoctor).catch(err => {
                     setTransparentLoading(false);
                     if (err.response.status === 400 && state.phone === "") {
                         setPhoneError(err.response.data.title);
@@ -379,9 +413,7 @@ const Welcome = ({ currentuserInfo }) => {
                     }
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
-                    updateCurrentUserData();
-                    const { email, firebasePwd } = response.data;
-                    firestoreService.createNewUser(email, firebasePwd)
+                    firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
                         .then((userRecord) => {
                             var loginUser = userRecord.userd;
                             console.log('user Created', loginUser.email, loginUser.uid);
@@ -437,12 +469,13 @@ const Welcome = ({ currentuserInfo }) => {
 
     return (
         <div>
-            {/* {loading && (
+            {loading && (
                 <Loader />
-            )} */}
-            {/* {transparentLoading && (
+            )
+            }
+            {transparentLoading && (
                 <TransparentLoader />
-            )} */}
+            )}
             <Header />
             <Container style={{ maxWidth: "100%" }}>
                 <Row>
@@ -567,10 +600,10 @@ const Welcome = ({ currentuserInfo }) => {
                                                     <MenuItem value="">
                                                         <em>Select</em>
                                                     </MenuItem>
-                                                    <MenuItem value="male">
+                                                    <MenuItem value="MALE">
                                                         <em>Male</em>
                                                     </MenuItem>
-                                                    <MenuItem value="female">
+                                                    <MenuItem value="FEMALE">
                                                         <em>Female</em>
                                                     </MenuItem>
                                                     <MenuItem value="UNKNOWN">
@@ -591,13 +624,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         </Col>
                                     </Row>
                                     <br />
-                                    <p>Address</p>
-                                    <TextValidator id="standard-basic" type="text" name="address"
-                                        onChange={e => handleInputChange(e)}
-                                        value={address}
-                                        variant="filled"
-                                        placeholder='Address' />
-                                    <br />
+
                                     <Row>
 
                                         <Col md={12}>
@@ -698,65 +725,29 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="text" name="allergies"
                                                     onChange={e => handleInputChange(e)}
                                                     value={allergies}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
                                                     variant="filled"
-                                                    placeholder='Allergies' />
+                                                    placeholder="Allergies"
+                                                    inputProps={{
+                                                        title: "Make it comma (,) separated."
+                                                    }} />
                                             </Col>
 
                                         </Row>
                                     </>)}
                                     {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
-
-                                        {inputList.map((x, i) => {
-                                            return (
-                                                <Row>
-                                                    <Col md={6}>
-                                                        <p>Education<sup>*</sup></p>
-                                                        <TextValidator id="standard-basic" type="text" name="education"
-                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
-                                                            value={x.education}
-                                                            validators={['required']}
-                                                            errorMessages={['This field is required']}
-                                                            variant="filled"
-                                                            placeholder='Education' />
-
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        <p>Institution<sup>*</sup></p>
-                                                        <TextValidator id="standard-basic" type="text" name="institution"
-                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
-                                                            value={x.institution}
-                                                            validators={['required']}
-                                                            errorMessages={['This field is required']}
-                                                            variant="filled"
-                                                            placeholder='Institution' />
-
-                                                    </Col>
-                                                    {inputList.length !== 1 && (
-                                                        <Button
-                                                            variant="secondary"
-                                                            onClick={() => handleRemoveClick(i)}
-                                                        >
-                                                            Remove
-                                                        </Button>
-                                                    )}
-
-                                                    {inputList.length - 1 === i && (
-                                                        <Button
-                                                            className="medicineButton"
-                                                            variant="primary"
-                                                            onClick={handleAddClick}
-                                                        >
-                                                            Add Education
-                                                        </Button>
-                                                    )}
-
-                                                </Row>
-                                            );
-                                        })}
-                                        {/* <Row>
-                                            <Col md={6}>
+                                        <Row>
+                                            <Col md={12}>
+                                                <p>Bio</p>
+                                                <TextValidator id="standard-basic" type="text" name="bio"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={bio}
+                                                    variant="filled"
+                                                    placeholder='Bio' />
+                                            </Col>
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={12}>
                                                 <p>Education<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="education"
                                                     onChange={e => handleInputChange(e)}
@@ -767,57 +758,13 @@ const Welcome = ({ currentuserInfo }) => {
                                                     placeholder='Education' />
 
                                             </Col>
-                                            <Col md={6}>
-                                                <p>Institution<sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="text" name="institution"
-                                                    onChange={e => handleInputChange(e)}
-                                                    value={institution}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
-                                                    variant="filled"
-                                                    placeholder='Institution' />
-
-                                            </Col>
-
-                                        </Row> */}
-                                        <br />
-                                        <Row>
-                                            <Col md={12}>
-                                                <p>Mode Of Employement<sup>*</sup></p>
-                                                <FormControl>
-                                                    <Select
-                                                        id="demo-controlled-open-select"
-                                                        variant="filled"
-                                                        name="modeodemployement"
-                                                        value={modeodemployement}
-                                                        inputProps={{ required: true }}
-                                                        displayEmpty
-                                                        onChange={e => handleInputChange(e)}
-
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>Select Mode of Employement</em>
-                                                        </MenuItem>
-                                                        <MenuItem value="employee">
-                                                            <em>Employee</em>
-                                                        </MenuItem>
-                                                        {/* <MenuItem value="worker">
-                                                            <em>Worker</em>
-                                                        </MenuItem> */}
-                                                        <MenuItem value="selfemployed">
-                                                            <em>Self-Employed</em>
-                                                        </MenuItem>
-
-                                                    </Select>
-                                                </FormControl>
-                                            </Col>
+                                   
 
                                         </Row>
                                         <br />
 
-
                                         <Row>
-                                            <Col md={6}>
+                                            <Col md={4}>
                                                 <p>Years Of experience<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="number" name="experience"
                                                     onChange={e => handleInputChange(e)}
@@ -831,17 +778,29 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     placeholder='Years of Experience' />
                                             </Col>
-                                            <Col md={6}>
-                                                <p>Affiliation <sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="text" name="affiliation"
+                                            <Col md={4}>
+                                                <p>Rate<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="rate"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={affiliation}
+                                                    value={rate}
                                                     validators={['required']}
                                                     errorMessages={['This field is required']}
                                                     variant="filled"
-                                                    placeholder='Affiliation' />
-                                            </Col>
+                                                    placeholder='Rate' />
 
+                                            </Col>
+                                            <Col md={4}>
+                                                <p>Half Rate<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="halfRate"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={halfRate}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled"
+                                                    placeholder='HalfRate' />
+
+                                            </Col>
+                                        
                                             <br />
                                             <br />
                                         </Row>
@@ -866,57 +825,20 @@ const Welcome = ({ currentuserInfo }) => {
                                         </Row>
                                         <br />
                                         <Row>
-                                            <Col md={6}>
-                                                <p>License Number<sup>*</sup></p>
 
-                                                <TextValidator id="standard-basic" type="text" name="license"
-                                                    onChange={e => handleInputChange(e)}
-                                                    value={license}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
-                                                    variant="filled"
-                                                    placeholder='License Number' />
-
-                                            </Col>
-
-                                            <br />
-                                            <Col md={6}>
-                                                <p>Reference Phone Number<sup>*</sup></p>
-
-                                                <PhoneInput
-                                                    inputProps={{
-                                                        name: 'refphone',
-                                                        required: true,
-                                                        maxLength: 16,
-                                                        minLength: 12
-                                                    }}
-                                                    country={'us'}
-                                                    value={refphone}
-                                                    onChange={e => handleRefPhone(e)}
-                                                    variant="filled"
-                                                    placeholder='Reference Phone Number'
-                                                />
-                                                {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
-
-                                            </Col>
-                                        </Row>
-                                        <br />
-                                        <Row>
                                             <Col md={12}>
-                                                <p>Certifying Body<sup>*</sup></p>
-
-                                                <TextValidator id="standard-basic" type="text" name="certifyingbody"
+                                                <p>Address<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="address"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={certifyingbody}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
+                                                    value={address}
                                                     variant="filled"
-                                                    placeholder='Certifying Body' />
-
+                                                    placeholder='Address' />
                                             </Col>
-
                                         </Row>
+
+
                                         <br />
+                                       
                                         <Row>
                                             <Col md={6}>
                                                 <p>Other Certifications (optional)</p>
@@ -964,7 +886,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                             )}
                             {displaydocumentForm && (<>
-                                <DoctorDocumentUpload isDoctor={true} currentDoctor={{}} />
+                                <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} />
                                 <br />
                                 <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>
                             </>)}
