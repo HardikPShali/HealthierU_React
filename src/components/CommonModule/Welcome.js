@@ -180,7 +180,7 @@ const Welcome = ({ currentuserInfo }) => {
 
         if (res && res.data) {
             setSpeciality({ specialityOptions: res.data.data })
-          
+
             setTimeout(() => setLoading(false), 1000);
         }
     }
@@ -245,7 +245,7 @@ const Welcome = ({ currentuserInfo }) => {
         setstate({ ...state, dateOfBirth: e });
         setDefaultDate(e);
 
-        
+
     };
     const getUpdatedCurrentUserData = async () => {
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
@@ -388,7 +388,7 @@ const Welcome = ({ currentuserInfo }) => {
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-            
+
             if (languages.length === 0) {
                 setLanguageError(true);
             }
@@ -397,11 +397,9 @@ const Welcome = ({ currentuserInfo }) => {
             }
             else {
                 setTransparentLoading(true);
-                // state.doctorTimeZone = currentTimeZone
-                // bodyFormData.append('profileData', JSON.stringify(state));
                 bodyFormDataDoctor.append('profileData', JSON.stringify(doctorPayload));
                 bodyFormDataDoctor.append('profilePicture', profilePicture);
-               
+
                 const response = await updateRoleDoctor(bodyFormDataDoctor).catch(err => {
                     setTransparentLoading(false);
                     if (err.response.status === 400 && state.phone === "") {
@@ -413,12 +411,10 @@ const Welcome = ({ currentuserInfo }) => {
                     }
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
-                    console.log("response.data.data.email",response.data.data.email)
-                    console.log("response.data.data.firebasePwd",response.data.data.firebasePwd)
                     firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
                         .then((userRecord) => {
                             var loginUser = userRecord.userd;
-                            console.log("loginUser",loginUser)
+                            console.log("loginUser", loginUser)
                             console.log('user Created', loginUser.email, loginUser.uid);
 
                         })
@@ -761,7 +757,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     placeholder='Education' />
 
                                             </Col>
-                                   
+
 
                                         </Row>
                                         <br />
@@ -803,7 +799,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     placeholder='HalfRate' />
 
                                             </Col>
-                                        
+
                                             <br />
                                             <br />
                                         </Row>
@@ -841,7 +837,7 @@ const Welcome = ({ currentuserInfo }) => {
 
 
                                         <br />
-                                       
+
                                         <Row>
                                             <Col md={6}>
                                                 <p>Other Certifications (optional)</p>
