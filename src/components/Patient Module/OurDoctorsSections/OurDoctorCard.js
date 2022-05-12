@@ -1,7 +1,7 @@
 import React from 'react'
 import home2 from '../../../images/home-2.png'
 
-const OurDoctorCard = () => {
+const OurDoctorCard = ({ doctor }) => {
     return (
 
         <div className='our-doctor__card'>
@@ -9,8 +9,8 @@ const OurDoctorCard = () => {
                 <img src={home2} alt="nutrition" className='img-fluid our-doctor__image' />
             </div>
             <div className='our-doctor__details'>
-                <h5 className='our-doctor__name'>Doctor Name</h5>
-                <p className='our-doctor__speciality'>Doctor Speciality</p>
+                <h5 className='our-doctor__name'>{doctor.firstName}</h5>
+                <p className='our-doctor__speciality'>{doctor.specialities.length && doctor.specialities[0].name}</p>
             </div>
         </div>
 
@@ -18,3 +18,5 @@ const OurDoctorCard = () => {
 }
 
 export default OurDoctorCard
+
+//picture url 

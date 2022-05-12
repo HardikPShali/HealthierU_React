@@ -6,7 +6,7 @@ const UpcomingAppointmentCard = () => {
         <div className='row'>
             <div className='col-md-4'>
                 <div className='upcoming-appointment-card__img-wrapper'>
-                    <img src={home2} alt="nutrition" className='img-fluid' />
+                    <img src={home2} alt="nutrition" className='img-circle' />
                 </div>
             </div>
             <div className='col-md-8'>

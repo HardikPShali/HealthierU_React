@@ -1,11 +1,11 @@
 /* UPCOMING APPOINTMENTS SECTION */
 .card-box {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
   height: 300px;
   background: #efefef;
   border-radius: 22px;
-  align-items: flex-end;
+  /* align-items: flex-end; */
   padding: 1.25rem;
   color: #fff;
   font-weight: 700 !important;
@@ -18,6 +18,10 @@
   color: #344767;
   font-weight: 700;
   text-shadow: none;
+}
+
+.card-holder {
+  width: 100%;
 }
 
 .upcoming-appointment-card {
@@ -34,6 +38,15 @@
 
 .upcoming-appointment-card__img-wrapper {
   padding: 20px;
+  text-align: center;
+}
+
+.img-circle {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  box-shadow: 2px 6px 20px -4px rgb(0 0 0 / 74%);
+  -webkit-box-shadow: 2px 6px 20px -4px rgb(0 0 0 / 74%);
 }
 
 .upcoming-appointment-card__card-details {
