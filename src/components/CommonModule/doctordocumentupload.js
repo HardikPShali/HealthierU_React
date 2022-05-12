@@ -116,8 +116,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
         setLoading(true);
         console.log("currentDoctor",currentDoctor)
         const info = {
-            doctorId: currentDoctor.id,
-            doctor_email: currentDoctor.email,
+            doctorId: currentDoctor.data.id,
+            doctor_email: currentDoctor.data.email,
             documentName: documentName
         }
         const files = documentFile;

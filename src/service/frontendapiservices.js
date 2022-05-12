@@ -651,7 +651,7 @@ export const uploadDoctorDocument = async (files, info) => {
     var newData = new FormData();
     newData.append(`doctorDocumentFile`, files);
     newData.append("doctorDocumentInfo", JSON.stringify(info));
-
+    console.log("info",info)
     var payload = {
         method: 'post',
         mode: 'no-cors',
