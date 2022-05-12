@@ -15,7 +15,7 @@
 }
 
 body {
-  background: #fff !important;
+  background: #e5e5e5 !important;
   /*color: #2125296b;*/
 }
 
@@ -787,8 +787,11 @@ div#price-box:before {
   border-radius: 22px !important;
 }
 #patient-card .card-title.h5 {
-  font-size: 22px;
-  font-weight: 400;
+  /* font-size: 22px;
+  font-weight: 400; */
+  font-size: 30px !important;
+  color: black;
+  font-weight: 500;
 }
 #patient-card .card,
 img.card-img-top {
@@ -796,14 +799,23 @@ img.card-img-top {
   border: none !important;
 }
 #patient-card .card-body {
-  position: absolute;
+  /* position: absolute;
   bottom: 0;
   color: #eee9df;
   background-color: var(--primary);
   width: 100%;
   height: 130px;
   border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px; */
+  position: relative !important;
+  bottom: 0;
+  color: #eee9df;
+  background-color: transparent !important;
+  width: 100%;
+  height: 130px;
+  border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  transform: translate(4%, 88%) !important;
 }
 #patient-card p.card-text {
   font-size: 12px;
@@ -811,7 +823,7 @@ img.card-img-top {
   color: #fff;
 }
 #patient-card button.assessment-btn {
-  position: absolute;
+  /* position: absolute;
   bottom: 20%;
   right: 5%;
   border-radius: 22px;
@@ -819,12 +831,76 @@ img.card-img-top {
   font-size: 13px;
   background-color: transparent !important;
   color: #fff !important;
-  border-color: 1px solid #fff;
+  border-color: 1px solid #fff; */
+  position: relative;
+  border-radius: 22px;
+  padding: 10px 35px;
+  font-size: 15px;
+  background-color: var(--primary) !important;
+  color: #fff !important;
+  text-align: left;
 }
+
+#patient-card button.assessment-btn:hover {
+  background-color: #fff !important;
+  color: #000 !important;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
 #patient-card .card-body {
   padding: 1.25rem !important;
   display: unset;
   align-items: unset;
+}
+
+@media (min-width: 481px) and (max-width: 990px) {
+  .specialities-profile {
+    padding: 10px 6px !important;
+  }
+  .speciality-name {
+    padding: 0 5px !important;
+  }
+
+  #patient-card .card-body {
+    margin-top: 15px !important;
+  }
+}
+
+/* SPECIALITIES SECTION */
+
+.specialities {
+  margin: -8px auto;
+  background-color: #ffffff;
+  height: 100%;
+  border-radius: 22px;
+}
+
+.specialities-header {
+  margin-top: 10px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #344767;
+  padding: 20px 0px 15px 40px;
+}
+
+.specialities-profile {
+  padding: 15px 20px;
+  /* background: #fff; */
+}
+
+.speciality-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 2px solid var(--primary);
+}
+
+.speciality-name {
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  padding: 0 1rem;
+  text-align: center;
+  color: #344767;
 }
 
 /*
@@ -833,7 +909,8 @@ img.card-img-top {
 
 div.card-box {
   display: flex;
-  height: 200px;
+  flex-wrap: wrap;
+  height: 300px;
   background: #efefef;
   border-radius: 22px;
   align-items: flex-end;
@@ -842,6 +919,7 @@ div.card-box {
   font-weight: 700 !important;
   font-size: 20px !important;
   text-shadow: 0px 0px 15px #000;
+  overflow: auto;
 }
 #Box1 {
   background-image: url(../../images/nutrition.png);
@@ -1245,7 +1323,7 @@ div#multiselectContainerReact div:hover {
 */
 
 div#profile-col-1 {
-  background: var(--primarybg);
+  background: #fff;
   padding: 20px;
   margin: 50px -10px 50px 0px;
   border-radius: 22px;
@@ -1254,7 +1332,6 @@ div#profile-col-1 {
 }
 
 div#profile-col-2 {
-  background: var(--primarybg);
   padding: 20px;
   margin: 50px 0px 50px -10px;
   border-radius: 22px;
@@ -1273,26 +1350,11 @@ img#profile-pic {
 }
 
 .icon-tabs {
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   margin-right: 30px;
   padding: 5px;
-}
-
-.call-icon,
-.marital-status-icon,
-.language-icon,
-.blood-group-icon,
-.weight-icon {
-  background-color: #00d0cc;
-}
-
-.calendar-icon,
-.nationality-icon,
-.height-icon,
-.blood-pressure-icon {
-  background-color: #f6ceb4;
 }
 
 @media (max-width: 480px) {
@@ -1343,6 +1405,7 @@ table#user-info {
 #user-info tr {
   display: flex;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 /* TABS IN PROFILE PAGE */

@@ -13,11 +13,11 @@
   text-align: center;
   width: 400px;
   padding: 40px;
-  background: #fff;
+  background: #e4e4e4 !important;
   box-shadow: 0 20px 75px rgb(0 0 0 / 23%);
   /* color: #fff; */
   border-top: 5px solid red;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .custom-ui > h1 {
