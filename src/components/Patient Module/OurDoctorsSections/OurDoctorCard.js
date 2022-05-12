@@ -3,7 +3,6 @@ import home2 from '../../../images/home-2.png'
 
 const OurDoctorCard = ({ doctor }) => {
     return (
-
         <div className='our-doctor__card'>
             <div className='our-doctor__card__img-wrapper'>
                 <img src={home2} alt="nutrition" className='img-fluid our-doctor__image' />
@@ -13,7 +12,6 @@ const OurDoctorCard = ({ doctor }) => {
                 <p className='our-doctor__speciality'>{doctor.specialities.length && doctor.specialities[0].name}</p>
             </div>
         </div>
-
     )
 }
 

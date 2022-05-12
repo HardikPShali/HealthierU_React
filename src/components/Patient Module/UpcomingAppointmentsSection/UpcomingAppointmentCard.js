@@ -3,7 +3,9 @@ import home2 from '../../../images/home-2.png'
 
 const UpcomingAppointmentCard = () => {
     return (
+
         <div className='row'>
+
             <div className='col-md-4'>
                 <div className='upcoming-appointment-card__img-wrapper'>
                     <img src={home2} alt="nutrition" className='img-circle' />
@@ -20,6 +22,8 @@ const UpcomingAppointmentCard = () => {
                 </div>
             </div>
         </div>
+
+
     )
 }
 

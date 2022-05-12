@@ -82,27 +82,18 @@ function patientHomePage() {
             <br />
             <Container>
                 <Row>
-                    <Col md={6}>
+                    <Col md={12}>
                         <UpcomingAppointments />
                     </Col>
-                    <Col md={6}>
-                        <OurDoctors />
 
-                    </Col>
 
                 </Row>
                 <br />
-                {/* <Row>
-                    {/* <Col md={6}>
-                        <Link to="/patient/shop"><div id="Box4" className="card-box">Shop</div></Link>
-                    </Col> */}
-                {/* <Col md={6}>
-                        <Link to="/patient/workout"><div id="Box2" className="card-box">Workout</div></Link>
-                    </Col> */}
-                {/*<Col md={4}>
-                        <div id="Box6" className="card-box">Education</div>
+                <Row>
+                    <Col md={12}>
+                        <OurDoctors />
                     </Col>
-                </Row>*/}
+                </Row>
             </Container>
             <br />
             <br />

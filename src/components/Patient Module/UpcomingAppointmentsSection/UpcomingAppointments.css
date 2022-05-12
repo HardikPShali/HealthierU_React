@@ -1,11 +1,7 @@
 /* UPCOMING APPOINTMENTS SECTION */
-.card-box {
-  /* display: flex;
-  flex-wrap: wrap; */
-  height: 300px;
-  background: #efefef;
+.upcoming-appointment__card-box {
+  height: 160px;
   border-radius: 22px;
-  /* align-items: flex-end; */
   padding: 1.25rem;
   color: #fff;
   font-weight: 700 !important;

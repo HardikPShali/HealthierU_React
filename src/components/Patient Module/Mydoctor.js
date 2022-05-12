@@ -342,8 +342,9 @@ const MyDoctor = (props) => {
   };
   const loadSpeciality = async () => {
     const res = await getSpecialityList();
-    if (res && res.data) {
-      res.data.map((specialityName) => {
+    console.log('Res speciality', res);
+    if (res && res.data.data) {
+      res.data.data.map((specialityName) => {
         name.push(specialityName.name);
         return specialityName;
       });
