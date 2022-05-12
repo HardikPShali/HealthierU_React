@@ -7,6 +7,7 @@ import Welcome from './../CommonModule/Welcome';
 import Loader from './../Loader/Loader'
 import SpecialitiesSection from './SpecialitiesSection'
 import UpcomingAppointments from './UpcomingAppointmentsSection/UpcomingAppointments'
+import OurDoctors from './OurDoctorsSections/OurDoctors'
 // import { getCurrentUserInfo } from "../../service/AccountService";
 // import LocalStorageService from './../../util/LocalStorageService';
 // import Footer from './Footer'
@@ -84,27 +85,24 @@ function patientHomePage() {
                     <Col md={6}>
                         <UpcomingAppointments />
                     </Col>
-                    {/*<Col md={6}>
-                        <Link to="/patient/article"><div id="Box5" className="card-box">Articles</div></Link>
-                    </Col>
+                    <Col md={6}>
+                        <OurDoctors />
 
-                    <Col md={4}>
-                        <div id="Box3" className="card-box">Lifestyle</div>
-                    </Col>*/}
+                    </Col>
 
                 </Row>
                 <br />
-                <Row>
+                {/* <Row>
                     {/* <Col md={6}>
                         <Link to="/patient/shop"><div id="Box4" className="card-box">Shop</div></Link>
                     </Col> */}
-                    {/* <Col md={6}>
+                {/* <Col md={6}>
                         <Link to="/patient/workout"><div id="Box2" className="card-box">Workout</div></Link>
                     </Col> */}
-                    {/*<Col md={4}>
+                {/*<Col md={4}>
                         <div id="Box6" className="card-box">Education</div>
-                    </Col>*/}
-                </Row>
+                    </Col>
+                </Row>*/}
             </Container>
             <br />
             <br />

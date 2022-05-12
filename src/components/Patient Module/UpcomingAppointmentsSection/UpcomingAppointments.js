@@ -4,9 +4,13 @@ import './UpcomingAppointments.css'
 
 const UpcomingAppointments = () => {
     return (
-        <div className='card-box'>
+        <div className='card-box scroller-cardlist'>
             <h3 className='upcoming-appointment--main-header'>Upcoming Appointments</h3>
-            <UpcomingAppointmentCard />
+            <div className="card-holder">
+                <div className='upcoming-appointment-card'>
+                    <UpcomingAppointmentCard />
+                </div>
+            </div>
         </div>
     )
 }
