@@ -1,29 +1,36 @@
 import React from 'react'
 import home2 from '../../images/home-2.png'
+import sleep from '../../images/svg/sleep-icon.svg'
+import nutrient from '../../images/svg/nutrient-icon.svg'
+import fitness from '../../images/svg/fitness-icon.svg'
+import fertility from '../../images/svg/fertility-icon.svg'
+import mentalHealth from '../../images/svg/mental-health-icon.svg'
+
+import immunity from '../../images/svg/immunity-icon.svg'
 
 const SpecialititesData = [
     {
-        image: home2,
+        image: nutrient,
         name: 'Nutrition'
     },
     {
-        image: home2,
+        image: sleep,
         name: 'Sleep'
     },
     {
-        image: home2,
+        image: immunity,
         name: 'Immunity'
     },
     {
-        image: home2,
+        image: fertility,
         name: 'Fertility'
     },
     {
-        image: home2,
+        image: fitness,
         name: 'Fitness'
     },
     {
-        image: home2,
+        image: mentalHealth,
         name: 'Mental Health'
     }
 ]

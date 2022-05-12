@@ -870,7 +870,7 @@ img.card-img-top {
 
 .specialities {
   margin: -8px auto;
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   height: 100%;
   border-radius: 22px;
 }
@@ -893,7 +893,7 @@ img.card-img-top {
   height: 60px;
   border-radius: 50%;
   margin-bottom: 10px;
-  border: 5px solid var(--primary);
+  border: 2px solid var(--primary);
 }
 
 .speciality-name {
@@ -1323,7 +1323,7 @@ div#multiselectContainerReact div:hover {
 */
 
 div#profile-col-1 {
-  background: var(--primarybg);
+  background: #fff;
   padding: 20px;
   margin: 50px -10px 50px 0px;
   border-radius: 22px;
@@ -1332,7 +1332,6 @@ div#profile-col-1 {
 }
 
 div#profile-col-2 {
-  background: var(--primarybg);
   padding: 20px;
   margin: 50px 0px 50px -10px;
   border-radius: 22px;
@@ -1351,26 +1350,11 @@ img#profile-pic {
 }
 
 .icon-tabs {
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   margin-right: 30px;
   padding: 5px;
-}
-
-.call-icon,
-.marital-status-icon,
-.language-icon,
-.blood-group-icon,
-.weight-icon {
-  background-color: #00d0cc;
-}
-
-.calendar-icon,
-.nationality-icon,
-.height-icon,
-.blood-pressure-icon {
-  background-color: #f6ceb4;
 }
 
 @media (max-width: 480px) {
@@ -1421,6 +1405,7 @@ table#user-info {
 #user-info tr {
   display: flex;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 /* TABS IN PROFILE PAGE */
