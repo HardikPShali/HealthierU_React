@@ -28,10 +28,10 @@ const errorHandler = (error) => {
   }
 
   if (error.response && (error.response.status === 401)) {
-    // var index = error.data.error && error.data.error_description.search("Access token expired");
-    // if (index === -1) {
+    var index = error.response.data.error && error.response.data.error_description.includes("Access token expired");
+    if (index) {
       checkAccessToken();
-    // }
+    }
   }
   //console.log("status ::: in error", error.response.status);
   if (error.response && (error.response.status === 504 || error.response.status === 500)) {
