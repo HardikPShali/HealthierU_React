@@ -41,7 +41,7 @@ import OtpTimer from "otp-timer";
 // import axios from "axios";
 // import otpGenerator from "otp-generator";
 // import ReCAPTCHA from "react-google-recaptcha";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import { withRouter, BrowserRouter } from "react-router";
 const Signin = () => {
   const history = useHistory();
@@ -77,24 +77,30 @@ const Signin = () => {
     }
   }, []);
 
-
   //User won't land on the sign in page only even when user has not sign out from the application | HEAL-55 & HEAL-10
   useEffect(() => {
-
-    if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_PATIENT") {
+    if (
+      cookies.get("currentUser")?.id !== "" &&
+      cookies.get("currentUser")?.authorities[0] === "ROLE_PATIENT"
+    ) {
       history.push("/patient");
       history.go(0);
     }
-    if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_DOCTOR") {
+    if (
+      cookies.get("currentUser")?.id !== "" &&
+      cookies.get("currentUser")?.authorities[0] === "ROLE_DOCTOR"
+    ) {
       history.push("/doctor");
       history.go(0);
     }
-    if (cookies.get("currentUser")?.id !== "" && cookies.get("currentUser")?.authorities[0] === "ROLE_ADMIN") {
+    if (
+      cookies.get("currentUser")?.id !== "" &&
+      cookies.get("currentUser")?.authorities[0] === "ROLE_ADMIN"
+    ) {
       history.push("/admin");
       history.go(0);
     }
-
-  }, [cookies.get('currentUser')]);
+  }, [cookies.get("currentUser")]);
 
   const responseGoogle = async (response) => {
     setLoader(true);
@@ -166,38 +172,32 @@ const Signin = () => {
         setLoading(false);
       }
     });
-    setCurrentUser(currentUserInformation);
+    setCurrentUser(currentUserInformation.data.userInfo);
     // cookies.set('currentUser', currentUserInformation);
     // const fcmToken = getFirebaseToken(currentUserInformation.id);
     // console.log("fcmToken :::::::::::",fcmToken);
     // if (fcmToken) {
     // const currentLoggedInUser = cookies.get("currentUser");
-    const { authorities = [] } = currentUserInformation || {};
+    const { authorities = [] } = currentUserInformation.data.userInfo || {};
 
     // if (!currentUserInformation) {
     //   window.location.assign("/");
     // }
+
+    cookies.set("currentUser", currentUserInformation.data.userInfo);
+    cookies.set("profileDetails", currentUserInformation.data.role);
     if (
       authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER")
     ) {
-      cookies.set("currentUser", currentUserInformation);
-      // cookies.set('utype', 1);
       history.push("/admin");
       history.go(0);
-      // enable the below code for 2FA for admin
-      //sendOtp();
     }
 
     if (authorities.some((user) => user === "ROLE_PATIENT")) {
-      cookies.set("currentUser", currentUserInformation);
-      // cookies.set('utype', 2);
       history.push("/patient");
       history.go(0);
-
     }
     if (authorities.some((user) => user === "ROLE_DOCTOR")) {
-      cookies.set("currentUser", currentUserInformation);
-      // cookies.set('utype', 3);
       history.push("/doctor");
       history.go(0);
     }

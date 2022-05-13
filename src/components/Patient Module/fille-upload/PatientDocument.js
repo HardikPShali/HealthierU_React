@@ -155,7 +155,7 @@ const PatientDocument = (props) => {
         setLoading(true)
         const currentUser = await getCurrentUserInfo();
 
-        const patientInfo = await getCurrentPatientInfo(currentUser.id, currentUser.login);
+        const patientInfo = await getCurrentPatientInfo(currentUser.data.userInfo.id, currentUser.data.userInfo.login);
         setPatient(patientInfo)
 
         const presecriptionDocument = await getPatientDocuments("Prescription", 0, patientInfo.data.id);
