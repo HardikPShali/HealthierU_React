@@ -35,6 +35,10 @@ const PatientChat = (props) => {
     videoButton: false,
   }); // for triggering chat and video button active or inactive
 
+  const [pIdState, setPIdState] = useState("");
+  const [dIdState, setDIdState] = useState("");
+
+
   const tempMessage = useRef(null);
   const location = useLocation();
 
@@ -43,11 +47,33 @@ const PatientChat = (props) => {
     let chatGroup = searchParams.get("chatgroup");
     let openVideoAndChat = searchParams.get("openVideoCall");
     const { currentPatient, doctorDetailsList } = props;
-    if (openVideoAndChat) {
-      handleAgoraAccessToken(currentPatient.id, doctorDetailsList.id, () => setOpenVideoCall(true))
+
+    if (chatGroup) {
+      setPIdState(Number(chatGroup.split("_")[0].replace("P", "")))
+      setDIdState(Number(chatGroup.split("_")[1].replace("D", "")))
     }
+
+
+    // if (openVideoAndChat) {
+
+    //   handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true))
+
+    // }
     chatGroup && openConversation(chatGroup);
   }, [location]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    let chatGroup = searchParams.get("chatgroup");
+    let openVideoAndChat = searchParams.get("openVideoCall");
+    // if (openVideoAndChat) {
+
+    if (dIdState && pIdState) {
+      handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true))
+    }
+
+
+  }, [pIdState, dIdState]);
 
   useEffect(() => {
     if (currentSelectedGroup) {
@@ -241,16 +267,24 @@ const PatientChat = (props) => {
                 />
               </div>
               <div className="col-sm-1 video-button">
-                {videoButton && !openVideoCall && (
-                  <IconButton onClick={() => handleAgoraAccessToken(props.currentPatient.id, props.doctorDetailsList.id, () => setOpenVideoCall(true))}>
+                {(
+
+                  <IconButton onClick={() => {
+                    console.log(props.currentPatient)
+                    console.log(props.doctorDetailsList[currentSelectedGroup])
+                    console.log("pIdState", pIdState)
+                    console.log("dIdState", dIdState)
+                    handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true))
+
+                  }}>
                     <VideocamIcon id="active-video-icon" />
                   </IconButton>
                 )}
-                {!videoButton && (
+                {/* {!videoButton && (
                   <IconButton id="inactive-video-button">
                     <VideocamOffIcon id="inactive-video-icon" />
                   </IconButton>
-                )}
+                )} */}
               </div>
               <div className="col-sm-2">
                 <Button variant="primary" onClick={(e) => sendMessage(e)} style={{ width: "90%" }}>

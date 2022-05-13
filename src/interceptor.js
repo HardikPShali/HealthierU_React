@@ -45,7 +45,7 @@ const errorHandler = (error) => {
             <h1>Oops !</h1>
             <p>
 
-              {error.response.data.message === 'Login name already exists!' ? error.response.data.message : "Something went wrong. Unexpected error"}
+              {error.response.data.message === 'Login name already used!' ? error.response.data.message : "Something went wrong. Unexpected error"}
               {" "}
               <b style={{ color: "red" }}>:(</b>
             </p>
