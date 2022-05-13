@@ -154,7 +154,7 @@ const DoctorDocument = (props) => {
         // GET request using fetch with async/await
         const currentUser = await getCurrentUserInfo();
 
-        const doctor = await getCurrentDoctorInfo(currentUser.id, currentUser.login);
+        const doctor = await getCurrentDoctorInfo(currentUser.data.userInfo.id, currentUser.data.userInfo.login);
         setDoctor(doctor)
 
         const presecriptionDocument = await getDoctorDocuments("Prescription", 0, doctor.id);

@@ -14,6 +14,7 @@ const Logout = () => {
     cookies.remove("GOOGLE_PROFILE_DATA", { path: '/' });
     cookies.remove("authorities", { path: '/' });
     cookies.remove("userProfileCompleted", { path: '/' });
+    cookies.remove("profileDetails", { path: '/'});
     //userProfileCompleted
     //setTimeout(()=>{window.location.reload()},500);
     //window.location.reload();

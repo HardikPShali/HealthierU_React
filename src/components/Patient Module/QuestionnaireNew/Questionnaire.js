@@ -46,7 +46,7 @@ const Questionnaire = () => {
 
     const getCurrentUserInformation = async () => {
         const currentUser = await getCurrentUserInfo();
-        setCurrentUser({ ...currentUser, currentLoggedInUser: currentUser });
+        setCurrentUser({ ...currentUser, currentLoggedInUser: currentUser.data.userInfo });
         console.log('currentUser', currentUser);
     }
 
