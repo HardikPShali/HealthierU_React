@@ -38,7 +38,8 @@ a.nav-link.active {
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 #navbar a.dropdown-item {
@@ -252,7 +253,7 @@ div#social-icon {
 div#dorctor-list {
   padding: 30px 10px;
   margin: 30px 0;
-  background: #f8f8f8;
+  background: #fff;
   border-radius: 22px;
   height: 550px;
 }
@@ -2267,6 +2268,7 @@ button a {
 .record-tabs.nav-tabs .nav-link {
   background-color: #efefef !important;
   color: var(--primary);
+  padding: 6px;
 }
 
 #prescription-list tbody tr {

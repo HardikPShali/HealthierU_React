@@ -3445,6 +3445,7 @@ button a {
 .record-tabs.nav-tabs .nav-link {
   background-color: #efefef !important;
   color: var(--primary);
+  padding: 6px;
 }
 
 #prescription-list tbody tr {
