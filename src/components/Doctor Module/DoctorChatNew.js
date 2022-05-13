@@ -226,7 +226,7 @@ const DoctorChat = (props) => {
             <Meeting onClose={() => setOpenVideoCall(false)} />
           ) : (
             <div
-              className="left-section mCustomScrollbar"
+              className="left-section mCustomScrollbar bg-white"
               data-mcs-theme="minimal-dark"
               id="chat-room-list"
             >
@@ -284,7 +284,7 @@ const DoctorChat = (props) => {
           <div className="right-section">
             {!chatMessages.length && <SmallLoader />}
             <div
-              className="message mCustomScrollbar"
+              className="message mCustomScrollbar bg-white"
               data-mcs-theme="minimal-dark"
               id="chat-list"
             >

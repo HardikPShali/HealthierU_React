@@ -185,7 +185,7 @@ const PatientChat = (props) => {
           {openVideoCall ? (
             <Meeting onClose={() => setOpenVideoCall(false)} />
           ) : (
-            <div className="left-section mCustomScrollbar" data-mcs-theme="minimal-dark" id="chat-room-list">
+            <div className="left-section mCustomScrollbar bg-white" data-mcs-theme="minimal-dark" id="chat-room-list">
               <ul>
                 {memoizedChatGroupToShow ? (
                   memoizedChatGroupToShow.map((currentGroup) => {
@@ -217,7 +217,7 @@ const PatientChat = (props) => {
           )}
           <div className="right-section">
             {!chatMessages.length && <SmallLoader />}
-            <div className="message mCustomScrollbar" data-mcs-theme="minimal-dark" id="chat-list">
+            <div className="message mCustomScrollbar bg-white" data-mcs-theme="minimal-dark" id="chat-list">
               <ul>
                 {chatMessages.map((current) => {
                   return current.fromUser === currentPatient.email ? (
