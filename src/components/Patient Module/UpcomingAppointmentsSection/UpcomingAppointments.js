@@ -9,14 +9,16 @@ const UpcomingAppointments = () => {
 
     const cookie = new Cookies();
     const currentUserFromCookie = cookie.get('profileDetails');
+    console.log('currentUserFromCookie', currentUserFromCookie);
 
     const getUpcomingAppointments = async () => {
-        const patientId = currentUserFromCookie.userId;
+        const patientId = currentUserFromCookie.id;
         // console.log("patientId", patientId);
         if (patientId) {
             const response = await getUpcomingAppointmentsForHomepage(patientId).catch(err => {
                 console.log('err', err);
             });
+            console.log('UA response', response);
             const upcomingAppointments = response.data.data;
             console.log('Upcoming Appointments', upcomingAppointments);
             setUpcomingAppointments(upcomingAppointments);
@@ -37,9 +39,9 @@ const UpcomingAppointments = () => {
                     <div className='row'>
                         {upcomingAppointments.length !== 0 ? upcomingAppointments.map((appointment, index) => {
                             return (
-                                <div className='col-md-6 mb-2'>
+                                <div className='col-md-6 mb-2' key={index}>
                                     <div className='upcoming-appointment-card'>
-                                        <UpcomingAppointmentCard />
+                                        <UpcomingAppointmentCard appointment={appointment} />
                                     </div>
                                 </div>
                             )

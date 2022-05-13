@@ -1,10 +1,10 @@
 import React from 'react'
 import home2 from '../../../images/home-2.png'
 
-const UpcomingAppointmentCard = () => {
+const UpcomingAppointmentCard = ({ appointments }) => {
     return (
-
-        <div className='row'>
+        // console.log('UA', appointments)
+        < div className='row' >
 
             <div className='col-md-4'>
                 <div className='upcoming-appointment-card__img-wrapper'>
@@ -21,7 +21,7 @@ const UpcomingAppointmentCard = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
 
 
     )
