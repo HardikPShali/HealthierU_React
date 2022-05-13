@@ -242,7 +242,7 @@ const PatientChat = (props) => {
               </div>
               <div className="col-sm-1 video-button">
                 {videoButton && !openVideoCall && (
-                  <IconButton onClick={() => handleAgoraAccessToken(currentSelectedGroup, () => setOpenVideoCall(true))}>
+                  <IconButton onClick={() => handleAgoraAccessToken(props.currentPatient.id, props.doctorDetailsList.id, () => setOpenVideoCall(true))}>
                     <VideocamIcon id="active-video-icon" />
                   </IconButton>
                 )}
