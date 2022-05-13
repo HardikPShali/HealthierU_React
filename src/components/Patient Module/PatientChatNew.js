@@ -42,8 +42,9 @@ const PatientChat = (props) => {
     const searchParams = new URLSearchParams(location.search);
     let chatGroup = searchParams.get("chatgroup");
     let openVideoAndChat = searchParams.get("openVideoCall");
+    const { currentPatient, doctorDetailsList } = props;
     if (openVideoAndChat) {
-      handleAgoraAccessToken(chatGroup, () => setOpenVideoCall(true))
+      handleAgoraAccessToken(currentPatient.id, doctorDetailsList.id, () => setOpenVideoCall(true))
     }
     chatGroup && openConversation(chatGroup);
   }, [location]);
@@ -241,7 +242,7 @@ const PatientChat = (props) => {
               </div>
               <div className="col-sm-1 video-button">
                 {videoButton && !openVideoCall && (
-                  <IconButton onClick={() => handleAgoraAccessToken(currentSelectedGroup, () => setOpenVideoCall(true))}>
+                  <IconButton onClick={() => handleAgoraAccessToken(props.currentPatient.id, props.doctorDetailsList.id, () => setOpenVideoCall(true))}>
                     <VideocamIcon id="active-video-icon" />
                   </IconButton>
                 )}

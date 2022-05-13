@@ -110,8 +110,9 @@ const PatientRoute = () => {
 
   const getCurrentPatient = async () => {
     const currentPatient = await getCurrentPatientInfo(currentuserInfo.id, currentuserInfo.login);
-    setCurrentPatient(currentPatient);
-    if (currentPatient?.patientTimeZone !== systemTimeZone) {
+    // console.log('Current patient', currentPatient);
+    setCurrentPatient(currentPatient.data);
+    if (currentPatient?.data?.patientTimeZone !== systemTimeZone) {
       handleSubmit(currentPatient.data.id, systemTimeZone);
     }
   };

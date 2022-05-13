@@ -27,15 +27,15 @@ import {
 } from '../../service/frontendapiservices';
 import TransparentLoader from '../Loader/transparentloader';
 import { useHistory } from 'react-router-dom';
-import calendarIcon from '../../../src/images/icons used/calendar-dob.png';
-import callIcon from '../../../src/images/icons used/phone-white.png';
-import ringIcon from '../../../src/images/icons used/marital-status.png';
-import flagIcon from '../../../src/images/icons used/nationality.png';
-import languageIcon from '../../../src/images/icons used/language.png';
-import bloodGroupIcon from '../../../src/images/icons used/blood-group.png';
-import heightIcon from '../../../src/images/icons used/height.png';
-import weightIcon from '../../../src/images/icons used/weight-scale.png';
-import bloodPressureIcon from '../../../src/images/icons used/blood-pressure.png';
+import callIcon from '../../../src/images/svg/call-icon.svg';
+import calendarIcon from '../../../src/images/svg/dob-icon.svg';
+import ringIcon from '../../../src/images/svg/marital-status-icon.svg';
+import flagIcon from '../../../src/images/svg/nationality-icon.svg';
+import languageIcon from '../../../src/images/svg/language-icon.svg';
+import bloodGroupIcon from '../../../src/images/svg/blood-group-icon.svg';
+import heightIcon from '../../../src/images/svg/height-icon.svg';
+import weightIcon from '../../../src/images/svg/weight-icon.svg';
+import bloodPressureIcon from '../../../src/images/svg/blood-pressure-icon.svg';
 
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 // import LocalStorageService from './../../util/LocalStorageService';

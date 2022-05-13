@@ -25,7 +25,7 @@ export const getCurrentUserInfo = async () => {
 
     const userInfoApiCall = {
         method: 'get',
-        url: `/api/account`,
+        url: `/api/v2/account`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'

@@ -37,11 +37,11 @@ class QuestionnaireEdit extends React.Component {
 
   async componentDidMount() {
     const currentUser = await getCurrentUserInfo();
-    this.setState({ currentLoggedInUser: currentUser });
+    this.setState({ currentLoggedInUser: currentUser.data.userInfo });
 
     const patientInfo = await getCurrentPatientInfo(
-      currentUser.id,
-      currentUser.login
+      currentUser.data.userInfo.id,
+      currentUser.data.userInfo.login
     );
     this.setState({ currentPatientUser: patientInfo });
 

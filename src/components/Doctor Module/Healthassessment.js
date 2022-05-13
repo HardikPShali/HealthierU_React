@@ -233,8 +233,8 @@ const Healthassessment = (props) => {
         const currentUser = await getCurrentUserInfo();
 
         const doctor = await getCurrentDoctorInfo(
-            currentUser.id,
-            currentUser.login
+            currentUser.data.userInfo.id,
+            currentUser.data.userInfo.login
         );
         if (doctor) {
             setDoctor(doctor);

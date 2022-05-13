@@ -40,10 +40,11 @@ const DoctorChat = (props) => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
+    const { currentDoctor, patientDetailsList } = props;
     let chatGroup = searchParams.get("chatgroup");
     let openVideoAndChat = searchParams.get("openVideoCall");
     if (openVideoAndChat) {
-      handleAgoraAccessToken(chatGroup, () => setOpenVideoCall(true))
+      handleAgoraAccessToken(patientDetailsList.id, currentDoctor.id, () => setOpenVideoCall(true))
     }
     chatGroup && openConversation(chatGroup);
   }, [location]);
@@ -242,7 +243,7 @@ const DoctorChat = (props) => {
               </div>
               <div className="col-sm-1 video-button">
                 {videoButton && !openVideoCall && (
-                  <IconButton onClick={() => handleAgoraAccessToken(currentSelectedGroup, () => setOpenVideoCall(true))}>
+                  <IconButton onClick={() => handleAgoraAccessToken(props.patientDetailsList.id, props.currentDoctor.id, () => setOpenVideoCall(true))}>
                     <VideocamIcon id="active-video-icon" />
                   </IconButton>
                 )}

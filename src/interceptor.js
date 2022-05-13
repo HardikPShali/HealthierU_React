@@ -28,8 +28,8 @@ const errorHandler = (error) => {
   }
 
   if (error.response && (error.response.status === 401)) {
-    var index = error.response.headers['www-authenticate'] && error.response.headers['www-authenticate'].search("was not activated");
-    if (index === -1) {
+    var index = error.response.data.error && error.response.data.error_description.includes("Access token expired");
+    if (index) {
       checkAccessToken();
     }
   }
