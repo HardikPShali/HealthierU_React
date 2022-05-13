@@ -1622,7 +1622,7 @@ const MyDoctor = (props) => {
                 How to?
               </button>
             </Tooltip>
-            <div id="dorctor-list" style={{ background: "#fff" }}>
+            <div id="dorctor-list">
               <div
                 style={{ height: 470 }}
                 id="calendar-list"

@@ -17,7 +17,10 @@
   width: 80%;
   /* background-color: #e2e2e2 !important; */
   margin: auto;
-  height: 800px;
+  min-height: 600px;
+  box-shadow: 2px 2px 1rem #dedede;
+  border-radius: 10px;
+  margin-bottom: 40px;
 }
 
 .head-section {
@@ -25,12 +28,16 @@
   clear: both;
   overflow: hidden;
   width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #ffffff;
 }
 
 .headLeft-section {
-  width: calc(30% - 1px);
+  width: calc(29% - 1px);
   float: left;
-  border-right: 1px solid #e6e6e6;
+  /* border-right: 1px solid #e6e6e6; */
 }
 
 .headLeft-sub {
@@ -173,7 +180,7 @@
 .right-section {
   width: 70%;
   /* max-height: 82vh; */
-  background-color: var(--primarybg);
+  /* background-color: var(--primarybg); */
   position: relative;
 }
 
@@ -219,6 +226,7 @@
 
 .msg-desc {
   word-break: break-all;
+  box-shadow: 1px 1px 4px #dedede;
 }
 
 .appointment-msg-desc {

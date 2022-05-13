@@ -753,7 +753,7 @@ const Meeting = (props) => {
             </DialogActions>
           </Dialog>
         )}
-      </NavigationPrompt>;
+      </NavigationPrompt>
     </>
   )
 }

@@ -30,7 +30,7 @@ const OurDoctors = () => {
                             {doctorData &&
                                 doctorData.map((doctor, index) => {
                                     return (
-                                        <div className="col-md-4 pb-3" key={index}>
+                                        <div className="col-md-3 pb-3" key={index}>
                                             <OurDoctorCard doctor={doctor} />
                                         </div>
                                     );
