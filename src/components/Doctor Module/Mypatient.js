@@ -31,6 +31,9 @@ import calendar from '../../images/icons used/Component 12.svg';
 import time from '../../images/icons used/Component 11.svg';
 import dollar from '../../images/icons used/Component 13.svg';
 import payment from '../../images/icons used/Component 14.svg';
+import conHistory from '../../images/icons used/Component 15.svg';
+import HealthAssessment from '../../images/icons used/Component 16.svg';
+import MedicalRecord from '../../images/icons used/Component 17.svg';
 const Mypatient = (props) => {
     // const currentTimezone = props.timeZone;
     //const getMoment = (timezone) => {
@@ -482,7 +485,7 @@ const Mypatient = (props) => {
                                                 </Col>
                                             </Row>
                                             <Row style={{ alignItems: "center" }}>
-                                                <Col xs={7}>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.picture ?
+                                                <Col xs={2}>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.picture ?
                                                     (<div className="img-box" style={{ background: `url(${SelectedPatient.patient.picture})` }}>
                                                         {/*<img src={SelectedPatient.patient.picture} alt="" style={{ width: "auto", height: 214, borderRadius: 10 }} />*/}
                                                     </div>)
@@ -491,12 +494,21 @@ const Mypatient = (props) => {
 
                                                 )}
                                                 </Col>
-                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px' }}><DateRangeOutlinedIcon /></Col>
-                                                <Col xs={3} style={{ textAlign: 'right' }}><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col>
+                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px', paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
+                                                <Col xs={3} style={{ textAlign: 'center' }}><b><p className='pclass'>Upcoming :</p></b><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col>
+
+                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px', paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
+                                                <Col xs={3} style={{ textAlign: 'center' }}><b><p className='pclass'>Current :</p></b><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div>
+                                                </Col>
+
+
                                             </Row>
                                             <Row style={{ alignItems: "center", marginTop: "5px" }}>
-                                                <Col xs={7}><div id="req-name"><b>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.firstName + " " + SelectedPatient.patient.lastName)}</b><br />{age} Years Old</div></Col>
-                                                <Col xs={5} className="patient-video-button" style={{ textAlign: 'right' }}>
+                                                <Col xs={4}><div id="req-name"><b>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.firstName + " " + SelectedPatient.patient.lastName)}</b><br />{age} Years Old</div></Col>
+                                                <Col xs={4}><div id="req-name"><b>Fee & Payment Method</b><br />$20 By Credit Card</div></Col>
+                                                {/* <Col xs={1} style={{ alignItems: "center",paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
+                                                <Col xs={7} style={{ textAlign: 'right' }}><p className='pclass'>Appointment Fee & Payment Method</p><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col> */}
+                                                <Col xs={4} className="patient-video-button" style={{ textAlign: 'right' }}>
                                                     <IconButton>
                                                         <Link to={`/doctor/chat?chatgroup=P${SelectedPatient?.patient?.id}_D${doctorId}`} title="Chat"><ChatIcon id="active-video-icon" /></Link>
                                                     </IconButton>
@@ -507,14 +519,72 @@ const Mypatient = (props) => {
                                             </Row>
                                         </div>
                                         <div id="req-info">
-                                            <span id="info-title">Upcoming Appointment</span><br />
-                                            <img className="imgclass" src={calendar} alt="calendar" /><p className="pclass">1</p>
-                                            <img className="imgclass" src={time} alt="time" /><p className="pclass">2</p>
+                                            <Link
+                                                to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
+                                            >
 
+                                                <img
+                                                    width="40"
+                                                    height="40"
+                                                    src={conHistory}
+                                                    onClick='${pathname}'
+                                                    alt=""
+                                                    style={{ marginLeft: "5%", marginRight: "5%" }
+                                                    }
+                                                />
+                                                Consulatation History
+                                            </Link>
                                             <br />
-                                            <span id="info-title">Appointment Fee & Payment Method</span><br />
-                                            <img className="imgclass" src={dollar} alt="dollar" /><p className="pclass">1</p>
-                                            <img className="imgclass" src={payment} alt="payment" /><p className="pclass">2</p>
+                                            <br />
+                                            <Link
+                                                to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
+                                            >
+
+                                                <img
+                                                    width="40"
+                                                    height="40"
+                                                    src={HealthAssessment}
+                                                    onClick='${pathname}'
+                                                    alt=""
+                                                    style={{ marginLeft: "5%", marginRight: "5%" }
+                                                    }
+                                                />
+                                                Health Assessment Report
+                                            </Link>
+                                            <br />
+                                            <br />
+                                            <Link
+                                                to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
+                                            >
+
+                                                <img
+                                                    width="40"
+                                                    height="40"
+                                                    src={MedicalRecord}
+                                                    onClick='${pathname}'
+                                                    alt=""
+                                                    style={{ marginLeft: "5%", marginRight: "5%" }
+                                                    }
+                                                />
+                                                Medical Record
+                                            </Link>
+                                            <br />
+                                            <br />
+                                            <Link
+                                                to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
+                                            >
+
+                                                <img
+                                                    width="40"
+                                                    height="40"
+                                                    src={calendar}
+                                                    onClick='${pathname}'
+                                                    alt=""
+                                                    style={{ marginLeft: "5%", marginRight: "5%" }
+                                                    }
+                                                />
+                                                Set Next Appointment
+                                            </Link>
                                             {/* <span id="info-title">Diseases</span><br />
                                     <p>Hypertension Medium</p>
                                     <br /> */}
@@ -566,7 +636,7 @@ const Mypatient = (props) => {
                                         </div>
                                         <Row>
                                             <Col className="profile-btn">
-                                                <Link to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}><button className="btn btn-primary view-btn">View patient profile</button></Link>
+                                                <Link to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}><button className="btn btn-primary view-btn">Reschedule</button></Link>
                                             </Col>
                                         </Row>
                                     </div>
