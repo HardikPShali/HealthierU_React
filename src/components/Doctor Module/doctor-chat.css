@@ -34,9 +34,9 @@
 }
 
 .headLeft-section {
-  width: calc(30% - 1px);
+  width: calc(29% - 1px);
   float: left;
-  border-right: 1px solid #e6e6e6;
+  /* border-right: 1px solid #e6e6e6; */
 }
 
 .headLeft-sub {
