@@ -169,25 +169,29 @@ const Healthassessment = (props) => {
     const clickPagination = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
         setPresecriptionDocument(null);
+
         const prescriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             pageNumber - 1,
-            doctor.id,
+            doctor.data.id,
             patient.id
         );
+
         setPresecriptionDocument(prescriptionDocument);
-        //console.log(currentPageNumber)
+
     };
     const clickPaginationForLab = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
+
         const documents = await getDoctorPatientDocuments(
             'Lab',
             pageNumber - 1,
-            doctor.id,
+            doctor.data.id,
             patient.id
         );
+
         setLabDocument(documents);
-        //console.log(currentPageNumber)
+
     };
 
     const handleEditModal = async (item) => {
@@ -245,12 +249,13 @@ const Healthassessment = (props) => {
         if (patientInfo) {
             setPatient(patientInfo);
         }
-
         const presecriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             0,
-            doctor.id,
+            doctor.data.id,
+
             patientInfo && patientInfo.id
+
         );
         setPresecriptionDocument(presecriptionDocument);
 
@@ -297,9 +302,11 @@ const Healthassessment = (props) => {
         const prescriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             0,
-            doctor.id,
+            doctor.data.id,
             patient.id
+
         );
+
         setPresecriptionDocument(prescriptionDocument);
     };
 
@@ -319,9 +326,10 @@ const Healthassessment = (props) => {
         const labDocument = await getDoctorPatientDocuments(
             'Lab',
             0,
-            doctor.id,
+            doctor.data.id,
             patient.id
         );
+
         setLabDocument(labDocument);
     };
 
@@ -332,7 +340,7 @@ const Healthassessment = (props) => {
             documents = await getDoctorPatientDocuments(
                 'Lab',
                 0,
-                doctor.id,
+                doctor.data.id,
                 patient.id
             );
             setLabDocument(documents);
@@ -342,7 +350,7 @@ const Healthassessment = (props) => {
             documents = await getDoctorPatientDocuments(
                 'Prescription',
                 0,
-                doctor.id,
+                doctor.data.id,
                 patient.id
             );
             setPresecriptionDocument(documents);

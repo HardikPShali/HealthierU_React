@@ -2205,13 +2205,14 @@ Health Assessment
 }
 
 .img-box {
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 502%;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
+
 }
 
 .modal-body>.form-group>label.col-form-label {

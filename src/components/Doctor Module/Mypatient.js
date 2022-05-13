@@ -34,6 +34,7 @@ import payment from '../../images/icons used/Component 14.svg';
 import conHistory from '../../images/icons used/Component 15.svg';
 import HealthAssessment from '../../images/icons used/Component 16.svg';
 import MedicalRecord from '../../images/icons used/Component 17.svg';
+import HealthAssestmentReport from './HealthAssestmentReport/HealthAssestmentReport';
 const Mypatient = (props) => {
     // const currentTimezone = props.timeZone;
     //const getMoment = (timezone) => {
@@ -486,7 +487,7 @@ const Mypatient = (props) => {
                                             </Row>
                                             <Row style={{ alignItems: "center" }}>
                                                 <Col xs={2}>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.picture ?
-                                                    (<div className="img-box" style={{ background: `url(${SelectedPatient.patient.picture})` }}>
+                                                    (<div className="img-box" style={{ background: `url(${SelectedPatient.patient.picture})`}}>
                                                         {/*<img src={SelectedPatient.patient.picture} alt="" style={{ width: "auto", height: 214, borderRadius: 10 }} />*/}
                                                     </div>)
                                                     :
@@ -520,7 +521,7 @@ const Mypatient = (props) => {
                                         </div>
                                         <div id="req-info">
                                             <Link
-                                                to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
+                                                to={{ pathname: `/doctor/consulatationhistory` }}
                                             >
 
                                                 <img
@@ -536,8 +537,9 @@ const Mypatient = (props) => {
                                             </Link>
                                             <br />
                                             <br />
+
                                             <Link
-                                                to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
+                                                to={{ pathname: `/doctor/healthassesment-report` }}
                                             >
 
                                                 <img
@@ -549,12 +551,12 @@ const Mypatient = (props) => {
                                                     style={{ marginLeft: "5%", marginRight: "5%" }
                                                     }
                                                 />
-                                                Health Assessment Report
+                                                Health Assestment Report
                                             </Link>
                                             <br />
                                             <br />
                                             <Link
-                                                to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
+                                                to={{ pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
                                             >
 
                                                 <img
@@ -571,7 +573,7 @@ const Mypatient = (props) => {
                                             <br />
                                             <br />
                                             <Link
-                                                to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
+                                                to={{ pathname: `/doctor/setnextappointment` }}
                                             >
 
                                                 <img
