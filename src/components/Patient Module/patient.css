@@ -1326,23 +1326,23 @@ div#multiselectContainerReact div:hover {
 div#profile-col-1 {
   background: #f4f4f4;
   padding: 20px;
-  margin: 50px -10px 50px 0px;
+  margin: 60px -10px 40px 0px;
   border-radius: 22px;
   text-align: center;
-  height: 570px;
+  height: 320px;
 }
 
 div#profile-col-2 {
   background: #f4f4f4;
   padding: 20px;
-  margin: 50px 0px 50px -10px;
+  margin: 0 -10px 50px 0px;
   border-radius: 22px;
   text-align: center;
-  height: 570px;
+  height: 500px;
 }
 img#profile-pic {
-  height: 150px;
-  width: 150px;
+  height: 140px;
+  width: 140px;
   border-radius: 50%;
   outline: 5px solid var(--primary);
 }
@@ -1383,14 +1383,14 @@ p#description {
 
 button.request-edit {
   border-radius: 22px;
-  width: 50%;
+  width: 150px;
   font-size: 15px;
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
   position: absolute;
-  bottom: 70px;
+  bottom: 0px;
   margin: 0 25%;
-  left: 0;
+  left: 18%;
 }
 
 table#user-info {
