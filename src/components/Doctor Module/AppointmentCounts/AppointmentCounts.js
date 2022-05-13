@@ -16,7 +16,7 @@ const AppoitmentCounts = [
 const AppoitmentCountsSection = () => {
     return (
         <div>
-            <p className="appointment-count-title">Overview</p>
+            <h3 className="appointment-card-header">Overview</h3>
             <section className="page-contain">
 
                 <div className="data-card">

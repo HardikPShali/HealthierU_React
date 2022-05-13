@@ -529,7 +529,12 @@ input#doctor-search {
   border: none;
   border-radius: 10px;
 }
-
+.appointment-card-header{
+  margin-left: 5px;
+  color: #344767;
+  font-weight: 700;
+  text-shadow: none;
+}
 #appointment-card .card-body {
   padding: 10px !important;
 }
