@@ -258,7 +258,7 @@ const PatientChat = (props) => {
                 <input
                   type="text"
                   ref={tempMessage}
-                  className="form-control"
+                  className="form-control ml-5"
                   name="textMessage"
                   id="textMessage"
                   placeholder="type here..."

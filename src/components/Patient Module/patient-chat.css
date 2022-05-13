@@ -226,6 +226,7 @@
 
 .msg-desc {
   word-break: break-all;
+  box-shadow: 1px 1px 4px #dedede;
 }
 
 .appointment-msg-desc {
