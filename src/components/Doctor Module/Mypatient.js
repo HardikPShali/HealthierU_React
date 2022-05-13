@@ -27,7 +27,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 // import { handleSignin } from '../../service/AccountService';
 // import momentTz from 'moment-timezone';
 import { getDoctorByUserId, getPatientChiefComplaint, getPatientFamilyAndSocialHistoryData, loadActivePatient, loadPastPatient } from '../../service/frontendapiservices';
-
+import calendar from '../../images/icons used/Component 12.svg';
+import time from '../../images/icons used/Component 11.svg';
+import dollar from '../../images/icons used/Component 13.svg';
+import payment from '../../images/icons used/Component 14.svg';
 const Mypatient = (props) => {
     // const currentTimezone = props.timeZone;
     //const getMoment = (timezone) => {
@@ -504,10 +507,18 @@ const Mypatient = (props) => {
                                             </Row>
                                         </div>
                                         <div id="req-info">
+                                            <span id="info-title">Upcoming Appointment</span><br />
+                                            <img className="imgclass" src={calendar} alt="calendar" /><p className="pclass">1</p>
+                                            <img className="imgclass" src={time} alt="time" /><p className="pclass">2</p>
+
+                                            <br />
+                                            <span id="info-title">Appointment Fee & Payment Method</span><br />
+                                            <img className="imgclass" src={dollar} alt="dollar" /><p className="pclass">1</p>
+                                            <img className="imgclass" src={payment} alt="payment" /><p className="pclass">2</p>
                                             {/* <span id="info-title">Diseases</span><br />
                                     <p>Hypertension Medium</p>
                                     <br /> */}
-                                            <span id="info-title">Comment</span><br />
+                                            {/* <span id="info-title">Comment</span><br />
                                             <p>{SelectedPatient.remarks}</p>
                                             <br />
                                             <span id="info-title">Chief Complaint</span><br />
@@ -551,7 +562,7 @@ const Mypatient = (props) => {
                                                         )}
                                                     </ul>
                                                 </span>
-                                            )}</div>
+                                            )}</div> */}
                                         </div>
                                         <Row>
                                             <Col className="profile-btn">
