@@ -9,7 +9,6 @@ const UpcomingAppointments = () => {
 
     const cookie = new Cookies();
     const currentUserFromCookie = cookie.get('profileDetails');
-    console.log('currentUserFromCookie', currentUserFromCookie);
 
     const getUpcomingAppointments = async () => {
         const patientId = currentUserFromCookie.id;
@@ -18,7 +17,6 @@ const UpcomingAppointments = () => {
             const response = await getUpcomingAppointmentsForHomepage(patientId).catch(err => {
                 console.log('err', err);
             });
-            console.log('UA response', response);
             const upcomingAppointments = response.data.data;
             console.log('Upcoming Appointments', upcomingAppointments);
             setUpcomingAppointments(upcomingAppointments);
