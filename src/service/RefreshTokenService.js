@@ -22,11 +22,12 @@ export const checkAccessToken = (isReload=true) => {
         }
     }
     return axios(config).then(response => {
-        const history =useHistory();
+        // const history =useHistory();
+        console.log('new token', response);
         if (response && response.data) {
             LocalStorageService.setToken(response.data);
             if(isReload){
-                history.go(0);
+                window.location.reload()
             }
             
         }

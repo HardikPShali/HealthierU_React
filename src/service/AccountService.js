@@ -25,7 +25,7 @@ export const getCurrentUserInfo = async () => {
 
     const userInfoApiCall = {
         method: 'get',
-        url:  `/api/account`,
+        url: `/api/v2/account`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ export const getCurrentPatientInfo = async (userid, userName) => {
 
     const patientInfoApiCall = {
         method: 'post',
-        url:  `/api/current-patient-info`,
+        url: `/api/mobile/current-patient-info`,
         data: {
             userId: userid,
             firstName: userName
@@ -60,7 +60,7 @@ export const getPatientInfoByPatientId = async (patientId) => {
 
     const patientInfoApiCall = {
         method: 'get',
-        url:  `/api/admin/patients?userId.equals=` + patientId,
+        url: `/api/admin/patients?userId.equals=` + patientId,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
@@ -76,15 +76,16 @@ export const getCurrentDoctorInfo = async (userId, username) => {
 
     const doctorInfoApiCall = {
         method: 'get',
-        url:  `/api/current-doctor-info?userid=${userId}&username=${username}`,
+        url: `/api/mobile/current-doctor-info?userid=${userId}&username=${username}`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
         }
     };
     const currentDoctorInformation = await axios(doctorInfoApiCall);
-
+  
     return currentDoctorInformation.data
+
 }
 
 
@@ -92,7 +93,7 @@ export const getDoctorDetails = async (doctorId) => {
 
     const doctorInfoApiCall = {
         method: 'get',
-        url:  `/api/doctors/` + doctorId,
+        url: `/api/doctors/` + doctorId,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
@@ -108,7 +109,7 @@ export const handleSignin = async (username, password) => {
         method: 'post',
         mode: 'no-cors',
         url: `/oauth/token?grant_type=password&scope=openid&username=${username}&password=${password}`, //&grant_type=password&scope=openid
-        headers: { 
+        headers: {
             'Authorization': 'Basic ' + AUTH_CODE,
         }
     }
@@ -120,7 +121,7 @@ export const handleSignin = async (username, password) => {
 export const activateUser = async (key) => {
     var activateUserCall = {
         method: 'get',
-        url:  `/api/activate?key=${key}`,
+        url: `/api/mobile/activate?key=${key}`,
     };
     const response = await axios(activateUserCall);
 
@@ -132,7 +133,7 @@ export const sendOtpEmail = async () => {
     var payload = {
         method: 'post',
         mode: 'no-cors',
-        url:  `/api/admin-2FA-request`,
+        url: `/api/admin-2FA-request`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
@@ -150,9 +151,28 @@ export const verifyOtp = async (otp) => {
     var payload = {
         method: 'post',
         mode: 'no-cors',
-        url:  `/api/admin-2FA-validation?key=${otp}`,
+        url: `/api/admin-2FA-validation?key=${otp}`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const activateOtp = async (otp) => {
+    var payload = {
+        method: 'get',
+        mode: 'no-cors',
+        url: `/api/mobile/activate?key=${otp}`,
+        headers: {
+            // 'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
         }
 

@@ -81,7 +81,7 @@ const EditQuestionnaire = (props) => {
 
 
 
-    
+
 
     const loadQuestionniare = async () => {
         const result = await getQuestionnaire(`${id}`);
@@ -112,6 +112,7 @@ const EditQuestionnaire = (props) => {
 
     return (
         <div>
+            {console.log(questions)}
             <Navbar pageTitle="questionnaire" />
             <br />
             <div className="container Questionnaire-Edit-Div-Border" >
@@ -164,7 +165,7 @@ const EditQuestionnaire = (props) => {
                             <div className="col-md-6">
                             </div>
                             <div className="col-md-6 text-right">
-                                
+
                                 <button className="btn btn-primary mr-2">Update</button>
                                 <Link
                                     to={{
@@ -191,9 +192,9 @@ const EditQuestionnaire = (props) => {
                             <tr>
                                 <th width="200">Question</th>
                                 <th width="200">Topic</th>
-                                <th width="50">Topic Order</th>                                
+                                <th width="50">Topic Order</th>
                                 <th width="200">Sub Topic</th>
-                                <th width="50">SubTopic Order</th>  
+                                <th width="50">SubTopic Order</th>
                                 <th width="100">Question Type</th>
                                 <th width="100">Action</th>
                             </tr>
@@ -201,7 +202,7 @@ const EditQuestionnaire = (props) => {
                         <tbody>
                             {questions.map((question, index) => (
                                 <tr key={question.id}>
-                                    
+
                                     <td width="200">{question.question}</td>
                                     <td width="200">{question.topic}</td>
                                     <td width="50">{question.topicOrder}</td>
@@ -211,12 +212,12 @@ const EditQuestionnaire = (props) => {
 
                                     <td width="100">{question.questiontype}</td>
                                     <td width="100">
-                                    
-                                    <img width="15" height="15" onClick={() => handleEditModal(question)} src={editIcon} alt=""
-                                                    style={{ marginLeft: '5%', marginRight: '5%' }} />
 
-                                                <img width="15" height="15" onClick={() => handleDeleteModal(question)} src={deleteIcon} alt=""
-                                                    style={{ marginLeft: '5%', marginRight: '5%' }} />
+                                        <img width="15" height="15" onClick={() => handleEditModal(question)} src={editIcon} alt=""
+                                            style={{ marginLeft: '5%', marginRight: '5%' }} />
+
+                                        <img width="15" height="15" onClick={() => handleDeleteModal(question)} src={deleteIcon} alt=""
+                                            style={{ marginLeft: '5%', marginRight: '5%' }} />
 
 
                                     </td>
@@ -334,18 +335,18 @@ const EditQuestionnaire = (props) => {
             <br />
             <br />
             <ToastContainer
-                        position="top-right"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                    />
-                    {/* Same as */}
-                    <ToastContainer />
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            {/* Same as */}
+            <ToastContainer />
         </div>
     );
 

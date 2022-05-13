@@ -26,21 +26,27 @@ const Signup = () => {
   const failureResponseGoogle = async (response) => {
     //console.log(response);
   }
+  const storeGoogleToken = (response) =>
+  {
+    cookies.set("GOOGLE_ACCESS_TOKEN", response.tokenId);
+    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj);
+    history.push("/signupform");
+  }
   const responseGoogle = async (response) => {
-    //console.log(response.tokenId);
-    //console.log(response.profileObj);
+    console.log(response.tokenId);
+    console.log(response.profileObj);
     cookies.set("GOOGLE_ACCESS_TOKEN", response.tokenId);
     cookies.set("GOOGLE_PROFILE_DATA", response.profileObj);
     const googleUserData = {
-      token: response.tokenId
+      token: response.tokenId,
     }
     const googleAccessToken = await handleGoogleAuth(googleUserData);
     if (googleAccessToken) {
-      //console.log("googleAccessToken  :: ", googleAccessToken);
+      console.log("googleAccessToken  :: ", googleAccessToken);
       LocalStorageService.setToken(googleAccessToken);
 
       const currentUserInformation = await getCurrentUserInfo();
-      cookies.set('currentUser', currentUserInformation);
+      cookies.set('currentUser', currentUserInformation.data.userInfo);
       const currentLoggedInUser = cookies.get("currentUser");
       const {authorities =[] } = currentLoggedInUser || {}
 
@@ -81,7 +87,7 @@ const Signup = () => {
                 )}
                 buttonText="Sign up with Google"
                 className="google-signup"
-                onSuccess={(res) => responseGoogle(res)}
+                onSuccess={(res) => storeGoogleToken(res)}
                 onFailure={(res) => failureResponseGoogle(res)}
                 cookiePolicy={'single_host_origin'}
 

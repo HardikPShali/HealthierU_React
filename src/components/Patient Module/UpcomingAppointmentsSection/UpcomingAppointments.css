@@ -1,0 +1,72 @@
+/* UPCOMING APPOINTMENTS SECTION */
+.upcoming-appointment__card-box {
+  height: 160px;
+  border-radius: 22px;
+  padding: 1.25rem;
+  color: #fff;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  text-shadow: 0px 0px 15px #000;
+  overflow: auto;
+}
+.upcoming-appointment--main-header {
+  margin-left: 5px;
+  color: #344767;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.card-holder {
+  width: 100%;
+}
+
+.upcoming-appointment-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 22px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+}
+
+.upcoming-appointment-card__img-wrapper {
+  padding: 20px;
+  text-align: center;
+}
+
+.img-circle {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  box-shadow: 2px 6px 20px -4px rgb(0 0 0 / 74%);
+  -webkit-box-shadow: 2px 6px 20px -4px rgb(0 0 0 / 74%);
+}
+
+.upcoming-appointment-card__card-details {
+  margin: 10px;
+  color: black;
+}
+
+.upcoming-appointment-card__doctor-name {
+  text-shadow: none;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.upcoming-appointment-card__common-span {
+  font-size: 14px;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: 400;
+}
+
+.upcoming-appointment-card__card-details--date-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 50px;
+}

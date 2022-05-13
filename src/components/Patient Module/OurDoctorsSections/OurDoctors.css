@@ -1,0 +1,62 @@
+/* OUR DOCTORS SECTION */
+
+.our-doctor__card-box {
+  max-height: 350px;
+  border-radius: 22px !important;
+  align-items: flex-end;
+  padding: 10px;
+  color: #fff;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  text-shadow: 0px 0px 15px #000;
+  overflow: auto;
+}
+
+.our-doctor-card {
+  margin: 15px;
+}
+
+.our-doctors--main-header {
+  margin-left: 10px;
+  color: #344767;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.our-doctor__card__img-wrapper {
+  text-align: center;
+}
+
+.our-doctor__image {
+  height: 150px;
+  width: 90%;
+  border-radius: 10px;
+}
+
+.our-doctor__card {
+  background: #fff;
+  padding: 15px;
+  /* margin: 1px; */
+  border-radius: 10px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+}
+
+.our-doctor__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 12px;
+  text-shadow: none;
+  color: black;
+}
+
+.our-doctor__name {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.our-doctor__speciality {
+  font-size: 16px;
+  font-weight: 400;
+}

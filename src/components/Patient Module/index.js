@@ -65,7 +65,10 @@ const PatientRoute = () => {
   const systemTimeZone = momentTz.tz.guess();
 
   useEffect(() => {
-    getCurrentPatient();
+    {
+      currentuserInfo.profileCompleted == true &&
+        getCurrentPatient();
+    }
   }, []);
 
   useEffect(() => {
@@ -107,10 +110,10 @@ const PatientRoute = () => {
 
   const getCurrentPatient = async () => {
     const currentPatient = await getCurrentPatientInfo(currentuserInfo.id, currentuserInfo.login);
-    setCurrentPatient(currentPatient);
-
-    if (currentPatient?.patientTimeZone !== systemTimeZone) {
-      handleSubmit(currentuserInfo.id, systemTimeZone);
+    // console.log('Current patient', currentPatient);
+    setCurrentPatient(currentPatient.data);
+    if (currentPatient?.data?.patientTimeZone !== systemTimeZone) {
+      handleSubmit(currentPatient.data.id, systemTimeZone);
     }
   };
 

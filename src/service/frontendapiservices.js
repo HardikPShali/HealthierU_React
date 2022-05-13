@@ -27,7 +27,7 @@ export const updateRolePatient = async (bodyFormData) => {
         method: 'post',
         mode: 'no-cors',
         data: bodyFormData,
-        url: '/api/patients/',
+        url: '/api/mobile/patients',
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'multipart/form-data',
@@ -42,12 +42,12 @@ export const updateRolePatient = async (bodyFormData) => {
     return response;
 }
 
-export const updateRoleDoctor = async (bodyFormData) => {
+export const updateRoleDoctor = async (bodyFormDataDoctor) => {
     var payload = {
         method: 'post',
         mode: 'no-cors',
-        data: bodyFormData,
-        url: '/api/doctors/',
+        data: bodyFormDataDoctor,
+        url: '/api/mobile/doctors',
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'multipart/form-data',
@@ -84,7 +84,7 @@ export const signupWithEmail = async (userData) => {
         method: 'post',
         mode: 'no-cors',
         data: JSON.stringify(userData),
-        url: '/api/register',
+        url: '/api/mobile/register',
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
@@ -96,6 +96,7 @@ export const signupWithEmail = async (userData) => {
         }
     });
     return response;
+
 }
 
 export const getLoggedInUserDataByUserId = async (userId) => {
@@ -650,7 +651,7 @@ export const uploadDoctorDocument = async (files, info) => {
     var newData = new FormData();
     newData.append(`doctorDocumentFile`, files);
     newData.append("doctorDocumentInfo", JSON.stringify(info));
-
+    console.log("info", info)
     var payload = {
         method: 'post',
         mode: 'no-cors',
@@ -797,3 +798,40 @@ export const getServiceProviders = async (categoryId) => {
 }
 
 
+// NEW APIS
+
+export const getAllDoctorsForHomepage = async () => {
+    var payload = {
+        method: 'get',
+        mode: 'no-cors',
+        url: '/api/mobile/doctorslist',
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const getUpcomingAppointmentsForHomepage = async (id) => {
+    var payload = {
+        method: 'get',
+        mode: 'no-cors',
+        url: `/api/mobile/appointments/upcoming?patientId=${id}`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}

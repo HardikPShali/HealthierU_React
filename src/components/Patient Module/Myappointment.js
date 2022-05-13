@@ -192,6 +192,7 @@ const Myappointment = (props) => {
     //const cookies = new Cookies();
 
     const classes = useStyles();
+
     useEffect(() => {
         props.currentPatient.id && getMyAppointmentList(props.currentPatient.id);
     }, [props.currentPatient]);
@@ -242,6 +243,8 @@ const Myappointment = (props) => {
                 setLoading(false);
             }
         });
+
+        // console.log("AppointmentList", response);
 
         if (response.status === 200 || response.status === 201) {
             if (response && response.data) {
@@ -322,7 +325,7 @@ const Myappointment = (props) => {
 
     const { currentPatient, doctorDetailsList } = props;
 
-    //console.log("myAppointment ::::::::", myAppointment);
+    // console.log("myAppointment ::::::::", myAppointment);
     return (
         <div>
             {loading && (

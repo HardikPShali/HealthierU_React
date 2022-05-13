@@ -24,9 +24,9 @@ import { Row } from 'react-bootstrap';
 
 $(document).ready(function () {
     $(".upload-button").on('click', function () {
-      $(".file-upload").click();
+        $(".file-upload").click();
     });
-  });
+});
 
 const AnyReactComponent = ({ text }) => <div style={{
     color: 'white',
@@ -68,7 +68,7 @@ const AddServiceProvider = () => {
     const [preview, setPreview] = useState()
     const { msg } = errorMsg;
 
-    //console.log(user);
+    console.log(user);
 
     useEffect(() => {
         getLocation();
@@ -99,7 +99,7 @@ const AddServiceProvider = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         } else {
-            //console.log("Geolocation is not supported by this browser.");
+            console.log("Geolocation is not supported by this browser.");
         }
     }
 
@@ -181,7 +181,7 @@ const AddServiceProvider = () => {
                     <ValidatorForm onSubmit={e => onSubmit(e)} id="serviceProvide-form">
                         <Row style={{ justifyContent: 'center' }}>
                             <div className="small-12 medium-2 large-2 columns">
-                                <div className="upload-button circle" style={{"cursor" : "pointer"}}>
+                                <div className="upload-button circle" style={{ "cursor": "pointer" }}>
                                     {/* <!-- User Profile Image --> */}
                                     <img className="profile-pic" src={preview ? preview : user && user.picture ? user.picture : previewImg} alt="" />
                                 </div>
@@ -272,8 +272,8 @@ const AddServiceProvider = () => {
                         <div className="form-group">
                             <FormControl>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                    id="demo-controlled-open-select"
+
                                     name="type"
                                     value={type}
                                     onChange={e => onInputChange(e)}
@@ -293,8 +293,8 @@ const AddServiceProvider = () => {
                         <div className="form-group">
                             <FormControl>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                    id="demo-controlled-open-select"
+
                                     name="day"
                                     value={day}
                                     onChange={e => onInputChange(e)}
@@ -398,8 +398,8 @@ const AddServiceProvider = () => {
                         <div className="form-group">
                             <FormControl>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                    id="demo-controlled-open-select"
+                                
                                     name="active"
                                     value={active}
                                     onChange={e => onInputChange(e)}
