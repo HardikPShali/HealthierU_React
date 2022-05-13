@@ -40,10 +40,11 @@ const DoctorChat = (props) => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
+    const { currentDoctor, patientDetailsList } = props;
     let chatGroup = searchParams.get("chatgroup");
     let openVideoAndChat = searchParams.get("openVideoCall");
     if (openVideoAndChat) {
-      handleAgoraAccessToken(chatGroup, () => setOpenVideoCall(true))
+      handleAgoraAccessToken(patientDetailsList.id, currentDoctor.id, () => setOpenVideoCall(true))
     }
     chatGroup && openConversation(chatGroup);
   }, [location]);

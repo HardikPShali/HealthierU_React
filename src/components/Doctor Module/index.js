@@ -113,8 +113,8 @@ const DoctorRoute = () => {
   return (
     <Suspense fallback={<Loader />}>
       {headerFooterLoad && currentLoggedInUser?.profileCompleted === true && (
+        <>
         <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />
-      )}
       <Switch>
         <Route exact path="/doctor" component={Homepage} />
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
@@ -164,7 +164,10 @@ const DoctorRoute = () => {
         /> */}
         {/* <Redirect from='/' to='/doctor' /> */}
       </Switch>
-      {headerFooterLoad && <Footer />}
+       <Footer />l̥
+        </>
+        
+      )}
     </Suspense>
   );
 };
