@@ -256,7 +256,7 @@ div#social-icon {
 div#dorctor-list {
   padding: 30px 10px;
   margin: 50px 0;
-  background: var(--color-white-bg);
+  background: #fff;
   border-radius: 22px;
   min-height: 550px;
 }

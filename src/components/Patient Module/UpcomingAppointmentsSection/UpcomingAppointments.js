@@ -3,23 +3,23 @@ import UpcomingAppointmentCard from './UpcomingAppointmentCard'
 import './UpcomingAppointments.css'
 import Cookies from 'universal-cookie'
 import { getUpcomingAppointmentsForHomepage } from '../../../service/frontendapiservices'
-import { getCurrentPatientInfo } from '../../../service/AccountService'
 
 const UpcomingAppointments = () => {
     const [upcomingAppointments, setUpcomingAppointments] = useState([]);
 
     const cookie = new Cookies();
-    const currentUserFromCookie = cookie.get('currentUser');
-    console.log('currentUserFromCookie', currentUserFromCookie);
+    const currentUserFromCookie = cookie.get('profileDetails');
 
     const getUpcomingAppointments = async () => {
         const patientId = currentUserFromCookie.userId;
-        console.log("patientId", patientId);
+        // console.log("patientId", patientId);
         if (patientId) {
             const response = await getUpcomingAppointmentsForHomepage(patientId).catch(err => {
                 console.log('err', err);
             });
-            console.log('Upcoming Appointment response', response);
+            const upcomingAppointments = response.data.data;
+            console.log('Upcoming Appointments', upcomingAppointments);
+            setUpcomingAppointments(upcomingAppointments);
         }
     }
 
@@ -35,11 +35,15 @@ const UpcomingAppointments = () => {
                 <div className="card-holder">
 
                     <div className='row'>
-                        <div className='col-md-6 mb-2'>
-                            <div className='upcoming-appointment-card'>
-                                <UpcomingAppointmentCard />
-                            </div>
-                        </div>
+                        {upcomingAppointments.length !== 0 ? upcomingAppointments.map((appointment, index) => {
+                            return (
+                                <div className='col-md-6 mb-2'>
+                                    <div className='upcoming-appointment-card'>
+                                        <UpcomingAppointmentCard />
+                                    </div>
+                                </div>
+                            )
+                        }) : <div className='col-12' style={{ textShadow: 'none', color: 'black' }}>No Upcoming Appointments</div>}
                     </div>
 
                 </div>

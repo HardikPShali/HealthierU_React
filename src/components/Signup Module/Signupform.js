@@ -297,6 +297,7 @@ const Signupform = () => {
         //   });
         // }
       });
+
       if (response && response.status === 200) {
         setTransparentLoading(false);
 
