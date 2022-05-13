@@ -31,7 +31,7 @@ let clearSetTimeoutInterval = 0;
 const DoctorChat = (props) => {
   const [currentSelectedGroup, setCurrentSelectedGroup] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
-  const [openVideoCall, setOpenVideoCall] = useState(true);
+  const [openVideoCall, setOpenVideoCall] = useState(false);
   const [filterText, setFilterText] = useState("");
   const [milisecondToRerender, setMilisecondToRerender] = useState(0); // milisecond to rerender chat and video button
   const [activeButton, setActiveButton] = useState({
@@ -68,13 +68,9 @@ const DoctorChat = (props) => {
     const searchParams = new URLSearchParams(location.search);
     let chatGroup = searchParams.get("chatgroup");
     let openVideoAndChat = searchParams.get("openVideoCall");
-    // if (openVideoAndChat) {
-      if(pIdState && dIdState) {
-        handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true))
-      }
-
-
-    // }
+    if (openVideoAndChat && pIdState && dIdState) {
+        handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true));
+    }
   }, [pIdState, dIdState]);
 
   useEffect(() => {
@@ -386,10 +382,6 @@ const DoctorChat = (props) => {
                 {videoButton && !openVideoCall && (
                   <IconButton
                     onClick={() => {
-                      console.log(
-                        props.patientDetailsList[currentSelectedGroup].id
-                      );
-                      console.log(props.currentDoctor.id);
                       handleAgoraAccessToken(
                         pIdState, dIdState,
                         () => setOpenVideoCall(true)
