@@ -133,11 +133,6 @@ const Profile = () => {
         }
     };
 
-    // const [display, setDisplay] = useState({
-    //     profile: "block",
-    //     editProfile: "none"
-    // })
-
     const loadOptions = async () => {
         const res = await getCountryList().catch((err) => {
             if (err.response.status === 500 || err.response.status === 504) {
@@ -222,16 +217,6 @@ const Profile = () => {
             // }, 10000);
         }
     };
-
-    // useEffect(() => {
-    //     if (transparentLoading === false) {
-    //         // setCurrentPatient({ ...currentPatient, ...{ pic: "jsjsjsjs" } });
-    //         setDisplay({ ...display, profile: 'block', editProfile: 'none' })
-
-    //         getCurrentPatient();
-
-    //     }
-    // }, [transparentLoading]);
 
     const now = new Date();
     const newDate = now.setDate(now.getDate() - 1);

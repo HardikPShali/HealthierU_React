@@ -20,7 +20,6 @@ import genderIcon from '../../../src/images/svg/gender-icon.svg';
 import educationIcon from '../../../src/images/svg/education-icon.svg';
 import experienceIcon from '../../../src/images/svg/experience-icon.svg';
 import specialityIcon from '../../../src/images/svg/speciality-icon.svg';
-import Cookies from 'universal-cookie';
 import {
     getCountryList,
     getLanguageList,
@@ -37,7 +36,6 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ImageCropper from '../CommonModule/ImageCroper';
 import ProfileRow from "../CommonModule/Profile/ProfileRow/ProfileRow";
-import ProfileImage from "../CommonModule/Profile/ProfileImage/ProfileImage";
 
 // import Cookies from 'universal-cookie';
 // import CreateIcon from '@material-ui/icons/Create';
@@ -46,11 +44,10 @@ import ProfileImage from "../CommonModule/Profile/ProfileImage/ProfileImage";
 // import DeleteIcon from '@material-ui/icons/Delete';
 // import Footer from './Footer';
 // import aboutIcon from '../../../src/images/icons used/about.png';
+// import ProfileImage from "../CommonModule/Profile/ProfileImage/ProfileImage";
 
 const Profile = ({ currentDoctor }) => {
-    //const cookies = new Cookies();
-    //const currentLoggedInUser = cookies.get("currentUser");
-    // console.log("currentUser Doctor Profile", currentDoctor);
+
     const [documentData, setDocumentData] = useState([])
     const [documentName, setDocumentName] = useState("");
     const [documentFile, setDocumentFile] = useState([]);
@@ -90,15 +87,13 @@ const Profile = ({ currentDoctor }) => {
 
     const {
         firstName, lastName, phone, gender, dateOfBirth, countryName, languages, education, experience, specialities
-    } = currentDoctorData;
+    } = currentDoctor;
 
     const { languageOptions } = language;
 
     const { countryList } = options;
 
     const { specialityOptions } = speciality;
-
-    const cookies = new Cookies();
 
     //LOAD COUNTRY LIST
     const loadOptions = async () => {
@@ -197,14 +192,14 @@ const Profile = ({ currentDoctor }) => {
 
 
 
-    const currentLoggedInUser = cookies.get("profileDetails");
-    console.log('currentLoggedInUser', currentLoggedInUser);
+    // const currentLoggedInUser = cookies.get("profileDetails");
+    // console.log('currentLoggedInUser', currentLoggedInUser);
 
 
     // HANDLERS FOR EDIT PAGE
     const handleInputChange = (e) => {
         e.preventDefault()
-        setCurrentDoctorData({ ...currentDoctorData, [e.target.name]: e.target.value });
+        setCurrentDoctorData({ ...currentDoctor, [e.target.name]: e.target.value });
     };
 
     const handleLanguages = (selectedList, selectedItem) => {
@@ -215,7 +210,7 @@ const Profile = ({ currentDoctor }) => {
         var array = languages;
         var index = array.indexOf(removedItem);
         array.splice(index, 1);
-        setCurrentDoctorData({ ...currentDoctorData, languages: array });
+        setCurrentDoctorData({ ...currentDoctor, languages: array });
     }
 
     const now = new Date();
@@ -228,15 +223,15 @@ const Profile = ({ currentDoctor }) => {
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
+        setCurrentDoctorData({ ...currentDoctor, dateOfBirth: isoDate });
     };
 
     const handlePhone = (e) => {
-        setCurrentDoctorData({ ...currentDoctorData, phone: e });
+        setCurrentDoctorData({ ...currentDoctor, phone: e });
     };
 
     const handleCountry = (e) => {
-        setCurrentDoctorData({ ...currentDoctorData, countryName: e.target.value });
+        setCurrentDoctorData({ ...currentDoctor, countryName: e.target.value });
     };
 
     const handleSpecialities = (selectedList, selectedItem) => {
