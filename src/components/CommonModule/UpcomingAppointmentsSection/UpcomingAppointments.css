@@ -12,7 +12,7 @@
 
 .upcoming-appointment--main-header {
   margin-left: 5px;
-  color: #344767;
+  color: var(--text-primary);
   font-weight: 700;
   text-shadow: none;
 }

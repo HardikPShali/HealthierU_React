@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import './patient.css'
-import { Container, Row, Col, Card } from 'react-bootstrap'
-import home2 from '../../images/home-2.png'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import './patient.css';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import home2 from '../../images/home-2.png';
+import { Link } from 'react-router-dom';
 import Welcome from './../CommonModule/Welcome';
-import Loader from './../Loader/Loader'
-import SpecialitiesSection from './SpecialitiesSection'
-import UpcomingAppointments from './UpcomingAppointmentsSection/UpcomingAppointments'
-import OurDoctors from './OurDoctorsSections/OurDoctors'
+import Loader from './../Loader/Loader';
+import SpecialitiesSection from './SpecialitiesSection';
+import UpcomingAppointments from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments';
+import OurDoctors from './OurDoctorsSections/OurDoctors';
 // import { getCurrentUserInfo } from "../../service/AccountService";
 // import LocalStorageService from './../../util/LocalStorageService';
 // import Footer from './Footer'
