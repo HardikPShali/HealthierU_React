@@ -7,6 +7,8 @@
   --primary: #00d0cc;
   --primarysecond: #f6ceb4;
   --secondary: #ff6563;
+  --text-primary: #3E4543;
+  --text-secondary: #999999;
 }
 
 * {
@@ -14,7 +16,7 @@
 }
 
 body {
-  background: #fff !important;
+  background: #f5f5f5 !important;
 }
 
 /*
@@ -37,7 +39,8 @@ a.nav-link.active {
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .header-btn {

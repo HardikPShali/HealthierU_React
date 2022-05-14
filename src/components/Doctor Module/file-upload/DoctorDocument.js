@@ -24,11 +24,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { IconButton } from "@material-ui/core";
+import Cookies from "universal-cookie";
 // import Footer from '../Footer';
 // import documentViewImage from '../../../images/icons used/document icon@2x.png';
 
 const DoctorDocument = (props) => {
 
+    const cookies = new Cookies();
 
     useEffect(() => {
         loadDocuments();
@@ -94,7 +96,7 @@ const DoctorDocument = (props) => {
     const handleLabResultChange = e => {
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
-            console.log("fileSize ::", fileSize)
+            // console.log("fileSize ::", fileSize)
             const maxSize = 1000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg("")
@@ -113,7 +115,7 @@ const DoctorDocument = (props) => {
     const handlePrescriptionChange = e => {
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
-            console.log("fileSize ::", fileSize)
+            // console.log("fileSize ::", fileSize)
             const maxSize = 1000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg("")
@@ -154,7 +156,8 @@ const DoctorDocument = (props) => {
         // GET request using fetch with async/await
         const currentUser = await getCurrentUserInfo();
 
-        const doctor = await getCurrentDoctorInfo(currentUser.id, currentUser.login);
+        // const doctor = await getCurrentDoctorInfo(currentUser.data.userInfo.id, currentUser.data.userInfo.login);
+        const doctor = cookies.get("profileDetails");
         setDoctor(doctor)
 
         const presecriptionDocument = await getDoctorDocuments("Prescription", 0, doctor.id);
@@ -726,7 +729,7 @@ const DoctorDocument = (props) => {
                             <Button variant="secondary" onClick={handleUploadLabResultClosed}>
                                 Close
                             </Button>
-                            {console.log("Patient ::: ", patient)}
+                            {/* {console.log("Patient ::: ", patient)} */}
                             <Button variant="primary" type="submit" disabled={!patient?.id || !labResult.labResultDocument}>
                                 Save
                             </Button>

@@ -38,7 +38,8 @@ a.nav-link.active {
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 #navbar a.dropdown-item {
@@ -63,12 +64,12 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar>button {
+.headerNavbar > button {
   color: #fff;
   font-size: 14px;
 }
 
-.headerNavbar>button:hover {
+.headerNavbar > button:hover {
   color: #fff;
 }
 
@@ -97,9 +98,8 @@ svg#search-icon {
 }
 
 @media (max-width: 992px) {
-
   #navbar a,
-  .headerNavbar>button {
+  .headerNavbar > button {
     padding: 10px 20px;
   }
 
@@ -252,7 +252,7 @@ div#social-icon {
 div#dorctor-list {
   padding: 30px 10px;
   margin: 30px 0;
-  background: #f8f8f8;
+  background: #fff;
   border-radius: 22px;
   height: 550px;
 }
@@ -649,12 +649,17 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
+  .MuiGridListTileBar-title {
   color: #fff;
   transition: 0.5s;
 }
@@ -978,18 +983,18 @@ h2#welcome-title {
 */
 
 div#profile-col-1 {
-  background: var(--primarybg);
+  background: #f4f4f4 !important;
   padding: 20px;
-  margin: 50px -10px 50px 0px;
+  margin: 60px -10px 40px 0px;
   border-radius: 22px;
   text-align: center;
-  height: 650px;
+  height: 320px;
 }
 
 div#profile-col-2 {
-  background: var(--primarybg);
+  background: #f4f4f4;
   padding: 20px;
-  margin: 50px 0px 50px -10px;
+  margin: 0 -10px 50px 0px;
   border-radius: 22px;
   text-align: center;
   height: 650px;
@@ -1005,6 +1010,17 @@ img#profile-pic {
 .avatar-profile {
   border-radius: 50% !important;
   outline: 5px solid #00d0cc;
+}
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  display: block;
+  border-radius: 50%;
+  border: 6px solid #eee;
+}
+
+.file-upload {
+  display: none;
 }
 
 #name {
@@ -1026,14 +1042,14 @@ p#description {
 
 button.request-edit {
   border-radius: 22px;
-  width: 50%;
+  width: 150px;
   font-size: 15px;
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
   position: absolute;
-  bottom: 70px;
+  bottom: 0px;
   margin: 0 25%;
-  left: 0;
+  left: 18%;
 }
 
 table#user-info {
@@ -1183,13 +1199,13 @@ table#user-info {
   align-items: center;
 }
 
-.record-tabs>.nav-link:hover {
+.record-tabs > .nav-link:hover {
   color: #495057 !important;
   text-decoration: none;
   outline: none;
 }
 
-.record-tabs>.nav-link.active {
+.record-tabs > .nav-link.active {
   color: #fff !important;
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
@@ -1200,6 +1216,73 @@ table#user-info {
   color: #00d0cc;
   padding: 20px;
   border-radius: 20px;
+}
+
+/* EDIT PROFILE PAGE CSS */
+#profile-form {
+  /* background: #fff; */
+  border-radius: 22px;
+  /* padding: 10px 10%; */
+}
+#profile-form .MuiFormControl-root.MuiTextField-root {
+  width: 100%;
+}
+#profile-form .MuiInputBase-formControl {
+  border-radius: 10px;
+}
+#profile-form input#standard-basic {
+  padding: 10px;
+  border: none !important;
+  border-radius: 10px;
+}
+#profile-form .MuiFilledInput-underline:after {
+  display: none;
+}
+#profile-form .MuiFilledInput-underline:before {
+  display: none;
+}
+
+h2#signin-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+#profile-form p {
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+div#editProfile-col {
+  background: #f4f4f4;
+  padding: 20px;
+  margin: 50px 0px 50px -10px;
+  border-radius: 22px;
+}
+
+div#multiselectContainerReact div {
+  background: #e8e8e8 !important;
+}
+
+.p-image {
+  position: relative;
+  bottom: 70px;
+  left: 48px;
+  color: #000;
+  text-shadow: 0px 0px 5px #fff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.p-image:hover {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.upload-button {
+  font-size: 1.2em;
+}
+
+.upload-button:hover {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: #999;
 }
 
 /*
@@ -1506,8 +1589,10 @@ li.react-tabs__tab {
 
 #prescription-list {
   padding: 10px;
-  background: var(--primarybg);
-  border-radius: 22px;
+    background: white;
+    border-radius: 22px;
+    box-shadow: 2px 2px 1rem #dedede;
+    border: 1px solid #dedede;
 }
 
 #prescription-list tr {
@@ -1785,7 +1870,7 @@ div#primary-card {
 }
 
 @media (max-width: 700px) {
-  #footer .row>div {
+  #footer .row > div {
     margin-bottom: 40px;
   }
 
@@ -1806,7 +1891,7 @@ div#primary-card {
     text-align: center !important;
   }
 
-  #copyright .row>div {
+  #copyright .row > div {
     margin-bottom: 20px;
   }
 
@@ -2053,16 +2138,16 @@ div.reply .messageBody span.messageTime {
   text-transform: capitalize;
 }
 
-.list--tags>li {
+.list--tags > li {
   display: inline;
 }
 
-.list--tags>li:before {
+.list--tags > li:before {
   content: ',\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags>li:first-child:before {
+.list--tags > li:first-child:before {
   content: normal;
 }
 
@@ -2173,14 +2258,12 @@ Health Assessment
   background-repeat: no-repeat !important;
 }
 
-.modal-body>.form-group>label.col-form-label {
+.modal-body > .form-group > label.col-form-label {
   font-size: 14.5px;
-
 }
 
 .medicineButton {
   margin-left: 10px;
-  
 }
 
 .disable-footer-links {
@@ -2350,6 +2433,7 @@ button a {
 .record-tabs.nav-tabs .nav-link {
   background-color: #efefef !important;
   color: var(--primary);
+  padding: 6px;
 }
 
 #prescription-list tbody tr {

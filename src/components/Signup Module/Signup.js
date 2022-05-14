@@ -46,7 +46,7 @@ const Signup = () => {
       LocalStorageService.setToken(googleAccessToken);
 
       const currentUserInformation = await getCurrentUserInfo();
-      cookies.set('currentUser', currentUserInformation);
+      cookies.set('currentUser', currentUserInformation.data.userInfo);
       const currentLoggedInUser = cookies.get("currentUser");
       const {authorities =[] } = currentLoggedInUser || {}
 

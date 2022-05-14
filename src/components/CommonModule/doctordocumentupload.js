@@ -274,7 +274,6 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                     <tbody>
                         {documentData && documentData.length > 0 ? documentData.map((doc, index) => (
                             <tr key={index}>
-                                {console.log("doc", doc)}
                                 <td>{doc.documentName}</td>
                                 <td>{doc.documentType}</td>
                                 <td>
@@ -408,7 +407,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                                     }}
                                     onChange={(e) => handleFileChange(e)}
                                 />
-                                {console.log("docFile::", documentFile && documentFile.name)}
+                                {/* {console.log("docFile::", documentFile && documentFile.name)} */}
                                 {documentError && (<span style={{ color: "red", fontSize: "11px" }}>{documentError}</span>)}
                             </Col>
                         </Row>

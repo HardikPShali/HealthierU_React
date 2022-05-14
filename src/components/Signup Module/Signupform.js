@@ -239,7 +239,7 @@ const Signupform = () => {
             }
           }
         );
-        cookies.set("currentUser", currentUserInformation);
+        cookies.set("currentUser", currentUserInformation.data.userInfo);
         const currentLoggedInUser = cookies.get("currentUser");
         const { authorities = [] } = currentLoggedInUser || {};
 
@@ -297,6 +297,7 @@ const Signupform = () => {
         //   });
         // }
       });
+
       if (response && response.status === 200) {
         setTransparentLoading(false);
 

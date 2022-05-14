@@ -155,7 +155,7 @@ const PatientDocument = (props) => {
         setLoading(true)
         const currentUser = await getCurrentUserInfo();
 
-        const patientInfo = await getCurrentPatientInfo(currentUser.id, currentUser.login);
+        const patientInfo = await getCurrentPatientInfo(currentUser.data.userInfo.id, currentUser.data.userInfo.login);
         setPatient(patientInfo)
 
         const presecriptionDocument = await getPatientDocuments("Prescription", 0, patientInfo.data.id);
@@ -364,7 +364,7 @@ const PatientDocument = (props) => {
 
                 <br />
                 <br />
-                <Tabs className="justify-content-center record-tabs" defaultActiveKey="prescription" id="uncontrolled-tab-example"
+                <Tabs className="justify-content-center record-tabs bg-white" defaultActiveKey="prescription" id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}>
                     <Tab eventKey="prescription" title="Prescription">
                         <br />
@@ -459,7 +459,7 @@ const PatientDocument = (props) => {
                             </div>
                         </div>
                         <br />
-                        <div id="prescription-list">
+                        <div id="prescription-list" className="bg-white">
                             <table>
                                 <thead>
                                     <tr>

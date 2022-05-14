@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import './patient.css'
-import { Container, Row, Col, Card } from 'react-bootstrap'
-import home2 from '../../images/home-2.png'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import './patient.css';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import home2 from '../../images/home-2.png';
+import { Link } from 'react-router-dom';
 import Welcome from './../CommonModule/Welcome';
-import Loader from './../Loader/Loader'
-import SpecialitiesSection from './SpecialitiesSection'
-import UpcomingAppointments from './UpcomingAppointmentsSection/UpcomingAppointments'
-import OurDoctors from './OurDoctorsSections/OurDoctors'
+import Loader from './../Loader/Loader';
+import SpecialitiesSection from './SpecialitiesSection';
+import UpcomingAppointments from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments';
+import OurDoctors from './OurDoctorsSections/OurDoctors';
 // import { getCurrentUserInfo } from "../../service/AccountService";
 // import LocalStorageService from './../../util/LocalStorageService';
 // import Footer from './Footer'
@@ -82,27 +82,18 @@ function patientHomePage() {
             <br />
             <Container>
                 <Row>
-                    <Col md={6}>
+                    <Col md={12}>
                         <UpcomingAppointments />
                     </Col>
-                    <Col md={6}>
-                        <OurDoctors />
 
-                    </Col>
 
                 </Row>
                 <br />
-                {/* <Row>
-                    {/* <Col md={6}>
-                        <Link to="/patient/shop"><div id="Box4" className="card-box">Shop</div></Link>
-                    </Col> */}
-                {/* <Col md={6}>
-                        <Link to="/patient/workout"><div id="Box2" className="card-box">Workout</div></Link>
-                    </Col> */}
-                {/*<Col md={4}>
-                        <div id="Box6" className="card-box">Education</div>
+                <Row>
+                    <Col md={12}>
+                        <OurDoctors />
                     </Col>
-                </Row>*/}
+                </Row>
             </Container>
             <br />
             <br />
