@@ -23,6 +23,7 @@ import {
 } from "../../util";
 
 import moment from "moment";
+import ChatRow from "../CommonModule/Chat/ChatRow/ChatRow";
 
 // var firebaseRef;
 let unsubscribe;
@@ -51,17 +52,17 @@ const DoctorChat = (props) => {
     let chatGroup = searchParams.get("chatgroup");
     let openVideoAndChat = searchParams.get("openVideoCall");
 
-      if(chatGroup) {
-        setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
-        setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
-      }
+    if (chatGroup) {
+      setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
+      setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
+    }
 
-      // if (openVideoAndChat) {
-      //   handleAgoraAccessToken(pIdState, dIdState,
-      //     () => setOpenVideoCall(true)
-      //   );
-      // }
-      chatGroup && openConversation(chatGroup);
+    // if (openVideoAndChat) {
+    //   handleAgoraAccessToken(pIdState, dIdState,
+    //     () => setOpenVideoCall(true)
+    //   );
+    // }
+    chatGroup && openConversation(chatGroup);
   }, [location]);
 
   useEffect(() => {
@@ -69,7 +70,7 @@ const DoctorChat = (props) => {
     let chatGroup = searchParams.get("chatgroup");
     let openVideoAndChat = searchParams.get("openVideoCall");
     if (openVideoAndChat && pIdState && dIdState) {
-        handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true));
+      handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true));
     }
   }, [pIdState, dIdState]);
 
@@ -196,9 +197,8 @@ const DoctorChat = (props) => {
   }, [filterText, updateChatGroupListTrigger, patientDetailsList]);
 
   return (
-    <div>
-      <br />
-      <div className="main-section">
+    <div className="bg-main-color">
+      <div className="main-section mt-5">
         <div className="head-section">
           <div className="headLeft-section">
             {!openVideoCall && (
@@ -230,43 +230,20 @@ const DoctorChat = (props) => {
                 {memoizedChatGroupToShow ? (
                   memoizedChatGroupToShow.map((currentGroup) => {
                     return (
-                      <li
+                      <ChatRow
                         key={currentGroup}
-                        id={currentGroup}
+                        uniqueId={currentGroup}
                         onClick={(e) => openConversation(currentGroup)}
-                        className={
-                          currentGroup === currentSelectedGroup ? "active" : ""
+                        isSelected={currentGroup === currentSelectedGroup}
+                        details={patientDetailsList[currentGroup]}
+                        message={chatGroupList[currentGroup].lastMessageContent}
+                        time={chatGroupList[currentGroup].lastMessageTimeStamp}
+                        unReadCount={
+                          unReadMessageList &&
+                          unReadMessageList[currentGroup] &&
+                          unReadMessageList[currentGroup].length
                         }
-                      >
-                        <div className="chatList">
-                          <div className="img">
-                            <i className="fa fa-circle"></i>
-                            <img
-                              src={
-                                patientDetailsList[currentGroup]?.picture ||
-                                default_image
-                              }
-                              alt=""
-                            />
-                          </div>
-                          <div className="desc">
-                            <b>{`${patientDetailsList[currentGroup]?.firstName} ${patientDetailsList[currentGroup]?.lastName}`}</b>
-                            {unReadMessageList &&
-                              unReadMessageList[currentGroup] && (
-                                <span className="badge badge-success ml-2">
-                                  {unReadMessageList[currentGroup].length}
-                                </span>
-                              )}
-                            <small className="time">
-                              {chatGroupList[currentGroup].lastMessageTimeStamp}
-                            </small>
-                            <br />
-                            <small>
-                              {chatGroupList[currentGroup].lastMessageContent}
-                            </small>
-                          </div>
-                        </div>
-                      </li>
+                      />
                     );
                   })
                 ) : addedNewChatGroupListTrigger ? (
@@ -286,79 +263,102 @@ const DoctorChat = (props) => {
             >
               <ul>
                 {chatMessages.map((current) => {
-                  return current.fromUser === currentDoctor.email ? (
-                    <li
-                      className="msg-right"
+                  return (
+                    <ChatMessage
                       key={current.firebaseTimeStamp.toMillis()}
-                    >
-                      <div
-                        className={`msg-left-sub ${
-                          current.isRead ? "blue" : "brown"
-                        }`}
-                      >
-                        {current.AppointmentStatus === "Booked" ||
-                        current.AppointmentStatus === "Cancelled" ? (
-                          <span></span>
-                        ) : (
-                          <img
-                            src={currentDoctor.picture || default_image}
-                            alt=""
-                            className={current.isRead ? "blue" : "brown"}
-                          />
-                        )}
-
-                        <div
-                          className={
-                            current.AppointmentStatus === "Booked"
-                              ? "appointment-msg-desc"
-                              : current.AppointmentStatus === "Cancelled"
-                              ? "appointment-cancelled-msg-desc"
-                              : "msg-desc"
-                          }
-                        >
-                          {current.AppointmentStatus === "Booked" ||
-                          current.AppointmentStatus === "Cancelled"
-                            ? current.message +
-                              " at Date/Time " +
-                              moment(
-                                new Date(current.firebaseTimeStamp.toMillis())
-                              ).format("M/DD/YYYY h:mm a")
-                            : current.message}
-                        </div>
-                        <small>
-                          {formatDate(current.firebaseTimeStamp.toMillis())}
-                        </small>
-                      </div>
-                    </li>
-                  ) : (
-                    <li
-                      className="msg-left"
-                      key={current.firebaseTimeStamp?.toMillis()}
-                    >
-                      <div className="msg-left-sub">
-                        <img
-                          src={
-                            patientDetailsList[currentSelectedGroup]?.picture ||
-                            default_image
-                          }
-                          alt=""
-                        />
-                        <div className="msg-desc">
-                          {current.AppointmentStatus === "Booked" ||
-                          current.AppointmentStatus === "Cancelled"
-                            ? current.message +
-                              " at Date/Time " +
-                              moment(
-                                new Date(current.firebaseTimeStamp.toMillis())
-                              ).format("M/DD/YYYY h:mm a")
-                            : current.message}
-                        </div>
-                        <small>
-                          {formatDate(current.firebaseTimeStamp?.toMillis())}
-                        </small>
-                      </div>
-                    </li>
+                      isMyMessage={current.fromUser === currentDoctor.email}
+                      image={
+                        current.fromUser === currentDoctor.email
+                          ? currentDoctor.picture
+                          : patientDetailsList[currentSelectedGroup]?.picture
+                      }
+                      message={
+                        current.AppointmentStatus === "Booked" ||
+                        current.AppointmentStatus === "Cancelled"
+                          ? current.message +
+                            " at Date/Time " +
+                            moment(
+                              new Date(current.firebaseTimeStamp.toMillis())
+                            ).format("M/DD/YYYY h:mm a")
+                          : current.message
+                      }
+                      isRead={current.isRead}
+                      time={formatDate(current.firebaseTimeStamp.toMillis())}
+                    />
                   );
+
+                  // <li
+                  //   className="msg-right"
+                  //   key={current.firebaseTimeStamp.toMillis()}
+                  // >
+                  //   <div
+                  //     className={`msg-left-sub ${
+                  //       current.isRead ? "blue" : "brown"
+                  //     }`}
+                  //   >
+                  //     {current.AppointmentStatus === "Booked" ||
+                  //     current.AppointmentStatus === "Cancelled" ? (
+                  //       <span></span>
+                  //     ) : (
+                  //       <img
+                  //         src={currentDoctor.picture || default_image}
+                  //         alt=""
+                  //         className={current.isRead ? "blue" : "brown"}
+                  //       />
+                  //     )}
+
+                  //     <div
+                  //       className={
+                  //         current.AppointmentStatus === "Booked"
+                  //           ? "appointment-msg-desc"
+                  //           : current.AppointmentStatus === "Cancelled"
+                  //           ? "appointment-cancelled-msg-desc"
+                  //           : "msg-desc"
+                  //       }
+                  //     >
+                  //       {current.AppointmentStatus === "Booked" ||
+                  //       current.AppointmentStatus === "Cancelled"
+                  //         ? current.message +
+                  //           " at Date/Time " +
+                  //           moment(
+                  //             new Date(current.firebaseTimeStamp.toMillis())
+                  //           ).format("M/DD/YYYY h:mm a")
+                  //         : current.message}
+                  //     </div>
+                  //     <small>
+                  //       {formatDate(current.firebaseTimeStamp.toMillis())}
+                  //     </small>
+                  //   </div>
+                  // </li>
+                  // ) : (
+                  // <li
+                  //   className="msg-left"
+                  //   key={current.firebaseTimeStamp?.toMillis()}
+                  // >
+                  //   <div className="msg-left-sub">
+                  //     <img
+                  //       src={
+                  //         patientDetailsList[currentSelectedGroup]?.picture ||
+                  //         default_image
+                  //       }
+                  //       alt=""
+                  //     />
+                  //     <div className="msg-desc">
+                  //       {current.AppointmentStatus === "Booked" ||
+                  //       current.AppointmentStatus === "Cancelled"
+                  //         ? current.message +
+                  //           " at Date/Time " +
+                  //           moment(
+                  //             new Date(current.firebaseTimeStamp.toMillis())
+                  //           ).format("M/DD/YYYY h:mm a")
+                  //         : current.message}
+                  //     </div>
+                  //     <small>
+                  //       {formatDate(current.firebaseTimeStamp?.toMillis())}
+                  //     </small>
+                  //   </div>
+                  // </li>
+                  // );
                 })}
               </ul>
             </div>
@@ -373,7 +373,7 @@ const DoctorChat = (props) => {
                   className="form-control ml-5"
                   name="textMessage"
                   id="textMessage"
-                  placeholder="type here..."
+                  placeholder="Type here..."
                   onKeyDown={(e) => handleKeypress(e)}
                   disabled={!chatButton}
                 />
@@ -382,9 +382,8 @@ const DoctorChat = (props) => {
                 {videoButton && !openVideoCall && (
                   <IconButton
                     onClick={() => {
-                      handleAgoraAccessToken(
-                        pIdState, dIdState,
-                        () => setOpenVideoCall(true)
+                      handleAgoraAccessToken(pIdState, dIdState, () =>
+                        setOpenVideoCall(true)
                       );
                     }}
                   >
