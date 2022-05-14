@@ -11,7 +11,6 @@ const OurDoctors = () => {
         const response = await getAllDoctorsForHomepage().catch((err) => {
             console.log(err);
         });
-        console.log('Our Doctors response', response.data.data);
         setDoctorData(response.data.data);
     };
 
@@ -22,7 +21,7 @@ const OurDoctors = () => {
 
     return (
         <div>
-            <h3 className="our-doctors--main-header mb-4 mt-4">Our Doctors</h3>
+            <h3 className="our-doctors--main-header mb-3 mt-2">Our Doctors</h3>
             <div className="our-doctor__card-box scroller-cardlist">
                 <div className="card-holder">
                     <div className="our-doctor-card">
@@ -30,7 +29,7 @@ const OurDoctors = () => {
                             {doctorData &&
                                 doctorData.map((doctor, index) => {
                                     return (
-                                        <div className="col-md-3 pb-3" key={index}>
+                                        <div className="col-md-3 pb-4" key={index}>
                                             <OurDoctorCard doctor={doctor} />
                                         </div>
                                     );

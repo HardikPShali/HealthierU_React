@@ -885,7 +885,8 @@ img.card-img-top {
 }
 
 .specialities-profile {
-  padding: 15px 20px;
+  padding: 15px 6px;
+  cursor: pointer;
   /* background: #fff; */
 }
 
@@ -901,6 +902,7 @@ img.card-img-top {
   font-size: clamp(1rem, 1.5vw, 1.1rem);
   padding: 0 1rem;
   text-align: center;
+  white-space: nowrap;
   color: #344767;
 }
 
@@ -1326,25 +1328,23 @@ div#multiselectContainerReact div:hover {
 */
 
 div#profile-col-1 {
-  background: #f4f4f4;
   padding: 20px;
-  margin: 50px -10px 50px 0px;
+  margin: 60px -10px 40px 0px;
   border-radius: 22px;
   text-align: center;
-  height: 570px;
+  height: 320px;
 }
 
 div#profile-col-2 {
-  background: #f4f4f4;
   padding: 20px;
-  margin: 50px 0px 50px -10px;
+  margin: 0 -10px 50px 0px;
   border-radius: 22px;
   text-align: center;
-  height: 570px;
+  height: 500px;
 }
 img#profile-pic {
-  height: 150px;
-  width: 150px;
+  height: 140px;
+  width: 140px;
   border-radius: 50%;
   outline: 5px solid var(--primary);
 }
@@ -1357,7 +1357,7 @@ img#profile-pic {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  margin-right: 30px;
+  margin-right: 10px;
   padding: 5px;
 }
 
@@ -1385,14 +1385,10 @@ p#description {
 
 button.request-edit {
   border-radius: 22px;
-  width: 50%;
+  min-width: 150px;
   font-size: 15px;
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
-  position: absolute;
-  bottom: 70px;
-  margin: 0 25%;
-  left: 0;
 }
 
 table#user-info {
@@ -3659,10 +3655,4 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .searchBox {
   width: 100%;
   max-height: 50px;
-}
-
-/* PROFILE NEW CSS */
-
-.conflict_profile-form #profile-form.conflict_profile {
-  /* padding: 20px 20px; */
 }
