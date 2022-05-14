@@ -21,6 +21,15 @@ import educationIcon from '../../../src/images/icons used/education.png';
 import experienceIcon from '../../../src/images/icons used/experience.png';
 import specialitiesIcon from '../../../src/images/icons used/specialities.png';
 import Cookies from 'universal-cookie';
+import {
+    getCountryList,
+    getLanguageList,
+    getSpecialityList,
+} from '../../service/adminbackendservices';
+import { Multiselect } from 'multiselect-react-dropdown';
+import Select from '@material-ui/core/Select';
+
+
 
 import Loader from './../Loader/Loader';
 import PhoneInput from 'react-phone-input-2';
@@ -43,8 +52,7 @@ import ImageCropper from '../CommonModule/ImageCroper';
 const Profile = ({ currentDoctor }) => {
     //const cookies = new Cookies();
     //const currentLoggedInUser = cookies.get("currentUser");
-    console.log("currentUser Doctor Profile", currentDoctor);
-    const [open, setOpen] = useState(false);
+    // console.log("currentUser Doctor Profile", currentDoctor);
     const [documentData, setDocumentData] = useState([])
     const [documentName, setDocumentName] = useState("");
     const [documentFile, setDocumentFile] = useState([]);
@@ -68,14 +76,74 @@ const Profile = ({ currentDoctor }) => {
         specialities: []
     });
 
+    const [language, setLanguage] = useState({
+        languageOptions: []
+    });
+
+    const [specialityError, setSpecialityError] = useState(false);
+
+    const [options, Setoption] = useState({
+        countryList: []
+    });
+
+    const [speciality, setSpeciality] = useState({
+        specialityOptions: []
+    });
+
+    const {
+        firstName, lastName, phone, gender, dateOfBirth, countryName, languages, education, experience, specialities
+    } = currentDoctorData;
+
+    const { languageOptions } = language;
+
+    const { countryList } = options;
+
+    const { specialityOptions } = speciality;
+
     const cookies = new Cookies();
 
+    //LOAD COUNTRY LIST
+    const loadOptions = async () => {
+        const res = await getCountryList().catch(err => {
+            if (err.status === 500 || err.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (res && res.data.data && res.data.data.length > 0) {
+            Setoption({ countryList: res.data.data })
+            setTimeout(() => setLoading(false), 1000);
+        }
+    }
 
+    //LOAD LANGUAGE LIST
+    const loadLanguage = async () => {
+        const res = await getLanguageList().catch(err => {
+            if (err.status === 500 || err.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (res && res.data.data && res.data.data.length > 0) {
+            setLanguage({ languageOptions: res.data.data })
+            setTimeout(() => setLoading(false), 1000);
+        }
+    }
 
-    useEffect(() => {
-        loadDoctorDocument();
-    }, [currentDoctor]);
+    //LOAD SPECIALITY LIST
+    const loadSpeciality = async () => {
+        const res = await getSpecialityList().catch(err => {
+            if (err.status === 500 || err.status === 504) {
+                setLoading(false);
+            }
+        });
 
+        if (res && res.data.data && res.data.data.length > 0) {
+            setSpeciality({ specialityOptions: res.data.data })
+
+            setTimeout(() => setLoading(false), 1000);
+        }
+    }
+
+    //LOAD DOCUMENT LIST
     const loadDoctorDocument = async () => {
         const doctorId = currentDoctor.id;
         const res = await getDoctorDocument(doctorId);
@@ -89,16 +157,18 @@ const Profile = ({ currentDoctor }) => {
         }
     }
 
+
+    useEffect(() => {
+        loadDoctorDocument();
+        loadOptions();
+        loadLanguage();
+        loadSpeciality();
+    }, [currentDoctor]);
+
+
+
     const handleDocnameChange = (e) => {
         setDocumentName(e.target.value);
-    }
-
-    const handleOpen = () => {
-        setOpen(true);
-    }
-
-    const handleClose = () => {
-        setOpen(false);
     }
 
     const [uploadOpen, setUploadOpen] = useState(false);
@@ -127,24 +197,75 @@ const Profile = ({ currentDoctor }) => {
         }
     }
 
+
+
     const currentLoggedInUser = cookies.get("profileDetails");
     console.log('currentLoggedInUser', currentLoggedInUser);
 
+
+    // HANDLERS FOR EDIT PAGE
     const handleInputChange = (e) => {
         e.preventDefault()
         setCurrentDoctorData({ ...currentDoctorData, [e.target.name]: e.target.value });
     };
 
-    // const handleLanguages = (selectedList, selectedItem) => {
-    //     // e.preventDefault()
-    //     languages.push({ name: selectedItem.name });
-    // };
+    const handleLanguages = (selectedList, selectedItem) => {
+        languages.push({ name: selectedItem.name });
+    };
 
-    // const removeLanguages = (selectedList, removedItem) => {
-    //     var array = languages;
-    //     var index = array.indexOf(removedItem); // Let's say it's Bob.
-    //     array.splice(index, 1);
-    //     setCurrentPatient({ ...currentPatient, languages: array });
+    const removeLanguages = (selectedList, removedItem) => {
+        var array = languages;
+        var index = array.indexOf(removedItem);
+        array.splice(index, 1);
+        setCurrentDoctorData({ ...currentDoctorData, languages: array });
+    }
+
+    const now = new Date();
+    const newDate = now.setDate(now.getDate() - 1);
+    const maxDate = {
+        max: moment(newDate).format("YYYY-MM-DD"),
+        min: moment(now).subtract(100, "years").format("YYYY-MM-DD")
+    };
+
+    const handleDateChange = (e) => {
+        const d = new Date(e.target.value);
+        const isoDate = d.toISOString();
+        setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
+    };
+
+    const handlePhone = (e) => {
+        setCurrentDoctorData({ ...currentDoctorData, phone: e });
+    };
+
+    const handleCountry = (e) => {
+        setCurrentDoctorData({ ...currentDoctorData, countryName: e.target.value });
+    };
+
+    const handleSpecialities = (selectedList, selectedItem) => {
+        specialities.push({ id: selectedItem.id, name: selectedItem.name });
+        setSpecialityError(false);
+    };
+
+    const removeSpecialities = (selectedList, removedItem) => {
+        var array = specialities;
+        var index = array.indexOf(removedItem); // Let's say it's Bob.
+        array.splice(index, 1);
+        setCurrentDoctorData({ ...setCurrentDoctorData, specialities: array });
+    }
+
+    // EDIT PROFILE HANDLER ON SUBMIT
+    // const handleDetails = async e => {
+    //     console.log("profilePicture ::::::", profilePicture);
+    //     setTransparentLoading(true);
+    //     e.preventDefault();
+    //     var bodyFormData = new FormData();
+    //     bodyFormData.append('profileData', JSON.stringify(currentPatient));
+    //     bodyFormData.append('profilePicture', profilePicture);
+    //     const response = await updatePatientData(bodyFormData);
+
+    //     if (response.status === 200 || response.status === 201) {
+    //         history.go(0);
+    //     }
     // }
 
     return (
@@ -286,7 +407,7 @@ const Profile = ({ currentDoctor }) => {
                                     back to Profile
                                 </button>
                                 <div id="editProfile-col">
-                                    <ValidatorForm>
+                                    <ValidatorForm onSubmit={e => console.log(e)}>
                                         <Row style={{ justifyContent: 'center' }}>
                                             <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} />
                                         </Row>
@@ -297,32 +418,32 @@ const Profile = ({ currentDoctor }) => {
                                                     <Row>
                                                         <Col md={6}>
                                                             <p>First Name<sup>*</sup></p>
-                                                            {/* <TextValidator id="standard-basic" type="text" name="firstName"
+                                                            <TextValidator id="standard-basic" type="text" name="firstName"
                                                                 onChange={e => handleInputChange(e)}
                                                                 value={firstName}
                                                                 validators={['required']}
                                                                 errorMessages={['This field is required']}
-                                                                variant="filled" /> */}
+                                                                variant="filled" />
                                                         </Col>
                                                         <Col md={6}>
                                                             <p>Last Name<sup>*</sup></p>
-                                                            {/* <TextValidator id="standard-basic" type="text" name="lastName"
+                                                            <TextValidator id="standard-basic" type="text" name="lastName"
                                                                 onChange={e => handleInputChange(e)}
                                                                 value={lastName}
                                                                 validators={['required']}
                                                                 errorMessages={['This field is required']}
-                                                                variant="filled" /> */}
+                                                                variant="filled" />
                                                         </Col>
                                                     </Row><br />
                                                     <Row>
                                                         <Col md={6}>
                                                             <p>Date of Birth</p>
-                                                            {/* <TextValidator id="standard-basic" type="date" name="dateOfBirth" value={moment(dateOfBirth).format('YYYY-MM-DD')} inputProps={maxDate} InputLabelProps={{ shrink: true, }}
-                                                                variant="filled" onChange={e => handleDateChange(e)} onKeyDown={(e) => e.preventDefault()} /> */}
+                                                            <TextValidator id="standard-basic" type="date" name="dateOfBirth" value={moment(dateOfBirth).format('YYYY-MM-DD')} inputProps={maxDate} InputLabelProps={{ shrink: true, }}
+                                                                variant="filled" onChange={e => handleDateChange(e)} onKeyDown={(e) => e.preventDefault()} />
                                                         </Col>
                                                         <Col md={6}>
                                                             <p>Phone Number<sup>*</sup></p>
-                                                            {/* <PhoneInput
+                                                            <PhoneInput
                                                                 inputProps={{
                                                                     name: 'phone',
                                                                     required: true,
@@ -333,7 +454,7 @@ const Profile = ({ currentDoctor }) => {
                                                                 value={phone}
                                                                 onChange={e => handlePhone(e)}
                                                                 variant="filled"
-                                                            /> */}
+                                                            />
                                                         </Col>
                                                     </Row>
                                                     <br />
@@ -343,12 +464,12 @@ const Profile = ({ currentDoctor }) => {
                                                     <Row>
                                                         <Col md={6}>
                                                             <p>Nationality</p>
-                                                            {/* <FormControl>
+                                                            <FormControl>
                                                                 <Select
                                                                     id="demo-controlled-open-select"
                                                                     variant="filled"
-                                                                    name="countryId"
-                                                                    value={countryId}
+                                                                    name="countryName"
+                                                                    value={countryName}
                                                                     displayEmpty
                                                                     onChange={e => handleCountry(e)}
                                                                 >
@@ -359,26 +480,26 @@ const Profile = ({ currentDoctor }) => {
                                                                         <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
                                                                     ))}
                                                                 </Select>
-                                                            </FormControl> */}
+                                                            </FormControl>
                                                         </Col>
                                                         <Col md={6}>
                                                             <p>Gender</p>
-                                                            {/* <FormControl component="fieldset">
-                                                        <RadioGroup id="gender-radio" aria-label="gender" name="gender"
-                                                            variant="filled" onChange={e => handleInputChange(e)} value={gender}>
-                                                            <FormControlLabel value="FEMALE" control={<Radio color="primary" />} label="Female" />
-                                                            <FormControlLabel value="MALE" control={<Radio color="primary" />} label="Male" />
-                                                            <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" /> 
-                                                        </RadioGroup>
-                                                    </FormControl> */}
+                                                            <FormControl component="fieldset">
+                                                                <RadioGroup id="gender-radio" aria-label="gender" name="gender"
+                                                                    variant="filled" onChange={e => handleInputChange(e)} value={gender}>
+                                                                    <FormControlLabel value="FEMALE" control={<Radio color="primary" />} label="Female" />
+                                                                    <FormControlLabel value="MALE" control={<Radio color="primary" />} label="Male" />
+                                                                    <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" />
+                                                                </RadioGroup>
+                                                            </FormControl>
 
                                                         </Col>
                                                     </Row>
                                                     <br />
                                                     <Row>
-                                                        <Col md={6}>
+                                                        <Col md={12}>
                                                             <p>Languages</p>
-                                                            {/* <FormControl>
+                                                            <FormControl>
                                                                 <div className="multiselect">
                                                                     <Multiselect
                                                                         options={languageOptions}
@@ -388,34 +509,7 @@ const Profile = ({ currentDoctor }) => {
                                                                         displayValue="name"
                                                                     />
                                                                 </div>
-                                                            </FormControl> */}
-                                                        </Col>
-                                                        <Col md={6}>
-                                                            {/* <p>Blood group<sup>*</sup></p>
-                                                            <FormControl>
-                                                                <Select
-                                                                    id="demo-controlled-open-select"
-                                                                    variant="filled"
-                                                                    name="bloodGroup"
-                                                                    value={bloodGroup}
-                                                                    inputProps={{
-                                                                        required: true
-                                                                    }}
-                                                                    displayEmpty
-                                                                    onChange={e => handleInputChange(e)}
-                                                                >
-                                                                    <MenuItem value=""><em>Select</em></MenuItem>
-                                                                    <MenuItem value="A+ve">A +ve</MenuItem>
-                                                                    <MenuItem value="A-ve">A -ve</MenuItem>
-                                                                    <MenuItem value="B+ve">B +ve</MenuItem>
-                                                                    <MenuItem value="BNEG">B -ve</MenuItem>
-                                                                    <MenuItem value="OPOS">O +ve</MenuItem>
-                                                                    <MenuItem value="ONEG">O -ve</MenuItem>
-                                                                    <MenuItem value="ABPOS">AB +ve</MenuItem>
-                                                                    <MenuItem value="ABNEG">AB -ve</MenuItem>
-                                                                </Select>
-                                                            </FormControl> */}
-
+                                                            </FormControl>
                                                         </Col>
                                                     </Row>
                                                 </div>
@@ -426,40 +520,41 @@ const Profile = ({ currentDoctor }) => {
                                                     <Row>
                                                         <Col md={6}>
                                                             <p>Education</p>
-                                                            {/* <TextValidator id="standard-basic" type="number" name="weight"
+                                                            <TextValidator id="standard-basic" type="text" name="education"
                                                                 onChange={e => handleInputChange(e)}
-                                                                value={weight}
-                                                                inputProps={{
-                                                                    min: 5,
-                                                                    max: 999
-                                                                }}
-                                                                variant="filled" /> */}
+                                                                value={education}
+                                                                variant="filled" />
                                                         </Col>
                                                         <Col md={6}>
                                                             <p>Experience</p>
-                                                            {/* <TextValidator id="standard-basic" type="number" name="height"
+                                                            <TextValidator id="standard-basic" type="number" name="experience"
                                                                 onChange={e => handleInputChange(e)}
-                                                                value={height}
+                                                                value={experience}
                                                                 inputProps={{
                                                                     min: 30,
                                                                     max: 250
                                                                 }}
-                                                                variant="filled" /> */}
+                                                                variant="filled" />
                                                         </Col>
                                                     </Row>
                                                     <br />
 
                                                     <Row>
-                                                        <Col md={6}>
+                                                        <Col md={12}>
                                                             <p>Specialities</p>
-                                                            {/* <TextValidator id="standard-basic" type="number" name="highBp"
-                                                                onChange={e => handleInputChange(e)}
-                                                                value={highBp}
-                                                                inputProps={{
-                                                                    min: 50,
-                                                                    max: 300
-                                                                }}
-                                                                variant="filled" /> */}
+                                                            <FormControl>
+                                                                <div className="multiselect">
+                                                                    <Multiselect
+                                                                        options={specialityOptions}
+                                                                        onSelect={handleSpecialities}
+                                                                        onRemove={removeSpecialities}
+                                                                        displayValue="name"
+                                                                    />
+                                                                </div>
+                                                            </FormControl>
+                                                            {specialityError && (
+                                                                <p style={{ color: "red" }}>This field is required.</p>
+                                                            )}
                                                         </Col>
                                                     </Row>
                                                 </div>

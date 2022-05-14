@@ -19,7 +19,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
                 <div className='upcoming-appointment-card__card-details'>
                     <h5 className='upcoming-appointment-card__doctor-name'>{appointment.doctor.firstName}</h5>
                     <span className='upcoming-appointment-card__common-span'>
-                        {appointment.doctor.specialities.length && appointment.doctor.specialities[0].name}
+                        {appointment.doctor.specialities.length === 0 ? 'No specialities found' : appointment.doctor.specialities[0].name}
                     </span>
                     <div className='upcoming-appointment-card__card-details--date-div'>
                         <span className='upcoming-appointment-card__common-span'>{moment(appointment.startTime).format("DD/MM/YY")}</span>
