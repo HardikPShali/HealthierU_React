@@ -96,7 +96,7 @@ const DoctorDocument = (props) => {
     const handleLabResultChange = e => {
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
-            console.log("fileSize ::", fileSize)
+            // console.log("fileSize ::", fileSize)
             const maxSize = 1000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg("")
@@ -115,7 +115,7 @@ const DoctorDocument = (props) => {
     const handlePrescriptionChange = e => {
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
-            console.log("fileSize ::", fileSize)
+            // console.log("fileSize ::", fileSize)
             const maxSize = 1000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg("")
@@ -729,7 +729,7 @@ const DoctorDocument = (props) => {
                             <Button variant="secondary" onClick={handleUploadLabResultClosed}>
                                 Close
                             </Button>
-                            {console.log("Patient ::: ", patient)}
+                            {/* {console.log("Patient ::: ", patient)} */}
                             <Button variant="primary" type="submit" disabled={!patient?.id || !labResult.labResultDocument}>
                                 Save
                             </Button>

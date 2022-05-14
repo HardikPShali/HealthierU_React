@@ -20,7 +20,7 @@ const UpcomingAppointments = () => {
             const upcomingAppointments = response.data.data;
             // console.log('Upcoming Appointments', upcomingAppointments);
             const reversedAppointments = upcomingAppointments.reverse();
-            // console.log('Upcoming Appointments Reversed', reversedAppointments);
+            console.log('Upcoming Appointments Reversed', reversedAppointments);
             setUpcomingAppointments(reversedAppointments);
         }
     }
