@@ -11,7 +11,6 @@ const OurDoctors = () => {
         const response = await getAllDoctorsForHomepage().catch((err) => {
             console.log(err);
         });
-        console.log('Our Doctors response', response.data.data);
         setDoctorData(response.data.data);
     };
 

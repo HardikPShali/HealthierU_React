@@ -114,10 +114,10 @@ const Profile = () => {
         }
     }
 
-    const [display, setDisplay] = useState({
-        profile: "block",
-        editProfile: "none"
-    })
+    // const [display, setDisplay] = useState({
+    //     profile: "block",
+    //     editProfile: "none"
+    // })
 
     const loadOptions = async () => {
         const res = await getCountryList().catch(err => {
@@ -260,11 +260,11 @@ const Profile = () => {
             )}
             {currentPatient && toggleProfile.editProfile === false && (
                 <Container >
-                    <Row>
-                        <Col md={4}>
+                    <Row className='row-margin-bottom'>
+                        <Col md={12}>
                             <div id="profile-col-1">
                                 {(currentPatient && currentPatient.picture) ? (<img src={currentPatient.picture} alt="" id="profile-pic" />)
-                                    : (<Avatar className='avatar-profile' name={currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)} size="150" />)}
+                                    : (<Avatar className='avatar-profile' name={currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)} style={{ height: '150px', width: '138px' }} />)}
                                 <br />
                                 <div id="name">{currentPatient && (currentPatient.firstName + " " + currentPatient.lastName)}</div>
                                 {/* <br /> */}
@@ -272,7 +272,7 @@ const Profile = () => {
                                     {currentPatient.email}
                                 </p>
                                 <br />
-                                <div>
+                                <div className='col-md-12 text-center mt-3'>
                                     <button className="btn btn-primary request-edit" onClick={() => {
                                         // setDisplay({ ...display, profile: 'none', editProfile: 'block' })
                                         setToggleProfile({ ...toggleProfile, editProfile: true })
@@ -280,7 +280,9 @@ const Profile = () => {
                                 </div>
                             </div>
                         </Col>
-                        <Col md={8}>
+                    </Row>
+                    <Row>
+                        <Col md={12}>
                             <div id="profile-col-2">
                                 <Tabs defaultActiveKey='general' id='uncontrolled-tab-example' className='record-tabs mb-3'>
                                     <Tab eventKey='general' title='General'>
