@@ -15,7 +15,7 @@
 }
 
 body {
-  background: #fff !important;
+  background: #e5e5e5 !important;
 }
 
 /*
@@ -1500,10 +1500,10 @@ li.react-tabs__tab {
 
 #prescription-list {
   padding: 10px;
-    background: white;
-    border-radius: 22px;
-    box-shadow: 2px 2px 1rem #dedede;
-    border: 1px solid #dedede;
+  background: white;
+  border-radius: 22px;
+  box-shadow: 2px 2px 1rem #dedede;
+  border: 1px solid #dedede;
 }
 
 #prescription-list tr {

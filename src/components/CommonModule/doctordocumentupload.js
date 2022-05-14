@@ -242,7 +242,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
     }
 
     return (
-        <div>
+        <>
             {/* {loading && (
                 <TransparentLoader />
             )} */}
@@ -519,7 +519,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                     </>)}
                 </DialogActions>
             </Dialog>
-        </div >
+        </ >
     )
 }
 

@@ -12,14 +12,14 @@ import { uploadDoctorDocument, getDoctorDocument } from "../../service/frontenda
 import TransparentLoader from "../Loader/transparentloader";
 import DoctorDocumentUpload from "../CommonModule/doctordocumentupload"
 import moment from 'moment';
-import calendarIcon from '../../../src/images/icons used/calendar-dob.png';
-import callIcon from '../../../src/images/icons used/phone-white.png';
-import flagIcon from '../../../src/images/icons used/nationality.png';
-import languageIcon from '../../../src/images/icons used/language.png';
-import genderIcon from '../../../src/images/icons used/gender.png';
-import educationIcon from '../../../src/images/icons used/education.png';
-import experienceIcon from '../../../src/images/icons used/experience.png';
-import specialitiesIcon from '../../../src/images/icons used/specialities.png';
+import calendarIcon from '../../../src/images/svg/dob-icon.svg';
+import callIcon from '../../../src/images/svg/call-icon.svg';
+import flagIcon from '../../../src/images/svg/nationality-icon.svg';
+import languageIcon from '../../../src/images/svg/language-icon.svg';
+import genderIcon from '../../../src/images/svg/gender-icon.svg';
+import educationIcon from '../../../src/images/svg/education-icon.svg';
+import experienceIcon from '../../../src/images/svg/experience-icon.svg';
+import specialityIcon from '../../../src/images/svg/speciality-icon.svg';
 import Cookies from 'universal-cookie';
 import {
     getCountryList,
@@ -28,10 +28,6 @@ import {
 } from '../../service/adminbackendservices';
 import { Multiselect } from 'multiselect-react-dropdown';
 import Select from '@material-ui/core/Select';
-
-
-
-import Loader from './../Loader/Loader';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -40,6 +36,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ImageCropper from '../CommonModule/ImageCroper';
+import ProfileRow from "../CommonModule/Profile/ProfileRow/ProfileRow";
+import ProfileImage from "../CommonModule/Profile/ProfileImage/ProfileImage";
 
 // import Cookies from 'universal-cookie';
 // import CreateIcon from '@material-ui/icons/Create';
@@ -276,7 +274,7 @@ const Profile = ({ currentDoctor }) => {
             {currentDoctor && toggleProfile.editProfile === false && (
                 <Container>
                     <Row>
-                        <Col md={12}>
+                        <Col md={3}>
                             <div id="profile-col-1">
                                 {currentDoctor && currentDoctor.picture ? (<img src={currentDoctor.picture} id="profile-pic" alt="" />)
                                     : (<Avatar className='avatar-profile' name={currentDoctor.firstName + " " + currentDoctor.lastName} size={150} />)}
@@ -298,97 +296,90 @@ const Profile = ({ currentDoctor }) => {
                                 </div>
                             </div>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col md={12}>
-                            <div id="profile-col-2">
-                                <Tabs defaultActiveKey='general' id='uncontrolled-tab-example' className='record-tabs mb-3'>
-                                    <Tab eventKey='general' title='General'>
-                                        <div className='general-tab'>
-                                            <table id="user-info">
-                                                <tbody>
-                                                    <tr>
-                                                        <img src={callIcon} alt='icons' className='icon-tabs call-icon' />
-                                                        <th>Phone Number</th>
-                                                        <td>{currentDoctor.phone}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <img src={genderIcon} alt='icons' className='icon-tabs gender-icon' />
 
-                                                        <th>Gender</th>
-                                                        <td>{currentDoctor.gender}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <img src={calendarIcon} alt='icons' className='icon-tabs calendar-icon' />
-                                                        <th>Date of Birth</th>
-                                                        <td>{moment(currentDoctor.dateOfBirth).format("DD/MM/YY")}</td>
-                                                    </tr>
 
-                                                    <tr>
-                                                        <img src={flagIcon} alt='icons' className='icon-tabs nationality-icon' />
-                                                        <th>Nationality</th>
-                                                        <td>{currentDoctor.countryName}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <img src={languageIcon} alt='icons' className='icon-tabs language-icon' />
-                                                        <th>Languages</th>
-                                                        <td>
-                                                            <ul style={{ margin: '0px' }} className="list--tags">
-                                                                {currentDoctor && currentDoctor.languages && currentDoctor.languages.map((language, index) => (
-                                                                    <li key={index}>{language.name}</li>
+                        <Col md={9}>
+                            <Row>
+                                <Col md={12}>
+                                    <div id="profile-col-2">
+                                        <Tabs defaultActiveKey='general' id='uncontrolled-tab-example' className='record-tabs mb-3'>
+                                            <Tab eventKey='general' title='General'>
+                                                <div className='general-tab'>
+                                                    <div className='d-flex flex-column'>
+                                                        <ProfileRow
+                                                            icon={callIcon}
+                                                            title='Phone'
+                                                            value={currentDoctor.phone}
+                                                        />
+                                                        <ProfileRow
+                                                            icon={genderIcon}
+                                                            title='Gender'
+                                                            value={currentDoctor.gender}
+                                                        />
+                                                        <ProfileRow
+                                                            icon={calendarIcon}
+                                                            title='Date of Birth'
+                                                            value={moment(currentDoctor.dateOfBirth).format("DD/MM/YY")}
+                                                        />
+                                                        <ProfileRow
+                                                            icon={flagIcon}
+                                                            title='Nationality'
+                                                            value={currentDoctor.countryName}
+                                                        />
+                                                        <ProfileRow
+                                                            icon={languageIcon}
+                                                            title="Languages"
+                                                            value={
+                                                                currentDoctor &&
+                                                                currentDoctor.languages &&
+                                                                currentDoctor.languages.map(
+                                                                    (language, index) => (
+                                                                        <li key={index}>{language.name}</li>
+                                                                    )
                                                                 )
-                                                                )}
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-                                                    {/* <tr>
-                                                    <img src={aboutIcon} alt='icons' className='icon-tabs about-icon' />
-                                                    <th>About</th>
-                                                    <td>{currentDoctor.bio}</td>
-                                                </tr> */}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </Tab>
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Tab>
 
-                                    <Tab eventKey='education' title='Education'>
-                                        <div className='general-tab'>
-                                            <table id="user-info">
-                                                <tbody>
-                                                    <tr>
-                                                        <img src={educationIcon} alt='icons' className='icon-tabs education-icon' />
-                                                        <th>Education</th>
-                                                        <td>{currentDoctor.education}</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <img src={experienceIcon} alt='icons' className='icon-tabs experience-icon' />
-
-                                                        <th>Experience</th>
-                                                        <td>{currentDoctor.experience}</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <img src={specialitiesIcon} alt='icons' className='icon-tabs specialities-icon' />
-                                                        <th>Specialities</th>
-                                                        <td>
-
-                                                            <ul style={{ margin: '0px' }} className="list--tags">
-                                                                {currentDoctor && currentDoctor.specialities && currentDoctor.specialities.map((specialities, index) => (
-                                                                    <li key={index}>{specialities.name}</li>
+                                            <Tab eventKey='education' title='Education'>
+                                                <div className='general-tab'>
+                                                    <div className='d-flex flex-column'>
+                                                        <ProfileRow
+                                                            icon={educationIcon}
+                                                            title='Education'
+                                                            value={currentDoctor.education}
+                                                        />
+                                                        <ProfileRow
+                                                            icon={experienceIcon}
+                                                            title='Experience'
+                                                            value={currentDoctor.experience}
+                                                        />
+                                                        <ProfileRow
+                                                            icon={specialityIcon}
+                                                            title="Specialities"
+                                                            value={
+                                                                currentDoctor &&
+                                                                currentDoctor.specialities &&
+                                                                currentDoctor.specialities.map(
+                                                                    (speciality, index) => (
+                                                                        <li key={index}>{speciality.name}</li>
+                                                                    )
                                                                 )
-                                                                )}
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Tab>
+                                        </Tabs>
+                                        <div style={{ marginTop: '10px' }}>
+                                            <DoctorDocumentUpload currentDoctor={currentDoctor} isDoctor={true} />
                                         </div>
-                                    </Tab>
-                                </Tabs>
-                                <br />
-                                <DoctorDocumentUpload currentDoctor={currentDoctor} isDoctor={true} />
-                            </div>
+                                    </div>
+                                </Col>
+                            </Row>
+
                         </Col>
                     </Row>
                 </Container>
