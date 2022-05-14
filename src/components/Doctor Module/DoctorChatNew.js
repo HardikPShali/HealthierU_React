@@ -24,6 +24,7 @@ import {
 
 import moment from "moment";
 import ChatRow from "../CommonModule/Chat/ChatRow/ChatRow";
+import ChatMessage from "../CommonModule/Chat/ChatMessage/ChatMessage";
 
 // var firebaseRef;
 let unsubscribe;
