@@ -330,11 +330,11 @@ const Profile = () => {
                                         </div>
                                     </Tab>
 
-                                    <Tab eventKey='lifestyle' title='Lifestyle'>
+                                    {/* <Tab eventKey='lifestyle' title='Lifestyle'>
                                         <div className='general-tab'>
                                             <h1>LIFE STYLE TABLE COMES HERE</h1>
                                         </div>
-                                    </Tab>
+                                    </Tab> */}
 
                                     <Tab eventKey='medical' title='Medical'>
                                         <div className='general-tab'>
@@ -558,11 +558,11 @@ const Profile = () => {
                                             </div>
                                         </Tab>
 
-                                        <Tab eventKey='lifestyle' title='Lifestyle'>
+                                        {/* <Tab eventKey='lifestyle' title='Lifestyle'>
                                             <div className='general-tab'>
                                                 <h1>LIFE STYLE TABLE COMES HERE</h1>
                                             </div>
-                                        </Tab>
+                                        </Tab> */}
 
                                         <Tab eventKey='education' title='Education'>
                                             <div className='general-tab'>
