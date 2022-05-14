@@ -38,7 +38,8 @@ import {
     getDocumentById,
 } from '../../service/DocumentService';
 import CancelIcon from '@material-ui/icons/Cancel';
-
+import PrescriptionLabCard from './Prescription-Lab/PrescriptionLabCard';
+import './Prescription-Lab/PrescriptionLab.css'
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
@@ -369,6 +370,15 @@ const Healthassessment = (props) => {
 
     const { DurationStartDate, DurationEndDate } = date;
 
+
+    // code to get the file extension
+
+    function getFileExtension(filename) {
+
+        // get file extension
+        const extension = filename.split('.').pop();
+        return extension;
+    }
     return (
         <>
             <Container>
@@ -391,7 +401,7 @@ const Healthassessment = (props) => {
                                     title="Lab Result"
                                     onSelect={clickTabEvent}
                                 >
-                                    Lab Result
+                                    Result
                                 </Tab>
                             </TabList>
 
@@ -411,7 +421,48 @@ const Healthassessment = (props) => {
                                 </div>
                                 <br />
                                 <div id="prescription-list">
-                                    <table>
+                                    <h3 className="prescription-lab--main-header mb-3 mt-2">
+                                        {props.month}
+                                    </h3>
+                                    {presecriptionDocument?.documentsList ? (
+                                        presecriptionDocument?.documentsList.map(
+                                            (dataItem, subIndex) => {
+                                                return (
+
+                                                    <div className="prescription-lab__card-box">
+                                                        <div className="card-holder">
+                                                            <div className="row">
+
+                                                                <div className='prescription-lab-card'>
+
+                                                                    <PrescriptionLabCard
+                                                                        filetype={getFileExtension(dataItem.name)}
+                                                                        name={"Prescription"}
+                                                                        apid={dataItem.patientId}
+                                                                        date={dataItem.docUploadTime}
+                                                                        time={dataItem.docUploadTime}
+                                                                        download={(e) => showDocument(dataItem)}
+                                                                    />
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            }
+                                        )
+                                    ) : (
+                                        <div
+                                            className="col-12 ml-2"
+                                            style={{ textShadow: 'none', color: 'black' }}
+                                        >
+                                            No Documents
+                                        </div>
+                                    )}
+
+                                </div>
+                                {/* <table>
                                         <thead>
                                             <tr>
                                                 <th width="100">Action</th>
@@ -430,8 +481,7 @@ const Healthassessment = (props) => {
                                                         return (
                                                             <tr key={dataItem.id}>
                                                                 <td width="100" style={{ cursor: 'pointer' }}>
-                                                                    {/* <img width="20" height="20" onClick={e => showDocument(dataItem)}
-                                                            src={documentViewImage} alt="" /> */}
+                                                                 
                                                                     <VisibilityIcon
                                                                         style={{ color: '#4f80e2' }}
                                                                         title="View"
@@ -479,314 +529,314 @@ const Healthassessment = (props) => {
                                                 <tr></tr>
                                             )}
                                         </tbody>
-                                    </table>
-                                </div>
-                                <br />
-                                <div>
-                                    <Pagination size="sm" style={{ float: 'right' }}>
-                                        {presecriptionDocument?.totalPages ? (
-                                            Array.from(
-                                                Array(presecriptionDocument.totalPages),
-                                                (e, i) => {
-                                                    return (
-                                                        <Pagination.Item
-                                                            key={i + 1}
-                                                            active={
-                                                                i + 1 === currentPageNumber ? true : false
-                                                            }
-                                                            onClick={(e) => clickPagination(i + 1)}
-                                                        >
-                                                            {i + 1}
-                                                        </Pagination.Item>
-                                                    );
-                                                }
-                                            )
-                                        ) : (
-                                            <span></span>
-                                        )}
-                                    </Pagination>
-                                </div>
-                                <br />
-                                <br />
-                                <div>
-                                    {prescriptionDocumentUrl !== null ||
-                                        prescriptionDocumentUrl !== '' ? (
-                                        <embed
-                                            src={prescriptionDocumentUrl}
-                                            type="application/pdf"
-                                            frameBorder="0"
-                                            height="400px"
-                                            width="100%"
-                                        />
-                                    ) : (
-                                        <span></span>
-                                    )}
-                                </div>
-                            </TabPanel>
-                            <TabPanel>
-                                <div className="row">
-                                    <div className="col-md-10"></div>
-                                    <div className="col-md-2 text-right">
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            style={{ fontSize: '0.65rem' }}
-                                            onClick={handleUploadLabResultShow}
-                                        >
-                                            Add Lab Result
-                                        </button>
-                                    </div>
-                                </div>
-                                <br />
-                                <div id="prescription-list">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th width="100">
-                                                    <b>Action</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Name</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Lab Name</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Date</b>
-                                                </th>
-                                                <th width="200">
-                                                    <b>Description</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Patient</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Doctor</b>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {labDocument?.documentsList ? (
-                                                labDocument.documentsList.map((dataItem, subIndex) => {
-                                                    return (
-                                                        <tr key={dataItem.id}>
-                                                            <td width="100" style={{ cursor: 'pointer' }}>
-                                                                {/* <img width="30" height="30" onClick={e => showLabDocument(dataItem)}
-                                                            src={documentViewImage} alt="" style={{ cursor: 'pointer' }} /> */}
-                                                                <VisibilityIcon
-                                                                    style={{ color: '#4f80e2' }}
-                                                                    title="View"
-                                                                    width="20"
-                                                                    height="20"
-                                                                    onClick={(e) => showLabDocument(dataItem)}
-                                                                />
-                                                                <img
-                                                                    width="15"
-                                                                    height="15"
-                                                                    onClick={() => handleEditLabModal(dataItem)}
-                                                                    src={editIcon}
-                                                                    alt=""
-                                                                    style={{
-                                                                        marginLeft: '5%',
-                                                                        marginRight: '5%',
-                                                                    }}
-                                                                />
-                                                            </td>
-                                                            <td width="100">{dataItem.name}</td>
-                                                            <td width="100">{dataItem.labName}</td>
-                                                            <td width="100">
-                                                                {formatDate(dataItem.docUploadTime)}
-                                                            </td>
-                                                            <td width="200">{dataItem.decription}</td>
-                                                            <td width="100">
-                                                                {dataItem?.patient
-                                                                    ? dataItem?.patient?.firstName +
-                                                                    ' ' +
-                                                                    dataItem?.patient?.lastName
-                                                                    : ''}
-                                                            </td>
-                                                            <td width="100">
-                                                                {dataItem?.doctor
-                                                                    ? dataItem?.doctor?.firstName +
-                                                                    ' ' +
-                                                                    dataItem?.doctor?.lastName
-                                                                    : ''}
-                                                            </td>
-                                                        </tr>
-                                                    );
-                                                })
-                                            ) : (
-                                                <tr></tr>
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <br />
-                                <div>
-                                    <Pagination size="sm" style={{ float: 'right' }}>
-                                        {labDocument?.totalPages ? (
-                                            Array.from(Array(labDocument.totalPages), (e, i) => {
+                                    </table> */}
+                           
+                            <br />
+                            <div>
+                                <Pagination size="sm" style={{ float: 'right' }}>
+                                    {presecriptionDocument?.totalPages ? (
+                                        Array.from(
+                                            Array(presecriptionDocument.totalPages),
+                                            (e, i) => {
                                                 return (
                                                     <Pagination.Item
                                                         key={i + 1}
-                                                        active={i + 1 === currentPageNumber}
-                                                        onClick={(e) => clickPaginationForLab(i + 1)}
+                                                        active={
+                                                            i + 1 === currentPageNumber ? true : false
+                                                        }
+                                                        onClick={(e) => clickPagination(i + 1)}
                                                     >
                                                         {i + 1}
                                                     </Pagination.Item>
                                                 );
-                                            })
-                                        ) : (
-                                            <span></span>
-                                        )}
-                                    </Pagination>
-                                </div>
-                                <br />
-                                <br />
-                                <div>
-                                    {labDocumentUrl &&
-                                        (labDocumentUrl !== null || labDocumentUrl !== '') ? (
-                                        <embed
-                                            src={labDocumentUrl}
-                                            type="application/pdf"
-                                            frameBorder="0"
-                                            height="400px"
-                                            width="100%"
-                                        />
+                                            }
+                                        )
                                     ) : (
                                         <span></span>
                                     )}
+                                </Pagination>
+                            </div>
+                            <br />
+                            <br />
+                            <div>
+                                {prescriptionDocumentUrl !== null ||
+                                    prescriptionDocumentUrl !== '' ? (
+                                    <embed
+                                        src={prescriptionDocumentUrl}
+                                        type="application/pdf"
+                                        frameBorder="0"
+                                        height="400px"
+                                        width="100%"
+                                    />
+                                ) : (
+                                    <span></span>
+                                )}
+                            </div>
+                        </TabPanel>
+                        <TabPanel>
+                            <div className="row">
+                                <div className="col-md-10"></div>
+                                <div className="col-md-2 text-right">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        style={{ fontSize: '0.65rem' }}
+                                        onClick={handleUploadLabResultShow}
+                                    >
+                                        Add Lab Result
+                                    </button>
                                 </div>
-                            </TabPanel>
-                        </Tabs>
-                    </Col>
+                            </div>
+                            <br />
+                            <div id="prescription-list">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th width="100">
+                                                <b>Action</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Name</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Lab Name</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Date</b>
+                                            </th>
+                                            <th width="200">
+                                                <b>Description</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Patient</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Doctor</b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {labDocument?.documentsList ? (
+                                            labDocument.documentsList.map((dataItem, subIndex) => {
+                                                return (
+                                                    <tr key={dataItem.id}>
+                                                        <td width="100" style={{ cursor: 'pointer' }}>
+                                                            {/* <img width="30" height="30" onClick={e => showLabDocument(dataItem)}
+                                                            src={documentViewImage} alt="" style={{ cursor: 'pointer' }} /> */}
+                                                            <VisibilityIcon
+                                                                style={{ color: '#4f80e2' }}
+                                                                title="View"
+                                                                width="20"
+                                                                height="20"
+                                                                onClick={(e) => showLabDocument(dataItem)}
+                                                            />
+                                                            <img
+                                                                width="15"
+                                                                height="15"
+                                                                onClick={() => handleEditLabModal(dataItem)}
+                                                                src={editIcon}
+                                                                alt=""
+                                                                style={{
+                                                                    marginLeft: '5%',
+                                                                    marginRight: '5%',
+                                                                }}
+                                                            />
+                                                        </td>
+                                                        <td width="100">{dataItem.name}</td>
+                                                        <td width="100">{dataItem.labName}</td>
+                                                        <td width="100">
+                                                            {formatDate(dataItem.docUploadTime)}
+                                                        </td>
+                                                        <td width="200">{dataItem.decription}</td>
+                                                        <td width="100">
+                                                            {dataItem?.patient
+                                                                ? dataItem?.patient?.firstName +
+                                                                ' ' +
+                                                                dataItem?.patient?.lastName
+                                                                : ''}
+                                                        </td>
+                                                        <td width="100">
+                                                            {dataItem?.doctor
+                                                                ? dataItem?.doctor?.firstName +
+                                                                ' ' +
+                                                                dataItem?.doctor?.lastName
+                                                                : ''}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })
+                                        ) : (
+                                            <tr></tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br />
+                            <div>
+                                <Pagination size="sm" style={{ float: 'right' }}>
+                                    {labDocument?.totalPages ? (
+                                        Array.from(Array(labDocument.totalPages), (e, i) => {
+                                            return (
+                                                <Pagination.Item
+                                                    key={i + 1}
+                                                    active={i + 1 === currentPageNumber}
+                                                    onClick={(e) => clickPaginationForLab(i + 1)}
+                                                >
+                                                    {i + 1}
+                                                </Pagination.Item>
+                                            );
+                                        })
+                                    ) : (
+                                        <span></span>
+                                    )}
+                                </Pagination>
+                            </div>
+                            <br />
+                            <br />
+                            <div>
+                                {labDocumentUrl &&
+                                    (labDocumentUrl !== null || labDocumentUrl !== '') ? (
+                                    <embed
+                                        src={labDocumentUrl}
+                                        type="application/pdf"
+                                        frameBorder="0"
+                                        height="400px"
+                                        width="100%"
+                                    />
+                                ) : (
+                                    <span></span>
+                                )}
+                            </div>
+                        </TabPanel>
+                    </Tabs>
+                </Col>
 
-                    <Col md={3} id="col" className="health-assesment">
-                        <div id="patient-ques">
-                            <Row id="download-report">
-                                <Col xs={12}>
-                                    <div style={{ textAlign: 'center' }}>
-                                        <b>
-                                            {patient?.firstName} {patient?.lastName}
-                                        </b>{' '}
-                                        <br />
-                                    </div>
-                                </Col>
-                                {/* <Col xs={4}>
+                <Col md={3} id="col" className="health-assesment">
+                    <div id="patient-ques">
+                        <Row id="download-report">
+                            <Col xs={12}>
+                                <div style={{ textAlign: 'center' }}>
+                                    <b>
+                                        {patient?.firstName} {patient?.lastName}
+                                    </b>{' '}
+                                    <br />
+                                </div>
+                            </Col>
+                            {/* <Col xs={4}>
                                     <br />
                                     <br />
                                 </Col> */}
-                            </Row>
-                            <br />
+                        </Row>
+                        <br />
 
-                            <Row>
-                                <Col md={12}>
-                                    <div style={{ fontSize: '0.7rem' }}>
-                                        <b style={{ marginLeft: '20%' }}>Health Behaviours</b>
-                                        <br />
-                                        <span> Do You Suffer from Any of the Following?</span>
-                                    </div>
-
+                        <Row>
+                            <Col md={12}>
+                                <div style={{ fontSize: '0.7rem' }}>
+                                    <b style={{ marginLeft: '20%' }}>Health Behaviours</b>
                                     <br />
-                                    {questionnaire?.map((item, index) => {
-                                        return (
-                                            <div style={{ fontSize: '0.6rem' }} key={index}>
-                                                <b>{item.description}</b>
-                                                {item.topicSubtopicDetails ? (
-                                                    Object.entries(item.topicSubtopicDetails).map(
-                                                        (dataItem, subIndex) => {
-                                                            return (
-                                                                <div className="col-md-12" key={subIndex}>
-                                                                    <div>
-                                                                        <div>
-                                                                            <b
-                                                                            //style={{ marginLeft: '25%' }}
-                                                                            >
-                                                                                {topicSet.has(dataItem[0].split('#')[0])
-                                                                                    ? ''
-                                                                                    : dataItem[0].split('#')[0]}
-                                                                            </b>
-                                                                        </div>
-                                                                        <div>
-                                                                            {dataItem[0].split('#').length > 2
-                                                                                ? dataItem[0].split('#')[1]
-                                                                                : ''}
-                                                                        </div>
-                                                                        <div hidden="true">
-                                                                            {topicSet.add(dataItem[0].split('#')[0])}
-                                                                        </div>
+                                    <span> Do You Suffer from Any of the Following?</span>
+                                </div>
 
-                                                                        {dataItem[1].map(
-                                                                            (question, questionSubIndex) => {
-                                                                                return (
-                                                                                    <div key={questionSubIndex}>
-                                                                                        <div>
-                                                                                            <div
-                                                                                                hidden={
-                                                                                                    question.questiontype ===
-                                                                                                    'TEXT'
+                                <br />
+                                {questionnaire?.map((item, index) => {
+                                    return (
+                                        <div style={{ fontSize: '0.6rem' }} key={index}>
+                                            <b>{item.description}</b>
+                                            {item.topicSubtopicDetails ? (
+                                                Object.entries(item.topicSubtopicDetails).map(
+                                                    (dataItem, subIndex) => {
+                                                        return (
+                                                            <div className="col-md-12" key={subIndex}>
+                                                                <div>
+                                                                    <div>
+                                                                        <b
+                                                                        //style={{ marginLeft: '25%' }}
+                                                                        >
+                                                                            {topicSet.has(dataItem[0].split('#')[0])
+                                                                                ? ''
+                                                                                : dataItem[0].split('#')[0]}
+                                                                        </b>
+                                                                    </div>
+                                                                    <div>
+                                                                        {dataItem[0].split('#').length > 2
+                                                                            ? dataItem[0].split('#')[1]
+                                                                            : ''}
+                                                                    </div>
+                                                                    <div hidden="true">
+                                                                        {topicSet.add(dataItem[0].split('#')[0])}
+                                                                    </div>
+
+                                                                    {dataItem[1].map(
+                                                                        (question, questionSubIndex) => {
+                                                                            return (
+                                                                                <div key={questionSubIndex}>
+                                                                                    <div>
+                                                                                        <div
+                                                                                            hidden={
+                                                                                                question.questiontype ===
+                                                                                                'TEXT'
+                                                                                            }
+                                                                                        >
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                className="form-radio"
+                                                                                                disabled="true"
+                                                                                                style={{
+                                                                                                    marginRight: '0.5rem',
+                                                                                                }}
+                                                                                                defaultChecked={
+                                                                                                    question.answer === 'Y'
+                                                                                                        ? true
+                                                                                                        : false
                                                                                                 }
+                                                                                                id={question.id}
+                                                                                            />
+                                                                                            <label
+                                                                                                style={{ marginBottom: 0 }}
+                                                                                                for={question.id}
                                                                                             >
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    className="form-radio"
-                                                                                                    disabled="true"
-                                                                                                    style={{
-                                                                                                        marginRight: '0.5rem',
-                                                                                                    }}
-                                                                                                    defaultChecked={
-                                                                                                        question.answer === 'Y'
-                                                                                                            ? true
-                                                                                                            : false
-                                                                                                    }
-                                                                                                    id={question.id}
-                                                                                                />
-                                                                                                <label
-                                                                                                    style={{ marginBottom: 0 }}
-                                                                                                    for={question.id}
-                                                                                                >
+                                                                                                {question.question}
+                                                                                            </label>
+                                                                                        </div>
+
+                                                                                        <div
+                                                                                            hidden={
+                                                                                                question.questiontype ===
+                                                                                                'BOOLEAN'
+                                                                                            }
+                                                                                        >
+                                                                                            <div>
+                                                                                                <label>
                                                                                                     {question.question}
                                                                                                 </label>
-                                                                                            </div>
 
-                                                                                            <div
-                                                                                                hidden={
-                                                                                                    question.questiontype ===
-                                                                                                    'BOOLEAN'
-                                                                                                }
-                                                                                            >
-                                                                                                <div>
-                                                                                                    <label>
-                                                                                                        {question.question}
-                                                                                                    </label>
-
-                                                                                                    <p>{question?.answer}</p>
-                                                                                                </div>
+                                                                                                <p>{question?.answer}</p>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                );
-                                                                            }
-                                                                        )}
-                                                                        <br />
-                                                                    </div>
+                                                                                </div>
+                                                                            );
+                                                                        }
+                                                                    )}
+                                                                    <br />
                                                                 </div>
-                                                            );
-                                                        }
-                                                    )
-                                                ) : (
-                                                    <div></div>
-                                                )}
-                                            </div>
-                                        );
-                                    })}
-                                </Col>
-                            </Row>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-            {/* <Footer /> */}
+                                                            </div>
+                                                        );
+                                                    }
+                                                )
+                                            ) : (
+                                                <div></div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </Col>
+                        </Row>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+            {/* <Footer /> */ }
 
             <Modal
                 show={showPrescriptionUpload}

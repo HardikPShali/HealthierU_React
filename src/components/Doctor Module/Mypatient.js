@@ -484,7 +484,9 @@ const Mypatient = (props) => {
                                                     <br /><br />
 
                                                 </Col> */}
-                                                <Col xs={8}><div id="req-name"><b style={{ fontSize: '16px' }}>APID : {SelectedPatient.id} | {SelectedPatient.unifiedAppointment}</b></div></Col>
+                                                <Col xs={8}><div id="req-name"><b style={{ fontSize: '16px' }}>APID : {SelectedPatient.id} | {SelectedPatient.unifiedAppointment.split(
+                                                    "#"
+                                                )[1].replace("_", " ")}</b></div></Col>
                                                 <Col xs={4} className="text-right">
 
                                                     <button className={'btn btn-primary ' + SelectedPatient.urgency}>{SelectedPatient.urgency}</button><br />
@@ -501,8 +503,8 @@ const Mypatient = (props) => {
 
                                                 )}
                                                 </Col>
-                                               <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px', paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
-                                                    <Col xs={3} style={{ textAlign: 'center' }}><b><p className='pclass'>Upcoming :</p></b><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col>
+                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px', paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
+                                                <Col xs={3} style={{ textAlign: 'center' }}><b><p className='pclass'>Upcoming :</p></b><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col>
 
 
 
