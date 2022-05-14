@@ -1250,8 +1250,10 @@ div#multiselectContainerReact div:hover {
 
 #prescription-list {
   padding: 10px;
-  background: var(--primarybg);
+  background: white;
   border-radius: 22px;
+  box-shadow: 2px 2px 1rem #dedede;
+  border: 1px solid #dedede;
 }
 #prescription-list tbody {
   overflow-y: scroll;
