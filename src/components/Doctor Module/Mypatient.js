@@ -90,6 +90,7 @@ const Mypatient = (props) => {
 
     useEffect(() => {
         getCurrentDoctor();
+
     }, []);
     const currentLoggedInUser = cookies.get("currentUser");
     const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
@@ -140,8 +141,10 @@ const Mypatient = (props) => {
             if (err.response.status === 500 || err.response.status === 504) {
                 setLoading(false);
             }
+            console.log("loadActivePatient", response)
         });
         if (response.status === 200 || response.status === 201) {
+            console.log("loadActivePatient", response)
             setActiveOffset(activeOffset + 1);
             setTimeout(() => setLoading(false), 1000);
             setActiveAppointments(response.data);
@@ -231,6 +234,7 @@ const Mypatient = (props) => {
         if (slot && slot.unifiedAppointment === (slot1 && slot1.unifiedAppointment)) {
             slot.endTime = slot1.endTime;
             setSelectedPatient(slot);
+
         }
         else {
             setSelectedPatient(slot);
@@ -475,19 +479,21 @@ const Mypatient = (props) => {
                                     <div id="request-box">
                                         <div id="appointment-request">
                                             <Row>
-                                                <Col xs={8}>
+                                                {/* <Col xs={7}>
                                                     <b style={{ fontSize: '16px' }}>Appointment</b>
                                                     <br /><br />
 
-                                                </Col>
+                                                </Col> */}
+                                                <Col xs={8}><div id="req-name"><b style={{ fontSize: '16px' }}>APID : {SelectedPatient.id} | {SelectedPatient.unifiedAppointment}</b></div></Col>
                                                 <Col xs={4} className="text-right">
+
                                                     <button className={'btn btn-primary ' + SelectedPatient.urgency}>{SelectedPatient.urgency}</button><br />
                                                     <br />
                                                 </Col>
                                             </Row>
                                             <Row style={{ alignItems: "center" }}>
                                                 <Col xs={2}>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.picture ?
-                                                    (<div className="img-box" style={{ background: `url(${SelectedPatient.patient.picture})`}}>
+                                                    (<div className="img-box" style={{ background: `url(${SelectedPatient.patient.picture})` }}>
                                                         {/*<img src={SelectedPatient.patient.picture} alt="" style={{ width: "auto", height: 214, borderRadius: 10 }} />*/}
                                                     </div>)
                                                     :
@@ -495,8 +501,10 @@ const Mypatient = (props) => {
 
                                                 )}
                                                 </Col>
-                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px', paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
-                                                <Col xs={3} style={{ textAlign: 'center' }}><b><p className='pclass'>Upcoming :</p></b><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col>
+                                               <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px', paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
+                                                    <Col xs={3} style={{ textAlign: 'center' }}><b><p className='pclass'>Upcoming :</p></b><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col>
+
+
 
                                                 <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px', paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
                                                 <Col xs={3} style={{ textAlign: 'center' }}><b><p className='pclass'>Current :</p></b><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div>
@@ -505,8 +513,9 @@ const Mypatient = (props) => {
 
                                             </Row>
                                             <Row style={{ alignItems: "center", marginTop: "5px" }}>
+
                                                 <Col xs={4}><div id="req-name"><b>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.firstName + " " + SelectedPatient.patient.lastName)}</b><br />{age} Years Old</div></Col>
-                                                <Col xs={4}><div id="req-name"><b>Fee & Payment Method</b><br />$20 By Credit Card</div></Col>
+                                                <Col xs={4}><div id="req-name"><b className="pclass1">Fee & Payment Method</b><br />$20 By Credit Card</div></Col>
                                                 {/* <Col xs={1} style={{ alignItems: "center",paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
                                                 <Col xs={7} style={{ textAlign: 'right' }}><p className='pclass'>Appointment Fee & Payment Method</p><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col> */}
                                                 <Col xs={4} className="patient-video-button" style={{ textAlign: 'right' }}>
