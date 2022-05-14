@@ -14,7 +14,7 @@ import Loader from './../Loader/Loader';
 import AppoitmentCountsSection from './AppointmentCounts/AppointmentCounts'
 // const docprofile = './src/images/doctor/'
 // import UpcomingAppointments from './UpcomingAppointmentSection/UpcomingAppointments'
-import UpcomingAppointment from '../Patient Module/UpcomingAppointmentsSection/UpcomingAppointments'
+import UpcomingAppointment from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments'
 const Homepage = ({ currentuserInfo }) => {
     currentuserInfo = LocalStorageService.getCurrentUser();
     const [open, setOpen] = useState(true);
@@ -85,6 +85,7 @@ function doctorHomePage() {
                     <Col md={6}>
                         <UpcomingAppointment />
                     </Col>
+                    
                 </Row>
             </Container>
             {/* <Footer /> */}
