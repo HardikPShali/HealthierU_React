@@ -885,7 +885,8 @@ img.card-img-top {
 }
 
 .specialities-profile {
-  padding: 15px 20px;
+  padding: 15px 6px;
+  cursor: pointer;
   /* background: #fff; */
 }
 
@@ -901,6 +902,7 @@ img.card-img-top {
   font-size: clamp(1rem, 1.5vw, 1.1rem);
   padding: 0 1rem;
   text-align: center;
+  white-space: nowrap;
   color: #344767;
 }
 
