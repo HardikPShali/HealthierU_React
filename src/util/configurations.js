@@ -115,3 +115,8 @@ export const doctorListLimit = 15;
 
 export const CAPTCHA_SITE_KEY = "6Lf7eKYfAAAAAEJJo8Coy99WTeDXdxMHsSZAVtl0";
 
+export const ROLES = {
+    ROLE_PATIENT: 'ROLE_PATIENT',
+    ROLE_DOCTOR: 'ROLE_DOCTOR',
+    ROLE_ADMIN: 'ROLE_ADMIN'
+}
