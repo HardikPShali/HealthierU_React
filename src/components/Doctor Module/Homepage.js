@@ -13,7 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import Loader from './../Loader/Loader';
 import AppoitmentCountsSection from './AppointmentCounts/AppointmentCounts'
 // const docprofile = './src/images/doctor/'
-import UpcomingAppointments from './UpcomingAppointmentSection/UpcomingAppointments'
+// import UpcomingAppointments from './UpcomingAppointmentSection/UpcomingAppointments'
+import UpcomingAppointment from '../Patient Module/UpcomingAppointmentsSection/UpcomingAppointments'
 const Homepage = ({ currentuserInfo }) => {
     currentuserInfo = LocalStorageService.getCurrentUser();
     const [open, setOpen] = useState(true);
@@ -77,17 +78,16 @@ function doctorHomePage() {
                         <AppoitmentCountsSection />
                     </Col>
                 </Row>
+
             </Container>
-            <br />
             <Container>
                 <Row>
                     <Col md={6}>
-                        <UpcomingAppointments />
+                        <UpcomingAppointment />
                     </Col>
                 </Row>
             </Container>
-     
-            {/* <Footer /> */ }
+            {/* <Footer /> */}
         </div >
     );
 }
