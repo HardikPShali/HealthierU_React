@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom"; // useParams, useHistory, useRou
 
 import "./patient-chat.css";
 import default_image from "../../images/default_image.png";
-import { formatDate } from '../questionnaire/QuestionnaireService';
+import { formatDate } from "../questionnaire/QuestionnaireService";
 import { Button } from "react-bootstrap";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
@@ -18,7 +18,13 @@ import SmallLoader from "../Loader/smallLoader";
 import Meeting from "../video-call/pages/meeting";
 
 import moment from "moment";
-import { firestoreService, chatAndVideoService, commonUtilFunction } from "../../util";
+import {
+  firestoreService,
+  chatAndVideoService,
+  commonUtilFunction,
+} from "../../util";
+import ChatRow from "../CommonModule/Chat/ChatRow/ChatRow";
+import ChatMessage from "../CommonModule/Chat/ChatMessage/ChatMessage";
 
 // var firebaseRef;
 let unsubscribe;
@@ -38,7 +44,6 @@ const PatientChat = (props) => {
   const [pIdState, setPIdState] = useState("");
   const [dIdState, setDIdState] = useState("");
 
-
   const tempMessage = useRef(null);
   const location = useLocation();
 
@@ -49,10 +54,9 @@ const PatientChat = (props) => {
     const { currentPatient, doctorDetailsList } = props;
 
     if (chatGroup) {
-      setPIdState(Number(chatGroup.split("_")[0].replace("P", "")))
-      setDIdState(Number(chatGroup.split("_")[1].replace("D", "")))
+      setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
+      setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
     }
-
 
     // if (openVideoAndChat) {
 
@@ -69,27 +73,36 @@ const PatientChat = (props) => {
     // if (openVideoAndChat) {
 
     if (dIdState && pIdState) {
-      handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true))
+      handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true));
     }
-
-
   }, [pIdState, dIdState]);
 
   useEffect(() => {
     if (currentSelectedGroup) {
-      unsubscribe = firestoreService.updateConversation(currentSelectedGroup, currentPatient.email, setChatMessages);
+      unsubscribe = firestoreService.updateConversation(
+        currentSelectedGroup,
+        currentPatient.email,
+        setChatMessages
+      );
     }
   }, [currentSelectedGroup]);
 
   useEffect(() => {
     if (currentSelectedGroup && doctorDetailsList[currentSelectedGroup]) {
-      let currentSelectedGroupAppointmentDetails = doctorDetailsList[currentSelectedGroup]["appointmentDetails"];
+      let currentSelectedGroupAppointmentDetails =
+        doctorDetailsList[currentSelectedGroup]["appointmentDetails"];
       if (currentSelectedGroupAppointmentDetails) {
         //logic for rerender chat and video button based on upcoming timesequence
-        let timeToRerender = chatAndVideoService.isAppoinmentTimeUnderActiveCondition(currentSelectedGroupAppointmentDetails, setActiveButton);
+        let timeToRerender = chatAndVideoService.isAppoinmentTimeUnderActiveCondition(
+          currentSelectedGroupAppointmentDetails,
+          setActiveButton
+        );
         if (timeToRerender) {
           clearSetTimeoutInterval && clearTimeout(clearSetTimeoutInterval);
-          clearSetTimeoutInterval = setTimeout(() => setMilisecondToRerender(timeToRerender), timeToRerender);
+          clearSetTimeoutInterval = setTimeout(
+            () => setMilisecondToRerender(timeToRerender),
+            timeToRerender
+          );
         }
       }
     }
@@ -141,16 +154,31 @@ const PatientChat = (props) => {
     }
   };
 
-  const { unReadMessageList, currentPatient, doctorDetailsList, chatGroupList, updateChatGroupListTrigger, addedNewChatGroupListTrigger } = props; // , trigger
+  const {
+    unReadMessageList,
+    currentPatient,
+    doctorDetailsList,
+    chatGroupList,
+    updateChatGroupListTrigger,
+    addedNewChatGroupListTrigger,
+  } = props; // , trigger
 
   const currentDoctorDetails = doctorDetailsList[currentSelectedGroup];
   const currentDoctorFullName = currentDoctorDetails
-    ? `${currentDoctorDetails.firstName} ${currentDoctorDetails.middleName ? currentDoctorDetails.middleName + " " : ""}${currentDoctorDetails.lastName}`
+    ? `${currentDoctorDetails.firstName} ${
+        currentDoctorDetails.middleName
+          ? currentDoctorDetails.middleName + " "
+          : ""
+      }${currentDoctorDetails.lastName}`
     : "";
   const { chatButton, videoButton } = activeButton;
 
   const memoizedChatGroupToShow = useMemo(() => {
-    let chatGroupListKeys = Object.keys(chatGroupList).sort((a, b) => new Date(chatGroupList[b].lastMessageTimeStamp) - new Date(chatGroupList[a].lastMessageTimeStamp));
+    let chatGroupListKeys = Object.keys(chatGroupList).sort(
+      (a, b) =>
+        new Date(chatGroupList[b].lastMessageTimeStamp) -
+        new Date(chatGroupList[a].lastMessageTimeStamp)
+    );
 
     if (filterText) {
       chatGroupListKeys =
@@ -163,17 +191,27 @@ const PatientChat = (props) => {
             .includes(filterText.toLowerCase())
         );
     }
-    !currentSelectedGroup && chatGroupListKeys.length && Object.keys(doctorDetailsList).length && openConversation(chatGroupListKeys[0]);
+    !currentSelectedGroup &&
+      chatGroupListKeys.length &&
+      Object.keys(doctorDetailsList).length &&
+      openConversation(chatGroupListKeys[0]);
     return chatGroupListKeys.length && chatGroupListKeys;
   }, [filterText, updateChatGroupListTrigger, doctorDetailsList]);
 
   return (
-    <div>
-      <br />
-      <div className="main-section">
+    <div className="bg-main-color">
+      <div className="main-section mt-5">
         <div className="head-section">
           <div className="headLeft-section">
-            {!openVideoCall && <input type="text" name="search" className="form-control" placeholder="Search..." onChange={(e) => setFilterText(e.target.value)} />}
+            {!openVideoCall && (
+              <input
+                type="text"
+                name="search"
+                className="form-control"
+                placeholder="Search..."
+                onChange={(e) => setFilterText(e.target.value)}
+              />
+            )}
           </div>
           <div className="headRight-section">
             <div className="headRight-sub">
@@ -185,26 +223,29 @@ const PatientChat = (props) => {
           {openVideoCall ? (
             <Meeting onClose={() => setOpenVideoCall(false)} />
           ) : (
-            <div className="left-section mCustomScrollbar bg-white" data-mcs-theme="minimal-dark" id="chat-room-list">
+            <div
+              className="left-section mCustomScrollbar bg-white"
+              data-mcs-theme="minimal-dark"
+              id="chat-room-list"
+            >
               <ul>
                 {memoizedChatGroupToShow ? (
                   memoizedChatGroupToShow.map((currentGroup) => {
                     return (
-                      <li key={currentGroup} id={currentGroup} onClick={(e) => openConversation(currentGroup)} className={currentGroup === currentSelectedGroup ? "active" : ""}>
-                        <div className="chatList">
-                          <div className="img">
-                            <i className="fa fa-circle"></i>
-                            <img src={doctorDetailsList[currentGroup]?.picture || default_image} alt="" />
-                          </div>
-                          <div className="desc">
-                            <b>{`${doctorDetailsList[currentGroup]?.firstName} ${doctorDetailsList[currentGroup]?.lastName}`}</b>
-                            {unReadMessageList && unReadMessageList[currentGroup] && <span className="badge badge-success ml-2">{unReadMessageList[currentGroup].length}</span>}
-                            <small className="time">{chatGroupList[currentGroup].lastMessageTimeStamp}</small>
-                            <br />
-                            <small>{chatGroupList[currentGroup].lastMessageContent}</small>
-                          </div>
-                        </div>
-                      </li>
+                      <ChatRow
+                        key={currentGroup}
+                        uniqueId={currentGroup}
+                        onClick={(e) => openConversation(currentGroup)}
+                        isSelected={currentGroup === currentSelectedGroup}
+                        details={doctorDetailsList[currentGroup]}
+                        message={chatGroupList[currentGroup].lastMessageContent}
+                        time={chatGroupList[currentGroup].lastMessageTimeStamp}
+                        unReadCount={
+                          unReadMessageList &&
+                          unReadMessageList[currentGroup] &&
+                          unReadMessageList[currentGroup].length
+                        }
+                      />
                     );
                   })
                 ) : addedNewChatGroupListTrigger ? (
@@ -217,43 +258,45 @@ const PatientChat = (props) => {
           )}
           <div className="right-section">
             {!chatMessages.length && <SmallLoader />}
-            <div className="message mCustomScrollbar bg-white" data-mcs-theme="minimal-dark" id="chat-list">
+            <div
+              className="message mCustomScrollbar"
+              data-mcs-theme="minimal-dark"
+              id="chat-list"
+            >
               <ul>
                 {chatMessages.map((current) => {
-                  return current.fromUser === currentPatient.email ? (
-                    <li className="msg-right" key={current.firebaseTimeStamp.toMillis()}>
-                      <div className={`msg-left-sub ${current.isRead ? "blue" : "brown"}`}>
-                        {current.AppointmentStatus === "Booked" || current.AppointmentStatus === "Cancelled" ? (
-                          <span></span>
-                        ) : (
-                          <img src={currentPatient.picture || default_image} alt="" className={current.isRead ? "blue" : "brown"} />
-                        )}
-
-                        <div className={current.AppointmentStatus === "Booked" ? "appointment-msg-desc" : current.AppointmentStatus === "Cancelled" ? "appointment-cancelled-msg-desc" : "msg-desc"}>
-                          {current.AppointmentStatus === "Booked" || current.AppointmentStatus === "Cancelled"
-                            ? current.message + " at Date/Time " + moment(new Date(current.appointmentStartTime)).format("M/DD/YYYY h:mm a")
-                            : current.message}
-                        </div>
-                        <small>{formatDate(current.firebaseTimeStamp.toMillis())}</small>
-                      </div>
-                    </li>
-                  ) : (
-                    <li className="msg-left" key={current.firebaseTimeStamp.toMillis()}>
-                      <div className="msg-left-sub">
-                        <img src={doctorDetailsList[currentSelectedGroup]?.picture || default_image} alt="" />
-                        <div className="msg-desc">
-                          {current.AppointmentStatus === "Booked" || current.AppointmentStatus === "Cancelled"
-                            ? current.message + " at Date/Time " + moment(new Date(current.appointmentStartTime)).format("M/DD/YYYY h:mm a")
-                            : current.message}
-                        </div>
-                        <small>{formatDate(current.firebaseTimeStamp.toMillis())}</small>
-                      </div>
-                    </li>
+                  return (
+                    <>
+                      <ChatMessage
+                        key={current.firebaseTimeStamp.toMillis()}
+                        isMyMessage={current.fromUser === currentPatient.email}
+                        image={
+                          current.fromUser === currentPatient.email
+                            ? currentPatient.picture
+                            : doctorDetailsList[currentSelectedGroup]?.picture
+                        }
+                        message={
+                          current.AppointmentStatus === "Booked" ||
+                          current.AppointmentStatus === "Cancelled"
+                            ? current.message +
+                              " at Date/Time " +
+                              moment(
+                                new Date(current.appointmentStartTime)
+                              ).format("M/DD/YYYY h:mm a")
+                            : current.message
+                        }
+                        isRead={current.isRead}
+                        time={formatDate(current.firebaseTimeStamp.toMillis())}
+                      />
+                    </>
                   );
                 })}
               </ul>
             </div>
-            <div hidden={"appointmentStatus" === "Cancelled"} className={chatButton ? "row" : "row disabled-div-chat"}>
+            <div
+              hidden={"appointmentStatus" === "Cancelled"}
+              className={chatButton ? "row" : "row disabled-div-chat"}
+            >
               <div className="col-sm-9">
                 <input
                   type="text"
@@ -261,25 +304,29 @@ const PatientChat = (props) => {
                   className="form-control ml-5"
                   name="textMessage"
                   id="textMessage"
-                  placeholder="type here..."
+                  placeholder="Type here..."
                   onKeyDown={(e) => handleKeypress(e)}
                   disabled={!chatButton}
                 />
               </div>
               <div className="col-sm-1 video-button">
-                {(
-
-                  <IconButton onClick={() => {
-                    console.log(props.currentPatient)
-                    console.log(props.doctorDetailsList[currentSelectedGroup])
-                    console.log("pIdState", pIdState)
-                    console.log("dIdState", dIdState)
-                    handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true))
-
-                  }}>
+                {
+                  <IconButton
+                    onClick={() => {
+                      console.log(props.currentPatient);
+                      console.log(
+                        props.doctorDetailsList[currentSelectedGroup]
+                      );
+                      console.log("pIdState", pIdState);
+                      console.log("dIdState", dIdState);
+                      handleAgoraAccessToken(pIdState, dIdState, () =>
+                        setOpenVideoCall(true)
+                      );
+                    }}
+                  >
                     <VideocamIcon id="active-video-icon" />
                   </IconButton>
-                )}
+                }
                 {/* {!videoButton && (
                   <IconButton id="inactive-video-button">
                     <VideocamOffIcon id="inactive-video-icon" />
@@ -287,7 +334,11 @@ const PatientChat = (props) => {
                 )} */}
               </div>
               <div className="col-sm-2">
-                <Button variant="primary" onClick={(e) => sendMessage(e)} style={{ width: "90%" }}>
+                <Button
+                  variant="primary"
+                  onClick={(e) => sendMessage(e)}
+                  style={{ width: "90%" }}
+                >
                   Send
                 </Button>
               </div>

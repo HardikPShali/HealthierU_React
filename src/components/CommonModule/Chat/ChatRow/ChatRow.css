@@ -1,0 +1,62 @@
+.chat-row {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-top: 8px;
+    min-height: 85px;
+    border-left: 5px solid transparent;
+    transition: all .2s ease-in;
+}
+
+.chat-profile-pic {
+    width: 100%;
+    flex: 0 0 25%;
+}
+
+.chat-profile-pic img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.desc {
+    display: flex;
+    flex-flow: column;
+    flex: 0 0 75%;
+}
+
+.chat-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-primary);
+    text-transform: capitalize;
+}
+
+.chat-message {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chat-time {
+    position: absolute;
+    right: 6px;
+    top: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--text-secondary);
+}
+
+.chat-row-active {
+    border-left-color: var(--primary);
+}
+
+.chat-row-active .chat-name {
+    color: var(--primary);
+}
+
+.chat-row:hover {
+    border-left-color: var(--primarysecond);
+}
