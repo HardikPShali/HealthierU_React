@@ -3,6 +3,7 @@ import ErrorBoundary from "./error-boundary/MyErrorBoundary";
 import Routes from "./routes";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import "./global.css";
 // import firebase from "firebase";
 // import {
 //   LOCALFIRESTORECONFIG,
