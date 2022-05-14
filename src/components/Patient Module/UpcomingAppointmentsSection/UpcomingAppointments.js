@@ -49,6 +49,7 @@ const UpcomingAppointments = () => {
                                     status: value.status,
                                     appointmentId: value.appointmentId,
                                     unifiedAppointment: value.unifiedAppointment,
+                                    patient: value.patient
                                 });
                             } else if (
                                 value.unifiedAppointment !==
@@ -77,11 +78,12 @@ const UpcomingAppointments = () => {
                                     status: value.status,
                                     appointmentId: value.appointmentId,
                                     unifiedAppointment: value.unifiedAppointment,
+                                    patient: value.patient
                                 });
                             }
                         }
                     });
-                    // console.log('updateArray', updateArray);
+                    console.log('updateArray', updateArray);
                     setUpcomingAppointments(updateArray);
                 }
             }
@@ -95,7 +97,7 @@ const UpcomingAppointments = () => {
 
     return (
         <div>
-            <h3 className="upcoming-appointment--main-header mb-4 mt-4">
+            <h3 className="upcoming-appointment--main-header mb-3 mt-2">
                 Upcoming Appointments
             </h3>
             <div className="upcoming-appointment__card-box scroller-cardlist">
@@ -104,7 +106,7 @@ const UpcomingAppointments = () => {
                         {upcomingAppointments.length !== 0 ? (
                             upcomingAppointments.map((appointment, index) => {
                                 return (
-                                    <div className="col-md-6 mb-2" key={index}>
+                                    <div className="col-md-4 mb-2 mt-2 cursor-pointer" key={index}>
                                         <div className="upcoming-appointment-card">
                                             <UpcomingAppointmentCard appointment={appointment} />
                                         </div>
@@ -113,7 +115,7 @@ const UpcomingAppointments = () => {
                             })
                         ) : (
                             <div
-                                className="col-12"
+                                className="col-12 ml-2"
                                 style={{ textShadow: 'none', color: 'black' }}
                             >
                                 No Upcoming Appointments
