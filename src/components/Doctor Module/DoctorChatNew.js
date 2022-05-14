@@ -24,6 +24,8 @@ import {
 
 import moment from "moment";
 import ChatRow from "../CommonModule/Chat/ChatRow/ChatRow";
+import ChatMessage from "../CommonModule/Chat/ChatMessage/ChatMessage";
+
 
 // var firebaseRef;
 let unsubscribe;
@@ -164,11 +166,10 @@ const DoctorChat = (props) => {
 
   const currentDoctorDetails = patientDetailsList[currentSelectedGroup];
   const currentDoctorFullName = currentDoctorDetails
-    ? `${currentDoctorDetails.firstName} ${
-        currentDoctorDetails.middleName
-          ? currentDoctorDetails.middleName + " "
-          : ""
-      }${currentDoctorDetails.lastName}`
+    ? `${currentDoctorDetails.firstName} ${currentDoctorDetails.middleName
+      ? currentDoctorDetails.middleName + " "
+      : ""
+    }${currentDoctorDetails.lastName}`
     : "";
   const { chatButton, videoButton } = activeButton;
   const memoizedChatGroupToShow = useMemo(() => {
@@ -274,12 +275,12 @@ const DoctorChat = (props) => {
                       }
                       message={
                         current.AppointmentStatus === "Booked" ||
-                        current.AppointmentStatus === "Cancelled"
+                          current.AppointmentStatus === "Cancelled"
                           ? current.message +
-                            " at Date/Time " +
-                            moment(
-                              new Date(current.firebaseTimeStamp.toMillis())
-                            ).format("M/DD/YYYY h:mm a")
+                          " at Date/Time " +
+                          moment(
+                            new Date(current.firebaseTimeStamp.toMillis())
+                          ).format("M/DD/YYYY h:mm a")
                           : current.message
                       }
                       isRead={current.isRead}
