@@ -108,6 +108,7 @@ const Profile = () => {
                 setLoading(false);
             }
         });
+        console.log("res", res);
         if (res && res.data) {
             setCurrentPatient({ ...res.data[0] });
             setTimeout(() => setLoading(false), 1000);
