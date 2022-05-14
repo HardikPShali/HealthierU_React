@@ -978,7 +978,6 @@ h2#welcome-title {
 */
 
 div#profile-col-1 {
-  background: #f4f4f4 !important;
   padding: 20px;
   margin: 60px -10px 40px 0px;
   border-radius: 22px;
@@ -987,7 +986,6 @@ div#profile-col-1 {
 }
 
 div#profile-col-2 {
-  background: #f4f4f4;
   padding: 20px;
   margin: 0 -10px 50px 0px;
   border-radius: 22px;
@@ -1037,14 +1035,10 @@ p#description {
 
 button.request-edit {
   border-radius: 22px;
-  width: 150px;
+  min-width: 150px;
   font-size: 15px;
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
-  position: absolute;
-  bottom: 0px;
-  margin: 0 25%;
-  left: 18%;
 }
 
 table#user-info {
@@ -1070,7 +1064,7 @@ table#user-info {
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  margin-right: 30px;
+  margin-right: 10px;
   padding: 5px;
 }
 
