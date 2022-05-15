@@ -1,5 +1,5 @@
-/* UPCOMING APPOINTMENTS SECTION */
-.prescription-lab__card-box {
+
+.prescription-lab-card__card-box {
   border-radius: 22px;
   color: #fff;
   font-weight: 700 !important;
@@ -10,7 +10,7 @@
 
 
 
-.prescription-lab--main-header {
+.prescription-lab-card--main-header {
   margin-left: 5px;
   color: var(--text-primary);
   font-weight: 700;
@@ -22,8 +22,8 @@
 }
 
 .prescription-lab-card {
-  padding: 10px;
   width: 100%;
+  padding: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -40,7 +40,7 @@
 
 .prescription-lab-card:hover {
   transform: translateY(-2px);
-  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
+  box-shadow: 4px 4px 14px rgba(0,0,0,0.09);
 }
 
 .prescription-lab-card__img-wrapper {
@@ -63,7 +63,7 @@
   text-shadow: none;
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 2px;
+  margin-bottom:2px;
   text-transform: capitalize;
 }
 
@@ -90,10 +90,16 @@
   margin-top: 15px;
 }
 
-.prescription-lab-card__card-time-row {}
+.prescription-lab-card-card__card-time-row {
 
-.prescription-lab-card__card-time-row>img {
+}
+
+.prescription-lab-card__card-time-row > img {
   width: 28px;
   height: 28px;
   margin-right: 4px;
+}
+.prescription-lab-card__download
+{
+  margin-top: 30px;
 }

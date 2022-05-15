@@ -259,6 +259,7 @@ const Healthassessment = (props) => {
 
         );
         setPresecriptionDocument(presecriptionDocument);
+        console.log("presecriptionDocument",presecriptionDocument)
 
         // const response = await getPatientQuestionnaire(
         //     patientInfo && patientInfo.id
@@ -420,7 +421,7 @@ const Healthassessment = (props) => {
                                     </div>
                                 </div>
                                 <br />
-                                <div id="prescription-list">
+                                {/* <div id="prescription-list"> */}
                                     <h3 className="prescription-lab--main-header mb-3 mt-2">
                                         {props.month}
                                     </h3>
@@ -438,7 +439,7 @@ const Healthassessment = (props) => {
                                                                     <PrescriptionLabCard
                                                                         filetype={getFileExtension(dataItem.name)}
                                                                         name={"Prescription"}
-                                                                        apid={dataItem.patientId}
+                                                                        apid={"100"}
                                                                         date={dataItem.docUploadTime}
                                                                         time={dataItem.docUploadTime}
                                                                         download={(e) => showDocument(dataItem)}
@@ -461,7 +462,7 @@ const Healthassessment = (props) => {
                                         </div>
                                     )}
 
-                                </div>
+                                {/* </div> */}
                                 {/* <table>
                                         <thead>
                                             <tr>
