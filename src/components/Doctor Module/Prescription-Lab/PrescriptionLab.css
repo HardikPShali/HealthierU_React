@@ -1,101 +1,99 @@
 /* UPCOMING APPOINTMENTS SECTION */
 .prescription-lab__card-box {
-    border-radius: 22px;
-    color: #fff;
-    font-weight: 700 !important;
-    font-size: 20px !important;
-    text-shadow: 0px 0px 15px #000;
-  }
-  
-  
-  
-  
-  .prescription-lab--main-header {
-    margin-left: 5px;
-    color: var(--text-primary);
-    font-weight: 700;
-    text-shadow: none;
-  }
-  
-  .card-holder {
-    width: 100%;
-  }
-  
-  .prescription-lab-card {
-      padding: 10px;
-      width: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #999999;
-    background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 22px;
-    filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
-    border-left: 3px solid var(--primarysecond);
-    transition: all .2s;
-  }
-  
-  .prescription-lab-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 4px 4px 14px rgba(0,0,0,0.09);
-  }
-  
-  .prescription-lab-card__img-wrapper {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .img-circle {
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-  }
-  
-  .prescription-lab-card__card-details {
-    margin: 10px;
-    color: black;
-  }
-  
-  .prescription-lab-card__doctor-name {
-    text-shadow: none;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom:2px;
-    text-transform: capitalize;
-  }
-  
-  .prescription-lab-card__common-span {
-    font-size: 12px;
-    text-decoration: none;
-    text-shadow: none;
-    font-weight: bold;
-  }
-  
-  .prescription-lab-card__specality {
-    color: var(--text-secondary);
-    font-size: 12px;
-    text-decoration: none;
-    text-shadow: none;
-    display: block;
-    font-weight: none;
-    margin-left: 2px;
-  }
-  
-  .prescription-lab-card__card-details--date-div {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-  }
-  
-  .prescription-lab-card__card-time-row {
-  
-  }
-  
-  .prescription-lab-card__card-time-row > img {
-    width: 28px;
-    height: 28px;
-    margin-right: 4px;
-  }
+  border-radius: 22px;
+  color: #fff;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  text-shadow: 0px 0px 15px #000;
+}
+
+
+
+
+.prescription-lab--main-header {
+  margin-left: 5px;
+  color: var(--text-primary);
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.card-holder {
+  width: 100%;
+}
+
+.prescription-lab-card {
+  padding: 10px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 22px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+  border-left: 3px solid var(--primarysecond);
+  transition: all .2s;
+}
+
+.prescription-lab-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.prescription-lab-card__img-wrapper {
+  padding: 20px;
+  text-align: center;
+}
+
+.img-circle {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.prescription-lab-card__card-details {
+  margin: 10px;
+  color: black;
+}
+
+.prescription-lab-card__doctor-name {
+  text-shadow: none;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  text-transform: capitalize;
+}
+
+.prescription-lab-card__common-span {
+  font-size: 12px;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: bold;
+}
+
+.prescription-lab-card__specality {
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-decoration: none;
+  text-shadow: none;
+  display: block;
+  font-weight: none;
+  margin-left: 2px;
+}
+
+.prescription-lab-card__card-details--date-div {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.prescription-lab-card__card-time-row {}
+
+.prescription-lab-card__card-time-row>img {
+  width: 28px;
+  height: 28px;
+  margin-right: 4px;
+}
