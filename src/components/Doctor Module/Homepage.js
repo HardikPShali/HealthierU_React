@@ -80,7 +80,7 @@ function doctorHomePage() {
             </Container>
             <Container>
                 <Row>
-                    <Col md={6}>
+                    <Col md={12}>
                         <UpcomingAppointment />
                     </Col>
 
