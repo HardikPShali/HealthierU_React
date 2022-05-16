@@ -64,12 +64,12 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar > button {
+.headerNavbar>button {
   color: #fff;
   font-size: 14px;
 }
 
-.headerNavbar > button:hover {
+.headerNavbar>button:hover {
   color: #fff;
 }
 
@@ -98,8 +98,9 @@ svg#search-icon {
 }
 
 @media (max-width: 992px) {
+
   #navbar a,
-  .headerNavbar > button {
+  .headerNavbar>button {
     padding: 10px 20px;
   }
 
@@ -529,12 +530,15 @@ input#doctor-search {
   border: none;
   border-radius: 10px;
 }
-.appointment-card-header{
+
+.appointment-card-header {
   margin-left: 5px;
   color: #344767;
   font-weight: 700;
   text-shadow: none;
+  font-size: 28px;
 }
+
 #appointment-card .card-body {
   padding: 10px !important;
 }
@@ -649,17 +653,12 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
-  .MuiGridListTileBar-title {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
   color: #fff;
   transition: 0.5s;
 }
@@ -1009,6 +1008,7 @@ img#profile-pic {
   border-radius: 50% !important;
   outline: 5px solid #00d0cc;
 }
+
 .profile-pic {
   width: 120px;
   height: 120px;
@@ -1107,7 +1107,7 @@ table#user-info {
 .data-card {
   display: flex;
   flex-direction: row;
-  max-width: 100%;
+  width: 50%;
   min-height: 40%;
   overflow: hidden;
   border-radius: .5em;
@@ -1122,7 +1122,7 @@ table#user-info {
 .data-card1 {
   display: flex;
   flex-direction: row;
-  max-width: 100%;
+  width: 50%;
   min-height: 40%;
   overflow: hidden;
   border-radius: .5em;
@@ -1229,13 +1229,13 @@ font-size: 10px;
   align-items: center;
 }
 
-.record-tabs > .nav-link:hover {
+.record-tabs>.nav-link:hover {
   color: #495057 !important;
   text-decoration: none;
   outline: none;
 }
 
-.record-tabs > .nav-link.active {
+.record-tabs>.nav-link.active {
   color: #fff !important;
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
@@ -1254,20 +1254,25 @@ font-size: 10px;
   border-radius: 22px;
   /* padding: 10px 10%; */
 }
+
 #profile-form .MuiFormControl-root.MuiTextField-root {
   width: 100%;
 }
+
 #profile-form .MuiInputBase-formControl {
   border-radius: 10px;
 }
+
 #profile-form input#standard-basic {
   padding: 10px;
   border: none !important;
   border-radius: 10px;
 }
+
 #profile-form .MuiFilledInput-underline:after {
   display: none;
 }
+
 #profile-form .MuiFilledInput-underline:before {
   display: none;
 }
@@ -1303,9 +1308,11 @@ div#multiselectContainerReact div {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .p-image:hover {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .upload-button {
   font-size: 1.2em;
 }
@@ -1907,7 +1914,7 @@ div#primary-card {
 }
 
 @media (max-width: 700px) {
-  #footer .row > div {
+  #footer .row>div {
     margin-bottom: 40px;
   }
 
@@ -1928,7 +1935,7 @@ div#primary-card {
     text-align: center !important;
   }
 
-  #copyright .row > div {
+  #copyright .row>div {
     margin-bottom: 20px;
   }
 
@@ -2175,16 +2182,16 @@ div.reply .messageBody span.messageTime {
   text-transform: capitalize;
 }
 
-.list--tags > li {
+.list--tags>li {
   display: inline;
 }
 
-.list--tags > li:before {
+.list--tags>li:before {
   content: ',\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags > li:first-child:before {
+.list--tags>li:first-child:before {
   content: normal;
 }
 
@@ -2296,7 +2303,7 @@ Health Assessment
 
 }
 
-.modal-body > .form-group > label.col-form-label {
+.modal-body>.form-group>label.col-form-label {
   font-size: 14.5px;
 }
 

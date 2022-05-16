@@ -12,7 +12,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 import Loader from './../Loader/Loader';
 import AppoitmentCountsSection from './AppointmentCounts/AppointmentCounts'
-import UpcomingAppointment from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments'
+// import UpcomingAppointment from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments'
+import UpcomingAppointment from './UpcomingAppointmentsSection/UpcomingAppointments'
 const Homepage = ({ currentuserInfo }) => {
     currentuserInfo = LocalStorageService.getCurrentUser();
     const [open, setOpen] = useState(true);
