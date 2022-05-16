@@ -27,6 +27,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 // import { handleSignin } from '../../service/AccountService';
 // import momentTz from 'moment-timezone';
 import { getDoctorByUserId, getPatientChiefComplaint, getPatientFamilyAndSocialHistoryData, loadActivePatient, loadPastPatient } from '../../service/frontendapiservices';
+import SearchBarComponent from '../CommonModule/SearchAndFilter/SearchBarComponent';
+import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
 
 const Mypatient = (props) => {
     // const currentTimezone = props.timeZone;
@@ -240,6 +242,10 @@ const Mypatient = (props) => {
                     <Col lg={6} md={6} id="col">
                         <div id="patient-col-1">
                             <div id="patient-heading">My Patients</div>
+                            <div className='d-flex mt-2 justify-content-around'>
+                                <SearchBarComponent />
+                                <FilterComponent />
+                            </div>
                             <Tabs style={{ margin: '10px' }} id="mypatient-tabs">
                                 <TabList style={{ boxShadow: 'rgb(0 0 0 / 24%) 0px 0px 5px' }}>
                                     <Tab onClick={() => {
@@ -279,7 +285,7 @@ const Mypatient = (props) => {
                                                 {activeAppointments.map((user, index) => {
                                                     if (user.unifiedAppointment === (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) {
                                                         if (user && user.patient) {
-                                                            return (<>
+                                                            return (
                                                                 <tr key={index}>
                                                                     <td width="50" style={{ cursor: "pointer" }} onClick={async () => {
                                                                         handleConsultationClick(user, activeAppointments[index + 1].endTime);
@@ -302,7 +308,7 @@ const Mypatient = (props) => {
                                                                     <td width="100">{user.patient.weight}</td>
                                                                     <td width="100"><span title={moment(user.startTime).format("h:mm A") + " - " + moment(activeAppointments[index + 1].endTime).format("h:mm A")}>{moment(user.startTime).format("MMM DD, YYYY")}</span></td>
                                                                 </tr>
-                                                            </>)
+                                                            )
                                                         }
 
                                                     }
