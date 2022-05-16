@@ -411,11 +411,13 @@ const Welcome = ({ currentuserInfo }) => {
                     }
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
+                    console.log("email",response.data.data.email)
+                    console.log("firebasePwd",response.data.data.firebasePwd)
                     firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
                         .then((userRecord) => {
                             var loginUser = userRecord.userd;
                             console.log("loginUser", loginUser)
-                            console.log('user Created', loginUser.email, loginUser.uid);
+                           // console.log('user Created', loginUser.email, loginUser.uid);
 
                         })
                         .catch((error) => {
