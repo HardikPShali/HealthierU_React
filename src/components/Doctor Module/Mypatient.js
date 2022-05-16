@@ -27,7 +27,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 // import { handleSignin } from '../../service/AccountService';
 // import momentTz from 'moment-timezone';
 import { getDoctorByUserId, getPatientChiefComplaint, getPatientFamilyAndSocialHistoryData, loadActivePatient, loadPastPatient } from '../../service/frontendapiservices';
-
+import calendar from '../../images/icons used/Component 12.svg';
+import time from '../../images/icons used/Component 11.svg';
+import dollar from '../../images/icons used/Component 13.svg';
+import payment from '../../images/icons used/Component 14.svg';
+import conHistory from '../../images/icons used/Component 15.svg';
+import HealthAssessment from '../../images/icons used/Component 16.svg';
+import MedicalRecord from '../../images/icons used/Component 17.svg';
+import HealthAssestmentReport from './HealthAssestmentReport/HealthAssestmentReport';
 const Mypatient = (props) => {
     // const currentTimezone = props.timeZone;
     //const getMoment = (timezone) => {
@@ -83,6 +90,7 @@ const Mypatient = (props) => {
 
     useEffect(() => {
         getCurrentDoctor();
+
     }, []);
     const currentLoggedInUser = cookies.get("currentUser");
     const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
@@ -133,8 +141,10 @@ const Mypatient = (props) => {
             if (err.response.status === 500 || err.response.status === 504) {
                 setLoading(false);
             }
+            console.log("loadActivePatient", response)
         });
         if (response.status === 200 || response.status === 201) {
+            console.log("loadActivePatient", response)
             setActiveOffset(activeOffset + 1);
             setTimeout(() => setLoading(false), 1000);
             setActiveAppointments(response.data);
@@ -224,6 +234,7 @@ const Mypatient = (props) => {
         if (slot && slot.unifiedAppointment === (slot1 && slot1.unifiedAppointment)) {
             slot.endTime = slot1.endTime;
             setSelectedPatient(slot);
+
         }
         else {
             setSelectedPatient(slot);
@@ -468,18 +479,22 @@ const Mypatient = (props) => {
                                     <div id="request-box">
                                         <div id="appointment-request">
                                             <Row>
-                                                <Col xs={8}>
+                                                {/* <Col xs={7}>
                                                     <b style={{ fontSize: '16px' }}>Appointment</b>
                                                     <br /><br />
 
-                                                </Col>
+                                                </Col> */}
+                                                <Col xs={8}><div id="req-name"><b style={{ fontSize: '16px' }}>APID : {SelectedPatient.id} | {SelectedPatient.unifiedAppointment.split(
+                                                    "#"
+                                                )[1].replace("_", " ")}</b></div></Col>
                                                 <Col xs={4} className="text-right">
+
                                                     <button className={'btn btn-primary ' + SelectedPatient.urgency}>{SelectedPatient.urgency}</button><br />
                                                     <br />
                                                 </Col>
                                             </Row>
                                             <Row style={{ alignItems: "center" }}>
-                                                <Col xs={7}>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.picture ?
+                                                <Col xs={2}>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.picture ?
                                                     (<div className="img-box" style={{ background: `url(${SelectedPatient.patient.picture})` }}>
                                                         {/*<img src={SelectedPatient.patient.picture} alt="" style={{ width: "auto", height: 214, borderRadius: 10 }} />*/}
                                                     </div>)
@@ -488,12 +503,24 @@ const Mypatient = (props) => {
 
                                                 )}
                                                 </Col>
-                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px' }}><DateRangeOutlinedIcon /></Col>
-                                                <Col xs={3} style={{ textAlign: 'right' }}><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col>
+                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px', paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
+                                                <Col xs={3} style={{ textAlign: 'center' }}><b><p className='pclass'>Upcoming :</p></b><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col>
+
+
+
+                                                <Col xs={2} style={{ paddingRight: '0', paddingLeft: '80px', paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
+                                                <Col xs={3} style={{ textAlign: 'center' }}><b><p className='pclass'>Current :</p></b><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div>
+                                                </Col>
+
+
                                             </Row>
                                             <Row style={{ alignItems: "center", marginTop: "5px" }}>
-                                                <Col xs={7}><div id="req-name"><b>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.firstName + " " + SelectedPatient.patient.lastName)}</b><br />{age} Years Old</div></Col>
-                                                <Col xs={5} className="patient-video-button" style={{ textAlign: 'right' }}>
+
+                                                <Col xs={4}><div id="req-name"><b>{SelectedPatient && SelectedPatient.patient && (SelectedPatient.patient.firstName + " " + SelectedPatient.patient.lastName)}</b><br />{age} Years Old</div></Col>
+                                                <Col xs={4}><div id="req-name"><b className="pclass1">Fee & Payment Method</b><br />$20 By Credit Card</div></Col>
+                                                {/* <Col xs={1} style={{ alignItems: "center",paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
+                                                <Col xs={7} style={{ textAlign: 'right' }}><p className='pclass'>Appointment Fee & Payment Method</p><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col> */}
+                                                <Col xs={4} className="patient-video-button" style={{ textAlign: 'right' }}>
                                                     <IconButton>
                                                         <Link to={`/doctor/chat?chatgroup=P${SelectedPatient?.patient?.id}_D${doctorId}`} title="Chat"><ChatIcon id="active-video-icon" /></Link>
                                                     </IconButton>
@@ -504,10 +531,77 @@ const Mypatient = (props) => {
                                             </Row>
                                         </div>
                                         <div id="req-info">
+                                            <Link
+                                                to={{ pathname: `/doctor/consulatationhistory` }}
+                                            >
+
+                                                <img
+                                                    width="40"
+                                                    height="40"
+                                                    src={conHistory}
+                                                    onClick='${pathname}'
+                                                    alt=""
+                                                    style={{ marginLeft: "5%", marginRight: "5%" }
+                                                    }
+                                                />
+                                                Consulatation History
+                                            </Link>
+                                            <br />
+                                            <br />
+
+                                            <Link
+                                                to={{ pathname: `/doctor/healthassesment-report` }}
+                                            >
+
+                                                <img
+                                                    width="40"
+                                                    height="40"
+                                                    src={HealthAssessment}
+                                                    onClick='${pathname}'
+                                                    alt=""
+                                                    style={{ marginLeft: "5%", marginRight: "5%" }
+                                                    }
+                                                />
+                                                Health Assestment Report
+                                            </Link>
+                                            <br />
+                                            <br />
+                                            <Link
+                                                to={{ pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}
+                                            >
+
+                                                <img
+                                                    width="40"
+                                                    height="40"
+                                                    src={MedicalRecord}
+                                                    onClick='${pathname}'
+                                                    alt=""
+                                                    style={{ marginLeft: "5%", marginRight: "5%" }
+                                                    }
+                                                />
+                                                Medical Record
+                                            </Link>
+                                            <br />
+                                            <br />
+                                            <Link
+                                                to={{ pathname: `/doctor/setnextappointment` }}
+                                            >
+
+                                                <img
+                                                    width="40"
+                                                    height="40"
+                                                    src={calendar}
+                                                    onClick='${pathname}'
+                                                    alt=""
+                                                    style={{ marginLeft: "5%", marginRight: "5%" }
+                                                    }
+                                                />
+                                                Set Next Appointment
+                                            </Link>
                                             {/* <span id="info-title">Diseases</span><br />
                                     <p>Hypertension Medium</p>
                                     <br /> */}
-                                            <span id="info-title">Comment</span><br />
+                                            {/* <span id="info-title">Comment</span><br />
                                             <p>{SelectedPatient.remarks}</p>
                                             <br />
                                             <span id="info-title">Chief Complaint</span><br />
@@ -551,11 +645,11 @@ const Mypatient = (props) => {
                                                         )}
                                                     </ul>
                                                 </span>
-                                            )}</div>
+                                            )}</div> */}
                                         </div>
                                         <Row>
                                             <Col className="profile-btn">
-                                                <Link to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}><button className="btn btn-primary view-btn">View patient profile</button></Link>
+                                                <Link to={{ pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}><button className="btn btn-primary view-btn">Reschedule</button></Link>
                                             </Col>
                                         </Row>
                                     </div>
