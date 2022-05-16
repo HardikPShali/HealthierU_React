@@ -64,12 +64,12 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar > button {
+.headerNavbar>button {
   color: #fff;
   font-size: 14px;
 }
 
-.headerNavbar > button:hover {
+.headerNavbar>button:hover {
   color: #fff;
 }
 
@@ -98,8 +98,9 @@ svg#search-icon {
 }
 
 @media (max-width: 992px) {
+
   #navbar a,
-  .headerNavbar > button {
+  .headerNavbar>button {
     padding: 10px 20px;
   }
 
@@ -529,12 +530,15 @@ input#doctor-search {
   border: none;
   border-radius: 10px;
 }
-.appointment-card-header{
+
+.appointment-card-header {
   margin-left: 5px;
   color: #344767;
   font-weight: 700;
   text-shadow: none;
+  font-size: 28px;
 }
+
 #appointment-card .card-body {
   padding: 10px !important;
 }
@@ -649,17 +653,12 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
-  .MuiGridListTileBar-title {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
   color: #fff;
   transition: 0.5s;
 }
@@ -1011,6 +1010,7 @@ img#profile-pic {
   border-radius: 50% !important;
   outline: 5px solid #00d0cc;
 }
+
 .profile-pic {
   width: 120px;
   height: 120px;
@@ -1093,6 +1093,7 @@ table#user-info {
 .specialities-icon {
   background-color: #00d0cc;
 }
+
 /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap'); */
 
 /* * {
@@ -1100,18 +1101,19 @@ table#user-info {
 } */
 
 .page-contain {
-  display:flex;
+  display: flex;
   /* justify-content: center; */
   /* background: #8df0ee; */
   /* border: .75em solid white; */
   /* padding: 2em; */
   /* font-family: 'Open Sans', sans-serif; */
 }
+
 /* AppointmentCount SECTION */
 .data-card {
   display: flex;
   flex-direction: row;
-  max-width: 100%;
+  width: 50%;
   min-height: 40%;
   overflow: hidden;
   border-radius: .5em;
@@ -1122,10 +1124,11 @@ table#user-info {
   box-shadow: 0 1.5em 2.5em -.5em rgba(#000000, .1);
 
 }
+
 .data-card1 {
   display: flex;
   flex-direction: row;
-  max-width: 100%;
+  width: 50%;
   min-height: 40%;
   overflow: hidden;
   border-radius: .5em;
@@ -1136,41 +1139,44 @@ table#user-info {
   box-shadow: 0 1.5em 2.5em -.5em rgba(#000000, .1);
 
 }
-  .appointment-count-h3 {
-    color: white;
-    font-size: 3.5em;
-    font-weight: 600;
-    line-height: 1;
-    padding-bottom: .5em;
-    margin: 0 0 0.142857143em;
-    transition: color .45s ease, border .45s ease;
-  }
 
-  .appointment-count-h4 {
-    color: white;
-    text-transform: uppercase;
-    font-size: 1.125em;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0.1em;
-    /* margin: 0 0 1.777777778em; */
-    transition: color .45s ease;
-  }
-  .appointment-count-title {
-    color: #3A3845;
-    font-size: 20px;
-    font-weight: 600;
-    padding-left: 15px; 
-  }
-  .appointment-count-p {
-    opacity: 0;
-    color: #FFFFFF;
-    font-weight: 600;
-    line-height: 1.8;
-    margin: 0 0 1.25em;
-    transform: translateY(-1em);
-    transition: opacity .45s ease, transform .5s ease;
-  }
+.appointment-count-h3 {
+  color: white;
+  font-size: 3.5em;
+  font-weight: 600;
+  line-height: 1;
+  padding-bottom: .5em;
+  margin: 0 0 0.142857143em;
+  transition: color .45s ease, border .45s ease;
+}
+
+.appointment-count-h4 {
+  color: white;
+  text-transform: uppercase;
+  font-size: 1.125em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  /* margin: 0 0 1.777777778em; */
+  transition: color .45s ease;
+}
+
+.appointment-count-title {
+  color: #3A3845;
+  font-size: 20px;
+  font-weight: 600;
+  padding-left: 15px;
+}
+
+.appointment-count-p {
+  opacity: 0;
+  color: #FFFFFF;
+  font-weight: 600;
+  line-height: 1.8;
+  margin: 0 0 1.25em;
+  transform: translateY(-1em);
+  transition: opacity .45s ease, transform .5s ease;
+}
 
 /* TABS IN PROFILE PAGE */
 .record-tabs {
@@ -1199,13 +1205,13 @@ table#user-info {
   align-items: center;
 }
 
-.record-tabs > .nav-link:hover {
+.record-tabs>.nav-link:hover {
   color: #495057 !important;
   text-decoration: none;
   outline: none;
 }
 
-.record-tabs > .nav-link.active {
+.record-tabs>.nav-link.active {
   color: #fff !important;
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
@@ -1224,20 +1230,25 @@ table#user-info {
   border-radius: 22px;
   /* padding: 10px 10%; */
 }
+
 #profile-form .MuiFormControl-root.MuiTextField-root {
   width: 100%;
 }
+
 #profile-form .MuiInputBase-formControl {
   border-radius: 10px;
 }
+
 #profile-form input#standard-basic {
   padding: 10px;
   border: none !important;
   border-radius: 10px;
 }
+
 #profile-form .MuiFilledInput-underline:after {
   display: none;
 }
+
 #profile-form .MuiFilledInput-underline:before {
   display: none;
 }
@@ -1273,9 +1284,11 @@ div#multiselectContainerReact div {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .p-image:hover {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .upload-button {
   font-size: 1.2em;
 }
@@ -1589,10 +1602,10 @@ li.react-tabs__tab {
 
 #prescription-list {
   padding: 10px;
-    background: white;
-    border-radius: 22px;
-    box-shadow: 2px 2px 1rem #dedede;
-    border: 1px solid #dedede;
+  background: white;
+  border-radius: 22px;
+  box-shadow: 2px 2px 1rem #dedede;
+  border: 1px solid #dedede;
 }
 
 #prescription-list tr {
@@ -1870,7 +1883,7 @@ div#primary-card {
 }
 
 @media (max-width: 700px) {
-  #footer .row > div {
+  #footer .row>div {
     margin-bottom: 40px;
   }
 
@@ -1891,7 +1904,7 @@ div#primary-card {
     text-align: center !important;
   }
 
-  #copyright .row > div {
+  #copyright .row>div {
     margin-bottom: 20px;
   }
 
@@ -2138,16 +2151,16 @@ div.reply .messageBody span.messageTime {
   text-transform: capitalize;
 }
 
-.list--tags > li {
+.list--tags>li {
   display: inline;
 }
 
-.list--tags > li:before {
+.list--tags>li:before {
   content: ',\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags > li:first-child:before {
+.list--tags>li:first-child:before {
   content: normal;
 }
 
@@ -2258,7 +2271,7 @@ Health Assessment
   background-repeat: no-repeat !important;
 }
 
-.modal-body > .form-group > label.col-form-label {
+.modal-body>.form-group>label.col-form-label {
   font-size: 14.5px;
 }
 
