@@ -15,7 +15,7 @@
 }
 
 body {
-  background: #fff !important;
+  background: #e5e5e5 !important;
 }
 
 /*
@@ -529,7 +529,12 @@ input#doctor-search {
   border: none;
   border-radius: 10px;
 }
-
+.appointment-card-header{
+  margin-left: 5px;
+  color: #344767;
+  font-weight: 700;
+  text-shadow: none;
+}
 #appointment-card .card-body {
   padding: 10px !important;
 }
@@ -1018,7 +1023,7 @@ img#profile-pic {
 
 #name {
   color: var(--primary);
-  font-size: 25px;
+  font-size: 23px;
   line-height: 20px;
   margin-top: 30px;
 }
@@ -1621,10 +1626,10 @@ li.react-tabs__tab {
 
 #prescription-list {
   padding: 10px;
-    background: white;
-    border-radius: 22px;
-    box-shadow: 2px 2px 1rem #dedede;
-    border: 1px solid #dedede;
+  background: white;
+  border-radius: 22px;
+  box-shadow: 2px 2px 1rem #dedede;
+  border: 1px solid #dedede;
 }
 
 #prescription-list tr {
