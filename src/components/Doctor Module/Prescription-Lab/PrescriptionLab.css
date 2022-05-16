@@ -1,20 +1,24 @@
-
-.prescription-lab-card__card-box {
+.prescription-lab__card-box {
   border-radius: 22px;
   color: #fff;
   font-weight: 700 !important;
   font-size: 20px !important;
   text-shadow: 0px 0px 15px #000;
+  margin-top: 20px;
 }
 
 
 
 
-.prescription-lab-card--main-header {
+.prescription-lab--main-header {
   margin-left: 5px;
   color: var(--text-primary);
   font-weight: 700;
   text-shadow: none;
+  font-size: 20px;
+  font-family: 'Biennale';
+  font-style: normal;
+  font-weight: bold;
 }
 
 .card-holder {
@@ -22,6 +26,7 @@
 }
 
 .prescription-lab-card {
+  margin-top: 10px;
   width: 100%;
   padding: 20px;
   position: relative;
@@ -40,12 +45,14 @@
 
 .prescription-lab-card:hover {
   transform: translateY(-2px);
-  box-shadow: 4px 4px 14px rgba(0,0,0,0.09);
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 .prescription-lab-card__img-wrapper {
   padding: 20px;
   text-align: center;
+  background: #F9F9F9;
+  border-radius: 8px;
 }
 
 .img-circle {
@@ -59,19 +66,40 @@
   color: black;
 }
 
-.prescription-lab-card__doctor-name {
+.prescription-lab-card__common-name {
   text-shadow: none;
+  font-family: 'Biennale';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  color: #3E4543;
+  margin-bottom: 2px;
+  text-transform: capitalize;
+}
+
+.prescription-lab-card__common-date {
+  text-shadow: none;
+  font-family: 'Biennale';
+  font-style: normal;
+  font-weight: 500;
   font-size: 18px;
-  font-weight: bold;
-  margin-bottom:2px;
+  line-height: 22px;
+  color: #3E4543;
+  margin-bottom: 2px;
   text-transform: capitalize;
 }
 
 .prescription-lab-card__common-span {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 500;
   font-size: 12px;
+  line-height: 16px;
   text-decoration: none;
   text-shadow: none;
-  font-weight: bold;
+
+  color: #999999;
 }
 
 .prescription-lab-card__specality {
@@ -90,16 +118,40 @@
   margin-top: 15px;
 }
 
-.prescription-lab-card-card__card-time-row {
+.prescription-lab-card-card__card-time-row {}
 
-}
-
-.prescription-lab-card__card-time-row > img {
+.prescription-lab-card__card-time-row>img {
   width: 28px;
   height: 28px;
   margin-right: 4px;
 }
-.prescription-lab-card__download
-{
-  margin-top: 30px;
+
+.prescription-lab-card__download {
+  margin-top: 20px;
+  position: absolute;
+  border: none;
+}
+
+.img-download {
+  position: absolute;
+  left: 32.81%;
+  right: 32.87%;
+  top: 28.19%;
+  bottom: 36.87%;
+
+  /* Style */
+
+  background: #5FCCC8;
+}
+
+.img-download1 {
+  position: absolute;
+  left: 21.73%;
+  right: 21.75%;
+  top: 53.06%;
+  bottom: 28.25%;
+
+  /* Style */
+
+  background: #5FCCC8;
 }
