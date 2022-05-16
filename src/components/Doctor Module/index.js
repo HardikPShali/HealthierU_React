@@ -20,8 +20,10 @@ const Logout = React.lazy(() => import("../Logout"));
 const Appointment = React.lazy(() => import("./Appointment"));
 const Mypatient = React.lazy(() => import("./Mypatient"));
 const Healthassessment = React.lazy(() => import("./Healthassessment"));
-
+const HealthAssestmentReport= React.lazy(() => import("./HealthAssestmentReport/HealthAssestmentReport"));
+const MedicalRecord= React.lazy(() => import("./file-upload/DoctorDocument"));
 const MyRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
+const ConsulatationHistory = React.lazy(() => import("./ConsulatationHistory/ConsulatationHistory"));
 
 const DoctorChatNew = React.lazy(() => import("../Doctor Module/DoctorChatNew"));
 
@@ -119,7 +121,10 @@ const DoctorRoute = () => {
         <Route exact path="/doctor" component={Homepage} />
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/mypatient" render={(props) => <Mypatient timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
-        <Route exact path="/doctor/health-assessment/:id" component={Healthassessment} />
+        <Route exact path="/doctor/medicalrecord/:id" component={Healthassessment} />
+        <Route exact path="/doctor/healthassesment-report" component={HealthAssestmentReport} />
+        <Route exact path="/doctor/medicalrecord" component={MedicalRecord} />
+        <Route exact path="/doctor/consulatationhistory" component={ConsulatationHistory} />
         {/*/render={(props) => <Healthassessment patient={patient} {...props} />} />*/}
         <Route exact path="/doctor/profile" render={(props) => <Profile currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/logout" component={Logout} />
