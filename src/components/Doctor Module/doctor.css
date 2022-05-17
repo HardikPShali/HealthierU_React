@@ -534,7 +534,9 @@ input#doctor-search {
   color: #344767;
   font-weight: 700;
   text-shadow: none;
+  font-size: 28px;
 }
+
 #appointment-card .card-body {
   padding: 10px !important;
 }
@@ -1009,6 +1011,7 @@ img#profile-pic {
   border-radius: 50% !important;
   outline: 5px solid #00d0cc;
 }
+
 .profile-pic {
   width: 120px;
   height: 120px;
@@ -1087,6 +1090,7 @@ table#user-info {
 .specialities-icon {
   background-color: #00d0cc;
 }
+
 /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap'); */
 
 /* * {
@@ -1101,11 +1105,12 @@ table#user-info {
   /* padding: 2em; */
   /* font-family: 'Open Sans', sans-serif; */
 }
+
 /* AppointmentCount SECTION */
 .data-card {
   display: flex;
   flex-direction: row;
-  max-width: 100%;
+  width: 50%;
   min-height: 40%;
   overflow: hidden;
   border-radius: 0.5em;
@@ -1115,10 +1120,11 @@ table#user-info {
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
+
 .data-card1 {
   display: flex;
   flex-direction: row;
-  max-width: 100%;
+  width: 50%;
   min-height: 40%;
   overflow: hidden;
   border-radius: 0.5em;
@@ -1128,6 +1134,16 @@ table#user-info {
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
+.appointment-count-h3 {
+  color: white;
+  font-size: 3.5em;
+  font-weight: 600;
+  line-height: 1;
+  padding-bottom: 0.5em;
+  margin: 0 0 0.142857143em;
+  transition: color 0.45s ease, border 0.45s ease;
+}
+
 .appointment-count-h3 {
   color: white;
   font-size: 3.5em;
@@ -1148,12 +1164,14 @@ table#user-info {
   /* margin: 0 0 1.777777778em; */
   transition: color 0.45s ease;
 }
+
 .appointment-count-title {
   color: #3a3845;
   font-size: 20px;
   font-weight: 600;
   padding-left: 15px;
 }
+
 .appointment-count-p {
   opacity: 0;
   color: #ffffff;
@@ -1162,6 +1180,31 @@ table#user-info {
   margin: 0 0 1.25em;
   transform: translateY(-1em);
   transition: opacity 0.45s ease, transform 0.5s ease;
+}
+
+/* Appointment-page design myAppointment.js */
+.pclass {
+  /* padding-left: 5px; */
+  /* padding-top: 8px; */
+  /* display: inline-block;
+  font-family: 'Biennale';
+  font-style: normal;
+  font-weight: 600; */
+  /* line-height: 20px; */
+  /* width: 44px;
+  height: 20px; */
+
+  font-size: 12px;
+}
+.pclass1 {
+  font-size: 10px;
+}
+
+.imgclass {
+  padding-top: 8px;
+  width: 36px;
+  height: 36px;
+  padding-right: 8px;
 }
 
 /* TABS IN PROFILE PAGE */
@@ -1216,20 +1259,25 @@ table#user-info {
   border-radius: 22px;
   /* padding: 10px 10%; */
 }
+
 #profile-form .MuiFormControl-root.MuiTextField-root {
   width: 100%;
 }
+
 #profile-form .MuiInputBase-formControl {
   border-radius: 10px;
 }
+
 #profile-form input#standard-basic {
   padding: 10px;
   border: none !important;
   border-radius: 10px;
 }
+
 #profile-form .MuiFilledInput-underline:after {
   display: none;
 }
+
 #profile-form .MuiFilledInput-underline:before {
   display: none;
 }
@@ -1265,9 +1313,11 @@ div#multiselectContainerReact div {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .p-image:hover {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .upload-button {
   font-size: 1.2em;
 }
@@ -1470,16 +1520,22 @@ div#req-info {
   border-bottom-left-radius: 22px;
   border-bottom-right-radius: 22px;
   padding: 15px 10px 5px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
 }
 
 span#info-title {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
   font-size: 12px;
-  color: var(--primary);
+  line-height: 20px;
+  color: #999999;
 }
 
 #req-info p {
-  font-size: 10px;
-  margin: 0;
+  font-size: 15px;
 }
 
 button.view-btn {
@@ -2243,10 +2299,10 @@ Health Assessment
 }
 
 .img-box {
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 502%;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -2602,133 +2658,4 @@ button {
 .btn-download-prescription {
   margin-top: -65px !important;
   width: -webkit-fill-available;
-}
-
-/* SEARCH BAR CSS */
-
-.searchForwardIcon {
-  position: absolute !important;
-  right: 60px;
-  color: #fff !important;
-}
-
-input#apointment-search {
-  color: #fff;
-}
-input#apointment-search :focus {
-  background-color: #00d1cd !important;
-}
-
-/* Filter Box */
-
-.appointment-filter-box {
-  background: #fff;
-  border-radius: 22px;
-  padding: 20px 5px;
-  position: absolute;
-  width: 87% !important;
-  z-index: 2;
-  display: block;
-  margin-top: 60px;
-  text-align: left;
-
-  box-shadow: 0px 0px 10px #ddd;
-  height: 47%;
-  overflow: auto;
-}
-.scroller-cardlist {
-  scrollbar-color: #00d0cc white; /* thumb and track color */
-  scrollbar-width: thin !important;
-  -moz-appearance: none !important;
-  border-radius: 2px;
-}
-.scroller-cardlist::-webkit-scrollbar {
-  width: 7.5px;
-  -moz-appearance: none !important;
-}
-
-.scroller-cardlist::-webkit-scrollbar-track {
-  background: white;
-  -moz-appearance: none !important;
-}
-
-.scroller-cardlist::-webkit-scrollbar-thumb {
-  background: #7f7f7f;
-  border-right: 1px solid white;
-  -moz-appearance: none !important;
-}
-/* Css for overlay */
-#overlay {
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
-}
-#text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 50px;
-  color: white;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-}
-
-button.apply-btn {
-  background-color: var(--primarysecond) !important;
-  width: 100%;
-  border-radius: 30px;
-  border-color: var(--primarysecond) !important;
-  color: var(--secondary) !important;
-  outline: none !important;
-  box-shadow: none !important;
-  font-size: 13px;
-}
-
-button.reset-btn {
-  background-color: #00d1cd !important;
-  width: 100%;
-  border-radius: 30px;
-  border-color: #00d1cd !important;
-  outline: none !important;
-  box-shadow: none !important;
-  font-size: 13px;
-}
-
-.appointment-filter-box .MuiFilledInput-underline:after {
-  display: none;
-}
-
-.appointment-filter-box .MuiFilledInput-underline:before {
-  display: none;
-}
-
-.appointment-filter-box .MuiInputBase-formControl {
-  border-radius: 30px;
-  text-align: left;
-  margin-bottom: 5px;
-}
-
-.appointment-filter-box .MuiFilledInput-input {
-  padding: 5px 10px !important;
-  font-size: 14px;
-}
-
-.appointment-filter-body p {
-  margin: 0 !important;
-  font-size: 14px;
-}
-
-.appointment-filter-multiselect div {
-  border: none;
-  background: #e8e8e8;
-  border-radius: 20px !important;
-  margin-bottom: 5px;
 }
