@@ -835,11 +835,11 @@ export const getUpcomingAppointmentsForHomepage = async (id) => {
     });
     return response;
 }
-export const getAppointmentsForHomepage = async (startTime,endTime) => {
+export const getAppointmentsForHomepage = async (startTime, endTime) => {
     var payload = {
         method: 'get',
         mode: 'no-cors',
-        url: `/api/mobile/appointments/doctor/?startTime=${startTime}&endTime=${endTime}`,
+        url: `/api/v2/appointments/doctor/?startTime=${startTime}&endTime=${endTime}`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
