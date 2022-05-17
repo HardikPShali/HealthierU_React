@@ -259,22 +259,21 @@ const Myappointment = (props) => {
               (response.data[index + 1] &&
                 response.data[index + 1].unifiedAppointment)
             ) {
-                // Keeping the following comment, in future, if we have to display the appointment message with urgency and comments
-                // `Dr. ${
-                //     value?.doctor?.firstName
-                //   } with ${
-                //     value.urgency ? value.urgency : "no"
-                //   } urgency, comments : ${
-                //     value.remarks ? value.remarks : "no comments"
-                //   }`
+              // Keeping the following comment, in future, if we have to display the appointment message with urgency and comments
+              // `Dr. ${
+              //     value?.doctor?.firstName
+              //   } with ${
+              //     value.urgency ? value.urgency : "no"
+              //   } urgency, comments : ${
+              //     value.remarks ? value.remarks : "no comments"
+              //   }`
               updateArray.push({
                 id: value.id,
                 patientId: value.patientId,
                 doctorId: value.doctorId,
                 doctor: value.doctor,
-                title: `Appointment with Dr. ${
-                  value?.doctor?.firstName
-                }`,
+                title: `Appointment with Dr. ${value?.doctor?.firstName
+                  }`,
                 startTime: new Date(value.startTime),
                 endTime: new Date(response.data[index + 1].endTime),
                 remarks: value.remarks,
@@ -284,19 +283,19 @@ const Myappointment = (props) => {
               });
             } else if (
               value.unifiedAppointment !==
-                (response.data[index + 1] &&
-                  response.data[index + 1].unifiedAppointment) &&
+              (response.data[index + 1] &&
+                response.data[index + 1].unifiedAppointment) &&
               value.unifiedAppointment ===
-                (response[index - 1] && response[index - 1].unifiedAppointment)
+              (response[index - 1] && response[index - 1].unifiedAppointment)
             ) {
               return false;
             } else if (
               value.unifiedAppointment !==
-                (response.data[index + 1] &&
-                  response.data[index + 1].unifiedAppointment) &&
+              (response.data[index + 1] &&
+                response.data[index + 1].unifiedAppointment) &&
               value.unifiedAppointment !==
-                (response.data[index - 1] &&
-                  response.data[index - 1].unifiedAppointment)
+              (response.data[index - 1] &&
+                response.data[index - 1].unifiedAppointment)
             ) {
               updateArray.push({
                 id: value.id,

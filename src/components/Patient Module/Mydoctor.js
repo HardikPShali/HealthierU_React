@@ -348,7 +348,7 @@ const MyDoctor = (props) => {
         name.push(specialityName.name);
         return specialityName;
       });
-      setSpeciality({ ...speciality, specialityOptions: res.data });
+      setSpeciality({ ...speciality, specialityOptions: res.data.data });
     }
   };
 
@@ -913,8 +913,8 @@ const MyDoctor = (props) => {
         setLoading(false);
       }
     });
-    if (res && res.data) {
-      setLanguage({ languageOptions: res.data });
+    if (res && res.data.data) {
+      setLanguage({ languageOptions: res.data.data });
     }
   };
 
@@ -924,8 +924,9 @@ const MyDoctor = (props) => {
         setLoading(false);
       }
     });
-    if (res && res.data) {
-      setCountryList(res.data);
+    console.log('Country List', res);
+    if (res && res.data.data) {
+      setCountryList(res.data.data.id);
     }
   };
 
@@ -1077,7 +1078,6 @@ const MyDoctor = (props) => {
                   value={searchText}
                   id="doctor-search"
                   autoComplete='off'
-
                   onChange={(value) => handleSearchInputChange(value)}
                   onCancelSearch={() => handleSearchInputChange("")}
                   onRequestSearch={() => handleSearchData(false)}
@@ -1233,34 +1233,6 @@ const MyDoctor = (props) => {
                               </div>
                             </div>
                             <hr />
-                            {/* <FormControl>
-                                                            <Select
-                                                                id="demo-controlled-open-select"
-                                                                variant="filled"
-                                                                name="locationFilter"
-                                                                value={locationFilter}
-                                                                displayEmpty
-                                                                onChange={e => setFilterValues({ ...filterValues, locationFilter: e.target.value })}
-                                                            >
-                                                                <MenuItem value="">
-                                                                    <em>Location</em>
-                                                                </MenuItem>
-                                                            </Select>
-                                                        </FormControl>
-                                                        <FormControl>
-                                                            <Select
-                                                                id="demo-controlled-open-select"
-                                                                variant="filled"
-                                                                name="insuranceFilter"
-                                                                value={insuranceFilter}
-                                                                displayEmpty
-                                                                onChange={e => setFilterValues({ ...filterValues, insuranceFilter: e.target.value })}
-                                                            >
-                                                                <MenuItem value="">
-                                                                    <em>Insurance</em>
-                                                                </MenuItem>
-                                                            </Select>
-                                                        </FormControl> */}
                             <FormControl>
                               <Select
                                 id="demo-controlled-open-select"
@@ -1311,26 +1283,6 @@ const MyDoctor = (props) => {
                               </div>
                             </div>
                             <hr />
-                            {/* <p>Sort by:</p>
-                                                        <div className="row">
-                                                            <div className="col-md-6 col-xs-6">
-                                                                <Chip
-                                                                    label="Relevance"
-                                                                    color={sortFilter === "Relevance" ? "primary" : ""}
-                                                                    onClick={() => setFilterValues({ ...filterValues, sortFilter: "Relevance" })}
-                                                                    style={{ width: "100%" }}
-                                                                />
-                                                            </div>
-                                                            <div className="col-md-6 col-xs-6">
-                                                                <Chip
-                                                                    label="Closest to me"
-                                                                    color={sortFilter === "Closet" ? "primary" : ""}
-                                                                    onClick={() => setFilterValues({ ...filterValues, sortFilter: "Closet" })}
-                                                                    style={{ width: "100%" }}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <hr /> */}
                           </div>
                         </div>
                       </div>
