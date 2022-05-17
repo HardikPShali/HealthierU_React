@@ -1,0 +1,19 @@
+.message ul li.msg-left .msg-desc {
+    background: #fff;
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+.message ul li.msg-left .msg-desc:before {
+    border-bottom-color: #fff;
+}
+
+.message ul li.msg-right .msg-desc {
+    background: #D2EEEC;
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+.message ul li.msg-right .msg-desc:before {
+    border-bottom-color: #D2EEEC;
+}

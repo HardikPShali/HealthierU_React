@@ -7,6 +7,8 @@
 
 .main-section small {
   font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .main-section h3,
@@ -24,6 +26,7 @@
   margin-bottom: 40px;
 }
 
+
 .head-section {
   border-bottom: 1px solid #e6e6e6;
   clear: both;
@@ -33,6 +36,8 @@
   font-size: 16px;
   font-weight: bold;
   background-color: #ffffff;
+  display: flex;
+  align-items: center;
 }
 
 .headLeft-section {
@@ -68,6 +73,9 @@
 
 .headRight-sub {
   padding-left: 15px;
+  text-transform: capitalize;
+  font-weight: bold;
+  color: var(--text-primary);
 }
 
 .body-section {
@@ -137,13 +145,13 @@
 
 .left-section .chatList {
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .left-section .chatList .img {
   width: 60px;
-  float: left;
-  text-align: center;
-  position: relative;
+  margin-left: 10px;
 }
 
 .left-section .chatList .img img {
@@ -163,8 +171,8 @@
 
 .left-section .chatList .desc {
   width: calc(100% - 60px);
-  float: left;
-  position: relative;
+  display: flex;
+  align-items: flex-start;
 }
 
 .left-section .chatList .desc h5 {

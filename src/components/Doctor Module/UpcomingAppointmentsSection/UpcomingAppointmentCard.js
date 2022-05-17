@@ -29,8 +29,8 @@ const UpcomingAppointmentCard = ({ appointment }) => {
           <h5 className="upcoming-appointment-card__doctor-name">
             {appointment[appointmentPersonKey] &&
               appointment[appointmentPersonKey].firstName +
-              " " +
-              appointment[appointmentPersonKey].lastName}
+                " " +
+                appointment[appointmentPersonKey].lastName}
           </h5>
           <span className="upcoming-appointment-card__specality">
             {appointmentPersonKey === "doctor" &&

@@ -13,3 +13,13 @@
 body {
   background: #f5f5f5 !important;
 }
+
+
+.empty-message {
+  color: var(--text-secondary);
+  text-shadow: none;
+}
+
+.bg-main-color {
+  background-color: #f5f5f5;
+}

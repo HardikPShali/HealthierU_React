@@ -38,7 +38,8 @@ import {
     getDocumentById,
 } from '../../service/DocumentService';
 import CancelIcon from '@material-ui/icons/Cancel';
-
+import PrescriptionLabCard from './Prescription-Lab/PrescriptionLabCard';
+import './Prescription-Lab/PrescriptionLab.css'
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
@@ -169,25 +170,29 @@ const Healthassessment = (props) => {
     const clickPagination = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
         setPresecriptionDocument(null);
+
         const prescriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             pageNumber - 1,
-            doctor.id,
+            doctor.data.id,
             patient.id
         );
+
         setPresecriptionDocument(prescriptionDocument);
-        //console.log(currentPageNumber)
+
     };
     const clickPaginationForLab = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
+
         const documents = await getDoctorPatientDocuments(
             'Lab',
             pageNumber - 1,
-            doctor.id,
+            doctor.data.id,
             patient.id
         );
+
         setLabDocument(documents);
-        //console.log(currentPageNumber)
+
     };
 
     const handleEditModal = async (item) => {
@@ -245,14 +250,16 @@ const Healthassessment = (props) => {
         if (patientInfo) {
             setPatient(patientInfo);
         }
-
         const presecriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             0,
-            doctor.id,
+            doctor.data.id,
+
             patientInfo && patientInfo.id
+
         );
         setPresecriptionDocument(presecriptionDocument);
+        console.log("presecriptionDocument", presecriptionDocument)
 
         // const response = await getPatientQuestionnaire(
         //     patientInfo && patientInfo.id
@@ -297,9 +304,11 @@ const Healthassessment = (props) => {
         const prescriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             0,
-            doctor.id,
+            doctor.data.id,
             patient.id
+
         );
+
         setPresecriptionDocument(prescriptionDocument);
     };
 
@@ -319,9 +328,10 @@ const Healthassessment = (props) => {
         const labDocument = await getDoctorPatientDocuments(
             'Lab',
             0,
-            doctor.id,
+            doctor.data.id,
             patient.id
         );
+
         setLabDocument(labDocument);
     };
 
@@ -332,7 +342,7 @@ const Healthassessment = (props) => {
             documents = await getDoctorPatientDocuments(
                 'Lab',
                 0,
-                doctor.id,
+                doctor.data.id,
                 patient.id
             );
             setLabDocument(documents);
@@ -342,7 +352,7 @@ const Healthassessment = (props) => {
             documents = await getDoctorPatientDocuments(
                 'Prescription',
                 0,
-                doctor.id,
+                doctor.data.id,
                 patient.id
             );
             setPresecriptionDocument(documents);
@@ -361,6 +371,17 @@ const Healthassessment = (props) => {
 
     const { DurationStartDate, DurationEndDate } = date;
 
+
+    // code to get the file extension
+
+    function getFileExtension(filename) {
+        console.log("filename", filename)
+        // get file extension
+        const extension = filename.split('.').pop();
+        console.log("extension", extension)
+        return extension;
+
+    }
     return (
         <>
             <Container>
@@ -383,7 +404,7 @@ const Healthassessment = (props) => {
                                     title="Lab Result"
                                     onSelect={clickTabEvent}
                                 >
-                                    Lab Result
+                                    Result
                                 </Tab>
                             </TabList>
 
@@ -402,8 +423,50 @@ const Healthassessment = (props) => {
                                     </div>
                                 </div>
                                 <br />
-                                <div id="prescription-list">
-                                    <table>
+                                {/* <div id="prescription-list"> */}
+
+                                {presecriptionDocument?.documentsList ? (
+                                    presecriptionDocument?.documentsList.map(
+                                        (dataItem, subIndex) => {
+                                            return (
+
+                                                <div className="prescription-lab__card-box">
+                                                    <h3 className="prescription-lab--main-header mb-3 mt-2">
+                                                        {moment(dataItem.docUploadTime).format("MMM")}
+                                                    </h3>
+                                                    <div className="card-holder">
+                                                        <div className="row">
+
+                                                            <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
+
+                                                                <PrescriptionLabCard
+                                                                    filetype={getFileExtension(dataItem.name)}
+                                                                    name={"Prescription"}
+                                                                    apid={"100"}
+                                                                    date={dataItem.docUploadTime}
+                                                                    time={dataItem.docUploadTime}
+                                                                    download={(e) => showDocument(dataItem)}
+                                                                />
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                    )
+                                ) : (
+                                    <div
+                                        className="col-12 ml-2"
+                                        style={{ textShadow: 'none', color: 'black' }}
+                                    >
+                                        No Documents
+                                    </div>
+                                )}
+
+                                {/* </div> */}
+                                {/* <table>
                                         <thead>
                                             <tr>
                                                 <th width="100">Action</th>
@@ -422,8 +485,7 @@ const Healthassessment = (props) => {
                                                         return (
                                                             <tr key={dataItem.id}>
                                                                 <td width="100" style={{ cursor: 'pointer' }}>
-                                                                    {/* <img width="20" height="20" onClick={e => showDocument(dataItem)}
-                                                            src={documentViewImage} alt="" /> */}
+                                                                 
                                                                     <VisibilityIcon
                                                                         style={{ color: '#4f80e2' }}
                                                                         title="View"
@@ -471,8 +533,8 @@ const Healthassessment = (props) => {
                                                 <tr></tr>
                                             )}
                                         </tbody>
-                                    </table>
-                                </div>
+                                    </table> */}
+
                                 <br />
                                 <div>
                                     <Pagination size="sm" style={{ float: 'right' }}>
@@ -530,89 +592,128 @@ const Healthassessment = (props) => {
                                     </div>
                                 </div>
                                 <br />
-                                <div id="prescription-list">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th width="100">
-                                                    <b>Action</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Name</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Lab Name</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Date</b>
-                                                </th>
-                                                <th width="200">
-                                                    <b>Description</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Patient</b>
-                                                </th>
-                                                <th width="100">
-                                                    <b>Doctor</b>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {labDocument?.documentsList ? (
-                                                labDocument.documentsList.map((dataItem, subIndex) => {
-                                                    return (
-                                                        <tr key={dataItem.id}>
-                                                            <td width="100" style={{ cursor: 'pointer' }}>
-                                                                {/* <img width="30" height="30" onClick={e => showLabDocument(dataItem)}
+                                {labDocument?.documentsList ? (
+                                    labDocument?.documentsList.map(
+                                        (dataItem, subIndex) => {
+                                            return (
+
+                                                <div className="prescription-lab__card-box">
+                                                    <h3 className="prescription-lab--main-header mb-3 mt-2">
+                                                        {moment(dataItem.docUploadTime).format("MMM")}
+                                                    </h3>
+                                                    <div className="card-holder">
+                                                        <div className="row">
+
+                                                            <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
+
+                                                                <PrescriptionLabCard
+                                                                    filetype={getFileExtension(dataItem.name)}
+                                                                    name={"Lab"}
+                                                                    apid={"100"}
+                                                                    date={dataItem.docUploadTime}
+                                                                    time={dataItem.docUploadTime}
+                                                                    download={(e) => showLabDocument(dataItem)}
+                                                                />
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                    )
+                                ) : (
+                                    <div
+                                        className="col-12 ml-2"
+                                        style={{ textShadow: 'none', color: 'black' }}
+                                    >
+                                        No Documents
+                                    </div>
+                                )}
+                                {/* <div id="prescription-list">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th width="100">
+                                                <b>Action</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Name</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Lab Name</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Date</b>
+                                            </th>
+                                            <th width="200">
+                                                <b>Description</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Patient</b>
+                                            </th>
+                                            <th width="100">
+                                                <b>Doctor</b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {labDocument?.documentsList ? (
+                                            labDocument.documentsList.map((dataItem, subIndex) => {
+                                                return (
+                                                    <tr key={dataItem.id}>
+                                                        <td width="100" style={{ cursor: 'pointer' }}>
+                                                            {/* <img width="30" height="30" onClick={e => showLabDocument(dataItem)}
                                                             src={documentViewImage} alt="" style={{ cursor: 'pointer' }} /> */}
-                                                                <VisibilityIcon
-                                                                    style={{ color: '#4f80e2' }}
-                                                                    title="View"
-                                                                    width="20"
-                                                                    height="20"
-                                                                    onClick={(e) => showLabDocument(dataItem)}
-                                                                />
-                                                                <img
-                                                                    width="15"
-                                                                    height="15"
-                                                                    onClick={() => handleEditLabModal(dataItem)}
-                                                                    src={editIcon}
-                                                                    alt=""
-                                                                    style={{
-                                                                        marginLeft: '5%',
-                                                                        marginRight: '5%',
-                                                                    }}
-                                                                />
-                                                            </td>
-                                                            <td width="100">{dataItem.name}</td>
-                                                            <td width="100">{dataItem.labName}</td>
-                                                            <td width="100">
-                                                                {formatDate(dataItem.docUploadTime)}
-                                                            </td>
-                                                            <td width="200">{dataItem.decription}</td>
-                                                            <td width="100">
-                                                                {dataItem?.patient
-                                                                    ? dataItem?.patient?.firstName +
-                                                                    ' ' +
-                                                                    dataItem?.patient?.lastName
-                                                                    : ''}
-                                                            </td>
-                                                            <td width="100">
-                                                                {dataItem?.doctor
-                                                                    ? dataItem?.doctor?.firstName +
-                                                                    ' ' +
-                                                                    dataItem?.doctor?.lastName
-                                                                    : ''}
-                                                            </td>
-                                                        </tr>
-                                                    );
-                                                })
-                                            ) : (
-                                                <tr></tr>
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                {/* <VisibilityIcon
+                                                                style={{ color: '#4f80e2' }}
+                                                                title="View"
+                                                                width="20"
+                                                                height="20"
+                                                                onClick={(e) => showLabDocument(dataItem)}
+                                                            />
+                                                            <img
+                                                                width="15"
+                                                                height="15"
+                                                                onClick={() => handleEditLabModal(dataItem)}
+                                                                src={editIcon}
+                                                                alt=""
+                                                                style={{
+                                                                    marginLeft: '5%',
+                                                                    marginRight: '5%',
+                                                                }}
+                                                            />
+                                                        </td>
+                                                        <td width="100">{dataItem.name}</td>
+                                                        <td width="100">{dataItem.labName}</td>
+                                                        <td width="100">
+                                                            {formatDate(dataItem.docUploadTime)}
+                                                        </td>
+                                                        <td width="200">{dataItem.decription}</td>
+                                                        <td width="100">
+                                                            {dataItem?.patient
+                                                                ? dataItem?.patient?.firstName +
+                                                                ' ' +
+                                                                dataItem?.patient?.lastName
+                                                                : ''}
+                                                        </td>
+                                                        <td width="100">
+                                                            {dataItem?.doctor
+                                                                ? dataItem?.doctor?.firstName +
+                                                                ' ' +
+                                                                dataItem?.doctor?.lastName
+                                                                : ''}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })
+                                        ) : (
+                                            <tr></tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>  */}
                                 <br />
                                 <div>
                                     <Pagination size="sm" style={{ float: 'right' }}>

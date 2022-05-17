@@ -115,8 +115,7 @@ const UpcomingAppointments = () => {
                             })
                         ) : (
                             <div
-                                className="col-12 ml-2"
-                                style={{ textShadow: 'none', color: 'black' }}
+                                className="col-12 ml-2 empty-message"
                             >
                                 No Upcoming Appointments
                             </div>
