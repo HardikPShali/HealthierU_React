@@ -15,7 +15,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import { getDoctorByUserId, getPatientChiefComplaint, getPatientFamilyAndSocialHistoryData, loadActivePatient, loadPastPatient } from '../../service/frontendapiservices';
 import SearchBarComponent from '../CommonModule/SearchAndFilter/SearchBarComponent';
 import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
 

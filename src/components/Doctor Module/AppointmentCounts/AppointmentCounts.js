@@ -27,14 +27,14 @@ const AppoitmentCountsSection = () => {
             <section className="page-contain">
 
                 <div className="data-card">
-                    <div>
+                    <div className='data-card__helper'>
                         <h3 className="appointment-count-h3">{appointmentsCount.totalAppointmentsForTheDay}</h3>
                         <h4 className="appointment-count-h4">Total Appointments</h4>
 
                     </div>
                 </div>
                 <div className="data-card1">
-                    <div>
+                    <div className='data-card__helper'>
                         <h3 className="appointment-count-h3">{appointmentsCount.pendingAppointments}</h3>
                         <h4 className="appointment-count-h4">Today's Pending Appointments</h4>
 
