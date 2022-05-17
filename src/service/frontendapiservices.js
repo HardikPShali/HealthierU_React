@@ -822,7 +822,7 @@ export const getUpcomingAppointmentsForHomepage = async (id) => {
     var payload = {
         method: 'get',
         mode: 'no-cors',
-        url: `/api/mobile/appointments/upcoming?patientId=${id}`,
+        url: `/api/v2/appointments/upcoming?patientId=${id}`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'

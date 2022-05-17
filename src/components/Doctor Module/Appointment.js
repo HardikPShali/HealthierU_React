@@ -593,30 +593,32 @@ const Myappointment = (props) => {
                                 </button>
                             </Tooltip>
                             <br />
-                            <Calendar
-                                components={{
-                                    dateCellWrapper: (props) => (
-                                        <TouchCellWrapper onSelectSlot={handleSelect} {...props} />
-                                    ),
-                                }}
-                                selectable={true}
-                                localizer={localizer}
-                                events={state}
-                                defaultView={Views.MONTH}
-                                startAccessor="startTime"
-                                endAccessor="endTime"
-                                titleAccessor="title"
-                                style={{ height: 500 }}
-                                // min={new Date(new Date().setHours(0,0,0))}
-                                // max={new Date(new Date().setHours(23,59,59))}
-                                timeslots={1}
-                                step={30}
-                                onSelecting={slot => false}
-                                onSelectEvent={event => handleSlotInfo(event)}
-                                onSelectSlot={handleSelect}
-                                eventPropGetter={(event) => eventStyleGetter(event)}
-                                slotPropGetter={(event) => slotStyleGetter(event)}
-                            />
+                            <div className='bg-white rounded p-5 shadow'>
+                                <Calendar
+                                    components={{
+                                        dateCellWrapper: (props) => (
+                                            <TouchCellWrapper onSelectSlot={handleSelect} {...props} />
+                                        ),
+                                    }}
+                                    selectable={true}
+                                    localizer={localizer}
+                                    events={state}
+                                    defaultView={Views.MONTH}
+                                    startAccessor="startTime"
+                                    endAccessor="endTime"
+                                    titleAccessor="title"
+                                    style={{ height: 500 }}
+                                    // min={new Date(new Date().setHours(0,0,0))}
+                                    // max={new Date(new Date().setHours(23,59,59))}
+                                    timeslots={1}
+                                    step={30}
+                                    onSelecting={slot => false}
+                                    onSelectEvent={event => handleSlotInfo(event)}
+                                    onSelectSlot={handleSelect}
+                                    eventPropGetter={(event) => eventStyleGetter(event)}
+                                    slotPropGetter={(event) => slotStyleGetter(event)}
+                                />
+                            </div>
                         </Col>
                     </Row>
                     <br />
@@ -626,11 +628,11 @@ const Myappointment = (props) => {
                         <span className="availableColor">Available Appointment</span><br />
                     </div>
                     <hr />
-                    <Row className="mt-3">
-                        <Col md={12}><h2 className="mt-3 mb-3 text-center">List of Appointments</h2></Col>
+                    <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
+                        <Col md={12}><h2 className="mt-3 mb-3 text-center font-weight-bold">List of Appointments</h2></Col>
                         <Col md={6}>
-                            <div className="appointment-slot-list booked">
-                                <h3 className="mb-3 text-center">Booked Appointments</h3>
+                            <div className="appointment-slot-list booked ">
+                                <h3 className="mb-3 text-center font-weight-bold">Booked Appointments</h3>
                                 {acceptedAppointment && (
                                     <div className={classes.root}>
                                         {acceptedAppointment.map((appointment, index) => {
@@ -665,7 +667,7 @@ const Myappointment = (props) => {
                         </Col>
                         <Col md={6}>
                             <div className="appointment-slot-list available">
-                                <h3 className="mb-3 text-center">Available Appointments</h3>
+                                <h3 className="mb-3 text-center font-weight-bold">Available Appointments</h3>
                                 {state && (
                                     <div className={classes.root}>
                                         {state.map((appointment, index) => {
