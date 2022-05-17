@@ -24,7 +24,7 @@ const HealthAssestmentReport= React.lazy(() => import("./HealthAssestmentReport/
 const MedicalRecord= React.lazy(() => import("./file-upload/DoctorDocument"));
 const MyRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
 const ConsulatationHistory = React.lazy(() => import("./ConsulatationHistory/ConsulatationHistory"));
-
+const AddPrescription = React.lazy(() => import("./Prescription-Lab/AddPrescription"));
 const DoctorChatNew = React.lazy(() => import("../Doctor Module/DoctorChatNew"));
 
 const DoctorShop = React.lazy(() => import("./doctorshop"));
@@ -132,6 +132,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/shop" component={DoctorShop} />
         <Route exact path="/doctor/article" component={DoctorArticle} />
         <Route exact path="/doctor/changepassword" component={ChangeAccountPassword} />
+        <Route exact path="/doctor/addPrescription" component={AddPrescription} />
         <Route exact path="/doctor/about-us" render={(props) => <AboutUs currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/privacy-policy" render={(props) => <PrivacyPolicyPage currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/terms-and-conditions" render={(props) => <TermsAndConditionsPage currentuserInfo={currentLoggedInUser} {...props} />} />
