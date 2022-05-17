@@ -602,7 +602,7 @@ const Myappointment = (props) => {
                                 selectable={true}
                                 localizer={localizer}
                                 events={state}
-                                defaultView={Views.WEEK}
+                                defaultView={Views.MONTH}
                                 startAccessor="startTime"
                                 endAccessor="endTime"
                                 titleAccessor="title"

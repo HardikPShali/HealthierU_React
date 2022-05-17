@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from 'react'
-// import Footer from './Footer'
 import { Link } from 'react-router-dom'
-// import default_image from '../../images/default_image.png';
 import './doctor.css'
 import { Container, Row, Col } from 'react-bootstrap';
-// import axios from 'axios';
-//import patientprofile from '../../images/patientprof.png';
-//import appointmentreq from '../../images/appointmentreq.png';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
-// import LocalStorageService from "./../../util/LocalStorageService";
 import Cookies from 'universal-cookie';
 import Loader from './../Loader/Loader';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import moment from 'moment';
 import Avatar from 'react-avatar';
-//import { checkAccessToken } from '../../service/RefreshTokenService';
 import ChatIcon from '@material-ui/icons/Chat';
 import VideocamIcon from '@material-ui/icons/Videocam';
-//import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-// import { handleAgoraAccessToken } from '../../service/agoratokenservice';
-// import { handleSignin } from '../../service/AccountService';
-// import momentTz from 'moment-timezone';
 import { getDoctorByUserId, getPatientChiefComplaint, getPatientFamilyAndSocialHistoryData, loadActivePatient, loadPastPatient } from '../../service/frontendapiservices';
 import SearchBarComponent from '../CommonModule/SearchAndFilter/SearchBarComponent';
 import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
+
+// import { handleAgoraAccessToken } from '../../service/agoratokenservice';
+// import { handleSignin } from '../../service/AccountService';
+// import momentTz from 'moment-timezone';
+//import VideocamOffIcon from '@material-ui/icons/VideocamOff';
+//import { checkAccessToken } from '../../service/RefreshTokenService';
+// import LocalStorageService from "./../../util/LocalStorageService";
+// import axios from 'axios';
+//import patientprofile from '../../images/patientprof.png';
+//import appointmentreq from '../../images/appointmentreq.png';
+// import default_image from '../../images/default_image.png';
+// import Footer from './Footer'
 
 const Mypatient = (props) => {
     // const currentTimezone = props.timeZone;
@@ -136,6 +137,7 @@ const Mypatient = (props) => {
                 setLoading(false);
             }
         });
+        console.log("response ::::::", response);
         if (response.status === 200 || response.status === 201) {
             setActiveOffset(activeOffset + 1);
             setTimeout(() => setLoading(false), 1000);
@@ -243,7 +245,7 @@ const Mypatient = (props) => {
                         <div id="patient-col-1">
                             <div id="patient-heading">My Patients</div>
                             <div className='d-flex mt-2 justify-content-around'>
-                                <SearchBarComponent />
+                                <SearchBarComponent activeAppointments={activeAppointments} />
                                 <FilterComponent />
                             </div>
                             <Tabs style={{ margin: '10px' }} id="mypatient-tabs">

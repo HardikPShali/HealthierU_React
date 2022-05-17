@@ -2153,6 +2153,8 @@ div.reply .messageBody span.messageTime {
   background: rgb(238, 255, 238);
   height: 680px;
   overflow-y: scroll;
+  border-radius: 20px;
+  box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
 }
 
 /* width */
@@ -2282,6 +2284,14 @@ Health Assessment
   font-size: 12px;
 }
 
+.rbc-time-view,
+.rbc-month-view,
+.rbc-agenda-view {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
+}
+
 /*.rbc-time-slot.past:after {
     content: "You cannot book an appointment on past time.";
     position: absolute;
@@ -2309,6 +2319,36 @@ Health Assessment
 
 .rbc-event {
   z-index: 1;
+}
+
+/* width */
+
+.rbc-time-content::-webkit-scrollbar,
+.rbc-agenda-view::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+.rbc-time-content::-webkit-scrollbar-track,
+.rbc-agenda-view::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+.rbc-time-content::-webkit-scrollbar-thumb,
+.rbc-agenda-view::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+.rbc-time-content::-webkit-scrollbar-thumb:hover,
+.rbc-agenda-view::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
 
 span.followupColor:before {
