@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from 'react'
-// import Footer from './Footer'
 import { Link } from 'react-router-dom'
-// import default_image from '../../images/default_image.png';
 import './doctor.css'
 import { Container, Row, Col } from 'react-bootstrap';
-// import axios from 'axios';
-//import patientprofile from '../../images/patientprof.png';
-//import appointmentreq from '../../images/appointmentreq.png';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
-// import LocalStorageService from "./../../util/LocalStorageService";
 import Cookies from 'universal-cookie';
 import Loader from './../Loader/Loader';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import moment from 'moment';
 import Avatar from 'react-avatar';
-//import { checkAccessToken } from '../../service/RefreshTokenService';
 import ChatIcon from '@material-ui/icons/Chat';
 import VideocamIcon from '@material-ui/icons/Videocam';
-//import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
+import SearchBarComponent from '../CommonModule/SearchAndFilter/SearchBarComponent';
+import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
+
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 // import { handleSignin } from '../../service/AccountService';
 // import momentTz from 'moment-timezone';
@@ -143,6 +138,7 @@ const Mypatient = (props) => {
             }
             console.log("loadActivePatient", response)
         });
+        console.log("response ::::::", response);
         if (response.status === 200 || response.status === 201) {
             console.log("loadActivePatient", response)
             setActiveOffset(activeOffset + 1);
@@ -251,6 +247,10 @@ const Mypatient = (props) => {
                     <Col lg={6} md={6} id="col">
                         <div id="patient-col-1">
                             <div id="patient-heading">My Patients</div>
+                            <div className='d-flex mt-2 justify-content-around'>
+                                <SearchBarComponent activeAppointments={activeAppointments} />
+                                <FilterComponent />
+                            </div>
                             <Tabs style={{ margin: '10px' }} id="mypatient-tabs">
                                 <TabList style={{ boxShadow: 'rgb(0 0 0 / 24%) 0px 0px 5px' }}>
                                     <Tab onClick={() => {
@@ -290,7 +290,7 @@ const Mypatient = (props) => {
                                                 {activeAppointments.map((user, index) => {
                                                     if (user.unifiedAppointment === (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) {
                                                         if (user && user.patient) {
-                                                            return (<>
+                                                            return (
                                                                 <tr key={index}>
                                                                     <td width="50" style={{ cursor: "pointer" }} onClick={async () => {
                                                                         handleConsultationClick(user, activeAppointments[index + 1].endTime);
@@ -313,7 +313,7 @@ const Mypatient = (props) => {
                                                                     <td width="100">{user.patient.weight}</td>
                                                                     <td width="100"><span title={moment(user.startTime).format("h:mm A") + " - " + moment(activeAppointments[index + 1].endTime).format("h:mm A")}>{moment(user.startTime).format("MMM DD, YYYY")}</span></td>
                                                                 </tr>
-                                                            </>)
+                                                            )
                                                         }
 
                                                     }

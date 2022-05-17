@@ -1,6 +1,6 @@
-import React from "react";
-import Avatar from "react-avatar";
-import "./ProfileImage.css";
+import React from 'react';
+import Avatar from 'react-avatar';
+import './ProfileImage.css';
 
 const ProfileImage = ({ currentPatient, onEdit }) => {
   return (
@@ -12,15 +12,15 @@ const ProfileImage = ({ currentPatient, onEdit }) => {
           className="avatar-profile"
           name={
             currentPatient &&
-            currentPatient.firstName + " " + currentPatient.lastName
+            currentPatient.firstName + ' ' + currentPatient.lastName
           }
-          style={{ height: "150px", width: "138px" }}
+          style={{ height: '150px', width: '138px' }}
         />
       )}
       <div className="d-flex flex-column mt-4">
         <div className="profile-name">
           {currentPatient &&
-            currentPatient.firstName + " " + currentPatient.lastName}
+            currentPatient.firstName + ' ' + currentPatient.lastName}
         </div>
         <p id="description">{currentPatient.email}</p>
         <div className="mt-1">
@@ -32,7 +32,7 @@ const ProfileImage = ({ currentPatient, onEdit }) => {
               //   setToggleProfile({ ...toggleProfile, editProfile: true });
             }}
           >
-            Edit
+            Edit Profile
           </button>
         </div>
       </div>

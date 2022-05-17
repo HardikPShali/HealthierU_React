@@ -287,7 +287,7 @@ const Profile = ({ currentDoctor }) => {
                                             // setDisplay({ ...display, profile: 'none', editProfile: 'block' })
                                             setToggleProfile({ ...toggleProfile, editProfile: true })
                                         }
-                                    }>Request Edit</button>
+                                    }>Edit Profile</button>
                                 </div>
                             </div>
                         </Col>
