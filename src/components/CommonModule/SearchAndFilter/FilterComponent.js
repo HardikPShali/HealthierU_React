@@ -80,7 +80,7 @@ const FilterComponent = () => {
                     >
                         <div className="appointment-filter-body">
                             <div className="row m-0">
-                                <div className="col-md-12 col-xs-12 pr-1">
+                                {/* <div className="col-md-12 col-xs-12 pr-1">
                                     <p>Patient ID:</p>
                                     <TextField
                                         type="text"
@@ -101,7 +101,7 @@ const FilterComponent = () => {
                                         onChange={(value) => handleInput(value)}
                                         value={setFilterValues.patientName}
                                     />
-                                </div>
+                                </div> */}
                                 <div className="col-md-12 col-xs-12">
                                     <p>Appointment Date:</p>
                                     <div className="row">

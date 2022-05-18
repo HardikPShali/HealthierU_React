@@ -68,7 +68,7 @@ const Homepage = ({ currentuserInfo }) => {
 export default Homepage;
 function doctorHomePage() {
     return (
-        <div>
+        <div style={{ height: '100vh' }}>
             <br />
             <br />
             <Container>
