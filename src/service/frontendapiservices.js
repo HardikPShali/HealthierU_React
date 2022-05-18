@@ -857,7 +857,7 @@ export const getAppointmentsBySearch = async (patientName) => {
     var payload = {
         method: 'get',
         mode: 'no-cors',
-        url: `/api/mobile/appointments/doctor/search?patientName=${patientName}`,
+        url: `/api/v2/appointments/doctor/search?patientName=${patientName}`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
