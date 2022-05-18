@@ -185,6 +185,10 @@ const Signin = () => {
     // }
 
     cookies.set("currentUser", currentUserInformation.data.userInfo);
+    currentUserInformation.data.role.firebasePwd = currentUserInformation.data.firebasePwd;
+    if (!currentUserInformation.data.role.email) {
+      currentUserInformation.data.role.email = currentUserInformation.data.userInfo.email;
+    }
     cookies.set("profileDetails", currentUserInformation.data.role);
     if (
       authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER")

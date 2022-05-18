@@ -139,8 +139,8 @@ const Profile = () => {
                 setLoading(false);
             }
         });
-        if (res && res.data && res.data.length > 0) {
-            Setoption({ countryList: res.data });
+        if (res && res.data.data && res.data.data.length > 0) {
+            Setoption({ countryList: res.data.data });
             setTimeout(() => setLoading(false), 1000);
         }
     };
