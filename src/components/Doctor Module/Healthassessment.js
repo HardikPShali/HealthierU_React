@@ -434,7 +434,7 @@ const Healthassessment = (props) => {
                                         (dataItem, subIndex) => {
                                             return (
 
-                                                <div className="prescription-lab__card-box">
+                                                <div className="prescription-lab__card-box" >
                                                     <h3 className="prescription-lab--main-header mb-3 mt-2">
                                                         {moment(dataItem.docUploadTime).format("MMM")}
                                                     </h3>
@@ -903,7 +903,7 @@ const Healthassessment = (props) => {
                         ></input>
                         {inputList.map((x, i) => {
                             return (
-                                <div className="form-group row">
+                                <div className="form-group row" key={i}>
                                     <label htmlFor="topic" className="col-sm-3 col-form-label">
                                         Medicine
                                     </label>

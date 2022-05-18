@@ -29,8 +29,8 @@ const UpcomingAppointmentCard = ({ appointment }) => {
           <h5 className="upcoming-appointment-card__doctor-name">
             {appointment[appointmentPersonKey] &&
               appointment[appointmentPersonKey].firstName +
-                " " +
-                appointment[appointmentPersonKey].lastName}
+              " " +
+              appointment[appointmentPersonKey].lastName}
           </h5>
           <span className="upcoming-appointment-card__specality">
             {appointmentPersonKey === "doctor" &&
@@ -45,13 +45,13 @@ const UpcomingAppointmentCard = ({ appointment }) => {
               )[1].replace("_", " ")}
           </span>
           <div className="upcoming-appointment-card__card-details--date-div">
-            <div class="upcoming-appointment-card__card-time-row">
+            <div className="upcoming-appointment-card__card-time-row">
               <img src={calendarSmall} />
               <span className="upcoming-appointment-card__common-span">
                 {moment(appointment.startTime).format("DD/MM/YY")}
               </span>
             </div>
-            <div class="upcoming-appointment-card__card-time-row ml-4">
+            <div className="upcoming-appointment-card__card-time-row ml-4">
               <img src={timeSmall} />
               <span className="upcoming-appointment-card__common-span">
                 {moment(appointment.startTime).format("hh:mm A")}

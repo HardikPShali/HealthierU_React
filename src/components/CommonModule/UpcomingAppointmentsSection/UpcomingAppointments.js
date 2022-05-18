@@ -1,94 +1,92 @@
 import React, { useState, useEffect } from 'react';
 import UpcomingAppointmentCard from './UpcomingAppointmentCard';
 import './UpcomingAppointments.css';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 import { getUpcomingAppointmentsForHomepage } from '../../../service/frontendapiservices';
 
 const UpcomingAppointments = () => {
     const [upcomingAppointments, setUpcomingAppointments] = useState([]);
 
 
-    const cookie = new Cookies();
-    const currentUserFromCookie = cookie.get('profileDetails');
+    // const cookie = new Cookies();
+    // const currentUserFromCookie = cookie.get('profileDetails');
 
     const getUpcomingAppointments = async () => {
-        const patientId = currentUserFromCookie.id;
+        // const patientId = currentUserFromCookie.id;
         // console.log("patientId", patientId);
-        if (patientId) {
-            const response = await getUpcomingAppointmentsForHomepage(
-                patientId
-            ).catch((err) => {
-                console.log('err', err);
-            });
-            // console.log('response', response);
-            if (response.status === 200 || response.status === 201) {
-                if (response && response.data) {
-                    //console.log("response.data ::: ", response.data)
-                    const upcomingAppointments = response.data.data;
-                    const reversedAppointments = upcomingAppointments.reverse();
-                    const updateArray = [];
-                    reversedAppointments.map((value, index) => {
-                        if (value.status === 'ACCEPTED') {
-                            if (
-                                value.unifiedAppointment ===
-                                (reversedAppointments[index + 1] &&
-                                    reversedAppointments[index + 1].unifiedAppointment)
-                            ) {
-                                updateArray.push({
-                                    id: value.id,
-                                    patientId: value.patientId,
-                                    doctorId: value.doctorId,
-                                    doctor: value.doctor,
-                                    title: `Appointment booked with Dr. ${value?.doctor?.firstName
-                                        } with ${value.urgency ? value.urgency : 'no'
-                                        } urgency, comments : ${value.remarks ? value.remarks : 'no comments'
-                                        }`,
-                                    startTime: new Date(value.startTime),
-                                    endTime: new Date(reversedAppointments[index + 1].endTime),
-                                    remarks: value.remarks,
-                                    status: value.status,
-                                    appointmentId: value.appointmentId,
-                                    unifiedAppointment: value.unifiedAppointment,
-                                    patient: value.patient
-                                });
-                            } else if (
-                                value.unifiedAppointment !==
-                                (reversedAppointments[index + 1] &&
-                                    reversedAppointments[index + 1].unifiedAppointment) &&
-                                value.unifiedAppointment ===
-                                (response[index - 1] && response[index - 1].unifiedAppointment)
-                            ) {
-                                return false;
-                            } else if (
-                                value.unifiedAppointment !==
-                                (reversedAppointments[index + 1] &&
-                                    reversedAppointments[index + 1].unifiedAppointment) &&
-                                value.unifiedAppointment !==
-                                (reversedAppointments[index - 1] &&
-                                    reversedAppointments[index - 1].unifiedAppointment)
-                            ) {
-                                updateArray.push({
-                                    id: value.id,
-                                    patientId: value.patientId,
-                                    doctorId: value.doctorId,
-                                    doctor: value.doctor,
-                                    startTime: new Date(value.startTime),
-                                    endTime: new Date(value.endTime),
-                                    remarks: value.remarks,
-                                    status: value.status,
-                                    appointmentId: value.appointmentId,
-                                    unifiedAppointment: value.unifiedAppointment,
-                                    patient: value.patient
-                                });
-                            }
+        // if (patientId) {
+        const response = await getUpcomingAppointmentsForHomepage().catch((err) => {
+            console.log('err', err);
+        });
+        console.log('UA response', response);
+        if (response.status === 200 || response.status === 201) {
+            if (response && response.data) {
+                //console.log("response.data ::: ", response.data)
+                const upcomingAppointments = response.data.data;
+                const reversedAppointments = upcomingAppointments.reverse();
+                const updateArray = [];
+                reversedAppointments.map((value, index) => {
+                    if (value.status === 'ACCEPTED') {
+                        if (
+                            value.unifiedAppointment ===
+                            (reversedAppointments[index + 1] &&
+                                reversedAppointments[index + 1].unifiedAppointment)
+                        ) {
+                            updateArray.push({
+                                id: value.id,
+                                patientId: value.patientId,
+                                doctorId: value.doctorId,
+                                doctor: value.doctor,
+                                title: `Appointment booked with Dr. ${value?.doctor?.firstName
+                                    } with ${value.urgency ? value.urgency : 'no'
+                                    } urgency, comments : ${value.remarks ? value.remarks : 'no comments'
+                                    }`,
+                                startTime: new Date(value.startTime),
+                                endTime: new Date(reversedAppointments[index + 1].endTime),
+                                remarks: value.remarks,
+                                status: value.status,
+                                appointmentId: value.appointmentId,
+                                unifiedAppointment: value.unifiedAppointment,
+                                patient: value.patient
+                            });
+                        } else if (
+                            value.unifiedAppointment !==
+                            (reversedAppointments[index + 1] &&
+                                reversedAppointments[index + 1].unifiedAppointment) &&
+                            value.unifiedAppointment ===
+                            (response[index - 1] && response[index - 1].unifiedAppointment)
+                        ) {
+                            return false;
+                        } else if (
+                            value.unifiedAppointment !==
+                            (reversedAppointments[index + 1] &&
+                                reversedAppointments[index + 1].unifiedAppointment) &&
+                            value.unifiedAppointment !==
+                            (reversedAppointments[index - 1] &&
+                                reversedAppointments[index - 1].unifiedAppointment)
+                        ) {
+                            updateArray.push({
+                                id: value.id,
+                                patientId: value.patientId,
+                                doctorId: value.doctorId,
+                                doctor: value.doctor,
+                                startTime: new Date(value.startTime),
+                                endTime: new Date(value.endTime),
+                                remarks: value.remarks,
+                                status: value.status,
+                                appointmentId: value.appointmentId,
+                                unifiedAppointment: value.unifiedAppointment,
+                                patient: value.patient
+                            });
                         }
-                    });
-                    console.log('updateArray', updateArray);
-                    setUpcomingAppointments(updateArray);
-                }
+                    }
+                });
+                console.log('updateArray', updateArray);
+                setUpcomingAppointments(updateArray);
             }
-
         }
+
+        // }
     };
 
     useEffect(() => {

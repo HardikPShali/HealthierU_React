@@ -10,13 +10,17 @@ const Questions = () => {
                 <div className='Questions-card'>
                     {dummyQuestions.length > 0 &&
                         dummyQuestions.map(
+
                             (q, index) => (
-                                <QuestionsCard
-                                    index={q.index}
-                                    question={q.question}
-                                    answer={q.answer}
-                                />
+                                <div key={index}>
+                                    <QuestionsCard
+                                        index={q.index}
+                                        question={q.question}
+                                        answer={q.answer}
+                                    />
+                                </div>
                             )
+
                         )}
 
 

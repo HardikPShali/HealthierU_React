@@ -818,11 +818,11 @@ export const getAllDoctorsForHomepage = async () => {
     return response;
 }
 
-export const getUpcomingAppointmentsForHomepage = async (id) => {
+export const getUpcomingAppointmentsForHomepage = async () => {
     var payload = {
         method: 'get',
         mode: 'no-cors',
-        url: `/api/v2/appointments/upcoming?patientId=${id}`,
+        url: `/api/v2/appointments/upcoming`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
@@ -840,6 +840,24 @@ export const getAppointmentsForHomepage = async (startTime, endTime) => {
         method: 'get',
         mode: 'no-cors',
         url: `/api/v2/appointments/doctor/?startTime=${startTime}&endTime=${endTime}`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const getAppointmentsBySearch = async (patientName) => {
+    var payload = {
+        method: 'get',
+        mode: 'no-cors',
+        url: `/api/v2/appointments/doctor/search?patientName=${patientName}`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'

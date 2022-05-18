@@ -2664,3 +2664,117 @@ button {
   margin-top: -65px !important;
   width: -webkit-fill-available;
 }
+
+/* Filter Box */
+
+.appointment-filter-box {
+  background: #fff;
+  border-radius: 22px;
+  padding: 20px 5px;
+  position: absolute;
+  width: 87% !important;
+  z-index: 2;
+  display: block;
+  margin-top: 60px;
+  text-align: left;
+
+  box-shadow: 0px 0px 10px #ddd;
+  height: 47%;
+  overflow: auto;
+}
+.scroller-cardlist {
+  scrollbar-color: #00d0cc white; /* thumb and track color */
+  scrollbar-width: thin !important;
+  -moz-appearance: none !important;
+  border-radius: 2px;
+}
+.scroller-cardlist::-webkit-scrollbar {
+  width: 7.5px;
+  -moz-appearance: none !important;
+}
+
+.scroller-cardlist::-webkit-scrollbar-track {
+  background: white;
+  -moz-appearance: none !important;
+}
+
+.scroller-cardlist::-webkit-scrollbar-thumb {
+  background: #7f7f7f;
+  border-right: 1px solid white;
+  -moz-appearance: none !important;
+}
+/* Css for overlay */
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+#text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+button.apply-btn {
+  background-color: var(--primarysecond) !important;
+  width: 100%;
+  border-radius: 30px;
+  border-color: var(--primarysecond) !important;
+  color: var(--secondary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+}
+
+button.reset-btn {
+  background-color: #00d1cd !important;
+  width: 100%;
+  border-radius: 30px;
+  border-color: #00d1cd !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+}
+
+.appointment-filter-box .MuiFilledInput-underline:after {
+  display: none;
+}
+
+.appointment-filter-box .MuiFilledInput-underline:before {
+  display: none;
+}
+
+.appointment-filter-box .MuiInputBase-formControl {
+  border-radius: 30px;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.appointment-filter-box .MuiFilledInput-input {
+  padding: 5px 10px !important;
+  font-size: 14px;
+}
+
+.appointment-filter-body p {
+  margin: 0 !important;
+  font-size: 14px;
+}
+
+.appointment-filter-multiselect div {
+  border: none;
+  background: #e8e8e8;
+  border-radius: 20px !important;
+  margin-bottom: 5px;
+}
