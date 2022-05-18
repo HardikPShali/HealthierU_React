@@ -15,6 +15,7 @@ import {
   updatePatientTimeZone,
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
+import Cookies from "universal-cookie";
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
 
@@ -64,6 +65,8 @@ const PatientRoute = () => {
   const [restartFirebaseLogin, setRestartFirebaseLogin] = useState(0);
   const systemTimeZone = momentTz.tz.guess();
 
+  const cookie = new Cookies();
+
   useEffect(() => {
     {
       currentuserInfo.profileCompleted == true &&
@@ -109,11 +112,12 @@ const PatientRoute = () => {
   }, [addedNewChatGroupListTrigger]);
 
   const getCurrentPatient = async () => {
-    const currentPatient = await getCurrentPatientInfo(currentuserInfo.id, currentuserInfo.login);
+    // const currentPatient = await getCurrentPatientInfo(currentuserInfo.id, currentuserInfo.login);
+    const currentPatient = cookie.get('profileDetails');
     // console.log('Current patient', currentPatient);
-    setCurrentPatient(currentPatient.data);
-    if (currentPatient?.data?.patientTimeZone !== systemTimeZone) {
-      handleSubmit(currentPatient.data.id, systemTimeZone);
+    setCurrentPatient(currentPatient);
+    if (currentPatient?.patientTimeZone !== systemTimeZone) {
+      handleSubmit(currentPatient.id, systemTimeZone);
     }
   };
 

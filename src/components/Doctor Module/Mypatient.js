@@ -17,6 +17,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import SearchBarComponent from '../CommonModule/SearchAndFilter/SearchBarComponent';
 import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
+import { getAppointmentsBySearch } from '../../service/frontendapiservices';
+
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 // import { handleSignin } from '../../service/AccountService';
@@ -91,21 +93,24 @@ const Mypatient = (props) => {
     const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
 
     const getCurrentDoctor = async () => {
-        const res = await getDoctorByUserId(loggedInUserId);
-        if (res && res.data) {
-            res.data.doctors.map(async (value, index) => {
-                if (value.userId === loggedInUserId) {
-                    const currentDoctorId = value.id;
-                    setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctorId })
-                    // const response = await getFireBaseChatRoom(currentDoctorId);
-                    // setChatRooms(response);
-                    loadPatient(currentDoctorId);
-                }
-            })
-            // setCurrentDoctor({...currentDoctor, id: currentDoctorId });
-        }
+        // const res = await getDoctorByUserId(loggedInUserId);
+        const currentDoctor = cookies.get('profileDetails');
+        setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
+        // if (res && res.data) {
+        //     res.data.doctors.map(async (value, index) => {
+        //         if (value.userId === loggedInUserId) {
+        // const currentDoctorId = value.id;
+        // setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctorId })
+        // const response = await getFireBaseChatRoom(currentDoctorId);
+        // setChatRooms(response);
+        loadPatient(currentDoctor.id);
 
+        //     })
+        //     // setCurrentDoctor({...currentDoctor, id: currentDoctorId });
+        // }
     }
+
+
 
     const getChiefComplaintData = async (patientId) => {
         // const res = await getPatientChiefComplaint(patientId)
@@ -237,6 +242,43 @@ const Mypatient = (props) => {
         }
     }
 
+    //SEARCH CODE
+    const [search, setSearch] = useState({});
+
+    const getAppointmentsByPatientName = async (search) => {
+        const response = await getAppointmentsBySearch(search).catch((err) => {
+            console.log('err', err);
+        });
+        // console.log("Search Appointments response | in SearchBarComponent :::::::", response);
+        // console.log("Search Appointments response patient | in SearchBarComponent :::::::", response.data.map(item => item.patient));
+        return response;
+
+    }
+
+    const handleSearchInputChange = async (searchValue) => {
+        //console.log("searchValue :::::::", searchValue);
+        if (searchValue === "") {
+            console.log("blank searchValue is | in SearchBarComponent", searchValue);
+            loadPatient(currentDoctor.id);
+
+            // setSearchText(searchValue);
+        }
+        else {
+            // console.log("searchValue is | in SearchBarComponent", searchValue);
+            const response = await getAppointmentsByPatientName(searchValue);
+            setActiveAppointments(response.data);
+            setActiveOffset(0);
+            if (response.data[0] && response.data[0].patient) {
+                handleActivePastTab(response.data[0], (response.data[1] && response.data[1]));
+                calculate_age(response.data[0].patient.dateOfBirth);
+                getChiefComplaintData(response.data[0].patient.id);
+                getFamilyAndSocialHistoryData(response.data[0].patient.id);
+            }
+            // console.log("response is | in SearchBarComponent", response);
+            setSearch(response.data.map(item => item.patient));
+        }
+    };
+
     return (
         <div>
             {loading && (
@@ -248,9 +290,11 @@ const Mypatient = (props) => {
                         <div id="patient-col-1">
                             <div id="patient-heading">My Patients</div>
                             <div className='d-flex mt-2 justify-content-around'>
-                                <SearchBarComponent />
+                                <SearchBarComponent updatedSearch={handleSearchInputChange} />
                                 <FilterComponent />
+
                             </div>
+                            {console.log("search | in MyPatient ::::::", search)}
                             <Tabs style={{ margin: '10px' }} id="mypatient-tabs">
                                 <TabList style={{ boxShadow: 'rgb(0 0 0 / 24%) 0px 0px 5px' }}>
                                     <Tab onClick={() => {
@@ -287,6 +331,11 @@ const Mypatient = (props) => {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {
+                                                    search.length > 0 && search.map((searchData, index) => {
+                                                        console.log("searchData", searchData);
+                                                    })
+                                                }
                                                 {activeAppointments.map((user, index) => {
                                                     if (user.unifiedAppointment === (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) {
                                                         if (user && user.patient) {
