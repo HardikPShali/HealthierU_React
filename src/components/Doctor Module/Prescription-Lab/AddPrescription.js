@@ -51,11 +51,11 @@ const AddPrescription = () => {
     const [countOfDays, setcountOfDays] = useState(0);
     const [prescriptionList, setprescriptionList] = useState([{
         // name: '',
-        medicine: '',
+        medicineName: '',
         dose: '',
         duration: '',
         quantity: '',
-        noOfDays: '',
+        numberOfDays: '',
         interval: '',
         prescriptionDocument: null,
     }]);
@@ -111,11 +111,11 @@ const AddPrescription = () => {
         setDate(0);
         setprescriptionList([...prescriptionList, {
             // name: '',
-            medicine: '',
+            medicineName: '',
             dose: '',
             duration: null,
             quantity: '',
-            noOfDays: '',
+            numberOfDays: '',
             interval: '',
             prescriptionDocument: null,
         }]);
@@ -218,11 +218,11 @@ const AddPrescription = () => {
                                                     <div className="col-sm-9">
                                                         <input
                                                             type="text"
-                                                            id="medicine"
-                                                            name="medicine"
+                                                            id="medicineName"
+                                                            name="medicineName"
                                                             className="form-control"
                                                             onChange={(e) => handleInputChange(e, i)}
-                                                            value={x.medicine}
+                                                            value={x.medicineName}
                                                             placeholder="Medicine Name"
                                                             required
                                                             variant="filled"
@@ -314,11 +314,11 @@ const AddPrescription = () => {
                                                     <div className="col-sm-9">
                                                         <input
                                                             type="number"
-                                                            id="noOfDays"
-                                                            name="noOfDays"
+                                                            id="numberOfDays"
+                                                            name="numberOfDays"
                                                             className="form-control"
                                                             onChange={(e) => handleInputChange(e, i)}
-                                                            value={x.noOfDays}
+                                                            value={x.numberOfDays}
                                                             inputProps={{
                                                                 min: 1,
                                                                 // max: 65
@@ -328,7 +328,7 @@ const AddPrescription = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className="form-group row">
+                                                {/* <div className="form-group row">
                                                     <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
                                                         Quantity
                                                     </label>
@@ -345,7 +345,7 @@ const AddPrescription = () => {
                                                             required
                                                         ></input>
                                                     </div>
-                                                </div>
+                                                </div> */}
 
 
                                                 <div className="form-group row">
@@ -388,7 +388,7 @@ const AddPrescription = () => {
                                                 </div>
 
 
-                                                {/* <div className="form-group row">
+                                                <div className="form-group row">
                                                     <label
                                                         htmlFor="prescriptionDocument"
                                                         className="col-sm-3 prescription-lab-card__common-name"
@@ -453,7 +453,7 @@ const AddPrescription = () => {
                                                             </>
                                                         )}
                                                     </div>
-                                                </div> */}
+                                                </div>
 
 
                                                 <div className="btn-box">
@@ -471,7 +471,7 @@ const AddPrescription = () => {
                                                             className="medicineButton"
                                                             variant="primary"
                                                             onClick={handleAddClick}
-                                                        disabled
+                                                        // disabled
                                                         >
                                                             Add Medicine
                                                         </Button>
