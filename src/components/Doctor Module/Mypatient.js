@@ -248,7 +248,7 @@ const Mypatient = (props) => {
                         <div id="patient-col-1">
                             <div id="patient-heading">My Patients</div>
                             <div className='d-flex mt-2 justify-content-around'>
-                                <SearchBarComponent activeAppointments={activeAppointments} />
+                                <SearchBarComponent />
                                 <FilterComponent />
                             </div>
                             <Tabs style={{ margin: '10px' }} id="mypatient-tabs">
@@ -325,7 +325,7 @@ const Mypatient = (props) => {
                                                     else if (((user.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) &&
                                                         (user.unifiedAppointment !== (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment)))) {
                                                         if (user && user.patient) {
-                                                            return (<>
+                                                            return (
                                                                 <tr key={index}>
                                                                     <td width="50" style={{ cursor: "pointer" }} onClick={async () => {
                                                                         setSelectedPatient(user);
@@ -348,7 +348,7 @@ const Mypatient = (props) => {
                                                                     <td width="100">{user.patient.weight}</td>
                                                                     <td width="100"><span title={moment(user.startTime).format("h:mm A") + " - " + moment(user.endTime).format("h:mm A")}>{moment(user.startTime).format("MMM DD, YYYY")}</span></td>
                                                                 </tr>
-                                                            </>)
+                                                            )
                                                         }
                                                     }
                                                     return activeAppointments;
@@ -383,7 +383,7 @@ const Mypatient = (props) => {
                                                 {pastAppointments.map((user, index) => {
                                                     if (user.unifiedAppointment === (pastAppointments[index + 1] && pastAppointments[index + 1].unifiedAppointment)) {
                                                         if (user && user.patient) {
-                                                            return (<>
+                                                            return (
                                                                 <tr key={index}>
                                                                     <td width="50" style={{ cursor: "pointer" }} onClick={async () => {
                                                                         handleConsultationClick(user, pastAppointments[index + 1].endTime);
@@ -406,7 +406,7 @@ const Mypatient = (props) => {
                                                                     <td width="100">{user.patient.weight}</td>
                                                                     <td width="100"><span title={moment(user.startTime).format("h:mm A") + " - " + moment(pastAppointments[index + 1].endTime).format("h:mm A")}>{moment(user.startTime).format("MMM DD, YYYY")}</span></td>
                                                                 </tr>
-                                                            </>)
+                                                            )
                                                         }
 
                                                     }
@@ -418,7 +418,7 @@ const Mypatient = (props) => {
                                                     else if (((user.unifiedAppointment !== (pastAppointments[index + 1] && pastAppointments[index + 1].unifiedAppointment)) &&
                                                         (user.unifiedAppointment !== (pastAppointments[index - 1] && pastAppointments[index - 1].unifiedAppointment)))) {
                                                         if (user && user.patient) {
-                                                            return (<>
+                                                            return (
                                                                 <tr key={index}>
                                                                     <td width="50" style={{ cursor: "pointer" }} onClick={async () => {
                                                                         setSelectedPatient(user);
@@ -441,7 +441,7 @@ const Mypatient = (props) => {
                                                                     <td width="100">{user.patient.weight}</td>
                                                                     <td width="100"><span title={moment(user.startTime).format("h:mm A") + " - " + moment(user.endTime).format("h:mm A")}>{moment(user.startTime).format("MMM DD, YYYY")}</span></td>
                                                                 </tr>
-                                                            </>)
+                                                            )
                                                         }
                                                     }
                                                     return pastAppointments;
@@ -539,7 +539,7 @@ const Mypatient = (props) => {
                                                     width="40"
                                                     height="40"
                                                     src={conHistory}
-                                                    onClick='${pathname}'
+                                                    // onClick='${pathname}'
                                                     alt=""
                                                     style={{ marginLeft: "5%", marginRight: "5%" }
                                                     }
@@ -557,7 +557,7 @@ const Mypatient = (props) => {
                                                     width="40"
                                                     height="40"
                                                     src={HealthAssessment}
-                                                    onClick='${pathname}'
+                                                    // onClick='${pathname}'
                                                     alt=""
                                                     style={{ marginLeft: "5%", marginRight: "5%" }
                                                     }
@@ -574,7 +574,7 @@ const Mypatient = (props) => {
                                                     width="40"
                                                     height="40"
                                                     src={MedicalRecord}
-                                                    onClick='${pathname}'
+                                                    // onClick='${pathname}'
                                                     alt=""
                                                     style={{ marginLeft: "5%", marginRight: "5%" }
                                                     }
@@ -591,7 +591,7 @@ const Mypatient = (props) => {
                                                     width="40"
                                                     height="40"
                                                     src={calendar}
-                                                    onClick='${pathname}'
+                                                    // onClick='${pathname}'
                                                     alt=""
                                                     style={{ marginLeft: "5%", marginRight: "5%" }
                                                     }
