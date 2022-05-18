@@ -40,11 +40,12 @@ import {
 import CancelIcon from '@material-ui/icons/Cancel';
 import PrescriptionLabCard from './Prescription-Lab/PrescriptionLabCard';
 import './Prescription-Lab/PrescriptionLab.css'
+import { useHistory } from 'react-router';
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
     //const { id } = useParams();
-
+    const history = useHistory();
     const topicSet = new Set();
     const [questionnaire, setQuestionnaire] = useState(null);
     const [doctor, setDoctor] = useState(null);
@@ -249,6 +250,7 @@ const Healthassessment = (props) => {
         const patientInfo = props.location.state;
         if (patientInfo) {
             setPatient(patientInfo);
+            console.log("patientInfo",patientInfo.id)
         }
         const presecriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
@@ -268,9 +270,10 @@ const Healthassessment = (props) => {
     };
 
     const handlePrescriptionUploadShow = () => {
-        setDate(0);
-        setShowPrescriptionUpload(true);
-        setPrescriptionResult(null);
+        // setDate(0);
+        // setShowPrescriptionUpload(true);
+        // setPrescriptionResult(null);
+        history.push(`/doctor/addPrescription`)
     };
 
     const handleUploadLabResultShow = () => {
@@ -412,6 +415,7 @@ const Healthassessment = (props) => {
                                 <div className="row">
                                     <div className="col-lg-10"></div>
                                     <div className="col-md-2 text-right">
+                                    {/* <Link to={{ pathname: `/doctor/addPrescription/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}><button className="btn btn-primary view-btn">Reschedule</button></Link> */}
                                         <button
                                             type="button"
                                             className="btn btn-primary"
