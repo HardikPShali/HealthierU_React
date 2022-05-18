@@ -119,7 +119,7 @@ const Welcome = ({ currentuserInfo }) => {
             currentUserData();
         }
     }, [])
-    //const [inputList, setInputList] = useState([{ education: '', institution: '' }]);
+    const [educationList, setEducationList] = useState([{ educationalQualification: '', institution: '' }]);
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
         firstName: (currentuserInfo && currentuserInfo.firstName) || "",
@@ -135,19 +135,20 @@ const Welcome = ({ currentuserInfo }) => {
         maritalstatus: "",
         allergies: "",
         email: (currentuserInfo && currentuserInfo.email) || "",
-        education: "",
+        educationalQualifications: [],
         institution: "",
         rate: 0,
         halfRate: 0,
         bio: "",
         //modeodemployement: "",
         address: "",
-        //affiliation: "",
+        affiliation: "",
         experience: 0,
         specialities: [],
         languages: [],
-        certificates: "",
-        awards: "",
+        // certificates: "",
+        // awards: "",
+        modeOfEmployment: ""
         // license: "",
         // refphone: "",
         // certifyingbody: ""
@@ -185,7 +186,7 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, education, institution } = state;
+    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
@@ -193,6 +194,7 @@ const Welcome = ({ currentuserInfo }) => {
         specialities.push({ id: selectedItem.id, name: selectedItem.name });
         setSpecialityError(false);
     };
+
     const handleLanguages = (selectedList, selectedItem) => {
         // e.preventDefault()
         languages.push({ name: selectedItem.name });
@@ -288,22 +290,25 @@ const Welcome = ({ currentuserInfo }) => {
     }
 
     // handle input change
-    // const handleEducationDetailsInputChange = (e, index) => {
-    //     const { name, value } = e.target;
-    //     const list = [...inputList];
-    //     list[index][name] = value;
-    //     setInputList(list);
-    // };
+    const handleEducationDetailsInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...educationList];
+        list[index][name] = value;
+        setEducationList(list);
+        setstate({ ...state, educationalQualifications: list });
+        console.log("educationList", state)
+    };
     // handle click event of the Remove button
-    // const handleRemoveClick = (index) => {
-    //     const list = [...inputList];
-    //     list.splice(index, 1);
-    //     setInputList(list);
-    // };
+    const handleRemoveClick = (index) => {
+        const list = [...educationList];
+        list.splice(index, 1);
+        setEducationList(list);
+    };
     // handle click event of the Add button
-    // const handleAddClick = () => {
-    //     setInputList([...inputList, { education: '', institution: '' }]);
-    // };
+    const handleAddClick = () => {
+        setEducationList([...educationList, { educationalQualification: '', institution: '' }]);
+        // setstate([...state, {educationalQualifications : [...educationList, { educationalQualification: '', institution: '' }]}]);
+    };
     const handleDetails = async e => {
         e.preventDefault();
 
@@ -334,15 +339,17 @@ const Welcome = ({ currentuserInfo }) => {
             countryId: countryId,
             dateOfBirth: dateOfBirth,
             gender: gender,
-            education: education,
+            educationalQualifications: educationalQualifications,
             //institution: institution,
-            rate: rate,
-            halfRate: halfRate,
-            bio: bio,
+            // rate: rate,
+            // halfRate: halfRate,
+            affiliation: affiliation,
+            // bio: bio,
             experience: experience,
             specialities: specialities,
             languages: languages,
             certificates: certificates,
+            modeOfEmployment: modeOfEmployment,
             awards: awards,
             email: (currentuserInfo && currentuserInfo.email) || "",
             address: address,
@@ -411,13 +418,13 @@ const Welcome = ({ currentuserInfo }) => {
                     }
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
-                    console.log("email",response.data.data.email)
-                    console.log("firebasePwd",response.data.data.firebasePwd)
+                    console.log("email", response.data.data.email)
+                    console.log("firebasePwd", response.data.data.firebasePwd)
                     firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
                         .then((userRecord) => {
                             var loginUser = userRecord.userd;
                             console.log("loginUser", loginUser)
-                           // console.log('user Created', loginUser.email, loginUser.uid);
+                            // console.log('user Created', loginUser.email, loginUser.uid);
 
                         })
                         .catch((error) => {
@@ -736,36 +743,19 @@ const Welcome = ({ currentuserInfo }) => {
                                         </Row>
                                     </>)}
                                     {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
-                                        <Row>
-                                            <Col md={12}>
+                                        {/* <Row> */}
+                                        {/* <Col md={12}>
                                                 <p>Bio</p>
                                                 <TextValidator id="standard-basic" type="text" name="bio"
                                                     onChange={e => handleInputChange(e)}
                                                     value={bio}
                                                     variant="filled"
                                                     placeholder='Bio' />
-                                            </Col>
-                                        </Row>
-                                        <br />
-                                        <Row>
-                                            <Col md={12}>
-                                                <p>Education<sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="text" name="education"
-                                                    onChange={e => handleInputChange(e)}
-                                                    value={education}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
-                                                    variant="filled"
-                                                    placeholder='Education' />
-
-                                            </Col>
-
-
-                                        </Row>
-                                        <br />
+                                            </Col> */}
+                                        {/* </Row> */}
 
                                         <Row>
-                                            <Col md={4}>
+                                            <Col md={6}>
                                                 <p>Years Of experience<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="number" name="experience"
                                                     onChange={e => handleInputChange(e)}
@@ -779,7 +769,28 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     placeholder='Years of Experience' />
                                             </Col>
-                                            <Col md={4}>
+                                            <Col md={6}>
+                                                <p>Mode Of Employeement<sup>*</sup></p>
+                                                <FormControl>
+                                                    <Select
+                                                        id="demo-controlled-open-select"
+                                                        variant="filled"
+                                                        name="modeOfEmployment"
+                                                        value={modeOfEmployment}
+                                                        displayEmpty
+                                                        inputProps={{ required: true }}
+                                                        onChange={e => handleInputChange(e)}
+                                                    >
+                                                        <MenuItem value=""><em>Select</em></MenuItem>
+                                                        <MenuItem value="selfemployed">Self-Employed</MenuItem>
+                                                        <MenuItem value="employed">Employed</MenuItem>
+
+                                                    </Select>
+                                                </FormControl>
+
+                                            </Col>
+
+                                            {/* <Col md={4}>
                                                 <p>Rate<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="rate"
                                                     onChange={e => handleInputChange(e)}
@@ -800,12 +811,27 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     placeholder='HalfRate' />
 
-                                            </Col>
+                                            </Col> */}
 
-                                            <br />
-                                            <br />
+
+
                                         </Row>
                                         <br />
+                                        <Row>
+                                            <Col md={12}>
+                                                <p>Affiliation<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="affiliation"
+                                                    onChange={e => handleInputChange(e)}
+                                                    value={affiliation}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled"
+                                                    placeholder='Affiliation' />
+
+                                            </Col>
+                                        </Row>
+                                        <br />
+
                                         <Row>
                                             <Col md={12}>
                                                 <p>Specialization<sup>*</sup></p>
@@ -825,7 +851,7 @@ const Welcome = ({ currentuserInfo }) => {
                                             </Col>
                                         </Row>
                                         <br />
-                                        <Row>
+                                        {/* <Row>
 
                                             <Col md={12}>
                                                 <p>Address<sup>*</sup></p>
@@ -835,12 +861,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     placeholder='Address' />
                                             </Col>
-                                        </Row>
+                                        </Row> */}
 
 
-                                        <br />
 
-                                        <Row>
+
+                                        {/* <Row>
                                             <Col md={6}>
                                                 <p>Other Certifications (optional)</p>
                                                 <TextValidator id="standard-basic" type="text" name="certificates"
@@ -868,10 +894,68 @@ const Welcome = ({ currentuserInfo }) => {
                                             </Col>
 
                                         </Row>
-                                        <br />
+                                        <br /> */}
+                                        {educationList.map((x, i) => {
+                                            return (
+                                                <div key={i}>
 
 
-                                    </>)}
+                                                    <Row>
+                                                        <Col md={6}>
+                                                            <p>Education<sup>*</sup></p>
+                                                            <TextValidator id="standard-basic" type="text" name="educationalQualification"
+                                                                onChange={(e) => handleEducationDetailsInputChange(e, i)}
+                                                                value={x.educationalQualification}
+                                                                validators={['required']}
+                                                                errorMessages={['This field is required']}
+                                                                variant="filled"
+                                                                placeholder='Education' />
+
+                                                        </Col>
+                                                        <Col md={6}>
+                                                            <p>Institution<sup>*</sup></p>
+                                                            <TextValidator id="standard-basic" type="text" name="institution"
+                                                                onChange={(e) => handleEducationDetailsInputChange(e, i)}
+                                                                value={x.institution}
+                                                                validators={['required']}
+                                                                errorMessages={['This field is required']}
+                                                                variant="filled"
+                                                                placeholder='Institution' />
+
+                                                        </Col>
+
+                                                    </Row>
+                                                    <br />
+                                                    <div className="btn-box">
+                                                        {educationList.length !== 1 && (
+                                                            <Button
+                                                                variant="secondary"
+                                                                onClick={() => handleRemoveClick(i)}
+                                                            >
+                                                                Remove
+                                                            </Button>
+                                                        )}
+
+                                                        {educationList.length - 1 === i && (
+                                                            <Button
+                                                                className="medicineButton"
+                                                                variant="primary"
+                                                                onClick={handleAddClick}
+                                                            >
+                                                                Add Education
+                                                            </Button>
+                                                        )}
+                                                    </div>
+
+                                                </div>
+                                            );
+                                        })}
+
+
+                                    </>)
+                                    }
+
+
                                     {formError && (<span style={{ color: "red", fontSize: "12px" }}>{formError}</span>)}
                                     <br />
                                     <small className="left">By providing your mobile number, you give us permission to contact you via text. View terms.</small>
