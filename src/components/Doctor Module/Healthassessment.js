@@ -13,6 +13,7 @@ import editIcon from '../../images/Icons/edit icon_40 pxl.svg';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import IconButton from '@material-ui/core/IconButton';
+import Cookies from 'universal-cookie';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import {
@@ -233,29 +234,32 @@ const Healthassessment = (props) => {
     };
 
     const [editDocument, setEditDocument] = useState(false);
-
+    const cookies = new Cookies();
     const loadDocuments = async () => {
         // GET request using fetch with async/await
         const currentUser = await getCurrentUserInfo();
 
-        const doctor = await getCurrentDoctorInfo(
-            currentUser.data.userInfo.id,
-            currentUser.data.userInfo.login
-        );
+        // const doctor = await getCurrentDoctorInfo(
+        //     currentUser.data.userInfo.id,
+        //     currentUser.data.userInfo.login
+        // );
+        const doctor = cookies.get('currentUser');
         if (doctor) {
             setDoctor(doctor);
         }
+        console.log("doctor",doctor)
 
         //const patientInfo = await getPatientInfoByPatientId(`${id}`);
         const patientInfo = props.location.state;
+
         if (patientInfo) {
             setPatient(patientInfo);
-            console.log("patientInfo",patientInfo.id)
+            console.log("patientInfo", patientInfo.id)
         }
         const presecriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             0,
-            doctor.data.id,
+            doctor.id,
 
             patientInfo && patientInfo.id
 
@@ -270,10 +274,11 @@ const Healthassessment = (props) => {
     };
 
     const handlePrescriptionUploadShow = () => {
-        // setDate(0);
-        // setShowPrescriptionUpload(true);
-        // setPrescriptionResult(null);
-        history.push(`/doctor/addPrescription`)
+    // setDate(0);
+    // setShowPrescriptionUpload(true);
+    // setPrescriptionResult(null);
+    const patientInfo = props.location.state;
+        props.history.push({ pathname: `/doctor/addPrescription/${patientInfo.id}`, state: patientInfo });
     };
 
     const handleUploadLabResultShow = () => {
@@ -415,7 +420,7 @@ const Healthassessment = (props) => {
                                 <div className="row">
                                     <div className="col-lg-10"></div>
                                     <div className="col-md-2 text-right">
-                                    {/* <Link to={{ pathname: `/doctor/addPrescription/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}><button className="btn btn-primary view-btn">Reschedule</button></Link> */}
+                                        {/* <Link to={{ pathname: `/doctor/addPrescription/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}><button className="btn btn-primary view-btn">Reschedule</button></Link> */}
                                         <button
                                             type="button"
                                             className="btn btn-primary"
@@ -424,6 +429,14 @@ const Healthassessment = (props) => {
                                         >
                                             Add Prescription
                                         </button>
+                                        {/* <Link className="btn btn-primary"
+                                            style={{ fontSize: '0.65rem' }}
+                                            to={{ pathname: `/doctor/addPrescription/${patient}`, state: patient }}
+                                        >
+
+
+                                            Add Prescription
+                                        </Link> */}
                                     </div>
                                 </div>
                                 <br />

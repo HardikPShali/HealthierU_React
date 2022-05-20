@@ -72,7 +72,7 @@ const DoctorRoute = () => {
     // if (res && res.data) {
     //   res.data.doctors.map((value, index) => setCurrentDoctor(value));
     // }
-    const currentDoctor = cookies.get('profileDetails');
+    const currentDoctor = cookies.get('currentUser');
     setCurrentDoctor(currentDoctor);
   };
 
@@ -132,7 +132,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/shop" component={DoctorShop} />
         <Route exact path="/doctor/article" component={DoctorArticle} />
         <Route exact path="/doctor/changepassword" component={ChangeAccountPassword} />
-        <Route exact path="/doctor/addPrescription" component={AddPrescription} />
+        <Route exact path="/doctor/addPrescription/:id" component={AddPrescription} />
         <Route exact path="/doctor/about-us" render={(props) => <AboutUs currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/privacy-policy" render={(props) => <PrivacyPolicyPage currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/terms-and-conditions" render={(props) => <TermsAndConditionsPage currentuserInfo={currentLoggedInUser} {...props} />} />

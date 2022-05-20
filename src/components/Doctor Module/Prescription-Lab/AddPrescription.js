@@ -39,8 +39,11 @@ import {
 } from '../../../service/DocumentService';
 import CancelIcon from '@material-ui/icons/Cancel';
 import './PrescriptionLab.css'
-
-const AddPrescription = () => {
+import Cookies from 'universal-cookie';
+import { useHistory } from 'react-router';
+const AddPrescription = (props) => {
+    const history = useHistory();
+    const cookies = new Cookies();
     const [prescriptionResult, setPrescriptionResult] = useState({
         prescriptionList: []
     });
@@ -49,19 +52,18 @@ const AddPrescription = () => {
         DurationEndDate: '',
     });
     const [countOfDays, setcountOfDays] = useState(0);
+    const [medicalInfo, setMedicalInfo] = useState([]);
     const [prescriptionList, setprescriptionList] = useState([{
         // name: '',
-        medicine: '',
+        medicineName: '',
         dose: '',
         duration: '',
-        quantity: '',
-        noOfDays: '',
+        // quantity: '',
+        numberOfDays: '',
         interval: '',
         prescriptionDocument: null,
     }]);
     // const noOfDaysInput = useRef(null);
-
-
     // handle input change
     const handleInputChange = (e, index) => {
         // const startDate = moment(DurationStartDate);
@@ -79,6 +81,7 @@ const AddPrescription = () => {
                     ...prescriptionList,
                     prescriptionDocument: e.target.value,
                 });
+                setShowPrescriptionUpload(true);
             } else {
                 document.getElementById('prescriptionDocument').value = '';
                 setErrorMsg('Please upload PDF file with size less than 1mb.');
@@ -95,10 +98,8 @@ const AddPrescription = () => {
         const list = [...prescriptionList];
         list[index][name] = value;
         setprescriptionList(list);
+
         console.log("prescriptionList", prescriptionList);
-
-
-
     };
     // handle click event of the Remove button
     const handleRemoveClick = (index) => {
@@ -108,17 +109,18 @@ const AddPrescription = () => {
     };
     // handle click event of the Add button
     const handleAddClick = () => {
-        setDate(0);
+        // setDate(0);
         setprescriptionList([...prescriptionList, {
             // name: '',
-            medicine: '',
+            medicineName: '',
             dose: '',
             duration: null,
             quantity: '',
-            noOfDays: '',
+            numberOfDays: '',
             interval: '',
             prescriptionDocument: null,
         }]);
+        setShowPrescriptionUpload(true);
     };
     const handleUploadPrescriptionClosed = () => setShowPrescriptionUpload(false);
     const [editDocument, setEditDocument] = useState(false);
@@ -131,60 +133,104 @@ const AddPrescription = () => {
     const [doctor, setDoctor] = useState(null);
     const [patient, setPatient] = useState(null);
 
-    // useEffect(() => {
+    const loadData = () => {
+        const currentDoctor = cookies.get('currentUser');
+        if (currentDoctor) {
+            setDoctor(currentDoctor);
+            console.log("doctorInfo", currentDoctor)
+        }
+        const patientInfo = props.location.state;
+        if (patientInfo) {
+            setPatient(patientInfo);
+            console.log("patientID", patient)
+        }
 
-    // }, []);
+    }
+
+    useEffect(() => {
+        loadData();
+    }, [patient]);
+
+
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
     const { DurationStartDate, DurationEndDate } = date;
     const [errorMsg, setErrorMsg] = useState('');
 
     const handlePrescriptionSubmission = async (event) => {
+        const reverseMedicalInfo = prescriptionList.reverse();
+        console.log("reverseMedicalInfo", reverseMedicalInfo)
+        const updateArray = [];
+        reverseMedicalInfo.map((value) => {
+            updateArray.push({
+                medicineName: value.medicineName,
+                dose: value.dose,
+                duration: value.duration,
+                numberOfDays: value.numberOfDays,
+                interval: value.interval,
+            })
+        })
+        let lastDoc = prescriptionList.slice(-1);
+        console.log("lastDoc", lastDoc)
+        var documentOfMedicine = lastDoc.map(function (a) { return a.prescriptionDocument; });
+
+
+        setMedicalInfo(updateArray);
+        console.log('updateArray', updateArray);
+        console.log('documentOfMedicine', JSON.stringify(documentOfMedicine));
+
+        const medicalDocumentInfo = {
+            documentType: "Prescription",
+            patientId: patient?.id,
+            doctorId: doctor?.id,
+        };
+
+        // const medicalInfo = {
+        //     medicineName: medicineName,
+        //     dose: dose,
+        //     duration: duration,
+        //     numberOfDays: numberOfDays,
+        //     interval: interval
+        // };
+        // getMedicalInfo();
         event.preventDefault();
         // handleInputChange();
         setErrorMsg('');
-        const data = new FormData(event.target);
+        // const data = new FormData(event.target);
+        // data = updateArray;
+        const formData = new FormData();
+        formData.append("medicalInfo", new Blob([JSON.stringify(updateArray)], {
+            type: "application/json"
+        }));
+        formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+            type: "application/json"
+        }));
+        console.log("medicalDocumentInfo", medicalDocumentInfo)
+        formData.append("file", new Blob([JSON.stringify(documentOfMedicine)], {
+            type: "application/json"
+        }));
 
 
-        // const response = await postDocument(data).catch((err) => {
-        //     console.log('Error :: ', err);
-        //     if (err.response.status === 400) {
-        //         setErrorMsg('Please upload the document in PDF format.');
-        //     }
-        // });
-        // if (response) {
-        //     setShowPrescriptionUpload(false);
-        // }
+        const response = await postDocument(formData).catch((err) => {
+            console.log('Error :: ', err);
+            if (err.response.status === 400) {
+                setErrorMsg('Please upload the document in PDF format.');
+            }
+        });
+        const patientInfo = props.location.state;
+        if (response.status === 201) {
+            props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo });
+        }
+        // const currentDoctor = cookies.get('profileDetails');
+
         // const prescriptionDocument = await getDoctorPatientDocuments(
         //     'Prescription',
         //     0,
-        //     doctor.data.id,
-        //     patient.id
+        //     currentDoctor.id,
+        //     patientInfo.id
 
         // );
 
         // setPresecriptionDocument(prescriptionDocument);
-    };
-    const handlePrescriptionChange = (e) => {
-        if (e.target.type === 'file') {
-            const fileSize = e.target.files[0].size;
-            console.log('fileSize ::', fileSize);
-            const maxSize = 1000000;
-            if (e.target.files[0].size <= maxSize) {
-                setErrorMsg('');
-                setPrescriptionResult({
-                    ...prescriptionResult,
-                    prescriptionDocument: e.target.value,
-                });
-            } else {
-                document.getElementById('prescriptionDocument').value = '';
-                setErrorMsg('Please upload PDF file with size less than 1mb.');
-            }
-        } else {
-            setPrescriptionResult({
-                ...prescriptionResult,
-                [e.target.name]: e.target.value,
-            });
-        }
     };
     return (
 
@@ -218,11 +264,11 @@ const AddPrescription = () => {
                                                     <div className="col-sm-9">
                                                         <input
                                                             type="text"
-                                                            id="medicine"
-                                                            name="medicine"
+                                                            id="medicineName"
+                                                            name="medicineName"
                                                             className="form-control"
                                                             onChange={(e) => handleInputChange(e, i)}
-                                                            value={x.medicine}
+                                                            value={x.medicineName}
                                                             placeholder="Medicine Name"
                                                             required
                                                             variant="filled"
@@ -314,11 +360,11 @@ const AddPrescription = () => {
                                                     <div className="col-sm-9">
                                                         <input
                                                             type="number"
-                                                            id="noOfDays"
-                                                            name="noOfDays"
+                                                            id="numberOfDays"
+                                                            name="numberOfDays"
                                                             className="form-control"
                                                             onChange={(e) => handleInputChange(e, i)}
-                                                            value={x.noOfDays}
+                                                            value={x.numberOfDays}
                                                             inputProps={{
                                                                 min: 1,
                                                                 // max: 65
@@ -328,7 +374,7 @@ const AddPrescription = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className="form-group row">
+                                                {/* <div className="form-group row">
                                                     <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
                                                         Quantity
                                                     </label>
@@ -345,7 +391,8 @@ const AddPrescription = () => {
                                                             required
                                                         ></input>
                                                     </div>
-                                                </div>
+                                                </div> */}
+
 
 
                                                 <div className="form-group row">
@@ -387,74 +434,89 @@ const AddPrescription = () => {
                                                     </div>
                                                 </div>
 
-
-                                                {/* <div className="form-group row">
-                                                    <label
-                                                        htmlFor="prescriptionDocument"
-                                                        className="col-sm-3 prescription-lab-card__common-name"
-                                                    >
-                                                        Document
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        {errorMsg && (
-                                                            <label
-                                                                style={{ fontSize: 12, color: '#ff9393', margin: '5px 0' }}
-                                                                className="left"
-                                                            >
-                                                                {errorMsg}
-                                                            </label>
-                                                        )}
-                                                        {!prescriptionList?.id && (
-                                                            <input
-                                                                type="file"
-                                                                style={{ padding: '3px' }}
-                                                                id="prescriptionDocument"
-                                                                name="prescriptionDocument"
-                                                                className="form-control"
-                                                                onChange={(e) => handleInputChange(e, i)}
-                                                                placeholder="Document"
-                                                                accept="application/pdf"
-                                                                required={prescriptionList?.id ? false : true}
-                                                            ></input>
-                                                        )}
-                                                        {prescriptionList?.id && !editDocument && (
-                                                            <div style={{ display: 'inline-flex', alignItems: 'center' }}>
-                                                                <IconButton onClick={() => setEditDocument(true)}>
-                                                                    <CancelIcon style={{ color: 'red' }} />
-                                                                </IconButton>
-                                                                <input
-                                                                    type="file"
-                                                                    id="prescriptionDocument"
-                                                                    name="prescriptionDocument"
-                                                                    className="form-control"
-                                                                    onChange={(e) => handleInputChange(e, i)}
-                                                                    placeholder="Document"
-                                                                    accept="application/pdf"
-                                                                    required={prescriptionList?.id ? false : true}
-                                                                ></input>
-                                                            </div>
-                                                        )}
-                                                        {prescriptionList?.id && editDocument && (
-                                                            <>
-                                                                <button
-                                                                    type="button"
-                                                                    className="btn btn-primary mr-2"
-                                                                    onClick={() => setEditDocument(false)}
+                                                {showPrescriptionUpload == false ?
+                                                    <div className="form-group row">
+                                                        <label
+                                                            htmlFor="prescriptionDocument"
+                                                            className="col-sm-3 prescription-lab-card__common-name"
+                                                        >
+                                                            Document
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            {errorMsg && (
+                                                                <label
+                                                                    style={{ fontSize: 12, color: '#ff9393', margin: '5px 0' }}
+                                                                    className="left"
                                                                 >
-                                                                    Edit
-                                                                </button>
-                                                                <a
-                                                                    href={prescriptionList?.documentUrl}
-                                                                    download
-                                                                    className="btn btn-primary"
-                                                                >
-                                                                    Download
-                                                                </a>
-                                                            </>
-                                                        )}
+                                                                    {errorMsg}
+                                                                </label>
+                                                            )}
+                                                            {!prescriptionList?.id && (
+                                                                <div>
+                                                                    <input
+                                                                        type="file"
+                                                                        style={{ padding: '3px' }}
+                                                                        id="prescriptionDocument"
+                                                                        name="prescriptionDocument"
+                                                                        className="form-control"
+                                                                        onChange={(e) => handleInputChange(e, i)}
+                                                                        placeholder="Document"
+                                                                        accept="application/pdf"
+                                                                        required={prescriptionList?.id ? false : true}
+                                                                    ></input>
+                                                                    <input hidden={true} id="doctorId" name="doctorId"
+                                                                        value={doctor?.id} />
+                                                                    <input hidden={true} id="patientId" name="patientId"
+                                                                        value={patient?.id} />
+                                                                </div>
+                                                            )}
+                                                            {prescriptionList?.id && !editDocument && (
+                                                                <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+                                                                    <IconButton onClick={() => setEditDocument(true)}>
+                                                                        <CancelIcon style={{ color: 'red' }} />
+                                                                    </IconButton>
+                                                                    <input
+                                                                        type="file"
+                                                                        id="prescriptionDocument"
+                                                                        name="prescriptionDocument"
+                                                                        className="form-control"
+                                                                        onChange={(e) => handleInputChange(e, i)}
+                                                                        placeholder="Document"
+                                                                        accept="application/pdf"
+                                                                        required={prescriptionList?.id ? false : true}
+                                                                    ></input>
+                                                                </div>
+                                                            )}
+                                                            {prescriptionList?.id && editDocument && (
+                                                                <>
+                                                                    <button
+                                                                        type="button"
+                                                                        className="btn btn-primary mr-2"
+                                                                        onClick={() => setEditDocument(false)}
+                                                                    >
+                                                                        Edit
+                                                                    </button>
+                                                                    <a
+                                                                        href={prescriptionList?.documentUrl}
+                                                                        download
+                                                                        className="btn btn-primary"
+                                                                    >
+                                                                        Download
+                                                                    </a>
+                                                                </>
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                </div> */}
+                                                    :
+                                                    <div
+                                                        className="col-12 ml-2"
+                                                        style={{ textShadow: 'none', color: 'black' }}
+                                                    >
+                                                        Document Already Uploaded.....
+                                                    </div>
 
+
+                                                }
 
                                                 <div className="btn-box">
                                                     {prescriptionList.length !== 1 && (
@@ -471,13 +533,16 @@ const AddPrescription = () => {
                                                             className="medicineButton"
                                                             variant="primary"
                                                             onClick={handleAddClick}
-                                                        disabled
+                                                            disabled={
+
+                                                                showPrescriptionUpload == false}
                                                         >
                                                             Add Medicine
                                                         </Button>
                                                     )}
                                                 </div>
                                             </div>
+
 
 
 
@@ -492,7 +557,7 @@ const AddPrescription = () => {
                                                 variant="primary"
                                                 type="submit"
                                             // disabled={
-                                            //     !prescriptionList ?.prescriptionDocument
+                                            //     !prescriptionList?.prescriptionDocument
                                             // }
                                             >
                                                 Save
