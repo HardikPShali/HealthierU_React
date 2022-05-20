@@ -52,7 +52,7 @@ const Mypatient = (props) => {
 
     //const moment = getMoment(currentTimezone);
     const [activeAppointments, setActiveAppointments] = useState([]);
-    const [pastAppointments, setPastAppointments] = useState([]);
+    // const [pastAppointments, setPastAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [dataLoading, setDataLoading] = useState(false);
     const cookies = new Cookies();
@@ -64,8 +64,8 @@ const Mypatient = (props) => {
     });
     const { doctorId } = currentDoctor;
     const [age, setAge] = useState(0);
-    const [chiefComplaint, setChiefComplaint] = useState({});
-    const [familyAndSocialHistory, setFamilyAndSocialHistory] = useState({});
+    // const [chiefComplaint, setChiefComplaint] = useState({});
+    // const [familyAndSocialHistory, setFamilyAndSocialHistory] = useState({});
 
     const [confirmVideo, setConfirmVideo] = useState(false);
     const [alertVideo, setAlertVideo] = useState(false);
@@ -102,153 +102,153 @@ const Mypatient = (props) => {
     };
 
     useEffect(() => {
-        getCurrentDoctor();
+        // getCurrentDoctor();
         getGlobalAppointments();
     }, []);
-    const currentLoggedInUser = cookies.get('currentUser');
-    const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
+    // const currentLoggedInUser = cookies.get('currentUser');
+    // const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
 
-    const getCurrentDoctor = async () => {
-        // const res = await getDoctorByUserId(loggedInUserId);
-        const currentDoctor = cookies.get('profileDetails');
-        setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
-        // if (res && res.data) {
-        //     res.data.doctors.map(async (value, index) => {
-        //         if (value.userId === loggedInUserId) {
-        // const currentDoctorId = value.id;
-        // setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctorId })
-        // const response = await getFireBaseChatRoom(currentDoctorId);
-        // setChatRooms(response);
-        loadPatient(currentDoctor.id);
-        console.log('currentDoctor', currentDoctor);
+    // const getCurrentDoctor = async () => {
+    //     // const res = await getDoctorByUserId(loggedInUserId);
+    //     const currentDoctor = cookies.get('profileDetails');
+    //     setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
+    //     // if (res && res.data) {
+    //     //     res.data.doctors.map(async (value, index) => {
+    //     //         if (value.userId === loggedInUserId) {
+    //     // const currentDoctorId = value.id;
+    //     // setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctorId })
+    //     // const response = await getFireBaseChatRoom(currentDoctorId);
+    //     // setChatRooms(response);
+    //     loadPatient(currentDoctor.id);
+    //     console.log('currentDoctor', currentDoctor);
 
-        //     })
-        //     // setCurrentDoctor({...currentDoctor, id: currentDoctorId });
-        // }
-    };
+    //     //     })
+    //     //     // setCurrentDoctor({...currentDoctor, id: currentDoctorId });
+    //     // }
+    // };
 
-    const getChiefComplaintData = async (patientId) => {
-        // const res = await getPatientChiefComplaint(patientId)
-        // if (res && res.data) {
-        //     setChiefComplaint(res.data[0]);
-        // }
-    };
-    const getFamilyAndSocialHistoryData = async (patientId) => {
-        // const res = await getPatientFamilyAndSocialHistoryData(patientId);
-        // if (res && res.data) {
-        //     setFamilyAndSocialHistory(res.data[0]);
-        // }
-    };
+    // const getChiefComplaintData = async (patientId) => {
+    //     // const res = await getPatientChiefComplaint(patientId)
+    //     // if (res && res.data) {
+    //     //     setChiefComplaint(res.data[0]);
+    //     // }
+    // };
+    // const getFamilyAndSocialHistoryData = async (patientId) => {
+    //     // const res = await getPatientFamilyAndSocialHistoryData(patientId);
+    //     // if (res && res.data) {
+    //     //     setFamilyAndSocialHistory(res.data[0]);
+    //     // }
+    // };
 
-    const limit = 25;
-    const [activeOffset, setActiveOffset] = useState(0);
-    const [pastOffset, setPastOffset] = useState(0);
-    const loadPatient = async (selectedDoctorId) => {
-        var objDate = new Date();
-        var getCurrentHours = new Date().getHours();
-        //console.log("new Date(objDate.setHours(getCurrentHours, 0, 0)).toISOString() ::::::", new Date(objDate.setHours(getCurrentHours, 0, 0)).toISOString());
-        const getPatientList = {
-            doctorId: selectedDoctorId,
-            startTime: new Date(
-                objDate.setHours(getCurrentHours, 0, 0)
-            ).toISOString(),
-            status: 'ACCEPTED',
-        };
-        const response = await loadActivePatient(
-            getPatientList,
-            activeOffset,
-            limit
-        ).catch((err) => {
-            if (err.response.status === 500 || err.response.status === 504) {
-                setLoading(false);
-            }
-            // console.log("loadActivePatient", response)
-        });
+    // const limit = 25;
+    // const [activeOffset, setActiveOffset] = useState(0);
+    // const [pastOffset, setPastOffset] = useState(0);
+    // const loadPatient = async (selectedDoctorId) => {
+    //     var objDate = new Date();
+    //     var getCurrentHours = new Date().getHours();
+    //     //console.log("new Date(objDate.setHours(getCurrentHours, 0, 0)).toISOString() ::::::", new Date(objDate.setHours(getCurrentHours, 0, 0)).toISOString());
+    //     const getPatientList = {
+    //         doctorId: selectedDoctorId,
+    //         startTime: new Date(
+    //             objDate.setHours(getCurrentHours, 0, 0)
+    //         ).toISOString(),
+    //         status: 'ACCEPTED',
+    //     };
+    //     const response = await loadActivePatient(
+    //         getPatientList,
+    //         activeOffset,
+    //         limit
+    //     ).catch((err) => {
+    //         if (err.response.status === 500 || err.response.status === 504) {
+    //             setLoading(false);
+    //         }
+    //         // console.log("loadActivePatient", response)
+    //     });
 
-        // console.log("response ::::::", response);
-        if (response.status === 200 || response.status === 201) {
-            console.log('loadActivePatient', response);
-            setActiveOffset(activeOffset + 1);
-            setTimeout(() => setLoading(false), 1000);
-            setActiveAppointments(response.data);
-            if (response.data[0] && response.data[0].patient) {
-                handleActivePastTab(
-                    response.data[0],
-                    response.data[1] && response.data[1]
-                );
-                calculate_age(response.data[0].patient.dateOfBirth);
-                getChiefComplaintData(response.data[0].patient.id);
-                getFamilyAndSocialHistoryData(response.data[0].patient.id);
-            }
-        }
-    };
+    //     // console.log("response ::::::", response);
+    //     if (response.status === 200 || response.status === 201) {
+    //         console.log('loadActivePatient', response);
+    //         setActiveOffset(activeOffset + 1);
+    //         setTimeout(() => setLoading(false), 1000);
+    //         setActiveAppointments(response.data);
+    //         if (response.data[0] && response.data[0].patient) {
+    //             // handleActivePastTab(
+    //             //     response.data[0],
+    //             //     response.data[1] && response.data[1]
+    //             // );
+    //             calculate_age(response.data[0].patient.dateOfBirth);
+    //             getChiefComplaintData(response.data[0].patient.id);
+    //             getFamilyAndSocialHistoryData(response.data[0].patient.id);
+    //         }
+    //     }
+    // };
 
-    const loadPastPatientAppointment = async (selectedDoctorId) => {
-        setDataLoading(true);
-        const getPatientList = {
-            doctorId: selectedDoctorId,
-            endTime: new Date().toISOString(),
-            status: 'ACCEPTED',
-        };
-        const response = await loadPastPatient(getPatientList);
-        if (response.status === 200 || response.status === 201) {
-            setPastOffset(1);
-            setTimeout(() => setDataLoading(false), 1000);
-            setPastAppointments(response.data);
-            handleActivePastTab(
-                response.data[0],
-                response.data[1] && response.data[1]
-            );
-            if (response.data[0] && response.data[0].patient) {
-                calculate_age(response.data[0].patient.dateOfBirth);
-                getChiefComplaintData(response.data[0].patient.id);
-                getFamilyAndSocialHistoryData(response.data[0].patient.id);
-            }
-        }
-    };
+    // const loadPastPatientAppointment = async (selectedDoctorId) => {
+    //     setDataLoading(true);
+    //     const getPatientList = {
+    //         doctorId: selectedDoctorId,
+    //         endTime: new Date().toISOString(),
+    //         status: 'ACCEPTED',
+    //     };
+    //     const response = await loadPastPatient(getPatientList);
+    //     if (response.status === 200 || response.status === 201) {
+    //         setPastOffset(1);
+    //         setTimeout(() => setDataLoading(false), 1000);
+    //         setPastAppointments(response.data);
+    //         handleActivePastTab(
+    //             response.data[0],
+    //             response.data[1] && response.data[1]
+    //         );
+    //         if (response.data[0] && response.data[0].patient) {
+    //             calculate_age(response.data[0].patient.dateOfBirth);
+    //             getChiefComplaintData(response.data[0].patient.id);
+    //             getFamilyAndSocialHistoryData(response.data[0].patient.id);
+    //         }
+    //     }
+    // };
 
     // const redirectToChat = () => {
     //     window.location.assign('/doctor/chat');
     // }
-    const loadMoreActiveAppointment = async (selectedDoctorId) => {
-        const getPatientList = {
-            doctorId: selectedDoctorId,
-            startTime: new Date().toISOString(),
-            status: 'ACCEPTED',
-        };
-        const response = await loadActivePatient(
-            getPatientList,
-            activeOffset,
-            limit
-        );
-        if (response.status === 200 || response.status === 201) {
-            var existingActiveAppList = activeAppointments;
-            response.data &&
-                response.data.map((newData) => {
-                    return existingActiveAppList.push(newData);
-                });
-            setActiveOffset(activeOffset + 1);
-            setTimeout(() => setLoading(false), 1000);
-            setActiveAppointments(existingActiveAppList);
-        }
-    };
+    // const loadMoreActiveAppointment = async (selectedDoctorId) => {
+    //     const getPatientList = {
+    //         doctorId: selectedDoctorId,
+    //         startTime: new Date().toISOString(),
+    //         status: 'ACCEPTED',
+    //     };
+    //     const response = await loadActivePatient(
+    //         getPatientList,
+    //         activeOffset,
+    //         limit
+    //     );
+    //     if (response.status === 200 || response.status === 201) {
+    //         var existingActiveAppList = activeAppointments;
+    //         response.data &&
+    //             response.data.map((newData) => {
+    //                 return existingActiveAppList.push(newData);
+    //             });
+    //         setActiveOffset(activeOffset + 1);
+    //         setTimeout(() => setLoading(false), 1000);
+    //         setActiveAppointments(existingActiveAppList);
+    //     }
+    // };
 
-    const loadMorePastAppointment = async (selectedDoctorId) => {
-        const getPatientList = {
-            doctorId: selectedDoctorId,
-            endTime: new Date().toISOString(),
-            status: 'ACCEPTED',
-        };
-        const response = await loadPastPatient(getPatientList, pastOffset, limit);
-        if (response.status === 200 || response.status === 201) {
-            var existingPastAppList = pastAppointments;
-            response.data &&
-                response.data.map((newData) => existingPastAppList.push(newData));
-            setPastOffset(pastOffset + 1);
-            setTimeout(() => setLoading(false), 1000);
-            setPastAppointments(existingPastAppList);
-        }
-    };
+    // const loadMorePastAppointment = async (selectedDoctorId) => {
+    //     const getPatientList = {
+    //         doctorId: selectedDoctorId,
+    //         endTime: new Date().toISOString(),
+    //         status: 'ACCEPTED',
+    //     };
+    //     const response = await loadPastPatient(getPatientList, pastOffset, limit);
+    //     if (response.status === 200 || response.status === 201) {
+    //         var existingPastAppList = pastAppointments;
+    //         response.data &&
+    //             response.data.map((newData) => existingPastAppList.push(newData));
+    //         setPastOffset(pastOffset + 1);
+    //         setTimeout(() => setLoading(false), 1000);
+    //         setPastAppointments(existingPastAppList);
+    //     }
+    // };
 
     const calculate_age = (dob) => {
         const birthDate = new Date(dob);
@@ -263,32 +263,27 @@ const Mypatient = (props) => {
         setSelectedPatient(slot);
     };
 
-    const handleActivePastTab = (slot, slot1) => {
-        if (
-            slot &&
-            slot.unifiedAppointment === (slot1 && slot1.unifiedAppointment)
-        ) {
-            slot.endTime = slot1.endTime;
-            setSelectedPatient(slot);
-        } else {
-            setSelectedPatient(slot);
-        }
-    };
+    // const handleActivePastTab = (slot, slot1) => {
+    //     if (
+    //         slot &&
+    //         slot.unifiedAppointment === (slot1 && slot1.unifiedAppointment)
+    //     ) {
+    //         slot.endTime = slot1.endTime;
+    //         setSelectedPatient(slot);
+    //     } else {
+    //         setSelectedPatient(slot);
+    //     }
+    // };
 
-    //SEARCH CODE
-    const [search, setSearch] = useState({});
+    //NEW DESIGN CODE
+    const [search, setSearch] = useState("");
     const [appointmentDets, setAppointmentDets] = useState([]);
 
-    const getAppointmentsByPatientName = async (search) => {
-        const response = await getAppointmentsBySearch(search).catch((err) => {
-            console.log('err', err);
-        });
-        // console.log("Search Appointments response | in SearchBarComponent :::::::", response);
-        // console.log("Search Appointments response patient | in SearchBarComponent :::::::", response.data.map(item => item.patient));
-        return response;
-    };
+    const getGlobalAppointments = async (search, filter = {}) => {
+        const currentDoctor = cookies.get('profileDetails');
+        setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
 
-    const getGlobalAppointments = async (search) => {
+
         const starttime = new Date();
         // startTime.setHours(0, 0, 0).toISOString();
         // const endTime = new Date()
@@ -299,6 +294,22 @@ const Mypatient = (props) => {
             startTime: starttime.toISOString(),
             patientName: search,
         };
+        if (filter.patientSlot && filter.patientSlot !== "") {
+            data.unifiedAppointment = filter.patientSlot;
+
+
+        }
+        if (filter.patientStartTime && filter.patientStartTime !== "") {
+
+            data.startTime = filter.patientStartTime;
+
+        }
+        if (filter.patientEndTime && filter.patientEndTime !== "") {
+            const endtime = new Date(filter.patientEndTime)
+            endtime.setHours(23, 59, 59);
+            data.endTime = endtime.toISOString();
+
+        }
         const responseTwo = await getGlobalAppointmentsSearch(data).catch((err) => {
             if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
                 setLoading(false);
@@ -306,8 +317,9 @@ const Mypatient = (props) => {
         });
         if (responseTwo.status === 200 || responseTwo.status === 201) {
             if (responseTwo && responseTwo.data) {
+                setLoading(false);
                 const appointmentDetails = responseTwo.data.data;
-                console.log('appointmentDetails', appointmentDetails);
+                // console.log('appointmentDetails', appointmentDetails);
                 const reversedAppointments = appointmentDetails.reverse();
                 const updateArray = [];
                 reversedAppointments.map((value, index) => {
@@ -378,6 +390,7 @@ const Mypatient = (props) => {
         if (searchValue === '') {
             console.log('blank searchValue is | in SearchBarComponent', searchValue);
             // loadPatient(currentDoctor.id);
+            getGlobalAppointments(searchValue);
 
             // setSearchText(searchValue);
         } else {
@@ -395,10 +408,14 @@ const Mypatient = (props) => {
             // setSearch(response.data.map(item => item.patient));
 
             getGlobalAppointments(searchValue);
+            setSearch(searchValue);
             // console.log("searchValue is | in SearchBarComponent", searchValue);
         }
     };
 
+    const handleFilterChange = (filter) => {
+        getGlobalAppointments(search, filter);
+    }
     return (
         <div>
             {loading && <Loader />}
@@ -409,105 +426,162 @@ const Mypatient = (props) => {
                             <div id="patient-heading">My Patients</div>
                             <div className="d-flex mt-2 justify-content-around">
                                 <SearchBarComponent updatedSearch={handleSearchInputChange} />
-                                <FilterComponent />
+                                <FilterComponent updatedFilter={handleFilterChange} />
                             </div>
-                            {console.log('search | in MyPatient ::::::', search)}
-                            {/* <Tabs style={{ margin: '10px' }} id="mypatient-tabs">
-                                <TabList style={{ boxShadow: 'rgb(0 0 0 / 24%) 0px 0px 5px' }}>
-                                    <Tab onClick={() => {
-                                        setActiveOffset(1);
-                                        handleActivePastTab(activeAppointments[0], activeAppointments[1] && activeAppointments[1]);
-                                        if (activeAppointments[0] && activeAppointments[0].patientId) {
-                                            getChiefComplaintData(activeAppointments[0].patientId);
-                                            getFamilyAndSocialHistoryData(activeAppointments[0].patientId);
-                                        }
-                                        activeAppointments[0] && activeAppointments[0].patient && (
-                                            Object.keys(activeAppointments[0].patient).map(patientData => {
-                                                //if (activeAppointments[0].patient && activeAppointments[0].patient.dateOfBirth) {
-                                                return (calculate_age(activeAppointments[0].patient.dateOfBirth && activeAppointments[0].patient.dateOfBirth))
-                                                //}
-                                            })
-                                        );
-                                    }}>Active Appointments</Tab>
-                                    <Tab onClick={() => {
-                                        setPastOffset(0);
-                                        ////console.log("pastOffset :::::::::", pastOffset);
-                                        loadPastPatientAppointment(doctorId);
-                                    }}>Past Appointments</Tab>
-                                </TabList>
-                                <TabPanel> */}
                             <div id="patient-list">
                                 <div className="patient-list__card-box scroller-cardlist">
                                     <div className="patient-list__card-holder">
                                         <div className="row">
                                             {/* MAP HERE */}
                                             {appointmentDets.length !== 0 ? (
-                                                appointmentDets.map((details, index) => (
-                                                    <div
-                                                        className="col-md-12 mb-2 mt-2 cursor-pointer"
-                                                        key={index}
-                                                    >
-                                                        <div className="patient-list__card"
-                                                            onClick={
-                                                                async () => {
-                                                                    handleConsultationClick(details, activeAppointments[index + 1].endTime);
-                                                                    // if (user && user.patientId) {
-                                                                    //     getChiefComplaintData(user.patientId);
-                                                                    //     getFamilyAndSocialHistoryData(user.patientId);
-                                                                    // }
-                                                                    Object.keys(details.patient).map(patientData => {
-                                                                        //if (user.patient && user.patient.dateOfBirth) {
-                                                                        return (calculate_age(details.patient.dateOfBirth && details.patient.dateOfBirth))
-                                                                        //}
-                                                                    })
-                                                                }
-                                                            }
-                                                        >
-                                                            <div className="row align-items-start">
-                                                                <div className="col-md-2 text-center d-flex flex-column mt-3 ml-3">
-                                                                    <h5 className="patient-list__common-date">
-                                                                        <b>
-                                                                            {moment(details.startTime).format(
-                                                                                'DD'
-                                                                            )}
-                                                                        </b>
-                                                                    </h5>
-                                                                    <span className="patient-list__common-span">
-                                                                        {moment(details.startTime).format(
-                                                                            'hh:mm A'
-                                                                        )}
-                                                                    </span>
-                                                                </div>
-                                                                <div className="col-md-3  ml-3 mt-2 pb-2">
-                                                                    {
-                                                                        details.patient.picture ? (
-                                                                            <img
-                                                                                src={details.patient.picture}
-                                                                                alt="profile"
-                                                                                className="patient-list__img-circle "
-                                                                            />
-                                                                        ) : (
-                                                                            (<Avatar round={true} name={details.patient.firstName + " " + details.patient.lastName} size={60} />)
-                                                                        )
-                                                                    }
+                                                appointmentDets.map((details, index) => {
+                                                    if (details.unifiedAppointment === (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) {
+                                                        if (details && details.patient) {
+                                                            return (
+                                                                <div
+                                                                    className="col-md-12 mb-2 mt-2 cursor-pointer"
+                                                                    key={index}
+                                                                >
+                                                                    <div className="patient-list__card"
+                                                                        onClick={
+                                                                            async () => {
+                                                                                handleConsultationClick(details, activeAppointments[index + 1].endTime);
+                                                                                Object.keys(details.patient).map(patientData => {
 
+                                                                                    return (calculate_age(details.patient.dateOfBirth && details.patient.dateOfBirth))
+
+                                                                                })
+                                                                            }
+                                                                        }
+                                                                    >
+                                                                        <div className="row align-items-start py-1">
+                                                                            <div className="col-md-2  d-flex flex-column mt-3 ml-3">
+                                                                                <h5 className="patient-list__common-date">
+                                                                                    <b>
+                                                                                        {moment(details.startTime).format(
+                                                                                            'DD'
+                                                                                        )}
+                                                                                    </b>
+                                                                                </h5>
+                                                                                <span className="patient-list__common-span">
+                                                                                    {moment(details.startTime).format(
+                                                                                        'hh:mm A'
+                                                                                    )}
+                                                                                </span>
+                                                                            </div>
+                                                                            <div className="col-md-3  ml-3 mt-2 pb-2">
+                                                                                {
+                                                                                    details.patient.picture ? (
+                                                                                        <img
+                                                                                            src={details.patient.picture}
+                                                                                            alt="profile"
+                                                                                            className="patient-list__img-circle "
+                                                                                        />
+                                                                                    ) : (
+                                                                                        (<Avatar round={true} name={details.patient.firstName + " " + details.patient.lastName} size={60} />)
+                                                                                    )
+                                                                                }
+
+                                                                            </div>
+                                                                            <div className="col-md-7  d-flex flex-column mt-3">
+                                                                                <h5 className="patient-list__common-name">
+                                                                                    <b>
+                                                                                        {details.patient.firstName +
+                                                                                            ' ' +
+                                                                                            details.patient.lastName}
+                                                                                    </b>
+                                                                                </h5>
+                                                                                <span className="patient-list__common-span">
+                                                                                    {details.unifiedAppointment
+                                                                                        .split('#')[1]
+                                                                                        .replace('_', ' ')
+                                                                                    }
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="col-md-3 text-center d-flex flex-column mt-3">
-                                                                    <h5 className="patient-list__common-name">
-                                                                        <b>
-                                                                            {details.patient.firstName +
-                                                                                ' ' +
-                                                                                details.patient.lastName}
-                                                                        </b>
-                                                                    </h5>
-                                                                    <span className="patient-list__common-span">
-                                                                        {details.unifiedAppointment}
-                                                                    </span>
+                                                            )
+                                                        }
+                                                    }
+                                                    else if ((details.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) && (details.unifiedAppointment === (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment))) {
+                                                        if (details && details.patient) {
+                                                            return false;
+                                                        }
+                                                    }
+                                                    else if (((details.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) &&
+                                                        (details.unifiedAppointment !== (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment)))) {
+                                                        if (details && details.patient) {
+                                                            return (
+                                                                <div
+                                                                    className="col-md-12 mb-2 mt-2 cursor-pointer"
+                                                                    key={index}
+                                                                >
+                                                                    <div className="patient-list__card"
+                                                                        onClick={
+                                                                            async () => {
+                                                                                setSelectedPatient(details);
+                                                                                Object.keys(details.patient).map(patientData => {
+
+                                                                                    return (calculate_age(details.patient.dateOfBirth && details.patient.dateOfBirth))
+
+                                                                                })
+                                                                            }
+                                                                        }
+                                                                    >
+                                                                        <div className="row align-items-start py-1">
+                                                                            <div className="col-md-2  d-flex flex-column mt-3 ml-3">
+                                                                                <h5 className="patient-list__common-date">
+                                                                                    <b>
+                                                                                        {moment(details.startTime).format(
+                                                                                            'DD'
+                                                                                        )}
+                                                                                    </b>
+                                                                                </h5>
+                                                                                <span className="patient-list__common-span">
+                                                                                    {moment(details.startTime).format(
+                                                                                        'hh:mm A'
+                                                                                    )}
+                                                                                </span>
+                                                                            </div>
+                                                                            <div className="col-md-2  ml-3 mt-2 pb-2">
+                                                                                {
+                                                                                    details.patient.picture ? (
+                                                                                        <img
+                                                                                            src={details.patient.picture}
+                                                                                            alt="profile"
+                                                                                            className="patient-list__img-circle "
+                                                                                        />
+                                                                                    ) : (
+                                                                                        (<Avatar round={true} name={details.patient.firstName + " " + details.patient.lastName} size={60} />)
+                                                                                    )
+                                                                                }
+
+                                                                            </div>
+                                                                            <div className="col-md-7  d-flex flex-column mt-3">
+                                                                                <h5 className="patient-list__common-name">
+                                                                                    <b>
+                                                                                        {details.patient.firstName +
+                                                                                            ' ' +
+                                                                                            details.patient.lastName}
+                                                                                    </b>
+                                                                                </h5>
+                                                                                <span className="patient-list__common-span">
+                                                                                    {details.unifiedAppointment
+                                                                                        .split('#')[1]
+                                                                                        .replace('_', ' ')
+                                                                                    }
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))
+                                                            )
+                                                        }
+                                                    }
+                                                }
+
+                                                )
                                             ) : (
                                                 <div
                                                     className="col-12 ml-2"
@@ -519,204 +593,7 @@ const Mypatient = (props) => {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* <table>
-                                    <thead>
-                                        <tr>
-                                            <th width="50"></th>
-                                            <th width="150">Name</th>
-                                            <th width="70">Gender</th>
-                                            <th width="100">Weight</th>
-                                            <th width="100">Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            search.length > 0 && search.map((searchData, index) => {
-                                                console.log("searchData", searchData);
-                                            })
-                                        }
-                                        {appointmentDets.map((user, index) => {
-                                            if (user.unifiedAppointment === (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) {
-                                                if (user && user.patient) {
-                                                    return (
-
-
-
-
-
-
-
-                                                        <tr key={index}>
-                                                            <td width="50" style={{ cursor: "pointer" }} onClick={async () => {
-                                                                handleConsultationClick(user, activeAppointments[index + 1].endTime);
-                                                                if (user && user.patientId) {
-                                                                    getChiefComplaintData(user.patientId);
-                                                                    getFamilyAndSocialHistoryData(user.patientId);
-                                                                }
-                                                                Object.keys(user.patient).map(patientData => {
-                                                                    //if (user.patient && user.patient.dateOfBirth) {
-                                                                    return (calculate_age(user.patient.dateOfBirth && user.patient.dateOfBirth))
-                                                                    //}
-                                                                })
-                                                            }}>{user.patient.picture ?
-                                                                (<img src={user.patient.picture} alt="" style={{ width: 45, height: 45, borderRadius: 5 }} />)
-                                                                :
-                                                                (<Avatar name={user.patient.firstName + " " + user.patient.lastName} size="45" />)}</td>
-                                                            <td width="150">{user.patient.firstName + " " + user.patient.lastName}</td>
-                                                            <td width="70">{user.patient.gender && user.patient.gender === "MALE" ? "Male"
-                                                                : user.patient.gender === "FEMALE" ? "Female" : ""}</td>
-                                                            <td width="100">{user.patient.weight}</td>
-                                                            <td width="100"><span title={moment(user.startTime).format("h:mm A") + " - " + moment(activeAppointments[index + 1].endTime).format("h:mm A")}>{moment(user.startTime).format("MMM DD, YYYY")}</span></td>
-                                                        </tr>
-                                                    )
-                                                }
-
-                                            }
-                                            else if ((user.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) && (user.unifiedAppointment === (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment))) {
-                                                if (user && user.patient) {
-                                                    return false;
-                                                }
-                                            }
-                                            else if (((user.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) &&
-                                                (user.unifiedAppointment !== (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment)))) {
-                                                if (user && user.patient) {
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td width="50" style={{ cursor: "pointer" }} onClick={async () => {
-                                                                setSelectedPatient(user);
-                                                                if (user && user.patientId) {
-                                                                    getChiefComplaintData(user.patientId);
-                                                                    getFamilyAndSocialHistoryData(user.patientId);
-                                                                }
-                                                                Object.keys(user.patient).map(patientData => {
-                                                                    //if (user.patient && user.patient.dateOfBirth) {
-                                                                    return (calculate_age(user.patient.dateOfBirth && user.patient.dateOfBirth))
-                                                                    //}
-                                                                })
-                                                            }}>{user.patient.picture ?
-                                                                (<img src={user.patient.picture} alt="" style={{ width: 45, height: 45, borderRadius: 5 }} />)
-                                                                :
-                                                                (<Avatar name={user.patient.firstName + " " + user.patient.lastName} size="45" />)} </td>
-                                                            <td width="150">{user.patient.firstName + " " + user.patient.lastName}</td>
-                                                            <td width="70">{user.patient.gender && user.patient.gender === "MALE" ? "Male"
-                                                                : user.patient.gender === "FEMALE" ? "Female" : ""}</td>
-                                                            <td width="100">{user.patient.weight}</td>
-                                                            <td width="100"><span title={moment(user.startTime).format("h:mm A") + " - " + moment(user.endTime).format("h:mm A")}>{moment(user.startTime).format("MMM DD, YYYY")}</span></td>
-                                                        </tr>
-                                                    )
-                                                }
-                                            }
-                                            return activeAppointments;
-                                        })}
-                                        <tr>
-                                            <td colSpan={4} style={{ width: '100%' }}>
-                                                {activeAppointments.length > 24 && (
-                                                    <div className="text-center">
-                                                        <button className="btn btn-outline-secondary" onClick={() => loadMoreActiveAppointment(doctorId)}>Load More</button>
-                                                    </div>
-                                                )}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table> */}
                             </div>
-                            {/* </TabPanel>
-                                <TabPanel>
-                                    <div id="patient-list">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th width="50"></th>
-                                                    <th width="150">Name</th>
-                                                    <th width="70">Gender</th>
-                                                    <th width="100">Weight</th>
-                                                    <th width="100">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {pastAppointments.map((user, index) => {
-                                                    if (user.unifiedAppointment === (pastAppointments[index + 1] && pastAppointments[index + 1].unifiedAppointment)) {
-                                                        if (user && user.patient) {
-                                                            return (
-                                                                <tr key={index}>
-                                                                    <td width="50" style={{ cursor: "pointer" }} onClick={async () => {
-                                                                        handleConsultationClick(user, pastAppointments[index + 1].endTime);
-                                                                        if (user && user.patientId) {
-                                                                            getChiefComplaintData(user.patientId);
-                                                                            getFamilyAndSocialHistoryData(user.patientId);
-                                                                        }
-                                                                        Object.keys(user.patient).map(patientData => {
-                                                                            //if (user.patient && user.patient.dateOfBirth) {
-                                                                            return (calculate_age(user.patient.dateOfBirth && user.patient.dateOfBirth))
-                                                                            //}
-                                                                        })
-                                                                    }}>{user.patient.picture ?
-                                                                        (<img src={user.patient.picture} alt="" style={{ width: 45, height: 45, borderRadius: 5 }} />)
-                                                                        :
-                                                                        (<Avatar name={user.patient.firstName + " " + user.patient.lastName} size="45" />)} </td>
-                                                                    <td width="150">{user.patient.firstName + " " + user.patient.lastName}</td>
-                                                                    <td width="70">{user.patient.gender && user.patient.gender === "MALE" ? "Male"
-                                                                        : user.patient.gender === "FEMALE" ? "Female" : ""}</td>
-                                                                    <td width="100">{user.patient.weight}</td>
-                                                                    <td width="100"><span title={moment(user.startTime).format("h:mm A") + " - " + moment(pastAppointments[index + 1].endTime).format("h:mm A")}>{moment(user.startTime).format("MMM DD, YYYY")}</span></td>
-                                                                </tr>
-                                                            )
-                                                        }
-
-                                                    }
-                                                    else if ((user.unifiedAppointment !== (pastAppointments[index + 1] && pastAppointments[index + 1].unifiedAppointment)) && (user.unifiedAppointment === (pastAppointments[index - 1] && pastAppointments[index - 1].unifiedAppointment))) {
-                                                        if (user && user.patient) {
-                                                            return false;
-                                                        }
-                                                    }
-                                                    else if (((user.unifiedAppointment !== (pastAppointments[index + 1] && pastAppointments[index + 1].unifiedAppointment)) &&
-                                                        (user.unifiedAppointment !== (pastAppointments[index - 1] && pastAppointments[index - 1].unifiedAppointment)))) {
-                                                        if (user && user.patient) {
-                                                            return (
-                                                                <tr key={index}>
-                                                                    <td width="50" style={{ cursor: "pointer" }} onClick={async () => {
-                                                                        setSelectedPatient(user);
-                                                                        if (user && user.patientId) {
-                                                                            getChiefComplaintData(user.patientId);
-                                                                            getFamilyAndSocialHistoryData(user.patientId);
-                                                                        }
-                                                                        Object.keys(user.patient).map(patientData => {
-                                                                            //if (user.patient && user.patient.dateOfBirth) {
-                                                                            return (calculate_age(user.patient.dateOfBirth && user.patient.dateOfBirth))
-                                                                            //}
-                                                                        })
-                                                                    }}>{user.patient.picture ?
-                                                                        (<img src={user.patient.picture} alt="" style={{ width: 45, height: 45, borderRadius: 5 }} />)
-                                                                        :
-                                                                        (<Avatar name={user.patient.firstName + " " + user.patient.lastName} size="45" />)} </td>
-                                                                    <td width="150">{user.patient.firstName + " " + user.patient.lastName}</td>
-                                                                    <td width="70">{user.patient.gender && user.patient.gender === "MALE" ? "Male"
-                                                                        : user.patient.gender === "FEMALE" ? "Female" : ""}</td>
-                                                                    <td width="100">{user.patient.weight}</td>
-                                                                    <td width="100"><span title={moment(user.startTime).format("h:mm A") + " - " + moment(user.endTime).format("h:mm A")}>{moment(user.startTime).format("MMM DD, YYYY")}</span></td>
-                                                                </tr>
-                                                            )
-                                                        }
-                                                    }
-                                                    return pastAppointments;
-                                                })}
-
-                                                <tr>
-                                                    <td colSpan={4} style={{ width: '100%' }}>
-                                                        {pastAppointments.length > 24 && (
-                                                            <div className="text-center">
-                                                                <button className="btn btn-outline-secondary" onClick={() => loadMorePastAppointment(doctorId)}>Load More</button>
-                                                            </div>
-                                                        )}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </TabPanel>
-                            </Tabs> */}
                         </div>
                         <Link to="/doctor/appointment">
                             <button className="btn btn-primary calendar-btn">
@@ -746,11 +623,6 @@ const Mypatient = (props) => {
                                         <div id="request-box">
                                             <div id="appointment-request">
                                                 <Row>
-                                                    {/* <Col xs={7}>
-                                                    <b style={{ fontSize: '16px' }}>Appointment</b>
-                                                    <br /><br />
-
-                                                </Col> */}
                                                     <Col xs={8}>
                                                         <div id="req-name">
                                                             <b style={{ fontSize: '16px' }}>
@@ -1036,7 +908,7 @@ const Mypatient = (props) => {
                                                 alignItems: 'center',
                                             }}
                                         >
-                                            <p className="text-center">No Data Available ...</p>
+                                            <p className="text-center">No Patient Datacard Selected ...</p>
                                         </div>
                                     </>
                                 )}

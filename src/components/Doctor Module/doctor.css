@@ -1338,7 +1338,7 @@ div#multiselectContainerReact div {
 div#patient-col-1 {
   background: var(--primarybg);
   border-radius: 22px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 div#patient-col-2 {
@@ -2679,7 +2679,7 @@ button {
   text-align: left;
 
   box-shadow: 0px 0px 10px #ddd;
-  height: 47%;
+  height: 40%;
   overflow: auto;
 }
 .scroller-cardlist {
@@ -2779,6 +2779,10 @@ button.reset-btn {
   margin-bottom: 5px;
 }
 
+.filter-action {
+  margin-top: 10px;
+}
+
 /* MY PATIENT CARDS */
 .patient-list__card-box {
   border-radius: 22px;
@@ -2846,7 +2850,7 @@ button.reset-btn {
 
 .patient-list__img-circle {
   border-radius: 50%;
-  width: 70px;
+  width: 60px;
   height: 60px;
 }
 
@@ -2857,7 +2861,6 @@ button.reset-btn {
   margin-bottom: 2px;
   text-transform: capitalize;
   color: black;
-  margin-top: 4px;
 }
 
 .patient-list__appointment-type {
