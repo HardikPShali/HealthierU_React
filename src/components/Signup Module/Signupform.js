@@ -527,7 +527,7 @@ const Signupform = () => {
                         "required",
                         "matchRegexp:(?=.*[a-z])",
                         "matchRegexp:(?=.*[A-Z])",
-                        "matchRegexp:(?=.*[0-9!@*$_])",
+                        "matchRegexp:(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;\"\'<>,.?/_₹])",
                         "minStringLength:8",
                         "maxStringLength:30",
                       ]}
