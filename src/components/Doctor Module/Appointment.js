@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Myappointment = (props) => {
-console.log("props",props)
+
     const [open, setOpen] = useState(false);
     const timeZone = momentTz.tz.guess();
     const { timeZone: currentTimezone, currentDoctor } = props;

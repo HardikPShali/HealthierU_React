@@ -553,15 +553,7 @@ const AddPrescription = (props) => {
                                             </div>
 
 
-                                            <Button style={{ marginLeft: '80%' }}
-                                                variant="primary"
-                                                type="submit"
-                                            // disabled={
-                                            //     !prescriptionList?.prescriptionDocument
-                                            // }
-                                            >
-                                                Save
-                                            </Button>
+
 
                                         </form>
                                     </div>
@@ -571,6 +563,12 @@ const AddPrescription = (props) => {
                         }
 
                     </div>
+                    <Button style={{marginLeft:'50%'}}
+                        variant="primary"
+                        type="submit"
+                    >
+                        Save
+                    </Button>
                 </div>
             </div>
         </div>
