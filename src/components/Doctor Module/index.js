@@ -72,7 +72,7 @@ const DoctorRoute = () => {
     // if (res && res.data) {
     //   res.data.doctors.map((value, index) => setCurrentDoctor(value));
     // }
-    const currentDoctor = cookies.get('currentUser');
+    const currentDoctor = cookies.get('profileDetails');
     setCurrentDoctor(currentDoctor);
   };
 
