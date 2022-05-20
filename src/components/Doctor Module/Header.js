@@ -44,20 +44,24 @@ const Header = (props) => {
   const cookies = new Cookies();
   const currentLoggedInUser = cookies.get('currentUser');
   const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
+  console.log("loggedInUserId",loggedInUserId)
   useEffect(() => {
     getCurrentDoctor();
   }, []);
   const getCurrentDoctor = async () => {
     const res = await getDoctorByUserId(loggedInUserId);
+    // const res = cookies.get('currentUser');
     //axios(payload).then(res => {
     if (res && res.data) {
       res.data.doctors.map((value, index) => {
         if (value && value.doctorTimeZone !== systemTimeZone) {
-          handleSubmit(value.id, systemTimeZone);
+          // handleSubmit(value.id, systemTimeZone);
         }
+        
         return value;
       });
     }
+    console.log("res",res)
     return res;
   };
   // const handleClickOpen = () => {
@@ -76,25 +80,25 @@ const Header = (props) => {
   // const handleChange = (e) => {
   //   setTimezone({ ...timeZone, doctorTimeZone: e.value });
   // };
-  const handleSubmit = async (id, timezone) => {
-    const payload = {
-      id: id,
-      doctorTimeZone: timezone,
-    };
-    const response = await updateDoctorTimeZone(payload);
-    if (response) {
-      //handleCloseOpen();
-      toast(`Your timezone has been changed to : ${timezone}`, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-  };
+  // const handleSubmit = async (id, timezone) => {
+  //   const payload = {
+  //     id: id,
+  //     doctorTimeZone: timezone,
+  //   };
+  //   const response = await updateDoctorTimeZone(payload);
+  //   if (response) {
+     
+  //     toast(`Your timezone has been changed to : ${timezone}`, {
+  //       position: 'top-right',
+  //       autoClose: 5000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //     });
+  //   }
+  // };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

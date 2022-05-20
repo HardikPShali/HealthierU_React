@@ -119,7 +119,7 @@ const Welcome = ({ currentuserInfo }) => {
             currentUserData();
         }
     }, [])
-    const [educationList, setEducationList] = useState([{ educationalQualification: '', institution: '' }]);
+    const [educationList, setEducationList] = useState([{ institution: '', educationalQualification: '' }]);
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
         firstName: (currentuserInfo && currentuserInfo.firstName) || "",
@@ -127,6 +127,7 @@ const Welcome = ({ currentuserInfo }) => {
         dateOfBirth: "",
         phone: "",
         countryId: "",
+        countryName: "",
         gender: "",
         highbp: 0,
         lowbp: 0,
@@ -136,10 +137,10 @@ const Welcome = ({ currentuserInfo }) => {
         allergies: "",
         email: (currentuserInfo && currentuserInfo.email) || "",
         educationalQualifications: [],
-        institution: "",
-        rate: 0,
-        halfRate: 0,
-        bio: "",
+        // institution: "",
+        // rate: 0,
+        // halfRate: 0,
+        // bio: "",
         //modeodemployement: "",
         address: "",
         affiliation: "",
@@ -171,6 +172,7 @@ const Welcome = ({ currentuserInfo }) => {
             Setoption({ countryList: res.data.data })
             setTimeout(() => setLoading(false), 1000);
         }
+        console.log("countryList", countryList)
     }
     const loadSpeciality = async () => {
         const res = await getSpecialityList().catch(err => {
@@ -186,7 +188,7 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications } = state;
+    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications, countryName } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
@@ -237,6 +239,7 @@ const Welcome = ({ currentuserInfo }) => {
     };
     const handleCountry = (e) => {
         setstate({ ...state, countryId: e.target.value });
+        // setstate({ ...state, countryName: e.target.name });
     };
 
     const handleDateChange = (e) => {
@@ -296,7 +299,8 @@ const Welcome = ({ currentuserInfo }) => {
         list[index][name] = value;
         setEducationList(list);
         setstate({ ...state, educationalQualifications: list });
-        console.log("educationList", state)
+        console.log("educationList",educationList)
+        console.log("state",state)
     };
     // handle click event of the Remove button
     const handleRemoveClick = (index) => {
@@ -306,8 +310,7 @@ const Welcome = ({ currentuserInfo }) => {
     };
     // handle click event of the Add button
     const handleAddClick = () => {
-        setEducationList([...educationList, { educationalQualification: '', institution: '' }]);
-        // setstate([...state, {educationalQualifications : [...educationList, { educationalQualification: '', institution: '' }]}]);
+        setEducationList([...educationList, { institution: '', educationalQualification: '' }]);
     };
     const handleDetails = async e => {
         e.preventDefault();
@@ -332,11 +335,12 @@ const Welcome = ({ currentuserInfo }) => {
             patientTimeZone: currentTimeZone
         };
         const doctorPayload = {
-            userId: (currentuserInfo && currentuserInfo.id) || "",
-            firstName: (currentuserInfo && currentuserInfo.firstName) || "",
-            lastName: (currentuserInfo && currentuserInfo.lastName) || "",
+            // userId: (currentuserInfo && currentuserInfo.id) || "",
+            // firstName: (currentuserInfo && currentuserInfo.firstName) || "",
+            // lastName: (currentuserInfo && currentuserInfo.lastName) || "",
             phone: phone,
             countryId: countryId,
+            // countryName: countryName,
             dateOfBirth: dateOfBirth,
             gender: gender,
             educationalQualifications: educationalQualifications,
@@ -348,11 +352,11 @@ const Welcome = ({ currentuserInfo }) => {
             experience: experience,
             specialities: specialities,
             languages: languages,
-            certificates: certificates,
+            // certificates: certificates,
             modeOfEmployment: modeOfEmployment,
-            awards: awards,
-            email: (currentuserInfo && currentuserInfo.email) || "",
-            address: address,
+            // awards: awards,
+            // email: (currentuserInfo && currentuserInfo.email) || "",
+            // address: address,
             languages: languages,
             doctorTimeZone: currentTimeZone
         };
@@ -404,9 +408,11 @@ const Welcome = ({ currentuserInfo }) => {
             }
             else {
                 setTransparentLoading(true);
-                bodyFormDataDoctor.append('profileData', JSON.stringify(doctorPayload));
-                bodyFormDataDoctor.append('profilePicture', profilePicture);
-
+                console.log("doctorPayload",JSON.stringify(doctorPayload))
+            
+                bodyFormDataDoctor.append('profileData', new Blob([JSON.stringify(doctorPayload)],{
+                    type: "application/json"
+                }));
                 const response = await updateRoleDoctor(bodyFormDataDoctor).catch(err => {
                     setTransparentLoading(false);
                     if (err.response.status === 400 && state.phone === "") {
@@ -510,7 +516,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                 value={firstName}
                                                 validators={['required']}
                                                 errorMessages={['This field is required']}
-                                                variant="filled" />
+                                                variant="filled"
+                                                disabled />
                                         </Col>
                                         <Col md={6}>
                                             <p>Last Name<sup>*</sup></p>
@@ -520,6 +527,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 validators={['required']}
                                                 errorMessages={['This field is required']}
                                                 variant="filled"
+                                                disabled
                                             />
                                         </Col>
                                     </Row>
@@ -782,8 +790,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                         onChange={e => handleInputChange(e)}
                                                     >
                                                         <MenuItem value=""><em>Select</em></MenuItem>
-                                                        <MenuItem value="selfemployed">Self-Employed</MenuItem>
-                                                        <MenuItem value="employed">Employed</MenuItem>
+                                                        <MenuItem value="Self - Employed">Self - Employed</MenuItem>
+                                                        <MenuItem value="Employed">Employed</MenuItem>
 
                                                     </Select>
                                                 </FormControl>
