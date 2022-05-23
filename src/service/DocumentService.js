@@ -149,29 +149,42 @@ export const getDocument = async (doc) => {
   });
 };
 
-export const postDocument = async (data) => {
+export const postDocument = async (formData) => {
   const headers = {
     mode: "no-cors",
     Authorization: "Bearer " + LocalStorageService.getAccessToken(),
   };
 
-  const methodType = data.get("id") ? "PUT" : "POST";
-  const medicalInfo = {
-    id: data.get("id") ? data.get("id") : null,
-    decription: data.get("decription"),
-    duration: data.get("duration"),
-    documentType: "Prescription",
-    patientId: data.get("patientId"),
-    doctorId: data.get("doctorId"),
-  };
+  // const methodType = data.get("id") ? "PUT" : "POST";
+  // const medicalInfo = [{
+  //   id: data.get("id") ? data.get("id") : null,
+  //   duration: data.get("duration"),
+  //   medicineName: data.get("medicineName"),
+  //   dose: data.get("dose"),
+  //   numberOfDays: data.get("numberOfDays"),
+  //   interval: data.get("interval"),
+  // }];
+  // const medicalDocumentInfo = {
+  //   decription: data.get("decription") ? data.get("decription") : null,
+  //   duration: data.get("duration"),
+  //   documentType: "Prescription",
+  //   patientId: data.get("patientId"),
+  //   doctorId: data.get("doctorId"),
+  // };
 
-  const formData = new FormData();
-  formData.append("file", data.get("prescriptionDocument"));
-  formData.append("medicalInfo", JSON.stringify(medicalInfo));
+  // const formData = new FormData();
+  // formData.append("medicalInfo", new Blob([JSON.stringify(medicalInfo)], {
+  //   type: "application/json"
+  // }));
+  // formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+  //   type: "application/json"
+  // }));
+  // console.log("medicalDocumentInfo",medicalDocumentInfo)
+  // formData.append("file", data.get("prescriptionDocument"));
 
   var config = {
-    method: methodType,
-    url: "/api/medical-document-upload",
+    method: 'post',
+    url: "/api/v2/medical-document-upload",
     headers: headers,
     data: formData,
   };
@@ -298,9 +311,9 @@ export const getDocumentById = async (payload) => {
     url:
       payload.patientId !== null
         ? "/api/medical-document?docId=" +
-          payload.id +
-          "&patId=" +
-          payload.patientId
+        payload.id +
+        "&patId=" +
+        payload.patientId
         : "/api/medical-document?docId=" + payload.id,
     headers: {
       mode: "no-cors",

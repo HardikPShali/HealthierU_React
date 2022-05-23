@@ -20,11 +20,11 @@ const Logout = React.lazy(() => import("../Logout"));
 const Appointment = React.lazy(() => import("./Appointment"));
 const Mypatient = React.lazy(() => import("./Mypatient"));
 const Healthassessment = React.lazy(() => import("./Healthassessment"));
-const HealthAssestmentReport= React.lazy(() => import("./HealthAssestmentReport/HealthAssestmentReport"));
-const MedicalRecord= React.lazy(() => import("./file-upload/DoctorDocument"));
+const HealthAssestmentReport = React.lazy(() => import("./HealthAssestmentReport/HealthAssestmentReport"));
+const MedicalRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
 const MyRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
 const ConsulatationHistory = React.lazy(() => import("./ConsulatationHistory/ConsulatationHistory"));
-
+const AddPrescription = React.lazy(() => import("./Prescription-Lab/AddPrescription"));
 const DoctorChatNew = React.lazy(() => import("../Doctor Module/DoctorChatNew"));
 
 const DoctorShop = React.lazy(() => import("./doctorshop"));
@@ -67,11 +67,13 @@ const DoctorRoute = () => {
   }, []);
 
   const getCurrentDoctor = async () => {
-    const res = await getDoctorByUserId(loggedInUserId);
-    //axios(payload).then(res => {
-    if (res && res.data) {
-      res.data.doctors.map((value, index) => setCurrentDoctor(value));
-    }
+    // const res = await getDoctorByUserId(loggedInUserId);
+    // //axios(payload).then(res => {
+    // if (res && res.data) {
+    //   res.data.doctors.map((value, index) => setCurrentDoctor(value));
+    // }
+    const currentDoctor = cookies.get('profileDetails');
+    setCurrentDoctor(currentDoctor);
   };
 
   useEffect(() => {
@@ -114,9 +116,7 @@ const DoctorRoute = () => {
 
   return (
     <Suspense fallback={<Loader />}>
-      {headerFooterLoad && currentLoggedInUser?.profileCompleted === true && (
-        <>
-        <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />
+      {headerFooterLoad && currentLoggedInUser?.profileCompleted === true && <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />}
       <Switch>
         <Route exact path="/doctor" component={Homepage} />
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
@@ -132,6 +132,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/shop" component={DoctorShop} />
         <Route exact path="/doctor/article" component={DoctorArticle} />
         <Route exact path="/doctor/changepassword" component={ChangeAccountPassword} />
+        <Route exact path="/doctor/addPrescription/:id" component={AddPrescription} />
         <Route exact path="/doctor/about-us" render={(props) => <AboutUs currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/privacy-policy" render={(props) => <PrivacyPolicyPage currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/terms-and-conditions" render={(props) => <TermsAndConditionsPage currentuserInfo={currentLoggedInUser} {...props} />} />
@@ -169,10 +170,7 @@ const DoctorRoute = () => {
         /> */}
         {/* <Redirect from='/' to='/doctor' /> */}
       </Switch>
-       <Footer />l̥
-        </>
-        
-      )}
+      <Footer />
     </Suspense>
   );
 };

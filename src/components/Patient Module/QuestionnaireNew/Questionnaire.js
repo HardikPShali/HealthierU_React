@@ -11,10 +11,13 @@ import { getPatientQuestionnaire } from '../../questionnaire/QuestionnaireServic
 import {
     getCurrentUserInfo,
 } from '../../../service/AccountService';
+import Cookies from 'universal-cookie';
 
 const Questionnaire = () => {
     const [questions, setQuestions] = useState(null);
     // const [loading, setLoading] = useState(true);
+
+    const cookies = new Cookies();
 
     const [currentUser, setCurrentUser] = useState({
         isLoading: true,
@@ -44,15 +47,15 @@ const Questionnaire = () => {
         setTimeout(() => history.push('/patient'), 1000);
     }
 
-    const getCurrentUserInformation = async () => {
-        const currentUser = await getCurrentUserInfo();
-        setCurrentUser({ ...currentUser, currentLoggedInUser: currentUser.data.userInfo });
-        console.log('currentUser', currentUser);
-    }
+    const currentUserLoggedIn = cookies.get('currentUser');
+    console.log("currentUserLoggedIn", currentUserLoggedIn);
+
+    const currentPatientLoggedIn = cookies.get('profileDetails');
+    console.log("currentPatientLoggedIn", currentPatientLoggedIn);
 
     const getQuestionnaire = async () => {
-        const response = await getPatientQuestionnaire(currentUser.id);
-        setQuestions({ ...questionnaireState, questionnaire: response, isLoading: false });
+        const response = await getPatientQuestionnaire(currentPatientLoggedIn.id);
+        // setQuestions({ ...questionnaireState, questionnaire: response, isLoading: false });
         console.log('response', response);
     }
 
@@ -60,7 +63,7 @@ const Questionnaire = () => {
     useEffect(() => {
         setQuestions(quesJson);
 
-        getCurrentUserInformation();
+        // getCurrentUserInformation();
         getQuestionnaire();
 
     }, []);

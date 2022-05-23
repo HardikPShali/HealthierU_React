@@ -13,11 +13,14 @@ const ConsulatationHistorySection = () => {
                     {dummyConsulatationHistory.length > 0 &&
                         dummyConsulatationHistory.map(
                             (q, index) => (
-                                <ConsulatationHistoryCard
-                                    date={q.Date}
-                                    symptomsData={q['Symptoms Description']}
-                                    diagnosisData={q['Diagnosis Description']}
-                                />
+                                <div key={index}>
+                                    <ConsulatationHistoryCard
+
+                                        date={q.Date}
+                                        symptomsData={q['Symptoms Description']}
+                                        diagnosisData={q['Diagnosis Description']}
+                                    />
+                                </div>
                             )
                         )}
                 </div>

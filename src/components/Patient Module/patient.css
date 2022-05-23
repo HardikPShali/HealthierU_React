@@ -1227,6 +1227,7 @@ div#multiselectContainerReact div:hover {
   height: 500px;
   overflow-y: scroll;
   overflow-x: hidden;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
 }
 
 .radio-div,
@@ -3655,4 +3656,35 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .searchBox {
   width: 100%;
   max-height: 50px;
+}
+
+/* APPOINTMENTS CALENDAR SCROLL-BAR */
+/* width */
+
+.rbc-time-content::-webkit-scrollbar,
+.rbc-agenda-view::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+.rbc-time-content::-webkit-scrollbar-track,
+.rbc-agenda-view::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+.rbc-time-content::-webkit-scrollbar-thumb,
+.rbc-agenda-view::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+.rbc-time-content::-webkit-scrollbar-thumb:hover,
+.rbc-agenda-view::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }

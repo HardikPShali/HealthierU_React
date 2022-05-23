@@ -13,6 +13,7 @@ import editIcon from '../../images/Icons/edit icon_40 pxl.svg';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import IconButton from '@material-ui/core/IconButton';
+import Cookies from 'universal-cookie';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import {
@@ -40,11 +41,12 @@ import {
 import CancelIcon from '@material-ui/icons/Cancel';
 import PrescriptionLabCard from './Prescription-Lab/PrescriptionLabCard';
 import './Prescription-Lab/PrescriptionLab.css'
+import { useHistory } from 'react-router';
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
     //const { id } = useParams();
-
+    const history = useHistory();
     const topicSet = new Set();
     const [questionnaire, setQuestionnaire] = useState(null);
     const [doctor, setDoctor] = useState(null);
@@ -232,28 +234,32 @@ const Healthassessment = (props) => {
     };
 
     const [editDocument, setEditDocument] = useState(false);
-
+    const cookies = new Cookies();
     const loadDocuments = async () => {
         // GET request using fetch with async/await
         const currentUser = await getCurrentUserInfo();
 
-        const doctor = await getCurrentDoctorInfo(
-            currentUser.data.userInfo.id,
-            currentUser.data.userInfo.login
-        );
+        // const doctor = await getCurrentDoctorInfo(
+        //     currentUser.data.userInfo.id,
+        //     currentUser.data.userInfo.login
+        // );
+        const doctor = cookies.get('currentUser');
         if (doctor) {
             setDoctor(doctor);
         }
+        console.log("doctor",doctor)
 
         //const patientInfo = await getPatientInfoByPatientId(`${id}`);
         const patientInfo = props.location.state;
+
         if (patientInfo) {
             setPatient(patientInfo);
+            console.log("patientInfo", patientInfo.id)
         }
         const presecriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             0,
-            doctor.data.id,
+            doctor.id,
 
             patientInfo && patientInfo.id
 
@@ -268,9 +274,11 @@ const Healthassessment = (props) => {
     };
 
     const handlePrescriptionUploadShow = () => {
-        setDate(0);
-        setShowPrescriptionUpload(true);
-        setPrescriptionResult(null);
+    // setDate(0);
+    // setShowPrescriptionUpload(true);
+    // setPrescriptionResult(null);
+    const patientInfo = props.location.state;
+        props.history.push({ pathname: `/doctor/addPrescription/${patientInfo.id}`, state: patientInfo });
     };
 
     const handleUploadLabResultShow = () => {
@@ -412,6 +420,7 @@ const Healthassessment = (props) => {
                                 <div className="row">
                                     <div className="col-lg-10"></div>
                                     <div className="col-md-2 text-right">
+                                        {/* <Link to={{ pathname: `/doctor/addPrescription/${SelectedPatient.patientId}`, state: SelectedPatient.patient }}><button className="btn btn-primary view-btn">Reschedule</button></Link> */}
                                         <button
                                             type="button"
                                             className="btn btn-primary"
@@ -420,6 +429,14 @@ const Healthassessment = (props) => {
                                         >
                                             Add Prescription
                                         </button>
+                                        {/* <Link className="btn btn-primary"
+                                            style={{ fontSize: '0.65rem' }}
+                                            to={{ pathname: `/doctor/addPrescription/${patient}`, state: patient }}
+                                        >
+
+
+                                            Add Prescription
+                                        </Link> */}
                                     </div>
                                 </div>
                                 <br />
@@ -430,7 +447,7 @@ const Healthassessment = (props) => {
                                         (dataItem, subIndex) => {
                                             return (
 
-                                                <div className="prescription-lab__card-box">
+                                                <div className="prescription-lab__card-box" >
                                                     <h3 className="prescription-lab--main-header mb-3 mt-2">
                                                         {moment(dataItem.docUploadTime).format("MMM")}
                                                     </h3>
@@ -899,7 +916,7 @@ const Healthassessment = (props) => {
                         ></input>
                         {inputList.map((x, i) => {
                             return (
-                                <div className="form-group row">
+                                <div className="form-group row" key={i}>
                                     <label htmlFor="topic" className="col-sm-3 col-form-label">
                                         Medicine
                                     </label>
