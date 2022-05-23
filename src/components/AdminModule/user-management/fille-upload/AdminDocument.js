@@ -200,6 +200,7 @@ const AdminDocument = (props) => {
         setErrorMsg("Please upload the document in PDF format.");
       }
     });
+    console.log("response ::", response);
     if (response) {
       setShowPrescriptionUpload(false);
       setLoading(false);
@@ -469,15 +470,15 @@ const AdminDocument = (props) => {
                             <td width="150">
                               {dataItem?.patient
                                 ? dataItem?.patient?.firstName +
-                                  " " +
-                                  dataItem?.patient?.lastName
+                                " " +
+                                dataItem?.patient?.lastName
                                 : ""}
                             </td>
                             <td width="150">
                               {dataItem?.doctor
                                 ? dataItem?.doctor?.firstName +
-                                  " " +
-                                  dataItem?.doctor?.lastName
+                                " " +
+                                dataItem?.doctor?.lastName
                                 : ""}
                             </td>
                           </tr>
@@ -622,15 +623,15 @@ const AdminDocument = (props) => {
                           <td width="150">
                             {dataItem?.patient
                               ? dataItem?.patient?.firstName +
-                                " " +
-                                dataItem?.patient?.lastName
+                              " " +
+                              dataItem?.patient?.lastName
                               : ""}
                           </td>
                           <td width="150">
                             {dataItem?.doctor
                               ? dataItem?.doctor?.firstName +
-                                " " +
-                                dataItem?.doctor?.lastName
+                              " " +
+                              dataItem?.doctor?.lastName
                               : ""}
                           </td>
                         </tr>
@@ -817,7 +818,7 @@ const AdminDocument = (props) => {
                 <div className="col-sm-9">
                   <input
                     type="email"
-                    maxlength="50"
+                    maxLength="50"
                     id="doctorEmail"
                     name="doctorEmail"
                     className="form-control"
@@ -855,7 +856,7 @@ const AdminDocument = (props) => {
                 <div className="col-sm-9">
                   <input
                     type="email"
-                    maxlength="50"
+                    maxLength="50"
                     id="patientEmail"
                     name="patientEmail"
                     className="form-control"

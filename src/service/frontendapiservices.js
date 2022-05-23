@@ -889,3 +889,23 @@ export const getGlobalAppointmentsSearch = async (data) => {
     });
     return response;
 }
+
+export const updateDoctorData = async (data) => {
+    var payload = {
+        method: 'put',
+        mode: 'no-cors',
+        data: data,
+        url: '/api/mobile/admin/doctors',
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
