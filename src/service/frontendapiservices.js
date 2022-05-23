@@ -870,3 +870,22 @@ export const getAppointmentsBySearch = async (patientName) => {
     });
     return response;
 }
+
+export const getGlobalAppointmentsSearch = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/appointments/filter`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}

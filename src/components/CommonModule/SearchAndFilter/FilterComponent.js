@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TuneIcon from '@material-ui/icons/Tune';
 import IconButton from '@material-ui/core/IconButton';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
@@ -6,22 +6,23 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import moment from 'moment';
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
-const FilterComponent = () => {
+const FilterComponent = (props) => {
     const ref = useRef();
 
     const [filter, setFilter] = useState('');
 
     const [filterValues, setFilterValues] = useState({
-        patientId: '',
-        patientName: '',
+        patientSlot: '',
         patientStartTime: '',
         patientEndTime: '',
     });
 
     const {
-        patientId,
-        patientName,
+        patientSlot,
         patientStartTime,
         patientEndTime,
     } = filterValues;
@@ -32,9 +33,26 @@ const FilterComponent = () => {
         setFilter(filter ? false : true);
     };
 
-    const handleInput = (e) => {
-        // console.log('name is', e.target.value);
-        setFilterValues({ ...filterValues, [e.target.value]: e.target.value });
+    const handleAppoitnmentType = (e) => {
+
+
+        if (e.target.value === "CONSULTATION") {
+            console.log("CONSULTATION| selected", e.target.value);
+            setFilterValues({
+                ...filterValues,
+                patientSlot: e.target.value,
+            })
+        } else if (e.target.value === "FOLLOW_UP") {
+            console.log("FOLLOW UP| selected", e.target.value);
+            setFilterValues({
+                ...filterValues,
+                patientSlot: e.target.value,
+            })
+        } else if (e.target.value === "") {
+            // setAppointmentSlot([]);
+        }
+        //   setDisable({ ...disable, continue: true });
+
     };
 
     const handleCheckbox = (checked) => {
@@ -46,25 +64,33 @@ const FilterComponent = () => {
         }
     };
 
+
+
     const clearFilter = () => {
         setFilterValues({
-            patientId: '',
-            patientName: '',
+
             patientStartTime: '',
             patientEndTime: '',
         });
+        props.updatedFilter({});
     };
+
+
+    // useEffect(() => {
+    //     props.updatedFilter(filterValues);
+    //     console.log("filterValues", filterValues);
+    // }, [filterValues])
 
     return (
         <div>
             <IconButton
                 onClick={() => toggleFilterBox()}
                 style={{
-                    backgroundColor: `${patientId || patientName || patientStartTime || patientEndTime
+                    backgroundColor: `${patientStartTime || patientEndTime
                         ? '#F6CEB4'
                         : ''
                         }`,
-                    color: `${patientId || patientName || patientStartTime || patientEndTime
+                    color: `${patientStartTime || patientEndTime
                         ? '#00d0cc'
                         : ''
                         }`,
@@ -75,33 +101,11 @@ const FilterComponent = () => {
             {filter && (
                 <div className="appointment-filter-box" ref={ref}>
                     <ValidatorForm
-                        // onSubmit={() => handleFilter()}
+                        onSubmit={() => props.updatedFilter(filterValues)}
                         onError={(error) => console.log(error)}
                     >
                         <div className="appointment-filter-body">
                             <div className="row m-0">
-                                {/* <div className="col-md-12 col-xs-12 pr-1">
-                                    <p>Patient ID:</p>
-                                    <TextField
-                                        type="text"
-                                        variant="filled"
-                                        className="appointment-filter-input"
-                                        placeholder="Patient ID"
-                                        onChange={(value) => handleInput(value)}
-                                        value={setFilterValues.patientId}
-                                    />
-                                </div>
-                                <div className="col-md-12 col-xs-12 pr-1">
-                                    <p>Patient Name:</p>
-                                    <TextField
-                                        type="text"
-                                        variant="filled"
-                                        className="appointment-filter-input"
-                                        placeholder="Patient Name"
-                                        onChange={(value) => handleInput(value)}
-                                        value={setFilterValues.patientName}
-                                    />
-                                </div> */}
                                 <div className="col-md-12 col-xs-12">
                                     <p>Appointment Date:</p>
                                     <div className="row">
@@ -164,6 +168,27 @@ const FilterComponent = () => {
                                         </div>
                                     </div>
                                 </div>
+                                {/* <div className="col-md-12 col-xs-12 pr-1">
+                                    <p>Consultation Type:</p>
+                                    <FormControl>
+                                        <Select
+                                            id="demo-controlled-open-select"
+                                            variant="filled"
+                                            name="appointmentType"
+                                            value={patientSlot}
+                                            displayEmpty
+                                            onChange={(e) => handleAppoitnmentType(e)}
+                                        >
+
+                                            <MenuItem value="CONSULTATION">
+                                                Consultation(1 Hr)
+                                            </MenuItem>
+                                            <MenuItem value="FOLLOW_UP">
+                                                Follow up(30 Mins)
+                                            </MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div> */}
                             </div>
                         </div>
                         <div className="filter-action">
