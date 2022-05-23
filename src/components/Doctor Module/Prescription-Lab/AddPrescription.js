@@ -66,6 +66,7 @@ const AddPrescription = (props) => {
         // prescriptionDocument: null,
     }]);
     const [isSave, setIsSave] = useState(false);
+    const [isSaveModal, setIsSaveModal] = useState(false);
     // handle input change
     const handleInputChange = (e, index) => {
         if (e.target.type === 'file') {
@@ -176,7 +177,8 @@ const AddPrescription = (props) => {
 
     const handlePrescriptionSubmission = async (event) => {
         event.preventDefault();
-        setIsSave(false);
+        // setIsSave(false)
+        // setIsSaveModal(false)
         // const reverseMedicalInfo = prescriptionList.reverse();
         const updateArray = [];
         const docArray = [];
@@ -281,7 +283,7 @@ const AddPrescription = (props) => {
                     ...prescriptionResult,
                     prescriptionDocument: e.target.value,
                 });
-                setIsSave(true);
+                setIsSaveModal(true);
             } else {
                 document.getElementById('prescriptionDocument').value = '';
                 setErrorMsg('Please upload PDF file with size less than 1mb.');
@@ -426,6 +428,7 @@ const AddPrescription = (props) => {
                                                             className="form-control"
                                                             onChange={(e) => handleInputChange(e, i)}
                                                             value={x.numberOfDays}
+                                                            required
                                                             inputProps={{
                                                                 min: 1,
                                                                 // max: 65
@@ -470,6 +473,7 @@ const AddPrescription = (props) => {
                                                                 value={x.interval}
                                                                 inputProps={{ required: true }}
                                                                 placeholder="interval"
+                                                                required
                                                                 onChange={(e) => handleInputChange(e, i)}
                                                             >
                                                                 <MenuItem value="">
@@ -826,7 +830,7 @@ const AddPrescription = (props) => {
                                     variant="primary"
                                     type="submit"
                                     disabled={
-                                        isSave == false
+                                        isSaveModal == false
                                     }
                                 >
                                     Save
