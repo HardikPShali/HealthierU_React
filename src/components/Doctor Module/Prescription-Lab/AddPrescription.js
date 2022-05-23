@@ -37,6 +37,7 @@ import {
     postLabDocument,
     getDocumentById,
 } from '../../../service/DocumentService';
+import { toast } from 'react-toastify';
 import CancelIcon from '@material-ui/icons/Cancel';
 import './PrescriptionLab.css'
 import Cookies from 'universal-cookie';
@@ -45,7 +46,8 @@ const AddPrescription = (props) => {
     const history = useHistory();
     const cookies = new Cookies();
     const [prescriptionResult, setPrescriptionResult] = useState({
-        prescriptionList: []
+        description: '',
+        prescriptionDocument: null,
     });
     const [date, setDate] = useState({
         DurationStartDate: '',
@@ -61,16 +63,11 @@ const AddPrescription = (props) => {
         // quantity: '',
         numberOfDays: '',
         interval: '',
-        prescriptionDocument: null,
+        // prescriptionDocument: null,
     }]);
-    // const noOfDaysInput = useRef(null);
+    const [isSave, setIsSave] = useState(false);
     // handle input change
     const handleInputChange = (e, index) => {
-        // const startDate = moment(DurationStartDate);
-        // const endDate = moment(DurationEndDate);
-        // const diff = endDate.diff(startDate);
-        // const diffDuration = moment.duration(diff);
-        // setcountOfDays(diffDuration.days());
         if (e.target.type === 'file') {
             const fileSize = e.target.files[0].size;
             console.log('fileSize ::', fileSize);
@@ -81,7 +78,8 @@ const AddPrescription = (props) => {
                     ...prescriptionList,
                     prescriptionDocument: e.target.value,
                 });
-                setShowPrescriptionUpload(true);
+
+                // setShowPrescriptionUpload(true);
             } else {
                 document.getElementById('prescriptionDocument').value = '';
                 setErrorMsg('Please upload PDF file with size less than 1mb.');
@@ -92,15 +90,25 @@ const AddPrescription = (props) => {
                 [e.target.name]: e.target.value,
 
             });
-
         }
+        if (e.target.name === 'numberOfDays' && 'dose' && 'duration' && 'interval' && 'medicineName') {
+            setIsSave(true);
+        }
+        // if (prescriptionList.every(x => x != '' & x > 0)) {
+        //     setIsSave(true);
+        // }
+
+
         const { name, value } = e.target;
         const list = [...prescriptionList];
         list[index][name] = value;
         setprescriptionList(list);
 
         console.log("prescriptionList", prescriptionList);
-    };
+    }
+
+
+
     // handle click event of the Remove button
     const handleRemoveClick = (index) => {
         const list = [...prescriptionList];
@@ -115,12 +123,14 @@ const AddPrescription = (props) => {
             medicineName: '',
             dose: '',
             duration: null,
-            quantity: '',
+            // quantity: '',
             numberOfDays: '',
             interval: '',
-            prescriptionDocument: null,
+            // prescriptionDocument: null,
         }]);
-        setShowPrescriptionUpload(true);
+        setIsSave(false);
+        console.log("prescriptionList", prescriptionList);
+        // setShowPrescriptionUpload(true);
     };
     const handleUploadPrescriptionClosed = () => setShowPrescriptionUpload(false);
     const [editDocument, setEditDocument] = useState(false);
@@ -152,60 +162,68 @@ const AddPrescription = (props) => {
     }, [patient]);
 
 
+
+
+    const handlePrescriptionUploadShow = () => {
+        // setDate(0);
+        setShowPrescriptionUpload(true);
+        setPrescriptionResult(null);
+    }
+
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
     const { DurationStartDate, DurationEndDate } = date;
     const [errorMsg, setErrorMsg] = useState('');
 
     const handlePrescriptionSubmission = async (event) => {
-        const reverseMedicalInfo = prescriptionList.reverse();
-        console.log("reverseMedicalInfo", reverseMedicalInfo)
+        event.preventDefault();
+        setIsSave(false);
+        // const reverseMedicalInfo = prescriptionList.reverse();
         const updateArray = [];
-        reverseMedicalInfo.map((value) => {
-            updateArray.push({
-                medicineName: value.medicineName,
-                dose: value.dose,
-                duration: value.duration,
-                numberOfDays: value.numberOfDays,
-                interval: value.interval,
-            })
-        })
-        let lastDoc = prescriptionList.slice(-1);
-        console.log("lastDoc", lastDoc)
-        var documentOfMedicine = lastDoc.map(function (a) { return a.prescriptionDocument; });
+        const docArray = [];
+        // reverseMedicalInfo.map((value) => {
+        //     updateArray.push({
+        //         medicineName: value.medicineName,
+        //         dose: value.dose,
+        //         duration: value.duration,
+        //         numberOfDays: value.numberOfDays,
+        //         interval: value.interval,
+        //     })
+        // })
+        // {prescriptionList.map((value) => {
+        //     updateArray.push({
+        //         medicineName: value.medicineName,
+        //         dose: value.dose,
+        //         duration: value.duration,
+        //         numberOfDays: value.numberOfDays,
+        //         interval: value.interval,
+        //     })
+        // })}
+        // {prescriptionResult.map((value) => {
+        //     docArray.push({
+        //         description: value.description,
+        //         prescriptionDocument: value.prescriptionDocument
+        //     })
+        // })}
 
-
-        setMedicalInfo(updateArray);
-        console.log('updateArray', updateArray);
-        console.log('documentOfMedicine', JSON.stringify(documentOfMedicine));
-
+        // let lastDoc = prescriptionList.slice(-1);
+        // console.log("lastDoc", lastDoc)
+        var medicalInfo = prescriptionList.map(function (a) { return a; });
         const medicalDocumentInfo = {
             documentType: "Prescription",
             patientId: patient?.id,
             doctorId: doctor?.id,
+            description: prescriptionResult?.description
         };
-
-        // const medicalInfo = {
-        //     medicineName: medicineName,
-        //     dose: dose,
-        //     duration: duration,
-        //     numberOfDays: numberOfDays,
-        //     interval: interval
-        // };
-        // getMedicalInfo();
-        event.preventDefault();
-        // handleInputChange();
         setErrorMsg('');
-        // const data = new FormData(event.target);
-        // data = updateArray;
         const formData = new FormData();
-        formData.append("medicalInfo", new Blob([JSON.stringify(updateArray)], {
+        formData.append("medicalInfo", new Blob([JSON.stringify(medicalInfo)], {
             type: "application/json"
         }));
         formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
             type: "application/json"
         }));
-        console.log("medicalDocumentInfo", medicalDocumentInfo)
-        formData.append("file", new Blob([JSON.stringify(documentOfMedicine)], {
+        console.log("medicalInfo", medicalInfo)
+        formData.append("file", new Blob([JSON.stringify(prescriptionResult?.prescriptionDocument)], {
             type: "application/json"
         }));
 
@@ -215,11 +233,30 @@ const AddPrescription = (props) => {
             if (err.response.status === 400) {
                 setErrorMsg('Please upload the document in PDF format.');
             }
+            else if (response.status === 201) {
+                const patientInfo = props.location.state;
+                toast.success("Document successfully Uploaded.");
+                props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo })
+            }
         });
-        const patientInfo = props.location.state;
-        if (response.status === 201) {
-            props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo });
-        }
+
+
+        // if (response.status === 201) {
+        //     const patientInfo = props.location.state;
+        //     toast.success("Document successfully Uploaded.");
+        //     setShowPrescriptionUpload(false);
+        //     setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo }), 500);
+
+        // }
+
+        // const patientInfo = props.location.state;
+        // if (response.status === 201) {
+        //     toast.success("Document successfully Uploaded.");
+        // setShowPrescriptionUpload(false);
+        //     props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo })
+        // }
+
+
         // const currentDoctor = cookies.get('profileDetails');
 
         // const prescriptionDocument = await getDoctorPatientDocuments(
@@ -231,7 +268,33 @@ const AddPrescription = (props) => {
         // );
 
         // setPresecriptionDocument(prescriptionDocument);
+
     };
+    const handlePrescriptionChange = (e) => {
+        if (e.target.type === 'file') {
+            const fileSize = e.target.files[0].size;
+            console.log('fileSize ::', fileSize);
+            const maxSize = 1000000;
+            if (e.target.files[0].size <= maxSize) {
+                setErrorMsg('');
+                setPrescriptionResult({
+                    ...prescriptionResult,
+                    prescriptionDocument: e.target.value,
+                });
+                setIsSave(true);
+            } else {
+                document.getElementById('prescriptionDocument').value = '';
+                setErrorMsg('Please upload PDF file with size less than 1mb.');
+            }
+        } else {
+            setPrescriptionResult({
+                ...prescriptionResult,
+                [e.target.name]: e.target.value,
+            });
+            // setIsSave(true);
+        }
+    };
+
     return (
 
         <div>
@@ -246,9 +309,7 @@ const AddPrescription = (props) => {
                             return (
                                 <div className="col-md-4 mb-2 mt-2 cursor-pointer">
                                     <div className="prescription-lab-card">
-                                        <form onSubmit={(e) => handlePrescriptionSubmission(e)}>
-
-
+                                        <form>
                                             <div>
                                                 <input
                                                     hidden={true}
@@ -434,7 +495,7 @@ const AddPrescription = (props) => {
                                                     </div>
                                                 </div>
 
-                                                {showPrescriptionUpload == false ?
+                                                {/* {showPrescriptionUpload == false ?
                                                     <div className="form-group row">
                                                         <label
                                                             htmlFor="prescriptionDocument"
@@ -516,7 +577,7 @@ const AddPrescription = (props) => {
                                                     </div>
 
 
-                                                }
+                                                } */}
 
                                                 <div className="btn-box">
                                                     {prescriptionList.length !== 1 && (
@@ -529,17 +590,31 @@ const AddPrescription = (props) => {
                                                     )}
 
                                                     {prescriptionList.length - 1 === i && (
+
+
                                                         <Button
                                                             className="medicineButton"
                                                             variant="primary"
                                                             onClick={handleAddClick}
                                                             disabled={
-
-                                                                showPrescriptionUpload == false}
+                                                                isSave == false
+                                                            }
                                                         >
                                                             Add Medicine
                                                         </Button>
+
+
                                                     )}
+                                                    <h3 className="prescription-lab--main-header mb-3 mt-2">
+                                                        OR
+                                                    </h3>
+                                                    <Button
+                                                        className="medicineButton"
+                                                        variant="primary"
+                                                        onClick={(e) => handlePrescriptionUploadShow()}
+                                                    >
+                                                        Only Upload Image/Document
+                                                    </Button>
                                                 </div>
                                             </div>
 
@@ -554,7 +629,6 @@ const AddPrescription = (props) => {
 
 
 
-
                                         </form>
                                     </div>
                                 </div>
@@ -562,16 +636,207 @@ const AddPrescription = (props) => {
                         })
                         }
 
+
                     </div>
-                    <Button style={{marginLeft:'50%'}}
+                    <Button style={{ marginLeft: '50%' }}
                         variant="primary"
                         type="submit"
+                        onClick={(e) => handlePrescriptionSubmission(e)}
+                        disabled={
+                            isSave == false
+                        }
                     >
                         Save
                     </Button>
+                    <Modal show={showPrescriptionUpload} onHide={handleUploadPrescriptionClosed}>
+                        <form onSubmit={(e) => handlePrescriptionSubmission(e)}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Prescription</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <input
+                                    hidden={true}
+                                    id="id"
+                                    name="id"
+                                    value={prescriptionResult?.id}
+                                    onChange={(e) => handlePrescriptionChange(e)}
+                                ></input>
+                                <div className="form-group row">
+                                    <label htmlFor="description" className="col-sm-3 col-form-label">
+                                        Description
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <input
+                                            type="text"
+                                            id="description"
+                                            name="description"
+                                            className="form-control"
+                                            onChange={(e) => handlePrescriptionChange(e)}
+                                            value={prescriptionResult?.description}
+                                            placeholder="Description"
+                                            required
+                                        ></input>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <label
+                                        htmlFor="prescriptionDocument"
+                                        className="col-sm-3 col-form-label"
+                                    >
+                                        Document
+                                    </label>
+                                    <div className="col-sm-9">
+                                        {errorMsg && (
+                                            <label
+                                                style={{ fontSize: 12, color: '#ff9393', margin: '5px 0' }}
+                                                className="left"
+                                            >
+                                                {errorMsg}
+                                            </label>
+                                        )}
+                                        {!prescriptionResult?.id && (
+                                            <input
+                                                style={{ padding: '3px' }}
+                                                type="file"
+                                                id="prescriptionDocument"
+                                                name="prescriptionDocument"
+                                                className="form-control"
+                                                onChange={(e) => handlePrescriptionChange(e)}
+                                                placeholder="Document"
+                                                accept="application/pdf"
+                                                required={prescriptionResult?.id ? false : true}
+                                            ></input>
+                                        )}
+                                        {prescriptionResult?.id && !editDocument && (
+                                            <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+                                                <IconButton onClick={() => setEditDocument(true)}>
+                                                    <CancelIcon style={{ color: 'red' }} />
+                                                </IconButton>
+                                                <input
+                                                    type="file"
+                                                    id="prescriptionDocument"
+                                                    name="prescriptionDocument"
+                                                    className="form-control"
+                                                    onChange={(e) => handlePrescriptionChange(e)}
+                                                    placeholder="Document"
+                                                    accept="application/pdf"
+                                                    required={prescriptionResult?.id ? false : true}
+                                                ></input>
+                                            </div>
+                                        )}
+                                        {prescriptionResult?.id && editDocument && (
+                                            <>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary mr-2"
+                                                    onClick={() => setEditDocument(false)}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <a
+                                                    href={prescriptionResult?.documentUrl}
+                                                    download
+                                                    className="btn btn-primary"
+                                                >
+                                                    Download
+                                                </a>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                                {/* <div className="form-group row">
+                                    <label htmlFor="doctorEmail" className="col-sm-3 col-form-label">
+                                        Doctor Email
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <input
+                                            type="email"
+                                            id="doctorEmail"
+                                            name="doctorEmail"
+                                            className="form-control"
+                                            value={doctor?.email}
+                                            placeholder="Doctor Email"
+                                            readOnly
+                                        ></input>
+                                        {doctor?.id ? (
+                                            <span>
+                                                Doctor Name:{' '}
+                                                <b>
+                                                    {doctor?.firstName + ' ' + doctor?.lastName}
+                                                    <input
+                                                        hidden={true}
+                                                        id="doctorId"
+                                                        name="doctorId"
+                                                        value={doctor?.id}
+                                                    />
+                                                </b>
+                                            </span>
+                                        ) : (
+                                            <span>No Doctor Found</span>
+                                        )}
+                                    </div>
+                                </div> */}
+
+                                {/* <div className="form-group row">
+                                    <label htmlFor="patientEmail" className="col-sm-3 col-form-label">
+                                        Patient Email
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <input
+                                            type="email"
+                                            id="patientEmail"
+                                            name="patientEmail"
+                                            className="form-control"
+                                            value={patient?.email}
+                                            required={true}
+                                            placeholder="Patient Email"
+                                            readOnly={patient?.email ? true : false}
+                                        ></input>
+                                        {patient?.id ? (
+                                            <span>
+                                                Patient Name:{' '}
+                                                <b>
+                                                    {patient?.firstName + ' ' + patient?.lastName}
+                                                    <input
+                                                        hidden={true}
+                                                        id="patientId"
+                                                        name="patientId"
+                                                        value={patient?.id}
+                                                    />
+                                                </b>
+                                            </span>
+                                        ) : (
+                                            <span>No Patient found</span>
+                                        )}
+                                    </div>
+                                </div> */}
+
+                                <div className="container">
+                                    <div className="row"></div>
+                                </div>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button
+                                    variant="secondary"
+                                    onClick={handleUploadPrescriptionClosed}
+                                >
+                                    Close
+                                </Button>
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    disabled={
+                                        isSave == false
+                                    }
+                                >
+                                    Save
+                                </Button>
+                            </Modal.Footer>
+                        </form>
+                    </Modal>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
 
     )
 }
