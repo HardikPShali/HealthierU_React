@@ -154,12 +154,12 @@ const Navbar = (props) => {
         </ListItem>
       </Link>
       <Divider variant="middle" />
-      <Link to="/admin/questionnaire/home" style={{ textDecoration: "none" }}>
+      {/* <Link to="/admin/questionnaire/home" style={{ textDecoration: "none" }}>
         <ListItem button className={props.pageTitle === "questionnaire" ? "active" : ""}>
           <ListItemText primary={"Questionnaire Management"} />
         </ListItem>
       </Link>
-      <Divider variant="middle" />
+      <Divider variant="middle" /> */}
       <Link to="/admin/serviceprovider/home" style={{ textDecoration: "none" }}>
         <ListItem button className={props.pageTitle === "serviceprovider" || props.pageTitle === "category" ? "active" : ""}>
           <ListItemText primary={"Service Provider Management"} />

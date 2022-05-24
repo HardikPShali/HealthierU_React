@@ -246,14 +246,15 @@ const AdminDocument = (props) => {
   };
 
   const showDocument = async (val) => {
-    const res = await getDocument(val);
-    console.log("res ::", res);
-    setPrescriptionDocumentUrl(res.data.documentsList[0].documentUrl);
+    // const res = await getDocument(val);
+    // console.log("res ::", res);
+    setPrescriptionDocumentUrl(val.documentUrl);
   };
 
   const showLabDocument = async (val) => {
-    const res = await getDocument(val);
-    setLabDocumentUrl(res);
+    // const res = await getDocument(val);
+    // console.log(val)
+    setLabDocumentUrl(val.documentUrl);
   };
 
   const handlePrescriptionUploadShow = () => {
@@ -385,7 +386,7 @@ const AdminDocument = (props) => {
               <div className="col-md-2 text-left">
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-primary add-button"
                   onClick={(e) => handleDefaultPrescriptionUploadShow()}
                 >
                   Add Default Prescription
@@ -395,7 +396,7 @@ const AdminDocument = (props) => {
               <div className="col-md-2 text-right">
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-primary add-button"
                   onClick={(e) => handlePrescriptionUploadShow()}
                 >
                   Add Prescription
@@ -534,7 +535,7 @@ const AdminDocument = (props) => {
               <div className="col-md-2 text-right">
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-primary add-button"
                   onClick={handleUploadLabResultShow}
                 >
                   Add Lab Result
@@ -700,7 +701,7 @@ const AdminDocument = (props) => {
                 name="id"
                 value={prescriptionResult?.id}
                 onChange={(e) => handlePrescriptionChange(e)}
-              ></input>
+              />
               <div className="form-group row">
                 <label htmlFor="topic" className="col-sm-3 col-form-label">
                   Duration
@@ -716,7 +717,7 @@ const AdminDocument = (props) => {
                     value={prescriptionResult?.duration}
                     placeholder="Duration"
                     required
-                  ></input>
+                  />
                 </div>
               </div>
               <div className="form-group row">
@@ -734,7 +735,7 @@ const AdminDocument = (props) => {
                     value={prescriptionResult?.decription}
                     placeholder="Description"
                     required
-                  ></input>
+                  />
                 </div>
               </div>
               <div className="form-group row">
@@ -767,7 +768,7 @@ const AdminDocument = (props) => {
                       placeholder="Document"
                       accept="application/pdf"
                       required={prescriptionResult?.id ? false : true}
-                    ></input>
+                    />
                   )}
                   {prescriptionResult?.id && !editDocument && (
                     <div
@@ -785,7 +786,7 @@ const AdminDocument = (props) => {
                         placeholder="Document"
                         accept="application/pdf"
                         required={prescriptionResult?.id ? false : true}
-                      ></input>
+                      />
                     </div>
                   )}
                   {prescriptionResult?.id && editDocument && (
@@ -823,11 +824,11 @@ const AdminDocument = (props) => {
                     id="doctorEmail"
                     name="doctorEmail"
                     className="form-control"
-                    validate
+                    validate="true"
                     value={doctor?.email}
                     placeholder="Doctor Email"
                     onChange={(e) => handleDoctorTag(e)}
-                  ></input>
+                  />
                   {doctor?.id ? (
                     <span>
                       Doctor Name:{" "}
@@ -861,11 +862,11 @@ const AdminDocument = (props) => {
                     id="patientEmail"
                     name="patientEmail"
                     className="form-control"
-                    validate
+                    validate="true"
                     value={patient?.email}
                     placeholder="Patient Email"
                     onChange={(e) => handlePatientTag(e)}
-                  ></input>
+                  />
                   {patient?.id ? (
                     <span>
                       Patient Name:{" "}
@@ -923,7 +924,7 @@ const AdminDocument = (props) => {
                 name="id"
                 value={labResult?.id}
                 onChange={(e) => handleLabResultChange(e)}
-              ></input>
+              />
               <div className="form-group row">
                 <label htmlFor="labName" className="col-sm-3 col-form-label">
                   Lab Name
@@ -939,7 +940,7 @@ const AdminDocument = (props) => {
                     value={labResult?.labName}
                     placeholder="Lab Name"
                     required
-                  ></input>
+                  />
                 </div>
               </div>
 
@@ -958,7 +959,7 @@ const AdminDocument = (props) => {
                     value={labResult?.decription}
                     placeholder="Description"
                     required
-                  ></input>
+                  />
                 </div>
               </div>
               <div className="form-group row">
@@ -988,7 +989,7 @@ const AdminDocument = (props) => {
                       placeholder="Document"
                       accept="application/pdf"
                       required={labResult?.id ? false : true}
-                    ></input>
+                    />
                   )}
                   {labResult?.id && !editDocument && (
                     <div
@@ -1006,7 +1007,7 @@ const AdminDocument = (props) => {
                         placeholder="Document"
                         accept="application/pdf"
                         required={labResult?.id ? false : true}
-                      ></input>
+                      />
                     </div>
                   )}
                   {labResult?.id && editDocument && (
@@ -1043,11 +1044,11 @@ const AdminDocument = (props) => {
                     id="doctorEmail"
                     name="doctorEmail"
                     className="form-control"
-                    validate
+                    validate="true"
                     value={doctor?.email}
                     placeholder="Doctor Email"
                     onChange={(e) => handleDoctorTag(e)}
-                  ></input>
+                  />
                   {doctor?.id ? (
                     <span>
                       Doctor Name:{" "}
@@ -1081,11 +1082,11 @@ const AdminDocument = (props) => {
                     id="patientEmail"
                     name="patientEmail"
                     className="form-control"
-                    validate
+                    validate="true"
                     value={patient?.email}
                     placeholder="Patient Email"
                     onChange={(e) => handlePatientTag(e)}
-                  ></input>
+                  />
                   {patient?.id ? (
                     <span>
                       Patient Name:{" "}
@@ -1142,7 +1143,7 @@ const AdminDocument = (props) => {
                 name="id"
                 value={prescriptionResult?.id}
                 onChange={(e) => handleDefaultPrescription(e)}
-              ></input>
+              />
 
               <div className="form-group row">
                 <label
@@ -1173,7 +1174,7 @@ const AdminDocument = (props) => {
                     placeholder="Document"
                     accept="application/pdf"
                     required={prescriptionResult?.id ? false : true}
-                  ></input>
+                  />
                 </div>
               </div>
               <div className="container">

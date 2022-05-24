@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 //import Footer from './Footer'
-import "./patient.css";
-import { Container, Row, Col } from "react-bootstrap";
-import moment from "moment";
+import './patient.css';
+import { Container, Row, Col } from 'react-bootstrap';
+import moment from 'moment';
 //import LocalStorageService from './../../util/LocalStorageService';
 //import axios from 'axios';
-import { Calendar, momentLocalizer, Views } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import Chip from "@material-ui/core/Chip";
-import { makeStyles } from "@material-ui/core/styles";
-import Cookies from "universal-cookie";
-import Loader from "./../Loader/Loader";
-import CancelIcon from "@material-ui/icons/Cancel";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Typography from "@material-ui/core/Typography";
-import Avatar from "react-avatar";
-import VideocamIcon from "@material-ui/icons/Videocam";
-import ChatIcon from "@material-ui/icons/Chat";
-import IconButton from "@material-ui/core/IconButton";
-import { Link } from "react-router-dom";
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import Chip from '@material-ui/core/Chip';
+import { makeStyles } from '@material-ui/core/styles';
+import Cookies from 'universal-cookie';
+import Loader from './../Loader/Loader';
+import CancelIcon from '@material-ui/icons/Cancel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Typography from '@material-ui/core/Typography';
+import Avatar from 'react-avatar';
+import VideocamIcon from '@material-ui/icons/Videocam';
+import ChatIcon from '@material-ui/icons/Chat';
+import IconButton from '@material-ui/core/IconButton';
+import { Link } from 'react-router-dom';
 //import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 import {
   deleteAppointment,
   getAppointmentListByPatientId,
-} from "../../service/frontendapiservices";
-import momentTz from "moment-timezone";
-import { firestoreService } from "../../util";
-import { Style } from "@material-ui/icons";
+} from '../../service/frontendapiservices';
+import momentTz from 'moment-timezone';
+import { firestoreService } from '../../util';
+import { Style } from '@material-ui/icons';
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
@@ -42,18 +42,18 @@ import { Style } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    "& > *": {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
       margin: theme.spacing(0.5),
     },
-    padding: "10px",
+    padding: '10px',
   },
 }));
 const app = makeStyles(() => ({
-  height: "4%",
-  width: "145px",
+  height: '4%',
+  width: '145px',
 }));
 
 const Myappointment = (props) => {
@@ -161,32 +161,32 @@ const Myappointment = (props) => {
   const eventStyleGetter = (event) => {
     let backgroundColor;
     let color;
-    var res = event.unifiedAppointment && event.unifiedAppointment.split("#");
+    var res = event.unifiedAppointment && event.unifiedAppointment.split('#');
     if (
       event.startTime >= new Date() &&
-      event.status === "ACCEPTED" &&
-      res[1] !== "CONSULTATION"
+      event.status === 'ACCEPTED' &&
+      res[1] !== 'CONSULTATION'
     ) {
-      backgroundColor = "#4f80e2";
-      color = "#fff";
+      backgroundColor = '#4f80e2';
+      color = '#fff';
     } else if (event.endTime <= new Date()) {
-      backgroundColor = "#a5a5a5";
-      color = "#fff";
-      var borderColor = "#696969";
-      var pointerEvents = "none";
-    } else if (res[1] === "CONSULTATION") {
-      backgroundColor = "#3157a3";
-      color = "#fff";
+      backgroundColor = '#a5a5a5';
+      color = '#fff';
+      var borderColor = '#696969';
+      var pointerEvents = 'none';
+    } else if (res[1] === 'CONSULTATION') {
+      backgroundColor = '#3157a3';
+      color = '#fff';
     }
     var style = {
       backgroundColor: backgroundColor,
       color: color,
       borderColor: borderColor,
       pointerEvents: pointerEvents,
-      height: "25px",
-      padding: "0px 4px",
-      fontSize: "12.5px",
-      marginLeft: "4.5px",
+      height: '25px',
+      padding: '0px 4px',
+      fontSize: '12.5px',
+      marginLeft: '4.5px',
     };
     return {
       style: style,
@@ -235,7 +235,7 @@ const Myappointment = (props) => {
       //startTime: new Date(newStartDate).toISOString(),
       endTime: new Date(newEndDate).toISOString(),
       patientId: patientId,
-      status: "ACCEPTED",
+      status: 'ACCEPTED',
     };
     const response = await getAppointmentListByPatientId(
       myAppointmentFilter
@@ -253,7 +253,7 @@ const Myappointment = (props) => {
         const updateArray = [];
         response.data.reverse();
         response.data.map((value, index) => {
-          if (value.status === "ACCEPTED") {
+          if (value.status === 'ACCEPTED') {
             if (
               value.unifiedAppointment ===
               (response.data[index + 1] &&
@@ -272,8 +272,7 @@ const Myappointment = (props) => {
                 patientId: value.patientId,
                 doctorId: value.doctorId,
                 doctor: value.doctor,
-                title: `Appointment with Dr. ${value?.doctor?.firstName
-                  }`,
+                title: `Appointment with Dr. ${value?.doctor?.firstName}`,
                 startTime: new Date(value.startTime),
                 endTime: new Date(response.data[index + 1].endTime),
                 remarks: value.remarks,
@@ -327,8 +326,8 @@ const Myappointment = (props) => {
       id: selectedAppointment.id,
       patientId: selectedAppointment.patientId,
       doctorId: selectedAppointment.doctorId,
-      type: "DR",
-      status: "CANCELLED_BY_PATIENT",
+      type: 'DR',
+      status: 'CANCELLED_BY_PATIENT',
       remarks: selectedAppointment.remarks,
       startTime: new Date(selectedAppointment.startTime).toISOString(),
       endTime: new Date(selectedAppointment.endTime).toISOString(),
@@ -342,7 +341,7 @@ const Myappointment = (props) => {
     if (res?.status === 200 || res?.status === 201) {
       firestoreService.sendCancelAppointmentToFirestoreMessage(
         selectedAppointment,
-        "patient",
+        'patient',
         currentPatient,
         doctorDetailsList
       );
@@ -403,9 +402,9 @@ const Myappointment = (props) => {
               <Col md={6}>
                 <div
                   style={{
-                    padding: "10px 0",
-                    border: "1px solid #dedede",
-                    background: "var(--primarysecond)",
+                    padding: '10px 0',
+                    border: '1px solid #dedede',
+                    background: 'var(--primarysecond)',
                   }}
                 >
                   <h5 className="mb-3 text-center font-weight-bold">
@@ -419,29 +418,29 @@ const Myappointment = (props) => {
                           if (
                             appointment.status &&
                             new Date(appointment.endTime) >= new Date() &&
-                            appointment.status === "ACCEPTED"
+                            appointment.status === 'ACCEPTED'
                           ) {
-                            var res = appointment.unifiedAppointment.split("#");
+                            var res = appointment.unifiedAppointment.split('#');
                             return (
                               <Chip
                                 key={index}
                                 label={
                                   moment(appointment.startTime).format(
-                                    "MMM, DD YYYY"
+                                    'MMM, DD YYYY'
                                   ) +
-                                  "  ( " +
+                                  '  ( ' +
                                   moment(appointment.startTime).format(
-                                    "h:mm A"
+                                    'h:mm A'
                                   ) +
-                                  " - " +
-                                  moment(appointment.endTime).format("h:mm A") +
-                                  " )  "
+                                  ' - ' +
+                                  moment(appointment.endTime).format('h:mm A') +
+                                  ' )  '
                                 }
                                 clickable
                                 className={
-                                  res[1] === "CONSULTATION"
-                                    ? "consultation"
-                                    : "followup"
+                                  res[1] === 'CONSULTATION'
+                                    ? 'consultation'
+                                    : 'followup'
                                 }
                                 onClick={() =>
                                   handleAppointmentInfoOpen(appointment)
@@ -520,7 +519,7 @@ const Myappointment = (props) => {
                 <div>
                   <Row id="doc-row">
                     <Col xs={5}>
-                      <div className="doc-img" style={{ width: "140px" }}>
+                      <div className="doc-img" style={{ width: '140px' }}>
                         {selectedAppointment.doctor.picture ? (
                           <img
                             src={selectedAppointment.doctor.picture}
@@ -530,7 +529,7 @@ const Myappointment = (props) => {
                           <Avatar
                             name={
                               selectedAppointment.doctor.firstName +
-                              " " +
+                              ' ' +
                               selectedAppointment.doctor.lastName
                             }
                           />
@@ -540,12 +539,12 @@ const Myappointment = (props) => {
                     <Col xs={7} id="doc-details">
                       <div>
                         <b className="doc-name">
-                          {selectedAppointment.doctor.firstName}{" "}
+                          {selectedAppointment.doctor.firstName}{' '}
                           {selectedAppointment.doctor.lastName}
                         </b>
                         <br />
                         <ul
-                          style={{ fontSize: 12, display: "block" }}
+                          style={{ fontSize: 12, display: 'block' }}
                           className="list--tags"
                         >
                           {selectedAppointment.doctor &&
@@ -568,13 +567,13 @@ const Myappointment = (props) => {
                   <div className="mr-4 ml-4">
                     <b>Date/Time: </b>
                     {moment(selectedAppointment.startTime).format(
-                      "MMM, DD YYYY"
+                      'MMM, DD YYYY'
                     ) +
-                      "  ( " +
-                      moment(selectedAppointment.startTime).format("h:mm A") +
-                      " - " +
-                      moment(selectedAppointment.endTime).format("h:mm A") +
-                      " ) "}
+                      '  ( ' +
+                      moment(selectedAppointment.startTime).format('h:mm A') +
+                      ' - ' +
+                      moment(selectedAppointment.endTime).format('h:mm A') +
+                      ' ) '}
                     <br />
                     <b>Comments: </b>
                     {selectedAppointment.remarks}
