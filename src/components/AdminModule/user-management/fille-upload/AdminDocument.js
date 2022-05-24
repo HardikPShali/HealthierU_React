@@ -247,7 +247,8 @@ const AdminDocument = (props) => {
 
   const showDocument = async (val) => {
     const res = await getDocument(val);
-    setPrescriptionDocumentUrl(res);
+    console.log("res ::", res);
+    setPrescriptionDocumentUrl(res.data.documentsList[0].documentUrl);
   };
 
   const showLabDocument = async (val) => {

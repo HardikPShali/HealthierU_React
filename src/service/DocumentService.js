@@ -140,7 +140,7 @@ export const getDocument = async (doc) => {
 
   var config = {
     method: "get",
-    url: "/api/medical-document-retrival?docIdUser=" + doc.id + doc.uploadedBy,
+    url: "/api/v2/mobile/medical-documents?docIdUser=" + doc.id + doc.uploadedBy,
     headers: headers,
   };
 
