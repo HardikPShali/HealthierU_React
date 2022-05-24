@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import './landing.css';
-import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from
+import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer,
+    MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardText } from
     "mdbreact";
 import {
     Link, useHistory
     // Redirect 
 } from 'react-router-dom'
-import screen1 from '../../images/screen1.png'
-import screen2 from '../../images/screen2.png'
-import screen3 from '../../images/screen3.png'
+import screen1 from '../../images/patient-banner.png'
+import screen2 from '../../images/patient-banner-2.png'
+import screen3 from '../../images/patient-banner-3.png'
 import home2 from '../../images/home-2.png'
 import home3 from '../../images/home-3.png'
 import { Container, Row, Col, Card } from 'react-bootstrap';
@@ -22,6 +23,19 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Cookies from 'universal-cookie';
 
+import aboutUsimg from "../../images/macbook-iphone-healthyU.png";
+import step1 from "../../images/step1.PNG";
+import step2 from "../../images/step2.PNG";
+import step3 from "../../images/step3.png";
+import step4 from "../../images/step4.PNG";
+import step5 from "../../images/step5.PNG";
+import step6 from "../../images/step6.PNG";
+import step7 from "../../images/step7.PNG";
+import step8 from "../../images/step8.PNG";
+import step9 from "../../images/step9.PNG";
+import step10 from "../../images/step10.PNG";
+import step11 from "../../images/step11.PNG";
+import features from "../../images/our-features.png";
 
 //import firebase from './../../firebase';
 // import education from '../../images/education.png'
@@ -110,7 +124,7 @@ const Homepage = () => {
                                 <h3 className="h3-responsive">{HOMEPAGE_GETHELP.TITLE}</h3>
                                 <p className="help-desc">{HOMEPAGE_GETHELP.DESCRIPTION}</p>
                                 <Link to="/signin">
-                                    <button className="btn btn-light get-started-btn">{HOMEPAGE_GETHELP.BTN_TEXT}</button>
+                                    <button className="btn btn-primary">{HOMEPAGE_GETHELP.BTN_TEXT}</button>
                                 </Link>
                             </MDBCarouselCaption>
                         </MDBCarouselItem>
@@ -127,7 +141,7 @@ const Homepage = () => {
                                 <h3 className="h3-responsive">{HOMEPAGE_TAKEACTION.TITLE}</h3>
                                 <p className="help-desc">{HOMEPAGE_TAKEACTION.DESCRIPTION}</p>
                                 <Link to="/signin">
-                                    <button className="btn btn-light get-started-btn">{HOMEPAGE_TAKEACTION.BTN_TEXT}</button>
+                                    <button className="btn btn-primary">{HOMEPAGE_TAKEACTION.BTN_TEXT}</button>
                                 </Link>
                             </MDBCarouselCaption>
                         </MDBCarouselItem>
@@ -144,7 +158,7 @@ const Homepage = () => {
                                 <h3 className="h3-responsive">{HOMEPAGE_LEARNMORE.TITLE}</h3>
                                 <p className="help-desc">{HOMEPAGE_LEARNMORE.DESCRIPTION}</p>
                                 <Link to="/signin">
-                                    <button className="btn btn-light get-started-btn">{HOMEPAGE_LEARNMORE.BTN_TEXT}</button>
+                                    <button className="btn btn-primary">{HOMEPAGE_LEARNMORE.BTN_TEXT}</button>
                                 </Link>
                             </MDBCarouselCaption>
                         </MDBCarouselItem>
@@ -190,7 +204,242 @@ const Homepage = () => {
                     <br />
                 </Container>
             </div>
-            <Container id="first-box">
+            <Container>
+            <Row id="aboutus-two">
+              <Col md={5}>
+                <h2>HealthierU</h2>
+                <h4>Wellness Optimized</h4>
+                <br />
+                <p>
+                  HealthierU is an integrated and fully secured health communications platform that aims to bring the best international medical care to all users from across the globe.{" "}
+                </p>
+                <p>
+                  Get answers. Get well.
+                  <br />
+                  'Tap into the best virtual healthcare.'
+                </p>
+              </Col>
+              <Col md={7}>
+                <img className="image" src={aboutUsimg} alt="HealthierU " />
+              </Col>
+            </Row>
+          </Container>
+          <Container id="our-services">
+            <Row id="aboutus-four">
+              <Col md={5} style={{ padding: "0px" }}>
+                <img className="image" src={features} alt="Features" />
+              </Col>
+              <Col md={1}></Col>
+              <Col md={6}>
+                <h2>Our Features</h2>
+                <br />
+                <br />
+                <h5>Robust & scalable platform</h5>
+                <p>
+                  A powerful technology stack for a highly-scalable
+                  <br />
+                  telemedicine platform.
+                </p>
+
+                <h5>Unlimited access to accredited doctors</h5>
+                <p>
+                  We offer access to the best accredited doctors and medical
+                  <br />
+                  institutions in Europe and the USA.
+                </p>
+
+                <h5>Quick access to medical care</h5>
+                <p>Connect to any of our global doctors at your convenience.</p>
+
+                <h5>Healthcare data security</h5>
+                <p>
+                  We respect and commit to protecting your privacy and
+                  <br />
+                  personal data.
+                </p>
+
+                <h5>Innovative AI - powered app</h5>
+                <p>
+                  Our AI technology will help personalize and optimize your
+                  <br />
+                  needs based on a comprehensive assessment.
+                </p>
+
+                <h5>Integration of wearable devices</h5>
+                <p>
+                  Connect with any wearable device and allow us to remotely
+                  <br />
+                  monitor your health.
+                </p>
+              </Col>
+            </Row>
+          </Container>
+          <br />
+          <br />
+          <Container id="aboutus-three">
+            <MDBContainer id="how-it-work">
+              <MDBCarousel
+                activeItem={1}
+                length={5}
+                slide={true}
+                interval={false}
+                showControls={true}
+                multiItem
+              >
+                <MDBCarouselInner>
+                  <MDBRow>
+                    <MDBCarouselItem itemId="1">
+                      <MDBCol md="5">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step1} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Set up your account
+                              <br />
+                              within seconds and the team will get  <br />in touch with you for verification purposes.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                      <MDBCol md="2"></MDBCol>
+                      <MDBCol md="5">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step2} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Get easy access to your
+                              <br />
+                              patient's medical records.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    </MDBCarouselItem>
+                    <MDBCarouselItem itemId="2">
+                      <MDBCol md="5">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step3} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Consult and chat with your
+                              <br />
+                              patient according to your
+                              <br />
+                              availaibility and time zone.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                      <MDBCol md="2"></MDBCol>
+                      <MDBCol md="5">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step4} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Access the latest updates in
+                              <br />
+                              the health and medical field.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    </MDBCarouselItem>
+                    <MDBCarouselItem itemId="3">
+                      <MDBCol md="4">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step5} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Connect with the right
+                              <br />
+                              medical care.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                      <MDBCol md="4">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step6} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Schedule your online
+                              <br />
+                              consultation.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                      <MDBCol md="4">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step7} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Pay as soon as you book.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    </MDBCarouselItem>
+                    <MDBCarouselItem itemId="4">
+                      <MDBCol md="5">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step8} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Consult with your
+                              <br />
+                              virtual doctor.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                      <MDBCol md="2"></MDBCol>
+                      <MDBCol md="5">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step9} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Review your doctor's report.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    </MDBCarouselItem>
+                    <MDBCarouselItem itemId="5">
+                      <MDBCol md="5">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step10} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Access your personalized <br />
+                              supplements and wearables.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                      <MDBCol md="2"></MDBCol>
+                      <MDBCol md="5">
+                        <MDBCard className="mb-2">
+                          <MDBCardImage className="img-fluid" src={step11} />
+                          <MDBCardBody>
+                            <MDBCardText>
+                              Find out more about our nutrition and <br />
+                              workout plans, courses and latest <br />{" "}
+                              scientific articles.
+                            </MDBCardText>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    </MDBCarouselItem>
+                  </MDBRow>
+                </MDBCarouselInner>
+              </MDBCarousel>
+            </MDBContainer>
+          </Container>
+          <br />
+          <br />
+          
+            {/* <Container id="first-box">
                 <Row>
                     <Col md={6} id="col-card">
                         <h2>Nutrition</h2>
@@ -217,7 +466,7 @@ const Homepage = () => {
                         </Link>
                     </Col>
                 </Row>
-            </Container>
+            </Container> */}
             {/* <Container id="first-box">
                 <Row>
                     <Col md={6} id="col-card">
@@ -233,7 +482,7 @@ const Homepage = () => {
                     <Col md={6} id="bg-img-3"></Col>
                 </Row>
             </Container> */}
-            <Container id="first-box">
+            {/* <Container id="first-box">
                 <Row>
                     <Col md={6} id="col-card">
                         <h2>Shop</h2>
@@ -246,7 +495,7 @@ const Homepage = () => {
                     </Col>
                     <Col md={6} id="bg-img-4"></Col>
                 </Row>
-            </Container>
+            </Container> */}
             {/* <br />
             <br /> */}
             {/*<Container>

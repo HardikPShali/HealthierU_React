@@ -1,12 +1,7 @@
-@font-face {
-  font-family: Avenir;
-  src: url(../../static/font/Avenir.ttc);
-}
-
 /* BASIC */
 
 body {
-  font-family: "Avenir", sans-serif;
+  font-family: var(--font-primary);
   height: 100vh;
 }
 
@@ -423,3 +418,6 @@ spna.radio-text {
 }
 
 
+.signup-mail-icon {
+  filter: brightness(0.5);
+}

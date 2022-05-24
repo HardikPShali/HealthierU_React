@@ -19,7 +19,7 @@
   font-weight: 700;
   text-shadow: none;
   font-size: 20px;
-  font-family: 'Biennale';
+ font-family: var(--font-primary);
   font-style: normal;
   font-weight: bold;
   padding-left: 20px;
@@ -30,7 +30,7 @@
   font-weight: 700;
   text-shadow: none;
   font-size: 25px;
-  font-family: 'Biennale';
+ font-family: var(--font-primary);
   font-style: normal;
   font-weight: bold;
 }
@@ -81,7 +81,7 @@
 
 .prescription-lab-card__common-name {
   text-shadow: none;
-  font-family: 'Biennale';
+ font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -92,7 +92,7 @@
 }
 .prescription-lab-card__common-name1 {
   text-shadow: none;
-  font-family: 'Biennale';
+ font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
@@ -103,7 +103,7 @@
 }
 .prescription-lab-card__common-date {
   text-shadow: none;
-  font-family: 'Biennale';
+ font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -115,7 +115,7 @@
 .prescription-lab-card__common-date1
 {
   text-shadow: none;
-  font-family: 'Biennale';
+ font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 25px;
@@ -126,7 +126,7 @@
 }
 
 .prescription-lab-card__common-span {
-  font-family: 'Rubik';
+ font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -137,7 +137,7 @@
   color: #999999;
 }
 .prescription-lab-card__common-span1 {
-  font-family: 'Rubik';
+ font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 18px;

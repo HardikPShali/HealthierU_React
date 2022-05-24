@@ -19,7 +19,7 @@
   box-shadow: 0 20px 75px rgb(0 0 0 / 23%);
   /* color: #fff; */
   border-top: 5px solid red;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-primary);
 }
 
 .custom-ui > h1 {

@@ -1,9 +1,5 @@
-@font-face {
-  font-family: Avenir;
-  src: url(../../static/font/Avenir.ttc);
-}
 * {
-  font-family: "Avenir", sans-serif;
+  font-family: var(--font-primary);
 }
 
 /* BASIC */
@@ -359,4 +355,8 @@ span.MuiTypography-root.MuiFormControlLabel-label.MuiTypography-body1 {
 }
 .MuiFormLabel-root.Mui-error {
   color: #f44336 !important;
+}
+
+.signup-mail-icon {
+  filter: brightness(0.5);
 }
