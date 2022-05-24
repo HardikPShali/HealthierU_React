@@ -424,7 +424,7 @@ const Mypatient = (props) => {
                     <Col lg={6} md={6} id="col">
                         <div id="patient-col-1">
                             <div id="patient-heading">My Patients</div>
-                            <div className="d-flex mt-2 justify-content-around">
+                            <div className="d-flex mt-2 justify-content-between">
                                 <SearchBarComponent updatedSearch={handleSearchInputChange} />
                                 <FilterComponent updatedFilter={handleFilterChange} />
                             </div>
@@ -783,7 +783,7 @@ const Mypatient = (props) => {
                                                         alt=""
                                                         style={{ marginLeft: '5%', marginRight: '5%' }}
                                                     />
-                                                    Consulatation History
+                                                    Consultation History
                                                 </Link>
                                                 <br />
                                                 <br />
@@ -799,7 +799,7 @@ const Mypatient = (props) => {
                                                         alt=""
                                                         style={{ marginLeft: '5%', marginRight: '5%' }}
                                                     />
-                                                    Health Assestment Report
+                                                    Health Assessment Report
                                                 </Link>
                                                 <br />
                                                 <br />
