@@ -839,9 +839,9 @@ img.card-img-top {
 }
 
 #patient-card button.assessment-btn:hover {
-  background-color: #fff !important;
+  /* background-color: #fff !important;
   color: #000 !important;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3); */
 }
 
 #patient-card .card-body {
