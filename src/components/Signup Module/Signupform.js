@@ -582,14 +582,14 @@ const Signupform = () => {
                   By clicking Sign Up, you agree to our Term of Services.
                 </p>
                 <input
-                  className="btn btn-primary sign-btn"
+                  className="btn btn-primary sign-btn shadow-sm"
                   type="submit"
                   value="Sign Up"
                 />
               </ValidatorForm>
               <p className="signup-text">Already a member?</p>
-              <Link to="/signin">
-                <button className="btn btn-outline-primary sign-btn">
+              <Link className="w-100 d-block" to="/signin">
+                <button className="w-100 btn btn-primary sign-btn shadow-sm">
                   Sign In
                 </button>
               </Link>
