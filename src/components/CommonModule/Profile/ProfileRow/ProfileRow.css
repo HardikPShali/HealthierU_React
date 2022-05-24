@@ -1,6 +1,7 @@
 .profile-column-value {
   color: var(--text-primary);
   font-weight: normal;
+  text-align: left;
 }
 
 .profile-column-title {
