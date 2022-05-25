@@ -164,9 +164,10 @@ const Healthassessment = (props) => {
     }, []);
 
     const showDocument = async (val) => {
-        const res = await getDocument(val);
-        console.log(res);
-        setPrescriptionDocumentUrl(res);
+        // const res = await getDocument(val);
+        console.log(val);
+        
+        setPrescriptionDocumentUrl(val.documentUrl);
     };
 
     const clickPagination = async (pageNumber) => {
