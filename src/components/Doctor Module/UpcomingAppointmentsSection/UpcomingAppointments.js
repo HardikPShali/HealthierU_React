@@ -9,14 +9,13 @@ const UpcomingAppointments = () => {
 
 
     const cookie = new Cookies();
-    const currentUserFromCookie = cookie.get('profileDetails');
-
-    const getUpcomingAppointments = async (startTime, endTime) => {
+    const currentUserFromCookie = cookie.get('currentUser');
+    const getUpcomingAppointments = async (startTime, endTime, doctorId) => {
         const starttime = new Date();
         starttime.setHours(0, 0, 0);
         const endtime = new Date();
         endtime.setHours(23, 59, 0);
-        const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString()).catch((err) => {
+        const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString(), doctorId = currentUserFromCookie.id).catch((err) => {
             console.log('err', err);
         });
         if (response.status === 200 || response.status === 201) {
