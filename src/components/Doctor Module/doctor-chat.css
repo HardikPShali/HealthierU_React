@@ -193,7 +193,7 @@
 
 .message {
   height: calc(100% - 68px);
-  font-family: sans-serif;
+  font-family: var(--font-primary);
 }
 
 .message ul {

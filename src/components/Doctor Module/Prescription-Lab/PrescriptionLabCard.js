@@ -13,8 +13,8 @@ const PrescriptionLabCard = (props) => {
             <div className="row align-items-start">
 
                 <div className='col-md-3'>
-                    <h5 className='prescription-lab-card__common-date'> <b>{moment(props.date).format("DD")}</b></h5>
-                    <span className='prescription-lab-card__common-span'>{moment(props.time).format("hh:mm A")}</span>
+                    <h5 className='prescription-lab-card__common-date1'> <b>{moment(props.date).format("DD")}</b></h5>
+                    <span className='prescription-lab-card__common-span1'>{moment(props.time).format("hh:mm A")}</span>
 
                 </div>
                 <div className='col-md-3'>
@@ -25,13 +25,13 @@ const PrescriptionLabCard = (props) => {
                     }
                 </div>
                 <div className='col-md-3'>
-                    <h5 className='prescription-lab-card__common-name'><b>{props.name}</b></h5>
-                    <span className='prescription-lab-card__common-span'><b>APID : </b>{props.apid}</span>
+                    <h5 className='prescription-lab-card__common-name1'><b>{props.name}</b></h5>
+                    <span className='prescription-lab-card__common-span1'><b>APID : </b>{props.apid}</span>
 
                 </div>
                 <div style={{ textAlign: "center" }} className='col-md-3'>
 
-                    <button className='prescription-lab-card__download' onClick={(e) => props.download(props.data)}><img src={downlaod} /></button>
+                    <button className='prescription-lab-card__download' onClick={(e) => props.download(props.data)}><img width={'30px'} height={'30px'} src={downlaod} /></button>
                 </div>
 
             </div>

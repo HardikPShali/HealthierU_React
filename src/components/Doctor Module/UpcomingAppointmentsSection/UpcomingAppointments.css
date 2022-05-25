@@ -7,9 +7,6 @@
   text-shadow: 0px 0px 15px #000;
 }
 
-
-
-
 .upcoming-appointment--main-header {
   margin-left: 5px;
   color: var(--text-primary);
@@ -33,12 +30,12 @@
   border-radius: 22px;
   filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
   border-left: 3px solid var(--primarysecond);
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .upcoming-appointment-card:hover {
   transform: translateY(-2px);
-  box-shadow: 4px 4px 14px rgba(0,0,0,0.09);
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 .upcoming-appointment-card__img-wrapper {
@@ -61,7 +58,7 @@
   text-shadow: none;
   font-size: 18px;
   font-weight: bold;
-  margin-bottom:2px;
+  margin-bottom: 2px;
   text-transform: capitalize;
 }
 
@@ -86,10 +83,6 @@
   display: flex;
   align-items: center;
   margin-top: 15px;
-}
-
-.upcoming-appointment-card__card-time-row {
-
 }
 
 .upcoming-appointment-card__card-time-row > img {

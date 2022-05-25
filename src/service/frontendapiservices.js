@@ -890,3 +890,42 @@ export const getAppointmentsBySearch = async (patientName) => {
     });
     return response;
 }
+
+export const getGlobalAppointmentsSearch = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/appointments/filter`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const updateDoctorData = async (data) => {
+    var payload = {
+        method: 'put',
+        mode: 'no-cors',
+        data: data,
+        url: '/api/mobile/admin/doctors',
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}

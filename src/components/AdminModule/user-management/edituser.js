@@ -108,8 +108,7 @@ const EditUser = (props) => {
 
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-    setTransparentLoading(true)
+
     getCurrentUser();
     loadOptions();
     loadSpeciality();
@@ -117,11 +116,13 @@ const EditUser = (props) => {
   }, []);
   // const userState = props.location.state;
   const currentUserAuthorities = cookies.get("authorities");
+  // console.log("currentUserAuthorities", currentUserAuthorities);
   const authorityName = currentUserAuthorities === "ROLE_DOCTOR" ? 'doctors'
     : currentUserAuthorities === "ROLE_PATIENT" ? 'patients' : '';
 
   const getCurrentUser = async () => {
     const res = await getUserByUserId(authorityName, selectedId);
+    // console.log("res", res);
     if (res && res.data) {
       if (authorityName === "patients") {
         setUser(res.data[0]);
@@ -136,14 +137,14 @@ const EditUser = (props) => {
   const loadOptions = async () => {
     const res = await getCountryList();
     if (res && res.data) {
-      Setoption({ countryList: res.data })
+      Setoption({ countryList: res.data.data })
       setTimeout(() => setLoading(false), 1000);
     }
   }
   const loadSpeciality = async () => {
     const res = await getSpecialityList();
     if (res && res.data) {
-      setSpeciality({ specialityOptions: res.data })
+      setSpeciality({ specialityOptions: res.data.data })
       setTimeout(() => setLoading(false), 1000);
     }
   }
@@ -173,8 +174,9 @@ const EditUser = (props) => {
     //  }
     //};
     const res = await getLanguageList();
+    // console.log("language", res);
     if (res && res.data) {
-      setLanguage({ languageOptions: res.data })
+      setLanguage({ languageOptions: res.data.data })
       setTimeout(() => setLoading(false), 1000);
     }
     // .catch(error => {
@@ -290,7 +292,7 @@ const EditUser = (props) => {
   const now = new Date();
   const newDate = now.setDate(now.getDate() - 1);
   let maxDate;
-  console.log(user)
+  // console.log(user)
   const role = cookies.get("authorities")
   if (role === "ROLE_DOCTOR") {
     maxDate = {
@@ -333,14 +335,14 @@ const EditUser = (props) => {
                 <p>First Name</p>
                 <TextValidator id="standard-basic" type="text" name="firstName"
                   onChange={e => handleInputChange(e)}
-                  value={firstName}
+                  value={firstName ? firstName : ""}
                   variant="filled" />
               </Col>
               <Col md={6}>
                 <p>Last Name</p>
                 <TextValidator id="standard-basic" type="text" name="lastName"
                   onChange={e => handleInputChange(e)}
-                  value={lastName}
+                  value={lastName ? lastName : ""}
                   variant="filled" />
               </Col>
             </Row><br />
@@ -353,7 +355,7 @@ const EditUser = (props) => {
               <Col md={6}>
                 <p>Email</p>
                 <TextValidator id="standard-basic" type="text" name="email"
-                  value={email}
+                  value={email ? email : ""}
                   disabled
                   variant="filled" />
               </Col>
@@ -369,7 +371,7 @@ const EditUser = (props) => {
                     minLength: 12
                   }}
                   country={'us'}
-                  value={phone}
+                  value={phone ? phone : ""}
                   onChange={e => handlePhone(e)}
                   variant="filled"
                 />
@@ -378,7 +380,7 @@ const EditUser = (props) => {
                 <p>Gender</p>
                 <FormControl component="fieldset">
                   <RadioGroup id="gender-radio" aria-label="gender" name="gender"
-                    variant="filled" onChange={e => handleInputChange(e)} value={gender}>
+                    variant="filled" onChange={e => handleInputChange(e)} value={gender ? gender : ""}>
                     <FormControlLabel value="FEMALE" control={<Radio color="primary" />} label="Female" />
                     <FormControlLabel value="MALE" control={<Radio color="primary" />} label="Male" />
                     {/* <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" /> */}
@@ -393,7 +395,7 @@ const EditUser = (props) => {
                   <p>Rate for 1hr in $</p>
                   <TextValidator id="standard-basic" type="number" name="rate"
                     onChange={e => handleInputChange(e)}
-                    value={rate}
+                    value={rate ? rate : ""}
                     inputProps={{
                       min: 0.01,
                       step: 0.01,
@@ -405,7 +407,7 @@ const EditUser = (props) => {
                   <p>Rate for 30min in $</p>
                   <TextValidator id="standard-basic" type="number" name="halfRate"
                     onChange={e => handleInputChange(e)}
-                    value={halfRate}
+                    value={halfRate ? halfRate : ""}
                     inputProps={{
                       min: 0.01,
                       step: 0.01,
@@ -419,7 +421,7 @@ const EditUser = (props) => {
             <p>Address</p>
             <TextValidator id="standard-basic" type="text" name="address"
               onChange={e => handleInputChange(e)}
-              value={address}
+              value={address ? address : ""}
               variant="filled" />
             <br />
             {currentUserAuthorities === "ROLE_PATIENT" && (<>
@@ -431,7 +433,7 @@ const EditUser = (props) => {
                       id="demo-controlled-open-select"
                       variant="filled"
                       name="countryId"
-                      value={countryId}
+                      value={countryId ? countryId : ""}
                       displayEmpty
                       onChange={e => handleCountry(e)}
                     >
@@ -451,7 +453,7 @@ const EditUser = (props) => {
                       id="demo-controlled-open-select"
                       variant="filled"
                       name="maritalStatus"
-                      value={maritalStatus}
+                      value={maritalStatus ? maritalStatus : ""}
                       displayEmpty
                       onChange={e => handleInputChange(e)}
                     >
@@ -486,7 +488,7 @@ const EditUser = (props) => {
                   <p>Weight(in kg)</p>
                   <TextValidator id="standard-basic" type="number" name="weight"
                     onChange={e => handleInputChange(e)}
-                    value={weight}
+                    value={weight ? weight : ""}
                     inputProps={{
                       min: 0,
                       max: 999
@@ -497,7 +499,7 @@ const EditUser = (props) => {
                   <p>Height(in cm)</p>
                   <TextValidator id="standard-basic" type="number" name="height"
                     onChange={e => handleInputChange(e)}
-                    value={height}
+                    value={height ? height : ""}
                     inputProps={{
                       min: 0,
                       max: 250
@@ -512,7 +514,7 @@ const EditUser = (props) => {
                   <p>High BP(in mmHg)</p>
                   <TextValidator id="standard-basic" type="number" name="highBp"
                     onChange={e => handleInputChange(e)}
-                    value={highBp}
+                    value={highBp ? highBp : ""}
                     inputProps={{
                       min: 0,
                       max: 300
@@ -523,7 +525,7 @@ const EditUser = (props) => {
                   <p>Low BP(in mmHg)</p>
                   <TextValidator id="standard-basic" type="number" name="lowBp"
                     onChange={e => handleInputChange(e)}
-                    value={lowBp}
+                    value={lowBp ? lowBp : ""}
                     inputProps={{
                       min: 0,
                       max: 200
@@ -542,7 +544,7 @@ const EditUser = (props) => {
                       id="demo-controlled-open-select"
                       variant="filled"
                       name="countryId"
-                      value={countryId}
+                      value={countryId ? countryId : ""}
                       displayEmpty
                       onChange={e => handleCountry(e)}
                     >
@@ -577,7 +579,7 @@ const EditUser = (props) => {
                   <p>Education</p>
                   <TextValidator id="standard-basic" type="text" name="education"
                     onChange={e => handleInputChange(e)}
-                    value={education}
+                    value={education ? education : ""}
                     variant="filled" />
 
                 </Col>
@@ -590,7 +592,7 @@ const EditUser = (props) => {
                       max: 80,
                       step: 0.1
                     }}
-                    value={experience}
+                    value={experience ? experience : ""}
                     variant="filled" />
                 </Col>
               </Row>
@@ -614,7 +616,7 @@ const EditUser = (props) => {
               <p>Other Certifications (optional)</p>
               <TextValidator id="standard-basic" type="text" name="certificates"
                 onChange={e => handleInputChange(e)}
-                value={certificates}
+                value={certificates ? certificates : ""}
                 variant="filled"
                 placeholder="Example: MBBS, MD ..."
                 inputProps={{
@@ -625,7 +627,7 @@ const EditUser = (props) => {
               <p>Awards (optional)</p>
               <TextValidator id="standard-basic" type="text" name="awards"
                 onChange={e => handleInputChange(e)}
-                value={awards}
+                value={awards ? awards : ""}
                 variant="filled"
                 placeholder="Example: People's Doctor of the USA, etc ..."
                 inputProps={{
