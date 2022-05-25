@@ -151,8 +151,9 @@ const Profile = () => {
                 setLoading(false);
             }
         });
-        if (res && res.data && res.data.length > 0) {
-            setLanguage({ languageOptions: res.data });
+        console.log("res", res);
+        if (res && res.data) {
+            setLanguage({ languageOptions: res.data.data });
             setTimeout(() => setLoading(false), 1000);
         }
     };

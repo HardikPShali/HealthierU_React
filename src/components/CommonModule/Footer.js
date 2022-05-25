@@ -77,7 +77,7 @@ export class Footer extends Component {
                         <Row>
                             <Col md={8}>
                                 <div className="d-flex">
-                                    <Link to="" className="" id="copy-link">Privacy Policy</Link>
+                                    <Link to="" className="" id="copy-link">Privacy and Security</Link>
                                     <Link to="" className="" id="copy-link">Terms and Conditions</Link>
                                     <Link to="" className="" id="copy-link">Help</Link>
                                     <Link to="" className="" id="copy-link">HealthierU Licenses</Link>

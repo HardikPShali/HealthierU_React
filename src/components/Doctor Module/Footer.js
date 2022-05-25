@@ -78,7 +78,7 @@ const Footer = () => {
                         <Col md={8}>
                             <div className="d-flex">
                                 <Link to="/doctor/privacy-policy" className="" id="copy-link">
-                                    Privacy Policy
+                                    Privacy and Security
                                 </Link>
                                 <Link to="/doctor/terms-and-conditions" className="" id="copy-link">
                                     Terms and Conditions
