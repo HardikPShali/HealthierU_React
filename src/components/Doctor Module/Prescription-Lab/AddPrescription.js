@@ -225,8 +225,15 @@ const AddPrescription = (props) => {
         formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
             type: "application/json"
         }));
-        console.log("medicalInfo", medicalInfo)
-        formData.append("file", (prescriptionResult?.prescriptionDocument));
+        {
+            prescriptionResult.prescriptionDocument ?
+                formData.append("file", (prescriptionResult?.prescriptionDocument))
+                :
+                formData.append("file", new Blob([JSON.stringify(null)], {
+                    type: "application/json"
+                }));
+        }
+
 
 
         const response = await postDocumentAddPrescription(formData).catch((err) => {
