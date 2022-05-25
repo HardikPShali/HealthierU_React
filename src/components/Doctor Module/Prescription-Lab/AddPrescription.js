@@ -36,6 +36,7 @@ import {
     postDocument,
     postLabDocument,
     getDocumentById,
+    postDocumentAddPrescription
 } from '../../../service/DocumentService';
 import { toast } from 'react-toastify';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -46,7 +47,7 @@ const AddPrescription = (props) => {
     const history = useHistory();
     const cookies = new Cookies();
     const [prescriptionResult, setPrescriptionResult] = useState({
-        description: '',
+        decription: '',
         prescriptionDocument: null,
     });
     const [date, setDate] = useState({
@@ -214,7 +215,7 @@ const AddPrescription = (props) => {
             documentType: "Prescription",
             patientId: patient?.id,
             doctorId: doctor?.id,
-            description: prescriptionResult?.description
+            decription: prescriptionResult?.decription
         };
         setErrorMsg('');
         const formData = new FormData();
@@ -230,7 +231,7 @@ const AddPrescription = (props) => {
         }));
 
 
-        const response = await postDocument(formData).catch((err) => {
+        const response = await postDocumentAddPrescription(formData).catch((err) => {
             console.log('Error :: ', err);
             if (err.response.status === 400) {
                 setErrorMsg('Please upload the document in PDF format.');
@@ -672,11 +673,11 @@ const AddPrescription = (props) => {
                                     <div className="col-sm-9">
                                         <input
                                             type="text"
-                                            id="description"
-                                            name="description"
+                                            id="decription"
+                                            name="decription"
                                             className="form-control"
                                             onChange={(e) => handlePrescriptionChange(e)}
-                                            value={prescriptionResult?.description}
+                                            value={prescriptionResult?.decription}
                                             placeholder="Description"
                                             required
                                         ></input>
