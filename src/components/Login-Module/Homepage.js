@@ -145,11 +145,11 @@ const Homepage = () => {
                   src={screen1}
                   alt="First slide"
                 />
-                <MDBMask overlay="black-light" />
+                <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                <h3 className="h3-responsive">{HOMEPAGE_GETHELP.TITLE}</h3>
-                <p className="help-desc">{HOMEPAGE_GETHELP.DESCRIPTION}</p>
+                <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
+                <p className="help-desc">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
                 <Link to="/signin">
                   <button className="btn btn-primary">
                     {HOMEPAGE_GETHELP.BTN_TEXT}
@@ -167,8 +167,8 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                <h3 className="h3-responsive">{HOMEPAGE_TAKEACTION.TITLE}</h3>
-                <p className="help-desc">{HOMEPAGE_TAKEACTION.DESCRIPTION}</p>
+                <h3 className="h3-responsive">Book Appointment</h3>
+                <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
                 <Link to="/signin">
                   <button className="btn btn-primary">
                     {HOMEPAGE_TAKEACTION.BTN_TEXT}
@@ -186,8 +186,8 @@ const Homepage = () => {
                 <MDBMask overlay="black-slight" />
               </MDBView>
               <MDBCarouselCaption>
-                <h3 className="h3-responsive">{HOMEPAGE_LEARNMORE.TITLE}</h3>
-                <p className="help-desc">{HOMEPAGE_LEARNMORE.DESCRIPTION}</p>
+                <h3 className="h3-responsive">Take Charge of your Health</h3>
+                <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
                 <Link to="/signin">
                   <button className="btn btn-primary">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
