@@ -645,7 +645,27 @@ export const getSearchData = (queryText, offset, limit) => {
     return axios(payload)
 }
 
+export const uploadDoctorDocumentTellUsMore = async (data) => {
 
+   
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        data: data,
+        url: `/api/mobile/doctor-documents`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
 export const uploadDoctorDocument = async (files, info) => {
 
     var newData = new FormData();

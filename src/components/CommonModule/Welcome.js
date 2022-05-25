@@ -149,7 +149,10 @@ const Welcome = ({ currentuserInfo }) => {
         languages: [],
         // certificates: "",
         // awards: "",
-        modeOfEmployment: ""
+        modeOfEmployment: "",
+        "licenseNumber": "",
+        "referencePhoneNumber": "",
+        "certifyingBody": ""
         // license: "",
         // refphone: "",
         // certifyingbody: ""
@@ -188,7 +191,7 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications, countryName } = state;
+    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications, countryName, licenseNumber, referencePhoneNumber, certifyingBody } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
@@ -299,8 +302,8 @@ const Welcome = ({ currentuserInfo }) => {
         list[index][name] = value;
         setEducationList(list);
         setstate({ ...state, educationalQualifications: list });
-        console.log("educationList",educationList)
-        console.log("state",state)
+        console.log("educationList", educationList)
+        console.log("state", state)
     };
     // handle click event of the Remove button
     const handleRemoveClick = (index) => {
@@ -349,6 +352,9 @@ const Welcome = ({ currentuserInfo }) => {
             // halfRate: halfRate,
             affiliation: affiliation,
             // bio: bio,
+            licenseNumber: licenseNumber,
+            referencePhoneNumber: referencePhoneNumber,
+            certifyingBody: certifyingBody,
             experience: experience,
             specialities: specialities,
             languages: languages,
@@ -408,9 +414,9 @@ const Welcome = ({ currentuserInfo }) => {
             }
             else {
                 setTransparentLoading(true);
-                console.log("doctorPayload",JSON.stringify(doctorPayload))
-            
-                bodyFormDataDoctor.append('profileData', new Blob([JSON.stringify(doctorPayload)],{
+                console.log("doctorPayload", JSON.stringify(doctorPayload))
+
+                bodyFormDataDoctor.append('profileData', new Blob([JSON.stringify(doctorPayload)], {
                     type: "application/json"
                 }));
                 const response = await updateRoleDoctor(bodyFormDataDoctor).catch(err => {
