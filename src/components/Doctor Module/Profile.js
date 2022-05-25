@@ -384,12 +384,12 @@ const Profile = ({ currentDoctor }) => {
                                                 </div>
                                             </Tab>
                                         </Tabs>
-                                        <div style={{ marginTop: '10px' }}>
+                                        {/* <div style={{ marginTop: '10px' }}>
                                             <DoctorDocumentUpload
                                                 currentDoctor={currentDoctor}
                                                 isDoctor={true}
                                             />
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </Col>
                             </Row>
