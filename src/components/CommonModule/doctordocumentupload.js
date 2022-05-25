@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap'; //Container
 // import Cookies from 'universal-cookie';
 // import Avatar from 'react-avatar';
+import PhoneInput from 'react-phone-input-2';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DialogContent from '@material-ui/core/DialogContent';
+import { toast } from 'react-toastify';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import {
     uploadDoctorDocument,
@@ -118,9 +120,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
             doctorId: currentDoctor.data.id,
             doctor_email: currentDoctor.data.email,
             documentName: documentName,
-            // licenseNumber: data.get("licenseNumber"),
-            // referencePhoneNumber: data.get("referencePhoneNumber"),
-            // patientId: data.get("certifyingBody"),
+            licenseNumber: licenseNumber,
+            referencePhoneNumber: referencePhoneNumber,
+            certifyingBody: certifyingBody
 
         }
         const files = documentFile;
@@ -129,8 +131,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
             setLoading(false);
         });
         if (res && res.status === 201) {
+            toast.success("Document successfully Uploaded.");
             const existingDoc = documentData;
-            existingDoc.push(res.data);
+            existingDoc.push(res.data.data);
             setDocumentData(existingDoc);
             setUploadOpen(false);
             setLoading(false)
@@ -244,56 +247,74 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
             history.go(0);
         }
     }
-
+    //Tell-Us-More-About-You Page
+    const [state, setstate] = useState({
+        licenseNumber: "",
+        referencePhoneNumber: "",
+        certifyingBody: ""
+    });
+    const { licenseNumber, referencePhoneNumber, certifyingBody } = state;
+    const [phoneError, setPhoneError] = useState();
+    const handleInputChange = (e) => {
+        e.preventDefault()
+        setstate({ ...state, [e.target.name]: e.target.value });
+    };
+    const handlePhone = (e) => {
+        setstate({ ...state, referencePhoneNumber: e });
+    };
     return (
         <>
-            {loading && (
+            {/* {loading && (
                 <TransparentLoader />
-            )}
-            {/* <Row>
-                <Col md={6}>
-                    <p>License Number<sup>*</sup></p>
-                    <TextValidator id="standard-basic" type="text" name="licenseNumber"
-                        onChange={(e) => handleInputChange(e)}
-                        value={licenseNumber}
-                        validators={['required']}
-                        errorMessages={['This field is required']}
-                        variant="filled"
-                        placeholder='License Number' />
+            )} */}
+            <ValidatorForm onSubmit={handleUpload} onError={(err) => console.log(err)}>
+                <Row>
+                    <Col md={6}>
+                        <p>License Number<sup>*</sup></p>
+                        <TextValidator id="standard-basic" type="text" name="licenseNumber"
+                            onChange={(e) => handleInputChange(e)}
+                            value={licenseNumber}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            variant="filled"
+                            placeholder='License Number' />
 
-                </Col>
-                <Col md={6}>
-                    <p>Certifying Body<sup>*</sup></p>
-                    <TextValidator id="standard-basic" type="text" name="certifyingBody"
-                        onChange={(e) => handleInputChange(e)}
-                        value={certifyingBody}
-                        validators={['required']}
-                        errorMessages={['This field is required']}
-                        variant="filled"
-                        placeholder='Certifying Body' />
+                    </Col>
+                    <Col md={6}>
+                        <p>Certifying Body<sup>*</sup></p>
+                        <TextValidator id="standard-basic" type="text" name="certifyingBody"
+                            onChange={(e) => handleInputChange(e)}
+                            value={certifyingBody}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            variant="filled"
+                            placeholder='Certifying Body' />
 
-                </Col>
+                    </Col>
 
-            </Row>
-            <Row>
-                <Col md={12}>
-                    <p>Reference Phone Number<sup>*</sup></p>
-                    <PhoneInput
-                        inputProps={{
-                            name: 'referencePhoneNumber',
-                            required: true,
-                            maxLength: 16,
-                            minLength: 12
-                        }}
-                        country={'us'}
-                        value={referencePhoneNumber}
-                        onChange={e => handlePhone(e)}
-                        variant="filled"
-                        required
-                    />
-                    {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
-                </Col>
-            </Row> */}
+                </Row>
+                <br />
+                <Row>
+                    <Col md={12}>
+                        <p>Reference Phone Number<sup>*</sup></p>
+                        <PhoneInput
+                            inputProps={{
+                                name: 'referencePhoneNumber',
+                                required: true,
+                                maxLength: 16,
+                                minLength: 12
+                            }}
+                            country={'us'}
+                            value={referencePhoneNumber}
+                            onChange={e => handlePhone(e)}
+                            variant="filled"
+                            required
+                        />
+                        {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
+                    </Col>
+                </Row>
+            </ValidatorForm>
+            <br /><br />
             <Row style={{ alignItems: "center" }}>
                 <Col md={6} className="col-xs-6" style={{ textAlign: "left" }}>
                     <span style={{ fontSize: "15px" }}>Total Documents: {documentData?.length}</span>
@@ -308,7 +329,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                     </button>
                 </Col>
             </Row>
-            {isDoctor && (<br />)}
+            {/* {isDoctor && (<br />)}
             <div className="doc-table-scroll">
                 <table className="table table-bordered table-striped table-hover doc-table">
                     <thead>
@@ -367,7 +388,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                         )}
                     </tbody>
                 </table>
-            </div>
+            </div> */}
 
             <Dialog aria-labelledby="customized-dialog-title" open={uploadOpen}>
                 <DialogTitle id="customized-dialog-title">
@@ -394,7 +415,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                             </Col>
                         </Row>
                         <br />
-                        <Row className="align-items-center">
+                        {/* <Row className="align-items-center">
                             <Col md={4}>
                                 <b>Document Name:</b>
                             </Col>
@@ -409,7 +430,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                                     onChange={(e) => handleDocnameChange(e)}
                                 />
                             </Col>
-                        </Row>
+                        </Row> */}
                         {errorMsg && (<span style={{ color: "red", fontSize: "11px" }}>{errorMsg}</span>)}
                         <br />
                     </DialogContent>

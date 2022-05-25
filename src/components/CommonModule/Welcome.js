@@ -150,9 +150,9 @@ const Welcome = ({ currentuserInfo }) => {
         // certificates: "",
         // awards: "",
         modeOfEmployment: "",
-        "licenseNumber": "",
-        "referencePhoneNumber": "",
-        "certifyingBody": ""
+        licenseNumber: "",
+        referencePhoneNumber: "",
+        certifyingBody: ""
         // license: "",
         // refphone: "",
         // certifyingbody: ""

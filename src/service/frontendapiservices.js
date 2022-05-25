@@ -648,7 +648,9 @@ export const uploadDoctorDocument = async (files, info) => {
 
     var newData = new FormData();
     newData.append(`doctorDocumentFile`, files);
-    newData.append("doctorDocumentInfo", JSON.stringify(info));
+    newData.append("doctorDocumentInfo", new Blob([JSON.stringify(info)], {
+        type: "application/json"
+    }));
     console.log("info", info)
     var payload = {
         method: 'post',
