@@ -41,6 +41,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ImageCropper from '../CommonModule/ImageCroper';
 import ProfileRow from '../CommonModule/Profile/ProfileRow/ProfileRow';
+import Cookies from "universal-cookie";
 
 // import Cookies from 'universal-cookie';
 // import CreateIcon from '@material-ui/icons/Create';
@@ -53,6 +54,7 @@ import ProfileRow from '../CommonModule/Profile/ProfileRow/ProfileRow';
 
 const Profile = ({ currentDoctor }) => {
     const history = useHistory();
+    const cookies = new Cookies();
 
     console.log("currentDoctor Props", currentDoctor);
 
@@ -66,7 +68,7 @@ const Profile = ({ currentDoctor }) => {
     });
     const [profilePicture, setProfilePicture] = useState({});
 
-    const [currentDoctorData, setCurrentDoctorData] = useState(currentDoctor);
+    const [currentDoctorData, setCurrentDoctorData] = useState(JSON.parse(JSON.stringify(currentDoctor)));
     const [language, setLanguage] = useState({
         languageOptions: [],
     });
@@ -81,7 +83,7 @@ const Profile = ({ currentDoctor }) => {
         specialityOptions: [],
     });
 
-    const {
+    let {
         firstName,
         lastName,
         phone,
@@ -92,7 +94,8 @@ const Profile = ({ currentDoctor }) => {
         education,
         experience,
         specialities,
-    } = currentDoctor;
+    } = currentDoctorData ? currentDoctorData : currentDoctor;
+
 
     const { languageOptions } = language;
 
@@ -198,7 +201,7 @@ const Profile = ({ currentDoctor }) => {
     const handleInputChange = (e) => {
         // e.preventDefault();
         console.log(e.target.value);
-        setCurrentDoctorData({ ...currentDoctor, [e.target.name]: [e.target.value] });
+        setCurrentDoctorData({ ...currentDoctor, [e.target.name]: e.target.value });
     };
 
     const handleLanguages = (selectedItem) => {
@@ -210,7 +213,7 @@ const Profile = ({ currentDoctor }) => {
         var array = languages;
         var index = array.indexOf(removedItem);
         array.splice(index, 1);
-        setCurrentDoctorData({ ...currentDoctor, languages: array });
+        setCurrentDoctorData({ ...currentDoctorData, languages: array });
     };
 
     const now = new Date();
@@ -225,15 +228,15 @@ const Profile = ({ currentDoctor }) => {
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        setCurrentDoctorData({ ...currentDoctor, dateOfBirth: isoDate });
+        setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
     };
 
     const handlePhone = (e) => {
-        setCurrentDoctorData({ ...currentDoctor, phone: e });
+        setCurrentDoctorData({ ...currentDoctorData, phone: e });
     };
 
     const handleCountry = (e) => {
-        setCurrentDoctorData({ ...currentDoctor, countryId: e.target.value });
+        setCurrentDoctorData({ ...currentDoctorData, countryId: e.target.value });
     };
 
     const handleSpecialities = (selectedItem) => {
@@ -250,19 +253,23 @@ const Profile = ({ currentDoctor }) => {
 
     // EDIT PROFILE HANDLER ON SUBMIT
     const handleDetails = async e => {
+        console.log("Doctor Profile Data", currentDoctorData);
         console.log("profilePicture ::::::", profilePicture);
         setLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
-        bodyFormData.append('profileData', JSON.stringify(currentDoctor));
+        bodyFormData.append('profileData', JSON.stringify(currentDoctorData));
         bodyFormData.append('profilePicture', profilePicture);
         const response = await updateDoctorData(bodyFormData);
         console.log("handleDetails", response);
         if (response.status === 200 || response.status === 201) {
-            setCurrentDoctorData({ currentDoctorData: currentDoctor });
+            cookies.set('profileDetails', currentDoctorData);
+            // setCurrentDoctorData({ currentDoctorData: currentDoctorData });
             history.go(0);
         }
     }
+
+
 
     return (
         <div>

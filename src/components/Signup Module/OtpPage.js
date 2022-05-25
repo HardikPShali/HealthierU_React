@@ -76,7 +76,7 @@ const OtpPage = () => {
 
                         <div className="sign-box text-center">
                             <h2 id="signin-title">OTP Verification</h2>
-                            <p style={{ fontSize: '14px' }}>OTP has been sent to "email"</p>
+                            <p style={{ fontSize: '14px' }}>OTP has been sent to email.</p>
 
                             <div className='otp-box-div'>
                                 {otpBox.map((data, index) => {

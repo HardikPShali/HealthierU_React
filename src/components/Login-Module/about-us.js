@@ -35,8 +35,8 @@ import axios from "axios";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
-import { HOMEPAGE_GETHELP } from '../../util/constant';
-import { useHistory } from 'react-router-dom';
+import { HOMEPAGE_GETHELP } from "../../util/constant";
+import { useHistory } from "react-router-dom";
 // import PatientFooter from "./../Patient Module/Footer";
 // import DoctorFooter from "./../Doctor Module/Footer";
 // import PatientHeader from "./../Patient Module/Header";
@@ -55,22 +55,22 @@ const AboutUs = ({ currentuserInfo }) => {
     setOpen(false);
   };
 
-  const [contactDetails, setContactDetails] = useState({
-    senderName: "",
-    senderMail: "",
-    subject: "",
-    message: "",
-  });
+  // const [contactDetails, setContactDetails] = useState({
+  //   senderName: "",
+  //   senderMail: "",
+  //   subject: "",
+  //   message: "",
+  // });
 
-  const { senderName, senderMail, subject, message } = contactDetails;
+  // const { senderName, senderMail, subject, message } = contactDetails;
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  const handleInputChange = (e) => {
-    setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
-  };
+  // const handleInputChange = (e) => {
+  //   setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
+  // };
 
   //console.log("currentuserInfo ::::: about us :::::", currentuserInfo);
   const { authorities = [] } = currentuserInfo || {};
@@ -84,31 +84,31 @@ const AboutUs = ({ currentuserInfo }) => {
     redirectUrl = "/";
   }
 
-  const sendContactDetails = () => {
-    var payload = {
-      method: "post",
-      mode: "no-cors",
-      data: contactDetails,
-      url: `/api/contact-us`,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
-    axios(payload)
-      .then((response) => {
-        // //console.log(response.status);
-        if (response.status === 200 || response.status === 201) {
-          alert("Message sent successfully");
-        }
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 500) {
-          setServerError(true);
-          setTimeout(() => history.push("/"), 5000);
-        }
-      });
-  };
+  // const sendContactDetails = () => {
+  //   var payload = {
+  //     method: "post",
+  //     mode: "no-cors",
+  //     data: contactDetails,
+  //     url: `/api/contact-us`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Access-Control-Allow-Origin": "*",
+  //     },
+  //   };
+  //   axios(payload)
+  //     .then((response) => {
+  //       // //console.log(response.status);
+  //       if (response.status === 200 || response.status === 201) {
+  //         alert("Message sent successfully");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       if (error.response && error.response.status === 500) {
+  //         setServerError(true);
+  //         setTimeout(() => history.push("/"), 5000);
+  //       }
+  //     });
+  // };
 
   return (
     <div>
@@ -127,7 +127,7 @@ const AboutUs = ({ currentuserInfo }) => {
       {!serverError && (
         <>
           {authorities.length > 0 &&
-            authorities.some((user) => user === "ROLE_PATIENT") ? (
+          authorities.some((user) => user === "ROLE_PATIENT") ? (
             <></>
           ) : authorities.length > 0 &&
             authorities.some((user) => user === "ROLE_DOCTOR") ? (
@@ -142,9 +142,7 @@ const AboutUs = ({ currentuserInfo }) => {
                 <br />
                 your hands
               </h3>
-              <p className="help-desc">
-                {HOMEPAGE_GETHELP.DESCRIPTION}
-              </p>
+              <p className="help-desc">{HOMEPAGE_GETHELP.DESCRIPTION}</p>
               <Link to={redirectUrl}>
                 <button className="btn btn-light get-started-btn">
                   Get Started Now
@@ -159,7 +157,9 @@ const AboutUs = ({ currentuserInfo }) => {
                 <h4>Wellness Optimized</h4>
                 <br />
                 <p>
-                  HealthierU is an integrated and fully secured health communications platform that aims to bring the best international medical care to all users from across the globe.{" "}
+                  HealthierU is an integrated and fully secured health
+                  communications platform that aims to bring the best
+                  international medical care to all users from across the globe.{" "}
                 </p>
                 <p>
                   Get answers. Get well.
@@ -179,7 +179,11 @@ const AboutUs = ({ currentuserInfo }) => {
                 <h2>Why choose HealthierU?</h2>
                 <br />
                 <p id="doc-box-text">
-                  When it comes to your health, prevention is always much better than a cure; this is exactly what HealthierU does. Preventive care is important because it helps you stay healthy and enables you to access prompt treatment when necessary. It can also help reduce your overall medical expenses.
+                  When it comes to your health, prevention is always much better
+                  than a cure; this is exactly what HealthierU does. Preventive
+                  care is important because it helps you stay healthy and
+                  enables you to access prompt treatment when necessary. It can
+                  also help reduce your overall medical expenses.
                 </p>
               </Col>
             </Row>
@@ -190,7 +194,7 @@ const AboutUs = ({ currentuserInfo }) => {
             <MDBContainer id="how-it-work">
               <MDBCarousel
                 activeItem={1}
-                length={5}
+                length={4}
                 slide={true}
                 interval={false}
                 showControls={true}
@@ -204,9 +208,10 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step1} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Set up your account
+                              Connect with our Global Wellness Experts Virtually
                               <br />
-                              within seconds and the team will get  <br />in touch with you for verification purposes.
+                              Our specialties include mental health, nutrition,
+                              sleep health, immunity, fitness, and much more.
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -217,9 +222,7 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step2} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Get easy access to your
-                              <br />
-                              patient's medical records.
+                              Set up your account within seconds
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -231,11 +234,10 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step3} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Consult and chat with your
+                              Connect with the right care.
                               <br />
-                              patient according to your
+                              Find the right doctor for your need.
                               <br />
-                              availaibility and time zone.
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -246,9 +248,7 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step4} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Access the latest updates in
-                              <br />
-                              the health and medical field.
+                              Access your appointments in seconds.
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -259,11 +259,7 @@ const AboutUs = ({ currentuserInfo }) => {
                         <MDBCard className="mb-2">
                           <MDBCardImage className="img-fluid" src={step5} />
                           <MDBCardBody>
-                            <MDBCardText>
-                              Connect with the right
-                              <br />
-                              medical care.
-                            </MDBCardText>
+                            <MDBCardText>Find the right care.</MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
                       </MDBCol>
@@ -284,7 +280,7 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step7} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Pay as soon as you book.
+                              Consult with your doctor virtually.
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -296,9 +292,7 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step8} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Consult with your
-                              <br />
-                              virtual doctor.
+                              Have instant chat with your doctor.
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
@@ -309,38 +303,38 @@ const AboutUs = ({ currentuserInfo }) => {
                           <MDBCardImage className="img-fluid" src={step9} />
                           <MDBCardBody>
                             <MDBCardText>
-                              Review your doctor's report.
+                              Review your doctor's report and prescription.
                             </MDBCardText>
                           </MDBCardBody>
                         </MDBCard>
                       </MDBCol>
                     </MDBCarouselItem>
-                    <MDBCarouselItem itemId="5">
-                      <MDBCol md="5">
-                        <MDBCard className="mb-2">
-                          <MDBCardImage className="img-fluid" src={step10} />
-                          <MDBCardBody>
-                            <MDBCardText>
-                              Access your personalized <br />
-                              supplements and wearables.
-                            </MDBCardText>
-                          </MDBCardBody>
-                        </MDBCard>
-                      </MDBCol>
-                      <MDBCol md="2"></MDBCol>
-                      <MDBCol md="5">
-                        <MDBCard className="mb-2">
-                          <MDBCardImage className="img-fluid" src={step11} />
-                          <MDBCardBody>
-                            <MDBCardText>
-                              Find out more about our nutrition and <br />
-                              workout plans, courses and latest <br />{" "}
-                              scientific articles.
-                            </MDBCardText>
-                          </MDBCardBody>
-                        </MDBCard>
-                      </MDBCol>
-                    </MDBCarouselItem>
+                    {/* <MDBCarouselItem itemId="5">
+                  <MDBCol md="5">
+                    <MDBCard className="mb-2">
+                      <MDBCardImage className="img-fluid" src={step10} />
+                      <MDBCardBody>
+                        <MDBCardText>
+                          Access your personalized <br />
+                          supplements and wearables.
+                        </MDBCardText>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol md="2"></MDBCol>
+                  <MDBCol md="5">
+                    <MDBCard className="mb-2">
+                      <MDBCardImage className="img-fluid" src={step11} />
+                      <MDBCardBody>
+                        <MDBCardText>
+                          Find out more about our nutrition and <br />
+                          workout plans, courses and latest <br /> scientific
+                          articles.
+                        </MDBCardText>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                </MDBCarouselItem> */}
                   </MDBRow>
                 </MDBCarouselInner>
               </MDBCarousel>
@@ -348,57 +342,61 @@ const AboutUs = ({ currentuserInfo }) => {
           </Container>
           <br />
           <br />
-          <Container id="our-services">
-            <Row id="aboutus-four">
-              <Col md={5} style={{ padding: "0px" }}>
-                <img className="image" src={features} alt="Features" />
-              </Col>
-              <Col md={1}></Col>
-              <Col md={6}>
-                <h2>Our Features</h2>
-                <br />
-                <br />
-                <h5>Robust & scalable platform</h5>
-                <p>
-                  A powerful technology stack for a highly-scalable
+          <div id="our-services">
+            <Container>
+              <Row id="aboutus-four">
+                <Col md={5} style={{ padding: "0px" }}>
+                  <img className="image" src={features} alt="Features" />
+                </Col>
+                <Col md={1}></Col>
+                <Col md={6}>
+                  <h2>Our Features</h2>
                   <br />
-                  telemedicine platform.
-                </p>
-
-                <h5>Unlimited access to accredited doctors</h5>
-                <p>
-                  We offer access to the best accredited doctors and medical
                   <br />
-                  institutions in Europe and the USA.
-                </p>
+                  <h5>Robust & scalable platform</h5>
+                  <p>
+                    A powerful technology stack for a highly-scalable
+                    <br />
+                    telemedicine platform.
+                  </p>
 
-                <h5>Quick access to medical care</h5>
-                <p>Connect to any of our global doctors at your convenience.</p>
+                  <h5>Unlimited access to accredited doctors</h5>
+                  <p>
+                    We offer access to the best accredited doctors and medical
+                    <br />
+                    institutions in Europe and the USA.
+                  </p>
 
-                <h5>Healthcare data security</h5>
-                <p>
-                  We respect and commit to protecting your privacy and
-                  <br />
-                  personal data.
-                </p>
+                  <h5>Quick access to medical care</h5>
+                  <p>
+                    Connect to any of our global doctors at your convenience.
+                  </p>
 
-                <h5>Innovative AI - powered app</h5>
-                <p>
-                  Our AI technology will help personalize and optimize your
-                  <br />
-                  needs based on a comprehensive assessment.
-                </p>
+                  <h5>Healthcare data security</h5>
+                  <p>
+                    We respect and commit to protecting your privacy and
+                    <br />
+                    personal data.
+                  </p>
 
-                <h5>Integration of wearable devices</h5>
-                <p>
-                  Connect with any wearable device and allow us to remotely
-                  <br />
-                  monitor your health.
-                </p>
-              </Col>
-            </Row>
-          </Container>
-          <Container id="contact-us">
+                  <h5>Innovative AI - powered app</h5>
+                  <p>
+                    Our AI technology will help personalize and optimize your
+                    <br />
+                    needs based on a comprehensive assessment.
+                  </p>
+
+                  <h5>Integration of wearable devices</h5>
+                  <p>
+                    Connect with any wearable device and allow us to remotely
+                    <br />
+                    monitor your health.
+                  </p>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+          {/* <Container id="contact-us">
             <Row id="aboutus-last">
               <Col md={12} className="mt-5 mb-5">
                 <h2>Feel Free To Contact Us</h2>
@@ -481,9 +479,9 @@ const AboutUs = ({ currentuserInfo }) => {
                 </Row>
               </Col>
             </Row>
-          </Container>
+          </Container> */}
           {authorities.length > 0 &&
-            authorities.some((user) => user === "ROLE_PATIENT") ? (
+          authorities.some((user) => user === "ROLE_PATIENT") ? (
             <></>
           ) : authorities.length > 0 &&
             authorities.some((user) => user === "ROLE_DOCTOR") ? (

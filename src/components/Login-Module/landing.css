@@ -215,10 +215,21 @@ button.get-started-btn {
 }
 
 .carousel-caption {
-  text-align: right;
+  /* text-align: right;
   top: 32% !important;
   color: var(--primary);
-  right: 5% !important;
+  right: 5% !important; */
+
+  text-align: right;
+    color: var(--primary);
+    right: 0 !important;
+    bottom: 0;
+    /* transform: translateY(-50%); */
+    background: rgba(0, 0, 0, .5);
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    left: 0;
 }
 
 h3.h3-responsive {
@@ -1171,10 +1182,13 @@ button {
 
 /*OTP Page css*/
 .otp-field {
-  width: 38px;
+  width: 48px;
   margin-right: 10px;
   padding-left: 12px;
-  height: 40px;
+  height: 48px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
 }
 
 .otp-verify {
@@ -1195,5 +1209,5 @@ button {
 }
 
 .otp-box-div {
-  margin: 50px;
+  margin: 45px;
 }

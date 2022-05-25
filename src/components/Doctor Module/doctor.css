@@ -1539,12 +1539,17 @@ span#info-title {
 }
 
 button.view-btn {
-  font-size: 1em;
+  /* font-size: 1em;
   border-radius: 22px;
   padding: 5x 25px;
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
-  width: 70%;
+  width: 70%; */
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
 }
 
 svg#accept-icon {
@@ -2206,7 +2211,7 @@ div.reply .messageBody span.messageTime {
 .appointment-slot-list {
   padding: 10px 0px;
   border: 2px solid rgb(228, 228, 228);
-  background: rgb(238, 255, 238);
+  background: #efefef;
   height: 680px;
   overflow-y: scroll;
   border-radius: 20px;
@@ -2299,13 +2304,15 @@ Health Assessment
 }
 
 .img-box {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   overflow: hidden;
-  border-radius: 502%;
+  border-radius: 50%;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 .modal-body > .form-group > label.col-form-label {
@@ -2567,7 +2574,6 @@ button a {
 .record-tabs.nav-tabs .nav-link:not(:last-child) {
   margin-right: 15px;
 }
-
 
 #prescription-list tbody tr {
   border-bottom: 1px solid #fff;

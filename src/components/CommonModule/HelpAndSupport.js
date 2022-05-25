@@ -3,9 +3,24 @@ import './landing.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import Header from '../Login-Module/Header';
 import Footer from '../Login-Module/Footer';
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import axios from "axios";
+import { useHistory } from 'react-router-dom';
+
 
 export default function PrivacyPolicy({ currentuserInfo }) {
+    const history = useHistory();
+
+
     const [serverError, setServerError] = useState(false);
+    const [contactDetails, setContactDetails] = useState({
+        senderName: "",
+        senderMail: "",
+        subject: "",
+        message: "",
+    });
+
+    const { senderName, senderMail, subject, message } = contactDetails;
 
     const { authorities = [] } = currentuserInfo || {};
 
@@ -17,6 +32,36 @@ export default function PrivacyPolicy({ currentuserInfo }) {
     } else {
         redirectUrl = '/';
     }
+
+    const handleInputChange = (e) => {
+        setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
+    };
+
+    const sendContactDetails = () => {
+        var payload = {
+            method: "post",
+            mode: "no-cors",
+            data: contactDetails,
+            url: `/api/contact-us`,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        };
+        axios(payload)
+            .then((response) => {
+                // //console.log(response.status);
+                if (response.status === 200 || response.status === 201) {
+                    alert("Message sent successfully");
+                }
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 500) {
+                    setServerError(true);
+                    setTimeout(() => history.push("/"), 5000);
+                }
+            });
+    };
 
     return (
         <div>
@@ -42,89 +87,92 @@ export default function PrivacyPolicy({ currentuserInfo }) {
                     ) : (
                         <Header />
                     )}
-                    <Container>
-                        <Row>
-                            <Col md={2}></Col>
-                            <Col md={8}>
-                                <div className="content" id="profile-form">
-                                    <div className="signin-box">
-                                        <center>
-                                            <h4>Help And Support</h4>
-                                        </center>
-                                        <br />
-                                        <Row>
-                                            <Col md={12}>
-                                                <Row>
-                                                    <Col md={12}>
-                                                        <p className='static-pages'>
-                                                            Lorem Ipsum is simply dummy text of the printing
-                                                            and typesetting industry. Lorem Ipsum has been the
-                                                            industry's standard dummy text ever since the
-                                                            1500s, when an unknown printer took a galley of
-                                                            type and scrambled it to make a type specimen
-                                                            book. It has survived not only five centuries, but
-                                                            also the leap into electronic typesetting,
-                                                            remaining essentially unchanged. It was
-                                                            popularised in the 1960s with the release of
-                                                            Letraset sheets containing Lorem Ipsum passages,
-                                                            and more recently with desktop publishing software
-                                                            like Aldus PageMaker including versions of Lorem
-                                                            Ipsum.
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <br />
-                                                <Row>
-                                                    <Col md={12}>
-                                                        <p className='static-pages'>
-                                                            Contrary to popular belief, Lorem Ipsum is not
-                                                            simply random text. It has roots in a piece of
-                                                            classical Latin literature from 45 BC, making it
-                                                            over 2000 years old. Richard McClintock, a Latin
-                                                            professor at Hampden-Sydney College in Virginia,
-                                                            looked up one of the more obscure Latin words,
-                                                            consectetur, from a Lorem Ipsum passage, and going
-                                                            through the cites of the word in classical
-                                                            literature, discovered the undoubtable source.
-                                                            Lorem Ipsum comes from sections 1.10.32 and
-                                                            1.10.33 of "de Finibus Bonorum et Malorum" (The
-                                                            Extremes of Good and Evil) by Cicero, written in
-                                                            45 BC. This book is a treatise on the theory of
-                                                            ethics, very popular during the Renaissance. The
-                                                            first line of Lorem Ipsum, "Lorem ipsum dolor sit
-                                                            amet..", comes from a line in section 1.10.32.
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <br />
-                                                <Row>
-                                                    <Col md={12}>
-                                                        <p className='static-pages'>
-                                                            It is a long established fact that a reader will
-                                                            be distracted by the readable content of a page
-                                                            when looking at its layout. The point of using
-                                                            Lorem Ipsum is that it has a more-or-less normal
-                                                            distribution of letters, as opposed to using
-                                                            'Content here, content here', making it look like
-                                                            readable English. Many desktop publishing packages
-                                                            and web page editors now use Lorem Ipsum as their
-                                                            default model text, and a search for 'lorem ipsum'
-                                                            will uncover many web sites still in their
-                                                            infancy. Various versions have evolved over the
-                                                            years, sometimes by accident, sometimes on purpose
-                                                            (injected humour and the like).
-                                                        </p>
-                                                        <br />
-                                                    </Col>
-                                                </Row>
-                                                <br />
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </div>
+
+                    <Container id="contact-us">
+                        <Row id="aboutus-last">
+                            <Col md={12} className="mt-5 mb-5">
+                                <h2>Feel Free To Contact Us</h2>
+                                <h5>Contact Our Support Team At Anytime</h5>
+                                <br />
+                                <br />
+                                <ValidatorForm onSubmit={() => sendContactDetails()}>
+                                    <Row>
+                                        <Col md={6}>
+                                            <TextValidator
+                                                id="standard-basic"
+                                                type="text"
+                                                name="senderName"
+                                                value={senderName}
+                                                onChange={(e) => handleInputChange(e)}
+                                                placeholder="YOUR NAME*"
+                                                validators={["required"]}
+                                                errorMessages={[("This field is required")]}
+                                                variant="filled"
+                                            />
+                                            <br />
+                                            <TextValidator
+                                                id="standard-basic"
+                                                type="text"
+                                                name="senderMail"
+                                                value={senderMail}
+                                                onChange={(e) => handleInputChange(e)}
+                                                placeholder="EMAIL ADDRESS*"
+                                                validators={["required"]}
+                                                errorMessages={[("This field is required")]}
+                                                variant="filled"
+                                            />
+                                            <br />
+                                            <TextValidator
+                                                id="standard-basic"
+                                                type="text"
+                                                name="subject"
+                                                value={subject}
+                                                onChange={(e) => handleInputChange(e)}
+                                                placeholder="SUBJECT"
+                                                variant="filled"
+                                            />
+                                            <br />
+                                        </Col>
+                                        <Col md={6}>
+                                            <TextValidator
+                                                id="standard-basic"
+                                                type="text"
+                                                name="message"
+                                                value={message}
+                                                onChange={(e) => handleInputChange(e)}
+                                                placeholder="YOUR MESSAGE"
+                                                multiline
+                                                rows={4}
+                                                variant="filled"
+                                            />
+                                            <input
+                                                className="btn btn-primary sign-btn"
+                                                type="submit"
+                                                value="SEND MESSAGE"
+                                            />
+                                        </Col>
+                                    </Row>
+                                </ValidatorForm>
+                                <br />
+                                <br />
+                                <Row id="contact-details">
+                                    <Col md={4}>
+                                        <h6>Phone</h6>
+                                        <p>+971 2 650 2444</p>
+                                    </Col>
+                                    <Col md={4}>
+                                        <h6>E-mail Address</h6>
+                                        <p>customerservice@healthieru.ae</p>
+                                    </Col>
+                                    <Col md={4}>
+                                        <h6>Office Address</h6>
+                                        <p>Reem Island, Abu Dhabi, UAE</p>
+                                    </Col>
+                                </Row>
                             </Col>
                         </Row>
                     </Container>
+
                     {authorities.length > 0 &&
                         authorities.some((user) => user === 'ROLE_PATIENT') ? (
                         <></>

@@ -47,9 +47,9 @@ const Footer = () => {
                             <Link to="" id="footer-link">
                                 Articles
                             </Link>
-                            <HashLink to="/about-us#contact-us" id="footer-link">
+                            {/* <HashLink to="/about-us#contact-us" id="footer-link">
                                 Contact us
-                            </HashLink>
+                            </HashLink> */}
                         </Col>
                         <Col
                             md={6}
@@ -105,7 +105,7 @@ const Footer = () => {
                         <Col md={8}>
                             <div className="d-flex">
                                 <Link to="/privacy-policy" className="" id="copy-link">
-                                    Privacy Policy
+                                    Privacy and Security
                                 </Link>
                                 <Link to="/terms-and-conditions" className="" id="copy-link">
                                     Terms and Conditions
