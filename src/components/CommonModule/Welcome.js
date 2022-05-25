@@ -352,9 +352,9 @@ const Welcome = ({ currentuserInfo }) => {
             // halfRate: halfRate,
             affiliation: affiliation,
             // bio: bio,
-            licenseNumber: licenseNumber,
-            referencePhoneNumber: referencePhoneNumber,
-            certifyingBody: certifyingBody,
+            // licenseNumber: licenseNumber,
+            // referencePhoneNumber: referencePhoneNumber,
+            // certifyingBody: certifyingBody,
             experience: experience,
             specialities: specialities,
             languages: languages,
@@ -908,7 +908,9 @@ const Welcome = ({ currentuserInfo }) => {
                                             </Col>
 
                                         </Row>
+                                        <br />
                                         <br /> */}
+                                        <br />
                                         {educationList.map((x, i) => {
                                             return (
                                                 <div key={i}>
@@ -926,6 +928,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 placeholder='Education' />
 
                                                         </Col>
+
                                                         <Col md={6}>
                                                             <p>Institution<sup>*</sup></p>
                                                             <TextValidator id="standard-basic" type="text" name="institution"
@@ -985,6 +988,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                             )}
                             {displaydocumentForm && (<>
+                                
                                 <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} />
                                 <br />
                                 <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>

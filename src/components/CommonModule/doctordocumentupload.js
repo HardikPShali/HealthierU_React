@@ -112,12 +112,16 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
         }
     }
 
-    const handleUpload = async (e) => {
+    const handleUpload = async (e, data) => {
         setLoading(true);
         const info = {
             doctorId: currentDoctor.data.id,
             doctor_email: currentDoctor.data.email,
-            documentName: documentName
+            documentName: documentName,
+            // licenseNumber: data.get("licenseNumber"),
+            // referencePhoneNumber: data.get("referencePhoneNumber"),
+            // patientId: data.get("certifyingBody"),
+
         }
         const files = documentFile;
         const res = await uploadDoctorDocument(files, info).catch(err => {
@@ -243,9 +247,53 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
 
     return (
         <>
-            {/* {loading && (
+            {loading && (
                 <TransparentLoader />
-            )} */}
+            )}
+            {/* <Row>
+                <Col md={6}>
+                    <p>License Number<sup>*</sup></p>
+                    <TextValidator id="standard-basic" type="text" name="licenseNumber"
+                        onChange={(e) => handleInputChange(e)}
+                        value={licenseNumber}
+                        validators={['required']}
+                        errorMessages={['This field is required']}
+                        variant="filled"
+                        placeholder='License Number' />
+
+                </Col>
+                <Col md={6}>
+                    <p>Certifying Body<sup>*</sup></p>
+                    <TextValidator id="standard-basic" type="text" name="certifyingBody"
+                        onChange={(e) => handleInputChange(e)}
+                        value={certifyingBody}
+                        validators={['required']}
+                        errorMessages={['This field is required']}
+                        variant="filled"
+                        placeholder='Certifying Body' />
+
+                </Col>
+
+            </Row>
+            <Row>
+                <Col md={12}>
+                    <p>Reference Phone Number<sup>*</sup></p>
+                    <PhoneInput
+                        inputProps={{
+                            name: 'referencePhoneNumber',
+                            required: true,
+                            maxLength: 16,
+                            minLength: 12
+                        }}
+                        country={'us'}
+                        value={referencePhoneNumber}
+                        onChange={e => handlePhone(e)}
+                        variant="filled"
+                        required
+                    />
+                    {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
+                </Col>
+            </Row> */}
             <Row style={{ alignItems: "center" }}>
                 <Col md={6} className="col-xs-6" style={{ textAlign: "left" }}>
                     <span style={{ fontSize: "15px" }}>Total Documents: {documentData?.length}</span>
