@@ -909,3 +909,23 @@ export const updateDoctorData = async (data) => {
     });
     return response;
 }
+
+export const uploadNote = async (note) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        data: note,
+        url: `/api/v2/notes`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
