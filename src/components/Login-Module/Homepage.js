@@ -328,7 +328,7 @@ const Homepage = () => {
         <MDBContainer id="how-it-work">
           <MDBCarousel
             activeItem={1}
-            length={5}
+            length={4}
             slide={true}
             interval={false}
             showControls={true}
@@ -342,10 +342,9 @@ const Homepage = () => {
                       <MDBCardImage className="img-fluid" src={step1} />
                       <MDBCardBody>
                         <MDBCardText>
-                          Set up your account
+                        Connect with our Global Wellness Experts Virtually
                           <br />
-                          within seconds and the team will get <br />
-                          in touch with you for verification purposes.
+                          Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.
                         </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
@@ -356,9 +355,7 @@ const Homepage = () => {
                       <MDBCardImage className="img-fluid" src={step2} />
                       <MDBCardBody>
                         <MDBCardText>
-                          Get easy access to your
-                          <br />
-                          patient's medical records.
+                          Set up your account within seconds
                         </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
@@ -370,11 +367,10 @@ const Homepage = () => {
                       <MDBCardImage className="img-fluid" src={step3} />
                       <MDBCardBody>
                         <MDBCardText>
-                          Consult and chat with your
+                          Connect with the right care.
                           <br />
-                          patient according to your
+                          Find the right doctor for your need.
                           <br />
-                          availaibility and time zone.
                         </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
@@ -385,9 +381,7 @@ const Homepage = () => {
                       <MDBCardImage className="img-fluid" src={step4} />
                       <MDBCardBody>
                         <MDBCardText>
-                          Access the latest updates in
-                          <br />
-                          the health and medical field.
+                          Access your appointments in seconds.
                         </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
@@ -399,9 +393,7 @@ const Homepage = () => {
                       <MDBCardImage className="img-fluid" src={step5} />
                       <MDBCardBody>
                         <MDBCardText>
-                          Connect with the right
-                          <br />
-                          medical care.
+                          Find the right care.
                         </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
@@ -411,7 +403,7 @@ const Homepage = () => {
                       <MDBCardImage className="img-fluid" src={step6} />
                       <MDBCardBody>
                         <MDBCardText>
-                          Schedule your online
+                          Schedule your online 
                           <br />
                           consultation.
                         </MDBCardText>
@@ -422,7 +414,7 @@ const Homepage = () => {
                     <MDBCard className="mb-2">
                       <MDBCardImage className="img-fluid" src={step7} />
                       <MDBCardBody>
-                        <MDBCardText>Pay as soon as you book.</MDBCardText>
+                        <MDBCardText>Consult with your doctor virtually.</MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
@@ -433,9 +425,7 @@ const Homepage = () => {
                       <MDBCardImage className="img-fluid" src={step8} />
                       <MDBCardBody>
                         <MDBCardText>
-                          Consult with your
-                          <br />
-                          virtual doctor.
+                          Have instant chat with your doctor.
                         </MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
@@ -445,12 +435,12 @@ const Homepage = () => {
                     <MDBCard className="mb-2">
                       <MDBCardImage className="img-fluid" src={step9} />
                       <MDBCardBody>
-                        <MDBCardText>Review your doctor's report.</MDBCardText>
+                        <MDBCardText>Review your doctor's report and prescription.</MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
                 </MDBCarouselItem>
-                <MDBCarouselItem itemId="5">
+                {/* <MDBCarouselItem itemId="5">
                   <MDBCol md="5">
                     <MDBCard className="mb-2">
                       <MDBCardImage className="img-fluid" src={step10} />
@@ -475,7 +465,7 @@ const Homepage = () => {
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
-                </MDBCarouselItem>
+                </MDBCarouselItem> */}
               </MDBRow>
             </MDBCarouselInner>
           </MDBCarousel>
