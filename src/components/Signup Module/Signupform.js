@@ -352,7 +352,7 @@ const Signupform = () => {
     <div>
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
-      <Header />
+      <Header hideButton={true} />
       <Container id="signupform-bg" style={{ display: display.signupForm }}>
         <Row>
           <Col md={7}></Col>
