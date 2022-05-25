@@ -2211,7 +2211,7 @@ div.reply .messageBody span.messageTime {
 .appointment-slot-list {
   padding: 10px 0px;
   border: 2px solid rgb(228, 228, 228);
-  background: rgb(238, 255, 238);
+  background: #efefef;
   height: 680px;
   overflow-y: scroll;
   border-radius: 20px;
@@ -2574,7 +2574,6 @@ button a {
 .record-tabs.nav-tabs .nav-link:not(:last-child) {
   margin-right: 15px;
 }
-
 
 #prescription-list tbody tr {
   border-bottom: 1px solid #fff;
