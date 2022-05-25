@@ -1182,10 +1182,13 @@ button {
 
 /*OTP Page css*/
 .otp-field {
-  width: 38px;
+  width: 48px;
   margin-right: 10px;
   padding-left: 12px;
-  height: 40px;
+  height: 48px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
 }
 
 .otp-verify {
@@ -1206,5 +1209,5 @@ button {
 }
 
 .otp-box-div {
-  margin: 50px;
+  margin: 45px;
 }

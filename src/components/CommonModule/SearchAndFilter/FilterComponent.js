@@ -82,7 +82,7 @@ const FilterComponent = (props) => {
     // }, [filterValues])
 
     return (
-        <div>
+        <div style={{ marginRight: '15px' }}>
             <IconButton
                 onClick={() => toggleFilterBox()}
                 style={{

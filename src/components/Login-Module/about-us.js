@@ -55,22 +55,22 @@ const AboutUs = ({ currentuserInfo }) => {
     setOpen(false);
   };
 
-  const [contactDetails, setContactDetails] = useState({
-    senderName: "",
-    senderMail: "",
-    subject: "",
-    message: "",
-  });
+  // const [contactDetails, setContactDetails] = useState({
+  //   senderName: "",
+  //   senderMail: "",
+  //   subject: "",
+  //   message: "",
+  // });
 
-  const { senderName, senderMail, subject, message } = contactDetails;
+  // const { senderName, senderMail, subject, message } = contactDetails;
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  const handleInputChange = (e) => {
-    setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
-  };
+  // const handleInputChange = (e) => {
+  //   setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
+  // };
 
   //console.log("currentuserInfo ::::: about us :::::", currentuserInfo);
   const { authorities = [] } = currentuserInfo || {};
@@ -84,31 +84,31 @@ const AboutUs = ({ currentuserInfo }) => {
     redirectUrl = "/";
   }
 
-  const sendContactDetails = () => {
-    var payload = {
-      method: "post",
-      mode: "no-cors",
-      data: contactDetails,
-      url: `/api/contact-us`,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
-    axios(payload)
-      .then((response) => {
-        // //console.log(response.status);
-        if (response.status === 200 || response.status === 201) {
-          alert("Message sent successfully");
-        }
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 500) {
-          setServerError(true);
-          setTimeout(() => history.push("/"), 5000);
-        }
-      });
-  };
+  // const sendContactDetails = () => {
+  //   var payload = {
+  //     method: "post",
+  //     mode: "no-cors",
+  //     data: contactDetails,
+  //     url: `/api/contact-us`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Access-Control-Allow-Origin": "*",
+  //     },
+  //   };
+  //   axios(payload)
+  //     .then((response) => {
+  //       // //console.log(response.status);
+  //       if (response.status === 200 || response.status === 201) {
+  //         alert("Message sent successfully");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       if (error.response && error.response.status === 500) {
+  //         setServerError(true);
+  //         setTimeout(() => history.push("/"), 5000);
+  //       }
+  //     });
+  // };
 
   return (
     <div>
@@ -398,7 +398,7 @@ const AboutUs = ({ currentuserInfo }) => {
               </Col>
             </Row>
           </Container>
-          <Container id="contact-us">
+          {/* <Container id="contact-us">
             <Row id="aboutus-last">
               <Col md={12} className="mt-5 mb-5">
                 <h2>Feel Free To Contact Us</h2>
@@ -481,7 +481,7 @@ const AboutUs = ({ currentuserInfo }) => {
                 </Row>
               </Col>
             </Row>
-          </Container>
+          </Container> */}
           {authorities.length > 0 &&
             authorities.some((user) => user === "ROLE_PATIENT") ? (
             <></>

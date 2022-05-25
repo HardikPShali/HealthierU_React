@@ -47,9 +47,9 @@ const Footer = () => {
                             <Link to="" id="footer-link">
                                 Articles
                             </Link>
-                            <HashLink to="/about-us#contact-us" id="footer-link">
+                            {/* <HashLink to="/about-us#contact-us" id="footer-link">
                                 Contact us
-                            </HashLink>
+                            </HashLink> */}
                         </Col>
                         <Col
                             md={6}

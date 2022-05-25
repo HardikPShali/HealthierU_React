@@ -926,7 +926,7 @@ const MyDoctor = (props) => {
     });
     console.log('Country List', res);
     if (res && res.data.data) {
-      setCountryList(res.data.data.id);
+      setCountryList(res.data.data);
     }
   };
 
@@ -1248,7 +1248,7 @@ const MyDoctor = (props) => {
                                 }
                               >
                                 <MenuItem value="">
-                                  <em>Country of Origin</em>
+                                  <em>Nationality</em>
                                 </MenuItem>
                                 {countryList &&
                                   countryList.map((option, index) => (
