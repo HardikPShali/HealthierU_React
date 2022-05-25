@@ -194,6 +194,23 @@ export const postDocument = async (data) => {
   });
 };
 
+export const postDocumentAddPrescription = async (data) => {
+  const headers = {
+    mode: "no-cors",
+    Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+  };
+  var config = {
+    method: 'post',
+    url: "/api/v2/medical-document-upload",
+    headers: headers,
+    data: data,
+  };
+
+  return await axios(config).then((response) => {
+    return response.data;
+  });
+};
+
 export const postLabDocument = async (data) => {
   const headers = {
     mode: "no-cors",
