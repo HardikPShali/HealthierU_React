@@ -178,6 +178,7 @@ const AddPrescription = (props) => {
 
     const handlePrescriptionSubmission = async (event) => {
         event.preventDefault();
+        // setprescriptionList(null)
         // setIsSave(false)
         // setIsSaveModal(false)
         // const reverseMedicalInfo = prescriptionList.reverse();
@@ -211,6 +212,7 @@ const AddPrescription = (props) => {
         // let lastDoc = prescriptionList.slice(-1);
         // console.log("lastDoc", lastDoc)
         var medicalInfo = prescriptionList.map(function (a) { return a; });
+        console.log("medicalInfo", medicalInfo)
         const medicalDocumentInfo = {
             documentType: "Prescription",
             patientId: patient?.id,
@@ -219,64 +221,27 @@ const AddPrescription = (props) => {
         };
         setErrorMsg('');
         const formData = new FormData();
-        formData.append("medicalInfo", new Blob([JSON.stringify(medicalInfo)], {
-            type: "application/json"
-        }));
+        medicalInfo.map((a) => {
+            if (a.medicineName != '')
+                formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
+                    type: "application/json"
+                }))
+
+        })
         formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
             type: "application/json"
         }));
+
         {
-            prescriptionResult.prescriptionDocument ?
+            prescriptionResult.prescriptionDocument &&
                 formData.append("file", (prescriptionResult?.prescriptionDocument))
-                :
-                formData.append("file", new Blob([JSON.stringify(null)], {
-                    type: "application/json"
-                }));
         }
-
-
-
-        const response = await postDocumentAddPrescription(formData).catch((err) => {
-            console.log('Error :: ', err);
-            if (err.response.status === 400) {
-                setErrorMsg('Please upload the document in PDF format.');
-            }
-            else if (response.status === 201) {
-                const patientInfo = props.location.state;
-                toast.success("Document successfully Uploaded.");
-                props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo })
-            }
-        });
-
-
-        // if (response.status === 201) {
-        //     const patientInfo = props.location.state;
-        //     toast.success("Document successfully Uploaded.");
-        //     setShowPrescriptionUpload(false);
-        //     setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo }), 500);
-
-        // }
-
-        // const patientInfo = props.location.state;
-        // if (response.status === 201) {
-        //     toast.success("Document successfully Uploaded.");
-        // setShowPrescriptionUpload(false);
-        //     props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo })
-        // }
-
-
-        // const currentDoctor = cookies.get('profileDetails');
-
-        // const prescriptionDocument = await getDoctorPatientDocuments(
-        //     'Prescription',
-        //     0,
-        //     currentDoctor.id,
-        //     patientInfo.id
-
-        // );
-
-        // setPresecriptionDocument(prescriptionDocument);
-
+        const response = await postDocumentAddPrescription(formData);
+        if (response) {
+            toast.success("Document successfully Uploaded.");
+            const patientInfo = props.location.state;
+            setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo }), 500);
+        }
     };
     const handlePrescriptionChange = (e) => {
         if (e.target.type === 'file') {
