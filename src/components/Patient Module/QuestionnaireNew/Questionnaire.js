@@ -1,17 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import quesJson from './dummyQuestions.json';
+import quesJson from './questions.json';
 import { Questions } from './Questions';
 import '../patient.css';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getPatientQuestionnaire } from '../../questionnaire/QuestionnaireService';
-import {
-    getCurrentUserInfo,
-} from '../../../service/AccountService';
 import Cookies from 'universal-cookie';
+import { postHealthAssesment } from '../../../service/frontendapiservices'
 
 const Questionnaire = () => {
     const [questions, setQuestions] = useState(null);
@@ -19,53 +16,57 @@ const Questionnaire = () => {
 
     const cookies = new Cookies();
 
-    const [currentUser, setCurrentUser] = useState({
-        isLoading: true,
-        questionnaire: null,
-        currentPatientUser: null,
-    });
-
-    const [questionnaireState, setQuestionnaireState] = useState({
-        isLoading: true,
-        questionnaire: null,
-        selectedQuestionnaire: null,
-    })
+    const currentPatient = cookies.get('profileDetails');
+    const patientID = currentPatient.id;
+    console.log(patientID);
 
     const history = useHistory();
 
+    const handleAssessmentSubmit = async () => {
+        const submitData = questions;
+        const response = await postHealthAssesment(submitData, patientID).catch(err => {
+            console.log(err);
+        });
+        console.log(response);
+    }
+
 
     const onContinue = async (event) => {
-        toast.success('Saved Successfully!', {
-            position: 'top-right',
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-        setTimeout(() => history.push('/patient'), 1000);
+        console.log(questions);
+        if (questions.length > 0) {
+            handleAssessmentSubmit();
+            toast.success('Saved Successfully!', {
+                position: 'top-right',
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            // history.push('/patient');
+        }
+        else {
+            toast.error('Please fill the form!', {
+                position: 'top-right',
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            history.reload();
+        }
+
+        // setTimeout(() => history.push('/patient'), 1000);
     }
 
-    const currentUserLoggedIn = cookies.get('currentUser');
-    console.log("currentUserLoggedIn", currentUserLoggedIn);
 
-    const currentPatientLoggedIn = cookies.get('profileDetails');
-    console.log("currentPatientLoggedIn", currentPatientLoggedIn);
-
-    const getQuestionnaire = async () => {
-        const response = await getPatientQuestionnaire(currentPatientLoggedIn.id);
-        // setQuestions({ ...questionnaireState, questionnaire: response, isLoading: false });
-        console.log('response', response);
-    }
 
 
     useEffect(() => {
         setQuestions(quesJson);
-
-        // getCurrentUserInformation();
-        getQuestionnaire();
-
     }, []);
 
 
@@ -78,8 +79,8 @@ const Questionnaire = () => {
                         <h1>Health Assessment</h1>
                     </div>
                     <div className='question-box scroller-cardlist'>
-                        {questions && questions.map((question, index) => (
-                            <Questions key={index} question={question} />
+                        {questions && questions.map((question) => (
+                            <Questions key={question.questionId} question={question} />
                         ))}
                     </div>
                     <div className="questionnaire-continue-button">

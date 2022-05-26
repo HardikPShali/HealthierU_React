@@ -99,7 +99,7 @@ const ImageCropper = (props) => {
 
                 <div className="p-image">
                     <AddAPhotoIcon className="upload-button" />
-                    <input className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
+                    <input className="file-upload" type="file" accept="*/*" onChange={e => handleImageChange(e)}
                         variant="filled" />
                 </div>
             </div>

@@ -491,7 +491,7 @@ const Profile = ({ currentDoctor }) => {
                                                             inputProps={{
                                                                 name: 'phone',
                                                                 required: true,
-                                                                maxLength: 16,
+                                                                maxLength: 20,
                                                                 minLength: 12,
                                                             }}
                                                             country={'us'}

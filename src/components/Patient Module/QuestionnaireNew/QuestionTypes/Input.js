@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 export const Input = ({ question }) => {
-    const [value, setValue] = useState('');
+    const [answer, setAnswer] = useState('');
 
     const handleChange = (e) => {
-        setValue(e.target.value);
-        question.value = e.target.value;
+        setAnswer(e.target.value);
+        question.answer = e.target.value;
     }
 
     return (
@@ -14,14 +14,15 @@ export const Input = ({ question }) => {
                 htmlFor="description"
                 className="col-sm-8 col-form-label"
             >
-                {question.question}
+                {question.questionTitle}
             </label>
             <div className="col-sm-8 input-place">
                 <input
                     type="text"
                     className="form-control"
-                    value={value}
+                    value={answer}
                     onChange={handleChange}
+                    id={question.questionId}
                 ></input>
                 <span style={{ marginLeft: '20px' }}>Drinks</span>
             </div>
