@@ -1116,9 +1116,9 @@ const AdminDocument = (props) => {
               <Button
                 variant="primary"
                 type="submit"
-                disabled={
-                  !patient?.id || !doctor?.id || !labResult.labResultDocument
-                }
+                // disabled={
+                //   !patient?.id || !doctor?.id || !labResult.labResultDocument
+                // }
               >
                 Save
               </Button>
