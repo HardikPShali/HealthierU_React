@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 export const Radio = ({ question }) => {
-    const [answer, setAnswer] = useState({});
+    const [answers, setAnswer] = useState("");
 
     const handleRadioChange = (e) => {
         setAnswer(e);
-        question.answer = e;
+        question.answers = e;
     }
 
     return (
@@ -21,11 +21,11 @@ export const Radio = ({ question }) => {
                             type="radio"
                             className="form-check-input"
                             id={question.questionId}
-                            value={answer}
+                            value={answers}
                             onChange={() => {
                                 handleRadioChange(choice)
                             }}
-                            checked={answer === choice}
+                            checked={answers === choice}
                         />
                         <label className="form-check-label">{choice}</label>
                     </div>

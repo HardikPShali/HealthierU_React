@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'universal-cookie';
-import { postHealthAssesment } from '../../../service/frontendapiservices'
+import { postHealthAssessment } from '../../../service/frontendapiservices'
 
 const Questionnaire = () => {
     const [questions, setQuestions] = useState(null);
@@ -23,15 +23,35 @@ const Questionnaire = () => {
     const history = useHistory();
 
     const handleAssessmentSubmit = async () => {
-        const submitData = questions;
-        const response = await postHealthAssesment(submitData, patientID).catch(err => {
+        const submitData = {
+            selections: questions.map(question => {
+                if (!Array.isArray(question.answers)) {
+                    question.answers = [question.answers];
+                }
+                // let score = 0;
+
+                // question.answers.forEach(answer => {
+
+                //     let choiceIndex = question.choices.indexOf(answer);
+                //     if (choiceIndex !== -1) {
+                //         score += question.score[choiceIndex];
+                //     }
+
+                //     // score += question.mapScore[choiceIndex]
+                // })
+
+                // question.score = score;
+                return question;
+            }),
+        };
+        const response = await postHealthAssessment(submitData, patientID).catch(err => {
             console.log(err);
         });
         console.log(response);
     }
 
 
-    const onContinue = async (event) => {
+    const onContinue = async () => {
         console.log(questions);
         if (questions.length > 0) {
             handleAssessmentSubmit();

@@ -122,7 +122,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/mypatient" render={(props) => <Mypatient timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/medicalrecord/:id" component={Healthassessment} />
-        <Route exact path="/doctor/healthassesment-report" component={HealthAssestmentReport} />
+        <Route exact path="/doctor/healthassesment-report/:id" component={HealthAssestmentReport} />
         <Route exact path="/doctor/medicalrecord" component={MedicalRecord} />
         <Route exact path="/doctor/consulatationhistory" component={ConsulatationHistory} />
         {/*/render={(props) => <Healthassessment patient={patient} {...props} />} />*/}

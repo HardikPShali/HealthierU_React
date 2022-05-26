@@ -1,29 +1,25 @@
 import React from 'react'
-import QuestionsCard from './QuestionsCard'
 import './Questions.css'
-import dummyQuestions from "./dummyQuestions.json"
-const Questions = () => {
+const Questions = ({ answers }) => {
+    console.log("Questions", answers);
     return (
         <div className='Questions__card-box'>
             <h3 className='Questions--main-header'>Health Assestment Report</h3>
             <div className="Questions-card-holder">
                 <div className='Questions-card'>
-                    {dummyQuestions.length > 0 &&
-                        dummyQuestions.map(
 
-                            (q, index) => (
-                                <div key={index}>
-                                    <QuestionsCard
-                                        index={q.index}
-                                        question={q.question}
-                                        answer={q.answer}
-                                    />
-                                </div>
-                            )
-
-                        )}
-
-
+                    <div className='row' >
+                        <div className='col-md-12'>
+                            {
+                                answers && answers.map((answer, index) => (
+                                    <div className='Questions-card__card-details' key={index}>
+                                        <h6 className='Questions-card__question-title'>{answer.questionTitle}</h6>
+                                        <h6 className='Questions-card__question-answer'>{answer.answers}</h6>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
 
                 </div>
             </div>

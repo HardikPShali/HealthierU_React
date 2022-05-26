@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 // import '../Questionnaire.css'
 
 export const Checkbox = ({ question }) => {
-    const [answer, setAnswer] = useState([]);
+    const [answers, setAnswer] = useState([]);
 
     const handleCheckboxChange = (e) => {
 
         console.log('Event', e);
 
         // setAnswer(!answer);
-        const index = answer.indexOf(e);
+        const index = answers.indexOf(e);
         if (index === -1) {
-            setAnswer([...answer, e]);
-            question.answer = [...answer, e];
+            setAnswer([...answers, e]);
+            question.answers = [...answers, e];
 
         }
         else {
-            setAnswer(answer.filter(item => item !== e));
+            setAnswer(answers.filter(item => item !== e));
         }
     }
 
@@ -31,7 +31,7 @@ export const Checkbox = ({ question }) => {
                         type="checkbox"
                         className="form-check-input"
                         id={question.questionId}
-                        checked={answer.includes(choice)}
+                        checked={answers.includes(choice)}
                         onChange={() => handleCheckboxChange(choice)}
                     />
                     <label className="form-check-label checkbox-container">

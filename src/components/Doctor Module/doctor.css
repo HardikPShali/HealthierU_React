@@ -1523,6 +1523,24 @@ div#req-info {
   flex: none;
   order: 1;
   flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+div#req-info > a {
+  border-radius: 10px;
+  text-align: justify;
+  color: #000;
+  font-weight: 600;
+}
+
+div#req-info > a:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  color: #00d0cc;
 }
 
 span#info-title {

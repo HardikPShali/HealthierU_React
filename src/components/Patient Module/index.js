@@ -115,7 +115,7 @@ const PatientRoute = () => {
   const getCurrentPatient = async () => {
     // const currentPatient = await getCurrentPatientInfo(currentuserInfo.id, currentuserInfo.login);
     const currentPatient = cookie.get('profileDetails');
-    // console.log('Current patient', currentPatient);
+    console.log('Current patient', currentPatient);
     setCurrentPatient(currentPatient);
     if (currentPatient?.patientTimeZone !== systemTimeZone) {
       handleSubmit(currentPatient.id, systemTimeZone);

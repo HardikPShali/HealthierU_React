@@ -21,6 +21,7 @@ import {
     getAppointmentsBySearch,
     getGlobalAppointmentsSearch,
 } from '../../service/frontendapiservices';
+import rightIcon from '../../images/svg/right-icon.svg';
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 // import { handleSignin } from '../../service/AccountService';
@@ -276,13 +277,12 @@ const Mypatient = (props) => {
     // };
 
     //NEW DESIGN CODE
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState('');
     const [appointmentDets, setAppointmentDets] = useState([]);
 
     const getGlobalAppointments = async (search, filter = {}) => {
         const currentDoctor = cookies.get('profileDetails');
         setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
-
 
         const starttime = new Date();
         // startTime.setHours(0, 0, 0).toISOString();
@@ -294,21 +294,16 @@ const Mypatient = (props) => {
             startTime: starttime.toISOString(),
             patientName: search,
         };
-        if (filter.patientSlot && filter.patientSlot !== "") {
+        if (filter.patientSlot && filter.patientSlot !== '') {
             data.unifiedAppointment = filter.patientSlot;
-
-
         }
-        if (filter.patientStartTime && filter.patientStartTime !== "") {
-
+        if (filter.patientStartTime && filter.patientStartTime !== '') {
             data.startTime = filter.patientStartTime;
-
         }
-        if (filter.patientEndTime && filter.patientEndTime !== "") {
-            const endtime = new Date(filter.patientEndTime)
+        if (filter.patientEndTime && filter.patientEndTime !== '') {
+            const endtime = new Date(filter.patientEndTime);
             endtime.setHours(23, 59, 59);
             data.endTime = endtime.toISOString();
-
         }
         const responseTwo = await getGlobalAppointmentsSearch(data).catch((err) => {
             if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
@@ -415,7 +410,7 @@ const Mypatient = (props) => {
 
     const handleFilterChange = (filter) => {
         getGlobalAppointments(search, filter);
-    }
+    };
     return (
         <div>
             {loading && <Loader />}
@@ -435,24 +430,33 @@ const Mypatient = (props) => {
                                             {/* MAP HERE */}
                                             {appointmentDets.length !== 0 ? (
                                                 appointmentDets.map((details, index) => {
-                                                    if (details.unifiedAppointment === (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) {
+                                                    if (
+                                                        details.unifiedAppointment ===
+                                                        (activeAppointments[index + 1] &&
+                                                            activeAppointments[index + 1].unifiedAppointment)
+                                                    ) {
                                                         if (details && details.patient) {
                                                             return (
                                                                 <div
                                                                     className="col-md-12 mb-2 mt-2 cursor-pointer"
                                                                     key={index}
                                                                 >
-                                                                    <div className="patient-list__card"
-                                                                        onClick={
-                                                                            async () => {
-                                                                                handleConsultationClick(details, activeAppointments[index + 1].endTime);
-                                                                                Object.keys(details.patient).map(patientData => {
-
-                                                                                    return (calculate_age(details.patient.dateOfBirth && details.patient.dateOfBirth))
-
-                                                                                })
-                                                                            }
-                                                                        }
+                                                                    <div
+                                                                        className="patient-list__card"
+                                                                        onClick={async () => {
+                                                                            handleConsultationClick(
+                                                                                details,
+                                                                                activeAppointments[index + 1].endTime
+                                                                            );
+                                                                            Object.keys(details.patient).map(
+                                                                                (patientData) => {
+                                                                                    return calculate_age(
+                                                                                        details.patient.dateOfBirth &&
+                                                                                        details.patient.dateOfBirth
+                                                                                    );
+                                                                                }
+                                                                            );
+                                                                        }}
                                                                     >
                                                                         <div className="row align-items-start py-1">
                                                                             <div className="col-md-2  d-flex flex-column mt-3 ml-3">
@@ -470,18 +474,23 @@ const Mypatient = (props) => {
                                                                                 </span>
                                                                             </div>
                                                                             <div className="col-md-3  ml-3 mt-2 pb-2">
-                                                                                {
-                                                                                    details.patient.picture ? (
-                                                                                        <img
-                                                                                            src={details.patient.picture}
-                                                                                            alt="profile"
-                                                                                            className="patient-list__img-circle "
-                                                                                        />
-                                                                                    ) : (
-                                                                                        (<Avatar round={true} name={details.patient.firstName + " " + details.patient.lastName} size={60} />)
-                                                                                    )
-                                                                                }
-
+                                                                                {details.patient.picture ? (
+                                                                                    <img
+                                                                                        src={details.patient.picture}
+                                                                                        alt="profile"
+                                                                                        className="patient-list__img-circle "
+                                                                                    />
+                                                                                ) : (
+                                                                                    <Avatar
+                                                                                        round={true}
+                                                                                        name={
+                                                                                            details.patient.firstName +
+                                                                                            ' ' +
+                                                                                            details.patient.lastName
+                                                                                        }
+                                                                                        size={60}
+                                                                                    />
+                                                                                )}
                                                                             </div>
                                                                             <div className="col-md-7  d-flex flex-column mt-3">
                                                                                 <h5 className="patient-list__common-name">
@@ -494,40 +503,56 @@ const Mypatient = (props) => {
                                                                                 <span className="patient-list__common-span">
                                                                                     {details.unifiedAppointment
                                                                                         .split('#')[1]
-                                                                                        .replace('_', ' ')
-                                                                                    }
+                                                                                        .replace('_', ' ')}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            )
+                                                            );
                                                         }
-                                                    }
-                                                    else if ((details.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) && (details.unifiedAppointment === (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment))) {
+                                                    } else if (
+                                                        details.unifiedAppointment !==
+                                                        (activeAppointments[index + 1] &&
+                                                            activeAppointments[index + 1]
+                                                                .unifiedAppointment) &&
+                                                        details.unifiedAppointment ===
+                                                        (activeAppointments[index - 1] &&
+                                                            activeAppointments[index - 1]
+                                                                .unifiedAppointment)
+                                                    ) {
                                                         if (details && details.patient) {
                                                             return false;
                                                         }
-                                                    }
-                                                    else if (((details.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) &&
-                                                        (details.unifiedAppointment !== (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment)))) {
+                                                    } else if (
+                                                        details.unifiedAppointment !==
+                                                        (activeAppointments[index + 1] &&
+                                                            activeAppointments[index + 1]
+                                                                .unifiedAppointment) &&
+                                                        details.unifiedAppointment !==
+                                                        (activeAppointments[index - 1] &&
+                                                            activeAppointments[index - 1]
+                                                                .unifiedAppointment)
+                                                    ) {
                                                         if (details && details.patient) {
                                                             return (
                                                                 <div
                                                                     className="col-md-12 mb-2 mt-2 cursor-pointer"
                                                                     key={index}
                                                                 >
-                                                                    <div className="patient-list__card"
-                                                                        onClick={
-                                                                            async () => {
-                                                                                setSelectedPatient(details);
-                                                                                Object.keys(details.patient).map(patientData => {
-
-                                                                                    return (calculate_age(details.patient.dateOfBirth && details.patient.dateOfBirth))
-
-                                                                                })
-                                                                            }
-                                                                        }
+                                                                    <div
+                                                                        className="patient-list__card"
+                                                                        onClick={async () => {
+                                                                            setSelectedPatient(details);
+                                                                            Object.keys(details.patient).map(
+                                                                                (patientData) => {
+                                                                                    return calculate_age(
+                                                                                        details.patient.dateOfBirth &&
+                                                                                        details.patient.dateOfBirth
+                                                                                    );
+                                                                                }
+                                                                            );
+                                                                        }}
                                                                     >
                                                                         <div className="row align-items-start py-1">
                                                                             <div className="col-md-2  d-flex flex-column mt-3 ml-3">
@@ -545,18 +570,23 @@ const Mypatient = (props) => {
                                                                                 </span>
                                                                             </div>
                                                                             <div className="col-md-2  ml-3 mt-2 pb-2">
-                                                                                {
-                                                                                    details.patient.picture ? (
-                                                                                        <img
-                                                                                            src={details.patient.picture}
-                                                                                            alt="profile"
-                                                                                            className="patient-list__img-circle "
-                                                                                        />
-                                                                                    ) : (
-                                                                                        (<Avatar round={true} name={details.patient.firstName + " " + details.patient.lastName} size={60} />)
-                                                                                    )
-                                                                                }
-
+                                                                                {details.patient.picture ? (
+                                                                                    <img
+                                                                                        src={details.patient.picture}
+                                                                                        alt="profile"
+                                                                                        className="patient-list__img-circle "
+                                                                                    />
+                                                                                ) : (
+                                                                                    <Avatar
+                                                                                        round={true}
+                                                                                        name={
+                                                                                            details.patient.firstName +
+                                                                                            ' ' +
+                                                                                            details.patient.lastName
+                                                                                        }
+                                                                                        size={60}
+                                                                                    />
+                                                                                )}
                                                                             </div>
                                                                             <div className="col-md-7  d-flex flex-column mt-3">
                                                                                 <h5 className="patient-list__common-name">
@@ -569,19 +599,16 @@ const Mypatient = (props) => {
                                                                                 <span className="patient-list__common-span">
                                                                                     {details.unifiedAppointment
                                                                                         .split('#')[1]
-                                                                                        .replace('_', ' ')
-                                                                                    }
+                                                                                        .replace('_', ' ')}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            )
+                                                            );
                                                         }
                                                     }
-                                                }
-
-                                                )
+                                                })
                                             ) : (
                                                 <div
                                                     className="col-12 ml-2"
@@ -775,33 +802,52 @@ const Mypatient = (props) => {
                                             </div>
                                             <div id="req-info">
                                                 <Link to={{ pathname: `/doctor/consulatationhistory` }}>
-                                                    <img
-                                                        width="40"
-                                                        height="40"
-                                                        src={conHistory}
-                                                        // onClick='${pathname}'
-                                                        alt=""
-                                                        style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                    />
-                                                    Consultation History
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={conHistory}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Consultation History
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
                                                 </Link>
-                                                <br />
                                                 <br />
 
                                                 <Link
-                                                    to={{ pathname: `/doctor/healthassesment-report` }}
+                                                    to={{
+                                                        pathname: `/doctor/healthassesment-report/${SelectedPatient.patientId}`,
+                                                        state: SelectedPatient.patient,
+                                                    }}
                                                 >
-                                                    <img
-                                                        width="40"
-                                                        height="40"
-                                                        src={HealthAssessment}
-                                                        // onClick='${pathname}'
-                                                        alt=""
-                                                        style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                    />
-                                                    Health Assessment Report
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={HealthAssessment}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Health Assessment Report
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
                                                 </Link>
-                                                <br />
                                                 <br />
                                                 <Link
                                                     to={{
@@ -809,28 +855,45 @@ const Mypatient = (props) => {
                                                         state: SelectedPatient.patient,
                                                     }}
                                                 >
-                                                    <img
-                                                        width="40"
-                                                        height="40"
-                                                        src={MedicalRecord}
-                                                        // onClick='${pathname}'
-                                                        alt=""
-                                                        style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                    />
-                                                    Medical Record
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={MedicalRecord}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Medical Record
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
                                                 </Link>
                                                 <br />
-                                                <br />
                                                 <Link to={{ pathname: `/doctor/setnextappointment` }}>
-                                                    <img
-                                                        width="40"
-                                                        height="40"
-                                                        src={calendar}
-                                                        // onClick='${pathname}'
-                                                        alt=""
-                                                        style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                    />
-                                                    Set Next Appointment
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={calendar}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Set Next Appointment
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
                                                 </Link>
                                                 {/* <span id="info-title">Diseases</span><br />
                                     <p>Hypertension Medium</p>
@@ -908,7 +971,9 @@ const Mypatient = (props) => {
                                                 alignItems: 'center',
                                             }}
                                         >
-                                            <p className="text-center">No Patient Datacard Selected ...</p>
+                                            <p className="text-center">
+                                                No Patient Datacard Selected ...
+                                            </p>
                                         </div>
                                     </>
                                 )}

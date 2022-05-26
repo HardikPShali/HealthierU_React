@@ -4,14 +4,24 @@
     "questionTitle": "Do you consider yourself healthy?",
     "choices": ["No", "Somewhat", "Yes"],
     "type": "radio",
-    "answer": ""
+    "answers": "",
+    "mapScore": [0, 1, 1],
+    "score": 0
   },
   {
     "questionId": 2,
     "questionTitle": "Do you eat healthy?",
-    "choices": ["Never", "Occasionally", "Regularly"],
+    "choices": [
+      "Never",
+      "Once a week",
+      "2-3 days per week",
+      "4-5 days per week",
+      "6-7 days per week"
+    ],
     "type": "radio",
-    "answer": ""
+    "answers": "",
+    "mapScore": [0, 0, 1, 1, 2],
+    "score": 0
   },
   {
     "questionId": 3,
@@ -20,24 +30,31 @@
       "Never",
       "Once a week",
       "2-3 days per week",
-      ">4 days per week"
+      "4-5 days per week",
+      "6-7 days per week"
     ],
     "type": "radio",
-    "answer": ""
+    "answers": "",
+    "mapScore": [0, 0, 1, 1, 2],
+    "score": 0
   },
   {
     "questionId": 4,
     "questionTitle": "What type of exercise do you do?",
     "choices": ["Cardio (running, biking, HIIT)", "Weights"],
     "type": "checkbox",
-    "answer": ""
+    "answers": [],
+    "mapScore": [0, 0],
+    "score": 0
   },
   {
     "questionId": 5,
     "questionTitle": "How long is each session (in minutes)?",
     "choices": ["0-15", "15-30", "30-60", "60-90", "90-120", ">120"],
     "type": "radio",
-    "answer": ""
+    "answers": "",
+    "mapScore": [0, 0, 0, 0, 0, 0],
+    "score": 0
   },
   {
     "questionId": 6,
@@ -58,34 +75,44 @@
       "Allergies"
     ],
     "type": "checkbox",
-    "answer": ""
+    "answers": [],
+    "mapScore": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "score": 0
   },
   {
     "questionId": 7,
     "questionTitle": "Do you smoke?",
-    "choices": ["Never", "Occasionally", "Ex-Smoker", "Regularly"],
+    "choices": ["No", "Occasionally", "Regularly"],
     "type": "radio",
-    "answer": ""
+    "answers": "",
+    "mapScore": [2, 0, 0],
+    "score": 0
   },
   {
     "questionId": 8,
     "questionTitle": "What do you smoke?",
     "choices": ["Cigars", "Cigarettes", "Pipe", "Shisha/Hookah", "Vape"],
     "type": "checkbox",
-    "answer": ""
+    "answers": [],
+    "mapScore": [0, 0, 0, 0, 0],
+    "score": 0
   },
   {
     "questionId": 9,
     "questionTitle": "Do you drink alcohol?",
-    "choices": ["No", "Yes"],
+    "choices": ["No", "Occasionally", "Regularly"],
     "type": "radio",
-    "answer": ""
+    "answers": "",
+    "mapScore": [2, 0, 0],
+    "score": 0
   },
   {
     "questionId": 10,
     "questionTitle": "How much do you drink per week?",
     "type": "text",
-    "answer": ""
+    "answers": "",
+    "mapScore": [0],
+    "score": 0
   },
   {
     "questionId": 11,
@@ -99,6 +126,8 @@
       "Parental or maternal aunt or uncle"
     ],
     "type": "checkbox",
-    "answer": ""
+    "answers": [],
+    "mapScore": [1, 0, 0, 0, 0, 0],
+    "score": 0
   }
 ]
