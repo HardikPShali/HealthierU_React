@@ -19,21 +19,22 @@
   font-weight: 700;
   text-shadow: none;
   font-size: 20px;
- font-family: var(--font-primary);
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: bold;
   padding-left: 20px;
 }
-.prescription-lab--month-header
-{
+
+.prescription-lab--month-header {
   color: var(--text-primary);
   font-weight: 700;
   text-shadow: none;
   font-size: 25px;
- font-family: var(--font-primary);
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: bold;
 }
+
 .card-holder {
   width: 100%;
 }
@@ -81,7 +82,7 @@
 
 .prescription-lab-card__common-name {
   text-shadow: none;
- font-family: var(--font-primary);
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -90,9 +91,10 @@
   margin-bottom: 2px;
   text-transform: capitalize;
 }
+
 .prescription-lab-card__common-name1 {
   text-shadow: none;
- font-family: var(--font-primary);
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
@@ -101,9 +103,10 @@
   margin-bottom: 2px;
   text-transform: capitalize;
 }
+
 .prescription-lab-card__common-date {
   text-shadow: none;
- font-family: var(--font-primary);
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -112,10 +115,10 @@
   margin-bottom: 2px;
   text-transform: capitalize;
 }
-.prescription-lab-card__common-date1
-{
+
+.prescription-lab-card__common-date1 {
   text-shadow: none;
- font-family: var(--font-primary);
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 25px;
@@ -126,7 +129,7 @@
 }
 
 .prescription-lab-card__common-span {
- font-family: var(--font-primary);
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -136,8 +139,9 @@
 
   color: #999999;
 }
+
 .prescription-lab-card__common-span1 {
- font-family: var(--font-primary);
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -147,6 +151,7 @@
 
   color: #999999;
 }
+
 .prescription-lab-card__specality {
   color: var(--text-secondary);
   font-size: 12px;
