@@ -484,7 +484,7 @@ const EditUser = (props) => {
               </Col>
             </Row>
             <br />
-            {currentUserAuthorities === 'ROLE_DOCTOR' && (
+            {/* {currentUserAuthorities === 'ROLE_DOCTOR' && (
               <>
                 <Row>
                   <Col md={6}>
@@ -522,16 +522,21 @@ const EditUser = (props) => {
                 </Row>
                 <br />
               </>
-            )}
-            <p>Address</p>
-            <TextValidator
-              id="standard-basic"
-              type="text"
-              name="address"
-              onChange={(e) => handleInputChange(e)}
-              value={address ? address : ''}
-              variant="filled"
-            />
+            )} */}
+            <Row>
+              <Col md={12}>
+                <p>Address</p>
+                <TextValidator
+                  id="standard-basic"
+                  type="text"
+                  name="address"
+                  onChange={(e) => handleInputChange(e)}
+                  value={address ? address : ''}
+                  variant="filled"
+                />
+              </Col>
+            </Row>
+
             <br />
             {currentUserAuthorities === 'ROLE_PATIENT' && (
               <>
@@ -583,18 +588,24 @@ const EditUser = (props) => {
                   </Col>
                 </Row>
                 <br />
-                <p>Languages</p>
-                <FormControl>
-                  <div className="multiselect">
-                    <Multiselect
-                      options={languageOptions}
-                      onSelect={handleLanguages}
-                      onRemove={removeLanguages}
-                      selectedValues={languages}
-                      displayValue="name"
-                    />
-                  </div>
-                </FormControl>
+                <Row>
+                  <Col md={12}>
+                    <p>Languages</p>
+                    <FormControl>
+                      <div className="multiselect">
+                        <Multiselect
+                          options={languageOptions}
+                          onSelect={handleLanguages}
+                          onRemove={removeLanguages}
+                          selectedValues={languages}
+                          displayValue="name"
+                          variant='filled'
+                        />
+                      </div>
+                    </FormControl>
+                  </Col>
+                </Row>
+
                 <br />
                 <br />
                 <Row>
@@ -750,7 +761,7 @@ const EditUser = (props) => {
                         </Col>
                       </Row>
                       <br />
-                      <div className="btn-box">
+                      <div className="btn-box" style={{ marginLeft: '12px' }}>
                         {user?.educationalQualifications.length !== 1 && (
                           <Button
                             variant="secondary"
@@ -772,7 +783,7 @@ const EditUser = (props) => {
                     </div>
                   );
                 })}
-
+                <br />
                 <Row>
                   {/* <Col md={6}>
                     <p>Education</p>
@@ -801,53 +812,56 @@ const EditUser = (props) => {
                       variant="filled"
                     />
                   </Col>
+                  <Col md={6}>
+                    <p>Specialization</p>
+                    <FormControl>
+                      <div className="multiselect">
+                        <Multiselect
+                          options={specialityOptions}
+                          onSelect={handleSpecialities}
+                          onRemove={removeSpecialities}
+                          selectedValues={specialities}
+                          displayValue="name"
+                        />
+                      </div>
+                    </FormControl>
+                  </Col>
                 </Row>
                 <br />
-
-                <p>Specialization</p>
-                <FormControl>
-                  <div className="multiselect">
-                    <Multiselect
-                      options={specialityOptions}
-                      onSelect={handleSpecialities}
-                      onRemove={removeSpecialities}
-                      selectedValues={specialities}
-                      displayValue="name"
+                <Row>
+                  <Col md={6}>
+                    <p>Other Certifications (optional)</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="text"
+                      name="certificates"
+                      onChange={(e) => handleInputChange(e)}
+                      value={certificates ? certificates : ''}
+                      variant="filled"
+                      placeholder="Example: MBBS, MD ..."
+                      inputProps={{
+                        title: 'Make it comma (,) separated.',
+                      }}
                     />
-                  </div>
-                </FormControl>
-                <br />
-                <br />
-
-                <p>Other Certifications (optional)</p>
-                <TextValidator
-                  id="standard-basic"
-                  type="text"
-                  name="certificates"
-                  onChange={(e) => handleInputChange(e)}
-                  value={certificates ? certificates : ''}
-                  variant="filled"
-                  placeholder="Example: MBBS, MD ..."
-                  inputProps={{
-                    title: 'Make it comma (,) separated.',
-                  }}
-                />
-                <br />
-
-                <p>Awards (optional)</p>
-                <TextValidator
-                  id="standard-basic"
-                  type="text"
-                  name="awards"
-                  onChange={(e) => handleInputChange(e)}
-                  value={awards ? awards : ''}
-                  variant="filled"
-                  placeholder="Example: People's Doctor of the USA, etc ..."
-                  inputProps={{
-                    title: 'Make it comma (,) separated.',
-                  }}
-                />
-                <br />
+                  </Col>
+                  <br />
+                  <Col md={6}>
+                    <p>Awards (optional)</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="text"
+                      name="awards"
+                      onChange={(e) => handleInputChange(e)}
+                      value={awards ? awards : ''}
+                      variant="filled"
+                      placeholder="Example: People's Doctor of the USA, etc ..."
+                      inputProps={{
+                        title: 'Make it comma (,) separated.',
+                      }}
+                    />
+                    <br />
+                  </Col>
+                </Row>
                 <DoctorDocumentUpload currentDoctor={user} isDoctor={false} />
               </>
             )}
