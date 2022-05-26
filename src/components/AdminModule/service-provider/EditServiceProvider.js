@@ -150,7 +150,6 @@ const EditServiceProvider = props => {
         loadServiceProvider();
 
     }, []);
-
     // Contact Details
 
     const handleContactModal = data => {
@@ -181,11 +180,8 @@ const EditServiceProvider = props => {
     // const [showDeleteContact, setShowDeleteContact] = useState(false);
 
     const handleDeleteContactModal = async (e, contactData) => {
-        console.log("first", selectedContactId);
         const resp = contactData.id;
-        console.log("2nd", resp);
         setSelectedContactId(resp);
-        console.log("final", selectedContactId);
         if (resp) {
             ModalService.open(DeleteModal);
         }
