@@ -554,7 +554,7 @@ const AddPrescription = (props) => {
 
                                                 } */}
 
-                                                <div className="btn-box">
+                                                <div>
                                                     {prescriptionList.length !== 1 && (
                                                         <Button
                                                             variant="secondary"
