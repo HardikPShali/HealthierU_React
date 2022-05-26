@@ -225,10 +225,15 @@ const AddPrescription = (props) => {
         formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
             type: "application/json"
         }));
-        console.log("medicalInfo", medicalInfo)
-        formData.append("file", new Blob([JSON.stringify(prescriptionResult?.prescriptionDocument)], {
-            type: "application/json"
-        }));
+        {
+            prescriptionResult.prescriptionDocument ?
+                formData.append("file", (prescriptionResult?.prescriptionDocument))
+                :
+                formData.append("file", new Blob([JSON.stringify(null)], {
+                    type: "application/json"
+                }));
+        }
+
 
 
         const response = await postDocumentAddPrescription(formData).catch((err) => {
@@ -282,7 +287,7 @@ const AddPrescription = (props) => {
                 setErrorMsg('');
                 setPrescriptionResult({
                     ...prescriptionResult,
-                    prescriptionDocument: e.target.value,
+                    prescriptionDocument: e.target.files[0],
                 });
                 setIsSaveModal(true);
             } else {
