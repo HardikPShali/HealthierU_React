@@ -79,9 +79,9 @@ export class Footer extends Component {
                                 <div className="d-flex">
                                     <Link to="" className="" id="copy-link">Privacy and Security</Link>
                                     <Link to="" className="" id="copy-link">Terms and Conditions</Link>
-                                    <Link to="" className="" id="copy-link">Help</Link>
-                                    <Link to="" className="" id="copy-link">HealthierU Licenses</Link>
-                                    <Link to="" className="" id="copy-link">Partners</Link>
+                                    <Link to="" className="" id="copy-link">Help and Support</Link>
+                                    {/* <Link to="" className="" id="copy-link">HealthierU Licenses</Link>
+                                    <Link to="" className="" id="copy-link">Partners</Link> */}
                                 </div>
                                 <p id="copyright-text">© {moment(new Date()).format("YYYY")} <Link to="">HealthierU</Link> - All Rights Reserved.</p>
                             </Col>

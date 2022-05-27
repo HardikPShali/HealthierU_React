@@ -929,3 +929,42 @@ export const uploadNote = async (note) => {
     });
     return response;
 }
+
+export const postHealthAssessment = async (data, patientId) => {
+    var payload = {
+        method: 'put',
+        mode: 'no-cors',
+        data: data,
+        url: `/api/v2/assessment?patientId=${patientId}`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const getHealthAssessment = async (patientId) => {
+    var payload = {
+        method: 'get',
+        mode: 'no-cors',
+        url: `/api/v2/assessment?patientId=${patientId}`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}

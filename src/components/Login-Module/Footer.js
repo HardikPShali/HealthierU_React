@@ -113,12 +113,12 @@ const Footer = () => {
                                 <Link to="/help-and-support" className="" id="copy-link">
                                     Help And Support
                                 </Link>
-                                <Link to="/licenses" className="" id="copy-link">
+                                {/* <Link to="/licenses" className="" id="copy-link">
                                     HealthierU Licenses
                                 </Link>
                                 <Link to="/partners" className="" id="copy-link">
                                     Partners
-                                </Link>
+                                </Link> */}
                             </div>
                             <p id="copyright-text">
                                 © 2021 <Link to="/">HealthierU</Link> - All Rights Reserved.

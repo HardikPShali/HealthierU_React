@@ -55,7 +55,7 @@ const Questionnaire = React.lazy(() => import("./QuestionnaireNew/Questionnaire"
 
 const PatientRoute = () => {
   const currentuserInfo = LocalStorageService.getCurrentUser();
-  console.log("currentuserInfo", currentuserInfo);
+  // console.log("currentuserInfo", currentuserInfo);
   const [currentPatient, setCurrentPatient] = useState({});
   const [chatGroupList, setChatGroupList] = useState({});
   const [updateChatGroupListTrigger, setUpdateChatGroupListTrigger] = useState(0);

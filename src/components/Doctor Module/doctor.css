@@ -59,12 +59,12 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar>button {
+.headerNavbar > button {
   color: #fff;
   font-size: 14px;
 }
 
-.headerNavbar>button:hover {
+.headerNavbar > button:hover {
   color: #fff;
 }
 
@@ -93,9 +93,8 @@ svg#search-icon {
 }
 
 @media (max-width: 992px) {
-
   #navbar a,
-  .headerNavbar>button {
+  .headerNavbar > button {
     padding: 10px 20px;
   }
 
@@ -648,12 +647,17 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
+  .MuiGridListTileBar-title {
   color: #fff;
   transition: 0.5s;
 }
@@ -1191,7 +1195,7 @@ table#user-info {
   /* width: 44px;
   height: 20px; */
 
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .pclass1 {
@@ -1232,13 +1236,13 @@ table#user-info {
   align-items: center;
 }
 
-.record-tabs>.nav-link:hover {
+.record-tabs > .nav-link:hover {
   color: #495057 !important;
   text-decoration: none;
   outline: none;
 }
 
-.record-tabs>.nav-link.active {
+.record-tabs > .nav-link.active {
   color: #fff !important;
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
@@ -1522,6 +1526,24 @@ div#req-info {
   flex: none;
   order: 1;
   flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+div#req-info > a {
+  border-radius: 10px;
+  text-align: justify;
+  color: #000;
+  font-weight: 600;
+}
+
+div#req-info > a:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  color: #00d0cc;
 }
 
 span#info-title {
@@ -1922,7 +1944,7 @@ div#primary-card {
 }
 
 @media (max-width: 700px) {
-  #footer .row>div {
+  #footer .row > div {
     margin-bottom: 40px;
   }
 
@@ -1943,7 +1965,7 @@ div#primary-card {
     text-align: center !important;
   }
 
-  #copyright .row>div {
+  #copyright .row > div {
     margin-bottom: 20px;
   }
 
@@ -2190,16 +2212,16 @@ div.reply .messageBody span.messageTime {
   text-transform: capitalize;
 }
 
-.list--tags>li {
+.list--tags > li {
   display: inline;
 }
 
-.list--tags>li:before {
+.list--tags > li:before {
   content: ',\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags>li:first-child:before {
+.list--tags > li:first-child:before {
   content: normal;
 }
 
@@ -2311,10 +2333,10 @@ Health Assessment
   background-position: center !important;
   background-repeat: no-repeat !important;
   margin-bottom: 10px;
-  margin-left: 10px;
+  margin-left: 27px;
 }
 
-.modal-body>.form-group>label.col-form-label {
+.modal-body > .form-group > label.col-form-label {
   font-size: 14.5px;
 }
 
@@ -2923,4 +2945,21 @@ button.reset-btn {
   margin-bottom: 2px;
   text-transform: capitalize;
   margin-top: 5px;
+}
+
+/* MY PATIENT CARD */
+.my-patient-card__card-details--date-div {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  justify-content: space-around;
+}
+
+.my-patient-card__common-span {
+  font-size: 12px;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: bold;
+  color: #fff;
+  margin-left: 10px;
 }

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 // import axios from "axios";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import {
-  //Link, 
-  useParams, useHistory
-} from "react-router-dom";
+  //Link,
+  useParams,
+  useHistory,
+} from 'react-router-dom';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import Navbar from "../layout/Navbar";
+import Navbar from '../layout/Navbar';
 import 'mdbreact/dist/css/mdb.css';
 import Loader from '../../Loader/Loader';
 import TransparentLoader from '../../Loader/transparentloader';
@@ -22,8 +23,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {
-  //Container, 
-  Row, Col
+  //Container,
+  Row,
+  Col,
 } from 'react-bootstrap';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -41,11 +43,11 @@ import {
   // updateUserData
 } from '../../../service/adminbackendservices';
 import DoctorDocumentUpload from '../../CommonModule/doctordocumentupload';
-
+import { Button } from 'react-bootstrap';
 
 $(document).ready(function () {
-  $(".upload-button").on('click', function () {
-    $(".file-upload").click();
+  $('.upload-button').on('click', function () {
+    $('.file-upload').click();
   });
 });
 
@@ -56,15 +58,15 @@ const EditUser = (props) => {
   const [transparentLoading, setTransparentLoading] = useState(false);
   // const [currentUser, setCurrentUser] = useState({});
   const [speciality, setSpeciality] = useState({
-    specialityOptions: []
+    specialityOptions: [],
   });
   const { specialityOptions } = speciality;
   const [language, setLanguage] = useState({
-    languageOptions: []
+    languageOptions: [],
   });
   const { languageOptions } = language;
   const [options, Setoption] = useState({
-    countryList: []
+    countryList: [],
   });
 
   const [profilePicture, setProfilePicture] = useState({});
@@ -75,83 +77,112 @@ const EditUser = (props) => {
   };
   const handleClose = () => {
     setOpen(false);
-  }
+  };
 
   const { countryList } = options;
+
+  const [educationList, setEducationList] = useState([
+    { institution: '', educationalQualification: '' },
+  ]);
+
   const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    phone: "",
-    countryId: "",
-    gender: "",
-    email: "",
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    phone: '',
+    countryId: '',
+    gender: '',
+    email: '',
     rate: 0,
     halfRate: 0,
-    education: "",
+    // education: '',
+    educationalQualifications: [],
     specialities: [],
-    experience: "",
+    experience: '',
     languages: [],
-    certificates: "",
-    awards: "",
-    address: "",
-    maritalStatus: "",
-    lowBp: "",
-    highBp: "",
-    weight: "",
-    height: "",
-    langKey: "",
-    authorities: []
+    certificates: '',
+    awards: '',
+    address: '',
+    maritalStatus: '',
+    lowBp: '',
+    highBp: '',
+    weight: '',
+    height: '',
+    langKey: '',
+    authorities: [],
   });
   const cookies = new Cookies();
 
-
-
   useEffect(() => {
-
     getCurrentUser();
     loadOptions();
     loadSpeciality();
     loadLanguage();
+
   }, []);
   // const userState = props.location.state;
-  const currentUserAuthorities = cookies.get("authorities");
+  const currentUserAuthorities = cookies.get('authorities');
   // console.log("currentUserAuthorities", currentUserAuthorities);
-  const authorityName = currentUserAuthorities === "ROLE_DOCTOR" ? 'doctors'
-    : currentUserAuthorities === "ROLE_PATIENT" ? 'patients' : '';
+  const authorityName =
+    currentUserAuthorities === 'ROLE_DOCTOR'
+      ? 'doctors'
+      : currentUserAuthorities === 'ROLE_PATIENT'
+        ? 'patients'
+        : '';
 
   const getCurrentUser = async () => {
     const res = await getUserByUserId(authorityName, selectedId);
     // console.log("res", res);
     if (res && res.data) {
-      if (authorityName === "patients") {
+      if (authorityName === 'patients') {
         setUser(res.data[0]);
-      }
-      else if (authorityName === "doctors") {
+      } else if (authorityName === 'doctors') {
         setUser(res.data.doctors[0]);
       }
       setTimeout(() => setTransparentLoading(false), 1000);
     }
-  }
+  };
 
   const loadOptions = async () => {
     const res = await getCountryList();
     if (res && res.data) {
-      Setoption({ countryList: res.data.data })
+      Setoption({ countryList: res.data.data });
       setTimeout(() => setLoading(false), 1000);
     }
-  }
+  };
   const loadSpeciality = async () => {
     const res = await getSpecialityList();
     if (res && res.data) {
-      setSpeciality({ specialityOptions: res.data.data })
+      setSpeciality({ specialityOptions: res.data.data });
       setTimeout(() => setLoading(false), 1000);
     }
-  }
+  };
 
-  const { firstName, lastName, dateOfBirth, phone, countryId, gender, email, education, rate, halfRate,
-    //picture, 
-    specialities, experience, languages, certificates, awards, address, maritalStatus, lowBp, highBp, weight, height } = user;
+  const {
+    firstName,
+    lastName,
+    dateOfBirth,
+    phone,
+    countryId,
+    gender,
+    email,
+    // education,
+    rate,
+    halfRate,
+    //picture,
+    specialities,
+    experience,
+    languages,
+    certificates,
+    awards,
+    address,
+    maritalStatus,
+    lowBp,
+    highBp,
+    weight,
+    height,
+    educationalQualifications
+  } = user;
   //const onInputChange = e => {
   //setUser({ ...user, [e.target.name]: e.target.value });
   // };
@@ -176,7 +207,7 @@ const EditUser = (props) => {
     const res = await getLanguageList();
     // console.log("language", res);
     if (res && res.data) {
-      setLanguage({ languageOptions: res.data.data })
+      setLanguage({ languageOptions: res.data.data });
       setTimeout(() => setLoading(false), 1000);
     }
     // .catch(error => {
@@ -184,20 +215,20 @@ const EditUser = (props) => {
     //     checkAccessToken();
     //   }
     // })
-  }
+  };
 
   const removeSpecialities = (selectedList, removedItem) => {
     var array = specialities;
     var index = array.indexOf(removedItem); // Let's say it's Bob.
     array.splice(index, 1);
     setUser({ ...user, specialities: array });
-  }
+  };
   const removeLanguages = (selectedList, removedItem) => {
     var array = languages;
     var index = array.indexOf(removedItem); // Let's say it's Bob.
     array.splice(index, 1);
     setUser({ ...user, languages: array });
-  }
+  };
   const handleInputChange = (e) => {
     let value;
     // if ((e.target.name === "rate" || e.target.name === "halfRate") && (e.target.value % 1 !== 0)) {
@@ -222,7 +253,7 @@ const EditUser = (props) => {
     setUser({ ...user, dateOfBirth: isoDate });
   };
 
-  const handleDetails = async e => {
+  const handleDetails = async (e) => {
     setTransparentLoading(true);
     const patientPayload = {
       address: user.address,
@@ -244,12 +275,12 @@ const EditUser = (props) => {
       phone: user.phone,
       picture: user.picture,
       userId: user.userId,
-      weight: user.weight
+      weight: user.weight,
     };
     var bodyFormData = new FormData();
-    if (currentUserAuthorities === "ROLE_PATIENT") {
-      bodyFormData.append('profileData', JSON.stringify(patientPayload))
-      const response = await updateRolePatient(bodyFormData).catch(err => {
+    if (currentUserAuthorities === 'ROLE_PATIENT') {
+      bodyFormData.append('profileData', JSON.stringify(patientPayload));
+      const response = await updateRolePatient(bodyFormData).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setTransparentLoading(false);
         }
@@ -265,12 +296,12 @@ const EditUser = (props) => {
         history.go(0);
         //}
       }
-
     }
-    if (currentUserAuthorities === "ROLE_DOCTOR") {
+    if (currentUserAuthorities === 'ROLE_DOCTOR') {
+
       bodyFormData.append('profileData', JSON.stringify(user));
       bodyFormData.append('profilePicture', profilePicture);
-      const response = await updateRoleDoctor(bodyFormData).catch(err => {
+      const response = await updateRoleDoctor(bodyFormData).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setTransparentLoading(false);
         }
@@ -287,77 +318,127 @@ const EditUser = (props) => {
         //}
       }
     }
-  }
+  };
 
   const now = new Date();
   const newDate = now.setDate(now.getDate() - 1);
   let maxDate;
   // console.log(user)
-  const role = cookies.get("authorities")
-  if (role === "ROLE_DOCTOR") {
+  const role = cookies.get('authorities');
+  if (role === 'ROLE_DOCTOR') {
     maxDate = {
-      max: moment(newDate).format("YYYY-MM-DD"),
-      min: moment(now).subtract(75, "years").format("YYYY-MM-DD")
-    };
-
-  }
-
-  if (role === "ROLE_PATIENT") {
-    maxDate = {
-      max: moment(newDate).format("YYYY-MM-DD"),
-      min: moment(now).subtract(100, "years").format("YYYY-MM-DD")
+      max: moment(newDate).format('YYYY-MM-DD'),
+      min: moment(now)
+        .subtract(75, 'years')
+        .format('YYYY-MM-DD'),
     };
   }
+
+  if (role === 'ROLE_PATIENT') {
+    maxDate = {
+      max: moment(newDate).format('YYYY-MM-DD'),
+      min: moment(now)
+        .subtract(100, 'years')
+        .format('YYYY-MM-DD'),
+    };
+  }
+
+  // handle input change
+  const handleEducationDetailsInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...user.educationalQualifications];
+    list[index][name] = value;
+    setEducationList(list);
+    setUser({ ...user, educationalQualifications: list });
+    console.log('educationList', educationList);
+    console.log("user", user)
+  };
+  // handle click event of the Remove button
+  const handleRemoveClick = (index) => {
+    const list = [...user.educationalQualifications];
+    list.splice(index, 1);
+    setUser({ ...user, educationalQualifications: list });
+  };
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    const list = [...user.educationalQualifications];
+    list.push({ institution: '', educationalQualification: '' })
+    setUser({ ...user, educationalQualifications: list });
+  };
 
   return (
     <div>
-      {loading && (
-        <Loader />
-      )}
-      {transparentLoading && (
-        <TransparentLoader />
-      )}
+      {loading && <Loader />}
+      {transparentLoading && <TransparentLoader />}
       <Navbar pageTitle="home" />
       <div className="container">
-        <button className="btn btn-primary" onClick={() => history.goBack()} >
+        <button className="btn btn-primary" onClick={() => history.goBack()}>
           Browse Back
         </button>
         <div className="w-75 mx-auto shadow p-5 edit-box">
-
           <ValidatorForm onSubmit={handleClickOpen}>
-            {currentUserAuthorities && currentUserAuthorities === "ROLE_DOCTOR" && (
-              <Row style={{ justifyContent: 'center' }}>
-                <ImageCropper setProfilePicture={setProfilePicture} imageUrl={user.picture} />
-              </Row>)}
-            <h2 className="text-center mb-4">Edit {firstName} {lastName}</h2>
+            {currentUserAuthorities &&
+              currentUserAuthorities === 'ROLE_DOCTOR' && (
+                <Row style={{ justifyContent: 'center' }}>
+                  <ImageCropper
+                    setProfilePicture={setProfilePicture}
+                    imageUrl={user.picture}
+                  />
+                </Row>
+              )}
+            <h2 className="text-center mb-4">
+              Edit {firstName} {lastName}
+            </h2>
             <Row>
               <Col md={6}>
                 <p>First Name</p>
-                <TextValidator id="standard-basic" type="text" name="firstName"
-                  onChange={e => handleInputChange(e)}
-                  value={firstName ? firstName : ""}
-                  variant="filled" />
+                <TextValidator
+                  id="standard-basic"
+                  type="text"
+                  name="firstName"
+                  onChange={(e) => handleInputChange(e)}
+                  value={firstName ? firstName : ''}
+                  variant="filled"
+                />
               </Col>
               <Col md={6}>
                 <p>Last Name</p>
-                <TextValidator id="standard-basic" type="text" name="lastName"
-                  onChange={e => handleInputChange(e)}
-                  value={lastName ? lastName : ""}
-                  variant="filled" />
+                <TextValidator
+                  id="standard-basic"
+                  type="text"
+                  name="lastName"
+                  onChange={(e) => handleInputChange(e)}
+                  value={lastName ? lastName : ''}
+                  variant="filled"
+                />
               </Col>
-            </Row><br />
+            </Row>
+            <br />
             <Row>
               <Col md={6}>
                 <p>Date of Birth</p>
-                <TextValidator id="standard-basic" type="date" name="dateOfBirth" value={moment(dateOfBirth).format("YYYY-MM-DD")} inputProps={maxDate} InputLabelProps={{ shrink: true, }}
-                  variant="filled" onChange={e => handleDateChange(e)} onKeyDown={(e) => e.preventDefault()} />
+                <TextValidator
+                  id="standard-basic"
+                  type="date"
+                  name="dateOfBirth"
+                  value={moment(dateOfBirth).format('YYYY-MM-DD')}
+                  inputProps={maxDate}
+                  InputLabelProps={{ shrink: true }}
+                  variant="filled"
+                  onChange={(e) => handleDateChange(e)}
+                  onKeyDown={(e) => e.preventDefault()}
+                />
               </Col>
               <Col md={6}>
                 <p>Email</p>
-                <TextValidator id="standard-basic" type="text" name="email"
-                  value={email ? email : ""}
+                <TextValidator
+                  id="standard-basic"
+                  type="text"
+                  name="email"
+                  value={email ? email : ''}
                   disabled
-                  variant="filled" />
+                  variant="filled"
+                />
               </Col>
             </Row>
             <br />
@@ -368,296 +449,455 @@ const EditUser = (props) => {
                   inputProps={{
                     name: 'phone',
                     maxLength: 16,
-                    minLength: 12
+                    minLength: 12,
                   }}
                   country={'us'}
-                  value={phone ? phone : ""}
-                  onChange={e => handlePhone(e)}
+                  value={phone ? phone : ''}
+                  onChange={(e) => handlePhone(e)}
                   variant="filled"
                 />
               </Col>
               <Col md={6}>
                 <p>Gender</p>
                 <FormControl component="fieldset">
-                  <RadioGroup id="gender-radio" aria-label="gender" name="gender"
-                    variant="filled" onChange={e => handleInputChange(e)} value={gender ? gender : ""}>
-                    <FormControlLabel value="FEMALE" control={<Radio color="primary" />} label="Female" />
-                    <FormControlLabel value="MALE" control={<Radio color="primary" />} label="Male" />
+                  <RadioGroup
+                    id="gender-radio"
+                    aria-label="gender"
+                    name="gender"
+                    variant="filled"
+                    onChange={(e) => handleInputChange(e)}
+                    value={gender ? gender : ''}
+                  >
+                    <FormControlLabel
+                      value="FEMALE"
+                      control={<Radio color="primary" />}
+                      label="Female"
+                    />
+                    <FormControlLabel
+                      value="MALE"
+                      control={<Radio color="primary" />}
+                      label="Male"
+                    />
                     {/* <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" /> */}
                   </RadioGroup>
                 </FormControl>
               </Col>
             </Row>
             <br />
-            {currentUserAuthorities === "ROLE_DOCTOR" && (<>
-              <Row>
-                <Col md={6}>
-                  <p>Rate for 1hr in $</p>
-                  <TextValidator id="standard-basic" type="number" name="rate"
-                    onChange={e => handleInputChange(e)}
-                    value={rate ? rate : ""}
-                    inputProps={{
-                      min: 0.01,
-                      step: 0.01,
-                      required: true
-                    }}
-                    variant="filled" />
-                </Col>
-                <Col md={6}>
-                  <p>Rate for 30min in $</p>
-                  <TextValidator id="standard-basic" type="number" name="halfRate"
-                    onChange={e => handleInputChange(e)}
-                    value={halfRate ? halfRate : ""}
-                    inputProps={{
-                      min: 0.01,
-                      step: 0.01,
-                      required: true
-                    }}
-                    variant="filled" />
-                </Col>
-              </Row>
-              <br />
-            </>)}
-            <p>Address</p>
-            <TextValidator id="standard-basic" type="text" name="address"
-              onChange={e => handleInputChange(e)}
-              value={address ? address : ""}
-              variant="filled" />
+            {/* {currentUserAuthorities === 'ROLE_DOCTOR' && (
+              <>
+                <Row>
+                  <Col md={6}>
+                    <p>Rate for 1hr in $</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="number"
+                      name="rate"
+                      onChange={(e) => handleInputChange(e)}
+                      value={rate ? rate : ''}
+                      inputProps={{
+                        min: 0.01,
+                        step: 0.01,
+                        required: true,
+                      }}
+                      variant="filled"
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <p>Rate for 30min in $</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="number"
+                      name="halfRate"
+                      onChange={(e) => handleInputChange(e)}
+                      value={halfRate ? halfRate : ''}
+                      inputProps={{
+                        min: 0.01,
+                        step: 0.01,
+                        required: true,
+                      }}
+                      variant="filled"
+                    />
+                  </Col>
+                </Row>
+                <br />
+              </>
+            )} */}
+            <Row>
+              <Col md={12}>
+                <p>Address</p>
+                <TextValidator
+                  id="standard-basic"
+                  type="text"
+                  name="address"
+                  onChange={(e) => handleInputChange(e)}
+                  value={address ? address : ''}
+                  variant="filled"
+                />
+              </Col>
+            </Row>
+
             <br />
-            {currentUserAuthorities === "ROLE_PATIENT" && (<>
-              <Row>
-                <Col md={6}>
-                  <p>Country Of Residence</p>
-                  <FormControl>
-                    <Select
-                      id="demo-controlled-open-select"
-                      variant="filled"
-                      name="countryId"
-                      value={countryId ? countryId : ""}
-                      displayEmpty
-                      onChange={e => handleCountry(e)}
-                    >
-                      <MenuItem value="">
-                        <em>Select</em>
-                      </MenuItem>
-                      {countryList && countryList.map((option, index) => (
-                        <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Col>
-                <Col md={6}>
-                  <p>Marital Status</p>
-                  <FormControl>
-                    <Select
-                      id="demo-controlled-open-select"
-                      variant="filled"
-                      name="maritalStatus"
-                      value={maritalStatus ? maritalStatus : ""}
-                      displayEmpty
-                      onChange={e => handleInputChange(e)}
-                    >
-                      <MenuItem value=""><em>Select</em></MenuItem>
-                      <MenuItem value="MARRIED">Married</MenuItem>
-                      <MenuItem value="SINGLE">Single</MenuItem>
-                      <MenuItem value="DIVORCED">Divorced</MenuItem>
-                      <MenuItem value="WIDOWED">Widowed</MenuItem>
-                      <MenuItem value="OTHER">Other</MenuItem>
-                    </Select>
-                  </FormControl>
+            {currentUserAuthorities === 'ROLE_PATIENT' && (
+              <>
+                <Row>
+                  <Col md={6}>
+                    <p>Country Of Residence</p>
+                    <FormControl>
+                      <Select
+                        id="demo-controlled-open-select"
+                        variant="filled"
+                        name="countryId"
+                        value={countryId ? countryId : ''}
+                        displayEmpty
+                        onChange={(e) => handleCountry(e)}
+                      >
+                        <MenuItem value="">
+                          <em>Select</em>
+                        </MenuItem>
+                        {countryList &&
+                          countryList.map((option, index) => (
+                            <MenuItem value={option.id} key={index}>
+                              {option.name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    </FormControl>
+                  </Col>
+                  <Col md={6}>
+                    <p>Marital Status</p>
+                    <FormControl>
+                      <Select
+                        id="demo-controlled-open-select"
+                        variant="filled"
+                        name="maritalStatus"
+                        value={maritalStatus ? maritalStatus : ''}
+                        displayEmpty
+                        onChange={(e) => handleInputChange(e)}
+                      >
+                        <MenuItem value="">
+                          <em>Select</em>
+                        </MenuItem>
+                        <MenuItem value="MARRIED">Married</MenuItem>
+                        <MenuItem value="SINGLE">Single</MenuItem>
+                        <MenuItem value="DIVORCED">Divorced</MenuItem>
+                        <MenuItem value="WIDOWED">Widowed</MenuItem>
+                        <MenuItem value="OTHER">Other</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Col>
+                </Row>
+                <br />
+                <Row>
+                  <Col md={12}>
+                    <p>Languages</p>
+                    <FormControl>
+                      <div className="multiselect">
+                        <Multiselect
+                          options={languageOptions}
+                          onSelect={handleLanguages}
+                          onRemove={removeLanguages}
+                          selectedValues={languages}
+                          displayValue="name"
+                          variant='filled'
+                        />
+                      </div>
+                    </FormControl>
+                  </Col>
+                </Row>
 
-                </Col>
-              </Row>
-              <br />
-              <p>Languages</p>
-              <FormControl>
-                <div className="multiselect">
-                  <Multiselect
-                    options={languageOptions}
-                    onSelect={handleLanguages}
-                    onRemove={removeLanguages}
-                    selectedValues={languages}
-                    displayValue="name"
-                  />
-                </div>
-              </FormControl>
-              <br />
-              <br />
-              <Row>
-                <Col md={6}>
-                  <p>Weight(in kg)</p>
-                  <TextValidator id="standard-basic" type="number" name="weight"
-                    onChange={e => handleInputChange(e)}
-                    value={weight ? weight : ""}
-                    inputProps={{
-                      min: 0,
-                      max: 999
-                    }}
-                    variant="filled" />
-                </Col>
-                <Col md={6}>
-                  <p>Height(in cm)</p>
-                  <TextValidator id="standard-basic" type="number" name="height"
-                    onChange={e => handleInputChange(e)}
-                    value={height ? height : ""}
-                    inputProps={{
-                      min: 0,
-                      max: 250
-                    }}
-                    variant="filled" />
-                </Col>
-              </Row>
-              <br />
-
-              <Row>
-                <Col md={6}>
-                  <p>High BP(in mmHg)</p>
-                  <TextValidator id="standard-basic" type="number" name="highBp"
-                    onChange={e => handleInputChange(e)}
-                    value={highBp ? highBp : ""}
-                    inputProps={{
-                      min: 0,
-                      max: 300
-                    }}
-                    variant="filled" />
-                </Col>
-                <Col md={6}>
-                  <p>Low BP(in mmHg)</p>
-                  <TextValidator id="standard-basic" type="number" name="lowBp"
-                    onChange={e => handleInputChange(e)}
-                    value={lowBp ? lowBp : ""}
-                    inputProps={{
-                      min: 0,
-                      max: 200
-                    }}
-                    variant="filled" />
-                </Col>
-              </Row>
-              <br />
-            </>)}
-            {currentUserAuthorities === "ROLE_DOCTOR" && (<>
-              <Row>
-                <Col md={6}>
-                  <p>Country Of Residence</p>
-                  <FormControl>
-                    <Select
-                      id="demo-controlled-open-select"
+                <br />
+                <br />
+                <Row>
+                  <Col md={6}>
+                    <p>Weight(in kg)</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="number"
+                      name="weight"
+                      onChange={(e) => handleInputChange(e)}
+                      value={weight ? weight : ''}
+                      inputProps={{
+                        min: 0,
+                        max: 999,
+                      }}
                       variant="filled"
-                      name="countryId"
-                      value={countryId ? countryId : ""}
-                      displayEmpty
-                      onChange={e => handleCountry(e)}
-                    >
-                      <MenuItem value="">
-                        <em>Select</em>
-                      </MenuItem>
-                      {countryList && countryList.map((option, index) => (
-                        <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Col>
-                <Col md={6}>
-                  <p>Languages</p>
-                  <FormControl>
-                    <div className="multiselect">
-                      <Multiselect
-                        options={languageOptions}
-                        onSelect={handleLanguages}
-                        onRemove={removeLanguages}
-                        selectedValues={languages}
-                        displayValue="name"
-                      />
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <p>Height(in cm)</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="number"
+                      name="height"
+                      onChange={(e) => handleInputChange(e)}
+                      value={height ? height : ''}
+                      inputProps={{
+                        min: 0,
+                        max: 250,
+                      }}
+                      variant="filled"
+                    />
+                  </Col>
+                </Row>
+                <br />
+
+                <Row>
+                  <Col md={6}>
+                    <p>High BP(in mmHg)</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="number"
+                      name="highBp"
+                      onChange={(e) => handleInputChange(e)}
+                      value={highBp ? highBp : ''}
+                      inputProps={{
+                        min: 0,
+                        max: 300,
+                      }}
+                      variant="filled"
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <p>Low BP(in mmHg)</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="number"
+                      name="lowBp"
+                      onChange={(e) => handleInputChange(e)}
+                      value={lowBp ? lowBp : ''}
+                      inputProps={{
+                        min: 0,
+                        max: 200,
+                      }}
+                      variant="filled"
+                    />
+                  </Col>
+                </Row>
+                <br />
+              </>
+            )}
+            {currentUserAuthorities === 'ROLE_DOCTOR' && (
+              <>
+                <Row>
+                  <Col md={6}>
+                    <p>Country Of Residence</p>
+                    <FormControl>
+                      <Select
+                        id="demo-controlled-open-select"
+                        variant="filled"
+                        name="countryId"
+                        value={countryId ? countryId : ''}
+                        displayEmpty
+                        onChange={(e) => handleCountry(e)}
+                      >
+                        <MenuItem value="">
+                          <em>Select</em>
+                        </MenuItem>
+                        {countryList &&
+                          countryList.map((option, index) => (
+                            <MenuItem value={option.id} key={index}>
+                              {option.name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    </FormControl>
+                  </Col>
+                  <Col md={6}>
+                    <p>Languages</p>
+                    <FormControl>
+                      <div className="multiselect">
+                        <Multiselect
+                          options={languageOptions}
+                          onSelect={handleLanguages}
+                          onRemove={removeLanguages}
+                          selectedValues={languages}
+                          displayValue="name"
+                        />
+                      </div>
+                    </FormControl>
+                  </Col>
+                </Row>
+                <br />
+                {user?.educationalQualifications.map((x, i) => {
+                  return (
+                    <div key={i}>
+                      <Row>
+                        <Col md={6}>
+                          <p>
+                            Education<sup>*</sup>
+                          </p>
+                          <TextValidator
+                            id="standard-basic"
+                            type="text"
+                            name="educationalQualification"
+                            onChange={(e) =>
+                              handleEducationDetailsInputChange(e, i)
+                            }
+                            value={x.educationalQualification}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            variant="filled"
+                            placeholder="Education"
+                          />
+                        </Col>
+                        <Col md={6}>
+                          <p>
+                            Institution<sup>*</sup>
+                          </p>
+                          <TextValidator
+                            id="standard-basic"
+                            type="text"
+                            name="institution"
+                            onChange={(e) =>
+                              handleEducationDetailsInputChange(e, i)
+                            }
+                            value={x.institution}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            variant="filled"
+                            placeholder="Institution"
+                          />
+                        </Col>
+                      </Row>
+                      <br />
+                      <div className="btn-box" style={{ marginLeft: '12px' }}>
+                        {user?.educationalQualifications.length !== 1 && (
+                          <Button
+                            variant="secondary"
+                            onClick={() => handleRemoveClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {user?.educationalQualifications.length - 1 === i && (
+                          <Button
+                            className="medicineButton"
+                            variant="primary"
+                            onClick={handleAddClick}
+                          >
+                            Add Education
+                          </Button>
+                        )}
+                      </div>
                     </div>
-                  </FormControl>
-
-                </Col>
-              </Row>
-              <br />
-              <Row>
-                <Col md={6}>
-                  <p>Education</p>
-                  <TextValidator id="standard-basic" type="text" name="education"
-                    onChange={e => handleInputChange(e)}
-                    value={education ? education : ""}
-                    variant="filled" />
-
-                </Col>
-                <Col md={6}>
-                  <p>Years Of experience</p>
-                  <TextValidator id="standard-basic" type="number" name="experience"
-                    onChange={e => handleInputChange(e)}
-                    inputProps={{
-                      min: 0,
-                      max: 80,
-                      step: 0.1
-                    }}
-                    value={experience ? experience : ""}
-                    variant="filled" />
-                </Col>
-              </Row>
-              <br />
-
-              <p>Specialization</p>
-              <FormControl>
-                <div className="multiselect">
-                  <Multiselect
-                    options={specialityOptions}
-                    onSelect={handleSpecialities}
-                    onRemove={removeSpecialities}
-                    selectedValues={specialities}
-                    displayValue="name"
-                  />
-                </div>
-              </FormControl>
-              <br />
-              <br />
-
-              <p>Other Certifications (optional)</p>
-              <TextValidator id="standard-basic" type="text" name="certificates"
-                onChange={e => handleInputChange(e)}
-                value={certificates ? certificates : ""}
-                variant="filled"
-                placeholder="Example: MBBS, MD ..."
-                inputProps={{
-                  title: "Make it comma (,) separated."
-                }} />
-              <br />
-
-              <p>Awards (optional)</p>
-              <TextValidator id="standard-basic" type="text" name="awards"
-                onChange={e => handleInputChange(e)}
-                value={awards ? awards : ""}
-                variant="filled"
-                placeholder="Example: People's Doctor of the USA, etc ..."
-                inputProps={{
-                  title: "Make it comma (,) separated."
-                }} />
-              <br />
-              <DoctorDocumentUpload currentDoctor={user} isDoctor={false} />
-            </>)}
+                  );
+                })}
+                <br />
+                <Row>
+                  {/* <Col md={6}>
+                    <p>Education</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="text"
+                      name="education"
+                      onChange={(e) => handleInputChange(e)}
+                      value={education ? education : ''}
+                      variant="filled"
+                    />
+                  </Col> */}
+                  <Col md={6}>
+                    <p>Years Of experience</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="number"
+                      name="experience"
+                      onChange={(e) => handleInputChange(e)}
+                      inputProps={{
+                        min: 0,
+                        max: 80,
+                        step: 0.1,
+                      }}
+                      value={experience ? experience : ''}
+                      variant="filled"
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <p>Specialization</p>
+                    <FormControl>
+                      <div className="multiselect">
+                        <Multiselect
+                          options={specialityOptions}
+                          onSelect={handleSpecialities}
+                          onRemove={removeSpecialities}
+                          selectedValues={specialities}
+                          displayValue="name"
+                        />
+                      </div>
+                    </FormControl>
+                  </Col>
+                </Row>
+                <br />
+                <Row>
+                  <Col md={6}>
+                    <p>Other Certifications (optional)</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="text"
+                      name="certificates"
+                      onChange={(e) => handleInputChange(e)}
+                      value={certificates ? certificates : ''}
+                      variant="filled"
+                      placeholder="Example: MBBS, MD ..."
+                      inputProps={{
+                        title: 'Make it comma (,) separated.',
+                      }}
+                    />
+                  </Col>
+                  <br />
+                  <Col md={6}>
+                    <p>Awards (optional)</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="text"
+                      name="awards"
+                      onChange={(e) => handleInputChange(e)}
+                      value={awards ? awards : ''}
+                      variant="filled"
+                      placeholder="Example: People's Doctor of the USA, etc ..."
+                      inputProps={{
+                        title: 'Make it comma (,) separated.',
+                      }}
+                    />
+                    <br />
+                  </Col>
+                </Row>
+                <DoctorDocumentUpload currentDoctor={user} isDoctor={false} />
+              </>
+            )}
             <div className="text-center">
-              <button className="btn btn-primary continue-btn" type="submit" >
+              <button className="btn btn-primary continue-btn" type="submit">
                 Update user
               </button>
             </div>
           </ValidatorForm>
         </div>
       </div>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Are you sure to update the data?
         </DialogTitle>
         <DialogActions>
-          <button autoFocus onClick={() => handleDetails()} className="btn btn-primary sign-btn">
+          <button
+            autoFocus
+            onClick={() => handleDetails()}
+            className="btn btn-primary sign-btn"
+          >
             Ok
           </button>
-          <button autoFocus onClick={handleClose} className="btn btn-primary sign-btn">
+          <button
+            autoFocus
+            onClick={handleClose}
+            className="btn btn-primary sign-btn"
+          >
             Cancel
           </button>
         </DialogActions>
       </Dialog>
-
     </div>
   );
 };
