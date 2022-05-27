@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import quesJson from './questions.json';
@@ -8,10 +8,10 @@ import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'universal-cookie';
-import { postHealthAssessment } from '../../../service/frontendapiservices'
+import { postHealthAssessment } from '../../../service/frontendapiservices';
 
 const Questionnaire = () => {
-    const [questions, setQuestions] = useState(null);
+    const [questions, setQuestions] = useState([]);
     // const [loading, setLoading] = useState(true);
 
     const cookies = new Cookies();
@@ -24,32 +24,36 @@ const Questionnaire = () => {
 
     const handleAssessmentSubmit = async () => {
         const submitData = {
-            selections: questions.map(question => {
+            selections: questions.map((question) => {
                 if (!Array.isArray(question.answers)) {
                     question.answers = [question.answers];
                 }
-                // let score = 0;
+                let score = 0;
 
-                // question.answers.forEach(answer => {
+                question.answers.forEach((answer) => {
+                    let choiceIndex = question.choices.indexOf(answer);
+                    if (choiceIndex > -1) {
+                        score += question.mapScore[choiceIndex];
+                    }
 
-                //     let choiceIndex = question.choices.indexOf(answer);
-                //     if (choiceIndex !== -1) {
-                //         score += question.score[choiceIndex];
-                //     }
+                    // score += question.mapScore[choiceIndex]
+                });
 
-                //     // score += question.mapScore[choiceIndex]
-                // })
-
-                // question.score = score;
+                question.score = score;
                 return question;
             }),
+            totalScore: questions.reduce(
+                (total, question) => total + question.score,
+                0
+            ),
         };
-        const response = await postHealthAssessment(submitData, patientID).catch(err => {
-            console.log(err);
-        });
+        const response = await postHealthAssessment(submitData, patientID).catch(
+            (err) => {
+                console.log(err);
+            }
+        );
         console.log(response);
-    }
-
+    };
 
     const onContinue = async () => {
         console.log(questions);
@@ -65,8 +69,7 @@ const Questionnaire = () => {
                 progress: undefined,
             });
             // history.push('/patient');
-        }
-        else {
+        } else {
             toast.error('Please fill the form!', {
                 position: 'top-right',
                 autoClose: 2000,
@@ -80,28 +83,57 @@ const Questionnaire = () => {
         }
 
         // setTimeout(() => history.push('/patient'), 1000);
-    }
+    };
 
-
-
+    const handleFollowQuestionsCondition = () => {
+        console.log('Something');
+        questions.forEach((question) => {
+            if (question.condition) {
+                const questionCondtionId = question.condition.questionId;
+                if (questions[questionCondtionId]) {
+                    if (
+                        questions[questionCondtionId].answers === question.condition.answer
+                    ) {
+                        question.hidden = true;
+                    } else {
+                        question.hidden = false;
+                    }
+                    // setQuestions([...questions]);
+                }
+                // setQuestions({ ...questions });
+            }
+        });
+    };
 
     useEffect(() => {
         setQuestions(quesJson);
     }, []);
 
+    useEffect(() => {
+        console.log('Something');
+    }, [questions]);
 
     return (
         <Container style={{ maxWidth: '100%' }}>
             <Row id="questionnaire-view" style={{ minHeight: '600px' }}>
                 <Col md={6} id="questionnaire-view-bg"></Col>
-                <Col md={6} style={{ background: '#fff', padding: '5%' }} className='questionnaire-container'>
-                    <div className='questionnaire-header'>
+                <Col
+                    md={6}
+                    style={{ background: '#fff', padding: '5%' }}
+                    className="questionnaire-container"
+                >
+                    <div className="questionnaire-header">
                         <h1>Health Assessment</h1>
                     </div>
-                    <div className='question-box scroller-cardlist'>
-                        {questions && questions.map((question) => (
-                            <Questions key={question.questionId} question={question} />
-                        ))}
+                    <div className="question-box scroller-cardlist">
+                        {questions &&
+                            questions.map((question) => (
+                                <Questions
+                                    followQuestion={handleFollowQuestionsCondition}
+                                    key={question.questionId}
+                                    question={question}
+                                />
+                            ))}
                     </div>
                     <div className="questionnaire-continue-button">
                         <Button
@@ -125,11 +157,9 @@ const Questionnaire = () => {
                         />
                     </div>
                 </Col>
-
             </Row>
-
         </Container>
-    )
-}
+    );
+};
 
 export default Questionnaire;
