@@ -98,7 +98,6 @@ const Healthassessment = (props) => {
     const handleLabResultChange = (e) => {
         if (e.target.type === 'file') {
             const fileSize = e.target.files[0].size;
-            console.log('fileSize ::', fileSize);
             const maxSize = 1000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg('');
@@ -115,7 +114,6 @@ const Healthassessment = (props) => {
     const handlePrescriptionChange = (e) => {
         if (e.target.type === 'file') {
             const fileSize = e.target.files[0].size;
-            console.log('fileSize ::', fileSize);
             const maxSize = 1000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg('');
@@ -158,15 +156,11 @@ const Healthassessment = (props) => {
     };
 
     useEffect(() => {
-        //console.log(id)
         loadDocuments();
-        setDate(0);
     }, []);
 
     const showDocument = async (val) => {
         // const res = await getDocument(val);
-        console.log(val);
-        
         setPrescriptionDocumentUrl(val.documentUrl);
     };
 
@@ -181,7 +175,7 @@ const Healthassessment = (props) => {
             patient.id
         );
 
-        setPresecriptionDocument(prescriptionDocument);
+        setPresecriptionDocument(prescriptionDocument.data);
 
     };
     const clickPaginationForLab = async (pageNumber) => {
@@ -248,14 +242,11 @@ const Healthassessment = (props) => {
         if (doctor) {
             setDoctor(doctor);
         }
-        console.log("doctor",doctor)
-
         //const patientInfo = await getPatientInfoByPatientId(`${id}`);
         const patientInfo = props.location.state;
 
         if (patientInfo) {
             setPatient(patientInfo);
-            console.log("patientInfo", patientInfo.id)
         }
         const presecriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
@@ -265,9 +256,7 @@ const Healthassessment = (props) => {
             patientInfo && patientInfo.id
 
         );
-        setPresecriptionDocument(presecriptionDocument);
-        console.log("presecriptionDocument", presecriptionDocument)
-
+        setPresecriptionDocument(presecriptionDocument.data);
         // const response = await getPatientQuestionnaire(
         //     patientInfo && patientInfo.id
         // );
@@ -275,57 +264,21 @@ const Healthassessment = (props) => {
     };
 
     const handlePrescriptionUploadShow = () => {
-    // setDate(0);
-    // setShowPrescriptionUpload(true);
-    // setPrescriptionResult(null);
-    const patientInfo = props.location.state;
+        // setDate(0);
+        // setShowPrescriptionUpload(true);
+        // setPrescriptionResult(null);
+        const patientInfo = props.location.state;
         props.history.push({ pathname: `/doctor/addPrescription/${patientInfo.id}`, state: patientInfo });
     };
-
     const handleUploadLabResultShow = () => {
         setShowLabResultUpload(true);
         setLabResult(null);
     };
-
     const [errorMsg, setErrorMsg] = useState('');
-
-    const handlePrescriptionSubmission = async (event) => {
-        event.preventDefault();
-        setDate(0);
-        const startDate = moment(DurationStartDate);
-        const endDate = moment(DurationEndDate);
-        const diff = endDate.diff(startDate);
-        const diffDuration = moment.duration(diff);
-        setDate(diffDuration.days());
-        console.log('Days:', diffDuration.days());
-        setErrorMsg('');
-        const data = new FormData(event.target);
-        //console.log(data);
-        const response = await postDocument(data).catch((err) => {
-            console.log('Error :: ', err);
-            if (err.response.status === 400) {
-                setErrorMsg('Please upload the document in PDF format.');
-            }
-        });
-        if (response) {
-            setShowPrescriptionUpload(false);
-        }
-        const prescriptionDocument = await getDoctorPatientDocuments(
-            'Prescription',
-            0,
-            doctor.data.id,
-            patient.id
-
-        );
-
-        setPresecriptionDocument(prescriptionDocument);
-    };
-
     const handleLabResultSubmission = async (event) => {
         event.preventDefault();
         setErrorMsg('');
         const data = new FormData(event.target);
-        //console.log(data);
         const response = await postLabDocument(data).catch((err) => {
             if (err.response.status === 400) {
                 setErrorMsg('Please upalod the document in PDF format.');
@@ -346,7 +299,6 @@ const Healthassessment = (props) => {
 
     const clickTabEvent = async (event) => {
         let documents;
-        //console.log('ddddd')
         if (event === 1) {
             documents = await getDoctorPatientDocuments(
                 'Lab',
@@ -364,7 +316,7 @@ const Healthassessment = (props) => {
                 doctor.id,
                 patient.id
             );
-            setPresecriptionDocument(documents);
+            setPresecriptionDocument(documents.data);
         }
         setPrescriptionDocumentUrl('');
         setLabDocumentUrl('');
@@ -384,10 +336,9 @@ const Healthassessment = (props) => {
     // code to get the file extension
 
     function getFileExtension(filename) {
-        console.log("filename", filename)
         // get file extension
+        var ext = filename.substr(filename.lastIndexOf('.') + 1);
         const extension = filename.split('.').pop();
-        console.log("extension", extension)
         return extension;
 
     }
@@ -460,7 +411,7 @@ const Healthassessment = (props) => {
                                                                 <PrescriptionLabCard
                                                                     filetype={getFileExtension(dataItem.name)}
                                                                     name={"Prescription"}
-                                                                    apid={"100"}
+                                                                    apid={dataItem.id}
                                                                     date={dataItem.docUploadTime}
                                                                     time={dataItem.docUploadTime}
                                                                     download={(e) => showDocument(dataItem)}
@@ -558,7 +509,7 @@ const Healthassessment = (props) => {
                                     <Pagination size="sm" style={{ float: 'right' }}>
                                         {presecriptionDocument?.totalPages ? (
                                             Array.from(
-                                                Array(presecriptionDocument.totalPages),
+                                                Array(presecriptionDocument.currentPage),
                                                 (e, i) => {
                                                     return (
                                                         <Pagination.Item
@@ -774,8 +725,8 @@ const Healthassessment = (props) => {
 
                     {/* <Col md={3} id="col" className="health-assesment">
                         <div id="patient-ques"> */}
-                            {/* <Row id="download-report"> */}
-                                {/* <Col xs={12}>
+                    {/* <Row id="download-report"> */}
+                    {/* <Col xs={12}>
                                     <div style={{ textAlign: 'center' }}>
                                         <b>
                                             {patient?.firstName} {patient?.lastName}
@@ -783,14 +734,14 @@ const Healthassessment = (props) => {
                                         <br />
                                     </div>
                                 </Col> */}
-                                {/* <Col xs={4}>
+                    {/* <Col xs={4}>
                                     <br />
                                     <br />
                                 </Col> */}
-                            {/* </Row>
+                    {/* </Row>
                             <br /> */}
 
-                            {/* <Row>
+                    {/* <Row>
                                 <Col md={12}>
                                     <div style={{ fontSize: '0.7rem' }}>
                                         <b style={{ marginLeft: '20%' }}>Health Behaviours</b>
@@ -893,343 +844,11 @@ const Healthassessment = (props) => {
                                     })}
                                 </Col>
                             </Row> */}
-                        {/* </div>
+                    {/* </div>
                     </Col> */}
                 </Row>
             </Container>
             {/* <Footer /> */}
-
-            <Modal
-                show={showPrescriptionUpload}
-                onHide={handleUploadPrescriptionClosed}
-            >
-                <form onSubmit={(e) => handlePrescriptionSubmission(e)}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Prescription</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <input
-                            hidden={true}
-                            id="id"
-                            name="id"
-                            value={prescriptionResult?.id}
-                            onChange={(e) => handlePrescriptionChange(e)}
-                        ></input>
-                        {inputList.map((x, i) => {
-                            return (
-                                <div className="form-group row" key={i}>
-                                    <label htmlFor="topic" className="col-sm-3 col-form-label">
-                                        Medicine
-                                    </label>
-                                    <div className="col-sm-9">
-                                        <input
-                                            type="text"
-                                            id="medicine"
-                                            name="medicine"
-                                            className="form-control"
-                                            onChange={(e) => handleInputChange(e, i)}
-                                            value={x.medicine}
-                                            placeholder="Medicine Name"
-                                            required
-                                        ></input>
-                                        <br />
-                                        <div className="btn-box">
-                                            {inputList.length !== 1 && (
-                                                <Button
-                                                    variant="secondary"
-                                                    onClick={() => handleRemoveClick(i)}
-                                                >
-                                                    Remove
-                                                </Button>
-                                            )}
-
-                                            {inputList.length - 1 === i && (
-                                                <Button
-                                                    className="medicineButton"
-                                                    variant="primary"
-                                                    onClick={handleAddClick}
-                                                >
-                                                    Add Medicine
-                                                </Button>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-
-                        <div className="form-group row">
-                            <label htmlFor="topic" className="col-sm-3 col-form-label">
-                                Dose
-                            </label>
-                            <div className="col-sm-9">
-                                <input
-                                    type="text"
-                                    id="dose"
-                                    name="dose"
-                                    className="form-control"
-                                    onChange={(e) => handlePrescriptionChange(e)}
-                                    value={prescriptionResult?.dose}
-                                    placeholder="Dose"
-                                    required
-                                ></input>
-                            </div>
-                        </div>
-                        {/* <div className="form-group row">
-                            <label htmlFor="topic" className="col-sm-3 col-form-label">Duration</label>
-                            <div className="col-sm-9">
-                                <input type="text" id="duration" name="duration" className="form-control"
-                                    onChange={e => handlePrescriptionChange(e)}
-                                    value={prescriptionResult?.duration}
-                                    placeholder="Duration" required></input>
-                            </div>
-                        </div> */}
-
-                        <div className="form-group row">
-                            <label htmlFor="topic" className="col-sm-3 col-form-label">
-                                Quantity
-                            </label>
-                            <div className="col-sm-9">
-                                <input
-                                    type="text"
-                                    id="quantity"
-                                    name="quantity"
-                                    className="form-control"
-                                    onChange={(e) => handlePrescriptionChange(e)}
-                                    value={prescriptionResult?.quantity}
-                                    placeholder="Quantity"
-                                    required
-                                ></input>
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label htmlFor="topic" className="col-sm-3 col-form-label">
-                                Number Of Days
-                            </label>
-                            <div className="col-sm-9">
-                                <input
-                                    type="text"
-                                    id="noOfDays"
-                                    name="noOfDays"
-                                    className="form-control"
-                                    onChange={(e) => handlePrescriptionChange(e)}
-                                    value={date}
-                                    placeholder="Number Of Days"
-                                    disabled
-                                ></input>
-                            </div>
-                        </div>
-                        {/* <div className="form-group row">
-                            <label htmlFor="decription" className="col-sm-3 col-form-label">Description</label>
-                            <div className="col-sm-9">
-                                <input type="text" id="decription" name="decription" className="form-control"
-                                    onChange={e => handlePrescriptionChange(e)}
-                                    value={prescriptionResult?.decription}
-                                    placeholder="Description" required></input>
-                            </div>
-                        </div> */}
-
-                        <div className="form-group row">
-                            <label htmlFor="topic" className="col-sm-3 col-form-label">
-                                Interval
-                            </label>
-                            <div className="col-sm-9">
-                                <FormControl>
-                                    <Select
-                                        style={{ width: '340px' }}
-                                        id="demo-controlled-open-select"
-                                        variant="filled"
-                                        name="interval"
-                                        value={prescriptionResult?.interval}
-                                        inputProps={{ required: true }}
-                                        placeholder="interval"
-                                        onChange={(e) => handlePrescriptionChange(e)}
-                                    >
-                                        <MenuItem value="">
-                                            <em>Select</em>
-                                        </MenuItem>
-                                        <MenuItem value="0-0-1">
-                                            <em>0-0-1</em>
-                                        </MenuItem>
-                                        <MenuItem value="1-0-0">
-                                            <em>1-0-0</em>
-                                        </MenuItem>
-                                        <MenuItem value="0-1-0">
-                                            <em>0-1-0</em>
-                                        </MenuItem>
-                                        <MenuItem value="1-0-1">
-                                            <em>1-0-1</em>
-                                        </MenuItem>
-                                        <MenuItem value="1-1-1">
-                                            <em>1-1-1</em>
-                                        </MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label htmlFor="topic" className="col-sm-3 col-form-label">
-                                Duration
-                            </label>
-                            <div className="col-sm-4">
-                                <TextField
-                                    type="date"
-                                    onChange={(e) =>
-                                        setDate({
-                                            ...date,
-                                            DurationStartDate:
-                                                e.target.value === '' ? '' : new Date(e.target.value),
-                                        })
-                                    }
-                                    className="filterDate"
-                                    inputProps={{
-                                        min: moment(new Date()).format('YYYY-MM-DD'),
-                                    }}
-                                    value={moment(new Date(DurationStartDate)).format(
-                                        'YYYY-MM-DD'
-                                    )}
-                                    variant="filled"
-                                    onKeyDown={(e) => e.preventDefault()}
-                                />
-                            </div>
-                            <div className="col-sm-4">
-                                <TextField
-                                    type="date"
-                                    onChange={(e) =>
-                                        setDate({
-                                            ...date,
-                                            DurationEndDate:
-                                                e.target.value === '' ? '' : new Date(e.target.value),
-                                        })
-                                    }
-                                    className="filterDate"
-                                    inputProps={{
-                                        min: moment(new Date(DurationStartDate)).format(
-                                            'YYYY-MM-DD'
-                                        ),
-                                    }}
-                                    value={moment(new Date(DurationEndDate)).format('YYYY-MM-DD')}
-                                    variant="filled"
-                                    onKeyDown={(e) => e.preventDefault()}
-                                />
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label
-                                htmlFor="prescriptionDocument"
-                                className="col-sm-3 col-form-label"
-                            >
-                                Document
-                            </label>
-                            <div className="col-sm-9">
-                                {errorMsg && (
-                                    <label
-                                        style={{ fontSize: 12, color: '#ff9393', margin: '5px 0' }}
-                                        className="left"
-                                    >
-                                        {errorMsg}
-                                    </label>
-                                )}
-                                {!prescriptionResult?.id && (
-                                    <input
-                                        type="file"
-                                        id="prescriptionDocument"
-                                        name="prescriptionDocument"
-                                        className="form-control"
-                                        onChange={(e) => handlePrescriptionChange(e)}
-                                        placeholder="Document"
-                                        accept="application/pdf"
-                                        required={prescriptionResult?.id ? false : true}
-                                    ></input>
-                                )}
-                                {prescriptionResult?.id && !editDocument && (
-                                    <div style={{ display: 'inline-flex', alignItems: 'center' }}>
-                                        <IconButton onClick={() => setEditDocument(true)}>
-                                            <CancelIcon style={{ color: 'red' }} />
-                                        </IconButton>
-                                        <input
-                                            type="file"
-                                            id="prescriptionDocument"
-                                            name="prescriptionDocument"
-                                            className="form-control"
-                                            onChange={(e) => handlePrescriptionChange(e)}
-                                            placeholder="Document"
-                                            accept="application/pdf"
-                                            required={prescriptionResult?.id ? false : true}
-                                        ></input>
-                                    </div>
-                                )}
-                                {prescriptionResult?.id && editDocument && (
-                                    <>
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary mr-2"
-                                            onClick={() => setEditDocument(false)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <a
-                                            href={prescriptionResult?.documentUrl}
-                                            download
-                                            className="btn btn-primary"
-                                        >
-                                            Download
-                                        </a>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                        <br />
-
-                        {/* <div className="form-group row">
-                            <label htmlFor="doctorEmail" className="col-sm-3 col-form-label">Doctor Email</label>
-                            <div className="col-sm-9">
-                                <input type="email" id="doctorEmail" name="doctorEmail" className="form-control"
-                                    value={doctor?.email}
-                                    placeholder="Doctor Email" readOnly></input>
-                                {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
-                                    <input hidden={true} id="doctorId" name="doctorId"
-                                        value={doctor?.id} /></b></span>
-                                    : <span>No Doctor Found</span>}
-                            </div>
-                        </div>
-
-                        <div className="form-group row">
-                            <label htmlFor="patientEmail" className="col-sm-3 col-form-label">Patient Email</label>
-                            <div className="col-sm-9">
-                                <input type="email" id="patientEmail" name="patientEmail" className="form-control"
-                                    value={patient?.email}
-                                    placeholder="Patient Email" readOnly={patient?.email ? true : false}></input>
-                                {patient?.id ? <span>Patient Name: <b>{patient?.firstName + ' ' + patient?.lastName}
-                                    <input hidden={true} id="patientId" name="patientId"
-                                        value={patient?.id} /></b></span> : <span>No Patient found</span>}
-                            </div>
-                        </div> */}
-
-                        <div className="container">
-                            <div className="row"></div>
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            variant="secondary"
-                            onClick={handleUploadPrescriptionClosed}
-                        >
-                            Close
-                        </Button>
-                        <Button
-                            variant="primary"
-                            type="submit"
-                            disabled={
-                                !patient?.id || !prescriptionResult?.prescriptionDocument
-                            }
-                        >
-                            Save
-                        </Button>
-                    </Modal.Footer>
-                </form>
-            </Modal>
-
             <Modal show={showLabResultUpload} onHide={handleUploadLabResultClosed}>
                 <form onSubmit={(e) => handleLabResultSubmission(e)}>
                     <Modal.Header closeButton>

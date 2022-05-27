@@ -6,7 +6,6 @@ import jpg_filetype_icon from '../../../images/icons used/jpg_filetype_icon.svg'
 import moment from "moment";
 
 const PrescriptionLabCard = (props) => {
-    let pdf;
     return (
         
             
@@ -19,7 +18,7 @@ const PrescriptionLabCard = (props) => {
                 </div>
                 <div className='col-md-3'>
 
-                    {props.filetype === pdf ? <img width={'80px'} height={'80px'} src={pdf_filetype_icon} alt="pdffiletype" className='prescription-lab-card__img-wrapper' />
+                    {props.filetype === "pdf" ? <img width={'80px'} height={'80px'} src={pdf_filetype_icon} alt="pdffiletype" className='prescription-lab-card__img-wrapper' />
                         :
                         <img src={jpg_filetype_icon} width={'80px'} height={'80px'} alt="jpgfiletype" className='prescription-lab-card__img-wrapper' />
                     }
