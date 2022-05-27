@@ -946,15 +946,16 @@ const Welcome = ({ currentuserInfo }) => {
                                                     <div className="btn-box">
                                                         {educationList.length !== 1 && (
                                                             <Button
+                                                                className="medicineRemoveButton"
                                                                 variant="secondary"
                                                                 onClick={() => handleRemoveClick(i)}
                                                             >
                                                                 Remove
                                                             </Button>
                                                         )}
-
                                                         {educationList.length - 1 === i && (
                                                             <Button
+
                                                                 className="medicineButton"
                                                                 variant="primary"
                                                                 onClick={handleAddClick}
@@ -962,6 +963,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 Add Education
                                                             </Button>
                                                         )}
+
+
                                                     </div>
 
                                                 </div>
@@ -988,7 +991,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                             )}
                             {displaydocumentForm && (<>
-                                
+
                                 <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} />
                                 <br />
                                 <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>

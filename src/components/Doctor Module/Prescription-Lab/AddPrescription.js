@@ -271,7 +271,7 @@ const AddPrescription = (props) => {
     return (
 
         <div>
-            <h3 className="prescription-lab--main-header mb-3 mt-2">
+            <h3 className="prescription-lab--main-header mb-3 mt-2" style={{ paddingTop: '2%' }}>
                 Add Prescription
             </h3>
             <div className="prescription-lab__card-box">
@@ -292,7 +292,7 @@ const AddPrescription = (props) => {
                                                     onChange={(e) => handleInputChange(e, i)}
                                                 ></input>
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Medicine
                                                     </label>
                                                     <div className="col-sm-9">
@@ -310,7 +310,7 @@ const AddPrescription = (props) => {
                                                     </div>
                                                 </div>
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Duration
                                                     </label>
                                                     <div className="col-sm-9">
@@ -370,7 +370,7 @@ const AddPrescription = (props) => {
                                                     </div> */}
                                                 </div>
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Dose
                                                     </label>
                                                     <div className="col-sm-9">
@@ -388,8 +388,8 @@ const AddPrescription = (props) => {
                                                     </div>
                                                 </div>
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
-                                                        Number Of Days
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
+                                                        Days
                                                     </label>
                                                     <div className="col-sm-9">
                                                         <input
@@ -431,7 +431,7 @@ const AddPrescription = (props) => {
 
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Interval
                                                     </label>
                                                     <div className="col-sm-3">
@@ -554,7 +554,7 @@ const AddPrescription = (props) => {
 
                                                 } */}
 
-                                                <div className="btn-box">
+                                                <div>
                                                     {prescriptionList.length !== 1 && (
                                                         <Button
                                                             variant="secondary"
@@ -570,6 +570,7 @@ const AddPrescription = (props) => {
                                                         <Button
                                                             className="medicineButton"
                                                             variant="primary"
+                                                            style={{ width: '230px', marginTop: '7%' }}
                                                             onClick={handleAddClick}
                                                             disabled={
                                                                 isSave == false
@@ -588,7 +589,7 @@ const AddPrescription = (props) => {
                                                         variant="primary"
                                                         onClick={(e) => handlePrescriptionUploadShow()}
                                                     >
-                                                        Only Upload Image/Document
+                                                        Upload Image/Document
                                                     </Button>
                                                 </div>
                                             </div>
@@ -613,7 +614,7 @@ const AddPrescription = (props) => {
 
 
                     </div>
-                    <Button style={{ marginLeft: '50%' }}
+                    <Button style={{ marginLeft: '48%' }}
                         variant="primary"
                         type="submit"
                         onClick={(e) => handlePrescriptionSubmission(e)}
