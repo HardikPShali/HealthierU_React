@@ -152,7 +152,7 @@ const Footer = () => {
                                 >
                                     <img src={twittericon} alt="" />
                                 </a>
-                                <a
+                                {/* <a
                                     href="#"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -160,7 +160,7 @@ const Footer = () => {
                                     id="foot-icon"
                                 >
                                     <img src={gplusicon} alt="" />
-                                </a>
+                                </a> */}
                                 <a
                                     href="https://www.instagram.com/healthieru_ae/"
                                     target="_blank"
