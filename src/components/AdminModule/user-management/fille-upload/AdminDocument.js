@@ -14,21 +14,25 @@ import {
   getDoctorDetail,
   getDocument,
   getDocuments,
+  getMedicalDocuments,
   getPatientDetail,
   postDocument,
   postLabDocument,
   getDocumentById,
+  postDocumentAddPrescription
 } from "../../../../service/DocumentService";
 import { saveDefaultPrescription } from "../../../../service/adminbackendservices";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import TransparentLoader from "../../../Loader/transparentloader";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { IconButton } from "@material-ui/core";
-
+import { toast } from 'react-toastify';
+import { useHistory } from 'react-router';
 const AdminDocument = (props) => {
   useEffect(() => {
     loadDocuments();
   }, []);
+  let history = useHistory();
   const [loading, setLoading] = useState(false);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [documentId, setDocumentId] = useState(null);
@@ -164,8 +168,8 @@ const AdminDocument = (props) => {
   const loadDocuments = async () => {
     setLoading(true);
     // GET request using fetch with async/await
-    const presecriptionDocument = await getDocuments("Prescription", 0);
-    setPresecriptionDocument(presecriptionDocument);
+    const presecriptionDocument = await getMedicalDocuments();
+    setPresecriptionDocument(presecriptionDocument.data);
     setLoading(false);
   };
 
@@ -181,11 +185,12 @@ const AdminDocument = (props) => {
       }
     });
     if (response) {
+      toast.success("Document successfully Uploaded.");
       setShowLabResultUpload(false);
       setLoading(false);
       setErrorMsg("");
     }
-    const labDocument = await getDocuments("Lab", 0);
+    const labDocument = await getMedicalDocuments("Lab", 0);
     setLabDocument(labDocument);
   };
 
@@ -200,13 +205,15 @@ const AdminDocument = (props) => {
         setErrorMsg("Please upload the document in PDF format.");
       }
     });
+    console.log("response ::", response);
     if (response) {
+      toast.success("Document successfully Uploaded.");
       setShowPrescriptionUpload(false);
       setLoading(false);
       setErrorMsg("");
     }
-    const prescriptionDocument = await getDocuments("Prescription", 0);
-    setPresecriptionDocument(prescriptionDocument);
+    const prescriptionDocument = await getMedicalDocuments();
+    setPresecriptionDocument(prescriptionDocument.data);
   };
   const handleDefaultPrescription = (e) => {
     const file = e.target.files[0];
@@ -227,31 +234,44 @@ const AdminDocument = (props) => {
     event.preventDefault();
     setLoading(true);
     setErrorMsg("");
+    const formData = new FormData();
+    const medicalDocumentInfo = {
+      documentType: "Prescription",
+      patientId: patient?.id,
+      doctorId: doctor?.id,
+    };
+    formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+      type: "application/json"
+    }));
     const file = defaultPrescriptionDocument;
-    const response = await saveDefaultPrescription(file).catch((err) => {
-      console.log("error object ::::", err);
-      // if (err.response.status === 400) {
-      //     setLoading(false);
-      //     setErrorMsg("Please upload the document in PDF format.");
-      // }
-    });
+    formData.append("file", (file))
+
+    const response = await postDocumentAddPrescription(formData);
+    // if (err.response.status === 400) {
+    //     setLoading(false);
+    //     setErrorMsg("Please upload the document in PDF format.");
+    // }
     if (response) {
+      toast.success("Document successfully Uploaded.");
       setShowDefaultPrescriptionUpload(false);
       setLoading(false);
       setErrorMsg("");
+      history.go(0);
     }
     // const prescriptionDocument = await getDocuments("Prescription", 0);
     // setPresecriptionDocument(prescriptionDocument);
   };
 
   const showDocument = async (val) => {
-    const res = await getDocument(val);
-    setPrescriptionDocumentUrl(res);
+    // const res = await getDocument(val);
+    // console.log("res ::", res);
+    setPrescriptionDocumentUrl(val.documentUrl);
   };
 
   const showLabDocument = async (val) => {
-    const res = await getDocument(val);
-    setLabDocumentUrl(res);
+    // const res = await getDocument(val);
+    // console.log(val)
+    setLabDocumentUrl(val.documentUrl);
   };
 
   const handlePrescriptionUploadShow = () => {
@@ -278,8 +298,8 @@ const AdminDocument = (props) => {
     }
 
     if (event === "prescription") {
-      documents = await getDocuments("Prescription", 0);
-      setPresecriptionDocument(documents);
+      documents = await getMedicalDocuments();
+      setPresecriptionDocument(documents.data);
       setLoading(false);
     }
     setPrescriptionDocumentUrl("");
@@ -325,6 +345,7 @@ const AdminDocument = (props) => {
       setDoctor(item.doctor);
       setPatient(item.patient);
       setShowPrescriptionUpload(true);
+
     }
   };
 
@@ -354,10 +375,11 @@ const AdminDocument = (props) => {
     setLabDocumentUrl("");
     const resp = await deleteDocument(documentId);
     if (resp) {
+      toast.success("Document successfully Deleted.");
       setDeleteShow(false);
     }
-    const prescriptionDocument = await getDocuments("Prescription", 0);
-    setPresecriptionDocument(prescriptionDocument);
+    const prescriptionDocument = await getMedicalDocuments();
+    setPresecriptionDocument(prescriptionDocument.data);
 
     const labDocument = await getDocuments("Lab", 0);
     setLabDocument(labDocument);
@@ -383,7 +405,7 @@ const AdminDocument = (props) => {
               <div className="col-md-2 text-left">
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-primary add-button"
                   onClick={(e) => handleDefaultPrescriptionUploadShow()}
                 >
                   Add Default Prescription
@@ -393,7 +415,7 @@ const AdminDocument = (props) => {
               <div className="col-md-2 text-right">
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-primary add-button"
                   onClick={(e) => handlePrescriptionUploadShow()}
                 >
                   Add Prescription
@@ -469,15 +491,15 @@ const AdminDocument = (props) => {
                             <td width="150">
                               {dataItem?.patient
                                 ? dataItem?.patient?.firstName +
-                                  " " +
-                                  dataItem?.patient?.lastName
+                                " " +
+                                dataItem?.patient?.lastName
                                 : ""}
                             </td>
                             <td width="150">
                               {dataItem?.doctor
                                 ? dataItem?.doctor?.firstName +
-                                  " " +
-                                  dataItem?.doctor?.lastName
+                                " " +
+                                dataItem?.doctor?.lastName
                                 : ""}
                             </td>
                           </tr>
@@ -532,7 +554,7 @@ const AdminDocument = (props) => {
               <div className="col-md-2 text-right">
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-primary add-button"
                   onClick={handleUploadLabResultShow}
                 >
                   Add Lab Result
@@ -622,15 +644,15 @@ const AdminDocument = (props) => {
                           <td width="150">
                             {dataItem?.patient
                               ? dataItem?.patient?.firstName +
-                                " " +
-                                dataItem?.patient?.lastName
+                              " " +
+                              dataItem?.patient?.lastName
                               : ""}
                           </td>
                           <td width="150">
                             {dataItem?.doctor
                               ? dataItem?.doctor?.firstName +
-                                " " +
-                                dataItem?.doctor?.lastName
+                              " " +
+                              dataItem?.doctor?.lastName
                               : ""}
                           </td>
                         </tr>
@@ -698,7 +720,7 @@ const AdminDocument = (props) => {
                 name="id"
                 value={prescriptionResult?.id}
                 onChange={(e) => handlePrescriptionChange(e)}
-              ></input>
+              />
               <div className="form-group row">
                 <label htmlFor="topic" className="col-sm-3 col-form-label">
                   Duration
@@ -714,7 +736,7 @@ const AdminDocument = (props) => {
                     value={prescriptionResult?.duration}
                     placeholder="Duration"
                     required
-                  ></input>
+                  />
                 </div>
               </div>
               <div className="form-group row">
@@ -732,7 +754,7 @@ const AdminDocument = (props) => {
                     value={prescriptionResult?.decription}
                     placeholder="Description"
                     required
-                  ></input>
+                  />
                 </div>
               </div>
               <div className="form-group row">
@@ -765,7 +787,7 @@ const AdminDocument = (props) => {
                       placeholder="Document"
                       accept="application/pdf"
                       required={prescriptionResult?.id ? false : true}
-                    ></input>
+                    />
                   )}
                   {prescriptionResult?.id && !editDocument && (
                     <div
@@ -783,7 +805,7 @@ const AdminDocument = (props) => {
                         placeholder="Document"
                         accept="application/pdf"
                         required={prescriptionResult?.id ? false : true}
-                      ></input>
+                      />
                     </div>
                   )}
                   {prescriptionResult?.id && editDocument && (
@@ -817,15 +839,15 @@ const AdminDocument = (props) => {
                 <div className="col-sm-9">
                   <input
                     type="email"
-                    maxlength="50"
+                    maxLength="50"
                     id="doctorEmail"
                     name="doctorEmail"
                     className="form-control"
-                    validate
+                    validate="true"
                     value={doctor?.email}
                     placeholder="Doctor Email"
                     onChange={(e) => handleDoctorTag(e)}
-                  ></input>
+                  />
                   {doctor?.id ? (
                     <span>
                       Doctor Name:{" "}
@@ -855,15 +877,15 @@ const AdminDocument = (props) => {
                 <div className="col-sm-9">
                   <input
                     type="email"
-                    maxlength="50"
+                    maxLength="50"
                     id="patientEmail"
                     name="patientEmail"
                     className="form-control"
-                    validate
+                    validate="true"
                     value={patient?.email}
                     placeholder="Patient Email"
                     onChange={(e) => handlePatientTag(e)}
-                  ></input>
+                  />
                   {patient?.id ? (
                     <span>
                       Patient Name:{" "}
@@ -897,11 +919,11 @@ const AdminDocument = (props) => {
               <Button
                 variant="primary"
                 type="submit"
-                disabled={
-                  !patient?.id ||
-                  !doctor?.id ||
-                  !prescriptionResult.prescriptionDocument
-                }
+              // disabled={
+              // !patient?.id ||
+              // !doctor?.id ||
+              //!prescriptionResult.prescriptionDocument
+              //}
               >
                 Save
               </Button>
@@ -921,7 +943,7 @@ const AdminDocument = (props) => {
                 name="id"
                 value={labResult?.id}
                 onChange={(e) => handleLabResultChange(e)}
-              ></input>
+              />
               <div className="form-group row">
                 <label htmlFor="labName" className="col-sm-3 col-form-label">
                   Lab Name
@@ -937,7 +959,7 @@ const AdminDocument = (props) => {
                     value={labResult?.labName}
                     placeholder="Lab Name"
                     required
-                  ></input>
+                  />
                 </div>
               </div>
 
@@ -956,7 +978,7 @@ const AdminDocument = (props) => {
                     value={labResult?.decription}
                     placeholder="Description"
                     required
-                  ></input>
+                  />
                 </div>
               </div>
               <div className="form-group row">
@@ -986,7 +1008,7 @@ const AdminDocument = (props) => {
                       placeholder="Document"
                       accept="application/pdf"
                       required={labResult?.id ? false : true}
-                    ></input>
+                    />
                   )}
                   {labResult?.id && !editDocument && (
                     <div
@@ -1004,7 +1026,7 @@ const AdminDocument = (props) => {
                         placeholder="Document"
                         accept="application/pdf"
                         required={labResult?.id ? false : true}
-                      ></input>
+                      />
                     </div>
                   )}
                   {labResult?.id && editDocument && (
@@ -1041,11 +1063,11 @@ const AdminDocument = (props) => {
                     id="doctorEmail"
                     name="doctorEmail"
                     className="form-control"
-                    validate
+                    validate="true"
                     value={doctor?.email}
                     placeholder="Doctor Email"
                     onChange={(e) => handleDoctorTag(e)}
-                  ></input>
+                  />
                   {doctor?.id ? (
                     <span>
                       Doctor Name:{" "}
@@ -1079,11 +1101,11 @@ const AdminDocument = (props) => {
                     id="patientEmail"
                     name="patientEmail"
                     className="form-control"
-                    validate
+                    validate="true"
                     value={patient?.email}
                     placeholder="Patient Email"
                     onChange={(e) => handlePatientTag(e)}
-                  ></input>
+                  />
                   {patient?.id ? (
                     <span>
                       Patient Name:{" "}
@@ -1113,9 +1135,9 @@ const AdminDocument = (props) => {
               <Button
                 variant="primary"
                 type="submit"
-                disabled={
-                  !patient?.id || !doctor?.id || !labResult.labResultDocument
-                }
+              // disabled={
+              //   !labResult.labResultDocument
+              // }
               >
                 Save
               </Button>
@@ -1140,8 +1162,82 @@ const AdminDocument = (props) => {
                 name="id"
                 value={prescriptionResult?.id}
                 onChange={(e) => handleDefaultPrescription(e)}
-              ></input>
+              />
+              <div className="form-group row">
+                <label
+                  htmlFor="doctorEmail"
+                  className="col-sm-3 col-form-label"
+                >
+                  Doctor Email
+                </label>
+                <div className="col-sm-9">
+                  <input
+                    type="email"
+                    maxLength="50"
+                    id="doctorEmail"
+                    name="doctorEmail"
+                    className="form-control"
+                    validate="true"
+                    value={doctor?.email}
+                    placeholder="Doctor Email"
+                    onChange={(e) => handleDoctorTag(e)}
+                  />
+                  {doctor?.id ? (
+                    <span>
+                      Doctor Name:{" "}
+                      <b>
+                        {doctor?.firstName + " " + doctor?.lastName}
+                        <input
+                          hidden={true}
+                          id="doctorId"
+                          name="doctorId"
+                          value={doctor?.id}
+                        />
+                      </b>
+                    </span>
+                  ) : (
+                    <span>No Doctor Found</span>
+                  )}
+                </div>
+              </div>
 
+              <div className="form-group row">
+                <label
+                  htmlFor="patientEmail"
+                  className="col-sm-3 col-form-label"
+                >
+                  Patient Email
+                </label>
+                <div className="col-sm-9">
+                  <input
+                    type="email"
+                    maxLength="50"
+                    id="patientEmail"
+                    name="patientEmail"
+                    className="form-control"
+                    validate="true"
+                    value={patient?.email}
+                    placeholder="Patient Email"
+                    onChange={(e) => handlePatientTag(e)}
+                  />
+                  {patient?.id ? (
+                    <span>
+                      Patient Name:{" "}
+                      <b>
+                        {patient?.firstName + " " + patient?.lastName}
+                        <input
+                          hidden={true}
+                          id="patientId"
+                          name="patientId"
+                          value={patient?.id}
+                        />
+                      </b>
+                    </span>
+                  ) : (
+                    <span>No Patient found</span>
+                  )}
+                </div>
+              </div>
               <div className="form-group row">
                 <label
                   htmlFor="prescriptionDocument"
@@ -1171,7 +1267,7 @@ const AdminDocument = (props) => {
                     placeholder="Document"
                     accept="application/pdf"
                     required={prescriptionResult?.id ? false : true}
-                  ></input>
+                  />
                 </div>
               </div>
               <div className="container">

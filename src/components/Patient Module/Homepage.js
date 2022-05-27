@@ -64,7 +64,7 @@ function patientHomePage() {
                                 <Card.Body>
                                     <Card.Title>How healthy are you?</Card.Title>
                                     <Link to="/patient/questionnaire">
-                                        <button variant="primary" className="btn btn-outline-light assessment-btn">
+                                        <button variant="primary" className="btn btn-primary assessment-btn">
                                             Take my assessment
                                         </button>
                                     </Link>

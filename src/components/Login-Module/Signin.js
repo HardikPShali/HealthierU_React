@@ -293,7 +293,7 @@ const Signin = () => {
     <div>
       {loading && <Loader />}
       {loader && <TransparentLoader />}
-      <Header />
+      <Header hideButton={true}/>
       <Container id="signin-bg">
         <Row>
           <Col md={7}></Col>
@@ -365,7 +365,7 @@ const Signin = () => {
                       onChange={handleRecaptchaChange}
                     /> */}
                     <input
-                      className="btn btn-primary sign-btn"
+                      className="btn btn-primary sign-btn shadow-sm"
                       type="submit"
                       value="Sign In"
                     />
@@ -374,7 +374,7 @@ const Signin = () => {
                       clientId={GOOGLECLIENTID}
                       render={(renderProps) => (
                         <button
-                          className="btn google-signup"
+                          className="btn google-signup shadow-sm"
                           onClick={renderProps.onClick}
                           disabled={renderProps.disabled}
                         >
@@ -388,7 +388,7 @@ const Signin = () => {
                         </button>
                       )}
                       buttonText="Sign In with Google"
-                      className="google-signup"
+                      className="google-signup shadow"
                       onSuccess={(res) => responseGoogle(res)}
                       //onFailure={(res) => //console.log(res)}
                       cookiePolicy={"single_host_origin"}
@@ -426,7 +426,7 @@ const Signin = () => {
                     />
                   </p>
                   <input
-                    className="btn btn-primary sign-btn"
+                    className="btn btn-primary sign-btn shadow-sm"
                     type="button"
                     onClick={() => handleOTPSubmit()}
                     value="Submit"
@@ -436,8 +436,8 @@ const Signin = () => {
               <div className="row">
                 <div className="col-12">
                   <p className="signup-text">Don't have an account yet?</p>
-                  <Link to="/signup">
-                    <button className="btn btn-outline-primary sign-btn">
+                  <Link className="w-100 d-block" to="/signup">
+                    <button className="btn btn-primary w-100 sign-btn shadow-sm">
                       Sign Up
                     </button>
                   </Link>

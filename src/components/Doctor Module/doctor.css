@@ -1,8 +1,3 @@
-@font-face {
-  font-family: Avenir;
-  src: url(../../static/font/Avenir.ttc);
-}
-
 :root {
   --primary: #00d0cc;
   --primarysecond: #f6ceb4;
@@ -11,7 +6,7 @@
 }
 
 * {
-  font-family: 'Avenir', sans-serif;
+  font-family: var(--font-primary);
 }
 
 body {
@@ -128,7 +123,7 @@ svg#search-icon {
 #footer {
   background-color: var(--primary);
   color: #fff;
-  padding: 40px 60px 20px;
+  padding: 20px 60px 20px;
   display: flex;
   align-items: flex-end;
 }
@@ -143,6 +138,7 @@ a#footer-link {
   text-decoration: none !important;
   margin-top: 5px;
   font-size: 15px;
+  margin-bottom: 11px;
 }
 
 div#active-user {
@@ -279,7 +275,7 @@ div#dorctor-list {
   bottom: 0;
   width: 100%;
   padding: 10px 0;
-  font-family: 'Avenir', sans-serif;
+  font-family: var(--font-primary);
   z-index: 1;
 }
 
@@ -295,7 +291,7 @@ div#dorctor-list {
 }
 
 .MuiBottomNavigationAction-label {
-  font-family: 'Avenir', sans-serif !important;
+  font-family: var(--font-primary);
   font-size: 12px !important;
   font-weight: 700;
 }
@@ -529,6 +525,7 @@ input#doctor-search {
   border: none;
   border-radius: 10px;
 }
+
 .appointment-card-header {
   margin-left: 5px;
   color: #344767;
@@ -1138,6 +1135,7 @@ table#user-info {
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
+
 .appointment-count-h3 {
   color: white;
   font-size: 3.5em;
@@ -1198,8 +1196,9 @@ table#user-info {
   /* width: 44px;
   height: 20px; */
 
-  font-size: 12px;
+  font-size: 14px;
 }
+
 .pclass1 {
   font-size: 10px;
 }
@@ -1218,7 +1217,7 @@ table#user-info {
   border-radius: 20px;
   border-bottom: 0 !important;
   height: 3.5em !important;
-  background-color: #fff !important;
+  /* background-color: #fff !important; */
   width: 100%;
 }
 
@@ -1528,10 +1527,28 @@ div#req-info {
   flex: none;
   order: 1;
   flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+div#req-info > a {
+  border-radius: 10px;
+  text-align: justify;
+  color: #000;
+  font-weight: 600;
+}
+
+div#req-info > a:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  color: #00d0cc;
 }
 
 span#info-title {
-  font-family: 'Rubik';
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -1544,12 +1561,17 @@ span#info-title {
 }
 
 button.view-btn {
-  font-size: 1em;
+  /* font-size: 1em;
   border-radius: 22px;
   padding: 5x 25px;
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
-  width: 70%;
+  width: 70%; */
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
 }
 
 svg#accept-icon {
@@ -2211,7 +2233,7 @@ div.reply .messageBody span.messageTime {
 .appointment-slot-list {
   padding: 10px 0px;
   border: 2px solid rgb(228, 228, 228);
-  background: rgb(238, 255, 238);
+  background: #efefef;
   height: 680px;
   overflow-y: scroll;
   border-radius: 20px;
@@ -2304,21 +2326,29 @@ Health Assessment
 }
 
 .img-box {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   overflow: hidden;
-  border-radius: 502%;
+  border-radius: 50%;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
+  margin-bottom: 10px;
+  margin-left: 27px;
 }
 
 .modal-body > .form-group > label.col-form-label {
   font-size: 14.5px;
 }
 
-.medicineButton {
-  margin-left: 10px;
+.btn-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.medicineRemoveButton {
+  width: 30%;
 }
 
 .disable-footer-links {
@@ -2491,6 +2521,11 @@ span.availableColor {
   font-size: 13px;
 }
 
+.notification-Navbar {
+  margin-right: 5px;
+  margin-left: -10px;
+}
+
 @media (max-width: 992px) {
   .notification-Navbar {
     padding-left: 20px;
@@ -2556,9 +2591,16 @@ button a {
 }
 
 .record-tabs.nav-tabs .nav-link {
-  background-color: #efefef !important;
+  background-color: #fff !important;
   color: var(--primary);
   padding: 6px;
+  flex: 1 1 auto;
+  width: auto;
+  box-shadow: 1px 1px 2px #dedede;
+}
+
+.record-tabs.nav-tabs .nav-link:not(:last-child) {
+  margin-right: 15px;
 }
 
 #prescription-list tbody tr {
@@ -2679,15 +2721,19 @@ button {
   text-align: left;
 
   box-shadow: 0px 0px 10px #ddd;
-  height: 40%;
+  height: 31%;
+  /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
   overflow: auto;
 }
+
 .scroller-cardlist {
-  scrollbar-color: #00d0cc white; /* thumb and track color */
+  scrollbar-color: #00d0cc white;
+  /* thumb and track color */
   scrollbar-width: thin !important;
   -moz-appearance: none !important;
   border-radius: 2px;
 }
+
 .scroller-cardlist::-webkit-scrollbar {
   width: 7.5px;
   -moz-appearance: none !important;
@@ -2703,20 +2749,29 @@ button {
   border-right: 1px solid white;
   -moz-appearance: none !important;
 }
+
 /* Css for overlay */
 #overlay {
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
+  position: fixed;
+  /* Sit on top of the page content */
+  display: none;
+  /* Hidden by default */
+  width: 100%;
+  /* Full width (cover the whole page) */
+  height: 100%;
+  /* Full height (cover the whole page) */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Black background with opacity */
+  z-index: 2;
+  /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
+  /* Add a pointer on hover */
 }
+
 #text {
   position: absolute;
   top: 50%;
@@ -2882,7 +2937,7 @@ button.reset-btn {
 
 .patient-list__common-date {
   text-shadow: none;
-  font-family: 'Biennale';
+  font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -2891,4 +2946,21 @@ button.reset-btn {
   margin-bottom: 2px;
   text-transform: capitalize;
   margin-top: 5px;
+}
+
+/* MY PATIENT CARD */
+.my-patient-card__card-details--date-div {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  justify-content: space-around;
+}
+
+.my-patient-card__common-span {
+  font-size: 12px;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: bold;
+  color: #fff;
+  margin-left: 10px;
 }

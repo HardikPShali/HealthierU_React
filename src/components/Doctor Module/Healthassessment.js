@@ -164,9 +164,10 @@ const Healthassessment = (props) => {
     }, []);
 
     const showDocument = async (val) => {
-        const res = await getDocument(val);
-        //console.log(res);
-        setPrescriptionDocumentUrl(res);
+        // const res = await getDocument(val);
+        console.log(val);
+        
+        setPrescriptionDocumentUrl(val.documentUrl);
     };
 
     const clickPagination = async (pageNumber) => {
@@ -350,7 +351,7 @@ const Healthassessment = (props) => {
             documents = await getDoctorPatientDocuments(
                 'Lab',
                 0,
-                doctor.data.id,
+                doctor.id,
                 patient.id
             );
             setLabDocument(documents);
@@ -360,7 +361,7 @@ const Healthassessment = (props) => {
             documents = await getDoctorPatientDocuments(
                 'Prescription',
                 0,
-                doctor.data.id,
+                doctor.id,
                 patient.id
             );
             setPresecriptionDocument(documents);
@@ -401,7 +402,7 @@ const Healthassessment = (props) => {
                     </Link>
                 </IconButton>
                 <Row>
-                    <Col md={9} id="col">
+                    <Col md={12} id="col">
                         <Tabs onSelect={clickTabEvent}>
                             <TabList>
                                 <Tab eventKey="prescription" title="Prescription">
@@ -448,7 +449,7 @@ const Healthassessment = (props) => {
                                             return (
 
                                                 <div className="prescription-lab__card-box" >
-                                                    <h3 className="prescription-lab--main-header mb-3 mt-2">
+                                                    <h3 className="prescription-lab--month-header mb-3 mt-2">
                                                         {moment(dataItem.docUploadTime).format("MMM")}
                                                     </h3>
                                                     <div className="card-holder">
@@ -615,7 +616,7 @@ const Healthassessment = (props) => {
                                             return (
 
                                                 <div className="prescription-lab__card-box">
-                                                    <h3 className="prescription-lab--main-header mb-3 mt-2">
+                                                    <h3 className="prescription-lab--month-header mb-3 mt-2">
                                                         {moment(dataItem.docUploadTime).format("MMM")}
                                                     </h3>
                                                     <div className="card-holder">
@@ -771,25 +772,25 @@ const Healthassessment = (props) => {
                         </Tabs>
                     </Col>
 
-                    <Col md={3} id="col" className="health-assesment">
-                        <div id="patient-ques">
-                            <Row id="download-report">
-                                <Col xs={12}>
+                    {/* <Col md={3} id="col" className="health-assesment">
+                        <div id="patient-ques"> */}
+                            {/* <Row id="download-report"> */}
+                                {/* <Col xs={12}>
                                     <div style={{ textAlign: 'center' }}>
                                         <b>
                                             {patient?.firstName} {patient?.lastName}
                                         </b>{' '}
                                         <br />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 {/* <Col xs={4}>
                                     <br />
                                     <br />
                                 </Col> */}
-                            </Row>
-                            <br />
+                            {/* </Row>
+                            <br /> */}
 
-                            <Row>
+                            {/* <Row>
                                 <Col md={12}>
                                     <div style={{ fontSize: '0.7rem' }}>
                                         <b style={{ marginLeft: '20%' }}>Health Behaviours</b>
@@ -891,9 +892,9 @@ const Healthassessment = (props) => {
                                         );
                                     })}
                                 </Col>
-                            </Row>
-                        </div>
-                    </Col>
+                            </Row> */}
+                        {/* </div>
+                    </Col> */}
                 </Row>
             </Container>
             {/* <Footer /> */}

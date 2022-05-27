@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import './doctor.css';
 // import '../Patient Module/patient.css';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
@@ -8,9 +9,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { uploadDoctorDocument, getDoctorDocument } from "../../service/frontendapiservices";
-import TransparentLoader from "../Loader/transparentloader";
-import DoctorDocumentUpload from "../CommonModule/doctordocumentupload"
+import {
+    uploadDoctorDocument,
+    getDoctorDocument,
+    updateDoctorData,
+} from '../../service/frontendapiservices';
+import TransparentLoader from '../Loader/transparentloader';
+import DoctorDocumentUpload from '../CommonModule/doctordocumentupload';
 import moment from 'moment';
 import calendarIcon from '../../../src/images/svg/dob-icon.svg';
 import callIcon from '../../../src/images/svg/call-icon.svg';
@@ -35,7 +40,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ImageCropper from '../CommonModule/ImageCroper';
-import ProfileRow from "../CommonModule/Profile/ProfileRow/ProfileRow";
+import ProfileRow from '../CommonModule/Profile/ProfileRow/ProfileRow';
+import Cookies from "universal-cookie";
 
 // import Cookies from 'universal-cookie';
 // import CreateIcon from '@material-ui/icons/Create';
@@ -47,47 +53,49 @@ import ProfileRow from "../CommonModule/Profile/ProfileRow/ProfileRow";
 // import ProfileImage from "../CommonModule/Profile/ProfileImage/ProfileImage";
 
 const Profile = ({ currentDoctor }) => {
+    const history = useHistory();
+    const cookies = new Cookies();
 
-    const [documentData, setDocumentData] = useState([])
-    const [documentName, setDocumentName] = useState("");
+    console.log("currentDoctor Props", currentDoctor);
+
+    const [documentData, setDocumentData] = useState([]);
+    const [documentName, setDocumentName] = useState('');
     const [documentFile, setDocumentFile] = useState([]);
     const [loading, setLoading] = useState(true);
     const [toggleProfile, setToggleProfile] = useState({
         profile: false,
-        editProfile: false
+        editProfile: false,
     });
     const [profilePicture, setProfilePicture] = useState({});
 
-    const [currentDoctorData, setCurrentDoctorData] = useState({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        gender: "",
-        dateOfBirth: "",
-        countryName: "",
-        languages: [],
-        education: "",
-        experience: "",
-        specialities: []
-    });
-
+    const [currentDoctorData, setCurrentDoctorData] = useState(JSON.parse(JSON.stringify(currentDoctor)));
     const [language, setLanguage] = useState({
-        languageOptions: []
+        languageOptions: [],
     });
 
     const [specialityError, setSpecialityError] = useState(false);
 
     const [options, Setoption] = useState({
-        countryList: []
+        countryList: [],
     });
 
     const [speciality, setSpeciality] = useState({
-        specialityOptions: []
+        specialityOptions: [],
     });
 
-    const {
-        firstName, lastName, phone, gender, dateOfBirth, countryName, languages, education, experience, specialities
-    } = currentDoctor;
+    let {
+        firstName,
+        lastName,
+        phone,
+        gender,
+        dateOfBirth,
+        countryId,
+        languages,
+        education,
+        experience,
+        specialities,
+    } = currentDoctorData ? currentDoctorData : currentDoctor;
+
 
     const { languageOptions } = language;
 
@@ -97,44 +105,44 @@ const Profile = ({ currentDoctor }) => {
 
     //LOAD COUNTRY LIST
     const loadOptions = async () => {
-        const res = await getCountryList().catch(err => {
+        const res = await getCountryList().catch((err) => {
             if (err.status === 500 || err.status === 504) {
                 setLoading(false);
             }
         });
         if (res && res.data.data && res.data.data.length > 0) {
-            Setoption({ countryList: res.data.data })
+            Setoption({ countryList: res.data.data });
             setTimeout(() => setLoading(false), 1000);
         }
-    }
+    };
 
     //LOAD LANGUAGE LIST
     const loadLanguage = async () => {
-        const res = await getLanguageList().catch(err => {
+        const res = await getLanguageList().catch((err) => {
             if (err.status === 500 || err.status === 504) {
                 setLoading(false);
             }
         });
         if (res && res.data.data && res.data.data.length > 0) {
-            setLanguage({ languageOptions: res.data.data })
+            setLanguage({ languageOptions: res.data.data });
             setTimeout(() => setLoading(false), 1000);
         }
-    }
+    };
 
     //LOAD SPECIALITY LIST
     const loadSpeciality = async () => {
-        const res = await getSpecialityList().catch(err => {
+        const res = await getSpecialityList().catch((err) => {
             if (err.status === 500 || err.status === 504) {
                 setLoading(false);
             }
         });
 
         if (res && res.data.data && res.data.data.length > 0) {
-            setSpeciality({ specialityOptions: res.data.data })
+            setSpeciality({ specialityOptions: res.data.data });
 
             setTimeout(() => setLoading(false), 1000);
         }
-    }
+    };
 
     //LOAD DOCUMENT LIST
     const loadDoctorDocument = async () => {
@@ -143,13 +151,11 @@ const Profile = ({ currentDoctor }) => {
         if (res && res.status === 200) {
             setDocumentData(res.data.documentsDocumentsList);
             setLoading(false);
-        }
-        else if (res && res.status === 204) {
+        } else if (res && res.status === 204) {
             setDocumentData([]);
             setLoading(false);
         }
-    }
-
+    };
 
     useEffect(() => {
         loadDoctorDocument();
@@ -158,28 +164,26 @@ const Profile = ({ currentDoctor }) => {
         loadSpeciality();
     }, [currentDoctor]);
 
-
-
     const handleDocnameChange = (e) => {
         setDocumentName(e.target.value);
-    }
+    };
 
     const [uploadOpen, setUploadOpen] = useState(false);
 
     const handleUploadClose = () => {
         setUploadOpen(false);
-    }
+    };
 
     const handleFileChange = (e) => {
         setDocumentFile(e.target.files);
-    }
+    };
 
     const handleUpload = async (e) => {
         const info = {
             doctorId: currentDoctor.id,
             doctor_email: currentDoctor.email,
-            documentName: documentName
-        }
+            documentName: documentName,
+        };
         const files = documentFile;
         const res = await uploadDoctorDocument(files, info);
         if (res && res.status === 201) {
@@ -188,137 +192,156 @@ const Profile = ({ currentDoctor }) => {
             setDocumentData(existingDoc);
             setUploadOpen(false);
         }
-    }
-
-
+    };
 
     // const currentLoggedInUser = cookies.get("profileDetails");
     // console.log('currentLoggedInUser', currentLoggedInUser);
 
-
     // HANDLERS FOR EDIT PAGE
     const handleInputChange = (e) => {
-        e.preventDefault()
+        // e.preventDefault();
+        console.log(e.target.value);
         setCurrentDoctorData({ ...currentDoctor, [e.target.name]: e.target.value });
     };
 
-    const handleLanguages = (selectedList, selectedItem) => {
+    const handleLanguages = (selectedItem) => {
         languages.push({ name: selectedItem.name });
+        setCurrentDoctorData({ ...currentDoctor, languages: languages });
     };
 
-    const removeLanguages = (selectedList, removedItem) => {
+    const removeLanguages = (removedItem) => {
         var array = languages;
         var index = array.indexOf(removedItem);
         array.splice(index, 1);
-        setCurrentDoctorData({ ...currentDoctor, languages: array });
-    }
+        setCurrentDoctorData({ ...currentDoctorData, languages: array });
+    };
 
     const now = new Date();
     const newDate = now.setDate(now.getDate() - 1);
     const maxDate = {
-        max: moment(newDate).format("YYYY-MM-DD"),
-        min: moment(now).subtract(100, "years").format("YYYY-MM-DD")
+        max: moment(newDate).format('YYYY-MM-DD'),
+        min: moment(now)
+            .subtract(100, 'years')
+            .format('YYYY-MM-DD'),
     };
 
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        setCurrentDoctorData({ ...currentDoctor, dateOfBirth: isoDate });
+        setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
     };
 
     const handlePhone = (e) => {
-        setCurrentDoctorData({ ...currentDoctor, phone: e });
+        setCurrentDoctorData({ ...currentDoctorData, phone: e });
     };
 
     const handleCountry = (e) => {
-        setCurrentDoctorData({ ...currentDoctor, countryName: e.target.value });
+        setCurrentDoctorData({ ...currentDoctorData, countryId: e.target.value });
     };
 
-    const handleSpecialities = (selectedList, selectedItem) => {
+    const handleSpecialities = (selectedItem) => {
         specialities.push({ id: selectedItem.id, name: selectedItem.name });
         setSpecialityError(false);
     };
 
-    const removeSpecialities = (selectedList, removedItem) => {
+    const removeSpecialities = (removedItem) => {
         var array = specialities;
         var index = array.indexOf(removedItem); // Let's say it's Bob.
         array.splice(index, 1);
         setCurrentDoctorData({ ...setCurrentDoctorData, specialities: array });
-    }
+    };
 
     // EDIT PROFILE HANDLER ON SUBMIT
-    // const handleDetails = async e => {
-    //     console.log("profilePicture ::::::", profilePicture);
-    //     setTransparentLoading(true);
-    //     e.preventDefault();
-    //     var bodyFormData = new FormData();
-    //     bodyFormData.append('profileData', JSON.stringify(currentPatient));
-    //     bodyFormData.append('profilePicture', profilePicture);
-    //     const response = await updatePatientData(bodyFormData);
+    const handleDetails = async e => {
+        console.log("Doctor Profile Data", currentDoctorData);
+        console.log("profilePicture ::::::", profilePicture);
+        setLoading(true);
+        e.preventDefault();
+        var bodyFormData = new FormData();
+        bodyFormData.append('profileData', JSON.stringify(currentDoctorData));
+        bodyFormData.append('profilePicture', profilePicture);
+        const response = await updateDoctorData(bodyFormData);
+        console.log("handleDetails", response);
+        if (response.status === 200 || response.status === 201) {
+            cookies.set('profileDetails', currentDoctorData);
+            // setCurrentDoctorData({ currentDoctorData: currentDoctorData });
+            history.go(0);
+        }
+    }
 
-    //     if (response.status === 200 || response.status === 201) {
-    //         history.go(0);
-    //     }
-    // }
+
 
     return (
         <div>
-            {loading && (
-                <TransparentLoader />
-            )}
+            {loading && <TransparentLoader />}
             {currentDoctor && toggleProfile.editProfile === false && (
                 <Container>
                     <Row>
                         <Col md={3}>
                             <div id="profile-col-1">
-                                {currentDoctor && currentDoctor.picture ? (<img src={currentDoctor.picture} id="profile-pic" alt="" />)
-                                    : (<Avatar className='avatar-profile' name={currentDoctor.firstName + " " + currentDoctor.lastName} size={150} />)}
+                                {currentDoctor && currentDoctor.picture ? (
+                                    <img src={currentDoctor.picture} id="profile-pic" alt="" />
+                                ) : (
+                                    <Avatar
+                                        className="avatar-profile"
+                                        name={
+                                            currentDoctor.firstName + ' ' + currentDoctor.lastName
+                                        }
+                                        size={150}
+                                    />
+                                )}
                                 <br />
                                 <div id="name">
-                                    {currentDoctor.firstName + " " + currentDoctor.lastName}
+                                    {currentDoctor.firstName + ' ' + currentDoctor.lastName}
                                 </div>
-                                <p id="description">
-                                    {currentDoctor.email}
-                                </p>
+                                <p id="description">{currentDoctor.email}</p>
                                 <br />
-                                <div className='col-md-12 text-center mt-3'>
-                                    <button className="btn btn-primary request-edit" onClick={
-                                        () => {
+                                <div className="col-md-12 text-center mt-3">
+                                    <button
+                                        className="btn btn-primary request-edit"
+                                        onClick={() => {
                                             // setDisplay({ ...display, profile: 'none', editProfile: 'block' })
-                                            setToggleProfile({ ...toggleProfile, editProfile: true })
-                                        }
-                                    }>Edit Profile</button>
+                                            setToggleProfile({ ...toggleProfile, editProfile: true });
+                                        }}
+                                    >
+                                        Edit Profile
+                                    </button>
                                 </div>
                             </div>
                         </Col>
-
 
                         <Col md={9}>
                             <Row>
                                 <Col md={12}>
                                     <div id="profile-col-2">
-                                        <Tabs defaultActiveKey='general' id='uncontrolled-tab-example' className='record-tabs mb-3'>
-                                            <Tab eventKey='general' title='General'>
-                                                <div className='general-tab'>
-                                                    <div className='d-flex flex-column'>
+                                        <Tabs
+                                            defaultActiveKey="general"
+                                            id="uncontrolled-tab-example"
+                                            className="record-tabs mb-3"
+                                        >
+                                            <Tab eventKey="general" title="General">
+                                                <div className="general-tab">
+                                                    <div className="d-flex flex-column">
                                                         <ProfileRow
                                                             icon={callIcon}
-                                                            title='Phone'
+                                                            title="Phone"
                                                             value={currentDoctor.phone}
                                                         />
                                                         <ProfileRow
                                                             icon={genderIcon}
-                                                            title='Gender'
+                                                            title="Gender"
                                                             value={currentDoctor.gender}
                                                         />
                                                         <ProfileRow
                                                             icon={calendarIcon}
-                                                            title='Date of Birth'
-                                                            value={moment(currentDoctor.dateOfBirth).format("DD/MM/YY")}
+                                                            title="Date of Birth"
+                                                            value={moment(currentDoctor.dateOfBirth).format(
+                                                                'DD/MM/YY'
+                                                            )}
                                                         />
                                                         <ProfileRow
                                                             icon={flagIcon}
-                                                            title='Nationality'
+                                                            title="Nationality"
                                                             value={currentDoctor.countryName}
                                                         />
                                                         <ProfileRow
@@ -338,17 +361,17 @@ const Profile = ({ currentDoctor }) => {
                                                 </div>
                                             </Tab>
 
-                                            <Tab eventKey='education' title='Education'>
-                                                <div className='general-tab'>
-                                                    <div className='d-flex flex-column'>
+                                            <Tab eventKey="education" title="Education">
+                                                <div className="general-tab">
+                                                    <div className="d-flex flex-column">
                                                         <ProfileRow
                                                             icon={educationIcon}
-                                                            title='Education'
+                                                            title="Education"
                                                             value={currentDoctor.education}
                                                         />
                                                         <ProfileRow
                                                             icon={experienceIcon}
-                                                            title='Experience'
+                                                            title="Experience"
                                                             value={currentDoctor.experience}
                                                         />
                                                         <ProfileRow
@@ -368,200 +391,266 @@ const Profile = ({ currentDoctor }) => {
                                                 </div>
                                             </Tab>
                                         </Tabs>
-                                        <div style={{ marginTop: '10px' }}>
-                                            <DoctorDocumentUpload currentDoctor={currentDoctor} isDoctor={true} />
-                                        </div>
+                                        {/* <div style={{ marginTop: '10px' }}>
+                                            <DoctorDocumentUpload
+                                                currentDoctor={currentDoctor}
+                                                isDoctor={true}
+                                            />
+                                        </div> */}
                                     </div>
                                 </Col>
                             </Row>
-
                         </Col>
                     </Row>
                 </Container>
             )}
-            {
-                currentDoctor && toggleProfile.editProfile === true && (
-                    <Container >
-                        <Row className='conflict_profile-form'>
-                            <Col md={2}></Col>
-                            <Col md={8} id="profile-form" className='conflict_profile'>
-                                <br />
-                                <button className="btn btn-primary" onClick={() => {
+            {currentDoctor && toggleProfile.editProfile === true && (
+                <Container>
+                    <Row className="conflict_profile-form">
+                        <Col md={2}></Col>
+                        <Col md={8} id="profile-form" className="conflict_profile">
+                            <br />
+                            <button
+                                className="btn btn-primary"
+                                onClick={() => {
                                     // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
-                                    setToggleProfile({ ...toggleProfile, editProfile: false })
-                                }}>
-                                    back to Profile
-                                </button>
-                                <div id="editProfile-col">
-                                    <ValidatorForm onSubmit={e => console.log(e)}>
-                                        <Row style={{ justifyContent: 'center' }}>
-                                            <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} />
-                                        </Row>
+                                    setToggleProfile({ ...toggleProfile, editProfile: false });
+                                }}
+                            >
+                                back to Profile
+                            </button>
+                            <div id="editProfile-col">
+                                <ValidatorForm onSubmit={handleDetails}>
+                                    <Row style={{ justifyContent: 'center' }}>
+                                        <ImageCropper
+                                            setProfilePicture={setProfilePicture}
+                                            imageUrl={currentDoctor.picture}
+                                        />
+                                    </Row>
 
-                                        <Tabs defaultActiveKey='general' id='uncontrolled-tab-example' className='record-tabs mb-3'>
-                                            <Tab eventKey='general' title='General'>
-                                                <div className='general-tab'>
-                                                    <Row>
-                                                        <Col md={6}>
-                                                            <p>First Name<sup>*</sup></p>
-                                                            <TextValidator id="standard-basic" type="text" name="firstName"
-                                                                onChange={e => handleInputChange(e)}
-                                                                value={firstName}
-                                                                validators={['required']}
-                                                                errorMessages={['This field is required']}
-                                                                variant="filled" />
-                                                        </Col>
-                                                        <Col md={6}>
-                                                            <p>Last Name<sup>*</sup></p>
-                                                            <TextValidator id="standard-basic" type="text" name="lastName"
-                                                                onChange={e => handleInputChange(e)}
-                                                                value={lastName}
-                                                                validators={['required']}
-                                                                errorMessages={['This field is required']}
-                                                                variant="filled" />
-                                                        </Col>
-                                                    </Row><br />
-                                                    <Row>
-                                                        <Col md={6}>
-                                                            <p>Date of Birth</p>
-                                                            <TextValidator id="standard-basic" type="date" name="dateOfBirth" value={moment(dateOfBirth).format('YYYY-MM-DD')} inputProps={maxDate} InputLabelProps={{ shrink: true, }}
-                                                                variant="filled" onChange={e => handleDateChange(e)} onKeyDown={(e) => e.preventDefault()} />
-                                                        </Col>
-                                                        <Col md={6}>
-                                                            <p>Phone Number<sup>*</sup></p>
-                                                            <PhoneInput
-                                                                inputProps={{
-                                                                    name: 'phone',
-                                                                    required: true,
-                                                                    maxLength: 16,
-                                                                    minLength: 12
-                                                                }}
-                                                                country={'us'}
-                                                                value={phone}
-                                                                onChange={e => handlePhone(e)}
+                                    <Tabs
+                                        defaultActiveKey="general"
+                                        id="uncontrolled-tab-example"
+                                        className="record-tabs mb-3"
+                                    >
+                                        <Tab eventKey="general" title="General">
+                                            <div className="general-tab">
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>
+                                                            First Name<sup>*</sup>
+                                                        </p>
+                                                        <TextValidator
+                                                            id="standard-basic"
+                                                            type="text"
+                                                            name="firstName"
+                                                            onChange={(e) => handleInputChange(e)}
+                                                            value={firstName}
+                                                            validators={['required']}
+                                                            errorMessages={['This field is required']}
+                                                            variant="filled"
+                                                        />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>
+                                                            Last Name<sup>*</sup>
+                                                        </p>
+                                                        <TextValidator
+                                                            id="standard-basic"
+                                                            type="text"
+                                                            name="lastName"
+                                                            onChange={(e) => handleInputChange(e)}
+                                                            value={lastName}
+                                                            validators={['required']}
+                                                            errorMessages={['This field is required']}
+                                                            variant="filled"
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                                <br />
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Date of Birth</p>
+                                                        <TextValidator
+                                                            id="standard-basic"
+                                                            type="date"
+                                                            name="dateOfBirth"
+                                                            value={moment(dateOfBirth).format('YYYY-MM-DD')}
+                                                            inputProps={maxDate}
+                                                            InputLabelProps={{ shrink: true }}
+                                                            variant="filled"
+                                                            onChange={(e) => handleDateChange(e)}
+                                                            onKeyDown={(e) => e.preventDefault()}
+                                                        />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>
+                                                            Phone Number<sup>*</sup>
+                                                        </p>
+                                                        <PhoneInput
+                                                            inputProps={{
+                                                                name: 'phone',
+                                                                required: true,
+                                                                maxLength: 20,
+                                                                minLength: 12,
+                                                            }}
+                                                            country={'us'}
+                                                            value={phone}
+                                                            onChange={(e) => handlePhone(e)}
+                                                            variant="filled"
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                                <br />
+
+                                                <br />
+
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Nationality</p>
+                                                        <FormControl>
+                                                            <Select
+                                                                id="demo-controlled-open-select"
                                                                 variant="filled"
-                                                            />
-                                                        </Col>
-                                                    </Row>
-                                                    <br />
-
-                                                    <br />
-
-                                                    <Row>
-                                                        <Col md={6}>
-                                                            <p>Nationality</p>
-                                                            <FormControl>
-                                                                <Select
-                                                                    id="demo-controlled-open-select"
-                                                                    variant="filled"
-                                                                    name="countryName"
-                                                                    value={countryName}
-                                                                    displayEmpty
-                                                                    onChange={e => handleCountry(e)}
-                                                                >
-                                                                    <MenuItem value="">
-                                                                        <em>Select</em>
-                                                                    </MenuItem>
-                                                                    {countryList && countryList.map((option, index) => (
-                                                                        <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
+                                                                name="countryName"
+                                                                value={countryId}
+                                                                displayEmpty
+                                                                onChange={(e) => handleCountry(e)}
+                                                            >
+                                                                <MenuItem value="">
+                                                                    <em>Select</em>
+                                                                </MenuItem>
+                                                                {countryList &&
+                                                                    countryList.map((option) => (
+                                                                        <MenuItem value={option.id} key={option.id}>
+                                                                            {option.name}
+                                                                        </MenuItem>
                                                                     ))}
-                                                                </Select>
-                                                            </FormControl>
-                                                        </Col>
-                                                        <Col md={6}>
-                                                            <p>Gender</p>
-                                                            <FormControl component="fieldset">
-                                                                <RadioGroup id="gender-radio" aria-label="gender" name="gender"
-                                                                    variant="filled" onChange={e => handleInputChange(e)} value={gender}>
-                                                                    <FormControlLabel value="FEMALE" control={<Radio color="primary" />} label="Female" />
-                                                                    <FormControlLabel value="MALE" control={<Radio color="primary" />} label="Male" />
-                                                                    <FormControlLabel value="UNKNOWN" control={<Radio color="primary" />} label="Other" />
-                                                                </RadioGroup>
-                                                            </FormControl>
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Gender</p>
+                                                        <FormControl component="fieldset">
+                                                            <RadioGroup
+                                                                id="gender-radio"
+                                                                aria-label="gender"
+                                                                name="gender"
+                                                                variant="filled"
+                                                                onChange={(e) => handleInputChange(e)}
+                                                                value={gender}
+                                                            >
+                                                                <FormControlLabel
+                                                                    value="FEMALE"
+                                                                    control={<Radio color="primary" />}
+                                                                    label="Female"
+                                                                />
+                                                                <FormControlLabel
+                                                                    value="MALE"
+                                                                    control={<Radio color="primary" />}
+                                                                    label="Male"
 
-                                                        </Col>
-                                                    </Row>
-                                                    <br />
-                                                    <Row>
-                                                        <Col md={12}>
-                                                            <p>Languages</p>
-                                                            <FormControl>
-                                                                <div className="multiselect">
-                                                                    <Multiselect
-                                                                        options={languageOptions}
-                                                                        onSelect={handleLanguages}
-                                                                        onRemove={removeLanguages}
-                                                                        selectedValues={languages}
-                                                                        displayValue="name"
-                                                                    />
-                                                                </div>
-                                                            </FormControl>
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            </Tab>
+                                                                />
+                                                                <FormControlLabel
+                                                                    value="OTHER"
+                                                                    control={<Radio color="primary" />}
+                                                                    label="Other"
 
-                                            <Tab eventKey='education' title='Education'>
-                                                <div className='general-tab'>
-                                                    <Row>
-                                                        <Col md={6}>
-                                                            <p>Education</p>
-                                                            <TextValidator id="standard-basic" type="text" name="education"
-                                                                onChange={e => handleInputChange(e)}
-                                                                value={education}
-                                                                variant="filled" />
-                                                        </Col>
-                                                        <Col md={6}>
-                                                            <p>Experience</p>
-                                                            <TextValidator id="standard-basic" type="number" name="experience"
-                                                                onChange={e => handleInputChange(e)}
-                                                                value={experience}
-                                                                inputProps={{
-                                                                    min: 30,
-                                                                    max: 250
-                                                                }}
-                                                                variant="filled" />
-                                                        </Col>
-                                                    </Row>
-                                                    <br />
+                                                                />
+                                                            </RadioGroup>
+                                                        </FormControl>
+                                                    </Col>
+                                                </Row>
+                                                <br />
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <p>Languages</p>
+                                                        <FormControl>
+                                                            <div className="multiselect">
+                                                                <Multiselect
+                                                                    options={languageOptions}
+                                                                    onSelect={handleLanguages}
+                                                                    onRemove={removeLanguages}
+                                                                    selectedValues={languages}
+                                                                    displayValue="name"
+                                                                />
+                                                            </div>
+                                                        </FormControl>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Tab>
 
-                                                    <Row>
-                                                        <Col md={12}>
-                                                            <p>Specialities</p>
-                                                            <FormControl>
-                                                                <div className="multiselect">
-                                                                    <Multiselect
-                                                                        options={specialityOptions}
-                                                                        onSelect={handleSpecialities}
-                                                                        onRemove={removeSpecialities}
-                                                                        displayValue="name"
-                                                                    />
-                                                                </div>
-                                                            </FormControl>
-                                                            {specialityError && (
-                                                                <p style={{ color: "red" }}>This field is required.</p>
-                                                            )}
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            </Tab>
-                                        </Tabs>
+                                        <Tab eventKey="education" title="Education">
+                                            <div className="general-tab">
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Education</p>
+                                                        <TextValidator
+                                                            id="standard-basic"
+                                                            type="text"
+                                                            name="education"
+                                                            onChange={(e) => handleInputChange(e)}
+                                                            value={education}
+                                                            variant="filled"
+                                                        />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Experience</p>
+                                                        <TextValidator
+                                                            id="standard-basic"
+                                                            type="number"
+                                                            name="experience"
+                                                            onChange={(e) => handleInputChange(e)}
+                                                            value={experience}
+                                                            variant="filled"
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                                <br />
 
-                                        <br />
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <p>Specialities</p>
+                                                        <FormControl>
+                                                            <div className="multiselect">
+                                                                <Multiselect
+                                                                    options={specialityOptions}
+                                                                    onSelect={handleSpecialities}
+                                                                    onRemove={removeSpecialities}
+                                                                    selectedValues={specialities}
+                                                                    displayValue="name"
+                                                                />
+                                                            </div>
+                                                        </FormControl>
+                                                        {specialityError && (
+                                                            <p style={{ color: 'red' }}>
+                                                                This field is required.
+                                                            </p>
+                                                        )}
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Tab>
+                                    </Tabs>
 
-                                        <button className="btn btn-primary continue-btn" type="submit">Update</button>
-                                    </ValidatorForm>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Container>
-                )
-            }
+                                    <br />
+
+                                    <button
+                                        className="btn btn-primary continue-btn"
+                                        type="submit"
+                                    >
+                                        Update
+                                    </button>
+                                </ValidatorForm>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            )}
 
             <Dialog aria-labelledby="customized-dialog-title" open={uploadOpen}>
-                <DialogTitle id="customized-dialog-title">
-                    Upload Document
-                </DialogTitle>
+                <DialogTitle id="customized-dialog-title">Upload Document</DialogTitle>
                 <ValidatorForm onSubmit={(e) => handleUpload(e)}>
                     <DialogContent dividers>
                         <Row className="align-items-center">
@@ -576,7 +665,7 @@ const Profile = ({ currentDoctor }) => {
                                     type="file"
                                     inputProps={{
                                         required: true,
-                                        multiple: true
+                                        multiple: true,
                                     }}
                                     onChange={(e) => handleFileChange(e)}
                                 />
@@ -593,7 +682,7 @@ const Profile = ({ currentDoctor }) => {
                                     variant="filled"
                                     name="documentName"
                                     inputProps={{
-                                        required: true
+                                        required: true,
                                     }}
                                     onChange={(e) => handleDocnameChange(e)}
                                 />
@@ -609,22 +698,16 @@ const Profile = ({ currentDoctor }) => {
                         >
                             Cancel
                         </button>
-                        <button
-                            className="btn btn-primary text-light"
-                            type="submit"
-                        >
+                        <button className="btn btn-primary text-light" type="submit">
                             Upload
                         </button>
                     </DialogActions>
                 </ValidatorForm>
             </Dialog>
         </div>
-    )
+    );
+};
 
-}
-
-export default Profile
-
-
+export default Profile;
 
 // onSubmit={handleDetails}

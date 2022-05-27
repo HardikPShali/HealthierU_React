@@ -1,13 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 :root {
   --primary: #00d0cc;
   --primarysecond: #f6ceb4;
   --secondary: #ff6563;
   --text-primary: #3e4543;
   --text-secondary: #999999;
+  --font-primary: 'Rubik', sans-serif;
 }
 
 * {
-  font-family: "Avenir", sans-serif;
+  font-family: var(--font-primary);
 }
 
 body {
@@ -22,4 +25,34 @@ body {
 
 .bg-main-color {
   background-color: #f5f5f5;
+}
+
+.signup-mail-icon {
+  filter: brightness(0.5);
+}
+
+.btn-primary {
+  padding: 0.575rem 1.4rem;
+  border-radius: 22px;
+}
+
+.btn {
+  transition: all .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.btn-secondary {
+  background-color: var(--primarysecond);
+  border-radius: 22px;
+  border-color: var(--primarysecond);
+  padding: 0.575rem 1.4rem;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primarysecond);
+  border-color: var(--primarysecond);
 }

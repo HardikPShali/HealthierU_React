@@ -64,7 +64,7 @@ const Signup = () => {
       {loading && (
         <Loader />
       )}
-      <Header />
+      <Header hideButton={true}/>
       <Container id="signup-bg">
         <Row>
           <Col md={7}></Col>
@@ -73,13 +73,13 @@ const Signup = () => {
               Sign up
                             </h2>
             <div className="sign-box">
-              <Link to="/signupform"><button className="btn btn-light sign-btn"><img src={mail} alt="" className="sub" width="54px" />Sign up with email</button></Link>
+              <Link to="/signupform"><button className="btn btn-primary w-100 py-2 sign-btn shadow-sm"><img src={mail} alt="" className="sub signup-mail-icon" width="54px" />Sign up with email</button></Link>
               <p className="text-divider"><span>or</span></p>
               <GoogleLogin
                 clientId={GOOGLECLIENTID}
                 render={renderProps => (
                   <button
-                    className="btn google-signup"
+                    className="btn google-signup shadow-sm"
                     onClick={renderProps.onClick}
                     disabled={renderProps.disabled}>
                     <img src={gmailIcon} alt="" className="sub" width="54px" /> Sign Up with Google
@@ -93,7 +93,7 @@ const Signup = () => {
 
               />
               <p className="signup-text">Already a member?</p>
-              <Link to="/signin"><button className="btn btn-outline-primary sign-btn">Sign In</button></Link>
+              <Link className="w-100 d-block" to="/signin"><button className="w-100 btn btn-primary sign-btn shadow-sm">Sign In</button></Link>
             </div>
           </Col>
         </Row>

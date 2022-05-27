@@ -47,7 +47,23 @@ export const getDocuments = async (documentType, pageNumber) => {
     return response.data;
   });
 };
+export const getMedicalDocuments = async () => {
+  const headers = {
+    mode: "no-cors",
+    Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+  };
 
+  var config = {
+    method: "get",
+    url:
+      "/api/v2/mobile/medical-documents",
+    headers: headers,
+  };
+
+  return await axios(config).then((response) => {
+    return response.data;
+  });
+};
 export const getPatientDocuments = async (
   documentType,
   pageNumber,
@@ -140,7 +156,7 @@ export const getDocument = async (doc) => {
 
   var config = {
     method: "get",
-    url: "/api/medical-document-retrival?docIdUser=" + doc.id + doc.uploadedBy,
+    url: "/api/v2/mobile/medical-documents?docIdUser=" + doc.id + doc.uploadedBy,
     headers: headers,
   };
 
@@ -149,7 +165,7 @@ export const getDocument = async (doc) => {
   });
 };
 
-export const postDocument = async (formData) => {
+export const postDocument = async (data) => {
   const headers = {
     mode: "no-cors",
     Authorization: "Bearer " + LocalStorageService.getAccessToken(),
@@ -164,29 +180,46 @@ export const postDocument = async (formData) => {
   //   numberOfDays: data.get("numberOfDays"),
   //   interval: data.get("interval"),
   // }];
-  // const medicalDocumentInfo = {
-  //   decription: data.get("decription") ? data.get("decription") : null,
-  //   duration: data.get("duration"),
-  //   documentType: "Prescription",
-  //   patientId: data.get("patientId"),
-  //   doctorId: data.get("doctorId"),
-  // };
+  const medicalDocumentInfo = {
+    decription: data.get("decription") ? data.get("decription") : null,
+    duration: data.get("duration"),
+    documentType: "Prescription",
+    patientId: data.get("patientId"),
+    doctorId: data.get("doctorId"),
+  };
 
-  // const formData = new FormData();
+  const formData = new FormData();
   // formData.append("medicalInfo", new Blob([JSON.stringify(medicalInfo)], {
   //   type: "application/json"
   // }));
-  // formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
-  //   type: "application/json"
-  // }));
-  // console.log("medicalDocumentInfo",medicalDocumentInfo)
-  // formData.append("file", data.get("prescriptionDocument"));
+  formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+    type: "application/json"
+  }));
+  console.log("medicalDocumentInfo", medicalDocumentInfo)
+  formData.append("file", data.get("prescriptionDocument"));
 
   var config = {
     method: 'post',
     url: "/api/v2/medical-document-upload",
     headers: headers,
     data: formData,
+  };
+
+  return await axios(config).then((response) => {
+    return response.data;
+  });
+};
+
+export const postDocumentAddPrescription = async (data) => {
+  const headers = {
+    mode: "no-cors",
+    Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+  };
+  var config = {
+    method: 'post',
+    url: "/api/v2/medical-document-upload",
+    headers: headers,
+    data: data,
   };
 
   return await axios(config).then((response) => {
@@ -209,14 +242,25 @@ export const postLabDocument = async (data) => {
     patientId: data.get("patientId"),
     doctorId: data.get("doctorId"),
   };
-
+  const medicalDocumentInfo = {
+    decription: data.get("decription") ? data.get("decription") : null,
+    duration: data.get("duration"),
+    documentType: "LabResult",
+    patientId: data.get("patientId"),
+    doctorId: data.get("doctorId"),
+  };
   const formData = new FormData();
   formData.append("file", data.get("labResultDocument"));
-  formData.append("medicalInfo", JSON.stringify(medicalInfo));
+  formData.append("medicalInfo", new Blob([JSON.stringify(medicalInfo)], {
+    type: "application/json"
+  }));
+  formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+    type: "application/json"
+  }));
 
   var config = {
     method: methodType,
-    url: "/api/medical-document-upload",
+    url: "/api/v2/medical-document-upload",
     headers: headers,
     data: formData,
   };
@@ -235,7 +279,7 @@ export const deleteDocument = async (documentId) => {
   const methodType = "DELETE";
   const config = {
     method: methodType,
-    url: "/api/medical-documents/" + documentId,
+    url: "/api/v2/mobile/medical-documents/" + documentId,
     headers: headers,
   };
 

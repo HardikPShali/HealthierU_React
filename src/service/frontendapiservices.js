@@ -644,19 +644,19 @@ export const getSearchData = (queryText, offset, limit) => {
     };
     return axios(payload)
 }
-
-
 export const uploadDoctorDocument = async (files, info) => {
 
     var newData = new FormData();
     newData.append(`doctorDocumentFile`, files);
-    newData.append("doctorDocumentInfo", JSON.stringify(info));
+    newData.append("doctorDocumentInfo", new Blob([JSON.stringify(info)], {
+        type: "application/json"
+    }));
     console.log("info", info)
     var payload = {
         method: 'post',
         mode: 'no-cors',
         data: newData,
-        url: `/api/doctor-documents`,
+        url: `/api/mobile/doctor-documents`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'multipart/form-data',
@@ -835,11 +835,11 @@ export const getUpcomingAppointmentsForHomepage = async () => {
     });
     return response;
 }
-export const getAppointmentsForHomepage = async (startTime, endTime) => {
+export const getAppointmentsForHomepage = async (startTime, endTime, doctorId) => {
     var payload = {
         method: 'get',
         mode: 'no-cors',
-        url: `/api/v2/appointments/doctor/?startTime=${startTime}&endTime=${endTime}`,
+        url: `/api/v2/appointments/doctor/?startTime=${startTime}&endTime=${endTime}&doctorId=${doctorId}`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
@@ -880,6 +880,85 @@ export const getGlobalAppointmentsSearch = async (data) => {
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const updateDoctorData = async (data) => {
+    var payload = {
+        method: 'put',
+        mode: 'no-cors',
+        data: data,
+        url: '/api/mobile/admin/doctors',
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const uploadNote = async (note) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        data: note,
+        url: `/api/v2/notes`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const postHealthAssessment = async (data, patientId) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        data: data,
+        url: `/api/v2/assessment?patientId=${patientId}`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const getHealthAssessment = async (patientId) => {
+    var payload = {
+        method: 'get',
+        mode: 'no-cors',
+        url: `/api/v2/assessment?patientId=${patientId}`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
         }
     };
     const response = await axios(payload).then(res => {

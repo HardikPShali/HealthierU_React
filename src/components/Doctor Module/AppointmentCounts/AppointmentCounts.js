@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { getAppointmentsForHomepage } from '../../../service/frontendapiservices';
+import Cookies from 'universal-cookie';
 const AppoitmentCountsSection = () => {
     const starttime = new Date();
     starttime.setHours(0, 0, 0);
     const endtime = new Date();
     endtime.setHours(23, 59, 0);
     const [appointmentsCount, setAppointmentsCount] = useState(0);
-    const getAppointmentsCount = async (startTime, endTime) => {
-        const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString()).catch((err) => {
+    const cookie = new Cookies();
+    const currentUserFromCookie = cookie.get('currentUser');
+    const getAppointmentsCount = async (startTime, endTime, doctorId) => {
+        const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString(), doctorId = currentUserFromCookie.id).catch((err) => {
             console.log('err', err);
         });
         if (response.status === 200 || response.status === 201) {

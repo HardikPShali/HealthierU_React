@@ -6,26 +6,25 @@ import './landing.css'
 // import { Container } from 'react-bootstrap';
 //import SearchIcon from '@material-ui/icons/Search';
 
-export class Header extends Component {
-    render() {
-        return (
-            <Navbar variant="dark" id="navbar">
-                <Container>
-                <NavLink to="/" className="mr-auto">
-                   <img
-                        src={logo}
-                        id="icon"
-                        alt="HealthierU Logo"
-                        style={{ width: "70%" }}
-                    />
-                </NavLink>
-                <Nav>
-                    <NavLink to="/signin"><button className="btn btn-outline-light header-btn">Sign in / Join Now</button></NavLink> 
-                </Nav>
-            </Container>
-            </Navbar>
-        )
-    }
+export const Header = ({ hideButton }) => {
+    return (
+        <Navbar variant="dark" id="navbar">
+            <Container>
+            <NavLink to="/" className="mr-auto">
+               <img
+                    src={logo}
+                    id="icon"
+                    alt="HealthierU Logo"
+                    style={{ width: "70%" }}
+                />
+            </NavLink>
+            <Nav>
+                {!hideButton && <NavLink to="/signin"><button className="btn btn-secondary">Sign in / Join Now</button></NavLink>}
+            </Nav>
+        </Container>
+        </Navbar>
+    )
 }
+
 
 export default Header

@@ -1,17 +1,10 @@
-@font-face {
-  font-family: Avenir;
-  src: url(../../static/font/Avenir.ttc);
-}
-
 :root {
   --primary: #00d0cc;
   --primarysecond: #f6ceb4;
   --secondary: #ff6563;
-  --text-primary: #3E4543;
+  --text-primary: #3e4543;
   --text-secondary: #999999;
 }
-
-
 
 /*
 * Header Navbar
@@ -64,7 +57,7 @@ svg#search-icon {
 #footer {
   background-color: var(--primary);
   color: #fff;
-  padding: 40px 60px 20px;
+  padding: 20px 60px 20px;
   display: flex;
   align-items: flex-end;
 }
@@ -79,6 +72,7 @@ a#footer-link {
   text-decoration: none !important;
   margin-top: 5px;
   font-size: 15px;
+  margin-bottom: 11px;
 }
 
 div#active-user {
@@ -231,7 +225,7 @@ div#social-icon {
 }
 
 .MuiBottomNavigationAction-label {
-  font-family: 'Avenir', sans-serif !important;
+  font-family: var(--font-primary);
   font-size: 12px !important;
   font-weight: 700;
 }

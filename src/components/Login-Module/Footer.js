@@ -32,7 +32,7 @@ const Footer = () => {
                                 src={logo}
                                 id="icon"
                                 alt="HealthierU Logo"
-                                style={{ width: '70%', marginBottom: 10 }}
+                                style={{ width: '70%', marginBottom: 22 }}
                             />
                             <br />
                             <Link to="/about-us" id="footer-link">
@@ -44,12 +44,12 @@ const Footer = () => {
                             <HashLink to="/about-us#our-services" id="footer-link">
                                 Our services
                             </HashLink>
-                            <Link to="" id="footer-link">
+                            {/* <Link to="" id="footer-link">
                                 Articles
-                            </Link>
-                            <HashLink to="/about-us#contact-us" id="footer-link">
+                            </Link> */}
+                            {/* <HashLink to="/about-us#contact-us" id="footer-link">
                                 Contact us
-                            </HashLink>
+                            </HashLink> */}
                         </Col>
                         <Col
                             md={6}
@@ -105,7 +105,7 @@ const Footer = () => {
                         <Col md={8}>
                             <div className="d-flex">
                                 <Link to="/privacy-policy" className="" id="copy-link">
-                                    Privacy Policy
+                                    Privacy and Security
                                 </Link>
                                 <Link to="/terms-and-conditions" className="" id="copy-link">
                                     Terms and Conditions
@@ -113,12 +113,12 @@ const Footer = () => {
                                 <Link to="/help-and-support" className="" id="copy-link">
                                     Help And Support
                                 </Link>
-                                <Link to="/licenses" className="" id="copy-link">
+                                {/* <Link to="/licenses" className="" id="copy-link">
                                     HealthierU Licenses
                                 </Link>
                                 <Link to="/partners" className="" id="copy-link">
                                     Partners
-                                </Link>
+                                </Link> */}
                             </div>
                             <p id="copyright-text">
                                 © 2021 <Link to="/">HealthierU</Link> - All Rights Reserved.
