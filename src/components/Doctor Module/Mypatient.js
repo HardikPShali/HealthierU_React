@@ -87,7 +87,7 @@ const Mypatient = (props) => {
     const handleVideoCall = (startTime) => {
         const appointmentStartTime = new Date(startTime);
         const AppointmnetBeforeTenMinutes = new Date(
-            appointmentStartTime.getTime() - 2 * 60000
+            appointmentStartTime.getTime() - 5 * 60000
         );
         const AppointmnetAfter70Minutes = new Date(
             appointmentStartTime.getTime() + 70 * 60000
@@ -1041,7 +1041,7 @@ const Mypatient = (props) => {
                 open={alertVideo}
             >
                 <DialogTitle id="customized-dialog-title" onClose={alertVideoClose}>
-                    Video call is possible only starting 2 Minutes before the Appointment
+                    Video call is possible only starting 5 Minutes before the Appointment
                     Time and 10 minutes after appointment end time.
                 </DialogTitle>
                 <DialogActions>
