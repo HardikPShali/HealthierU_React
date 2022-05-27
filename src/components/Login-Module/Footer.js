@@ -32,7 +32,7 @@ const Footer = () => {
                                 src={logo}
                                 id="icon"
                                 alt="HealthierU Logo"
-                                style={{ width: '70%', marginBottom: 10 }}
+                                style={{ width: '70%', marginBottom: 22 }}
                             />
                             <br />
                             <Link to="/about-us" id="footer-link">
@@ -44,9 +44,9 @@ const Footer = () => {
                             <HashLink to="/about-us#our-services" id="footer-link">
                                 Our services
                             </HashLink>
-                            <Link to="" id="footer-link">
+                            {/* <Link to="" id="footer-link">
                                 Articles
-                            </Link>
+                            </Link> */}
                             {/* <HashLink to="/about-us#contact-us" id="footer-link">
                                 Contact us
                             </HashLink> */}
