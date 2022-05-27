@@ -40,6 +40,8 @@ import payment from '../../images/icons used/Component 14.svg';
 import conHistory from '../../images/icons used/Component 15.svg';
 import HealthAssessment from '../../images/icons used/Component 16.svg';
 import MedicalRecord from '../../images/icons used/Component 17.svg';
+import calendarSmall from "../../images/svg/calendar-small.svg";
+import timeSmall from "../../images/svg/time-small.svg"
 import HealthAssestmentReport from './HealthAssestmentReport/HealthAssestmentReport';
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
 // import timeSmall from "../../../images/svg/time-small.svg";
@@ -673,7 +675,7 @@ const Mypatient = (props) => {
                                                     </Col>
                                                 </Row>
                                                 <Row style={{ alignItems: 'center' }}>
-                                                    <Col xs={2}>
+                                                    <Col xs={4}>
                                                         {SelectedPatient &&
                                                             SelectedPatient.patient &&
                                                             (SelectedPatient.patient.picture ? (
@@ -696,7 +698,7 @@ const Mypatient = (props) => {
                                                                 />
                                                             ))}
                                                     </Col>
-                                                    <Col
+                                                    {/* <Col
                                                         xs={2}
                                                         style={{
                                                             paddingRight: '0',
@@ -705,12 +707,12 @@ const Mypatient = (props) => {
                                                         }}
                                                     >
                                                         <DateRangeOutlinedIcon />
-                                                    </Col>
-                                                    <Col xs={3} style={{ textAlign: 'center' }}>
+                                                    </Col> */}
+                                                    <Col xs={8} style={{ textAlign: 'center' }}>
                                                         <b>
-                                                            <p className="pclass">Upcoming :</p>
+                                                            <p className="pclass">Upcoming Appointment</p>
                                                         </b>
-                                                        <div id="req-date" style={{ paddingRight: '5px' }}>
+                                                        {/* <div id="req-date" style={{ paddingRight: '5px' }}>
                                                             {moment(SelectedPatient.startTime).format(
                                                                 'MMM DD, YYYY'
                                                             )}
@@ -722,10 +724,24 @@ const Mypatient = (props) => {
                                                                 moment(SelectedPatient.endTime).format(
                                                                     'h:mm A'
                                                                 )}
+                                                        </div> */}
+                                                        <div className="my-patient-card__card-details--date-div">
+                                                            <div className="my-patient-card__card-time-row">
+                                                                <img src={calendarSmall} />
+                                                                <span className="my-patient-card__common-span">
+                                                                    {moment(SelectedPatient.startTime).format("DD/MM/YY")}
+                                                                </span>
+                                                            </div>
+                                                            <div className="my-patient-card__card-time-row ml-4">
+                                                                <img src={timeSmall} />
+                                                                <span className="my-patient-card__common-span">
+                                                                    {moment(SelectedPatient.startTime).format("hh:mm A")}
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </Col>
 
-                                                    <Col
+                                                    {/* <Col
                                                         xs={2}
                                                         style={{
                                                             paddingRight: '0',
@@ -752,10 +768,10 @@ const Mypatient = (props) => {
                                                                     'h:mm A'
                                                                 )}
                                                         </div>
-                                                    </Col>
+                                                    </Col> */}
                                                 </Row>
                                                 <Row style={{ alignItems: 'center', marginTop: '5px' }}>
-                                                    <Col xs={4}>
+                                                    <Col xs={4} style={{ textAlign: 'center' }}>
                                                         <div id="req-name">
                                                             <b>
                                                                 {SelectedPatient &&
@@ -768,7 +784,7 @@ const Mypatient = (props) => {
                                                             {age} Years Old
                                                         </div>
                                                     </Col>
-                                                    <Col xs={4}>
+                                                    <Col xs={4} style={{ textAlign: 'center' }}>
                                                         <div id="req-name">
                                                             <b className="pclass1">Fee & Payment Method</b>
                                                             <br />
@@ -780,7 +796,7 @@ const Mypatient = (props) => {
                                                     <Col
                                                         xs={4}
                                                         className="patient-video-button"
-                                                        style={{ textAlign: 'right' }}
+                                                        style={{ textAlign: 'center' }}
                                                     >
                                                         <IconButton>
                                                             <Link
