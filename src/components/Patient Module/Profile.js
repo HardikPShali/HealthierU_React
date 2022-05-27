@@ -657,7 +657,7 @@ const Profile = () => {
                                             </div>
                                         </Tab> */}
 
-                                        <Tab eventKey="education" title="Education">
+                                        <Tab eventKey="education" title="Medical">
                                             <div className="general-tab">
                                                 <Row>
                                                     <Col md={6}>
