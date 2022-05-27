@@ -18,6 +18,11 @@ const Header = () => {
         setAnchorEl(null);
     };
 
+    const handleSignOut = () => {
+        const google = window.google;
+        google.accounts.id.disableAutoSelect();
+    }
+
     const currentuserInfo = LocalStorageService.getCurrentUser();
     const { authorities = [] } = currentuserInfo || {};
 
@@ -51,10 +56,10 @@ const Header = () => {
                         }}
                     >
                         {authorities.length > 0 && authorities.some((user) => user === "ROLE_PATIENT") && (
-                            <Link to="/patient/logout" style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
+                            <Link to="/patient/logout" onClick={handleSignOut} style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
                         )}
                         {authorities.length > 0 && authorities.some((user) => user === "ROLE_DOCTOR") && (
-                            <Link to="/doctor/logout" style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
+                            <Link to="/doctor/logout" onClick={handleSignOut} style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
                         )}
 
                     </Menu>

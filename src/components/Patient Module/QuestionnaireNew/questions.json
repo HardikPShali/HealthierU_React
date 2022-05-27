@@ -45,7 +45,11 @@
     "type": "checkbox",
     "answers": [],
     "mapScore": [0, 0],
-    "score": 0
+    "score": 0,
+    "condition": {
+      "questionId": 3,
+      "answer": "Never"
+    }
   },
   {
     "questionId": 5,
@@ -54,7 +58,11 @@
     "type": "radio",
     "answers": "",
     "mapScore": [0, 0, 0, 0, 0, 0],
-    "score": 0
+    "score": 0,
+    "condition": {
+      "questionId": 3,
+      "answer": "Never"
+    }
   },
   {
     "questionId": 6,
@@ -111,6 +119,7 @@
     "questionTitle": "How much do you drink per week?",
     "type": "text",
     "answers": "",
+    "choices": [],
     "mapScore": [0],
     "score": 0
   },

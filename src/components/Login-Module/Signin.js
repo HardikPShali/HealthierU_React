@@ -1,3 +1,4 @@
+/*global google*/
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -22,9 +23,7 @@ import Typography from "@material-ui/core/Typography";
 import Cookies from "universal-cookie";
 import Loader from "./../Loader/Loader";
 import TransparentLoader from "./../Loader/transparentloader";
-import GoogleLogin from "react-google-login";
 import { handleGoogleAuth } from "./../../service/googleapiservice";
-import { GOOGLECLIENTID } from "../../util/configurations"; //CAPTCHA_SITE_KEY
 // import firebase from "firebase";
 // import { sendFcmTokenToServer } from "../../service/firebaseservice";
 import {
@@ -43,11 +42,16 @@ import OtpTimer from "otp-timer";
 // import ReCAPTCHA from "react-google-recaptcha";
 import { useHistory } from "react-router-dom";
 import { withRouter, BrowserRouter } from "react-router";
+
+import GoogleSignInButton from "../CommonModule/GoogleAuth/GoogleSignInButton/GoogleSignInButton";
+
 const Signin = () => {
   const history = useHistory();
+
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [googleBtnWidth, setGoogleBtnWidth] = useState(200);
   // const [firebaseToken, setFirebaseToken] = useState();
   // console.log("firebaseToken ::", firebaseToken);
 
@@ -68,6 +72,9 @@ const Signin = () => {
   });
 
   useEffect(() => {
+    const width = document.getElementById("signinbtn").clientWidth;
+    setGoogleBtnWidth(width);
+
     setTimeout(() => setLoading(false), 1000);
     const activationkey = qs.parse(window.location.search, {
       ignoreQueryPrefix: true,
@@ -104,12 +111,9 @@ const Signin = () => {
 
   const responseGoogle = async (response) => {
     setLoader(true);
-    //console.log(response.tokenId);
-    //console.log(response.profileObj);
-    cookies.set("GOOGLE_ACCESS_TOKEN", response.tokenId);
-    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj);
+
     const googleUserData = {
-      token: response.tokenId,
+      token: response.credential,
     };
     const googleAccessToken = await handleGoogleAuth(googleUserData).catch(
       (err) => {
@@ -185,9 +189,11 @@ const Signin = () => {
     // }
 
     cookies.set("currentUser", currentUserInformation.data.userInfo);
-    currentUserInformation.data.role.firebasePwd = currentUserInformation.data.firebasePwd;
+    currentUserInformation.data.role.firebasePwd =
+      currentUserInformation.data.firebasePwd;
     if (!currentUserInformation.data.role.email) {
-      currentUserInformation.data.role.email = currentUserInformation.data.userInfo.email;
+      currentUserInformation.data.role.email =
+        currentUserInformation.data.userInfo.email;
     }
     cookies.set("profileDetails", currentUserInformation.data.role);
     if (
@@ -293,7 +299,7 @@ const Signin = () => {
     <div>
       {loading && <Loader />}
       {loader && <TransparentLoader />}
-      <Header hideButton={true}/>
+      <Header hideButton={true} />
       <Container id="signin-bg">
         <Row>
           <Col md={7}></Col>
@@ -356,7 +362,6 @@ const Signin = () => {
                         ),
                       }}
                     />
-
                     <Link to="/forgetpassword" className="forget-text">
                       Forgot password?
                     </Link>
@@ -365,34 +370,20 @@ const Signin = () => {
                       onChange={handleRecaptchaChange}
                     /> */}
                     <input
+                      id="signinbtn"
                       className="btn btn-primary sign-btn shadow-sm"
                       type="submit"
                       value="Sign In"
                     />
                     <br />
-                    <GoogleLogin
-                      clientId={GOOGLECLIENTID}
-                      render={(renderProps) => (
-                        <button
-                          className="btn google-signup shadow-sm"
-                          onClick={renderProps.onClick}
-                          disabled={renderProps.disabled}
-                        >
-                          <img
-                            src={gmailIcon}
-                            alt=""
-                            className="sub"
-                            width="54px"
-                          />{" "}
-                          Sign In with Google
-                        </button>
-                      )}
-                      buttonText="Sign In with Google"
-                      className="google-signup shadow"
-                      onSuccess={(res) => responseGoogle(res)}
-                      //onFailure={(res) => //console.log(res)}
-                      cookiePolicy={"single_host_origin"}
-                    />
+                    <div className="w-100 mt-3">
+                      <GoogleSignInButton
+                        id="google-btn"
+                        width={googleBtnWidth}
+                        responseCallBack={responseGoogle}
+                        responseError={(e) => console.log(e)}
+                      />
+                    </div>
                   </ValidatorForm>
                 </>
               )}
