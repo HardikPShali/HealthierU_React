@@ -23,7 +23,7 @@ export const Checkbox = ({ question, followQuestion }) => {
     }
 
     return (
-        <div className="mb-3 form-check checkbox-div">
+        <div className="form-check mb-1 pb-2">
             <label className="form-check-label col-form-label col-sm-12">
                 {question.questionTitle}
             </label>
@@ -32,11 +32,11 @@ export const Checkbox = ({ question, followQuestion }) => {
                     <input
                         type="checkbox"
                         className="form-check-input"
-                        id={question.questionId}
+                        id={question.questionTitle+index}
                         checked={answers.includes(choice)}
                         onChange={() => handleCheckboxChange(choice)}
                     />
-                    <label className="form-check-label checkbox-container">
+                    <label htmlFor={question.questionTitle+index} className="form-check-label checkbox-container">
                         {choice}
                     </label>
                 </div>
