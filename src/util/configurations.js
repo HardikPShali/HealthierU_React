@@ -2,7 +2,7 @@
 // export const GOOGLECLIENTID = "49495895192-rfha1rs20dkgeld3n6sstqp4l5lvseli.apps.googleusercontent.com";
 
 // Google Client Id for google signup / signin for Prod.
-export const GOOGLECLIENTID = "478300887103-hkvhtc1933dgjtn2t9oo3dvum0a12t08.apps.googleusercontent.com";
+export const GOOGLECLIENTID = "741301312281-ms7qbvkauftg8pmo5tfb2fjcq6d5bpkm.apps.googleusercontent.com";
 
 
 // Firebase config for push notification
