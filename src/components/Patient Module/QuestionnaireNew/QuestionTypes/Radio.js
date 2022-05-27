@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
-export const Radio = ({ question }) => {
+export const Radio = ({ question, followQuestion }) => {
     const [answers, setAnswer] = useState("");
 
     const handleRadioChange = (e) => {
         setAnswer(e);
         question.answers = e;
+        console.log('Event', answers);
+        followQuestion();
     }
 
     return (

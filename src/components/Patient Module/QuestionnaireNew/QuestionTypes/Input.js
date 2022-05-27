@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
-export const Input = ({ question }) => {
+export const Input = ({ question, followQuestion }) => {
     const [answers, setAnswer] = useState('');
 
     const handleChange = (e) => {
         setAnswer(e.target.value);
         question.answers = e.target.value;
+        followQuestion();
     }
 
     return (

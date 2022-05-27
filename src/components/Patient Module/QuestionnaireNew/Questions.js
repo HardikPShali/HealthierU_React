@@ -3,16 +3,18 @@ import { Checkbox } from './QuestionTypes/Checkbox';
 import { Radio } from './QuestionTypes/Radio';
 import { Input } from './QuestionTypes/Input';
 
-export const Questions = ({ question }) => {
+export const Questions = ({ question, followQuestion }) => {
+    if (question.hidden === true) return null;
+
     switch (question.type) {
         case 'text':
-            return <Input question={question} />;
+            return <Input followQuestion={followQuestion} question={question} />;
 
         case 'radio':
-            return <Radio question={question} />;
+            return <Radio followQuestion={followQuestion} question={question} />;
 
         case 'checkbox':
-            return <Checkbox question={question} />;
+            return <Checkbox followQuestion={followQuestion} question={question} />;
 
         default:
             return null;

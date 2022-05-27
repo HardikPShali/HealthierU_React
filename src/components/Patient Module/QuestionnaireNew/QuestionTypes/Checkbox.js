@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import '../Questionnaire.css'
 
-export const Checkbox = ({ question }) => {
+export const Checkbox = ({ question, followQuestion }) => {
     const [answers, setAnswer] = useState([]);
 
     const handleCheckboxChange = (e) => {
@@ -18,6 +18,8 @@ export const Checkbox = ({ question }) => {
         else {
             setAnswer(answers.filter(item => item !== e));
         }
+
+        followQuestion();
     }
 
     return (

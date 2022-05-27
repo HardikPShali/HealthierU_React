@@ -932,7 +932,7 @@ export const uploadNote = async (note) => {
 
 export const postHealthAssessment = async (data, patientId) => {
     var payload = {
-        method: 'post',
+        method: 'put',
         mode: 'no-cors',
         data: data,
         url: `/api/v2/assessment?patientId=${patientId}`,
