@@ -261,7 +261,7 @@ const Welcome = ({ currentuserInfo }) => {
             cookies.set("currentUser", currentUserInformation.data);
             setCurrentUserDataAfterApproval(currentUserInformation.data);
             if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted) {
-                history.push('/patient/questionnaire');
+                history.push('/patient/questionnaire/new');
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
@@ -1029,7 +1029,7 @@ const Welcome = ({ currentuserInfo }) => {
                         {currentUserDataAfterApproval && Object.keys(currentUserDataAfterApproval).length > 0
                             && currentUserDataAfterApproval.authorities.some((user) => user === "ROLE_PATIENT")
                             && currentUserDataAfterApproval.profileCompleted &&
-                            (<Link to="/patient/questionnaire/view"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
+                            (<Link to="/patient/questionnaire/new"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
                                 Ok
                             </button></Link>
                             )}

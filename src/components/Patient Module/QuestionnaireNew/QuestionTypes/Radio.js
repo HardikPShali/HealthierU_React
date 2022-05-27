@@ -12,7 +12,7 @@ export const Radio = ({ question, followQuestion }) => {
 
     return (
         <>
-            <div className="form-check mb-3 radio-div">
+            <div className="form-check mb-1 pb-2">
                 <label className="form-check-label col-sm-12 col-form-label">
                     {question.questionTitle}
                 </label>
@@ -22,14 +22,14 @@ export const Radio = ({ question, followQuestion }) => {
                         <input
                             type="radio"
                             className="form-check-input"
-                            id={question.questionId}
+                            id={question.questionTitle + index}
                             value={answers}
                             onChange={() => {
                                 handleRadioChange(choice)
                             }}
                             checked={answers === choice}
                         />
-                        <label className="form-check-label">{choice}</label>
+                        <label htmlFor={question.questionTitle + index} className="form-check-label">{choice}</label>
                     </div>
                 ))}
             </div>
