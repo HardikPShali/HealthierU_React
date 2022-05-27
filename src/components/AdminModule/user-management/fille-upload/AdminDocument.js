@@ -14,6 +14,7 @@ import {
   getDoctorDetail,
   getDocument,
   getDocuments,
+  getMedicalDocuments,
   getPatientDetail,
   postDocument,
   postLabDocument,
@@ -167,8 +168,8 @@ const AdminDocument = (props) => {
   const loadDocuments = async () => {
     setLoading(true);
     // GET request using fetch with async/await
-    const presecriptionDocument = await getDocuments("Prescription", 0);
-    setPresecriptionDocument(presecriptionDocument);
+    const presecriptionDocument = await getMedicalDocuments();
+    setPresecriptionDocument(presecriptionDocument.data);
     setLoading(false);
   };
 
@@ -189,7 +190,7 @@ const AdminDocument = (props) => {
       setLoading(false);
       setErrorMsg("");
     }
-    const labDocument = await getDocuments("Lab", 0);
+    const labDocument = await getMedicalDocuments("Lab", 0);
     setLabDocument(labDocument);
   };
 
@@ -211,8 +212,8 @@ const AdminDocument = (props) => {
       setLoading(false);
       setErrorMsg("");
     }
-    const prescriptionDocument = await getDocuments("Prescription", 0);
-    setPresecriptionDocument(prescriptionDocument);
+    const prescriptionDocument = await getMedicalDocuments();
+    setPresecriptionDocument(prescriptionDocument.data);
   };
   const handleDefaultPrescription = (e) => {
     const file = e.target.files[0];
@@ -297,8 +298,8 @@ const AdminDocument = (props) => {
     }
 
     if (event === "prescription") {
-      documents = await getDocuments("Prescription", 0);
-      setPresecriptionDocument(documents);
+      documents = await getMedicalDocuments();
+      setPresecriptionDocument(documents.data);
       setLoading(false);
     }
     setPrescriptionDocumentUrl("");
@@ -377,8 +378,8 @@ const AdminDocument = (props) => {
       toast.success("Document successfully Deleted.");
       setDeleteShow(false);
     }
-    const prescriptionDocument = await getDocuments("Prescription", 0);
-    setPresecriptionDocument(prescriptionDocument);
+    const prescriptionDocument = await getMedicalDocuments();
+    setPresecriptionDocument(prescriptionDocument.data);
 
     const labDocument = await getDocuments("Lab", 0);
     setLabDocument(labDocument);
@@ -1133,7 +1134,7 @@ const AdminDocument = (props) => {
               </Button>
               <Button
                 variant="primary"
-              // type="submit"
+                type="submit"
               // disabled={
               //   !labResult.labResultDocument
               // }
