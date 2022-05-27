@@ -55,7 +55,7 @@ svg#search-icon {
 #footer {
   background-color: var(--primary);
   color: #fff;
-  padding: 40px 60px 20px;
+  padding: 20px 60px 20px;
   display: flex;
   align-items: flex-end;
 }
@@ -70,6 +70,7 @@ a#footer-link {
   text-decoration: none !important;
   margin-top: 5px;
   font-size: 15px;
+  margin-bottom: 11px;
 }
 
 div#active-user {
