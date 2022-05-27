@@ -524,6 +524,7 @@ input#doctor-search {
   border: none;
   border-radius: 10px;
 }
+
 .appointment-card-header {
   margin-left: 5px;
   color: #344767;
@@ -1133,6 +1134,7 @@ table#user-info {
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
+
 .appointment-count-h3 {
   color: white;
   font-size: 3.5em;
@@ -1195,6 +1197,7 @@ table#user-info {
 
   font-size: 14px;
 }
+
 .pclass1 {
   font-size: 10px;
 }
@@ -2337,8 +2340,14 @@ Health Assessment
   font-size: 14.5px;
 }
 
-.medicineButton {
-  margin-left: 10px;
+.btn-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.medicineRemoveButton {
+  width: 30%;
 }
 
 .disable-footer-links {
@@ -2711,15 +2720,19 @@ button {
   text-align: left;
 
   box-shadow: 0px 0px 10px #ddd;
-  height: 31%; /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
+  height: 31%;
+  /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
   overflow: auto;
 }
+
 .scroller-cardlist {
-  scrollbar-color: #00d0cc white; /* thumb and track color */
+  scrollbar-color: #00d0cc white;
+  /* thumb and track color */
   scrollbar-width: thin !important;
   -moz-appearance: none !important;
   border-radius: 2px;
 }
+
 .scroller-cardlist::-webkit-scrollbar {
   width: 7.5px;
   -moz-appearance: none !important;
@@ -2735,20 +2748,29 @@ button {
   border-right: 1px solid white;
   -moz-appearance: none !important;
 }
+
 /* Css for overlay */
 #overlay {
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
+  position: fixed;
+  /* Sit on top of the page content */
+  display: none;
+  /* Hidden by default */
+  width: 100%;
+  /* Full width (cover the whole page) */
+  height: 100%;
+  /* Full height (cover the whole page) */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Black background with opacity */
+  z-index: 2;
+  /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
+  /* Add a pointer on hover */
 }
+
 #text {
   position: absolute;
   top: 50%;
