@@ -129,7 +129,7 @@ const Navbar = (props) => {
           </Link>
         </List>
       </Collapse>
-      <Divider variant="middle" />
+      {/* <Divider variant="middle" />
       <Link to="/admin/shop/home" style={{ textDecoration: "none" }}>
         <ListItem button className={props.pageTitle === "shop" ? "active" : ""}>
           <ListItemText primary={"Shop Management"} />
@@ -146,7 +146,7 @@ const Navbar = (props) => {
         <ListItem button className={props.pageTitle === "workout" ? "active" : ""}>
           <ListItemText primary={"Workout Management"} />
         </ListItem>
-      </Link>
+      </Link> */}
       <Divider variant="middle" />
       <Link to="/admin/user-management/document" style={{ textDecoration: "none" }}>
         <ListItem button className={props.pageTitle === "document" ? "active" : ""}>

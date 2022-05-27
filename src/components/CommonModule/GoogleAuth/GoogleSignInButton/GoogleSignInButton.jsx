@@ -5,10 +5,13 @@ const GoogleSignInButton = ({
   id,
   responseCallBack,
   responseError,
+  context = "signin",
+  autoSelect = true,
   theme = "outline",
   size = "large",
   width = "200",
   shape = "circle",
+  text = "signin_with"
 }) => {
 
   useEffect(() => {
@@ -32,7 +35,7 @@ const GoogleSignInButton = ({
         initGoogleButton();
       }
 
-  }, [width])
+  }, [width, text, context, autoSelect])
 
   const googleInit = () => {
     var e = document.createElement("script");
@@ -62,12 +65,14 @@ const GoogleSignInButton = ({
     google.accounts.id.initialize({
       client_id: GOOGLECLIENTID,
       callback: responseCallBack,
+      context: context,
+      auto_select: autoSelect
     });
     // const width = document.getElementById("signinbtn").clientWidth;
     // console.log("signin button width", width);
     google.accounts.id.renderButton(
       document.getElementById(id),
-      { theme: theme, size: size, width: width, shape: shape } // customization attributes
+      { theme: theme, size: size, width: width, shape: shape, text: text } // customization attributes
     );
 
     google.accounts.id.prompt();
