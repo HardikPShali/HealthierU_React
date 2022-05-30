@@ -1532,7 +1532,7 @@ h2#signin-title {
 }
 
 div#editProfile-col {
-  background: #f4f4f4;
+  background: #eeeeee !important;
   padding: 20px;
   margin: 50px 0px 50px -10px;
   border-radius: 22px;
