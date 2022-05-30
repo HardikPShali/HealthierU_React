@@ -62,7 +62,7 @@ export class Footer extends Component {
                                 <p id="download-statement">Unlock your health data and get instant insights<br />Download the HealthierU app today</p>
                                 <div className="d-flex">
 
-                                    <img src={applestore} alt="" id="store-icon" />
+                                    <img className="mr-3" src={applestore} alt="" id="store-icon" />
 
 
                                     <img src={googleplay} alt="" id="store-icon" />
