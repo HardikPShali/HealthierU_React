@@ -31,6 +31,7 @@ import { signupWithEmail } from "../../service/frontendapiservices";
 import { CAPTCHA_SITE_KEY } from "./../../util/configurations";
 import ReCAPTCHA from "react-google-recaptcha";
 import SelectRole from "./components/selectRole";
+import jwtDecode from "jwt-decode";
 
 const isnum = "(?=.*[0-9!@*$_])";
 const islow = "(?=.*[a-z])";
@@ -51,9 +52,9 @@ const Signupform = () => {
   }, []);
   const history = useHistory();
   const googleAccessToken = cookies.get("GOOGLE_ACCESS_TOKEN");
-  const googleProfileData = cookies.get("GOOGLE_PROFILE_DATA");
+  const googleProfileData = jwtDecode(googleAccessToken);
   //console.log("googleAccessToken :::::", googleAccessToken);
-  //console.log("googleProfileData ::::::", googleProfileData);
+  console.log("googleProfileData ::::::", googleProfileData);
   // let history = useHistory();
   // const [open, setOpen] = React.useState(false);
 
@@ -63,12 +64,12 @@ const Signupform = () => {
 
   const [user, setUser] = useState({
     firstName:
-      googleProfileData && googleProfileData.givenName
-        ? googleProfileData.givenName
+      googleProfileData && googleProfileData.given_name
+        ? googleProfileData.given_name
         : "",
     lastName:
-      googleProfileData && googleProfileData.familyName
-        ? googleProfileData.familyName
+      googleProfileData && googleProfileData.family_name
+        ? googleProfileData.family_name
         : "",
     email:
       googleProfileData && googleProfileData.email
@@ -79,8 +80,8 @@ const Signupform = () => {
         ? googleProfileData.email
         : "",
     imageUrl:
-      googleProfileData && googleProfileData.imageUrl
-        ? googleProfileData.imageUrl
+      googleProfileData && googleProfileData.picture
+        ? googleProfileData.picture
         : "",
     password: "",
     langKey: "en",

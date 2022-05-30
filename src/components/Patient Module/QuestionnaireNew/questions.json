@@ -45,7 +45,12 @@
     "type": "checkbox",
     "answers": [],
     "mapScore": [0, 0],
-    "score": 0
+    "score": 0,
+    "condition": {
+      "questionId": 3,
+      "answer": "Never"
+    },
+    "hidden": true
   },
   {
     "questionId": 5,
@@ -54,7 +59,12 @@
     "type": "radio",
     "answers": "",
     "mapScore": [0, 0, 0, 0, 0, 0],
-    "score": 0
+    "score": 0,
+    "condition": {
+      "questionId": 3,
+      "answer": "Never"
+    },
+    "hidden": true
   },
   {
     "questionId": 6,
@@ -95,7 +105,40 @@
     "type": "checkbox",
     "answers": [],
     "mapScore": [0, 0, 0, 0, 0],
-    "score": 0
+    "score": 0,
+    "condition": {
+      "questionId": 7,
+      "answer": "No"
+    },
+    "hidden": true
+  },
+  {
+    "questionId": 12,
+    "questionTitle": "If yes, how much do you smoke per week?",
+    "type": "text",
+    "answers": "",
+    "choices": [],
+    "mapScore": [0],
+    "score": 0,
+    "condition": {
+      "questionId": 7,
+      "answer": "No"
+    },
+    "hidden": true
+  },
+  {
+    "questionId": 13,
+    "questionTitle": "How long have you been smoking?",
+    "type": "text",
+    "answers": "",
+    "choices": [],
+    "mapScore": [0],
+    "score": 0,
+    "condition": {
+      "questionId": 7,
+      "answer": "No"
+    },
+    "hidden": true
   },
   {
     "questionId": 9,
@@ -107,12 +150,32 @@
     "score": 0
   },
   {
+    "questionId": 14,
+    "questionTitle": "If yes, how much do you smoke per week?",
+    "type": "text",
+    "answers": "",
+    "choices": [],
+    "mapScore": [0],
+    "score": 0,
+    "condition": {
+      "questionId": 9,
+      "answer": "No"
+    },
+    "hidden": true
+  },
+  {
     "questionId": 10,
     "questionTitle": "How much do you drink per week?",
     "type": "text",
     "answers": "",
+    "choices": [],
     "mapScore": [0],
-    "score": 0
+    "score": 0,
+    "condition": {
+      "questionId": 9,
+      "answer": "No"
+    },
+    "hidden": true
   },
   {
     "questionId": 11,

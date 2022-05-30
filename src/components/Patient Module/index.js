@@ -138,7 +138,7 @@ const PatientRoute = () => {
         <Route exact path="/patient/mydoctor" render={(props) => <Mydoctor currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
         <Route exact path="/patient/profile" component={Profile} />
         <Route exact path="/patient/myappointment" render={(props) => <Myappointment currentPatient={currentPatient} doctorDetailsList={doctorDetailsList} {...props} />} />
-        <Route exact path="/patient/questionnaire" component={Questionnaire} />
+        <Route exact path="/patient/questionnaire/:new" component={Questionnaire} />
         {/* <Route exact path="/patient/questionnaire/edit" component={QuestionnaireEdit} /> */}
         {/* <Route exact path="/patient/explore" component={Explore} /> */}
         <Route

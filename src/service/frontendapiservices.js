@@ -930,9 +930,9 @@ export const uploadNote = async (note) => {
     return response;
 }
 
-export const postHealthAssessment = async (data, patientId) => {
+export const postHealthAssessment = async (method, data, patientId) => {
     var payload = {
-        method: 'post',
+        method: method,
         mode: 'no-cors',
         data: data,
         url: `/api/v2/assessment?patientId=${patientId}`,

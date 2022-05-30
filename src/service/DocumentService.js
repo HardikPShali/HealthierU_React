@@ -132,7 +132,7 @@ export const getDoctorPatientDocuments = async (
   var config = {
     method: "get",
     url:
-      "/api/medical-documents/doctor/?documentType=" +
+      "/api/v2/medical-documents/doctor/?documentType=" +
       documentType +
       "&size=5&page=" +
       pageNumber +
