@@ -398,7 +398,6 @@ const Myappointment = (props) => {
 
             <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
               <Col md={12}>
-
               </Col>
               {/* <Col md={3}></Col> */}
               <Col md={12}>
