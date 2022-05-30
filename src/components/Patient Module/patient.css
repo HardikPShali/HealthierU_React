@@ -615,13 +615,12 @@ span.price {
 
 button.continue-btn {
   background-color: var(--primary) !important;
-  width: 100%;
+  width: 35% !important;
   border-radius: 30px;
   border-color: var(--primary) !important;
   outline: none !important;
   box-shadow: none !important;
-  font-size: 13px;
-  margin-top: 20px;
+  font-size: 1rem !important;
 }
 
 .MuiBottomNavigationAction-root.MuiBottomNavigationAction-iconOnly {
@@ -3695,4 +3694,10 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .rbc-time-content::-webkit-scrollbar-thumb:hover,
 .rbc-agenda-view::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
+}
+
+.edit-profile__button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
