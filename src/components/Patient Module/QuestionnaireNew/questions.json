@@ -151,7 +151,7 @@
   },
   {
     "questionId": 14,
-    "questionTitle": "If yes, how much do you smoke per week?",
+    "questionTitle": "If yes, how much do you drink per week?",
     "type": "text",
     "answers": "",
     "choices": [],
@@ -165,7 +165,7 @@
   },
   {
     "questionId": 10,
-    "questionTitle": "How much do you drink per week?",
+    "questionTitle": "How long have you been smoking?",
     "type": "text",
     "answers": "",
     "choices": [],

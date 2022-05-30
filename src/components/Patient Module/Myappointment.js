@@ -22,6 +22,9 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import ChatIcon from '@material-ui/icons/Chat';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
+import calendarSmall from '../../images/svg/calendar-small.svg';
+import timeSmall from '../../images/svg/time-small.svg';
+
 //import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 import {
   deleteAppointment,
@@ -167,15 +170,15 @@ const Myappointment = (props) => {
       event.status === 'ACCEPTED' &&
       res[1] !== 'CONSULTATION'
     ) {
-      backgroundColor = '#4f80e2';
+      backgroundColor = '#00d0cc';
       color = '#fff';
     } else if (event.endTime <= new Date()) {
-      backgroundColor = '#a5a5a5';
+      backgroundColor = '#00d0cc';
       color = '#fff';
       var borderColor = '#696969';
       var pointerEvents = 'none';
     } else if (res[1] === 'CONSULTATION') {
-      backgroundColor = '#3157a3';
+      backgroundColor = '#00d0cc';
       color = '#fff';
     }
     var style = {
@@ -392,70 +395,102 @@ const Myappointment = (props) => {
             </Row>
             <br />
             <hr />
+
             <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
               <Col md={12}>
-                <h2 className="mt-3 mb-3 text-center  font-weight-bold">
-                  List of Appointments
-                </h2>
               </Col>
-              <Col md={3}></Col>
-              <Col md={6}>
-                <div
-                  style={{
-                    padding: '10px 0',
-                    border: '1px solid #dedede',
-                    background: 'var(--primarysecond)',
-                  }}
-                >
-                  <h5 className="mb-3 text-center font-weight-bold">
-                    Booked Appointments
-                  </h5>
-                  {myAppointment &&
-                    Array.isArray(myAppointment) &&
-                    myAppointment.length > 0 && (
-                      <div className={classes.root}>
-                        {myAppointment.map((appointment, index) => {
-                          if (
-                            appointment.status &&
-                            new Date(appointment.endTime) >= new Date() &&
-                            appointment.status === 'ACCEPTED'
-                          ) {
-                            var res = appointment.unifiedAppointment.split('#');
-                            return (
-                              <Chip
-                                key={index}
-                                label={
-                                  moment(appointment.startTime).format(
-                                    'MMM, DD YYYY'
-                                  ) +
-                                  '  ( ' +
-                                  moment(appointment.startTime).format(
-                                    'h:mm A'
-                                  ) +
-                                  ' - ' +
-                                  moment(appointment.endTime).format('h:mm A') +
-                                  ' )  '
-                                }
-                                clickable
-                                className={
-                                  res[1] === 'CONSULTATION'
-                                    ? 'consultation'
-                                    : 'followup'
-                                }
-                                onClick={() =>
-                                  handleAppointmentInfoOpen(appointment)
-                                }
-                                onDelete={() => handleClickOpen(appointment)}
-                                deleteIcon={<CancelIcon />}
-                              />
-                            );
-                          }
-                        })}
+              {/* <Col md={3}></Col> */}
+              <Col md={12}>
+                <div>
+                  <h2 className="mt-3 mb-3 text-center font-weight-bold">
+                    List of Appointments
+                  </h2>
+                  <div className="my-appointments__card-box">
+                    <div className="my-appointments__card-holder">
+                      <div className="row">
+                        {myAppointment &&
+                          Array.isArray(myAppointment) &&
+                          myAppointment.length > 0 && (
+                            myAppointment.map((appointment, index) => {
+                              if (
+                                appointment.status &&
+                                new Date(appointment.endTime) >= new Date() &&
+                                appointment.status === 'ACCEPTED'
+                              ) {
+                                return (
+                                  <div className="col-md-6 mb-2 mt-2" key={index}>
+                                    <div className="my-appointments-card">
+                                      <div
+                                        className="row align-items-start mb-2"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() =>
+                                          handleAppointmentInfoOpen(appointment)
+                                        }
+                                      >
+                                        <div className="col-md-3">
+                                          <img
+                                            src={appointment.doctor.picture}
+                                            alt={`${appointment.doctor.firstName}-image`}
+                                            className="img-circle ml-3 mt-3"
+                                          />
+                                        </div>
+                                        <div className="col-md-9">
+                                          <div className="my-appointments-card__card-details">
+                                            <h5 className="my-appointments-card__doctor-name">
+                                              {appointment.doctor.firstName +
+                                                ' ' +
+                                                appointment.doctor.lastName}
+                                            </h5>
+                                            <span className="my-appointments-card__specality">
+                                              {appointment.doctor &&
+                                                appointment.doctor.specialities
+                                                  .length &&
+                                                appointment.doctor.specialities[0]
+                                                  .name}
+                                            </span>
+                                            <div className="my-appointments-card__card-details--date-div">
+                                              <div className="my-appointments-card__card-time-row">
+                                                <img src={calendarSmall} />
+                                                <span className="my-appointments-card__common-span">
+                                                  {moment(
+                                                    appointment.startTime
+                                                  ).format('DD/MM/YY')}
+                                                </span>
+                                              </div>
+                                              <div className="my-appointments-card__card-time-row ml-4">
+                                                <img src={timeSmall} />
+                                                <span className="my-appointments-card__common-span">
+                                                  {moment(
+                                                    appointment.startTime
+                                                  ).format('hh:mm A')}
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                );
+                              }
+                            })
+                          )}
+                        {
+                          (myAppointment.length === 0) && (
+                            <div
+                              className="col-12 ml-2 empty-message"
+                            >
+                              <h2 style={{ textAlign: 'center', textShadow: 'none' }}>No Upcoming Appointments</h2>
+                            </div>
+                          )
+                        }
                       </div>
-                    )}
+                    </div>
+                  </div>
                 </div>
               </Col>
-              <Col md={3}></Col>
+              {/* <Col md={3}></Col> */}
             </Row>
           </Container>
           <br />
@@ -586,8 +621,17 @@ const Myappointment = (props) => {
               id="chat-buttons"
               onClose={handleAppointmentInfoClose}
               aria-labelledby="customized-dialog-title"
+              style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}
             >
               {/* <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
+              <button
+                autoFocus
+                onClick={() => handleClickOpen(selectedAppointment)}
+                className="btn btn-primary"
+                id="close-btn"
+              >
+                Cancel Appointment
+              </button>
               <IconButton
                 onClick={() => handleChat(selectedAppointment.startTime)}
               >
@@ -602,6 +646,7 @@ const Myappointment = (props) => {
               >
                 Ok
               </button>
+
             </DialogActions>
 
             {/* // <DialogActions id="chat-buttons" open={confirmChat}> */}

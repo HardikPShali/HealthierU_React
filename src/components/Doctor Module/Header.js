@@ -44,6 +44,9 @@ const Header = (props) => {
   const cookies = new Cookies();
   const currentLoggedInUser = cookies.get('currentUser');
   const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
+
+  const currentProfileDets = cookies.get('profileDetails');
+
   useEffect(() => {
     getCurrentDoctor();
   }, []);
@@ -200,10 +203,10 @@ const Header = (props) => {
             </div>
           )}
           <NavLink to="#">
-            {picture ? (
+            {currentProfileDets.picture ? (
               <img
                 id="profilePicId"
-                src={picture}
+                src={currentProfileDets.picture}
                 alt=""
                 onClick={handleClick}
                 className="profile-icon"

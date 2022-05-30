@@ -20,9 +20,9 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 //import properties from "../../properties";
 import Loader from "./../Loader/Loader";
 import TransparentLoader from "../Loader/transparentloader";
-import doctorSVG from "../../images/doctorSVG.svg";
-import patientSVG from "../../images/patientSVG.svg";
-import physical_trainerSVG from "../../images/physicaltrainerSVG.svg";
+// import doctorSVG from "../../images/doctorSVG.svg";
+// import patientSVG from "../../images/patientSVG.svg";
+// import physical_trainerSVG from "../../images/physicaltrainerSVG.svg";
 import Cookies from "universal-cookie";
 import { getCurrentUserInfo } from "./../../service/AccountService";
 import { handleGoogleAuth } from "./../../service/googleapiservice";
@@ -52,9 +52,16 @@ const Signupform = () => {
   }, []);
   const history = useHistory();
   const googleAccessToken = cookies.get("GOOGLE_ACCESS_TOKEN");
-  const googleProfileData = jwtDecode(googleAccessToken);
-  //console.log("googleAccessToken :::::", googleAccessToken);
-  console.log("googleProfileData ::::::", googleProfileData);
+
+  let googleProfileData = {}
+
+  if (googleAccessToken) {
+    console.log("googleAccessToken", googleAccessToken);
+    googleProfileData = jwtDecode(googleAccessToken);
+    //console.log("googleAccessToken :::::", googleAccessToken);
+    console.log("googleProfileData ::::::", googleProfileData);
+  }
+
   // let history = useHistory();
   // const [open, setOpen] = React.useState(false);
 
