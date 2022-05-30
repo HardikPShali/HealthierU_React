@@ -18,7 +18,6 @@ const Header = (props) => {
   const cookies = new Cookies();
 
   const currentUser = cookies.get('profileDetails');
-  console.log('currentUser', currentUser);
 
 
   const [anchorEl, setAnchorEl] = useState(null);
