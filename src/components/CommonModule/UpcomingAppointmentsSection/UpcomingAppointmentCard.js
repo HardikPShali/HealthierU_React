@@ -29,7 +29,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
     <div className="row align-items-start" style={{ cursor: 'pointer' }} onClick={handleClickToAppointmentsPage}>
       {/* {console.log('UA', appointment)} */}
       <div className="col-md-3">
-        <img src={home2} alt="nutrition" className="img-circle ml-3 mt-3" />
+        <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" />
       </div>
       <div className="col-md-9">
         <div className="upcoming-appointment-card__card-details">

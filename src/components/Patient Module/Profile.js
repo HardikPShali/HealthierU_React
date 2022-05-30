@@ -419,15 +419,7 @@ const Profile = () => {
                         <Col md={2}></Col>
                         <Col md={8} id="profile-form" className="conflict_profile">
                             <br />
-                            <button
-                                className="btn btn-primary"
-                                onClick={() => {
-                                    // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
-                                    setToggleProfile({ ...toggleProfile, editProfile: false });
-                                }}
-                            >
-                                back to Profile
-                            </button>
+
                             <div id="editProfile-col">
                                 <ValidatorForm onSubmit={handleDetails}>
                                     <Row style={{ justifyContent: "center" }}>
@@ -657,7 +649,7 @@ const Profile = () => {
                                             </div>
                                         </Tab> */}
 
-                                        <Tab eventKey="education" title="Education">
+                                        <Tab eventKey="education" title="Medical">
                                             <div className="general-tab">
                                                 <Row>
                                                     <Col md={6}>
@@ -730,13 +722,24 @@ const Profile = () => {
                                     </Tabs>
 
                                     <br />
+                                    <div className="edit-profile__button-wrapper">
+                                        <button
+                                            className="btn btn-primary continue-btn"
+                                            onClick={() => {
+                                                // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+                                                setToggleProfile({ ...toggleProfile, editProfile: false });
+                                            }}
+                                        >
+                                            Go Back
+                                        </button>
 
-                                    <button
-                                        className="btn btn-primary continue-btn"
-                                        type="submit"
-                                    >
-                                        Update
-                                    </button>
+                                        <button
+                                            className="btn btn-primary continue-btn"
+                                            type="submit"
+                                        >
+                                            Update Profile
+                                        </button>
+                                    </div>
                                 </ValidatorForm>
                             </div>
                         </Col>

@@ -49,6 +49,7 @@ const Questionnaire = ({ match }) => {
         0
       ),
     };
+    console.log("submitData.totalScore", submitData.totalScore);
     const response = await postHealthAssessment(
       isNew === "new" ? "post" : "put",
       submitData,
@@ -57,21 +58,35 @@ const Questionnaire = ({ match }) => {
       console.log(err);
     });
     console.log(response);
+    let healthBehavior = "";
+    healthBehavior = healthBehaviorOnScore(submitData.totalScore);
+    toast.success(`You are ${healthBehavior}`, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
   };
+
+  const healthBehaviorOnScore = (score) => {
+    if (score <= 3) {
+      return "not Healthy";
+    } else if (score > 3 && score <= 7) {
+      return "moderately Healthy";
+    } else {
+      return "Healthy";
+    }
+  }
 
   const onContinue = async () => {
     console.log(questions);
     if (questions.length > 0) {
       handleAssessmentSubmit();
-      toast.success("Saved Successfully!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      setTimeout(() => history.push('/patient'), 2000);
       // history.push('/patient');
     } else {
       toast.error("Please fill the form!", {
@@ -85,8 +100,6 @@ const Questionnaire = ({ match }) => {
       });
       history.reload();
     }
-
-    // setTimeout(() => history.push('/patient'), 1000);
   };
 
   const handleFollowQuestionsCondition = () => {

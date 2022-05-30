@@ -615,13 +615,12 @@ span.price {
 
 button.continue-btn {
   background-color: var(--primary) !important;
-  width: 100%;
+  width: 35% !important;
   border-radius: 30px;
   border-color: var(--primary) !important;
   outline: none !important;
   box-shadow: none !important;
-  font-size: 13px;
-  margin-top: 20px;
+  font-size: 1rem !important;
 }
 
 .MuiBottomNavigationAction-root.MuiBottomNavigationAction-iconOnly {
@@ -1533,7 +1532,7 @@ h2#signin-title {
 }
 
 div#editProfile-col {
-  background: #f4f4f4;
+  background: #eeeeee !important;
   padding: 20px;
   margin: 50px 0px 50px -10px;
   border-radius: 22px;
@@ -3697,8 +3696,13 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   background: var(--primary);
 }
 
+.edit-profile__button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* MY APPOINTMENTS NEW CSS */
-/* UPCOMING APPOINTMENTS SECTION */
 .my-appointments__card-box {
   border-radius: 22px;
   color: #fff;

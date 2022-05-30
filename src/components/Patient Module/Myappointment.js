@@ -418,63 +418,60 @@ const Myappointment = (props) => {
                                 appointment.status === 'ACCEPTED'
                               ) {
                                 return (
-                                  <>
-                                    <div className="col-md-6 mb-2 mt-2">
-                                      <div className="my-appointments-card">
-                                        <div
-                                          className="row align-items-start mb-2"
-                                          key={index}
-                                          style={{ cursor: 'pointer' }}
-                                          onClick={() =>
-                                            handleAppointmentInfoOpen(appointment)
-                                          }
-                                        >
-                                          {console.log('my appA', appointment)}
-                                          <div className="col-md-3">
-                                            <img
-                                              src={appointment.doctor.picture}
-                                              alt={`${appointment.doctor.firstName}-image`}
-                                              className="img-circle ml-3 mt-3"
-                                            />
-                                          </div>
-                                          <div className="col-md-9">
-                                            <div className="my-appointments-card__card-details">
-                                              <h5 className="my-appointments-card__doctor-name">
-                                                {appointment.doctor.firstName +
-                                                  ' ' +
-                                                  appointment.doctor.lastName}
-                                              </h5>
-                                              <span className="my-appointments-card__specality">
-                                                {appointment.doctor &&
-                                                  appointment.doctor.specialities
-                                                    .length &&
-                                                  appointment.doctor.specialities[0]
-                                                    .name}
-                                              </span>
-                                              <div className="my-appointments-card__card-details--date-div">
-                                                <div className="my-appointments-card__card-time-row">
-                                                  <img src={calendarSmall} />
-                                                  <span className="my-appointments-card__common-span">
-                                                    {moment(
-                                                      appointment.startTime
-                                                    ).format('DD/MM/YY')}
-                                                  </span>
-                                                </div>
-                                                <div className="my-appointments-card__card-time-row ml-4">
-                                                  <img src={timeSmall} />
-                                                  <span className="my-appointments-card__common-span">
-                                                    {moment(
-                                                      appointment.startTime
-                                                    ).format('hh:mm A')}
-                                                  </span>
-                                                </div>
+                                  <div className="col-md-6 mb-2 mt-2" key={index}>
+                                    <div className="my-appointments-card">
+                                      <div
+                                        className="row align-items-start mb-2"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() =>
+                                          handleAppointmentInfoOpen(appointment)
+                                        }
+                                      >
+                                        <div className="col-md-3">
+                                          <img
+                                            src={appointment.doctor.picture}
+                                            alt={`${appointment.doctor.firstName}-image`}
+                                            className="img-circle ml-3 mt-3"
+                                          />
+                                        </div>
+                                        <div className="col-md-9">
+                                          <div className="my-appointments-card__card-details">
+                                            <h5 className="my-appointments-card__doctor-name">
+                                              {appointment.doctor.firstName +
+                                                ' ' +
+                                                appointment.doctor.lastName}
+                                            </h5>
+                                            <span className="my-appointments-card__specality">
+                                              {appointment.doctor &&
+                                                appointment.doctor.specialities
+                                                  .length &&
+                                                appointment.doctor.specialities[0]
+                                                  .name}
+                                            </span>
+                                            <div className="my-appointments-card__card-details--date-div">
+                                              <div className="my-appointments-card__card-time-row">
+                                                <img src={calendarSmall} />
+                                                <span className="my-appointments-card__common-span">
+                                                  {moment(
+                                                    appointment.startTime
+                                                  ).format('DD/MM/YY')}
+                                                </span>
+                                              </div>
+                                              <div className="my-appointments-card__card-time-row ml-4">
+                                                <img src={timeSmall} />
+                                                <span className="my-appointments-card__common-span">
+                                                  {moment(
+                                                    appointment.startTime
+                                                  ).format('hh:mm A')}
+                                                </span>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </>
+                                  </div>
+
                                 );
                               }
                             })

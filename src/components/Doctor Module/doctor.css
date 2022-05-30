@@ -595,13 +595,12 @@ span.price {
 
 button.continue-btn {
   background-color: var(--primary) !important;
-  width: 100%;
+  width: 35% !important;
   border-radius: 30px;
   border-color: var(--primary) !important;
   outline: none !important;
   box-shadow: none !important;
-  font-size: 13px;
-  margin-top: 20px;
+  font-size: 1rem !important;
 }
 
 .MuiBottomNavigationAction-root.MuiBottomNavigationAction-iconOnly {
@@ -2963,4 +2962,10 @@ button.reset-btn {
   font-weight: bold;
   color: #fff;
   margin-left: 10px;
+}
+
+.edit-profile__button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
