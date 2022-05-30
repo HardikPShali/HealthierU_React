@@ -171,7 +171,7 @@ const Healthassessment = (props) => {
         const prescriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             pageNumber - 1,
-            doctor.data.id,
+            doctor.id,
             patient.id
         );
 
@@ -337,9 +337,10 @@ const Healthassessment = (props) => {
 
     function getFileExtension(filename) {
         // get file extension
-        var ext = filename.substr(filename.lastIndexOf('.') + 1);
         const extension = filename.split('.').pop();
+        console.log("extension", extension)
         return extension;
+
 
     }
     return (
@@ -354,6 +355,7 @@ const Healthassessment = (props) => {
                 </IconButton>
                 <Row>
                     <Col md={12} id="col">
+
                         <Tabs onSelect={clickTabEvent}>
                             <TabList>
                                 <Tab eventKey="prescription" title="Prescription">
@@ -509,7 +511,7 @@ const Healthassessment = (props) => {
                                     <Pagination size="sm" style={{ float: 'right' }}>
                                         {presecriptionDocument?.totalPages ? (
                                             Array.from(
-                                                Array(presecriptionDocument.currentPage),
+                                                Array(presecriptionDocument.totalPages),
                                                 (e, i) => {
                                                     return (
                                                         <Pagination.Item

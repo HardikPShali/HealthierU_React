@@ -4,6 +4,8 @@ import { Button, Modal, Tab, Tabs } from 'react-bootstrap';
 import editIcon from '../../../images/Icons/edit icon_40 pxl.svg';
 import Pagination from 'react-bootstrap/Pagination'
 import { formatDate } from "../../questionnaire/QuestionnaireService";
+
+import { Form } from 'react-bootstrap';
 import { getCurrentPatientInfo, getCurrentUserInfo } from "../../../service/AccountService";
 import {
     validateEmail,
@@ -16,6 +18,8 @@ import {
     //getPatientDetail,
     //getDocuments,
 } from "../../../service/DocumentService";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import TransparentLoader from '../../Loader/transparentloader';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -56,6 +60,7 @@ const PatientDocument = (props) => {
 
     const [labResult, setLabResult] = useState({
         name: "",
+        resultType: "",
         duration: null,
         labName: "",
         decription: "",
@@ -159,7 +164,7 @@ const PatientDocument = (props) => {
         setPatient(patientInfo)
 
         const presecriptionDocument = await getPatientDocuments("Prescription", 0, patientInfo.data.id);
-        console.log("patientInfo.id",patientInfo.id);
+        console.log("patientInfo.id", patientInfo.id);
         setPresecriptionDocument(presecriptionDocument);
         setLoading(false)
     }
@@ -236,8 +241,8 @@ const PatientDocument = (props) => {
         //let documents;
         setLoading(true);
         if (event === 'labResult') {
-            const labDocuments = await getPatientDocuments("Lab", 0, patient && patient.id);
-            setLabDocument(labDocuments)
+            // const labDocuments = await getPatientDocuments("Lab", 0, patient && patient.id);
+            // setLabDocument(labDocuments)
             setLoading(false);
         }
 
@@ -638,6 +643,31 @@ const PatientDocument = (props) => {
                                 onChange={e => handleLabResultChange(e)}
                             ></input>
                             <div className="form-group row">
+                                <label htmlFor="labName" className="col-sm-3 col-form-label">Result Name</label>
+                                <div className="col-sm-9">
+                                    <input type="text" id="resultName" name="resultName" className="form-control"
+                                        onChange={e => handleLabResultChange(e)}
+                                        value={labResult?.resultName}
+                                        placeholder="Result Name" required autoComplete='off'></input>
+                                </div>
+                            </div>
+
+                            <div className="form-group row">
+                                <label htmlFor="labName" className="col-sm-3 col-form-label">Result Type</label>
+                                <div className="col-sm-9">
+                                    <select
+                                        name="resultType"
+                                        value={labResult?.resultType}
+                                        onChange={e => handleLabResultChange(e)}
+                                        required
+                                        className="browser-default custom-select">
+                                        <option>Select Result Type</option>
+                                        <option value="Imaging">Imaging</option>
+                                        <option value="Blood Tests">Blood Tests</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="form-group row">
                                 <label htmlFor="labName" className="col-sm-3 col-form-label">Lab Name</label>
                                 <div className="col-sm-9">
                                     <input type="text" id="labName" name="labName" className="form-control"
@@ -646,8 +676,7 @@ const PatientDocument = (props) => {
                                         placeholder="Lab Name" required autoComplete='off'></input>
                                 </div>
                             </div>
-
-
+                            {/* 
                             <div className="form-group row">
                                 <label htmlFor="decription" className="col-sm-3 col-form-label">Description</label>
                                 <div className="col-sm-9">
@@ -656,36 +685,8 @@ const PatientDocument = (props) => {
                                         value={labResult?.decription}
                                         placeholder="Description" required autoComplete='off'></input>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="document" className="col-sm-3 col-form-label">Document</label>
-                                <div className="col-sm-9">
-                                    {errorMsg && (
-                                        <label style={{ fontSize: 12, color: '#ff9393', margin: "5px 0" }} className="left">{errorMsg}</label>
-                                    )}
-                                    {!labResult?.id && (
-                                        <input type="file" id="labResultDocument" name="labResultDocument"
-                                            className="form-control"
-                                            onChange={e => handleLabResultChange(e)}
-                                            placeholder="Document" accept="application/pdf"
-                                            required={labResult?.id ? false : true}></input>
-                                    )}
-                                    {labResult?.id && !editDocument && (<div style={{ display: "inline-flex", alignItems: "center" }}>
-                                        <IconButton onClick={() => setEditDocument(true)}>
-                                            <CancelIcon style={{ color: "red" }} />
-                                        </IconButton>
-                                        <input type="file" id="labResultDocument" name="labResultDocument"
-                                            className="form-control"
-                                            onChange={e => handleLabResultChange(e)}
-                                            placeholder="Document" accept="application/pdf"
-                                            required={labResult?.id ? false : true}></input>
-                                    </div>)}
-                                    {labResult?.id && editDocument && (<>
-                                        <button type="button" className="btn btn-primary mr-2" onClick={() => setEditDocument(false)}>Edit</button>
-                                        <a href={labResult?.documentUrl} download className="btn btn-primary">Download</a>
-                                    </>)}
-                                </div>
-                            </div>
+                            </div> */}
+
                             <div className="form-group row">
                                 <label htmlFor="doctorName" className="col-sm-3 col-form-label">Doctor Name</label>
                                 <div className="col-sm-9 position-relative">
@@ -715,8 +716,48 @@ const PatientDocument = (props) => {
                                         : <span></span>}
                                 </div>
                             </div>
-
                             <div className="form-group row">
+                                <label htmlFor="document" className="col-sm-3 col-form-label">Document</label>
+                                <div className="col-sm-9">
+                                    {errorMsg && (
+                                        <label style={{ fontSize: 12, color: '#ff9393', margin: "5px 0" }} className="left">{errorMsg}</label>
+                                    )}
+                                    {!labResult?.id && (
+                                        <input
+                                            style={{ padding: '3px' }}
+                                            type="file"
+                                            id="labResultDocument"
+                                            name="labResultDocument"
+                                            className="form-control"
+                                            onChange={(e) => handleLabResultChange(e)}
+                                            placeholder="Document"
+                                            accept="application/pdf"
+                                            required={labResult?.id ? false : true}
+                                        ></input>
+                                        /* <input type="file" id="labResultDocument" name="labResultDocument"
+                                            className="form-control"
+                                            onChange={e => handleLabResultChange(e)}
+                                            placeholder="Document" accept="application/pdf"
+                                            required={labResult?.id ? false : true}></input> */
+                                    )}
+                                    {labResult?.id && !editDocument && (<div style={{ display: "inline-flex", alignItems: "center" }}>
+                                        <IconButton onClick={() => setEditDocument(true)}>
+                                            <CancelIcon style={{ color: "red" }} />
+                                        </IconButton>
+                                        <input
+                                            type="file" id="labResultDocument" name="labResultDocument"
+                                            className="form-control"
+                                            onChange={e => handleLabResultChange(e)}
+                                            placeholder="Document" accept="application/pdf"
+                                            required={labResult?.id ? false : true}></input>
+                                    </div>)}
+                                    {labResult?.id && editDocument && (<>
+                                        <button type="button" className="btn btn-primary mr-2" onClick={() => setEditDocument(false)}>Edit</button>
+                                        <a href={labResult?.documentUrl} download className="btn btn-primary">Download</a>
+                                    </>)}
+                                </div>
+                            </div>
+                            {/* <div className="form-group row">
                                 <label htmlFor="patientEmail" className="col-sm-3 col-form-label">Patient Email</label>
                                 <div className="col-sm-9">
                                     <input type="email" id="patientEmail" name="patientEmail" className="form-control"
@@ -726,7 +767,7 @@ const PatientDocument = (props) => {
                                     {patient?.id ? <span>Patient Name: <b>{patient?.firstName + ' ' + patient?.lastName}
                                         <input hidden={true} id="patientId" name="patientId" value={patient?.id} /></b></span> : <span>No Patient found</span>}
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="container">
                                 <div className="row">
                                 </div>
