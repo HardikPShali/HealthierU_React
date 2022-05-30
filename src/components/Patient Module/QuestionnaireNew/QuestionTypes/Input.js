@@ -10,7 +10,7 @@ export const Input = ({ question, followQuestion }) => {
     }
 
     return (
-        <div className="form-group row input-div">
+        <div className="form-group row mb-1 pb-2 input-div">
             <label
                 htmlFor="description"
                 className="col-sm-8 col-form-label"
@@ -25,7 +25,7 @@ export const Input = ({ question, followQuestion }) => {
                     onChange={handleChange}
                     id={question.questionId}
                 ></input>
-                <span style={{ marginLeft: '20px' }}>Drinks</span>
+                {/* <span style={{ marginLeft: '20px' }}>Drinks</span> */}
             </div>
         </div>
     )

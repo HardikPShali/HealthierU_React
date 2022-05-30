@@ -1220,11 +1220,9 @@ div#multiselectContainerReact div:hover {
   flex-direction: column;
   align-items: stretch;
   margin: 10px;
-  border-top-left-radius: 20px !important;
-  border-bottom-left-radius: 20px !important;
-  padding: 10px;
+  border-radius: 20px !important;
+  padding: 20px 10px;
   /* height: 500px; */
-  overflow-y: scroll;
   overflow-x: hidden;
   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
 }
@@ -1235,7 +1233,6 @@ div#multiselectContainerReact div:hover {
 }
 
 .input-div {
-  margin-top: 20px;
   margin-left: 20px;
 }
 
