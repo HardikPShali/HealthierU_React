@@ -72,7 +72,7 @@ import careIcon from "../../images/CareSpl.png"
 
 const Homepage = () => {
   const history = useHistory();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [article, setArticle] = useState([]);
   const cookies = new Cookies();
 
@@ -95,7 +95,7 @@ const Homepage = () => {
   };
 
   useEffect(() => {
-    loadArticle();
+    // loadArticle();
   }, []);
 
   useEffect(() => {
@@ -280,7 +280,7 @@ const Homepage = () => {
           </Col>
         </Row>
       </Container>
-      <div id="our-services">
+      {/* <div id="our-services">
         <Container>
           <Row id="aboutus-four">
             <Col md={5} style={{ padding: "0px" }}>
@@ -331,9 +331,9 @@ const Homepage = () => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </div> */}
       <div>
-        <div className="about-us_section">
+        <div id="how-it-work" className="about-us_section">
           <Container>
             <h3 className="better-future text-uppercase text-center">
               HAND-IN-HAND FOR A BETTER FUTURE
@@ -359,7 +359,7 @@ const Homepage = () => {
                         </li>
                       </ul>
                     </div>
-                    <div className="about-content">
+                    <div id="about-us" className="about-content">
                       <h3>ABOUT US</h3>
                       <span className="line"></span>
                       <p className="light">
@@ -413,8 +413,8 @@ const Homepage = () => {
                 </ul>
               </Col>
               <Col className="edge-image" sm={12} md={12} lg={6} xl={6}>
-                <img className="mr-4" src={Edge1} alt=""></img>
-                <img src={Edge2} alt=""></img>
+                {/* <img className="mr-4" src={Edge1} alt=""></img> */}
+                <img src={step7} alt=""></img>
               </Col>
               <div className="our_partners">
                 <h4>Our Partners</h4>
@@ -435,7 +435,7 @@ const Homepage = () => {
           <div>
             <Row>
               <Col className="powerful_Ftr-image" sm={12} md={12} lg={6} xl={6}>
-                <img src={powerfulFeatureImg} alt=""></img>
+                <img src={features} alt=""></img>
               </Col>
               <Col className="powerful_Ftr-text" sm={12} md={12} lg={6} xl={6}>
                 <h1>POWERFUL FEATURES</h1>
@@ -462,7 +462,7 @@ const Homepage = () => {
             </Row>
           </div>
         </div>
-        <div className="our_spl-section">
+        <div id="our-service" className="our_spl-section">
           <Container>
             <div>
               <h1 className="our_spl-title">OUR SPECIALITIES</h1>
@@ -511,8 +511,6 @@ const Homepage = () => {
           </Container>
         </div>
       </div>
-      <br />
-      <br />
       {/* <Container id="aboutus-three">
         <MDBContainer id="how-it-work">
           <MDBCarousel
@@ -634,9 +632,6 @@ const Homepage = () => {
           </MDBCarousel>
         </MDBContainer>
       </Container> */}
-      <br />
-      <br />
-
       {/* <Container id="first-box">
                 <Row>
                     <Col md={6} id="col-card">
@@ -761,7 +756,7 @@ const Homepage = () => {
             </Container> */}
       {/* <br />
             <br /> */}
-      <Footer />
+      <Footer id="footer" />
     </div>
   );
 };
