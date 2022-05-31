@@ -1578,6 +1578,12 @@ div#multiselectContainerReact div {
     Calendar CSS
 */
 
+.react-calendar__month-view__days {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 button.react-calendar__tile.react-calendar__month-view__days__day {
   border-radius: 22px;
   margin: 2px 2px 10px;
@@ -3846,11 +3852,14 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   margin-left: 37px;
 }
 
-@media (min-width: 820px) and (max-width: 1024px) {
+@media (min-width: 820px) and (max-width: 1200px) {
   .image-mobile-respv {
     margin-left: 20px;
   }
   button.continue-btn {
-    margin-top: 69px;
+    margin-top: 69px !important;
+  }
+  div#dorctor-list {
+    height: 620px;
   }
 }

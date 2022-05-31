@@ -1564,7 +1564,7 @@ const MyDoctor = (props) => {
           </Col>
 
           <Col
-            md={12}
+            md={6}
             lg={4}
             className="p-0"
             style={{ display: display.doctor }}

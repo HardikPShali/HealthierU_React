@@ -599,7 +599,7 @@ const Mypatient = (props) => {
                                                                                     </b>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span">
-                                                                                    {details.unifiedAppointment
+                                                                                    {details.unifiedAppointment && details.unifiedAppointment
                                                                                         .split('#')[1]
                                                                                         .replace('_', ' ')}
                                                                                 </span>
@@ -656,7 +656,7 @@ const Mypatient = (props) => {
                                                         <div id="req-name">
                                                             <b style={{ fontSize: '16px' }}>
                                                                 APID : {SelectedPatient.id} |{' '}
-                                                                {SelectedPatient.unifiedAppointment
+                                                                {SelectedPatient.unifiedAppointment && SelectedPatient.unifiedAppointment
                                                                     .split('#')[1]
                                                                     .replace('_', ' ')}
                                                             </b>
