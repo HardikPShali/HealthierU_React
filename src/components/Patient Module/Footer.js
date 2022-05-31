@@ -45,10 +45,10 @@ const Footer = () => {
                                     <span>128</span> Expert Doctors
                                         </b>
                             </div><br />*/}
-                            <div style={{ width: "100%" }}>
+                            <div style={{ width: "100%", textAlign: 'center' }}>
                                 <p>Email Newsletters</p>
                                 <p style={{ fontSize: 11 }}>Stay up-to-date with the latest content and offers from HealthierU</p>
-                                <form>
+                                <form style={{ marginLeft: 26 }}>
                                     <input type="email" placeholder="Email Address" name="email" id="footer-input" />
                                     <input type="submit" value="Subscribe" className="btn submit-btn" />
                                 </form>

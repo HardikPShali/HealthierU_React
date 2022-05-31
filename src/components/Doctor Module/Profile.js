@@ -201,12 +201,12 @@ const Profile = ({ currentDoctor }) => {
     const handleInputChange = (e) => {
         // e.preventDefault();
         console.log(e.target.value);
-        setCurrentDoctorData({ ...currentDoctor, [e.target.name]: e.target.value });
+        setCurrentDoctorData({ ...currentDoctorData, [e.target.name]: e.target.value });
     };
 
     const handleLanguages = (selectedItem) => {
         languages.push({ name: selectedItem.name });
-        setCurrentDoctorData({ ...currentDoctor, languages: languages });
+        setCurrentDoctorData({ ...currentDoctorData, languages: languages });
     };
 
     const removeLanguages = (removedItem) => {
