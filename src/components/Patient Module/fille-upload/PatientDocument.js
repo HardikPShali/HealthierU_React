@@ -361,7 +361,7 @@ const PatientDocument = (props) => {
     }
 
     return (
-        <div>
+        <>
             {loading && (
                 <TransparentLoader />
             )}
@@ -442,12 +442,8 @@ const PatientDocument = (props) => {
                             }
                         </Pagination>
                         </div>
-                        <br />
-                        <br />
-
-
                         <div >
-                            <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
+                            <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="100px"
                                 width="100%" />
                         </div>
                     </Tab>
@@ -532,9 +528,6 @@ const PatientDocument = (props) => {
                         </div>
                     </Tab>
                 </Tabs>
-
-                <br />
-                <br />
 
 
                 <Modal show={showPrescriptionUpload} onHide={handleUploadPrescriptionClosed}>
@@ -787,7 +780,7 @@ const PatientDocument = (props) => {
             </div>
 
             {/* <Footer /> */}
-        </div>
+        </>
     );
 }
 export default PatientDocument;

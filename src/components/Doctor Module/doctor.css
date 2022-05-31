@@ -2969,3 +2969,18 @@ button.reset-btn {
   align-items: center;
   justify-content: space-between;
 }
+
+/* FOOTER ICONS RESPONSIVE */
+
+.image-mobile-respv {
+  margin-left: 37px;
+}
+
+@media (min-width: 820px) and (max-width: 1024px) {
+  .image-mobile-respv {
+    margin-left: 20px;
+  }
+  button.continue-btn {
+    margin-top: 69px;
+  }
+}

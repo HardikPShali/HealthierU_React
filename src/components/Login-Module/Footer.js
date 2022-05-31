@@ -76,8 +76,8 @@ const Footer = () => {
                                 <br />
                                 Download the HealthierU app today
                             </p>
-                            <div className="d-flex">
-                                <img src={applestore} alt="" id="store-icon" />
+                            <div className="d-flex w-50">
+                                <img src={applestore} alt="" id="store-icon" className='image-mobile-respv__landing' />
 
                                 <img src={googleplay} alt="" id="store-icon" />
                             </div>

@@ -60,9 +60,9 @@ export class Footer extends Component {
                             <Col md={4} id="last-col">
                                 <h2>Wellness Optimized</h2>
                                 <p id="download-statement">Unlock your health data and get instant insights<br />Download the HealthierU app today</p>
-                                <div className="d-flex">
+                                <div className="d-flex w-50">
 
-                                    <img className="mr-3" src={applestore} alt="" id="store-icon" />
+                                    <img src={applestore} alt="" id="store-icon" className='image-mobile-respv mr-3' />
 
 
                                     <img src={googleplay} alt="" id="store-icon" />
