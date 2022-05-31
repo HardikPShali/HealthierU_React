@@ -164,6 +164,7 @@ const Myappointment = (props) => {
   const eventStyleGetter = (event) => {
     let backgroundColor;
     let color;
+    let outline;
     var res = event.unifiedAppointment && event.unifiedAppointment.split('#');
     if (
       event.startTime >= new Date() &&
@@ -172,24 +173,28 @@ const Myappointment = (props) => {
     ) {
       backgroundColor = '#00d0cc';
       color = '#fff';
+      outline = 'none';
     } else if (event.endTime <= new Date()) {
       backgroundColor = '#00d0cc';
       color = '#fff';
-      var borderColor = '#696969';
+      // var borderColor = '#696969';
       var pointerEvents = 'none';
+      outline = 'none';
     } else if (res[1] === 'CONSULTATION') {
       backgroundColor = '#00d0cc';
       color = '#fff';
+      outline = 'none';
     }
     var style = {
       backgroundColor: backgroundColor,
       color: color,
-      borderColor: borderColor,
+      // borderColor: borderColor,
       pointerEvents: pointerEvents,
       height: '25px',
-      padding: '0px 4px',
+      padding: '0px 7px',
       fontSize: '12.5px',
       marginLeft: '4.5px',
+      outline: outline
     };
     return {
       style: style,

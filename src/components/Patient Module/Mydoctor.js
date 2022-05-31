@@ -1443,7 +1443,7 @@ const MyDoctor = (props) => {
             </div>
           </Col>
           <Col md={6} lg={4} style={{ display: display.doctor }}>
-            <div id="dorctor-list">
+            <div id="dorctor-list" className="doctor-list-new">
               {doctor && doctor.activated ? (
                 <>
                   <Row id="doc-row">
@@ -1564,7 +1564,7 @@ const MyDoctor = (props) => {
           </Col>
 
           <Col
-            md={12}
+            md={6}
             lg={4}
             className="p-0"
             style={{ display: display.doctor }}
@@ -1920,7 +1920,7 @@ const MyDoctor = (props) => {
           </Col>
 
           <Col md={4} style={{ display: display.appointment }}>
-            <div id="dorctor-list" style={{ background: "#fff" }}>
+            <div id="dorctor-list" className="doctor-list-new">
               <p style={{ fontSize: 12 }}>
                 Your total for this Primary Care visit.
               </p>
@@ -1955,7 +1955,7 @@ const MyDoctor = (props) => {
                 <br />
 
                 {/* <span id="promo-code">Have a promo code?</span><br /><br /> */}
-                <div id="payment-form">
+                <div id="payment-form" style={{ marginLeft: '15px' }}>
                   <Row>
                     <Col
                       md={12}

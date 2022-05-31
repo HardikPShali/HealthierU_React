@@ -41,17 +41,17 @@ export class Footer extends Component {
                             </Col>
                             <Col md={6} style={{ display: 'flex', height: 180, alignItems: 'center' }}>
                                 {/*<div id="active-user">
-                                    <b id="right-border">
-                                        <span>42,233</span> Active Users
+                                <b id="right-border">
+                                    <span>42,233</span> Active Users
                                     </b>
-                                    <b style={{ paddingLeft: 15 }}>
-                                        <span>128</span> Expert Doctors
+                                <b style={{ paddingLeft: 15 }}>
+                                    <span>128</span> Expert Doctors
                                         </b>
-                                </div><br /> */}
-                                <div style={{ width: "100%" }}>
+                            </div><br />*/}
+                                <div style={{ width: "100%", textAlign: 'center' }}>
                                     <p>Email Newsletters</p>
                                     <p style={{ fontSize: 11 }}>Stay up-to-date with the latest content and offers from HealthierU</p>
-                                    <form>
+                                    <form style={{ marginLeft: 26 }}>
                                         <input type="email" placeholder="Email Address" name="email" id="footer-input" />
                                         <input type="submit" value="Subscribe" className="btn submit-btn" />
                                     </form>
@@ -60,9 +60,9 @@ export class Footer extends Component {
                             <Col md={4} id="last-col">
                                 <h2>Wellness Optimized</h2>
                                 <p id="download-statement">Unlock your health data and get instant insights<br />Download the HealthierU app today</p>
-                                <div className="d-flex">
+                                <div className="d-flex w-50">
 
-                                    <img className="mr-3" src={applestore} alt="" id="store-icon" />
+                                    <img src={applestore} alt="" id="store-icon" className='image-mobile-respv mr-3' />
 
 
                                     <img src={googleplay} alt="" id="store-icon" />
