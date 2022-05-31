@@ -343,6 +343,11 @@ const Healthassessment = (props) => {
 
 
     }
+    function getDateTime(data) {
+        var date = new Date(data);
+        date.toISOString().substring(0, 10);
+
+    }
     return (
         <>
             <div className="container">
