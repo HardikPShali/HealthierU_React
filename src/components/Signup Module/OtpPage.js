@@ -12,8 +12,12 @@ import DialogActions from "@material-ui/core/DialogActions";
 import {
     Link,
 } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 const OtpPage = () => {
+    const cookies = new Cookies();
+    const userInOtp = cookies.get('currentUser');
+    console.log(userInOtp);
 
     //LOGIC FOR OTP BOXES
     const [otpBox, setOtpBox] = useState(new Array(4).fill(''));
