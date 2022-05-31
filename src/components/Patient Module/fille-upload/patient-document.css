@@ -119,7 +119,7 @@ a{
     overflow-y: scroll;
     height: 100px;
     width: 92%;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .suggestion{

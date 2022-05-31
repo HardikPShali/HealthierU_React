@@ -1,27 +1,26 @@
-import React, { Component } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
-import logo from "../../images/logo/logo_white.svg";
-import "./landing.css";
 import { HashLink as Link } from "react-router-hash-link";
+import React, { Component } from 'react'
+import { Navbar, Nav, Container } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
+import logo from '../../images/logo/logo_white.svg';
+import './landing.css'
 // import { Container } from 'react-bootstrap';
 //import SearchIcon from '@material-ui/icons/Search';
 
 export const Header = ({ hideButton }) => {
     
-
-  return (
-    <Navbar variant="dark" id="navbar">
-      <Container className="web_navigation">
-        <NavLink to="/" className="mr-auto">
-          <img
-            src={logo}
-            id="icon"
-            alt="HealthierU Logo"
-            style={{ width: "70%" }}
-          />
-        </NavLink>
-        <Nav>
+    return (
+        <Navbar variant="dark" id="navbar" sticky='top'>
+            <Container>
+                <NavLink to="/" className="mr-auto">
+                    <img
+                        src={logo}
+                        id="icon"
+                        alt="HealthierU Logo"
+                        style={{ width: "70%" }}
+                    />
+                </NavLink>
+                <Nav>
           {!hideButton && (
             <div className="nav-menu-wrapper">
               <div className="nav-menu-container">
@@ -48,9 +47,9 @@ export const Header = ({ hideButton }) => {
             </div>
           )}
         </Nav>
-      </Container>
-    </Navbar>
-  );
-};
+            </Container>
+        </Navbar>
+    )
+}
 
 export default Header;

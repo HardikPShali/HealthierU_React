@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import home2 from "../../../images/home-2.png";
 import moment from "moment";
 import calendarSmall from "../../../images/svg/calendar-small.svg";
@@ -10,6 +11,12 @@ const UpcomingAppointmentCard = ({ appointment }) => {
   const [appointmentPersonKey, setAppointmentPersonKey] = useState("");
   const [roles] = useRole();
 
+  const history = useHistory();
+
+  const handleClickToAppointmentsPage = () => {
+    history.push('/patient/myappointment');
+  }
+
   useEffect(() => {
     const key = roles.some((role) => role === ROLES.ROLE_PATIENT)
       ? "doctor"
@@ -19,10 +26,10 @@ const UpcomingAppointmentCard = ({ appointment }) => {
 
   return (
     // console.log('UA', appointments)
-    <div className="row align-items-start">
+    <div className="row align-items-start" style={{ cursor: 'pointer' }} onClick={handleClickToAppointmentsPage}>
       {/* {console.log('UA', appointment)} */}
       <div className="col-md-3">
-        <img src={home2} alt="nutrition" className="img-circle ml-3 mt-3" />
+        <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" />
       </div>
       <div className="col-md-9">
         <div className="upcoming-appointment-card__card-details">

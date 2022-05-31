@@ -254,7 +254,8 @@ div#dorctor-list {
   margin: 50px 0;
   background: #fff;
   border-radius: 22px;
-  min-height: 550px;
+  min-height: 600px;
+  height: 576px;
 }
 
 .no-result {
@@ -266,7 +267,7 @@ div#dorctor-list {
 
 #card-list {
   overflow-y: scroll;
-  height: 360px !important;
+  height: 377px !important;
 }
 
 .Togglebar {
@@ -622,6 +623,16 @@ button.continue-btn {
   box-shadow: none !important;
   font-size: 13px;
   margin-top: 20px;
+}
+
+button.continue-btn-profile {
+  background-color: var(--primary) !important;
+  width: 35% !important;
+  border-radius: 30px;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 1rem !important;
 }
 
 .MuiBottomNavigationAction-root.MuiBottomNavigationAction-iconOnly {
@@ -1533,7 +1544,7 @@ h2#signin-title {
 }
 
 div#editProfile-col {
-  background: #f4f4f4;
+  background: #eeeeee !important;
   padding: 20px;
   margin: 50px 0px 50px -10px;
   border-radius: 22px;
@@ -1566,6 +1577,12 @@ div#multiselectContainerReact div {
 /*
     Calendar CSS
 */
+
+.react-calendar__month-view__days {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
 
 button.react-calendar__tile.react-calendar__month-view__days__day {
   border-radius: 22px;
@@ -3506,7 +3523,7 @@ button a {
 
 .searchForwardIcon {
   position: absolute !important;
-  right: 60px;
+  right: 160px;
   color: #fff !important;
 }
 
@@ -3695,4 +3712,154 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .rbc-time-content::-webkit-scrollbar-thumb:hover,
 .rbc-agenda-view::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
+}
+
+.edit-profile__button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* MY APPOINTMENTS NEW CSS */
+.my-appointments__card-box {
+  border-radius: 22px;
+  color: #fff;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  text-shadow: 0px 0px 15px #000;
+}
+
+.my-appointments--main-header {
+  margin-left: 5px;
+  color: var(--text-primary);
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.my-appointments__card-holder {
+  width: 100%;
+}
+
+.my-appointments-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 22px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+  border-left: 3px solid var(--primarysecond);
+  transition: all 0.2s;
+}
+
+.my-appointments-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.my-appointments-card__img-wrapper {
+  padding: 20px;
+  text-align: center;
+}
+
+.img-circle {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.my-appointments-card__card-details {
+  margin: 10px;
+  color: black;
+}
+
+.my-appointments-card__doctor-name {
+  text-shadow: none;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  text-transform: capitalize;
+}
+
+.my-appointments-card__common-span {
+  font-size: 12px;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: bold;
+}
+
+.my-appointments-card__specality {
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-decoration: none;
+  text-shadow: none;
+  display: block;
+  font-weight: none;
+  margin-left: 2px;
+}
+
+.my-appointments-card__card-details--date-div {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.my-appointments-card__card-time-row > img {
+  width: 28px;
+  height: 28px;
+  margin-right: 4px;
+}
+
+.doctor-list-new {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.doctor-list-new::-webkit-scrollbar,
+#calendar-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+.doctor-list-new::-webkit-scrollbar-track,
+#calendar-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+.doctor-list-new::-webkit-scrollbar-thumb,
+#calendar-list::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+.doctor-list-new::-webkit-scrollbar-thumb:hover,
+#calendar-list::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* FOOTER ICONS RESPONSIVE */
+
+.image-mobile-respv {
+  margin-left: 37px;
+}
+
+@media (min-width: 820px) and (max-width: 1200px) {
+  .image-mobile-respv {
+    margin-left: 20px;
+  }
+  button.continue-btn {
+    margin-top: 69px !important;
+  }
+  div#dorctor-list {
+    height: 620px;
+  }
 }
