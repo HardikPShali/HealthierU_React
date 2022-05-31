@@ -599,9 +599,9 @@ const Mypatient = (props) => {
                                                                                     </b>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span">
-                                                                                    {details.unifiedAppointment
+                                                                                    {/* {details.unifiedAppointment
                                                                                         .split('#')[1]
-                                                                                        .replace('_', ' ')}
+                                                                                        .replace('_', ' ')} */}
                                                                                 </span>
                                                                             </div>
                                                                         </div>

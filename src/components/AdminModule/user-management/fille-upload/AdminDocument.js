@@ -19,7 +19,7 @@ import {
   postDocument,
   postLabDocument,
   getDocumentById,
-  postDocumentAddPrescription
+  postDocumentAddPrescriptionLabResult
 } from "../../../../service/DocumentService";
 import { saveDefaultPrescription } from "../../../../service/adminbackendservices";
 import VisibilityIcon from "@material-ui/icons/Visibility";
@@ -246,7 +246,7 @@ const AdminDocument = (props) => {
     const file = defaultPrescriptionDocument;
     formData.append("file", (file))
 
-    const response = await postDocumentAddPrescription(formData);
+    const response = await postDocumentAddPrescriptionLabResult(formData);
     // if (err.response.status === 400) {
     //     setLoading(false);
     //     setErrorMsg("Please upload the document in PDF format.");

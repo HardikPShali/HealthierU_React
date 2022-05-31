@@ -210,7 +210,7 @@ export const postDocument = async (data) => {
   });
 };
 
-export const postDocumentAddPrescription = async (data) => {
+export const postDocumentAddPrescriptionLabResult = async (data) => {
   const headers = {
     mode: "no-cors",
     Authorization: "Bearer " + LocalStorageService.getAccessToken(),
