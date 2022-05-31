@@ -1598,7 +1598,7 @@ const MyDoctor = (props) => {
                         <FormControl>
                           <Select
                             id="demo-controlled-open-select"
-                            variant="filled"
+                            variant="outlined"
                             name="appointmentType"
                             value={appointment.appointmentMode}
                             displayEmpty
