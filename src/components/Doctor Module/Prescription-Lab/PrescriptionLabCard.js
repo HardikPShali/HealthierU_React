@@ -22,11 +22,23 @@ const PrescriptionLabCard = (props) => {
             </div>
             <div className='col-md-3'>
 
-                {props.filetype === "txt" && <img width={'80px'} height={'80px'} src={download2} alt="textfile" className='prescription-lab-card__img-wrapper' />}
-                {props.filetype === "doc" && <img src={download1} width={'80px'} height={'80px'} alt="documentfile" className='prescription-lab-card__img-wrapper' />}
-                {props.filetype === "docx" && <img src={download1} width={'80px'} height={'80px'} alt="documentfile" className='prescription-lab-card__img-wrapper' />}
-                {props.filetype === "pdf" ? <img width={'80px'} height={'80px'} src={pdf_filetype_icon} alt="pdffiletype" className='prescription-lab-card__img-wrapper' />
-                    : <img src={jpg_filetype_icon} width={'80px'} height={'80px'} alt="jpgfiletype" className='prescription-lab-card__img-wrapper' />}
+                {props.filetype === "txt" && <img width={'70px'} height={'70px'} src={download2} alt="textfile" className='prescription-lab-card__img-wrapper' />}
+
+                {props.filetype === "pdf" && <img width={'70px'} height={'70px'} src={pdf_filetype_icon} alt="pdffiletype" className='prescription-lab-card__img-wrapper' />}
+
+                {imageExtensions.map((a) => {
+                    if (props.filetype === a) {
+                        return <img src={jpg_filetype_icon} width={'70px'} height={'70px'} alt="jpgfiletype" className='prescription-lab-card__img-wrapper' />
+                    }
+                })
+                }
+                {docExtensions.map((a) => {
+                    if (props.filetype === a) {
+                        return <img src={download1} width={'70px'} height={'70px'} alt="documentfile" className='prescription-lab-card__img-wrapper' />
+                    }
+                })
+                }
+
 
 
             </div>
