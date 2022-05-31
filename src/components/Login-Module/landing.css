@@ -48,6 +48,29 @@ svg#search-icon {
   margin: 4px 5px;
 }
 
+/* -------Nav-Menu------- */
+.nav-menu-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-menu-container ul li {
+  list-style: none;
+  padding-right: 2rem;
+}
+.nav-menu-ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 0;
+}
+.nav-menu-ul a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 300;
+}
+
 /*
 * Footer Navbar
 */
@@ -141,7 +164,7 @@ img#store-icon {
 }
 
 a#copy-link {
-  color: #000;
+  color: #3E4543;
   text-decoration: none;
   font-size: 12px;
   margin: 0 20px 0 0;
@@ -389,7 +412,7 @@ div#article-card-body {
   position: unset;
   height: auto;
   background: #fff;
-  color: #000;
+  color: #3E4543;
   height: 200px;
   display: block !important;
   padding: 2rem 1.25rem !important;
@@ -482,7 +505,7 @@ h2#signin-title {
   text-align: right;
   font-size: 12px;
   display: block;
-  color: #000 !important;
+  color: #3E4543 !important;
 }
 
 input.btn.sign-btn {
@@ -619,7 +642,7 @@ div#demo-simple-select {
   margin-bottom: 5px;
   margin-top: 20px;
   text-align: left;
-  color: #000;
+  color: #3E4543;
   font-size: 10px;
 }
 
@@ -924,7 +947,7 @@ div#aboutus-last {
 }
 
 #aboutus-three .card-body {
-  color: #000;
+  color: #3E4543;
   text-align: center;
   position: unset;
   background: #fff;
@@ -1011,7 +1034,7 @@ div.card-box {
   align-items: flex-end;
   padding: 1.25rem;
   color: #fff;
-  text-shadow: 0px 0px 15px #000;
+  text-shadow: 0px 0px 15px #3E4543;
 }
 #Box1 {
   background-image: url(../../images/nutrition.png);
@@ -1056,7 +1079,7 @@ div.nutrition-card-box {
   align-items: flex-end;
   padding: 1rem;
   color: #fff;
-  text-shadow: 0px 0px 15px #000;
+  text-shadow: 0px 0px 15px #3E4543;
   cursor: pointer;
 }
 
@@ -1369,9 +1392,10 @@ ul.light {
 }
 .edge-image {
   display: flex;
+  justify-content: center;
 }
 .edge-image img {
-  width: 12rem;
+  width: 17rem;
   transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .edge-image:hover img {
@@ -1445,11 +1469,15 @@ ul.light {
 }
 .powerful_feature {
   background-color: #f5ceb5;
-  padding-top: 10%;
+  padding-top: 7%;
   overflow: hidden;
 }
+.powerful_Ftr-image {
+  display: flex;
+  justify-content: center;
+}
 .powerful_feature .powerful_Ftr-image img {
-  width: 40rem;
+  width: 27rem;
 }
 .powerful_Ftr-text h1 {
   position: relative;
@@ -1558,3 +1586,6 @@ ul.light {
     width: 50%;
   }
 }
+
+/* -------hamburger Mobile navigation------- */
+
