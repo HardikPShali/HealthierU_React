@@ -115,7 +115,7 @@ const Header = (props) => {
   const unReadMessageCount =
     (unReadMessageList && Object.keys(unReadMessageList).length) || 0;
   return (
-    <Navbar variant="dark" expand="lg" id="navbar">
+    <Navbar variant="dark" expand="lg" id="navbar" sticky='top'>
       <Container>
         <NavLink to="/doctor" className="mr-auto">
           <img

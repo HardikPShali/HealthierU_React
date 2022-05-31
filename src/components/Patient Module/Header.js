@@ -39,7 +39,7 @@ const Header = (props) => {
 
 
   return (
-    <Navbar variant="dark" expand="lg" id="navbar">
+    <Navbar variant="dark" expand="lg" id="navbar" sticky='top'>
       <Container>
         <NavLink to="/patient" className="mr-auto">
           <img
