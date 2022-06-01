@@ -9,7 +9,7 @@ import "./landing.css";
 
 export const Header = ({ hideButton }) => {
   return (
-    <div>
+    <div className="navigation_main-wrapper">
      <div className="web-navigation-wrapper">
      <Navbar
         variant="dark"
