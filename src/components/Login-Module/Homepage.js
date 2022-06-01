@@ -349,17 +349,17 @@ const Homepage = () => {
                         <li>
                           We believe in a proactive care management approach.
                         </li>
-                        <li>
+                        <li >
                           We create a consumer-first approach and a personalized
                           data-driven digital health experience.
                         </li>
-                        <li>
+                        <li id="about-us">
                           We are pioneers in bringing the Internet of Health to
                           everyone.
                         </li>
                       </ul>
                     </div>
-                    <div id="about-us" className="about-content">
+                    <div className="about-content">
                       <h3>ABOUT US</h3>
                       <span className="line"></span>
                       <p className="light">
@@ -414,7 +414,7 @@ const Homepage = () => {
               </Col>
               <Col className="edge-image" sm={12} md={12} lg={6} xl={6}>
                 {/* <img className="mr-4" src={Edge1} alt=""></img> */}
-                <img src={step7} alt=""></img>
+                <img src={step3} alt=""></img>
               </Col>
               <div className="our_partners">
                 <h4>Our Partners</h4>
@@ -456,13 +456,13 @@ const Homepage = () => {
                   <li>E-courses on wellness, health, and much more</li>
                   <li>Medicine and appointment reminders</li>
                   <li>Quick access to labs near you</li>
-                  <li>Healthcare data security</li>
+                  <li id="our-service">Healthcare data security</li>
                 </ul>
               </Col>
             </Row>
           </div>
         </div>
-        <div id="our-service" className="our_spl-section">
+        <div className="our_spl-section">
           <Container>
             <div>
               <h1 className="our_spl-title">OUR SPECIALITIES</h1>
