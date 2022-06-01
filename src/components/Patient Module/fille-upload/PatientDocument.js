@@ -6,6 +6,8 @@ import Pagination from 'react-bootstrap/Pagination'
 import { formatDate } from "../../questionnaire/QuestionnaireService";
 import { toast } from 'react-toastify';
 import { Form } from 'react-bootstrap';
+import PrescriptionLabCard from '../../Doctor Module/Prescription-Lab/PrescriptionLabCard';
+import '../../Doctor Module/Prescription-Lab/PrescriptionLab.css'
 import { getCurrentPatientInfo, getCurrentUserInfo } from "../../../service/AccountService";
 import {
     validateEmail,
@@ -19,6 +21,7 @@ import {
     //getPatientDetail,
     //getDocuments,
 } from "../../../service/DocumentService";
+import moment from 'moment';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -178,7 +181,7 @@ const PatientDocument = (props) => {
         setLoading(true);
         setErrorMsg("");
         const medicalDocumentInfo = {
-            documentType: "Lab Result",
+            documentType: "LabResult",
             patientId: patient?.id,
             doctorId: doctor?.id,
             name: labResult?.resultName,
@@ -211,7 +214,7 @@ const PatientDocument = (props) => {
             setErrorMsg("");
         }
 
-        const labDocument = await getPatientDocuments("Lab", 0, patient.id);
+        const labDocument = await getPatientDocuments("LabResult", 0, patient.id);
         setLabDocument(labDocument);
     }
 
@@ -242,13 +245,13 @@ const PatientDocument = (props) => {
 
 
     const showDocument = async (val) => {
-        const res = await getDocument(val);
-        setPrescriptionDocumentUrl(res);
+        // const res = await getDocument(val);
+        setPrescriptionDocumentUrl(val.documentUrl);
     }
 
     const showLabDocument = async (val) => {
-        const res = await getDocument(val);
-        setLabDocumentUrl(res);
+        // const res = await getDocument(val);
+        setLabDocumentUrl(val.documentUrl);
     }
 
     // const handlePrescriptionUploadShow = () => {
@@ -261,8 +264,8 @@ const PatientDocument = (props) => {
         //let documents;
         setLoading(true);
         if (event === 'labResult') {
-            // const labDocuments = await getPatientDocuments("Lab", 0, patient && patient.id);
-            // setLabDocument(labDocuments)
+            const labDocuments = await getPatientDocuments("LabResult", 0, patient && patient.id);
+            setLabDocument(labDocuments)
             setLoading(false);
         }
 
@@ -287,7 +290,7 @@ const PatientDocument = (props) => {
     const clickPaginationForLab = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
 
-        const documents = await getPatientDocuments("Lab", pageNumber - 1, patient.id);
+        const documents = await getPatientDocuments("LabResult", pageNumber - 1, patient.id);
         setLabDocument(documents);
         //console.log(currentPageNumber)
     }
@@ -379,7 +382,15 @@ const PatientDocument = (props) => {
         // console.log('Text', data.firstName);
         setSuggestion([]);
     }
+    function getFileExtension(filename) {
+        // get file extension
+        console.log("filename", filename)
+        const extension = filename.split('.').pop();
+        console.log("extension", extension)
+        return extension;
 
+
+    }
     return (
         <>
             {loading && (
@@ -404,47 +415,46 @@ const PatientDocument = (props) => {
                             </div>
                         </div>
                         <br />
-                        <div id="prescription-list">
-                            <table >
-                                <thead>
-                                    <tr>
-                                        <th width="80">Action</th>
-                                        <th width="200">Name</th>
-                                        <th width="200">Date</th>
-                                        <th width="250">Description</th>
-                                        <th width="80">Duration</th>
-                                        <th width="150">Patient</th>
-                                        <th width="200">Doctor</th>
+                        <div>
+                            {presecriptionDocument?.documentsList ? (
+                                presecriptionDocument?.documentsList.map(
+                                    (dataItem, subIndex) => {
+                                        return (
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {presecriptionDocument?.documentsList ? presecriptionDocument?.documentsList.map((dataItem, subIndex) => {
-                                        return <tr key={dataItem.id}>
-                                            <td width="80" key="Sr.">
+                                            <div className="prescription-lab__card-box" >
+                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                </h3>
+                                                <div className="card-holder">
+                                                    <div className="row">
 
+                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
-                                                {/*<img width="20" height="20" onClick={e => showDocument(dataItem)} alt=""
-                                                    src={documentViewImage} />*/}
-                                                <VisibilityIcon style={{ color: "#00D0CC", cursor: "pointer", marginLeft: "5px" }} title="View" width="20" height="20" onClick={e => showDocument(dataItem)} />
-                                                {/* <img width="15" height="15" onClick={() => handleEditModal(dataItem)} src={editIcon} alt=""
-                                                    style={{ marginLeft: '5%', marginRight: '5%' }} /> */}
-
+                                                            <PrescriptionLabCard
+                                                                filetype={getFileExtension(dataItem.name)}
+                                                                name={"Prescription"}
+                                                                apid={dataItem.id}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showDocument(dataItem)}
+                                                            />
+                                                        </div>
 
 
-                                            </td>
-                                            <td width="200">{dataItem.name}</td>
-                                            <td width="200">{formatDate(dataItem.docUploadTime)}</td>
-                                            <td width="250">{dataItem.decription}</td>
-                                            <td width="80">{dataItem.duration}</td>
-                                            <td width="150">{dataItem?.patient ? dataItem?.patient?.firstName + ' ' + dataItem?.patient?.lastName : ''}</td>
-                                            <td width="200">{dataItem?.doctor ? dataItem?.doctor?.firstName + ' ' + dataItem?.doctor?.lastName : ''}</td>
-
-                                        </tr>
-
-                                    }) : <tr></tr>}
-                                </tbody>
-                            </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )
+                            ) : (
+                                <div
+                                    className="col-12 ml-2"
+                                    style={{ textShadow: 'none', color: 'black' }}
+                                >
+                                    No Documents
+                                </div>
+                            )}
                         </div>
                         <br />
                         <div> <Pagination size="sm" style={{ float: 'right' }}>
@@ -480,45 +490,46 @@ const PatientDocument = (props) => {
                             </div>
                         </div>
                         <br />
-                        <div id="prescription-list" className="bg-white">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th width="80"><b>Action</b></th>
-                                        <th width="200"><b>Name</b></th>
-                                        <th width="200"><b>Lab Name</b></th>
-                                        <th width="150"><b>Date</b></th>
-                                        <th width="250"><b>Description</b></th>
-                                        <th width="150"><b>Patient</b></th>
-                                        <th width="200"><b>Doctor</b></th>
+                        <div>
+                            {labDocument?.documentsList ? (
+                                labDocument?.documentsList.map(
+                                    (dataItem, subIndex) => {
+                                        return (
 
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                            <div className="prescription-lab__card-box">
+                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                </h3>
+                                                <div className="card-holder">
+                                                    <div className="row">
 
-                                    {labDocument?.documentsList ? labDocument.documentsList.map((dataItem, subIndex) => {
-                                        return <tr key={dataItem.id}>
-                                            <td width="80" key="Sr." style={{ cursor: "pointer" }}>
-                                                {/*<img width="20" height="20" onClick={e => showLabDocument(dataItem)} alt=""
-                                                    src={documentViewImage} />*/}
-                                                <VisibilityIcon style={{ color: "#00D0CC" }} title="View" width="20" height="20" onClick={e => showLabDocument(dataItem)} />
+                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
-                                                <img width="15" height="15" onClick={() => handleEditLabModal(dataItem)} src={editIcon} alt=""
-                                                    style={{ marginLeft: '5%', marginRight: '5%' }} />
+                                                            <PrescriptionLabCard
+                                                                filetype={getFileExtension(dataItem.name)}
+                                                                name={"Lab Result"}
+                                                                apid={dataItem.id}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showLabDocument(dataItem)}
+                                                            />
+                                                        </div>
 
-                                            </td>
-                                            <td width="200">{dataItem.name}</td>
-                                            <td width="200">{dataItem.labName}</td>
-                                            <td width="150">{formatDate(dataItem.docUploadTime)}</td>
-                                            <td width="250">{dataItem.decription}</td>
-                                            <td width="150">{dataItem?.patient ? dataItem?.patient?.firstName + ' ' + dataItem?.patient?.lastName : ''}</td>
-                                            <td width="200">{dataItem?.doctor ? dataItem?.doctor?.firstName + ' ' + dataItem?.doctor?.lastName : ''}</td>
 
-                                        </tr>
-
-                                    }) : <tr></tr>}
-                                </tbody>
-                            </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )
+                            ) : (
+                                <div
+                                    className="col-12 ml-2"
+                                    style={{ textShadow: 'none', color: 'black' }}
+                                >
+                                    No Documents
+                                </div>
+                            )}
                         </div>
                         <div>
                             <br />
