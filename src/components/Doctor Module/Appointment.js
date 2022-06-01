@@ -700,9 +700,9 @@ const Myappointment = (props) => {
                                                                             </b>
                                                                         </h5>
                                                                         <span className="patient-list__common-span">
-                                                                            {appointment.unifiedAppointment && appointment.unifiedAppointment
-                                                                                .split('#')[1]
-                                                                                .replace('_', ' ')}
+                                                                            {appointment.unifiedAppointment
+                                                                                ?.split('#')[1]
+                                                                                ?.replace('_', ' ')}
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -775,7 +775,9 @@ const Myappointment = (props) => {
                                                                             </b>
                                                                         </h5>
                                                                         <span className="patient-list__common-span">
-                                                                            FOLLOW UP
+                                                                            {appointment.unifiedAppointment
+                                                                                ?.split('#')[1]
+                                                                                ?.replace('_', ' ')}
                                                                         </span>
                                                                     </div>
                                                                 </div>
