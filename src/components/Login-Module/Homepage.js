@@ -132,8 +132,8 @@ const Homepage = () => {
     });
     setArticle(response?.articlesList);
     setTimeout(() => setLoading(false), 2000);
-    console.log(article);
-    console.log(response?.articlesList);
+    // console.log(article);
+    // console.log(response?.articlesList);
   };
 
   return (
