@@ -1,0 +1,9 @@
+.chatPage-wrapper {
+    display: flex;
+}
+.chatPage-wrapper .chat-item-container {
+    flex-grow: 2;
+}
+.chatPage-wrapper .chat-details-container{
+    flex-grow: 10;
+}

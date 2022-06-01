@@ -1,0 +1,35 @@
+.search_person-input {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem 0.4rem;
+    align-items: center;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    justify-content: space-around;
+    margin: 0.5rem;
+    cursor: pointer;
+
+}
+.search_person-input input {
+  border: none;
+  outline: none;
+  color: #666666;
+  letter-spacing: 0.02em;
+  font-size: 1rem;
+}
+
+
+.search_person-input input::placeholder {
+  color: #3e4543;
+  font-size: 1rem;
+  color: #666666;
+  letter-spacing: 0.02em;
+}
+.search_person-input input:focus {
+    border: none;
+    background: transparent;
+}
+.search_person-input img {
+    width: 1.1rem;
+}
+

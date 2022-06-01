@@ -1,0 +1,129 @@
+.chatDetails-wrapper {
+  padding: 2rem;
+  height: 100%;
+  background-color: #f5f5f5;
+}
+.chat-section{
+    display: flex;
+    flex-direction: column;
+}
+.chating_with {
+  text-align: center;
+  font-size: 1.1rem;
+}
+.today-date {
+  text-align: center;
+  background: transparent;
+  border-radius: 10px;
+  padding: 10px;
+  color: #3e4543;
+  font-size: .8rem;
+}
+.received_chat-first-msg-wrap {
+  border-radius: 2px 18px 18px 4px;
+  background: white;
+  max-width: 17rem;
+  padding: 0.8rem;
+  margin: 0.5rem;
+}
+
+.received_chat-first-msg-wrap .received_chat-userName {
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+.chat-msg-text {
+  font-size: 1.01rem;
+  color: #3e4543;
+}
+.received_chat-msg-wrap {
+  background: white;
+  max-width: 40%;
+  min-width: 22rem;
+  border-radius: 2px 18px 18px 18px;
+  padding: 0.8rem;
+  margin: 0.5rem;
+}
+.received_chat-msg {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.received_chat-time {
+  color: #999999;
+  font-size: 0.7em;
+  font-weight: 400;
+}
+.chat_detail_received {
+  display: flex;
+  flex-direction: column;
+}
+
+.sent_chat-msg-wrap {
+  background: #d2eeec;
+  border-radius: 18px;
+  padding: 0.8rem;
+  max-width: 40%;
+  min-width: 22rem;
+  text-align: right;
+  margin-left: auto;
+}
+.sent_chat-msg {
+  display: flex;
+  justify-content: space-between;
+}
+.sent_chat-time-tick-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sent_chat-time {
+  color: #999999;
+  font-size: 0.7em;
+  font-weight: 400;
+  margin-right: 1em;
+}
+.sent_chat-seen img {
+  width: 1.2rem;
+}
+
+.send-msg-input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  position: sticky;
+  bottom: 0;
+}
+.send-msg-input {
+  width: 86%;
+}
+.send-msg-input-wrapper input {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  height: 4rem;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #666666;
+  letter-spacing: 0.02em;
+  padding-left: 2rem;
+}
+
+.send-msg-input-wrapper input:focus {
+  border: none;
+}
+.send-msg-btn {
+  width: 5rem;
+}
+
+button.send-msg-btn {
+  border: none;
+  border-radius: 8px;
+  color: white;
+  background: #5fccc8;
+  border-radius: 18px;
+  transition: ease-in-out 0.3s all;
+}
+button.send-msg-btn:hover {
+  transition: ease-in-out 0.3s all;
+  background: #5ebab7;
+}
