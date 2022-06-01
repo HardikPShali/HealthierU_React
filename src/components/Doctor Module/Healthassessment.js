@@ -42,6 +42,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import PrescriptionLabCard from './Prescription-Lab/PrescriptionLabCard';
 import './Prescription-Lab/PrescriptionLab.css'
 import { useHistory } from 'react-router';
+import { dateFnsLocalizer } from 'react-big-calendar';
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
@@ -343,11 +344,8 @@ const Healthassessment = (props) => {
 
 
     }
-    function getDateTime(data) {
-        var date = new Date(data);
-        date.toISOString().substring(0, 10);
 
-    }
+
     return (
         <>
             <div className="container">
@@ -388,7 +386,7 @@ const Healthassessment = (props) => {
 
                                             <div className="prescription-lab__card-box" >
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                    {moment(dataItem.docUploadTime).format("MMM")}
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
                                                 </h3>
                                                 <div className="card-holder">
                                                     <div className="row">
