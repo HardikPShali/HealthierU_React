@@ -78,7 +78,23 @@ export const getUpdatedUserData = async () => {
     });
     return response;
 }
-
+export const rescheduleAppointmentDoctor = async (data) => {
+    var payload = {
+        method: 'post',
+        data: data,
+        url: `/api/v2/appointment/doctor/reschedule`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
 export const signupWithEmail = async (userData) => {
     var payload = {
         method: 'post',
