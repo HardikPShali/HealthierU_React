@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; //useEffect
 import { Navbar, Container, } from 'react-bootstrap'; //NavDropdown, Row, Col, Nav
 import { Link, NavLink } from 'react-router-dom';
-import logo from '../../images/logo/logo_white.svg';
+import logo from '../../images/logo/logo-with-quote.png';
 import './patient.css';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton';
@@ -40,13 +40,13 @@ const Header = (props) => {
 
   return (
     <Navbar variant="dark" expand="lg" id="navbar" sticky='top'>
-      <Container>
-        <NavLink to="/patient" className="mr-auto">
+      <Container className="p-0">
+        <NavLink to="/patient" className="m-0 mr-auto">
           <img
             src={logo}
             id="icon"
             alt="HealthierU Logo"
-            style={{ width: '70%' }}
+            style={{ width: '160px' }}
           />
         </NavLink>
         {/* <span className="ml-2 text-light" style={{fontSize: "12px"}}>Hi! &nbsp;{props.currentPatient.firstName}</span> */}
