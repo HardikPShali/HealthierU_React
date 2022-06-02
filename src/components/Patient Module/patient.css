@@ -3348,24 +3348,32 @@ sup {
   height: 73%;
   overflow: scroll;
 }
-.scroller-cardlist {
+.scroller-cardlist,
+.MuiDialogContent-dividers,
+.MuiDialogContent-root {
   scrollbar-color: #00d0cc white; /* thumb and track color */
   scrollbar-width: thin !important;
   -moz-appearance: none !important;
   border-radius: 2px;
 }
-.scroller-cardlist::-webkit-scrollbar {
+.scroller-cardlist::-webkit-scrollbar,
+.MuiDialogContent-dividers::-webkit-scrollbar,
+.MuiDialogContent-root::-webkit-scrollbar {
   width: 7.5px;
   -moz-appearance: none !important;
 }
 
-.scroller-cardlist::-webkit-scrollbar-track {
+.scroller-cardlist::-webkit-scrollbar-track,
+.MuiDialogContent-dividers::-webkit-scrollbar,
+.MuiDialogContent-root::-webkit-scrollbar {
   background: white;
   -moz-appearance: none !important;
 }
 
-.scroller-cardlist::-webkit-scrollbar-thumb {
-  background: #7f7f7f;
+.scroller-cardlist::-webkit-scrollbar-thumb,
+.MuiDialogContent-dividers::-webkit-scrollbar,
+.MuiDialogContent-root::-webkit-scrollbar {
+  background: #e4e4e4;
   border-right: 1px solid white;
   -moz-appearance: none !important;
 }
@@ -3790,8 +3798,11 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   transition: all 0.2s;
 }
 
-.my-appointments-card:hover {
+.my-appointments-card:hover,
+.my-appointments-card__completed:hover,
+.my-appointments-card__cancelled:hover {
   transform: translateY(-2px);
+  cursor: pointer;
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
@@ -3902,4 +3913,84 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .rbc-time-header.rbc-overflowing {
   border-right: 1px solid #ddd;
   margin-right: 4px !important;
+}
+
+/* APPOINTMENT DETAILS CSS */
+.details-container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.details-wrapper {
+  /* max-width: 420px; */
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 1rem;
+}
+
+.details-content {
+  padding-bottom: 20px;
+  padding-top: 54px;
+}
+
+.details-content img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  margin-top: -52px;
+  margin-bottom: 20px;
+}
+
+.details-content h2 {
+  color: hsl(229, 23%, 23%);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.details-content h2 span {
+  color: hsl(227, 10%, 46%);
+  font-weight: 400;
+}
+
+.details-body {
+  text-align: left;
+  margin: 0 15px;
+}
+
+.details-body__appointment,
+.details-body__payment {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.details-body__appointment-time-row-image {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+
+.details-links {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+}
+
+.details-links > a,
+.details-links > div {
+  border-radius: 10px;
+  text-align: justify;
+  color: #000;
+  font-weight: 600;
+}
+
+.details-links > a:hover,
+.details-links > div:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  color: #00d0cc;
 }
