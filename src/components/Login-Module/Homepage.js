@@ -53,6 +53,8 @@ import step8 from "../../images/step8.PNG";
 import step9 from "../../images/step9.PNG";
 import step10 from "../../images/step10.PNG";
 import step11 from "../../images/step11.PNG";
+import step12 from "../../images/step12.JPEG";
+
 import features from "../../images/our-features.png";
 import betterFuture from "../../images/better-future.png";
 import CornelMedicine from "../../images/cornell-medicine-logo.png";
@@ -365,7 +367,7 @@ const Homepage = () => {
               </Col>
               <Col className="edge-image" sm={12} md={12} lg={6} xl={6}>
                 {/* <img className="mr-4" src={Edge1} alt=""></img> */}
-                <img src={step3} alt=""></img>
+                <img src={step12} alt=""></img>
               </Col>
               <div className="our_partners">
                 <h4>Our Partners</h4>
