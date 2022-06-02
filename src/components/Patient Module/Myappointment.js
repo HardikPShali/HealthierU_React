@@ -796,33 +796,16 @@ const Myappointment = (props) => {
             </DialogTitle>
             <DialogContent dividers>
               {selectedAppointment && selectedAppointment.doctor && (
-                <div>
-                  <Row id="doc-row">
-                    <Col xs={5}>
-                      <div className="doc-img" style={{ width: '140px' }}>
-                        {selectedAppointment.doctor.picture ? (
-                          <img
-                            src={selectedAppointment.doctor.picture}
-                            alt=""
-                          />
-                        ) : (
-                          <Avatar
-                            name={
-                              selectedAppointment.doctor.firstName +
-                              ' ' +
-                              selectedAppointment.doctor.lastName
-                            }
-                          />
-                        )}
-                      </div>
-                    </Col>
-                    <Col xs={7} id="doc-details">
-                      <div>
-                        <b className="doc-name">
-                          {selectedAppointment.doctor.firstName}{' '}
-                          {selectedAppointment.doctor.lastName}
-                        </b>
-                        <br />
+                <div className="details-container">
+                  <div className="details-wrapper">
+                    <div className="details-content">
+                      {console.log(selectedAppointment)}
+                      <img src={selectedAppointment.doctor.picture} alt="" />
+                      <h2>
+                        {selectedAppointment.doctor.firstName}{' '}
+                        {selectedAppointment.doctor.lastName}
+                      </h2>
+                      <span>
                         <ul
                           style={{ fontSize: 12, display: 'block' }}
                           className="list--tags"
@@ -835,28 +818,139 @@ const Myappointment = (props) => {
                               )
                             )}
                         </ul>
-                        <span>
-                          Country Of Residence: <br />
-                          <b>{selectedAppointment.doctor.country.name}</b>
-                        </span>
-                        <br />
+                      </span>
+                    </div>
+                    <div className="details-body">
+                      <span>Appointment on</span>
+
+                      <div className="details-body__appointment">
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={calendarIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="my-patient-card__common-span">
+                            {moment(selectedAppointment.startTime).format(
+                              'DD/MM/YY'
+                            )}
+                          </span>
+                        </div>
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={timeBig}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="my-patient-card__common-span">
+                            {moment(selectedAppointment.startTime).format(
+                              'hh:mm A'
+                            )}
+                          </span>
+                        </div>
                       </div>
-                    </Col>
-                  </Row>
-                  <br />
-                  <div className="mr-4 ml-4">
-                    <b>Date/Time: </b>
-                    {moment(selectedAppointment.startTime).format(
-                      'MMM, DD YYYY'
-                    ) +
-                      '  ( ' +
-                      moment(selectedAppointment.startTime).format('h:mm A') +
-                      ' - ' +
-                      moment(selectedAppointment.endTime).format('h:mm A') +
-                      ' ) '}
-                    <br />
-                    <b>Comments: </b>
-                    {selectedAppointment.remarks}
+                      <br />
+                      <span>Appointment Fee and Payment method</span>
+
+                      <div className="details-body__payment">
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={dollarIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="my-patient-card__common-span">
+                            $20
+                          </span>
+                        </div>
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={creditCardIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="my-patient-card__common-span">
+                            CREDIT CARD
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="details-links">
+                      <Link
+                        to={{
+                          pathname: `/patient/help-and-support`,
+                          // state: SelectedPatient.patient,
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                          <div style={{ width: '100%' }}>
+                            <img
+                              width="40"
+                              height="40"
+                              src={helpSupportIcon}
+                              // onClick='${pathname}'
+                              alt=""
+                              style={{ marginLeft: '5%', marginRight: '5%' }}
+                            />
+                            Reschedule Appointment
+                          </div>
+                          <img
+                            src={rightIcon}
+                            alt="right-icon"
+                            style={{ marginRight: '35px' }}
+                          />
+                        </div>
+                      </Link>
+                      <br />
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItem: 'center',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <div style={{ width: '100%' }}>
+                          <img
+                            width="40"
+                            height="40"
+                            src={infoIcon}
+                            // onClick='${pathname}'
+                            alt=""
+                            style={{ marginLeft: '5%', marginRight: '5%' }}
+                          />
+                          <span>More Info about Doctor</span>
+                        </div>
+                        <img
+                          src={rightIcon}
+                          alt="right-icon"
+                          style={{ marginRight: '35px' }}
+                        />
+                      </div>
+                      <br />
+                      <Link
+                        to={{
+                          pathname: `/patient/help-and-support`,
+                          // state: SelectedPatient.patient,
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                          <div style={{ width: '100%' }}>
+                            <img
+                              width="40"
+                              height="40"
+                              src={helpSupportIcon}
+                              // onClick='${pathname}'
+                              alt=""
+                              style={{ marginLeft: '5%', marginRight: '5%' }}
+                            />
+                            Help and Support
+                          </div>
+                          <img
+                            src={rightIcon}
+                            alt="right-icon"
+                            style={{ marginRight: '35px' }}
+                          />
+                        </div>
+                      </Link>
+                    </div>
+                    <hr />
                   </div>
                 </div>
               )}
@@ -881,20 +975,33 @@ const Myappointment = (props) => {
               >
                 Cancel Appointment
               </button>
-              <IconButton
+              {/* <IconButton
                 onClick={() => handleChat(selectedAppointment.startTime)}
               >
                 <ChatIcon id="active-video-icon" />
-              </IconButton>
-              {/* </Link>  */}
+              </IconButton> */}
               <button
+                autoFocus={false}
+                onClick={() => handleChat(selectedAppointment.startTime)}
+                className="btn btn-primary"
+                id="close-btn"
+              >
+                <img
+                  src={chatButtonIcon}
+                  alt="chat-button-icon"
+                  style={{ marginRight: 5 }}
+                />
+                Chat
+              </button>
+              {/* </Link>  */}
+              {/* <button
                 autoFocus={false}
                 onClick={handleAppointmentInfoClose}
                 className="btn btn-primary"
                 id="close-btn"
               >
                 Ok
-              </button>
+              </button> */}
             </DialogActions>
 
             {/* // <DialogActions id="chat-buttons" open={confirmChat}> */}
