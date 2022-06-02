@@ -66,6 +66,7 @@ import { firestoreService } from "../../util";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { doctorListLimit } from "../../util/configurations";
 import { Button, Modal } from "react-bootstrap";
+import PaypalCheckoutButton from "./PaypalCheckout/PaypalCheckoutButton";
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
 
@@ -2035,7 +2036,13 @@ const MyDoctor = (props) => {
 
                     {!disable.payment && (
                       <Col md={12} style={{ paddingLeft: 0 }}>
-                        <Paypal
+                        {/* <Paypal
+                          appointment={appointment}
+                          bookappointment={bookappointment}
+                          currentPatient={props.currentPatient}
+                          doctor={doctor}
+                        /> */}
+                        <PaypalCheckoutButton
                           appointment={appointment}
                           bookappointment={bookappointment}
                           currentPatient={props.currentPatient}

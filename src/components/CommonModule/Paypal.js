@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from 'react';
 
 const Paypal = (props) => {
   const { appointment, bookappointment, currentPatient, doctor } = props;
@@ -15,14 +15,13 @@ const Paypal = (props) => {
   } = currentPatient;
   const paypalButton = useRef();
 
-
   useEffect(() => {
     if (window.paypal && window.paypal.Buttons) {
       window.paypal
         .Buttons({
           createOrder: function (data, actions, err) {
             return actions.order.create({
-              intent: "CAPTURE",
+              intent: 'CAPTURE',
               payer: {
                 name: {
                   given_name: firstName,
@@ -38,23 +37,23 @@ const Paypal = (props) => {
                 //   country_code: "AE",
                 // },
                 phone_with_type: {
-                  phone_type: "MOBILE",
+                  phone_type: 'MOBILE',
                 },
               },
 
               purchase_units: [
                 {
                   amount: {
-                    currency_code: "USD",
+                    currency_code: 'USD',
                     value:
-                      appointmentMode === "CONSULTATION"
+                      appointmentMode === 'CONSULTATION'
                         ? doctor.rate
                         : doctor.halfRate,
                   },
                 },
               ],
               application_context: {
-                shipping_preference: "NO_SHIPPING",
+                shipping_preference: 'NO_SHIPPING',
               },
             });
           },
@@ -69,19 +68,21 @@ const Paypal = (props) => {
                   // payee: { merchant_id },
                   soft_descriptor: paymentmethod,
                   payments: {
-                    captures: [{ id: transactionId, amount: {
-                      currency_code: transactionCurrency,
-                      value: transactionAmount
-                    } }],
+                    captures: [
+                      {
+                        id: transactionId,
+                        amount: {
+                          currency_code: transactionCurrency,
+                          value: transactionAmount,
+                        },
+                      },
+                    ],
                   },
                 },
               ],
               payer: {
-                name: {
-                  given_name,
-                  surname
-                },
-                payer_id: payerId
+                name: { given_name, surname },
+                payer_id: payerId,
               },
             } = order;
             const orderData = {
@@ -90,19 +91,19 @@ const Paypal = (props) => {
               intent,
               payerId,
               paymentId,
-              paymentmethod: paymentmethod || "paypal website",
+              paymentmethod: paymentmethod || 'paypal website',
               state,
               transactionAmount,
               transactionCurrency,
               transactionId,
               userName: `${given_name} ${surname}`,
-              userId
+              userId,
             };
             bookappointment(orderData);
           },
           onCancel: function (data) {
             // Show a cancel page, or return to cart
-            console.log(data)
+            console.log(data);
           },
           onError: (err, a) => {
             console.log(err);
