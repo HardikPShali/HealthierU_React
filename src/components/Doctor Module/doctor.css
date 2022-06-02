@@ -198,7 +198,7 @@ img#store-icon {
 }
 
 a#copy-link {
-  color: #000;
+  color: #3e4543;
   text-decoration: none;
   font-size: 12px;
   margin: 0 20px 0 0;
@@ -241,7 +241,32 @@ div#social-icon {
 #copyright .row {
   align-items: flex-start;
 }
-
+.footer-store-icons {
+  display: flex;
+  justify-content: end;
+}
+img#store-icon {
+  width: 7rem;
+}
+@media screen and (max-width: 768px) {
+  .footer-store-icons {
+    display: flex;
+    justify-content: center;
+  }
+  .footer-store-icons img {
+    margin-left: 0;
+  }
+  .footer-wellnes {
+    text-align: center;
+    font-size: 1rem;
+  }
+  .padding-mobile {
+    padding: 0 1rem;
+  }
+  p#download-statement {
+    text-align: center;
+  }
+}
 /*
 * Patient home
 */
@@ -744,7 +769,7 @@ div#price-box:before {
   border: none !important;
   border-radius: 10px;
   font-size: 12px;
-  color: #000;
+  color: #3e4543;
   font-weight: 600;
 }
 
@@ -1024,7 +1049,7 @@ img#profile-pic {
 }
 
 #name span {
-  color: #000;
+  color: #3e4543;
   font-size: 15px;
 }
 
@@ -1306,7 +1331,7 @@ div#multiselectContainerReact div {
   position: relative;
   bottom: 70px;
   left: 48px;
-  color: #000;
+  color: #3e4543;
   text-shadow: 0px 0px 5px #fff;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -1532,7 +1557,7 @@ div#req-info {
 div#req-info > a {
   border-radius: 10px;
   text-align: justify;
-  color: #000;
+  color: #3e4543;
   font-weight: 600;
 }
 
@@ -2900,7 +2925,7 @@ button.reset-btn {
 
 .patient-list__card-details {
   margin: 10px;
-  color: black;
+  color: #3e4543;
 }
 
 .patient-list__img-circle {
@@ -2915,7 +2940,7 @@ button.reset-btn {
   font-weight: bold;
   margin-bottom: 2px;
   text-transform: capitalize;
-  color: black;
+  color: #3e4543;
 }
 
 .patient-list__appointment-type {
@@ -2932,7 +2957,7 @@ button.reset-btn {
   font-size: 10px;
   text-decoration: none;
   text-shadow: none;
-  color: black;
+  color: #3e4543;
 }
 
 .patient-list__common-date {
