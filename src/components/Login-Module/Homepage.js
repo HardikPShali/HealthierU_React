@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./landing.css";
+import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
 import {
   MDBCarousel,
   MDBCarouselCaption,
@@ -757,6 +758,7 @@ const Homepage = () => {
       {/* <br />
             <br /> */}
       <Footer id="footer" />
+      {/* <ChatPage /> */}
     </div>
   );
 };
