@@ -209,56 +209,6 @@ const Homepage = () => {
           </MDBCarouselInner>
         </MDBCarousel>
       </MDBContainer>
-      <div style={{ backgroundColor: "#eee9df" }}>
-        <Container>
-          <br />
-          <br />
-          <Row>
-            <Col>
-              <Card>
-                <Card.Img variant="top" src={home2} />
-                <Card.Body>
-                  <Card.Title>How healthy are you?</Card.Title>
-                  <Card.Text>
-                    Find out how you measure with health and
-                    <br />
-                    well-being assessment
-                  </Card.Text>
-                  <Link to="/signin">
-                    <button
-                      variant="primary"
-                      className="btn btn-outline-light assessment-btn"
-                    >
-                      Take my assessment
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card>
-                <Card.Img variant="top" src={home3} />
-                <Card.Body>
-                  <Card.Title>Looking for an expert advise?</Card.Title>
-                  <Card.Text>
-                    Check out our available wellness specialists
-                  </Card.Text>
-                  <Link to="/signin">
-                    <button
-                      variant="primary"
-                      className="btn btn-outline-light assessment-btn"
-                    >
-                      Meet Our Doctors
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          <br />
-          <br />
-        </Container>
-      </div>
       <Container>
         <Row id="aboutus-two">
           <Col md={5}>
@@ -334,7 +284,7 @@ const Homepage = () => {
         </Container>
       </div> */}
       <div>
-        <div id="how-it-work" className="about-us_section">
+        <div id="about-us" className="about-us_section">
           <Container>
             <h3 className="better-future text-uppercase text-center">
               HAND-IN-HAND FOR A BETTER FUTURE
@@ -343,7 +293,17 @@ const Homepage = () => {
               <div className="about-sec">
                 <Row>
                   <Col sm={12} md={7} lg={5}>
-                    <div className="how-content">
+                  <div className="about-content">
+                      <h3>ABOUT US</h3>
+                      <span className="line"></span>
+                      <p className="light" id="how-it-work">
+                        HealthierU utilizes next-generation telemedicine to
+                        provide you with the best access to highly trained and
+                        licensed experts from wellness centers and clinics
+                        across the UAE and across the globe.
+                      </p>
+                    </div>
+                    <div  className="how-content">
                       <h3>HOW?</h3>
                       <ul className="light">
                         <li>We use technology to transform your experience.</li>
@@ -354,21 +314,11 @@ const Homepage = () => {
                           We create a consumer-first approach and a personalized
                           data-driven digital health experience.
                         </li>
-                        <li id="about-us">
+                        <li >
                           We are pioneers in bringing the Internet of Health to
                           everyone.
                         </li>
                       </ul>
-                    </div>
-                    <div className="about-content">
-                      <h3>ABOUT US</h3>
-                      <span className="line"></span>
-                      <p className="light">
-                        HealthierU utilizes next-generation telemedicine to
-                        provide you with the best access to highly trained and
-                        licensed experts from wellness centers and clinics
-                        across the UAE and across the globe.
-                      </p>
                     </div>
                   </Col>
                 </Row>
@@ -423,10 +373,10 @@ const Homepage = () => {
                   <div className="cornel-logo">
                     <img src={CornelMedicine} alt="" />
                   </div>
-                  <div className="our_partners-vr-line"></div>
-                  <div className="reem-logo">
+                  {/* <div className="our_partners-vr-line"></div> */}
+                  {/* <div className="reem-logo">
                     <img src={ReemHospital} alt="" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Row>
@@ -757,6 +707,56 @@ const Homepage = () => {
             </Container> */}
       {/* <br />
             <br /> */}
+            <div style={{ backgroundColor: "#eee9df" }}>
+        <Container>
+          <br />
+          <br />
+          <Row>
+            <Col md={12} lg={6} xl={6} className="mb-3">
+              <Card>
+                <Card.Img variant="top" src={home2} />
+                <Card.Body>
+                  <Card.Title>How healthy are you?</Card.Title>
+                  <Card.Text>
+                    Find out how you measure with health and
+                    <br />
+                    well-being assessment
+                  </Card.Text>
+                  <Link to="/signin">
+                    <button
+                      variant="primary"
+                      className="btn btn-outline-light assessment-btn"
+                    >
+                      Take my assessment
+                    </button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={12} lg={6} xl={6}>
+              <Card>
+                <Card.Img variant="top" src={home3} />
+                <Card.Body>
+                  <Card.Title>Looking for an expert advise?</Card.Title>
+                  <Card.Text>
+                    Check out our available wellness specialists
+                  </Card.Text>
+                  <Link to="/signin">
+                    <button
+                      variant="primary"
+                      className="btn btn-outline-light assessment-btn"
+                    >
+                      Meet Our Doctors
+                    </button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+          <br />
+          <br />
+        </Container>
+      </div>
       <Footer id="footer" />
       {/* <ChatPage /> */}
     </div>

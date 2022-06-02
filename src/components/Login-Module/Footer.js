@@ -1,5 +1,5 @@
 import React from 'react'; //{ Component }
-import logo from '../../images/logo/logo_white.svg';
+import logo from '../../images/logo/logo-with-quote.png';
 import './landing.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import {
@@ -27,12 +27,12 @@ const Footer = () => {
             <div id="footer">
                 <Container>
                     <Row>
-                        <Col md={2}>
+                        <Col md={6} lg={2} xl={2}>
                             <img
                                 src={logo}
                                 id="icon"
                                 alt="HealthierU Logo"
-                                style={{ width: '70%', marginBottom: 22 }}
+                                style={{ width: '10rem', marginBottom: 22 }}
                             />
                             <br />
                             <Link to="/about-us" id="footer-link">
@@ -51,7 +51,7 @@ const Footer = () => {
                                 Contact us
                             </HashLink> */}
                         </Col>
-                        <Col md={6} style={{ display: 'flex', height: 180, alignItems: 'center' }}>
+                        <Col md={6} lg={6} xl={6} style={{ display: 'flex', height: 180, alignItems: 'center' }}>
                             {/*<div id="active-user">
                                 <b id="right-border">
                                     <span>42,233</span> Active Users
@@ -69,15 +69,15 @@ const Footer = () => {
                                 </form>
                             </div>
                         </Col>
-                        <Col md={4} id="last-col">
-                            <h2>Wellness Optimized</h2>
+                        <Col md={12} lg={4} xl={4} id="last-col">
+                            <h4 className="footer-wellnes">Wellness Optimized</h4>
                             <p id="download-statement">
                                 Unlock your health data and get instant insights
                                 <br />
                                 Download the HealthierU app today
                             </p>
-                            <div className="d-flex w-50">
-                                <img src={applestore} alt="" id="store-icon" className='image-mobile-respv__landing' />
+                            <div className="footer-store-icons">
+                                <img  src={applestore} alt="" id="store-icon" className='mr-3 image-mobile-respv__landing' />
 
                                 <img src={googleplay} alt="" id="store-icon" />
                             </div>
@@ -89,7 +89,7 @@ const Footer = () => {
                 <Container>
                     <Row>
                         <Col md={8}>
-                            <div className="d-flex">
+                            <div className="terms-container">
                                 <Link to="/privacy-policy" className="" id="copy-link">
                                     Privacy and Security
                                 </Link>

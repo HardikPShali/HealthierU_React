@@ -93,11 +93,17 @@ svg#search-icon {
   display: flex;
   align-items: flex-end;
 }
+.footer-store-icons {
+  display: flex;
+  justify-content: end;
+}
 
 footer .row {
   align-items: flex-end;
 }
-
+.footer-wellnes {
+  font-size: 1.2rem;
+}
 a#footer-link {
   display: block;
   color: #fff !important;
@@ -105,6 +111,9 @@ a#footer-link {
   margin-top: 5px;
   font-size: 15px;
   margin-bottom: 11px;
+}
+.terms-container {
+  display: flex;
 }
 
 div#active-user {
@@ -172,7 +181,8 @@ p#download-statement {
 }
 
 img#store-icon {
-  width: 90%;
+  width: 7rem;
+
 }
 
 a#copy-link {
@@ -675,7 +685,7 @@ div#demo-simple-select {
   z-index: 99;
 }
 
-@media (max-width: 700px) {
+@media screen and (max-width: 768px) {
   #footer .row > div {
     margin-bottom: 40px;
   }
@@ -688,6 +698,12 @@ div#demo-simple-select {
   #footer-input-arabic {
     width: 63% !important;
   }
+  .terms-container {
+    justify-content: center;
+  }
+  .footer-wellnes {
+    font-size: 1rem;
+  }
   input.btn.submit-btn {
     width: 37% !important;
     right: 6.5% !important;
@@ -698,11 +714,27 @@ div#demo-simple-select {
   #copyright .row > div {
     margin-bottom: 20px;
   }
+  .image-mobile-respv__landing {
+    margin-left: 0px;
+}
+img#store-icon {
+  width: 30%;
+}
+  #last-col{
+    text-align: left;
+  }
   #copyright #last-col {
     text-align: center !important;
   }
   div#social-icon {
     justify-content: center !important;
+  }
+  .footer-store-icons {
+    display: flex;
+    justify-content: start;
+  }
+  .footer-store-icons img {
+    margin-left: 0;
   }
   .header-btn {
     font-size: 11px;
@@ -1287,6 +1319,7 @@ ul.light {
   font-size: 2.5rem;
   color: #3e3e3e;
   margin-top: 2rem;
+  margin-bottom: 4rem;
   position: relative;
   display: inline;
 }
@@ -1320,6 +1353,14 @@ ul.light {
   .about-content h3 {
     font-size: 2rem;
   }
+  #foot-icon img {
+    width: 20px;
+}
+#foot-icon svg {
+  height: 20px;
+  margin: 2px 0 0 4px;
+  width: 20px;
+}
 }
 
 /* ---------Purpose section---------- */
@@ -1464,7 +1505,7 @@ ul.light {
   align-items: center;
 }
 .our_partners-logo img {
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 14rem;
 }
 
 .our_partners-logo .cornel-logo {
@@ -1595,9 +1636,10 @@ ul.light {
 /* -------------FOOTER PLAYSTORE APPSTORE------- */
 @media screen and (max-width: 1024px) {
   img#store-icon {
-    width: 50%;
-  }
+    width: 6rem;
 }
+}
+
 
 /* -------hamburger Mobile navigation------- */
 
