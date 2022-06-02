@@ -259,6 +259,9 @@ img#store-icon {
     text-align: center;
     font-size: 1rem;
   }
+  .padding-mobile {
+    padding: 0 1rem;
+  }
   p#download-statement {
     text-align: center;
   }
