@@ -59,12 +59,12 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar > button {
+.headerNavbar>button {
   color: #fff;
   font-size: 14px;
 }
 
-.headerNavbar > button:hover {
+.headerNavbar>button:hover {
   color: #fff;
 }
 
@@ -93,8 +93,9 @@ svg#search-icon {
 }
 
 @media (max-width: 992px) {
+
   #navbar a,
-  .headerNavbar > button {
+  .headerNavbar>button {
     padding: 10px 20px;
   }
 
@@ -524,6 +525,7 @@ input#doctor-search {
   border: none;
   border-radius: 10px;
 }
+
 .appointment-card-header {
   margin-left: 5px;
   color: #344767;
@@ -646,17 +648,12 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
-  .MuiGridListTileBar-title {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
   color: #fff;
   transition: 0.5s;
 }
@@ -1110,7 +1107,7 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #40dfef;
+  background: #5FCCC8;
   margin: 1em;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
@@ -1128,11 +1125,12 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #ffdab9;
+  background: #FFC9AE;
   margin: 1em;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
+
 .appointment-count-h3 {
   color: white;
   font-size: 3.5em;
@@ -1195,6 +1193,7 @@ table#user-info {
 
   font-size: 12px;
 }
+
 .pclass1 {
   font-size: 10px;
 }
@@ -1233,13 +1232,13 @@ table#user-info {
   align-items: center;
 }
 
-.record-tabs > .nav-link:hover {
+.record-tabs>.nav-link:hover {
   color: #495057 !important;
   text-decoration: none;
   outline: none;
 }
 
-.record-tabs > .nav-link.active {
+.record-tabs>.nav-link.active {
   color: #fff !important;
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
@@ -1923,7 +1922,7 @@ div#primary-card {
 }
 
 @media (max-width: 700px) {
-  #footer .row > div {
+  #footer .row>div {
     margin-bottom: 40px;
   }
 
@@ -1944,7 +1943,7 @@ div#primary-card {
     text-align: center !important;
   }
 
-  #copyright .row > div {
+  #copyright .row>div {
     margin-bottom: 20px;
   }
 
@@ -2191,16 +2190,16 @@ div.reply .messageBody span.messageTime {
   text-transform: capitalize;
 }
 
-.list--tags > li {
+.list--tags>li {
   display: inline;
 }
 
-.list--tags > li:before {
+.list--tags>li:before {
   content: ',\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags > li:first-child:before {
+.list--tags>li:first-child:before {
   content: normal;
 }
 
@@ -2315,7 +2314,7 @@ Health Assessment
   margin-left: 10px;
 }
 
-.modal-body > .form-group > label.col-form-label {
+.modal-body>.form-group>label.col-form-label {
   font-size: 14.5px;
 }
 
@@ -2693,15 +2692,19 @@ button {
   text-align: left;
 
   box-shadow: 0px 0px 10px #ddd;
-  height: 31%; /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
+  height: 31%;
+  /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
   overflow: auto;
 }
+
 .scroller-cardlist {
-  scrollbar-color: #00d0cc white; /* thumb and track color */
+  scrollbar-color: #00d0cc white;
+  /* thumb and track color */
   scrollbar-width: thin !important;
   -moz-appearance: none !important;
   border-radius: 2px;
 }
+
 .scroller-cardlist::-webkit-scrollbar {
   width: 7.5px;
   -moz-appearance: none !important;
@@ -2717,20 +2720,29 @@ button {
   border-right: 1px solid white;
   -moz-appearance: none !important;
 }
+
 /* Css for overlay */
 #overlay {
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
+  position: fixed;
+  /* Sit on top of the page content */
+  display: none;
+  /* Hidden by default */
+  width: 100%;
+  /* Full width (cover the whole page) */
+  height: 100%;
+  /* Full height (cover the whole page) */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Black background with opacity */
+  z-index: 2;
+  /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
+  /* Add a pointer on hover */
 }
+
 #text {
   position: absolute;
   top: 50%;
