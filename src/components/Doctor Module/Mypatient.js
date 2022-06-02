@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './doctor.css';
+import { toast } from 'react-toastify';
 import { Container, Row, Col } from 'react-bootstrap';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import Cookies from 'universal-cookie';
@@ -20,6 +21,7 @@ import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
 import {
     getAppointmentsBySearch,
     getGlobalAppointmentsSearch,
+    rescheduleAppointmentDoctor
 } from '../../service/frontendapiservices';
 import rightIcon from '../../images/svg/right-icon.svg';
 
@@ -413,6 +415,21 @@ const Mypatient = (props) => {
     const handleFilterChange = (filter) => {
         getGlobalAppointments(search, filter);
     };
+    const rescheduleAppointment = async () => {
+        console.log('appointmentDets',appointmentDets)
+        const data = {
+            id : appointmentDets[0].id,
+            doctorId : appointmentDets[0].doctorId
+        }
+        const res = await rescheduleAppointmentDoctor(data).catch((err) => {
+            if (err.res.status === 500 || err.res.status === 504) {
+                setLoading(false);
+            }  
+        })
+        if (res) {
+            toast.success("Notification sent to patient successfully.");
+        }
+    }
     return (
         <div>
             {loading && <Loader />}
@@ -601,7 +618,7 @@ const Mypatient = (props) => {
                                                                                 <span className="patient-list__common-span">
                                                                                     {details.unifiedAppointment && details.unifiedAppointment
                                                                                         .split('#')[1]
-                                                                                        .replace('_', ' ')} 
+                                                                                        .replace('_', ' ')}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -962,16 +979,16 @@ const Mypatient = (props) => {
                                             </div>
                                             <Row>
                                                 <Col className="profile-btn">
-                                                    <Link
+                                                    {/* <Link
                                                         to={{
                                                             pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`,
                                                             state: SelectedPatient.patient,
                                                         }}
-                                                    >
-                                                        <button className="btn btn-primary view-btn">
-                                                            Reschedule
-                                                        </button>
-                                                    </Link>
+                                                    > */}
+                                                    <button className="btn btn-primary view-btn" onClick={rescheduleAppointment}>
+                                                        Reschedule
+                                                    </button>
+                                                    {/* </Link> */}
                                                 </Col>
                                             </Row>
                                         </div>

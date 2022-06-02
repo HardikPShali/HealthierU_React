@@ -59,12 +59,12 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar > button {
+.headerNavbar>button {
   color: #fff;
   font-size: 14px;
 }
 
-.headerNavbar > button:hover {
+.headerNavbar>button:hover {
   color: #fff;
 }
 
@@ -93,8 +93,9 @@ svg#search-icon {
 }
 
 @media (max-width: 992px) {
+
   #navbar a,
-  .headerNavbar > button {
+  .headerNavbar>button {
     padding: 10px 20px;
   }
 
@@ -197,7 +198,7 @@ img#store-icon {
 }
 
 a#copy-link {
-  color: #000;
+  color: #3e4543;
   text-decoration: none;
   font-size: 12px;
   margin: 0 20px 0 0;
@@ -647,17 +648,12 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover
-  li
-  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
-  .MuiGridListTileBar-title {
+#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
   color: #fff;
   transition: 0.5s;
 }
@@ -748,7 +744,7 @@ div#price-box:before {
   border: none !important;
   border-radius: 10px;
   font-size: 12px;
-  color: #000;
+  color: #3e4543;
   font-weight: 600;
 }
 
@@ -1028,7 +1024,7 @@ img#profile-pic {
 }
 
 #name span {
-  color: #000;
+  color: #3e4543;
   font-size: 15px;
 }
 
@@ -1111,7 +1107,7 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #40dfef;
+  background: #5FCCC8;
   margin: 1em;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
@@ -1129,7 +1125,7 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #ffdab9;
+  background: #FFC9AE;
   margin: 1em;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
@@ -1236,13 +1232,13 @@ table#user-info {
   align-items: center;
 }
 
-.record-tabs > .nav-link:hover {
+.record-tabs>.nav-link:hover {
   color: #495057 !important;
   text-decoration: none;
   outline: none;
 }
 
-.record-tabs > .nav-link.active {
+.record-tabs>.nav-link.active {
   color: #fff !important;
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
@@ -1310,7 +1306,7 @@ div#multiselectContainerReact div {
   position: relative;
   bottom: 70px;
   left: 48px;
-  color: #000;
+  color: #3e4543;
   text-shadow: 0px 0px 5px #fff;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -1536,7 +1532,7 @@ div#req-info {
 div#req-info > a {
   border-radius: 10px;
   text-align: justify;
-  color: #000;
+  color: #3e4543;
   font-weight: 600;
 }
 
@@ -1944,7 +1940,7 @@ div#primary-card {
 }
 
 @media (max-width: 700px) {
-  #footer .row > div {
+  #footer .row>div {
     margin-bottom: 40px;
   }
 
@@ -1965,7 +1961,7 @@ div#primary-card {
     text-align: center !important;
   }
 
-  #copyright .row > div {
+  #copyright .row>div {
     margin-bottom: 20px;
   }
 
@@ -2212,16 +2208,16 @@ div.reply .messageBody span.messageTime {
   text-transform: capitalize;
 }
 
-.list--tags > li {
+.list--tags>li {
   display: inline;
 }
 
-.list--tags > li:before {
+.list--tags>li:before {
   content: ',\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags > li:first-child:before {
+.list--tags>li:first-child:before {
   content: normal;
 }
 
@@ -2336,7 +2332,7 @@ Health Assessment
   margin-left: 27px;
 }
 
-.modal-body > .form-group > label.col-form-label {
+.modal-body>.form-group>label.col-form-label {
   font-size: 14.5px;
 }
 
@@ -2904,7 +2900,7 @@ button.reset-btn {
 
 .patient-list__card-details {
   margin: 10px;
-  color: black;
+  color: #3e4543;
 }
 
 .patient-list__img-circle {
@@ -2919,7 +2915,7 @@ button.reset-btn {
   font-weight: bold;
   margin-bottom: 2px;
   text-transform: capitalize;
-  color: black;
+  color: #3e4543;
 }
 
 .patient-list__appointment-type {
@@ -2936,7 +2932,7 @@ button.reset-btn {
   font-size: 10px;
   text-decoration: none;
   text-shadow: none;
-  color: black;
+  color: #3e4543;
 }
 
 .patient-list__common-date {

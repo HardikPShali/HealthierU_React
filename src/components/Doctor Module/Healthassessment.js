@@ -42,6 +42,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import PrescriptionLabCard from './Prescription-Lab/PrescriptionLabCard';
 import './Prescription-Lab/PrescriptionLab.css'
 import { useHistory } from 'react-router';
+import { dateFnsLocalizer } from 'react-big-calendar';
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
@@ -151,8 +152,8 @@ const Healthassessment = (props) => {
     };
 
     const showLabDocument = async (val) => {
-        const res = await getDocument(val);
-        setLabDocumentUrl(res);
+        // const res = await getDocument(val);
+        setLabDocumentUrl(val.documentUrl);
     };
 
     useEffect(() => {
@@ -182,7 +183,7 @@ const Healthassessment = (props) => {
         setCurrentPageNumber(pageNumber);
 
         const documents = await getDoctorPatientDocuments(
-            'Lab',
+            'Lab Result',
             pageNumber - 1,
             doctor.data.id,
             patient.id
@@ -238,7 +239,7 @@ const Healthassessment = (props) => {
         //     currentUser.data.userInfo.id,
         //     currentUser.data.userInfo.login
         // );
-        const doctor = cookies.get('currentUser');
+        const doctor = cookies.get('profileDetails');
         if (doctor) {
             setDoctor(doctor);
         }
@@ -288,7 +289,7 @@ const Healthassessment = (props) => {
             setShowLabResultUpload(false);
         }
         const labDocument = await getDoctorPatientDocuments(
-            'Lab',
+            'Lab Result',
             0,
             doctor.data.id,
             patient.id
@@ -299,17 +300,20 @@ const Healthassessment = (props) => {
 
     const clickTabEvent = async (event) => {
         let documents;
-        if (event === 1) {
+        if (event === "labResult") {
             documents = await getDoctorPatientDocuments(
-                'Lab',
+                'LabResult',
                 0,
                 doctor.id,
                 patient.id
             );
-            setLabDocument(documents);
+            // console.log("doctor", doctor.id)
+            // console.log("patient.id", patient.id)
+            console.log("documents", documents)
+            setLabDocument(documents.data);
         }
 
-        if (event === 0) {
+        if (event === "prescription") {
             documents = await getDoctorPatientDocuments(
                 'Prescription',
                 0,
@@ -337,17 +341,15 @@ const Healthassessment = (props) => {
 
     function getFileExtension(filename) {
         // get file extension
+        console.log("filename", filename)
         const extension = filename.split('.').pop();
         console.log("extension", extension)
         return extension;
 
 
     }
-    function getDateTime(data) {
-        var date = new Date(data);
-        date.toISOString().substring(0, 10);
 
-    }
+
     return (
         <>
             <div className="container">
@@ -388,7 +390,7 @@ const Healthassessment = (props) => {
 
                                             <div className="prescription-lab__card-box" >
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                    {moment(dataItem.docUploadTime).format("MMM")}
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
                                                 </h3>
                                                 <div className="card-holder">
                                                     <div className="row">
@@ -459,7 +461,7 @@ const Healthassessment = (props) => {
                             </div> */}
                         </div>
                         <br />
-                        <div className="bg-white">
+                        <div>
                             {labDocument?.documentsList ? (
                                 labDocument?.documentsList.map(
                                     (dataItem, subIndex) => {
@@ -467,7 +469,7 @@ const Healthassessment = (props) => {
 
                                             <div className="prescription-lab__card-box">
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                    {moment(dataItem.docUploadTime).format("MMM")}
+                                                {moment.utc(dataItem.docUploadTime).format("MMM")}
                                                 </h3>
                                                 <div className="card-holder">
                                                     <div className="row">
@@ -476,8 +478,8 @@ const Healthassessment = (props) => {
 
                                                             <PrescriptionLabCard
                                                                 filetype={getFileExtension(dataItem.name)}
-                                                                name={"Lab"}
-                                                                apid={"100"}
+                                                                name={"Lab Result"}
+                                                                apid={dataItem.id}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showLabDocument(dataItem)}
@@ -520,7 +522,7 @@ const Healthassessment = (props) => {
                         <div >
 
                             {labDocumentUrl !== null || labDocumentUrl !== "" ?
-                                <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
+                                <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="100px"
                                     width="100%" />
                                 : <span></span>
                             }

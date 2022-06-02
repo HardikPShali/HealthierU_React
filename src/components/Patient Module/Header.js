@@ -109,7 +109,7 @@ const Header = (props) => {
                     <NavLink to="#search">
                         <MenuIcon />
                     </NavLink> */}
-              {unReadMessageCount > 0 && (
+              {(
                 <div className="dropdown headerNavbar notification-Navbar">
                   <IconButton
                     aria-label="show 17 new notifications"
