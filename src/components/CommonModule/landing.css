@@ -558,7 +558,7 @@ span.price {
 
 button.continue-btn {
   background-color: var(--primary) !important;
-  width: 100%;
+  width: 100% !important;
   border-radius: 30px;
   border-color: var(--primary) !important;
   outline: none !important;

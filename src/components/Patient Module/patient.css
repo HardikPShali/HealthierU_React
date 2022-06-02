@@ -881,11 +881,11 @@ img.card-img-top {
   text-align: left;
 }
 
-#patient-card button.assessment-btn:hover {
-  /* background-color: #fff !important;
+/* #patient-card button.assessment-btn:hover {
+  background-color: #fff !important;
   color: #000 !important;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3); */
-}
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+} */
 
 #patient-card .card-body {
   padding: 1.25rem !important;
@@ -3759,6 +3759,11 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   text-shadow: 0px 0px 15px #000;
 }
 
+.my-appointments-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
 .my-appointments--main-header {
   margin-left: 5px;
   color: var(--text-primary);
@@ -3782,6 +3787,36 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   border-radius: 22px;
   filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
   border-left: 3px solid var(--primarysecond);
+  transition: all 0.2s;
+}
+
+.my-appointments-card__completed {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 22px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+  border-left: 3px solid #5fccc8;
+  transition: all 0.2s;
+}
+
+.my-appointments-card__cancelled {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 22px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+  border-left: 3px solid #ff7e7c;
   transition: all 0.2s;
 }
 
