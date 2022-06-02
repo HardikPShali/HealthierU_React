@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 //import Footer from './Footer'
 import './patient.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import moment from 'moment';
 //import LocalStorageService from './../../util/LocalStorageService';
 //import axios from 'axios';
@@ -29,6 +29,7 @@ import timeSmall from '../../images/svg/time-small.svg';
 import {
   deleteAppointment,
   getAppointmentListByPatientId,
+  getAppointmentsTablistByStatus,
 } from '../../service/frontendapiservices';
 import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';
@@ -61,6 +62,9 @@ const app = makeStyles(() => ({
 
 const Myappointment = (props) => {
   const [myAppointment, setMyAppoitment] = useState([]);
+  const [completedAppointment, setCompletedAppointment] = useState([]);
+  const [cancelledAppointment, setCancelledAppointment] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const localizer = momentLocalizer(moment);
   // const [currentPatient, setCurrentPatient] = useState({}); // no longer required delete future ady-delete
@@ -194,7 +198,7 @@ const Myappointment = (props) => {
       padding: '0px 7px',
       fontSize: '12.5px',
       marginLeft: '4.5px',
-      outline: outline
+      outline: outline,
     };
     return {
       style: style,
@@ -207,6 +211,7 @@ const Myappointment = (props) => {
 
   useEffect(() => {
     props.currentPatient.id && getMyAppointmentList(props.currentPatient.id);
+    props.currentPatient.id && getAppointmentsTabList(props.currentPatient.id);
   }, [props.currentPatient]);
 
   // current patient is comming from props delete in future ady-delete
@@ -326,6 +331,24 @@ const Myappointment = (props) => {
     }
   };
 
+  const getAppointmentsTabList = async (patientId) => {
+    const response = await getAppointmentsTablistByStatus(patientId).catch(err => {
+      if (err.response.status === 500 || err.response.status === 504) {
+        setLoading(false);
+      }
+    })
+
+    if (response.status === 200 || response.status === 201) {
+      if (response && response.data) {
+        const completedAppointmentsArray = response.data.data.completed;
+        setCompletedAppointment(completedAppointmentsArray);
+
+        const cancelledAppointmentsArray = response.data.data.cancelled;
+        setCancelledAppointment(cancelledAppointmentsArray);
+      }
+    }
+  }
+
   const handleDelete = async (selectedAppointment) => {
     const { currentPatient, doctorDetailsList } = props;
     setLoading(true);
@@ -402,35 +425,128 @@ const Myappointment = (props) => {
             <hr />
 
             <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
-              <Col md={12}>
-              </Col>
+              <Col md={12}></Col>
               {/* <Col md={3}></Col> */}
               <Col md={12}>
                 <div>
                   <h2 className="mt-3 mb-3 text-center font-weight-bold">
                     List of Appointments
                   </h2>
-                  <div className="my-appointments__card-box">
-                    <div className="my-appointments__card-holder">
-                      <div className="row">
-                        {myAppointment &&
-                          Array.isArray(myAppointment) &&
-                          myAppointment.length > 0 && (
-                            myAppointment.map((appointment, index) => {
-                              if (
-                                appointment.status &&
-                                new Date(appointment.endTime) >= new Date() &&
-                                appointment.status === 'ACCEPTED'
-                              ) {
+
+                  <Tabs
+                    defaultActiveKey="upcoming"
+                    id="uncontrolled-tab-example"
+                    className="record-tabs mb-3"
+                  >
+                    <Tab eventKey="upcoming" title="Upcoming">
+                      <div className="my-appointments__card-box">
+                        <div className="my-appointments__card-holder">
+                          <div className="row">
+                            {myAppointment &&
+                              Array.isArray(myAppointment) &&
+                              myAppointment.length > 0 &&
+                              myAppointment.map((appointment, index) => {
+                                if (
+                                  appointment.status &&
+                                  new Date(appointment.endTime) >= new Date() &&
+                                  appointment.status === 'ACCEPTED'
+                                ) {
+                                  return (
+                                    <div
+                                      className="col-md-6 mb-2 mt-2"
+                                      key={index}
+                                    >
+                                      <div className="my-appointments-card">
+                                        <div
+                                          className="row align-items-start mb-2"
+                                          style={{ cursor: 'pointer' }}
+                                          onClick={() =>
+                                            handleAppointmentInfoOpen(
+                                              appointment
+                                            )
+                                          }
+                                        >
+                                          <div className="col-md-3">
+                                            <img
+                                              src={appointment.doctor.picture}
+                                              alt={`${appointment.doctor.firstName}-image`}
+                                              className="img-circle ml-3 mt-3"
+                                            />
+                                          </div>
+                                          <div className="col-md-9">
+                                            <div className="my-appointments-card__card-details">
+                                              <h5 className="my-appointments-card__doctor-name">
+                                                {appointment.doctor.firstName +
+                                                  ' ' +
+                                                  appointment.doctor.lastName}
+                                              </h5>
+                                              <span className="my-appointments-card__specality">
+                                                {appointment.doctor &&
+                                                  appointment.doctor
+                                                    .specialities.length &&
+                                                  appointment.doctor
+                                                    .specialities[0].name}
+                                              </span>
+                                              <div className="my-appointments-card__card-details--date-div">
+                                                <div className="my-appointments-card__card-time-row">
+                                                  <img src={calendarSmall} />
+                                                  <span className="my-appointments-card__common-span">
+                                                    {moment(
+                                                      appointment.startTime
+                                                    ).format('DD/MM/YY')}
+                                                  </span>
+                                                </div>
+                                                <div className="my-appointments-card__card-time-row ml-4">
+                                                  <img src={timeSmall} />
+                                                  <span className="my-appointments-card__common-span">
+                                                    {moment(
+                                                      appointment.startTime
+                                                    ).format('hh:mm A')}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                }
+                              })}
+                            {myAppointment.length === 0 && (
+                              <div className="col-12 ml-2 empty-message">
+                                <h2
+                                  style={{
+                                    textAlign: 'center',
+                                    textShadow: 'none',
+                                  }}
+                                >
+                                  No Upcoming Appointments
+                                </h2>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Tab>
+
+                    <Tab eventKey="completed" title="Completed">
+                      <div className="my-appointments__card-box">
+                        <div className="my-appointments__card-holder">
+                          <div className="row">
+                            {completedAppointment &&
+                              Array.isArray(completedAppointment) &&
+                              completedAppointment.length > 0 &&
+                              completedAppointment.map((appointment, index) => {
                                 return (
-                                  <div className="col-md-6 mb-2 mt-2" key={index}>
-                                    <div className="my-appointments-card">
+                                  <div
+                                    className="col-md-6 mb-2 mt-2"
+                                    key={index}
+                                  >
+                                    <div className="my-appointments-card__completed">
                                       <div
                                         className="row align-items-start mb-2"
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() =>
-                                          handleAppointmentInfoOpen(appointment)
-                                        }
+                                      // style={{ cursor: 'pointer' }}
                                       >
                                         <div className="col-md-3">
                                           <img
@@ -448,10 +564,10 @@ const Myappointment = (props) => {
                                             </h5>
                                             <span className="my-appointments-card__specality">
                                               {appointment.doctor &&
-                                                appointment.doctor.specialities
-                                                  .length &&
-                                                appointment.doctor.specialities[0]
-                                                  .name}
+                                                appointment.doctor
+                                                  .specialities.length &&
+                                                appointment.doctor
+                                                  .specialities[0].name}
                                             </span>
                                             <div className="my-appointments-card__card-details--date-div">
                                               <div className="my-appointments-card__card-time-row">
@@ -476,23 +592,108 @@ const Myappointment = (props) => {
                                       </div>
                                     </div>
                                   </div>
-
                                 );
-                              }
-                            })
-                          )}
-                        {
-                          (myAppointment.length === 0) && (
-                            <div
-                              className="col-12 ml-2 empty-message"
-                            >
-                              <h2 style={{ textAlign: 'center', textShadow: 'none' }}>No Upcoming Appointments</h2>
-                            </div>
-                          )
-                        }
+
+                              })}
+                            {completedAppointment.length === 0 && (
+                              <div className="col-12 ml-2 empty-message">
+                                <h2
+                                  style={{
+                                    textAlign: 'center',
+                                    textShadow: 'none',
+                                  }}
+                                >
+                                  No Completed Appointments
+                                </h2>
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </Tab>
+
+                    <Tab eventKey="cancelled" title="Cancelled">
+                      <div className="my-appointments__card-box">
+                        <div className="my-appointments__card-holder">
+                          <div className="row">
+                            {cancelledAppointment &&
+                              Array.isArray(cancelledAppointment) &&
+                              cancelledAppointment.length > 0 &&
+                              cancelledAppointment.map((appointment, index) => {
+                                return (
+                                  <div
+                                    className="col-md-6 mb-2 mt-2"
+                                    key={index}
+                                  >
+                                    <div className="my-appointments-card__cancelled">
+                                      <div
+                                        className="row align-items-start mb-2"
+                                      // style={{ cursor: 'pointer' }}
+                                      >
+                                        <div className="col-md-3">
+                                          <img
+                                            src={appointment.doctor.picture}
+                                            alt={`${appointment.doctor.firstName}-image`}
+                                            className="img-circle ml-3 mt-3"
+                                          />
+                                        </div>
+                                        <div className="col-md-9">
+                                          <div className="my-appointments-card__card-details">
+                                            <h5 className="my-appointments-card__doctor-name">
+                                              {appointment.doctor.firstName +
+                                                ' ' +
+                                                appointment.doctor.lastName}
+                                            </h5>
+                                            <span className="my-appointments-card__specality">
+                                              {appointment.doctor &&
+                                                appointment.doctor
+                                                  .specialities.length &&
+                                                appointment.doctor
+                                                  .specialities[0].name}
+                                            </span>
+                                            <div className="my-appointments-card__card-details--date-div">
+                                              <div className="my-appointments-card__card-time-row">
+                                                <img src={calendarSmall} />
+                                                <span className="my-appointments-card__common-span">
+                                                  {moment(
+                                                    appointment.startTime
+                                                  ).format('DD/MM/YY')}
+                                                </span>
+                                              </div>
+                                              <div className="my-appointments-card__card-time-row ml-4">
+                                                <img src={timeSmall} />
+                                                <span className="my-appointments-card__common-span">
+                                                  {moment(
+                                                    appointment.startTime
+                                                  ).format('hh:mm A')}
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+
+                              })}
+                            {cancelledAppointment.length === 0 && (
+                              <div className="col-12 ml-2 empty-message">
+                                <h2
+                                  style={{
+                                    textAlign: 'center',
+                                    textShadow: 'none',
+                                  }}
+                                >
+                                  No Cancelled Appointments
+                                </h2>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Tab>
+                  </Tabs>
                 </div>
               </Col>
               {/* <Col md={3}></Col> */}
@@ -626,7 +827,11 @@ const Myappointment = (props) => {
               id="chat-buttons"
               onClose={handleAppointmentInfoClose}
               aria-labelledby="customized-dialog-title"
-              style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+              }}
             >
               {/* <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
               <button
@@ -651,7 +856,6 @@ const Myappointment = (props) => {
               >
                 Ok
               </button>
-
             </DialogActions>
 
             {/* // <DialogActions id="chat-buttons" open={confirmChat}> */}

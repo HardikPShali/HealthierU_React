@@ -968,3 +968,22 @@ export const getHealthAssessment = async (patientId) => {
     });
     return response;
 }
+
+export const getAppointmentsTablistByStatus = async (patientId) => {
+    var payload = {
+        method: 'get',
+        mode: 'no-cors',
+        url: `/api/v2/appointments/all?patientId=${patientId}`,  // &searchParam=${searchParam}
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
