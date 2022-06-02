@@ -27,7 +27,7 @@ const Header = () => {
     const { authorities = [] } = currentuserInfo || {};
 
     return (
-        <Navbar variant="dark" id="navbar">
+        <Navbar variant="dark" id="navbar" sticky='top'>
             <Container>
                 <NavLink to="/" className="mr-auto">
                     <img
@@ -37,7 +37,7 @@ const Header = () => {
                         style={{ width: "70%" }}
                     />
                 </NavLink>
-                    {/* <span className="ml-2 text-light" style={{fontSize: "12px", width: "100%"}}>Hi! &nbsp;{currentuserInfo.firstName}</span> */}
+                {/* <span className="ml-2 text-light" style={{fontSize: "12px", width: "100%"}}>Hi! &nbsp;{currentuserInfo.firstName}</span> */}
                 <Nav>
                     <NavLink to="#"><img src={profileicon} alt="" onClick={handleClick} className="profile-icon" width="35" /></NavLink>
                     <Menu

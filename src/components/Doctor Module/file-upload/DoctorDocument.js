@@ -159,10 +159,10 @@ const DoctorDocument = (props) => {
         // const doctor = await getCurrentDoctorInfo(currentUser.data.userInfo.id, currentUser.data.userInfo.login);
         const doctor = cookies.get("profileDetails");
         setDoctor(doctor)
-      console.log("doctor",doctor)
+        console.log("doctor", doctor)
         const presecriptionDocument = await getDoctorDocuments("Prescription", 0, doctor.id);
         //if(presecriptionDocument) {
-            console.log("presecriptionDocument",presecriptionDocument)
+        console.log("presecriptionDocument", presecriptionDocument)
         setPresecriptionDocument(presecriptionDocument);
         setLoading(false)
         //}
@@ -264,7 +264,7 @@ const DoctorDocument = (props) => {
             documents = await getDoctorDocuments("Prescription", 0, doctor.id)
             //if(documents) {
             setPresecriptionDocument(documents);
-           
+
             setLoading(false);
             //}
         }
@@ -447,7 +447,7 @@ const DoctorDocument = (props) => {
                         <br />
                         <br />
                         <div className="row">
-                            <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
+                            <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="60px"
                                 width="100%" />
                         </div>
                     </Tab>

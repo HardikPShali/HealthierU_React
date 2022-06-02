@@ -20,9 +20,9 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 //import properties from "../../properties";
 import Loader from "./../Loader/Loader";
 import TransparentLoader from "../Loader/transparentloader";
-import doctorSVG from "../../images/doctorSVG.svg";
-import patientSVG from "../../images/patientSVG.svg";
-import physical_trainerSVG from "../../images/physicaltrainerSVG.svg";
+// import doctorSVG from "../../images/doctorSVG.svg";
+// import patientSVG from "../../images/patientSVG.svg";
+// import physical_trainerSVG from "../../images/physicaltrainerSVG.svg";
 import Cookies from "universal-cookie";
 import { getCurrentUserInfo } from "./../../service/AccountService";
 import { handleGoogleAuth } from "./../../service/googleapiservice";
@@ -32,6 +32,10 @@ import { CAPTCHA_SITE_KEY } from "./../../util/configurations";
 import ReCAPTCHA from "react-google-recaptcha";
 import SelectRole from "./components/selectRole";
 import jwtDecode from "jwt-decode";
+import DialogContent from "@material-ui/core/DialogContent";
+import { activateOtp } from '../../service/AccountService';
+import Typography from "@material-ui/core/Typography";
+
 
 const isnum = "(?=.*[0-9!@*$_])";
 const islow = "(?=.*[a-z])";
@@ -52,9 +56,16 @@ const Signupform = () => {
   }, []);
   const history = useHistory();
   const googleAccessToken = cookies.get("GOOGLE_ACCESS_TOKEN");
-  const googleProfileData = jwtDecode(googleAccessToken);
-  //console.log("googleAccessToken :::::", googleAccessToken);
-  console.log("googleProfileData ::::::", googleProfileData);
+
+  let googleProfileData = {}
+
+  if (googleAccessToken) {
+    console.log("googleAccessToken", googleAccessToken);
+    googleProfileData = jwtDecode(googleAccessToken);
+    //console.log("googleAccessToken :::::", googleAccessToken);
+    console.log("googleProfileData ::::::", googleProfileData);
+  }
+
   // let history = useHistory();
   // const [open, setOpen] = React.useState(false);
 
@@ -303,10 +314,10 @@ const Signupform = () => {
         setTransparentLoading(false);
 
         if (authorities.some((user) => user === "ROLE_PATIENT")) {
-          history.push("/otp");
+          setDisplay({ ...display, signupForm: "none", whoyouAre: "none", otpPage: "block" });
         }
         if (authorities.some((user) => user === "ROLE_DOCTOR")) {
-          history.push("/otp");
+          setDisplay({ ...display, signupForm: "none", whoyouAre: "none", otpPage: "block" });
         }
         // handleClickOpen();
       }
@@ -320,7 +331,7 @@ const Signupform = () => {
     }
     //} //else {
     // setCaptchaError("Please verify captcha!");
-    setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
+    // setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
     //}
   };
 
@@ -335,6 +346,7 @@ const Signupform = () => {
   const [display, setDisplay] = useState({
     signupForm: "block",
     whoyouAre: "none",
+    otpPage: "none",
   });
 
   const handleBlurChange = (name) => {
@@ -346,6 +358,58 @@ const Signupform = () => {
       const str = lastName;
       const strNew = str.trim();
       setUser({ ...user, lastName: strNew });
+    }
+  };
+
+
+  //CODSE FOR OTP PART
+  //LOGIC FOR OTP BOXES
+  const [otpBox, setOtpBox] = useState(new Array(4).fill(''));
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+
+    setOtpBox([
+      ...otpBox.map((ele, i) =>
+        i === index ? element.value : ele
+      ),
+    ]);
+
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
+
+  //LOGIC FOR OTP SUBMIT
+  const [otpUser, setOtpUser] = useState({
+    msg: "",
+    loggedIn: false,
+    otp: "",
+  });
+
+  const [open, setOpen] = useState(false);
+
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOTPSubmit = async () => {
+    const otp = otpBox.join('');
+    const res = await activateOtp(otp).catch((err) => {
+      if (err.response && err.response.status === 406) {
+        setOtpUser({
+          ...otpUser,
+          msg: "Invalid OTP. Please generate new OTP and try again!",
+        });
+      }
+    });
+    if (res) {
+      console.log(res);
+      handleClickOpen();
     }
   };
 
@@ -603,9 +667,80 @@ const Signupform = () => {
       <SelectRole style={{ display: display.whoyouAre }}
         handleDoctorClick={handleDoctorClick}
         handlePatientClick={handlePatientClick}
-        handlePhysicaltrainerClick={handlePhysicaltrainerClick} />
+        handlePhysicaltrainerClick={handlePhysicaltrainerClick}
+      />
+
+      <Container id="signupform-bg" style={{ display: display.otpPage }}>
+        <Row>
+          <Col md={6}></Col>
+          <Col md={5}>
+
+            <div className="sign-box text-center">
+              <h2 id="signin-title">OTP Verification</h2>
+              <p style={{ fontSize: '14px' }}>OTP has been sent to <b>{user.email}</b></p>
+
+              <div className='otp-box-div'>
+                {otpBox.map((data, index) => {
+                  return (
+                    <input
+                      type="text"
+                      className="otp-field"
+                      name="otp"
+                      maxLength="1"
+                      key={index}
+                      value={data}
+                      onChange={(e) => handleChange(e.target, index)}
+                      onFocus={(e) => e.target.select()}
+                    />
+                  );
+                })}
+              </div>
+
+              <div>
+                <button
+                  className='otp-verify'
+                  onClick={() => {
+                    setOtpBox(new Array(4).fill(''));
+                  }}
+                >
+                  Clear
+                </button>
+
+                <button className="otp-verify" onClick={() => handleOTPSubmit()}>
+                  Verify
+                </button>
+
+              </div>
 
 
+            </div>
+          </Col>
+        </Row>
+
+        <Dialog aria-labelledby="customized-dialog-title" open={open}>
+          <DialogTitle id="customized-dialog-title">
+            Account Activated Successfully!
+          </DialogTitle>
+          <DialogContent dividers>
+            <Typography gutterBottom>
+              Please Log In.
+              <br />
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Link to="/signin">
+              <button
+                autoFocus
+                onClick={handleClose}
+                className="btn btn-primary sign-btn"
+                id="close-btn"
+              >
+                Ok
+              </button>
+            </Link>
+          </DialogActions>
+        </Dialog>
+      </Container>
 
       <Footer />
       <Dialog aria-labelledby="customized-dialog-title" open={comingSoon}>

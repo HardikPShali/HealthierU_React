@@ -44,6 +44,9 @@ const Header = (props) => {
   const cookies = new Cookies();
   const currentLoggedInUser = cookies.get('currentUser');
   const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
+
+  const currentProfileDets = cookies.get('profileDetails');
+
   useEffect(() => {
     getCurrentDoctor();
   }, []);
@@ -112,7 +115,7 @@ const Header = (props) => {
   const unReadMessageCount =
     (unReadMessageList && Object.keys(unReadMessageList).length) || 0;
   return (
-    <Navbar variant="dark" expand="lg" id="navbar">
+    <Navbar variant="dark" expand="lg" id="navbar" sticky='top'>
       <Container>
         <NavLink to="/doctor" className="mr-auto">
           <img
@@ -200,10 +203,10 @@ const Header = (props) => {
             </div>
           )}
           <NavLink to="#">
-            {picture ? (
+            {currentProfileDets.picture ? (
               <img
                 id="profilePicId"
-                src={picture}
+                src={currentProfileDets.picture}
                 alt=""
                 onClick={handleClick}
                 className="profile-icon"

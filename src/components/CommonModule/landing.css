@@ -364,7 +364,7 @@ span.dot.active {
 }
 
 #card {
-  margin: 0 10%;
+  margin: 0 0%;
   background: var(--primary);
   color: #fff;
   border: none;
@@ -527,7 +527,7 @@ span.price {
 
 button.continue-btn {
   background-color: var(--primary) !important;
-  width: 100%;
+  width: 100% !important;
   border-radius: 30px;
   border-color: var(--primary) !important;
   outline: none !important;
@@ -1347,4 +1347,19 @@ button.btn.btn-outline-primary.sign-btn:hover {
   padding: 0 20px 0 20px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+/* FOOTER ICONS RESPONSIVE */
+
+.image-mobile-respv {
+  margin-left: 37px;
+}
+
+@media (min-width: 820px) and (max-width: 1024px) {
+  .image-mobile-respv {
+    margin-left: 20px;
+  }
+  button.continue-btn {
+    margin-top: 69px;
+  }
 }

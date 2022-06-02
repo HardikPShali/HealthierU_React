@@ -389,7 +389,9 @@ const Welcome = ({ currentuserInfo }) => {
 
                     }
                 });
+                console.log("response", response);
                 if (response && (response.status === 200 || response.status === 201)) {
+                    cookies.set("profileDetails", response.data.data);
                     firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
                         .then((userRecord) => {
                             var loginUser = userRecord.userd;
