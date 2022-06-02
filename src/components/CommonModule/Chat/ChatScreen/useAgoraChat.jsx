@@ -34,6 +34,7 @@ const useAgoraChat = (appId, onMessage, onConnectionChange) => {
     for(let key in channels) {
         channels[key].channel.on("ChannelMessage", (...args) => {
           console.log(args);
+          onMessage(args);
         })
     }
   }
