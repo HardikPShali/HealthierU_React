@@ -122,17 +122,35 @@ const MyDoctor = (props) => {
 
   const currentLoggedInUser = cookies.get("currentUser");
   const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
+  const profilepID = cookies.get("profileDetails");
+  console.log("profileDetails", profilepID);
+  const pID = profilepID && profilepID.userId;
+  // console.log("currentUser", loggedInUserId);
+  // console.log("pID", pID);
   const getCurrentPatient = async () => {
-    const res = await getLoggedInUserDataByUserId(loggedInUserId);
-    if (res && res.data) {
-      res.data.map((value, index) => {
-        if (value.userId === loggedInUserId) {
-          const currentPatientId = value.id;
-          setCurrentPatient({ ...currentPatient, id: currentPatientId });
-          loadUsers(currentPatientId);
-        }
-      });
+    if (profilepID.activated) {
+      const patientInfo = props.location.state;
+      if (patientInfo) {
+        setCurrentPatient({ ...currentPatient, id: patientInfo.patient.id });
+        loadUsers(patientInfo.patient.id);
+      }
     }
+    else {
+      const res = await getLoggedInUserDataByUserId(loggedInUserId);
+      console.log("res1", res);
+      if (res && res.data) {
+        res.data.map((value, index) => {
+          if (value.userId === loggedInUserId) {
+            const currentPatientId = value.id;
+            setCurrentPatient({ ...currentPatient, id: currentPatientId });
+            loadUsers(currentPatientId);
+          }
+        });
+      }
+    }
+
+
+
   };
 
   const getAllLikedDoctors = async () => {
@@ -179,34 +197,98 @@ const MyDoctor = (props) => {
   const [likedOffset, setLikedOffset] = useState(0);
 
   const loadUsers = async (patientId) => {
-    const result = await getDoctorListByPatientId(
-      patientId,
-      doctorListLimit
-    ).catch((err) => {
-      if (err.response.status === 500 || err.response.status === 504) {
-        setLoading(false);
+    if (!profilepID.activated) {
+      const result = await getDoctorListByPatientId(
+        patientId,
+        doctorListLimit
+      ).catch((err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          setLoading(false);
+        }
+      });
+      if (
+        result &&
+        result.data &&
+        result.data.doctors &&
+        result.data.doctors.length > 0
+      ) {
+        setOffset(1);
+        setUser(result.data.doctors);
+        setdoctor(result.data.doctors[0]);
+        //const currentSelectedDate = new Date();
+        //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
+        const docId = result.data.doctors[0]?.id;
+        setAppointment({ ...appointment, patientId: patientId, doctorId: docId });
+        getInValidAppointments(docId);
+        setFilterData(result.data.doctors);
+        //setTimeout(() => searchNutritionDoctor(), 3000);
+        setTimeout(() => setLoading(false), 1000);
+        const tourState = cookies.get("tour");
+        if (!tourState) {
+          setIsTourOpen(true);
+        }
+
+        if (
+          props &&
+          props.location &&
+          props.location.state &&
+          props.location.state === "sports medicine"
+        ) {
+          const text = props.location.state;
+          var element = document.getElementById("doctor-search");
+          var trigger = Object.getOwnPropertyDescriptor(
+            window.HTMLInputElement.prototype,
+            "value"
+          ).set;
+          trigger.call(element, text);
+          var event = new Event("change", { bubbles: true });
+          element.dispatchEvent(event);
+          document.querySelector(".searchForwardIcon").click();
+          setSearchText(text);
+          handleSearchData();
+          history.replace({ state: null });
+        } else if (
+          props &&
+          props.location &&
+          props.location.state &&
+          props.location.state !== "sports medicine"
+        ) {
+          const user = props.location.state;
+          //console.log("User from props:::", user);
+          setdoctor(user);
+          //const currentSelectedDate = new Date();
+          //onDaySelect(currentSelectedDate, user?.id);
+          const docId = user.id;
+          setAppointment({
+            ...appointment,
+            patientId: patientId,
+            doctorId: docId,
+          });
+          getInValidAppointments(docId);
+          history.replace({ state: null });
+        }
+        setTransparentLoading(false);
+      } else {
+        setTimeout(() => setLoading(false), 1000);
       }
-    });
-    if (
-      result &&
-      result.data &&
-      result.data.doctors &&
-      result.data.doctors.length > 0
-    ) {
+    }
+    else {
       setOffset(1);
-      setUser(result.data.doctors);
-      setdoctor(result.data.doctors[0]);
+      const doctorInfo = profilepID;
+      console.log("doctorInfo", doctorInfo);
+      setUser(doctorInfo.id);
+      setdoctor(doctorInfo.id);
       //const currentSelectedDate = new Date();
       //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
-      const docId = result.data.doctors[0]?.id;
+      const docId = doctorInfo.id?.id;
       setAppointment({ ...appointment, patientId: patientId, doctorId: docId });
       getInValidAppointments(docId);
-      setFilterData(result.data.doctors);
+      setFilterData(doctorInfo);
       //setTimeout(() => searchNutritionDoctor(), 3000);
       setTimeout(() => setLoading(false), 1000);
       const tourState = cookies.get("tour");
       if (!tourState) {
-        setIsTourOpen(true);
+        setIsTourOpen(false);
       }
 
       if (
@@ -234,7 +316,7 @@ const MyDoctor = (props) => {
         props.location.state &&
         props.location.state !== "sports medicine"
       ) {
-        const user = props.location.state;
+        const user = cookies.get("profileDetails");
         //console.log("User from props:::", user);
         setdoctor(user);
         //const currentSelectedDate = new Date();
@@ -249,8 +331,9 @@ const MyDoctor = (props) => {
         history.replace({ state: null });
       }
       setTransparentLoading(false);
-    } else {
-      setTimeout(() => setLoading(false), 1000);
+      // } else {
+      //   setTimeout(() => setLoading(false), 1000);
+      // }
     }
   };
 
@@ -1028,410 +1111,412 @@ const MyDoctor = (props) => {
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
       <Container className="my-doctor">
+
         <Row>
-          <Col md={6} lg={4} style={{ display: display.doctor }}>
-            <div id="dorctor-list">
-              <div className="Togglebar">
-                <div id="toggle-icons">
-                  <IconButton
-                    onClick={() => toggleFilterBox()}
-                    style={{
-                      backgroundColor: `${specialityFilter.length > 0 ||
-                        languageFilter.length > 0 ||
-                        genderFilter ||
-                        feesFilter[0] > 0 ||
-                        feesFilter[1] < 1000 ||
-                        docStartTime ||
-                        countryFilter
-                        ? "#F6CEB4"
-                        : ""
-                        }`,
-                      color: `${specialityFilter.length > 0 ||
-                        languageFilter.length > 0 ||
-                        genderFilter ||
-                        feesFilter[0] > 0 ||
-                        feesFilter[1] < 1000 ||
-                        docStartTime ||
-                        countryFilter
-                        ? "#00d0cc"
-                        : ""
-                        }`,
-                    }}
-                  >
-                    <TuneIcon />
-                  </IconButton>
-                  <IconButton
-                    style={{ display: display.unlike }}
-                    onClick={() => getAllLikedDoctors()}
-                  >
-                    <FavoriteBorderIcon />
-                  </IconButton>
-                  <IconButton
-                    style={{ display: display.like }}
-                    onClick={() => allDoctorData()}
-                  >
-                    <FavoriteIcon />
-                  </IconButton>
-                </div>
-                <SearchBar
-                  type="text"
-                  value={searchText}
-                  id="doctor-search"
-                  autoComplete='off'
-                  onChange={(value) => handleSearchInputChange(value)}
-                  onCancelSearch={() => handleSearchInputChange("")}
-                  onRequestSearch={() => handleSearchData(false)}
-                  cancelOnEscape={true}
-                  onKeyDown={(e) => e.keyCode === 13 ? handleSearchData(true) : ""}
-
-                />
-                <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  hideProgressBar
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                />
-                {searchText !== "" && (
-                  <IconButton
-                    onClick={() => handleSearchData(true)}
-                    className="searchForwardIcon"
-                  >
-                    <ArrowForwardIcon />
-                  </IconButton>
-                )}
-                {/* <Link to="/patient/search"><div className="suggestion-text" style={{ display: display.suggestion }}><SearchIcon /> Did'nt find doctor, Do global search</div></Link> */}
-                {/* Filter box start */}
-                {filter && (
-                  <div className="filter-box" ref={ref}>
-                    <ValidatorForm
-                      onSubmit={() => handleFilter()}
-                      onError={(error) => console.log(error)}
+          {!profilepID.activated &&
+            <Col md={6} lg={4} style={{ display: display.doctor }}>
+              <div id="dorctor-list">
+                <div className="Togglebar">
+                  <div id="toggle-icons">
+                    <IconButton
+                      onClick={() => toggleFilterBox()}
+                      style={{
+                        backgroundColor: `${specialityFilter.length > 0 ||
+                          languageFilter.length > 0 ||
+                          genderFilter ||
+                          feesFilter[0] > 0 ||
+                          feesFilter[1] < 1000 ||
+                          docStartTime ||
+                          countryFilter
+                          ? "#F6CEB4"
+                          : ""
+                          }`,
+                        color: `${specialityFilter.length > 0 ||
+                          languageFilter.length > 0 ||
+                          genderFilter ||
+                          feesFilter[0] > 0 ||
+                          feesFilter[1] < 1000 ||
+                          docStartTime ||
+                          countryFilter
+                          ? "#00d0cc"
+                          : ""
+                          }`,
+                      }}
                     >
-                      <div className="filter-body" >
-                        <div className="row m-0">
-                          <div className="col-md-12 col-xs-12">
-                            <FormControl>
-                              <div className="filter-multiselect">
-                                <Multiselect
-                                  options={specialityOptions}
-                                  onSelect={handleSpecialities}
-                                  onRemove={removeSpecialities}
-                                  selectedValues={selectedSpeciality}
-                                  placeholder="Select Specialities"
-                                  displayValue="name"
-                                />
-                              </div>
-                            </FormControl>
-                            <FormControl>
-                              <div className="filter-multiselect">
-                                <Multiselect
-                                  options={languageOptions}
-                                  onSelect={handleLanguages}
-                                  onRemove={removeLanguages}
-                                  selectedValues={selectedLanguage}
-                                  placeholder="Select Language"
-                                  displayValue="name"
-                                />
-                              </div>
-                            </FormControl>
-                            <FormControl>
-                              <Select
-                                id="demo-controlled-open-select"
-                                variant="filled"
-                                name="genderFilter"
-                                value={genderFilter}
-                                displayEmpty
-                                onChange={(e) =>
-                                  setFilterValues({
-                                    ...filterValues,
-                                    genderFilter: e.target.value,
-                                  })
-                                }
-                              >
-                                <MenuItem value="">
-                                  <em>Gender</em>
-                                </MenuItem>
-                                <MenuItem value="MALE">Male</MenuItem>
-                                <MenuItem value="FEMALE">Female</MenuItem>
-                              </Select>
-                            </FormControl>
-                            <br />
-                            <hr />
-                            <p>Availability:</p>
-                            <div className="row">
-                              <div className="col-md-6 col-xs-6 pr-1">
-                                <TextField
-                                  type="date"
-                                  onChange={(e) =>
-                                    setFilterValues({
-                                      ...filterValues,
-                                      docStartTime:
-                                        e.target.value === ""
-                                          ? ""
-                                          : new Date(e.target.value),
-                                    })
-                                  }
-                                  className="filterDate"
-                                  inputProps={{
-                                    min: moment(new Date()).format(
-                                      "YYYY-MM-DD"
-                                    ),
-                                  }}
-                                  value={moment(new Date(docStartTime)).format(
-                                    "YYYY-MM-DD"
-                                  )}
-                                  variant="filled"
-                                  onKeyDown={(e) => e.preventDefault()}
-                                />
-                              </div>
-                              <div className="col-md-6 col-xs-6 pl-1">
-                                <TextField
-                                  type="date"
-                                  onChange={(e) =>
-                                    setFilterValues({
-                                      ...filterValues,
-                                      docEndTime:
-                                        e.target.value === ""
-                                          ? ""
-                                          : new Date(e.target.value),
-                                    })
-                                  }
-                                  className="filterDate"
-                                  inputProps={{
-                                    min: moment(new Date(docStartTime)).format(
-                                      "YYYY-MM-DD"
-                                    ),
-                                  }}
-                                  value={moment(new Date(docEndTime)).format(
-                                    "YYYY-MM-DD"
-                                  )}
-                                  variant="filled"
-                                  disabled={endtimeChecked ? false : true}
-                                  onKeyDown={(e) => e.preventDefault()}
-                                />
-                              </div>
-                              <div className="col-md-12 col-xs-12">
-                                <FormControlLabel
-                                  control={
-                                    <Checkbox
-                                      color="primary"
-                                      checked={endtimeChecked}
-                                      disabled={docStartTime ? false : true}
-                                      onChange={(e) =>
-                                        handleCheckbox(e.target.checked)
-                                      }
-                                      name="checkedA"
-                                    />
-                                  }
-                                  label="Include EndTime."
-                                />
-                              </div>
-                            </div>
-                            <hr />
-                            <FormControl>
-                              <Select
-                                id="demo-controlled-open-select"
-                                variant="filled"
-                                name="countryFilter"
-                                value={countryFilter}
-                                displayEmpty
-                                onChange={(e) =>
-                                  setFilterValues({
-                                    ...filterValues,
-                                    countryFilter: e.target.value,
-                                  })
-                                }
-                              >
-                                <MenuItem value="">
-                                  <em>Nationality</em>
-                                </MenuItem>
-                                {countryList &&
-                                  countryList.map((option, index) => (
-                                    <MenuItem value={option.id} key={index}>
-                                      {option.name}
-                                    </MenuItem>
-                                  ))}
-                              </Select>
-                            </FormControl>
-                            <hr />
-                            <p>Consultation fees: </p>
-                            <div className="row">
-                              <div className="col-md-12 col-xs-12">
-                                <Slider
-                                  value={feesFilter}
-                                  onChange={(e, val) =>
-                                    setFilterValues({
-                                      ...filterValues,
-                                      feesFilter: val,
-                                    })
-                                  }
-                                  min={0}
-                                  step={25}
-                                  max={1000}
-                                  valueLabelDisplay="auto"
-                                  aria-labelledby="range-slider"
-                                />
-                                <br />
-                                <b>
-                                  Min: {feesFilter[0]} - Max: {feesFilter[1]}
-                                </b>
-                              </div>
-                            </div>
-                            <hr />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="filter-action">
-                        <div className="row m-0">
-                          <div className="col-md-6 col-6">
-                            <button
-                              type="button"
-                              onClick={() => clearFilter()}
-                              className="btn btn-primary reset-btn"
-                            >
-                              Clear All
-                            </button>
-                          </div>
-                          <div className="col-md-6 col-6">
-                            <button
-                              type="submit"
-                              className="btn btn-primary apply-btn"
-                            >
-                              Apply
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </ValidatorForm>
-                  </div>
-                )}
-                {/* Filter box end */}
-              </div>
-              <br />
-              <div>
-                <Link to="/patient/myappointment" id="menuLinks">
-                  <div id="card" className="card">
-                    <div className="card-body">
-                      My Appointments <span id="arrowright">{rightArrow}</span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-              <br />
-              <div id="card-list" className="scroller-cardlist">
-                {filterData &&
-                  filterData.length > 0 &&
-                  filterData[0] !== null ? (
-                  <GridList cellHeight={220}>
-                    <GridListTile
-                      key="Subheader"
-                      cols={2}
-                      style={{ height: "auto" }}
-                    ></GridListTile>
-                    {filterData.map(
-                      (user, index) =>
-                        user &&
-                        user.activated && (
-                          <GridListTile key={index}>
-                            {!user.liked && (
-                              <FavoriteBorderIcon
-                                id="fav-icon"
-                                onClick={() => createLikedDoctor(user.id)}
-                              />
-
-                            )}
-                            console.log(user.liked)
-
-                            {user.liked && (
-                              <FavoriteIcon
-                                id="fav-icon"
-                                onClick={() => createUnlikedDoctor(user.likeId)}
-                              />
-                            )}
-                            {user.picture ? (
-                              <img src={user.picture} alt="" />
-                            ) : (
-                              <Avatar
-                                name={user.firstName + " " + user.lastName}
-                              />
-                            )}
-                            <GridListTileBar
-                              style={{ cursor: "pointer" }}
-                              title={
-                                <span>
-                                  Dr. {user.firstName} {user.lastName}
-                                </span>
-                              }
-                              subtitle={
-                                <ul className="list--tags">
-                                  {user.specialities &&
-                                    user.specialities.map(
-                                      (speciality, index) => (
-                                        <li key={index}>{speciality.name}</li>
-                                      )
-                                    )}
-                                </ul>
-                              }
-                              onClick={async () => {
-                                setdoctor(user);
-                                setAppointment({
-                                  ...appointment,
-                                  doctorId: user.id,
-                                });
-                                setDisplay({
-                                  ...display,
-                                  doctor: "block",
-                                  appointment: "none",
-                                });
-                                setDisable({ ...disable, continue: true });
-                                //const currentSelectedDate = new Date();
-                                //onDaySelect(currentSelectedDate, user.id);
-                                setAvailability([]);
-                                setAppointmentSlot([]);
-                                getInValidAppointments(user.id);
-                              }}
-                            />
-                          </GridListTile>
-                        )
-                    )}
-                  </GridList>
-                ) : (
-                  <div>
-                    <center>No Doctor Found ...</center>
-                  </div>
-                )}
-                {filterData && filterData.length > doctorListLimit - 1 && (
-                  <>
-                    <div
-                      className="text-center"
+                      <TuneIcon />
+                    </IconButton>
+                    <IconButton
                       style={{ display: display.unlike }}
+                      onClick={() => getAllLikedDoctors()}
                     >
-                      <button
-                        className="btn btn-outline-secondary"
-                        onClick={loadMore}
-                      >
-                        Load More
-                      </button>
-                    </div>
-                    <div
-                      className="text-center"
+                      <FavoriteBorderIcon />
+                    </IconButton>
+                    <IconButton
                       style={{ display: display.like }}
+                      onClick={() => allDoctorData()}
                     >
-                      <button
-                        className="btn btn-outline-secondary"
-                        onClick={loadMoreLike}
+                      <FavoriteIcon />
+                    </IconButton>
+                  </div>
+                  <SearchBar
+                    type="text"
+                    value={searchText}
+                    id="doctor-search"
+                    autoComplete='off'
+                    onChange={(value) => handleSearchInputChange(value)}
+                    onCancelSearch={() => handleSearchInputChange("")}
+                    onRequestSearch={() => handleSearchData(false)}
+                    cancelOnEscape={true}
+                    onKeyDown={(e) => e.keyCode === 13 ? handleSearchData(true) : ""}
+
+                  />
+                  <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                  />
+                  {searchText !== "" && (
+                    <IconButton
+                      onClick={() => handleSearchData(true)}
+                      className="searchForwardIcon"
+                    >
+                      <ArrowForwardIcon />
+                    </IconButton>
+                  )}
+                  {/* <Link to="/patient/search"><div className="suggestion-text" style={{ display: display.suggestion }}><SearchIcon /> Did'nt find doctor, Do global search</div></Link> */}
+                  {/* Filter box start */}
+                  {filter && (
+                    <div className="filter-box" ref={ref}>
+                      <ValidatorForm
+                        onSubmit={() => handleFilter()}
+                        onError={(error) => console.log(error)}
                       >
-                        Load More
-                      </button>
+                        <div className="filter-body" >
+                          <div className="row m-0">
+                            <div className="col-md-12 col-xs-12">
+                              <FormControl>
+                                <div className="filter-multiselect">
+                                  <Multiselect
+                                    options={specialityOptions}
+                                    onSelect={handleSpecialities}
+                                    onRemove={removeSpecialities}
+                                    selectedValues={selectedSpeciality}
+                                    placeholder="Select Specialities"
+                                    displayValue="name"
+                                  />
+                                </div>
+                              </FormControl>
+                              <FormControl>
+                                <div className="filter-multiselect">
+                                  <Multiselect
+                                    options={languageOptions}
+                                    onSelect={handleLanguages}
+                                    onRemove={removeLanguages}
+                                    selectedValues={selectedLanguage}
+                                    placeholder="Select Language"
+                                    displayValue="name"
+                                  />
+                                </div>
+                              </FormControl>
+                              <FormControl>
+                                <Select
+                                  id="demo-controlled-open-select"
+                                  variant="filled"
+                                  name="genderFilter"
+                                  value={genderFilter}
+                                  displayEmpty
+                                  onChange={(e) =>
+                                    setFilterValues({
+                                      ...filterValues,
+                                      genderFilter: e.target.value,
+                                    })
+                                  }
+                                >
+                                  <MenuItem value="">
+                                    <em>Gender</em>
+                                  </MenuItem>
+                                  <MenuItem value="MALE">Male</MenuItem>
+                                  <MenuItem value="FEMALE">Female</MenuItem>
+                                </Select>
+                              </FormControl>
+                              <br />
+                              <hr />
+                              <p>Availability:</p>
+                              <div className="row">
+                                <div className="col-md-6 col-xs-6 pr-1">
+                                  <TextField
+                                    type="date"
+                                    onChange={(e) =>
+                                      setFilterValues({
+                                        ...filterValues,
+                                        docStartTime:
+                                          e.target.value === ""
+                                            ? ""
+                                            : new Date(e.target.value),
+                                      })
+                                    }
+                                    className="filterDate"
+                                    inputProps={{
+                                      min: moment(new Date()).format(
+                                        "YYYY-MM-DD"
+                                      ),
+                                    }}
+                                    value={moment(new Date(docStartTime)).format(
+                                      "YYYY-MM-DD"
+                                    )}
+                                    variant="filled"
+                                    onKeyDown={(e) => e.preventDefault()}
+                                  />
+                                </div>
+                                <div className="col-md-6 col-xs-6 pl-1">
+                                  <TextField
+                                    type="date"
+                                    onChange={(e) =>
+                                      setFilterValues({
+                                        ...filterValues,
+                                        docEndTime:
+                                          e.target.value === ""
+                                            ? ""
+                                            : new Date(e.target.value),
+                                      })
+                                    }
+                                    className="filterDate"
+                                    inputProps={{
+                                      min: moment(new Date(docStartTime)).format(
+                                        "YYYY-MM-DD"
+                                      ),
+                                    }}
+                                    value={moment(new Date(docEndTime)).format(
+                                      "YYYY-MM-DD"
+                                    )}
+                                    variant="filled"
+                                    disabled={endtimeChecked ? false : true}
+                                    onKeyDown={(e) => e.preventDefault()}
+                                  />
+                                </div>
+                                <div className="col-md-12 col-xs-12">
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        color="primary"
+                                        checked={endtimeChecked}
+                                        disabled={docStartTime ? false : true}
+                                        onChange={(e) =>
+                                          handleCheckbox(e.target.checked)
+                                        }
+                                        name="checkedA"
+                                      />
+                                    }
+                                    label="Include EndTime."
+                                  />
+                                </div>
+                              </div>
+                              <hr />
+                              <FormControl>
+                                <Select
+                                  id="demo-controlled-open-select"
+                                  variant="filled"
+                                  name="countryFilter"
+                                  value={countryFilter}
+                                  displayEmpty
+                                  onChange={(e) =>
+                                    setFilterValues({
+                                      ...filterValues,
+                                      countryFilter: e.target.value,
+                                    })
+                                  }
+                                >
+                                  <MenuItem value="">
+                                    <em>Nationality</em>
+                                  </MenuItem>
+                                  {countryList &&
+                                    countryList.map((option, index) => (
+                                      <MenuItem value={option.id} key={index}>
+                                        {option.name}
+                                      </MenuItem>
+                                    ))}
+                                </Select>
+                              </FormControl>
+                              <hr />
+                              <p>Consultation fees: </p>
+                              <div className="row">
+                                <div className="col-md-12 col-xs-12">
+                                  <Slider
+                                    value={feesFilter}
+                                    onChange={(e, val) =>
+                                      setFilterValues({
+                                        ...filterValues,
+                                        feesFilter: val,
+                                      })
+                                    }
+                                    min={0}
+                                    step={25}
+                                    max={1000}
+                                    valueLabelDisplay="auto"
+                                    aria-labelledby="range-slider"
+                                  />
+                                  <br />
+                                  <b>
+                                    Min: {feesFilter[0]} - Max: {feesFilter[1]}
+                                  </b>
+                                </div>
+                              </div>
+                              <hr />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="filter-action">
+                          <div className="row m-0">
+                            <div className="col-md-6 col-6">
+                              <button
+                                type="button"
+                                onClick={() => clearFilter()}
+                                className="btn btn-primary reset-btn"
+                              >
+                                Clear All
+                              </button>
+                            </div>
+                            <div className="col-md-6 col-6">
+                              <button
+                                type="submit"
+                                className="btn btn-primary apply-btn"
+                              >
+                                Apply
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </ValidatorForm>
                     </div>
-                  </>
-                )}
-                {/* {searchText && filterData && (<>
+                  )}
+                  {/* Filter box end */}
+                </div>
+                <br />
+                <div>
+                  <Link to="/patient/myappointment" id="menuLinks">
+                    <div id="card" className="card">
+                      <div className="card-body">
+                        My Appointments <span id="arrowright">{rightArrow}</span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <br />
+                <div id="card-list" className="scroller-cardlist">
+                  {filterData &&
+                    filterData.length > 0 &&
+                    filterData[0] !== null ? (
+                    <GridList cellHeight={220}>
+                      <GridListTile
+                        key="Subheader"
+                        cols={2}
+                        style={{ height: "auto" }}
+                      ></GridListTile>
+                      {filterData.map(
+                        (user, index) =>
+                          user &&
+                          user.activated && (
+                            <GridListTile key={index}>
+                              {!user.liked && (
+                                <FavoriteBorderIcon
+                                  id="fav-icon"
+                                  onClick={() => createLikedDoctor(user.id)}
+                                />
+
+                              )}
+                              console.log(user.liked)
+
+                              {user.liked && (
+                                <FavoriteIcon
+                                  id="fav-icon"
+                                  onClick={() => createUnlikedDoctor(user.likeId)}
+                                />
+                              )}
+                              {user.picture ? (
+                                <img src={user.picture} alt="" />
+                              ) : (
+                                <Avatar
+                                  name={user.firstName + " " + user.lastName}
+                                />
+                              )}
+                              <GridListTileBar
+                                style={{ cursor: "pointer" }}
+                                title={
+                                  <span>
+                                    Dr. {user.firstName} {user.lastName}
+                                  </span>
+                                }
+                                subtitle={
+                                  <ul className="list--tags">
+                                    {user.specialities &&
+                                      user.specialities.map(
+                                        (speciality, index) => (
+                                          <li key={index}>{speciality.name}</li>
+                                        )
+                                      )}
+                                  </ul>
+                                }
+                                onClick={async () => {
+                                  setdoctor(user);
+                                  setAppointment({
+                                    ...appointment,
+                                    doctorId: user.id,
+                                  });
+                                  setDisplay({
+                                    ...display,
+                                    doctor: "block",
+                                    appointment: "none",
+                                  });
+                                  setDisable({ ...disable, continue: true });
+                                  //const currentSelectedDate = new Date();
+                                  //onDaySelect(currentSelectedDate, user.id);
+                                  setAvailability([]);
+                                  setAppointmentSlot([]);
+                                  getInValidAppointments(user.id);
+                                }}
+                              />
+                            </GridListTile>
+                          )
+                      )}
+                    </GridList>
+                  ) : (
+                    <div>
+                      <center>No Doctor Found ...</center>
+                    </div>
+                  )}
+                  {filterData && filterData.length > doctorListLimit - 1 && (
+                    <>
+                      <div
+                        className="text-center"
+                        style={{ display: display.unlike }}
+                      >
+                        <button
+                          className="btn btn-outline-secondary"
+                          onClick={loadMore}
+                        >
+                          Load More
+                        </button>
+                      </div>
+                      <div
+                        className="text-center"
+                        style={{ display: display.like }}
+                      >
+                        <button
+                          className="btn btn-outline-secondary"
+                          onClick={loadMoreLike}
+                        >
+                          Load More
+                        </button>
+                      </div>
+                    </>
+                  )}
+                  {/* {searchText && filterData && (<>
                                     <div className="text-center" style={{ display: display.unlike }}>
                                         <button className="btn btn-outline-secondary" onClick={loadMore}>Load More</button>
                                     </div>
@@ -1439,148 +1524,306 @@ const MyDoctor = (props) => {
                                         <button className="btn btn-outline-secondary" onClick={loadMoreLike}>Load More</button>
                                     </div>
                                 </>)} */}
+                </div>
               </div>
-            </div>
-          </Col>
-          <Col md={6} lg={4} style={{ display: display.doctor }}>
-            <div id="dorctor-list" className="doctor-list-new">
-              {doctor && doctor.activated ? (
-                <>
-                  <Row id="doc-row">
-                    <Col xs={6}>
-                      <div className="doc-img">
-                        {doctor.picture ? (
-                          <img src={doctor.picture} alt="" />
-                        ) : (
-                          <Avatar
-                            name={doctor.firstName + " " + doctor.lastName}
-                          />
-                        )}
-                      </div>
-                    </Col>
-                    <Col xs={6} id="doc-details">
-                      <div>
-                        <b className="doc-name">
-                          {doctor.firstName} {doctor.lastName}
-                        </b>
-                        <br />
-                        <ul
-                          style={{ fontSize: 12, display: "block" }}
-                          className="list--tags"
-                        >
-                          {doctor &&
-                            doctor.specialities &&
-                            doctor.specialities.map((speciality, index) => (
-                              <li key={index}>{speciality.name} </li>
-                            ))}
-                        </ul>
-                        <span>
-                          Country Of Residence: <b>{doctor.countryName}</b>
-                        </span>
-                        <br />
-                      </div>
-                    </Col>
-                  </Row>
-                  <br />
-                  <div className="mr-4 ml-4">
-                    <div className="row">
-                      <div className="col-4">
-                        <span style={{ fontSize: 12 }}>Experience</span>
-                        <br />
-                        <b>{doctor.experience} yrs</b>
-                      </div>
-                      <div className="col-4">
-                        <span style={{ fontSize: 12 }}>Education</span>
-                        <br />
-                        <b>{doctor.education}</b>
-                      </div>
-                      <div className="col-4">
-                        <span style={{ fontSize: 12 }}>Languange</span>
-                        <br />
-                        <b>
-                          {doctor &&
-                            doctor.languages &&
-                            doctor.languages.map((lang, index) => (
-                              <span key={index}>{lang.name} </span>
-                            ))}
-                        </b>
-                      </div>
-                    </div>
-                    <hr style={{ borderColor: "black" }} />
-                    {/* <h5>About</h5> */}
-                    <p style={{ fontSize: 12 }}>
-                      {/* <span><b>Bio : </b></span><br/> */}
-                      <span>{doctor.bio}</span>
-                      <br />
-                      <span>
-                        <b>Awards : </b>
-                      </span>
-                      <br />
-                      <span>{doctor.awards}</span>
-                      <br />
-                      <br />
-                      <span>
-                        <b>Certificates : </b>
-                      </span>
-                      <br />
-                      <span>{doctor.certificates}</span>
-                    </p>
-                    <br />
-                    <div className="mx-0">
-                      <div className="row">
-                        <div className="col-12">
-                          <span className="price">
-                            $
-
-                            {appointment.appointmentMode === "CONSULTATION" ||
-                              appointment.appointmentMode === ""
-                              ? doctor.rate
-                              : appointment.appointmentMode === "FOLLOW_UP"
-                                ? doctor.halfRate
-                                : ""}
-
+            </Col>
+          }
+          {!profilepID.activated ?
+            <Col md={6} lg={4} style={{ display: display.doctor }}>
+              <div id="dorctor-list" className="doctor-list-new">
+                {doctor && doctor.activated ? (
+                  <>
+                    <Row id="doc-row">
+                      <Col xs={6}>
+                        <div className="doc-img">
+                          {doctor.picture ? (
+                            <img src={doctor.picture} alt="" />
+                          ) : (
+                            <Avatar
+                              name={doctor.firstName + " " + doctor.lastName}
+                            />
+                          )}
+                        </div>
+                      </Col>
+                      <Col xs={6} id="doc-details">
+                        <div>
+                          <b className="doc-name">
+                            {doctor.firstName} {doctor.lastName}
+                          </b>
+                          <br />
+                          <ul
+                            style={{ fontSize: 12, display: "block" }}
+                            className="list--tags"
+                          >
+                            {doctor &&
+                              doctor.specialities &&
+                              doctor.specialities.map((speciality, index) => (
+                                <li key={index}>{speciality.name} </li>
+                              ))}
+                          </ul>
+                          <span>
+                            Country Of Residence: <b>{doctor.countryName}</b>
                           </span>
                           <br />
-                          <span>
-                            USD /{" "}
-                            {appointment.appointmentMode === "CONSULTATION" ||
-                              appointment.appointmentMode === ""
-                              ? "Consultation"
-                              : appointment.appointmentMode === "FOLLOW_UP"
-                                ? "Follow up"
-                                : ""}
-                          </span>
+                        </div>
+                      </Col>
+                    </Row>
+                    <br />
+                    <div className="mr-4 ml-4">
+                      <div className="row">
+                        <div className="col-4">
+                          <span style={{ fontSize: 12 }}>Education</span>
+                          <br />
+                          <b>
+                            {doctor &&
+                              doctor.educationalQualifications &&
+                              doctor.educationalQualifications.map((x, index) => (
+                                <li key={index}>{x.educationalQualification} </li>
+                              ))}
+                          </b>
+                        </div>
+                        <div className="col-4">
+                          <span style={{ fontSize: 12 }}>Institution</span>
+                          <br />
+                          <b>
+                            {doctor &&
+                              doctor.educationalQualifications &&
+                              doctor.educationalQualifications.map((x, index) => (
+                                <li key={index}>{x.institution} </li>
+                              ))}
+                          </b>
+                        </div>
+                        <div className="col-4">
+                          <span style={{ fontSize: 12 }}>Languange</span>
+                          <br />
+                          <b>
+                            {doctor &&
+                              doctor.languages &&
+                              doctor.languages.map((lang, index) => (
+                                <span key={index}>{lang.name} </span>
+                              ))}
+                          </b>
+                        </div>
+                      </div>
+                      <hr style={{ borderColor: "black" }} />
+                      {/* <h5>About</h5> */}
+                      <p style={{ fontSize: 12 }}>
+                        {/* <span><b>Bio : </b></span><br/> */}
+                        <span>{doctor.bio}</span>
+                        <br /><br />
+                        <span>
+                          <b>Awards : </b>
+                        </span>
+                        <br />
+                        <span>{doctor.awards}</span>
+                        <br />
+                        <span>
+                          <b>Certificates : </b>
+                        </span>
+                        <br />
+                        <span>{doctor.certificates}</span>
+                        <br />
+                        <span>
+                          <b>Experience : </b>
+                        </span>
+                        <br />
+                        <span>{doctor.experience} yrs</span>
+                      </p>
+                      <br />
+                      <div className="mx-0">
+                        <div className="row">
+                          <div className="col-12">
+                            <span className="price">
+                              $
+
+                              {appointment.appointmentMode === "CONSULTATION" ||
+                                appointment.appointmentMode === ""
+                                ? doctor.rate
+                                : appointment.appointmentMode === "FOLLOW_UP"
+                                  ? doctor.halfRate
+                                  : ""}
+
+                            </span>
+                            <br />
+                            <span>
+                              USD /{" "}
+                              {appointment.appointmentMode === "CONSULTATION" ||
+                                appointment.appointmentMode === ""
+                                ? "Consultation"
+                                : appointment.appointmentMode === "FOLLOW_UP"
+                                  ? "Follow up"
+                                  : ""}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
+                  </>
+                ) : (
+                  <div className="no-result">
+                    <center>No Doctor Found ...</center>
                   </div>
-                </>
-              ) : (
-                <div className="no-result">
-                  <center>No Doctor Found ...</center>
-                </div>
-              )}
-            </div>
-          </Col>
+                )}
+              </div>
+            </Col>
+            :
+            <Col md={6} lg={8} style={{ display: display.doctor }}>
+              <div id="dorctor-list" className="doctor-list-new">
+                {doctor && doctor.activated ? (
+                  <>
+                    <Row id="doc-row">
+                      <Col xs={4}>
+                        <div className="doc-img">
+                          {doctor.picture ? (
+                            <img src={doctor.picture} alt="" />
+                          ) : (
+                            <Avatar
+                              name={doctor.firstName + " " + doctor.lastName}
+                            />
+                          )}
+                        </div>
+                      </Col>
+                      <Col xs={8} id="doc-details">
+                        <div>
+                          <b className="doc-name">
+                            {doctor.firstName} {doctor.lastName}
+                          </b>
+                          <br />
+                          <ul
+                            style={{ fontSize: 12, display: "block" }}
+                            className="list--tags"
+                          >
+                            {doctor &&
+                              doctor.specialities &&
+                              doctor.specialities.map((speciality, index) => (
+                                <li key={index}>{speciality.name} </li>
+                              ))}
+                          </ul>
+                          <span>
+                            Country Of Residence: <b>{doctor.countryName}</b>
+                          </span>
+                          <br />
+                        </div>
+                      </Col>
+                    </Row>
+                    <br />
+                    <div className="mr-4 ml-4">
+                      <div className="row">
+                        <div className="col-4">
+                          <span style={{ fontSize: 12 }}>Education</span>
+                          <br />
+                          <b>
+                            {doctor &&
+                              doctor.educationalQualifications &&
+                              doctor.educationalQualifications.map((x, index) => (
+                                <li key={index}>{x.educationalQualification} </li>
+                              ))}
+                          </b>
+                        </div>
+                        <div className="col-4">
+                          <span style={{ fontSize: 12 }}>Institution</span>
+                          <br />
+                          <b>
+                            {doctor &&
+                              doctor.educationalQualifications &&
+                              doctor.educationalQualifications.map((x, index) => (
+                                <li key={index}>{x.institution} </li>
+                              ))}
+                          </b>
+                        </div>
+                        <div className="col-4">
+                          <span style={{ fontSize: 12 }}>Languange</span>
+                          <br />
+                          <b>
+                            {doctor &&
+                              doctor.languages &&
+                              doctor.languages.map((lang, index) => (
+                                <span key={index}>{lang.name} </span>
+                              ))}
+                          </b>
+                        </div>
+                      </div>
+                      <hr style={{ borderColor: "black" }} />
+                      {/* <h5>About</h5> */}
+                      <p style={{ fontSize: 12 }}>
+                        {/* <span><b>Bio : </b></span><br/> */}
+                        <span>{doctor.bio}</span>
+                        <br /><br />
+                        <span>
+                          <b>Awards : </b>
+                        </span>
+                        <br />
+                        <span>{doctor.awards}</span>
+                        <br />
+                        <span>
+                          <b>Certificates : </b>
+                        </span>
+                        <br />
+                        <span>{doctor.certificates}</span>
+                        <br />
+                        <span>
+                          <b>Experience : </b>
+                        </span>
+                        <br />
+                        <span>{doctor.experience} yrs</span>
+                      </p>
+                      <br />
+                      <div className="mx-0">
+                        <div className="row">
+                          <div className="col-12">
+                            <span className="price">
+                              $
 
-          <Col
-            md={6}
-            lg={4}
-            className="p-0"
-            style={{ display: display.doctor }}
-          >
-            <Tooltip title="Take a Booking appointment tour again." arrow>
-              <button onClick={() => setIsTourOpen(true)} className="howToBtn">
-                How to?
-              </button>
-            </Tooltip>
-            <div id="dorctor-list">
-              <div
-                style={{ height: 470 }}
-                id="calendar-list"
-              >
-                <div className="dateGroup">
-                  {/* <p>Select Date</p>
+                              {appointment.appointmentMode === "CONSULTATION" ||
+                                appointment.appointmentMode === ""
+                                ? doctor.rate
+                                : appointment.appointmentMode === "FOLLOW_UP"
+                                  ? doctor.halfRate
+                                  : ""}
+
+                            </span>
+                            <br />
+                            <span>
+                              USD /{" "}
+                              {appointment.appointmentMode === "CONSULTATION" ||
+                                appointment.appointmentMode === ""
+                                ? "Consultation"
+                                : appointment.appointmentMode === "FOLLOW_UP"
+                                  ? "Follow up"
+                                  : ""}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="no-result">
+                    <center>No Doctor Found ...</center>
+                  </div>
+                )}
+              </div>
+            </Col>
+          }
+          {!profilepID.activated ?
+            <Col
+              md={6}
+              lg={4}
+              className="p-0"
+              style={{ display: display.doctor }}
+            >
+              <Tooltip title="Take a Booking appointment tour again." arrow>
+                <button onClick={() => setIsTourOpen(true)} className="howToBtn">
+                  How to?
+                </button>
+              </Tooltip>
+              <div id="dorctor-list">
+                <div
+                  style={{ height: 470 }}
+                  id="calendar-list"
+                >
+                  <div className="dateGroup">
+                    {/* <p>Select Date</p>
                                     <TextField
                                         type="date"
                                         onChange={(e) => onDaySelect(new Date(e.target.value), doctor && doctor.id)}
@@ -1591,121 +1834,121 @@ const MyDoctor = (props) => {
                                     />
                                     <br />
                                     <br /> */}
-                  {displayCalendar && (
-                    <>
-                      <div className="appointment-type">
-                        <p>Appointment Type</p>
-                        <FormControl>
-                          <Select
-                            id="demo-controlled-open-select"
-                            variant="outlined"
-                            name="appointmentType"
-                            value={appointment.appointmentMode}
-                            displayEmpty
-                            onChange={(e) => handleAppoitnmentType(e)}
-                          >
-                            <MenuItem value="">
-                              <em>Select</em>
-                            </MenuItem>
-                            <MenuItem value="CONSULTATION">
-                              Consultation(1 Hr)
-                            </MenuItem>
-                            <MenuItem value="FOLLOW_UP">
-                              Follow up(30 Mins)
-                            </MenuItem>
-                          </Select>
-                        </FormControl>
-                      </div>
-                      <Calendar
-                        onChange={(e) =>
-                          onDaySelect(new Date(e), doctor && doctor.id)
-                        }
-                        value={currentDate}
-                        minDate={new Date()} //to disable past days
-                        maxDate={
-                          new Date(
-                            new Date().setDate(new Date().getDate() + 180)
-                          )
-                        } // next 3week condition
-                        // Temporarily commented to enable calendar click functionality for appointment.
-                        tileDisabled={({ activeStartDate, date, view }) =>
-                          activeStartDate.getDate() === date.getDate() &&
-                          disabledDates &&
-                          disabledDates.some(
-                            (disabledDate) =>
-                              // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
-                              date.getFullYear() ===
-                              disabledDate.getFullYear() &&
-                              date.getMonth() === disabledDate.getMonth() &&
-                              date.getDate() === disabledDate.getDate()
-                          )
-                        } // greyout dates
-                      />
-                    </>
-                  )}
-
-                  {displaySlot && (
-                    <>
-                      <IconButton
-                        style={{
-                          background: "#F6CEB4",
-                          color: "#00d0cc",
-                          marginRight: "10px",
-                        }}
-                        onClick={() => {
-                          setDisplaySlot(false);
-                          setDisplayCalendar(true);
-                        }}
-                      >
-                        <KeyboardBackspaceIcon />{" "}
-                      </IconButton>{" "}
-                      Back to calendar
-                      <p className="mt-3">
-                        Available Slots For{" "}
-                        {moment(currentDate).format("DD, MMM YYYY")}
-                      </p>
-                      {appointmentSlot && appointmentSlot.length > 0 ? (
-                        appointmentSlot.map((current, i) => (
-                          <div className="inputGroup" key={i}>
-                            <input
-                              id={`selectedId${i}`}
-                              name="selectedId"
-                              className="choseSlotInput"
-                              type="radio"
-                              value={current.id}
-                              onChange={() =>
-                                onAvailabilitySelected(current, i)
-                              }
-                              checked={
-                                selectedSlotId &&
-                                parseInt(selectedSlotId) === current.id
-                              }
-                            />
-                            <label
-                              htmlFor={`selectedId${i}`}
-                              className="choseSlotLable"
+                    {displayCalendar && (
+                      <>
+                        <div className="appointment-type">
+                          <p>Appointment Type</p>
+                          <FormControl>
+                            <Select
+                              id="demo-controlled-open-select"
+                              variant="outlined"
+                              name="appointmentType"
+                              value={appointment.appointmentMode}
+                              displayEmpty
+                              onChange={(e) => handleAppoitnmentType(e)}
                             >
-                              <b>
-                                {moment(current.startTime).format("hh:mm A")} -{" "}
-                                {moment(current.endTime).format("hh:mm A")}{" "}
-                              </b>
-                            </label>
+                              <MenuItem value="">
+                                <em>Select</em>
+                              </MenuItem>
+                              <MenuItem value="CONSULTATION">
+                                Consultation(1 Hr)
+                              </MenuItem>
+                              <MenuItem value="FOLLOW_UP">
+                                Follow up(30 Mins)
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </div>
+                        <Calendar
+                          onChange={(e) =>
+                            onDaySelect(new Date(e), doctor && doctor.id)
+                          }
+                          value={currentDate}
+                          minDate={new Date()} //to disable past days
+                          maxDate={
+                            new Date(
+                              new Date().setDate(new Date().getDate() + 180)
+                            )
+                          } // next 3week condition
+                          // Temporarily commented to enable calendar click functionality for appointment.
+                          tileDisabled={({ activeStartDate, date, view }) =>
+                            activeStartDate.getDate() === date.getDate() &&
+                            disabledDates &&
+                            disabledDates.some(
+                              (disabledDate) =>
+                                // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
+                                date.getFullYear() ===
+                                disabledDate.getFullYear() &&
+                                date.getMonth() === disabledDate.getMonth() &&
+                                date.getDate() === disabledDate.getDate()
+                            )
+                          } // greyout dates
+                        />
+                      </>
+                    )}
+
+                    {displaySlot && (
+                      <>
+                        <IconButton
+                          style={{
+                            background: "#F6CEB4",
+                            color: "#00d0cc",
+                            marginRight: "10px",
+                          }}
+                          onClick={() => {
+                            setDisplaySlot(false);
+                            setDisplayCalendar(true);
+                          }}
+                        >
+                          <KeyboardBackspaceIcon />{" "}
+                        </IconButton>{" "}
+                        Back to calendar
+                        <p className="mt-3">
+                          Available Slots For{" "}
+                          {moment(currentDate).format("DD, MMM YYYY")}
+                        </p>
+                        {appointmentSlot && appointmentSlot.length > 0 ? (
+                          appointmentSlot.map((current, i) => (
+                            <div className="inputGroup" key={i}>
+                              <input
+                                id={`selectedId${i}`}
+                                name="selectedId"
+                                className="choseSlotInput"
+                                type="radio"
+                                value={current.id}
+                                onChange={() =>
+                                  onAvailabilitySelected(current, i)
+                                }
+                                checked={
+                                  selectedSlotId &&
+                                  parseInt(selectedSlotId) === current.id
+                                }
+                              />
+                              <label
+                                htmlFor={`selectedId${i}`}
+                                className="choseSlotLable"
+                              >
+                                <b>
+                                  {moment(current.startTime).format("hh:mm A")} -{" "}
+                                  {moment(current.endTime).format("hh:mm A")}{" "}
+                                </b>
+                              </label>
+                            </div>
+                          ))
+                        ) : appointmentSlot.length === 0 &&
+                          appointment.appointmentMode === "CONSULTATION" ? (
+                          <div style={{ textAlign: "center", marginTop: "50%" }}>
+                            No slots available for consultation.
                           </div>
-                        ))
-                      ) : appointmentSlot.length === 0 &&
-                        appointment.appointmentMode === "CONSULTATION" ? (
-                        <div style={{ textAlign: "center", marginTop: "50%" }}>
-                          No slots available for consultation.
-                        </div>
-                      ) : (
-                        <div style={{ textAlign: "center", marginTop: "50%" }}>
-                          No slots available.
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-                {/* <br />
+                        ) : (
+                          <div style={{ textAlign: "center", marginTop: "50%" }}>
+                            No slots available.
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                  {/* <br />
                                 <Row style={{ margin: '0px' }}>
                                     {Availability && Availability.map((avail, index) => (
                                         new Date(availappoi.startTime) >= new Date() && (
@@ -1717,29 +1960,209 @@ const MyDoctor = (props) => {
                                         )
                                     ))}
                                 </Row> */}
-                <label
-                  style={{
-                    fontSize: 12,
-                    color: "#ff9393",
-                    marginBottom: "10px",
-                    marginTop: "10px",
+                  <label
+                    style={{
+                      fontSize: 12,
+                      color: "#ff9393",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                    }}
+                    className="left"
+                  >
+                    {slotError}
+                  </label>
+                </div>
+                <button
+                  className="btn btn-primary continue-btn"
+                  onClick={async () => {
+                    checkSlot();
                   }}
-                  className="left"
+                  disabled={disable.continue}
                 >
-                  {slotError}
-                </label>
+                  Continue
+                </button>
               </div>
-              <button
-                className="btn btn-primary continue-btn"
-                onClick={async () => {
-                  checkSlot();
-                }}
-                disabled={disable.continue}
-              >
-                Continue
-              </button>
-            </div>
-          </Col>
+            </Col>
+            :
+            <Col
+              md={6}
+              lg={4}
+              className="p-0"
+              style={{ display: display.doctor }}
+            >
+              {/* <Tooltip title="Take a Booking appointment tour again." arrow>
+                <button onClick={() => setIsTourOpen(true)} className="howToBtn">
+                  How to?
+                </button>
+              </Tooltip> */}
+              <div id="dorctor-list">
+                <div
+                  style={{ height: 470 }}
+                  id="calendar-list"
+                >
+                  <div className="dateGroup">
+                    {/* <p>Select Date</p>
+                                    <TextField
+                                        type="date"
+                                        onChange={(e) => onDaySelect(new Date(e.target.value), doctor && doctor.id)}
+                                        className="appointmentDate"
+                                        inputProps={{ min: moment(new Date()).format("YYYY-MM-DD") }}
+                                        value={moment(currentDate).format("YYYY-MM-DD")}
+                                        variant="filled"
+                                    />
+                                    <br />
+                                    <br /> */}
+                    {displayCalendar && (
+                      <>
+                        <div className="appointment-type">
+                          <p>Appointment Type</p>
+                          <FormControl>
+                            <Select
+                              id="demo-controlled-open-select"
+                              variant="outlined"
+                              name="appointmentType"
+                              value={appointment.appointmentMode}
+                              displayEmpty
+                              onChange={(e) => handleAppoitnmentType(e)}
+                            >
+                              <MenuItem value="">
+                                <em>Select</em>
+                              </MenuItem>
+                              {/* <MenuItem value="CONSULTATION">
+                                Consultation(1 Hr)
+                              </MenuItem> */}
+                              <MenuItem value="FOLLOW_UP">
+                                Follow up(30 Mins)
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </div>
+                        <Calendar
+
+                          onChange={(e) =>
+                            onDaySelect(new Date(e), doctor && doctor.id)
+                          }
+                          value={currentDate}
+                          minDate={new Date()} //to disable past days
+                          maxDate={
+                            new Date(
+                              new Date().setDate(new Date().getDate() + 180)
+                            )
+                          } // next 3week condition
+                          // Temporarily commented to enable calendar click functionality for appointment.
+                          tileDisabled={({ activeStartDate, date, view }) =>
+                            activeStartDate.getDate() === date.getDate() &&
+                            disabledDates &&
+                            disabledDates.some(
+                              (disabledDate) =>
+                                // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
+                                date.getFullYear() ===
+                                disabledDate.getFullYear() &&
+                                date.getMonth() === disabledDate.getMonth() &&
+                                date.getDate() === disabledDate.getDate()
+                            )
+                          } // greyout dates
+                        />
+                      </>
+                    )}
+
+                    {displaySlot && (
+                      <>
+                        <IconButton
+                          style={{
+                            background: "#F6CEB4",
+                            color: "#00d0cc",
+                            marginRight: "10px",
+                          }}
+                          onClick={() => {
+                            setDisplaySlot(false);
+                            setDisplayCalendar(true);
+                          }}
+                        >
+                          <KeyboardBackspaceIcon />{" "}
+                        </IconButton>{" "}
+                        Back to calendar
+                        <p className="mt-3">
+                          Available Slots For{" "}
+                          {moment(currentDate).format("DD, MMM YYYY")}
+                        </p>
+                        {appointmentSlot && appointmentSlot.length > 0 ? (
+                          appointmentSlot.map((current, i) => (
+                            <div className="inputGroup" key={i}>
+                              <input
+                                id={`selectedId${i}`}
+                                name="selectedId"
+                                className="choseSlotInput"
+                                type="radio"
+                                value={current.id}
+                                onChange={() =>
+                                  onAvailabilitySelected(current, i)
+                                }
+                                checked={
+                                  selectedSlotId &&
+                                  parseInt(selectedSlotId) === current.id
+                                }
+                              />
+                              <label
+                                htmlFor={`selectedId${i}`}
+                                className="choseSlotLable"
+                              >
+                                <b>
+                                  {moment(current.startTime).format("hh:mm A")} -{" "}
+                                  {moment(current.endTime).format("hh:mm A")}{" "}
+                                </b>
+                              </label>
+                            </div>
+                          ))
+                        ) : appointmentSlot.length === 0 &&
+                          appointment.appointmentMode === "CONSULTATION" ? (
+                          <div style={{ textAlign: "center", marginTop: "50%" }}>
+                            No slots available for consultation.
+                          </div>
+                        ) : (
+                          <div style={{ textAlign: "center", marginTop: "50%" }}>
+                            No slots available.
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                  {/* <br />
+                                <Row style={{ margin: '0px' }}>
+                                    {Availability && Availability.map((avail, index) => (
+                                        new Date(availappoi.startTime) >= new Date() && (
+                                            <Col xs={6} className="text-center" style={{ padding: '0px' }} key={index}>
+                                                <button className="btn timeSlot" onClick={() => onAvailabilitySelected(avail.startTime, avail.endTime, index)}>
+                                                    {moment(new Date(avail.startTime)).format("h:mm A")} - {moment(new Date(avail.endTime)).format("h:mm A")}
+                                                </button>
+                                            </Col>
+                                        )
+                                    ))}
+                                </Row> */}
+                  <label
+                    style={{
+                      fontSize: 12,
+                      color: "#ff9393",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                    }}
+                    className="left"
+                  >
+                    {slotError}
+                  </label>
+                </div>
+                <button
+                  className="btn btn-primary continue-btn"
+                  onClick={async () => {
+                    checkSlot();
+                  }}
+                  disabled={disable.continue}
+                >
+                  Continue
+                </button>
+              </div>
+            </Col>
+          }
           <Col md={4} style={{ display: display.appointment }}>
             <div id="dorctor-list">
               <IconButton
@@ -1862,7 +2285,13 @@ const MyDoctor = (props) => {
                   <div className="col-4">
                     <span style={{ fontSize: 12 }}>Education</span>
                     <br />
-                    <b>{doctor && doctor.education}</b>
+                    <b>
+                      {doctor &&
+                        doctor.educationalQualifications &&
+                        doctor.educationalQualifications.map((x, index) => (
+                          <li key={index}>{x.educationalQualification} </li>
+                        ))}
+                    </b>
                   </div>
                   <div className="col-4">
                     <span style={{ fontSize: 12 }}>Languange</span>
@@ -1981,33 +2410,34 @@ const MyDoctor = (props) => {
                     </Col>
                   </Row>
                   <br />
-                  <Row>
-                    {/* <Col md={1}></Col> */}
-                    {/* <Col md={5} style={{ paddingLeft: 0 }}><button type="button" className="btn btn-primary continue-btn" onClick={bookappointment}>Pay by PayPal</button></Col> */}
+                  {!profilepID.activated ?
+                    <Row>
+                      {/* <Col md={1}></Col> */}
+                      {/* <Col md={5} style={{ paddingLeft: 0 }}><button type="button" className="btn btn-primary continue-btn" onClick={bookappointment}>Pay by PayPal</button></Col> */}
 
-                    {disable.payment && (
-                      <Col md={12} style={{ paddingLeft: 0 }}>
-                        <button
-                          className="btn btn-primary"
-                          style={{ width: "100%" }}
-                          onClick={() => {
-                            setDisable({ ...disable, payment: false })
+                      {disable.payment && (
+                        <Col md={12} style={{ paddingLeft: 0 }}>
+                          <button
+                            className="btn btn-primary"
+                            style={{ width: "100%" }}
+                            onClick={() => {
+                              setDisable({ ...disable, payment: false })
 
 
-                          }}
+                            }}
 
-                        >
-                          Pay Now
-                        </button>
-                        {/* <button  className="btn btn-primary"
+                          >
+                            Pay Now
+                          </button>
+                          {/* <button  className="btn btn-primary"
                           style={{ width: "100%" }} onClick={handleShowmodal}>
                           Click to Pay
                         </button> */}
-                      </Col>
+                        </Col>
 
-                    )}
+                      )}
 
-                    {/* <Modal  show={show} onHide={handleClosemodal}>
+                      {/* <Modal  show={show} onHide={handleClosemodal}>
                       <Modal.Header closeButton>
                         <Modal.Title>Payment</Modal.Title>
                       </Modal.Header>
@@ -2033,17 +2463,35 @@ const MyDoctor = (props) => {
                     </Modal> */}
 
 
-                    {!disable.payment && (
+                      {!disable.payment && (
+                        <Col md={12} style={{ paddingLeft: 0 }}>
+                          <Paypal
+                            appointment={appointment}
+                            bookappointment={bookappointment}
+                            currentPatient={props.currentPatient}
+                            doctor={doctor}
+                          />
+                        </Col>
+                      )}
+                    </Row>
+                    :
+                    <Row>
                       <Col md={12} style={{ paddingLeft: 0 }}>
-                        <Paypal
-                          appointment={appointment}
-                          bookappointment={bookappointment}
-                          currentPatient={props.currentPatient}
-                          doctor={doctor}
-                        />
+                        <button
+                          className="btn btn-primary"
+                          style={{ width: "100%" }}
+                          onClick={() => {
+                            setDisable({ ...disable, payment: false })
+
+
+                          }}
+
+                        >
+                          Book Now
+                        </button>
                       </Col>
-                    )}
-                  </Row>
+                    </Row>
+                  }
                 </div>
               </div>
             </div>
@@ -2070,6 +2518,7 @@ const MyDoctor = (props) => {
             </Dialog>
           </Col>
         </Row>
+
         <Tour
           onRequestClose={() => closeTour()}
           startAt={0}

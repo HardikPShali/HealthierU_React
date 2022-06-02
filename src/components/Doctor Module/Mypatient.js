@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
+import MyDoctor from '../Patient Module/Mydoctor'
 import SearchBarComponent from '../CommonModule/SearchAndFilter/SearchBarComponent';
 import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
 import {
@@ -416,15 +417,15 @@ const Mypatient = (props) => {
         getGlobalAppointments(search, filter);
     };
     const rescheduleAppointment = async () => {
-        console.log('appointmentDets',appointmentDets)
+        console.log('appointmentDets', appointmentDets)
         const data = {
-            id : appointmentDets[0].id,
-            doctorId : appointmentDets[0].doctorId
+            id: appointmentDets[0].id,
+            doctorId: appointmentDets[0].doctorId
         }
         const res = await rescheduleAppointmentDoctor(data).catch((err) => {
             if (err.res.status === 500 || err.res.status === 504) {
                 setLoading(false);
-            }  
+            }
         })
         if (res) {
             toast.success("Notification sent to patient successfully.");
@@ -908,7 +909,13 @@ const Mypatient = (props) => {
                                                     </div>
                                                 </Link>
                                                 <br />
-                                                <Link to={{ pathname: `/doctor/setnextappointment` }}>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/doctor/setNextAppointment/appointmentID=${appointmentDets[0].id}`,
+                                                        state: appointmentDets[0],
+                                                       
+                                                    }}
+                                                >
                                                     <div style={{ display: 'flex', alignItem: 'center' }}>
                                                         <div style={{ width: '100%' }}>
                                                             <img
