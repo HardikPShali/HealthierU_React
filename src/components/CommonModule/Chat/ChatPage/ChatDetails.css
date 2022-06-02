@@ -2,6 +2,7 @@
   padding: 2rem;
   height: 100%;
   background-color: #f5f5f5;
+  position: relative;
 }
 .chat-section{
     display: flex;
@@ -90,14 +91,15 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem 0;
-  position: sticky;
+  position: absolute;
   bottom: 0;
+  width: 91%;
 }
 .send-msg-input {
   width: 86%;
 }
 .send-msg-input-wrapper input {
-  background: rgba(255, 255, 255, 0.6);
+  background: white;
   border-radius: 18px;
   height: 4rem;
   width: 100%;

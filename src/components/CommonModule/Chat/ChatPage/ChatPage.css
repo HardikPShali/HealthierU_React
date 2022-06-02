@@ -1,9 +1,22 @@
 .chatPage-wrapper {
     display: flex;
+    max-height: 36rem;
+    min-height: 36rem;
 }
 .chatPage-wrapper .chat-item-container {
     flex-grow: 2;
+    background: white;
+    overflow-y: scroll;
 }
 .chatPage-wrapper .chat-details-container{
     flex-grow: 10;
+    overflow-y: scroll;
+
 }
+
+.chatPage-wrapper .chat-item-container::-webkit-scrollbar {
+    display: none;
+  }
+  .chatPage-wrapper .chat-details-container::-webkit-scrollbar {
+    display: none;
+  }
