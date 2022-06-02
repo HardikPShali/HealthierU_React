@@ -201,7 +201,7 @@ img#store-icon {
 }
 
 a#copy-link {
-  color: #000;
+  color: #3e4543;
   text-decoration: none;
   font-size: 12px;
   margin: 0 20px 0 0;
@@ -779,7 +779,7 @@ div#price-box:before {
   border: none !important;
   border-radius: 10px;
   font-size: 12px;
-  color: #000;
+  color: #3e4543;
   font-weight: 600;
 }
 #payment-form .MuiFilledInput-underline:after {
@@ -1383,7 +1383,7 @@ img#profile-pic {
   margin-top: 30px;
 }
 #name span {
-  color: #000;
+  color: #3e4543;
   font-size: 15px;
 }
 p#description {
@@ -1481,7 +1481,7 @@ table#user-info {
   position: relative;
   bottom: 70px;
   left: 48px;
-  color: #000;
+  color: #3e4543;
   text-shadow: 0px 0px 5px #fff;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -2602,7 +2602,7 @@ p.product-desc {
 
 button.quantity-button {
   background: #fff;
-  color: #000;
+  color: #3e4543;
   padding: 4px;
   margin: 10px;
 }
@@ -3066,7 +3066,7 @@ select#workout-select {
 }
 
 #workoutCategory-select option {
-  color: #000;
+  color: #3e4543;
 }
 
 #workoutCategory-select option:focus {
@@ -3808,7 +3808,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .my-appointments-card__card-details {
   margin: 10px;
-  color: black;
+  color: #3e4543;
 }
 
 .my-appointments-card__doctor-name {

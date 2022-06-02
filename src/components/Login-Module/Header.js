@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import logo from "../../images/logo/logo_white.svg";
+import logoQuote from "../../images/logo/logo-with-quote.png";
 import "./landing.css";
 // import { Container } from 'react-bootstrap';
 //import SearchIcon from '@material-ui/icons/Search';
@@ -18,12 +19,13 @@ export const Header = ({ hideButton }) => {
       >
         <div className="web-navigation-main">
           <Container className="web-navigation-content">
-            <NavLink to="/" className="mr-auto">
+          <NavLink to="/" className="mr-auto">
               <img
-                src={logo}
+                className="header_logo-image"
+                src={logoQuote}
                 id="icon"
                 alt="HealthierU Logo"
-                style={{ width: "70%" }}
+                style={{width: "160px"}}
               />
             </NavLink>
             <Nav>
@@ -62,7 +64,7 @@ export const Header = ({ hideButton }) => {
       <div className="mobile_nav-header">
         <NavLink to="/" className="mr-auto">
           <img
-            src={logo}
+            src={logoQuote}
             id="icon"
             alt="HealthierU Logo"
             style={{ width: "70%" }}
