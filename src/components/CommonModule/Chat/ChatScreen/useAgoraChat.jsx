@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 const useAgoraChat = (appId, onMessage, onConnectionChange) => {
   const client = AgoraRTM.createInstance(appId);
   const [channels, setChannels] = useState({});
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     client.on("ConnectionStateChanged", (...args) => {
@@ -34,6 +35,9 @@ const useAgoraChat = (appId, onMessage, onConnectionChange) => {
     for(let key in channels) {
         channels[key].channel.on("ChannelMessage", (...args) => {
           console.log(args);
+            setMessages((prevMessages) => ([... prevMessages, getMessageObj(false,args[0].text)]) );
+
+
           onMessage(args);
         })
     }
@@ -119,6 +123,15 @@ const useAgoraChat = (appId, onMessage, onConnectionChange) => {
     });
   };
 
+  const getMessageObj = (isMyMessage, msg) => {
+    return {
+      id: new Date().getMilliseconds(),
+      message: msg,
+      myMessage: isMyMessage,
+      createdAt: new Date().toISOString()
+    };
+  }
+
   return {
     login,
     logout,
@@ -130,6 +143,9 @@ const useAgoraChat = (appId, onMessage, onConnectionChange) => {
     uploadImage,
     sendChannelMediaMessage,
     cancelImage,
+    messages,
+    setMessages,
+    getMessageObj
   };
 };
 

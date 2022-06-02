@@ -6,6 +6,7 @@ import ChatDetails from "./ChatDetails";
 import "./ChatPage.css";
 import { APP_ID } from "../../../../util/configurations";
 import useAgoraChat from "../ChatScreen/useAgoraChat";
+import useAgoraVideo from "../ChatScreen/useAgoraVideo";
 import Cookies from "universal-cookie";
 import { useLocation } from "react-router-dom";
 import {
@@ -13,11 +14,13 @@ import {
   handleAgoraAccessToken,
 } from "../../../../service/agoratokenservice";
 import { getInbox, getMessages, sendMessage } from "../../../../service/chatService";
+import moment from "moment";
+import Meeting from "../../../video-call/pages/meeting";
 
 const ChatPage = () => {
   const [chatList, setChatList] = useState([]);
   const [selectedChatItem, setSelectedChatItem] = useState({});
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const cookies = new Cookies();
   const location = useLocation();
@@ -34,7 +37,7 @@ const ChatPage = () => {
 
   const onMessageChange = (e) => {
     console.log(e);
-    setMessages([...messages, getMessageObj(false, e[0].text)]);
+    // setMessages([...messages, getMessageObj(false, e[0].text)]);
 
     if(endRef.current) {
       endRef.current.scrollIntoView({ behavior: "smooth", block: 'nearest', inline: 'start' });
@@ -47,7 +50,12 @@ const ChatPage = () => {
     leaveChannel,
     sendChannelMessage,
     sendPeerMessage,
+    messages,
+    setMessages,
+    getMessageObj
   } = useAgoraChat(APP_ID, onMessageChange, onMessageChange);
+
+  const [openVideoCall, setOpenVideoCall, getToken] = useAgoraVideo();
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -124,13 +132,7 @@ const ChatPage = () => {
       setMessage(e.target.value);
   };
 
-  const getMessageObj = (isMyMessage, msg) => {
-    return {
-      message: msg,
-      myMessage: isMyMessage,
-      createdAt: new Date().toISOString()
-    };
-  }
+
 
   const sendMsg = async () => {
     if(message) {
@@ -157,18 +159,34 @@ const ChatPage = () => {
     }
   };
 
+  const messageDateFormat = (val) => {
+    if(val) {
+      const dateValue = new Date(val);
+      return moment(dateValue).format('YYYYMMDD') === moment().format('YYYYMMDD') ? moment(dateValue).format('HH:mm') : moment(dateValue).format('YYYY-MM-DD HH:mm'); 
+    }
+
+ };
+
+ const onVideoClick = () => {
+  getToken(pIdState, dIdState);
+
+ }
+
   return (
     <Container className="chatPage-wrapper">
       <div className="chat-item-container">
-        <ChatItems onChatChange={changeChatItem} chat={chatList} />
+        {!openVideoCall && <ChatItems messageDateFormat={messageDateFormat} onChatChange={changeChatItem} chat={chatList} />}
+        {openVideoCall && <Meeting onClose={() => setOpenVideoCall(false)} />}
       </div>
       <div className="chat-details-container">
         <ChatDetails 
-        selectedItem={selectedChatItem} messages={messages} 
-        messageState={message}
-        onMessageChange={handleMessageChange}
-        onSend={sendMsg}
-        endRef={endRef}
+          messageDateFormat={messageDateFormat}
+          selectedItem={selectedChatItem} messages={messages} 
+          messageState={message}
+          onMessageChange={handleMessageChange}
+          onSend={sendMsg}
+          endRef={endRef}
+          onVideoClick={onVideoClick}
         />
       </div>
     </Container>

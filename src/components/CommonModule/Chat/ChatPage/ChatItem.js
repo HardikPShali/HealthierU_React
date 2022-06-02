@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import ChatItemStyle from "./ChatItem.css";
 import patientprof from "../../../../images/patientprof.png"
 
-const ChatItem = ({item, onChatChange}) => {
+const ChatItem = ({item, onChatChange, messageDateFormat}) => {
 
     
   return (
@@ -22,7 +22,7 @@ const ChatItem = ({item, onChatChange}) => {
             </div>
           </div>
         </div>
-        <div className="chat_item-right">{item.lastMessage?.createdAt}</div>
+        <div className="chat_item-right">{messageDateFormat(item.lastMessage?.createdAt)}</div>
       </div>
     </div>
   );
