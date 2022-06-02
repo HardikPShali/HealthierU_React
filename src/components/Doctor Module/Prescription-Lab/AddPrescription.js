@@ -146,7 +146,7 @@ const AddPrescription = (props) => {
     const [patient, setPatient] = useState(null);
 
     const loadData = () => {
-        const currentDoctor = cookies.get('currentUser');
+        const currentDoctor = cookies.get('profileDetails');
         if (currentDoctor) {
             setDoctor(currentDoctor);
             console.log("doctorInfo", currentDoctor)
