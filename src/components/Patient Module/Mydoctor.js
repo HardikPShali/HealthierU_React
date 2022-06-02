@@ -2036,18 +2036,18 @@ const MyDoctor = (props) => {
 
                     {!disable.payment && (
                       <Col md={12} style={{ paddingLeft: 0 }}>
-                        {/* <Paypal
-                          appointment={appointment}
-                          bookappointment={bookappointment}
-                          currentPatient={props.currentPatient}
-                          doctor={doctor}
-                        /> */}
-                        <PaypalCheckoutButton
+                        <Paypal
                           appointment={appointment}
                           bookappointment={bookappointment}
                           currentPatient={props.currentPatient}
                           doctor={doctor}
                         />
+                        {/* <PaypalCheckoutButton
+                          appointment={appointment}
+                          bookappointment={bookappointment}
+                          currentPatient={props.currentPatient}
+                          doctor={doctor}
+                        /> */}
                       </Col>
                     )}
                   </Row>

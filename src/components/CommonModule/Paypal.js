@@ -19,6 +19,14 @@ const Paypal = (props) => {
     if (window.paypal && window.paypal.Buttons) {
       window.paypal
         .Buttons({
+          style: {
+            color: 'gold',
+            layout: 'horizontal',
+            height: 48,
+            tagline: false,
+            shape: 'pill',
+            size: 'responsive',
+          },
           createOrder: function (data, actions, err) {
             return actions.order.create({
               intent: 'CAPTURE',

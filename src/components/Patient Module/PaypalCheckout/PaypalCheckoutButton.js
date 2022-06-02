@@ -32,6 +32,7 @@ const PaypalCheckoutButton = (props) => {
                 }}
                 createOrder={(data, actions) => {
                     return actions.order.create({
+                        intent: 'CAPTURE',
                         payer: {
                             name: {
                                 given_name: firstName,
@@ -66,9 +67,6 @@ const PaypalCheckoutButton = (props) => {
                             shipping_preference: 'NO_SHIPPING',
                         },
                     });
-                }}
-                onShippingChange={(data, actions) => {
-                    console.log('onShippingChange', data, actions);
                 }}
                 onApprove={async (actions) => {
                     const order = await actions.order.capture();
