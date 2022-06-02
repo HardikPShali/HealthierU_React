@@ -758,7 +758,7 @@ const Homepage = () => {
       {/* <br />
             <br /> */}
       <Footer id="footer" />
-      <ChatPage />
+      {/* <ChatPage /> */}
     </div>
   );
 };
