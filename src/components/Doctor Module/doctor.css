@@ -124,7 +124,7 @@ svg#search-icon {
 #footer {
   background-color: var(--primary);
   color: #fff;
-  padding: 40px 60px 20px;
+  padding: 20px 60px 20px;
   display: flex;
   align-items: flex-end;
 }
@@ -139,6 +139,7 @@ a#footer-link {
   text-decoration: none !important;
   margin-top: 5px;
   font-size: 15px;
+  margin-bottom: 11px;
 }
 
 div#active-user {
@@ -595,13 +596,12 @@ span.price {
 
 button.continue-btn {
   background-color: var(--primary) !important;
-  width: 100%;
+  width: 35% !important;
   border-radius: 30px;
   border-color: var(--primary) !important;
   outline: none !important;
   box-shadow: none !important;
-  font-size: 13px;
-  margin-top: 20px;
+  font-size: 1rem !important;
 }
 
 .MuiBottomNavigationAction-root.MuiBottomNavigationAction-iconOnly {
@@ -1191,7 +1191,7 @@ table#user-info {
   /* width: 44px;
   height: 20px; */
 
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .pclass1 {
@@ -1522,6 +1522,24 @@ div#req-info {
   flex: none;
   order: 1;
   flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+div#req-info > a {
+  border-radius: 10px;
+  text-align: justify;
+  color: #000;
+  font-weight: 600;
+}
+
+div#req-info > a:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  color: #00d0cc;
 }
 
 span#info-title {
@@ -2211,7 +2229,7 @@ div.reply .messageBody span.messageTime {
   padding: 10px 0px;
   border: 2px solid rgb(228, 228, 228);
   background: #efefef;
-  height: 680px;
+  height: 400px;
   overflow-y: scroll;
   border-radius: 20px;
   box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
@@ -2311,15 +2329,21 @@ Health Assessment
   background-position: center !important;
   background-repeat: no-repeat !important;
   margin-bottom: 10px;
-  margin-left: 10px;
+  margin-left: 27px;
 }
 
 .modal-body>.form-group>label.col-form-label {
   font-size: 14.5px;
 }
 
-.medicineButton {
-  margin-left: 10px;
+.btn-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.medicineRemoveButton {
+  width: 30%;
 }
 
 .disable-footer-links {
@@ -2869,6 +2893,11 @@ button.reset-btn {
   cursor: pointer;
 }
 
+.patient-list__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
 .patient-list__card-details {
   margin: 10px;
   color: black;
@@ -2917,4 +2946,46 @@ button.reset-btn {
   margin-bottom: 2px;
   text-transform: capitalize;
   margin-top: 5px;
+}
+
+/* MY PATIENT CARD */
+.my-patient-card__card-details--date-div {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  justify-content: space-around;
+}
+
+.my-patient-card__common-span {
+  font-size: 12px;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: bold;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.edit-profile__button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* FOOTER ICONS RESPONSIVE */
+
+.image-mobile-respv {
+  margin-left: 37px;
+}
+
+@media (min-width: 820px) and (max-width: 1024px) {
+  .image-mobile-respv {
+    margin-left: 20px;
+  }
+  button.continue-btn {
+    margin-top: 69px;
+  }
+}
+
+.rbc-time-header.rbc-overflowing {
+  margin-right: 0 !important;
 }

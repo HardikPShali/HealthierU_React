@@ -261,7 +261,7 @@ const Welcome = ({ currentuserInfo }) => {
             cookies.set("currentUser", currentUserInformation.data);
             setCurrentUserDataAfterApproval(currentUserInformation.data);
             if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted) {
-                history.push('/patient/questionnaire');
+                history.push('/patient/questionnaire/new');
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
@@ -389,7 +389,9 @@ const Welcome = ({ currentuserInfo }) => {
 
                     }
                 });
+                console.log("response", response);
                 if (response && (response.status === 200 || response.status === 201)) {
+                    cookies.set("profileDetails", response.data.data);
                     firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
                         .then((userRecord) => {
                             var loginUser = userRecord.userd;
@@ -946,15 +948,16 @@ const Welcome = ({ currentuserInfo }) => {
                                                     <div className="btn-box">
                                                         {educationList.length !== 1 && (
                                                             <Button
+                                                                className="medicineRemoveButton"
                                                                 variant="secondary"
                                                                 onClick={() => handleRemoveClick(i)}
                                                             >
                                                                 Remove
                                                             </Button>
                                                         )}
-
                                                         {educationList.length - 1 === i && (
                                                             <Button
+
                                                                 className="medicineButton"
                                                                 variant="primary"
                                                                 onClick={handleAddClick}
@@ -962,6 +965,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 Add Education
                                                             </Button>
                                                         )}
+
+
                                                     </div>
 
                                                 </div>
@@ -988,7 +993,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                             )}
                             {displaydocumentForm && (<>
-                                
+
                                 <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} />
                                 <br />
                                 <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>
@@ -1026,7 +1031,7 @@ const Welcome = ({ currentuserInfo }) => {
                         {currentUserDataAfterApproval && Object.keys(currentUserDataAfterApproval).length > 0
                             && currentUserDataAfterApproval.authorities.some((user) => user === "ROLE_PATIENT")
                             && currentUserDataAfterApproval.profileCompleted &&
-                            (<Link to="/patient/questionnaire/view"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
+                            (<Link to="/patient/questionnaire/new"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
                                 Ok
                             </button></Link>
                             )}

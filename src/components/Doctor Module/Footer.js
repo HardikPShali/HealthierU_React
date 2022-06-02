@@ -25,18 +25,18 @@ const Footer = () => {
         <footer>
             <div id="footer">
                 <Container>
-                    <Row>
+                    <Row className='h-100'>
                         <Col md={2}>
                             <img
                                 src={logo}
                                 id="icon"
                                 alt="HealthierU Logo"
-                                style={{ width: "70%", marginBottom: 10 }}
+                                style={{ width: "70%", marginBottom: 22 }}
                             /><br />
                             <Link to="/doctor/about-us" id="footer-link">About us</Link>
                             <HashLink to="/doctor/about-us#how-it-work" id="footer-link">How it Works</HashLink>
                             <HashLink to="/doctor/about-us#our-services" id="footer-link">Our services</HashLink>
-                            <Link to="/doctor/article" id="footer-link">Articles</Link>
+                            {/* <Link to="/doctor/article" id="footer-link">Articles</Link> */}
                             {/* <HashLink to="/doctor/about-us#contact-us" id="footer-link">Contact us</HashLink> */}
                         </Col>
                         <Col md={6} style={{ display: 'flex', height: 180, alignItems: 'center' }}>
@@ -48,10 +48,10 @@ const Footer = () => {
                                     <span>128</span> Expert Doctors
                                         </b>
                             </div><br />*/}
-                            <div style={{ width: "100%" }}>
+                            <div style={{ width: "100%", textAlign: 'center' }}>
                                 <p>Email Newsletters</p>
                                 <p style={{ fontSize: 11 }}>Stay up-to-date with the latest content and offers from HealthierU</p>
-                                <form>
+                                <form style={{ marginLeft: 26 }}>
                                     <input type="email" placeholder="Email Address" name="email" id="footer-input" />
                                     <input type="submit" value="Subscribe" className="btn submit-btn" />
                                 </form>
@@ -60,9 +60,9 @@ const Footer = () => {
                         <Col md={4} id="last-col">
                             <h2>Wellness Optimized</h2>
                             <p id="download-statement">Unlock your health data and get instant insights<br />Download the HealthierU app today</p>
-                            <div className="d-flex">
+                            <div className="d-flex w-50">
 
-                                <img src={applestore} alt="" id="store-icon" />
+                                <img src={applestore} alt="" id="store-icon" className='image-mobile-respv' />
 
 
                                 <img src={googleplay} alt="" id="store-icon" />
@@ -86,25 +86,25 @@ const Footer = () => {
                                 <Link to="/doctor/help-and-support" className="" id="copy-link">
                                     Help And Support
                                 </Link>
-                                <Link to="/doctor/licenses" className="" id="copy-link">
+                                {/* <Link to="/doctor/licenses" className="" id="copy-link">
                                     HealthierU Licenses
                                 </Link>
                                 <Link to="/doctor/partners" className="" id="copy-link">
                                     Partners
-                                </Link>
+                                </Link> */}
                             </div>
                             <p id="copyright-text">© {moment(new Date()).format("YYYY")} <Link to="/doctor">HealthierU</Link> - All Rights Reserved.</p>
                         </Col>
                         <Col id="last-col">
-                            <p id="lang-select">Language <select>
+                            {/* <p id="lang-select">Language <select>
                                 <option>English</option>
                                 <option>Arabic</option>
                                 <option>English (UK)</option>
-                            </select></p>
+                            </select></p> */}
                             <div id="social-icon" className="d-flex">
                                 <a href="https://www.facebook.com/HealthierU-109526728064645" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><img src={fbicon} alt="" /></a>
                                 <a href="https://twitter.com/healthierU_ae?s=08" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><img src={twittericon} alt="" /></a>
-                                <a href="#" target="_blank" rel="noopener noreferrer" className="disable-footer-links" id="foot-icon"><img src={gplusicon} alt="" /></a>
+                                {/* <a href="#" target="_blank" rel="noopener noreferrer" className="disable-footer-links" id="foot-icon"><img src={gplusicon} alt="" /></a> */}
                                 <a href="https://www.instagram.com/healthieru_ae/" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><img src={instaicon} alt="" /></a>
                                 <a href="https://www.linkedin.com/company/healthieruae/" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><LinkedInIcon /></a>
                                 <a href="https://www.youtube.com/channel/UCRAOeEpbC3sekMbOWgdTTPQ" target="_blank" rel="noopener noreferrer" className="" id="foot-icon"><YouTubeIcon /></a>

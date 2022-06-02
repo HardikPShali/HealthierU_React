@@ -1,29 +1,31 @@
 import React, { useState } from 'react'
 
-export const Input = ({ question }) => {
-    const [value, setValue] = useState('');
+export const Input = ({ question, followQuestion }) => {
+    const [answers, setAnswer] = useState('');
 
     const handleChange = (e) => {
-        setValue(e.target.value);
-        question.value = e.target.value;
+        setAnswer(e.target.value);
+        question.answers = e.target.value;
+        followQuestion();
     }
 
     return (
-        <div className="form-group row input-div">
+        <div className="form-group row mb-1 pb-2 input-div">
             <label
                 htmlFor="description"
                 className="col-sm-8 col-form-label"
             >
-                {question.question}
+                {question.questionTitle}
             </label>
             <div className="col-sm-8 input-place">
                 <input
                     type="text"
                     className="form-control"
-                    value={value}
+                    value={answers}
                     onChange={handleChange}
+                    id={question.questionId}
                 ></input>
-                <span style={{ marginLeft: '20px' }}>Drinks</span>
+                {/* <span style={{ marginLeft: '20px' }}>Drinks</span> */}
             </div>
         </div>
     )

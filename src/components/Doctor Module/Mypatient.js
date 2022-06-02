@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './doctor.css';
+import { toast } from 'react-toastify';
 import { Container, Row, Col } from 'react-bootstrap';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import Cookies from 'universal-cookie';
@@ -20,7 +21,9 @@ import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
 import {
     getAppointmentsBySearch,
     getGlobalAppointmentsSearch,
+    rescheduleAppointmentDoctor
 } from '../../service/frontendapiservices';
+import rightIcon from '../../images/svg/right-icon.svg';
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 // import { handleSignin } from '../../service/AccountService';
@@ -39,6 +42,8 @@ import payment from '../../images/icons used/Component 14.svg';
 import conHistory from '../../images/icons used/Component 15.svg';
 import HealthAssessment from '../../images/icons used/Component 16.svg';
 import MedicalRecord from '../../images/icons used/Component 17.svg';
+import calendarSmall from "../../images/svg/calendar-small.svg";
+import timeSmall from "../../images/svg/time-small.svg"
 import HealthAssestmentReport from './HealthAssestmentReport/HealthAssestmentReport';
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
 // import timeSmall from "../../../images/svg/time-small.svg";
@@ -86,7 +91,7 @@ const Mypatient = (props) => {
     const handleVideoCall = (startTime) => {
         const appointmentStartTime = new Date(startTime);
         const AppointmnetBeforeTenMinutes = new Date(
-            appointmentStartTime.getTime() - 2 * 60000
+            appointmentStartTime.getTime() - 5 * 60000
         );
         const AppointmnetAfter70Minutes = new Date(
             appointmentStartTime.getTime() + 70 * 60000
@@ -276,13 +281,12 @@ const Mypatient = (props) => {
     // };
 
     //NEW DESIGN CODE
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState('');
     const [appointmentDets, setAppointmentDets] = useState([]);
 
     const getGlobalAppointments = async (search, filter = {}) => {
         const currentDoctor = cookies.get('profileDetails');
         setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
-
 
         const starttime = new Date();
         // startTime.setHours(0, 0, 0).toISOString();
@@ -294,21 +298,16 @@ const Mypatient = (props) => {
             startTime: starttime.toISOString(),
             patientName: search,
         };
-        if (filter.patientSlot && filter.patientSlot !== "") {
+        if (filter.patientSlot && filter.patientSlot !== '') {
             data.unifiedAppointment = filter.patientSlot;
-
-
         }
-        if (filter.patientStartTime && filter.patientStartTime !== "") {
-
+        if (filter.patientStartTime && filter.patientStartTime !== '') {
             data.startTime = filter.patientStartTime;
-
         }
-        if (filter.patientEndTime && filter.patientEndTime !== "") {
-            const endtime = new Date(filter.patientEndTime)
+        if (filter.patientEndTime && filter.patientEndTime !== '') {
+            const endtime = new Date(filter.patientEndTime);
             endtime.setHours(23, 59, 59);
             data.endTime = endtime.toISOString();
-
         }
         const responseTwo = await getGlobalAppointmentsSearch(data).catch((err) => {
             if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
@@ -415,6 +414,21 @@ const Mypatient = (props) => {
 
     const handleFilterChange = (filter) => {
         getGlobalAppointments(search, filter);
+    };
+    const rescheduleAppointment = async () => {
+        console.log('appointmentDets',appointmentDets)
+        const data = {
+            id : appointmentDets[0].id,
+            doctorId : appointmentDets[0].doctorId
+        }
+        const res = await rescheduleAppointmentDoctor(data).catch((err) => {
+            if (err.res.status === 500 || err.res.status === 504) {
+                setLoading(false);
+            }  
+        })
+        if (res) {
+            toast.success("Notification sent to patient successfully.");
+        }
     }
     return (
         <div>
@@ -435,24 +449,33 @@ const Mypatient = (props) => {
                                             {/* MAP HERE */}
                                             {appointmentDets.length !== 0 ? (
                                                 appointmentDets.map((details, index) => {
-                                                    if (details.unifiedAppointment === (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) {
+                                                    if (
+                                                        details.unifiedAppointment ===
+                                                        (activeAppointments[index + 1] &&
+                                                            activeAppointments[index + 1].unifiedAppointment)
+                                                    ) {
                                                         if (details && details.patient) {
                                                             return (
                                                                 <div
                                                                     className="col-md-12 mb-2 mt-2 cursor-pointer"
                                                                     key={index}
                                                                 >
-                                                                    <div className="patient-list__card"
-                                                                        onClick={
-                                                                            async () => {
-                                                                                handleConsultationClick(details, activeAppointments[index + 1].endTime);
-                                                                                Object.keys(details.patient).map(patientData => {
-
-                                                                                    return (calculate_age(details.patient.dateOfBirth && details.patient.dateOfBirth))
-
-                                                                                })
-                                                                            }
-                                                                        }
+                                                                    <div
+                                                                        className="patient-list__card"
+                                                                        onClick={async () => {
+                                                                            handleConsultationClick(
+                                                                                details,
+                                                                                activeAppointments[index + 1].endTime
+                                                                            );
+                                                                            Object.keys(details.patient).map(
+                                                                                (patientData) => {
+                                                                                    return calculate_age(
+                                                                                        details.patient.dateOfBirth &&
+                                                                                        details.patient.dateOfBirth
+                                                                                    );
+                                                                                }
+                                                                            );
+                                                                        }}
                                                                     >
                                                                         <div className="row align-items-start py-1">
                                                                             <div className="col-md-2  d-flex flex-column mt-3 ml-3">
@@ -470,18 +493,23 @@ const Mypatient = (props) => {
                                                                                 </span>
                                                                             </div>
                                                                             <div className="col-md-3  ml-3 mt-2 pb-2">
-                                                                                {
-                                                                                    details.patient.picture ? (
-                                                                                        <img
-                                                                                            src={details.patient.picture}
-                                                                                            alt="profile"
-                                                                                            className="patient-list__img-circle "
-                                                                                        />
-                                                                                    ) : (
-                                                                                        (<Avatar round={true} name={details.patient.firstName + " " + details.patient.lastName} size={60} />)
-                                                                                    )
-                                                                                }
-
+                                                                                {details.patient.picture ? (
+                                                                                    <img
+                                                                                        src={details.patient.picture}
+                                                                                        alt="profile"
+                                                                                        className="patient-list__img-circle "
+                                                                                    />
+                                                                                ) : (
+                                                                                    <Avatar
+                                                                                        round={true}
+                                                                                        name={
+                                                                                            details.patient.firstName +
+                                                                                            ' ' +
+                                                                                            details.patient.lastName
+                                                                                        }
+                                                                                        size={60}
+                                                                                    />
+                                                                                )}
                                                                             </div>
                                                                             <div className="col-md-7  d-flex flex-column mt-3">
                                                                                 <h5 className="patient-list__common-name">
@@ -494,40 +522,56 @@ const Mypatient = (props) => {
                                                                                 <span className="patient-list__common-span">
                                                                                     {details.unifiedAppointment
                                                                                         .split('#')[1]
-                                                                                        .replace('_', ' ')
-                                                                                    }
+                                                                                        .replace('_', ' ')}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            )
+                                                            );
                                                         }
-                                                    }
-                                                    else if ((details.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) && (details.unifiedAppointment === (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment))) {
+                                                    } else if (
+                                                        details.unifiedAppointment !==
+                                                        (activeAppointments[index + 1] &&
+                                                            activeAppointments[index + 1]
+                                                                .unifiedAppointment) &&
+                                                        details.unifiedAppointment ===
+                                                        (activeAppointments[index - 1] &&
+                                                            activeAppointments[index - 1]
+                                                                .unifiedAppointment)
+                                                    ) {
                                                         if (details && details.patient) {
                                                             return false;
                                                         }
-                                                    }
-                                                    else if (((details.unifiedAppointment !== (activeAppointments[index + 1] && activeAppointments[index + 1].unifiedAppointment)) &&
-                                                        (details.unifiedAppointment !== (activeAppointments[index - 1] && activeAppointments[index - 1].unifiedAppointment)))) {
+                                                    } else if (
+                                                        details.unifiedAppointment !==
+                                                        (activeAppointments[index + 1] &&
+                                                            activeAppointments[index + 1]
+                                                                .unifiedAppointment) &&
+                                                        details.unifiedAppointment !==
+                                                        (activeAppointments[index - 1] &&
+                                                            activeAppointments[index - 1]
+                                                                .unifiedAppointment)
+                                                    ) {
                                                         if (details && details.patient) {
                                                             return (
                                                                 <div
                                                                     className="col-md-12 mb-2 mt-2 cursor-pointer"
                                                                     key={index}
                                                                 >
-                                                                    <div className="patient-list__card"
-                                                                        onClick={
-                                                                            async () => {
-                                                                                setSelectedPatient(details);
-                                                                                Object.keys(details.patient).map(patientData => {
-
-                                                                                    return (calculate_age(details.patient.dateOfBirth && details.patient.dateOfBirth))
-
-                                                                                })
-                                                                            }
-                                                                        }
+                                                                    <div
+                                                                        className="patient-list__card"
+                                                                        onClick={async () => {
+                                                                            setSelectedPatient(details);
+                                                                            Object.keys(details.patient).map(
+                                                                                (patientData) => {
+                                                                                    return calculate_age(
+                                                                                        details.patient.dateOfBirth &&
+                                                                                        details.patient.dateOfBirth
+                                                                                    );
+                                                                                }
+                                                                            );
+                                                                        }}
                                                                     >
                                                                         <div className="row align-items-start py-1">
                                                                             <div className="col-md-2  d-flex flex-column mt-3 ml-3">
@@ -545,18 +589,23 @@ const Mypatient = (props) => {
                                                                                 </span>
                                                                             </div>
                                                                             <div className="col-md-2  ml-3 mt-2 pb-2">
-                                                                                {
-                                                                                    details.patient.picture ? (
-                                                                                        <img
-                                                                                            src={details.patient.picture}
-                                                                                            alt="profile"
-                                                                                            className="patient-list__img-circle "
-                                                                                        />
-                                                                                    ) : (
-                                                                                        (<Avatar round={true} name={details.patient.firstName + " " + details.patient.lastName} size={60} />)
-                                                                                    )
-                                                                                }
-
+                                                                                {details.patient.picture ? (
+                                                                                    <img
+                                                                                        src={details.patient.picture}
+                                                                                        alt="profile"
+                                                                                        className="patient-list__img-circle "
+                                                                                    />
+                                                                                ) : (
+                                                                                    <Avatar
+                                                                                        round={true}
+                                                                                        name={
+                                                                                            details.patient.firstName +
+                                                                                            ' ' +
+                                                                                            details.patient.lastName
+                                                                                        }
+                                                                                        size={60}
+                                                                                    />
+                                                                                )}
                                                                             </div>
                                                                             <div className="col-md-7  d-flex flex-column mt-3">
                                                                                 <h5 className="patient-list__common-name">
@@ -567,21 +616,18 @@ const Mypatient = (props) => {
                                                                                     </b>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span">
-                                                                                    {details.unifiedAppointment
+                                                                                    {details.unifiedAppointment && details.unifiedAppointment
                                                                                         .split('#')[1]
-                                                                                        .replace('_', ' ')
-                                                                                    }
+                                                                                        .replace('_', ' ')}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            )
+                                                            );
                                                         }
                                                     }
-                                                }
-
-                                                )
+                                                })
                                             ) : (
                                                 <div
                                                     className="col-12 ml-2"
@@ -627,7 +673,7 @@ const Mypatient = (props) => {
                                                         <div id="req-name">
                                                             <b style={{ fontSize: '16px' }}>
                                                                 APID : {SelectedPatient.id} |{' '}
-                                                                {SelectedPatient.unifiedAppointment
+                                                                {SelectedPatient.unifiedAppointment && SelectedPatient.unifiedAppointment
                                                                     .split('#')[1]
                                                                     .replace('_', ' ')}
                                                             </b>
@@ -646,7 +692,7 @@ const Mypatient = (props) => {
                                                     </Col>
                                                 </Row>
                                                 <Row style={{ alignItems: 'center' }}>
-                                                    <Col xs={2}>
+                                                    <Col xs={4}>
                                                         {SelectedPatient &&
                                                             SelectedPatient.patient &&
                                                             (SelectedPatient.patient.picture ? (
@@ -669,7 +715,7 @@ const Mypatient = (props) => {
                                                                 />
                                                             ))}
                                                     </Col>
-                                                    <Col
+                                                    {/* <Col
                                                         xs={2}
                                                         style={{
                                                             paddingRight: '0',
@@ -678,12 +724,12 @@ const Mypatient = (props) => {
                                                         }}
                                                     >
                                                         <DateRangeOutlinedIcon />
-                                                    </Col>
-                                                    <Col xs={3} style={{ textAlign: 'center' }}>
+                                                    </Col> */}
+                                                    <Col xs={8} style={{ textAlign: 'center' }}>
                                                         <b>
-                                                            <p className="pclass">Upcoming :</p>
+                                                            <p className="pclass">Upcoming Appointment</p>
                                                         </b>
-                                                        <div id="req-date" style={{ paddingRight: '5px' }}>
+                                                        {/* <div id="req-date" style={{ paddingRight: '5px' }}>
                                                             {moment(SelectedPatient.startTime).format(
                                                                 'MMM DD, YYYY'
                                                             )}
@@ -695,10 +741,24 @@ const Mypatient = (props) => {
                                                                 moment(SelectedPatient.endTime).format(
                                                                     'h:mm A'
                                                                 )}
+                                                        </div> */}
+                                                        <div className="my-patient-card__card-details--date-div">
+                                                            <div className="my-patient-card__card-time-row">
+                                                                <img src={calendarSmall} />
+                                                                <span className="my-patient-card__common-span">
+                                                                    {moment(SelectedPatient.startTime).format("DD/MM/YY")}
+                                                                </span>
+                                                            </div>
+                                                            <div className="my-patient-card__card-time-row ml-4">
+                                                                <img src={timeSmall} />
+                                                                <span className="my-patient-card__common-span">
+                                                                    {moment(SelectedPatient.startTime).format("hh:mm A")}
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </Col>
 
-                                                    <Col
+                                                    {/* <Col
                                                         xs={2}
                                                         style={{
                                                             paddingRight: '0',
@@ -725,10 +785,10 @@ const Mypatient = (props) => {
                                                                     'h:mm A'
                                                                 )}
                                                         </div>
-                                                    </Col>
+                                                    </Col> */}
                                                 </Row>
                                                 <Row style={{ alignItems: 'center', marginTop: '5px' }}>
-                                                    <Col xs={4}>
+                                                    <Col xs={4} style={{ textAlign: 'center' }}>
                                                         <div id="req-name">
                                                             <b>
                                                                 {SelectedPatient &&
@@ -741,7 +801,7 @@ const Mypatient = (props) => {
                                                             {age} Years Old
                                                         </div>
                                                     </Col>
-                                                    <Col xs={4}>
+                                                    <Col xs={4} style={{ textAlign: 'center' }}>
                                                         <div id="req-name">
                                                             <b className="pclass1">Fee & Payment Method</b>
                                                             <br />
@@ -753,7 +813,7 @@ const Mypatient = (props) => {
                                                     <Col
                                                         xs={4}
                                                         className="patient-video-button"
-                                                        style={{ textAlign: 'right' }}
+                                                        style={{ textAlign: 'center' }}
                                                     >
                                                         <IconButton>
                                                             <Link
@@ -775,33 +835,52 @@ const Mypatient = (props) => {
                                             </div>
                                             <div id="req-info">
                                                 <Link to={{ pathname: `/doctor/consulatationhistory` }}>
-                                                    <img
-                                                        width="40"
-                                                        height="40"
-                                                        src={conHistory}
-                                                        // onClick='${pathname}'
-                                                        alt=""
-                                                        style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                    />
-                                                    Consultation History
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={conHistory}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Consultation History
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
                                                 </Link>
-                                                <br />
                                                 <br />
 
                                                 <Link
-                                                    to={{ pathname: `/doctor/healthassesment-report` }}
+                                                    to={{
+                                                        pathname: `/doctor/healthassesment-report/${SelectedPatient.patientId}`,
+                                                        state: SelectedPatient.patient,
+                                                    }}
                                                 >
-                                                    <img
-                                                        width="40"
-                                                        height="40"
-                                                        src={HealthAssessment}
-                                                        // onClick='${pathname}'
-                                                        alt=""
-                                                        style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                    />
-                                                    Health Assessment Report
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={HealthAssessment}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Health Assessment Report
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
                                                 </Link>
-                                                <br />
                                                 <br />
                                                 <Link
                                                     to={{
@@ -809,28 +888,45 @@ const Mypatient = (props) => {
                                                         state: SelectedPatient.patient,
                                                     }}
                                                 >
-                                                    <img
-                                                        width="40"
-                                                        height="40"
-                                                        src={MedicalRecord}
-                                                        // onClick='${pathname}'
-                                                        alt=""
-                                                        style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                    />
-                                                    Medical Record
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={MedicalRecord}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Medical Record
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
                                                 </Link>
                                                 <br />
-                                                <br />
                                                 <Link to={{ pathname: `/doctor/setnextappointment` }}>
-                                                    <img
-                                                        width="40"
-                                                        height="40"
-                                                        src={calendar}
-                                                        // onClick='${pathname}'
-                                                        alt=""
-                                                        style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                    />
-                                                    Set Next Appointment
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={calendar}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Set Next Appointment
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
                                                 </Link>
                                                 {/* <span id="info-title">Diseases</span><br />
                                     <p>Hypertension Medium</p>
@@ -883,16 +979,16 @@ const Mypatient = (props) => {
                                             </div>
                                             <Row>
                                                 <Col className="profile-btn">
-                                                    <Link
+                                                    {/* <Link
                                                         to={{
                                                             pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`,
                                                             state: SelectedPatient.patient,
                                                         }}
-                                                    >
-                                                        <button className="btn btn-primary view-btn">
-                                                            Reschedule
-                                                        </button>
-                                                    </Link>
+                                                    > */}
+                                                    <button className="btn btn-primary view-btn" onClick={rescheduleAppointment}>
+                                                        Reschedule
+                                                    </button>
+                                                    {/* </Link> */}
                                                 </Col>
                                             </Row>
                                         </div>
@@ -908,7 +1004,9 @@ const Mypatient = (props) => {
                                                 alignItems: 'center',
                                             }}
                                         >
-                                            <p className="text-center">No Patient Datacard Selected ...</p>
+                                            <p className="text-center">
+                                                No Patient Datacard Selected ...
+                                            </p>
                                         </div>
                                     </>
                                 )}
@@ -976,7 +1074,7 @@ const Mypatient = (props) => {
                 open={alertVideo}
             >
                 <DialogTitle id="customized-dialog-title" onClose={alertVideoClose}>
-                    Video call is possible only starting 2 Minutes before the Appointment
+                    Video call is possible only starting 5 Minutes before the Appointment
                     Time and 10 minutes after appointment end time.
                 </DialogTitle>
                 <DialogActions>

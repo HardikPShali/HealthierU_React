@@ -32,7 +32,7 @@ const Footer = () => {
                                 src={logo}
                                 id="icon"
                                 alt="HealthierU Logo"
-                                style={{ width: '70%', marginBottom: 10 }}
+                                style={{ width: '70%', marginBottom: 22 }}
                             />
                             <br />
                             <Link to="/about-us" id="footer-link">
@@ -44,42 +44,28 @@ const Footer = () => {
                             <HashLink to="/about-us#our-services" id="footer-link">
                                 Our services
                             </HashLink>
-                            <Link to="" id="footer-link">
+                            {/* <Link to="" id="footer-link">
                                 Articles
-                            </Link>
+                            </Link> */}
                             {/* <HashLink to="/about-us#contact-us" id="footer-link">
                                 Contact us
                             </HashLink> */}
                         </Col>
-                        <Col
-                            md={6}
-                            style={{ display: 'flex', height: 180, alignItems: 'center' }}
-                        >
-                            {/* <div id="active-user">
+                        <Col md={6} style={{ display: 'flex', height: 180, alignItems: 'center' }}>
+                            {/*<div id="active-user">
                                 <b id="right-border">
                                     <span>42,233</span> Active Users
                                     </b>
                                 <b style={{ paddingLeft: 15 }}>
                                     <span>128</span> Expert Doctors
                                         </b>
-                            </div><br /> */}
-                            <div style={{ width: '100%' }}>
+                            </div><br />*/}
+                            <div style={{ width: "100%", textAlign: 'center' }}>
                                 <p>Email Newsletters</p>
-                                <p style={{ fontSize: 11 }}>
-                                    Stay up-to-date with the latest content and offers from HealthierU
-                                </p>
-                                <form>
-                                    <input
-                                        type="email"
-                                        placeholder="Email Address"
-                                        name="email"
-                                        id="footer-input"
-                                    />
-                                    <input
-                                        type="submit"
-                                        value="Subscribe"
-                                        className="btn submit-btn"
-                                    />
+                                <p style={{ fontSize: 11 }}>Stay up-to-date with the latest content and offers from HealthierU</p>
+                                <form style={{ marginLeft: 26 }}>
+                                    <input type="email" placeholder="Email Address" name="email" id="footer-input" />
+                                    <input type="submit" value="Subscribe" className="btn submit-btn" />
                                 </form>
                             </div>
                         </Col>
@@ -90,8 +76,8 @@ const Footer = () => {
                                 <br />
                                 Download the HealthierU app today
                             </p>
-                            <div className="d-flex">
-                                <img src={applestore} alt="" id="store-icon" />
+                            <div className="d-flex w-50">
+                                <img src={applestore} alt="" id="store-icon" className='image-mobile-respv__landing' />
 
                                 <img src={googleplay} alt="" id="store-icon" />
                             </div>
@@ -113,12 +99,12 @@ const Footer = () => {
                                 <Link to="/help-and-support" className="" id="copy-link">
                                     Help And Support
                                 </Link>
-                                <Link to="/licenses" className="" id="copy-link">
+                                {/* <Link to="/licenses" className="" id="copy-link">
                                     HealthierU Licenses
                                 </Link>
                                 <Link to="/partners" className="" id="copy-link">
                                     Partners
-                                </Link>
+                                </Link> */}
                             </div>
                             <p id="copyright-text">
                                 © 2021 <Link to="/">HealthierU</Link> - All Rights Reserved.
@@ -152,7 +138,7 @@ const Footer = () => {
                                 >
                                     <img src={twittericon} alt="" />
                                 </a>
-                                <a
+                                {/* <a
                                     href="#"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -160,7 +146,7 @@ const Footer = () => {
                                     id="foot-icon"
                                 >
                                     <img src={gplusicon} alt="" />
-                                </a>
+                                </a> */}
                                 <a
                                     href="https://www.instagram.com/healthieru_ae/"
                                     target="_blank"

@@ -18,11 +18,16 @@ const Header = () => {
         setAnchorEl(null);
     };
 
+    const handleSignOut = () => {
+        const google = window.google;
+        google.accounts.id.disableAutoSelect();
+    }
+
     const currentuserInfo = LocalStorageService.getCurrentUser();
     const { authorities = [] } = currentuserInfo || {};
 
     return (
-        <Navbar variant="dark" id="navbar">
+        <Navbar variant="dark" id="navbar" sticky='top'>
             <Container>
                 <NavLink to="/" className="mr-auto">
                     <img
@@ -32,7 +37,7 @@ const Header = () => {
                         style={{ width: "70%" }}
                     />
                 </NavLink>
-                    {/* <span className="ml-2 text-light" style={{fontSize: "12px", width: "100%"}}>Hi! &nbsp;{currentuserInfo.firstName}</span> */}
+                {/* <span className="ml-2 text-light" style={{fontSize: "12px", width: "100%"}}>Hi! &nbsp;{currentuserInfo.firstName}</span> */}
                 <Nav>
                     <NavLink to="#"><img src={profileicon} alt="" onClick={handleClick} className="profile-icon" width="35" /></NavLink>
                     <Menu
@@ -51,10 +56,10 @@ const Header = () => {
                         }}
                     >
                         {authorities.length > 0 && authorities.some((user) => user === "ROLE_PATIENT") && (
-                            <Link to="/patient/logout" style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
+                            <Link to="/patient/logout" onClick={handleSignOut} style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
                         )}
                         {authorities.length > 0 && authorities.some((user) => user === "ROLE_DOCTOR") && (
-                            <Link to="/doctor/logout" style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
+                            <Link to="/doctor/logout" onClick={handleSignOut} style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
                         )}
 
                     </Menu>

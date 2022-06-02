@@ -36,7 +36,7 @@ import {
     postDocument,
     postLabDocument,
     getDocumentById,
-    postDocumentAddPrescription
+    postDocumentAddPrescriptionLabResult
 } from '../../../service/DocumentService';
 import { toast } from 'react-toastify';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -146,7 +146,7 @@ const AddPrescription = (props) => {
     const [patient, setPatient] = useState(null);
 
     const loadData = () => {
-        const currentDoctor = cookies.get('currentUser');
+        const currentDoctor = cookies.get('profileDetails');
         if (currentDoctor) {
             setDoctor(currentDoctor);
             console.log("doctorInfo", currentDoctor)
@@ -178,6 +178,7 @@ const AddPrescription = (props) => {
 
     const handlePrescriptionSubmission = async (event) => {
         event.preventDefault();
+        // setprescriptionList(null)
         // setIsSave(false)
         // setIsSaveModal(false)
         // const reverseMedicalInfo = prescriptionList.reverse();
@@ -211,6 +212,7 @@ const AddPrescription = (props) => {
         // let lastDoc = prescriptionList.slice(-1);
         // console.log("lastDoc", lastDoc)
         var medicalInfo = prescriptionList.map(function (a) { return a; });
+        console.log("medicalInfo", JSON.stringify(medicalInfo))
         const medicalDocumentInfo = {
             documentType: "Prescription",
             patientId: patient?.id,
@@ -219,64 +221,30 @@ const AddPrescription = (props) => {
         };
         setErrorMsg('');
         const formData = new FormData();
-        formData.append("medicalInfo", new Blob([JSON.stringify(medicalInfo)], {
-            type: "application/json"
-        }));
+        medicalInfo.map((a) => {
+            if (a.medicineName != '') {
+                formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
+                    type: "application/json"
+                }))
+            }
+
+
+        })
         formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
             type: "application/json"
         }));
+        console.log("medicalDocumentInfo", JSON.stringify(medicalDocumentInfo))
+
         {
-            prescriptionResult.prescriptionDocument ?
+            prescriptionResult.prescriptionDocument &&
                 formData.append("file", (prescriptionResult?.prescriptionDocument))
-                :
-                formData.append("file", new Blob([JSON.stringify(null)], {
-                    type: "application/json"
-                }));
         }
-
-
-
-        const response = await postDocumentAddPrescription(formData).catch((err) => {
-            console.log('Error :: ', err);
-            if (err.response.status === 400) {
-                setErrorMsg('Please upload the document in PDF format.');
-            }
-            else if (response.status === 201) {
-                const patientInfo = props.location.state;
-                toast.success("Document successfully Uploaded.");
-                props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo })
-            }
-        });
-
-
-        // if (response.status === 201) {
-        //     const patientInfo = props.location.state;
-        //     toast.success("Document successfully Uploaded.");
-        //     setShowPrescriptionUpload(false);
-        //     setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo }), 500);
-
-        // }
-
-        // const patientInfo = props.location.state;
-        // if (response.status === 201) {
-        //     toast.success("Document successfully Uploaded.");
-        // setShowPrescriptionUpload(false);
-        //     props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo })
-        // }
-
-
-        // const currentDoctor = cookies.get('profileDetails');
-
-        // const prescriptionDocument = await getDoctorPatientDocuments(
-        //     'Prescription',
-        //     0,
-        //     currentDoctor.id,
-        //     patientInfo.id
-
-        // );
-
-        // setPresecriptionDocument(prescriptionDocument);
-
+        const response = await postDocumentAddPrescriptionLabResult(formData);
+        if (response) {
+            toast.success("Document successfully Uploaded.");
+            const patientInfo = props.location.state;
+            setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo }), 500);
+        }
     };
     const handlePrescriptionChange = (e) => {
         if (e.target.type === 'file') {
@@ -306,7 +274,7 @@ const AddPrescription = (props) => {
     return (
 
         <div>
-            <h3 className="prescription-lab--main-header mb-3 mt-2">
+            <h3 className="prescription-lab--main-header mb-3 mt-2" style={{ paddingTop: '2%' }}>
                 Add Prescription
             </h3>
             <div className="prescription-lab__card-box">
@@ -327,7 +295,7 @@ const AddPrescription = (props) => {
                                                     onChange={(e) => handleInputChange(e, i)}
                                                 ></input>
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Medicine
                                                     </label>
                                                     <div className="col-sm-9">
@@ -345,7 +313,7 @@ const AddPrescription = (props) => {
                                                     </div>
                                                 </div>
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Duration
                                                     </label>
                                                     <div className="col-sm-9">
@@ -405,7 +373,7 @@ const AddPrescription = (props) => {
                                                     </div> */}
                                                 </div>
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Dose
                                                     </label>
                                                     <div className="col-sm-9">
@@ -423,8 +391,8 @@ const AddPrescription = (props) => {
                                                     </div>
                                                 </div>
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
-                                                        Number Of Days
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
+                                                        Days
                                                     </label>
                                                     <div className="col-sm-9">
                                                         <input
@@ -466,11 +434,11 @@ const AddPrescription = (props) => {
 
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
+                                                    <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Interval
                                                     </label>
-                                                    <div className="col-sm-3">
-                                                        <FormControl>
+                                                    <div className="col-sm-9">
+                                                        {/* <FormControl>
                                                             <Select
                                                                 style={{ width: '280px' }}
                                                                 id="demo-controlled-open-select"
@@ -501,7 +469,21 @@ const AddPrescription = (props) => {
                                                                     <em>1-1-1</em>
                                                                 </MenuItem>
                                                             </Select>
-                                                        </FormControl>
+                                                        </FormControl> */}
+                                                        <select
+                                                            name="interval"
+                                                            value={x.interval}
+                                                            onChange={(e) => handleInputChange(e, i)}
+                                                            required
+                                                            className="browser-default custom-select">
+                                                            <option>Select Interval</option>
+                                                            <option value="0-0-1">0-0-1</option>
+                                                            <option value="1-0-0">1-0-0</option>
+                                                            <option value="0-1-0">0-1-0</option>
+                                                            <option value="1-0-1">1-0-1</option>
+                                                            <option value="1-1-1">1-1-1</option>
+
+                                                        </select>
                                                     </div>
                                                 </div>
 
@@ -592,6 +574,7 @@ const AddPrescription = (props) => {
                                                 <div className="btn-box">
                                                     {prescriptionList.length !== 1 && (
                                                         <Button
+                                                            className="medicineRemoveButton"
                                                             variant="secondary"
                                                             onClick={() => handleRemoveClick(i)}
                                                         >
@@ -605,6 +588,7 @@ const AddPrescription = (props) => {
                                                         <Button
                                                             className="medicineButton"
                                                             variant="primary"
+                                                            // style={{ marginTop: '7%' }}
                                                             onClick={handleAddClick}
                                                             disabled={
                                                                 isSave == false
@@ -615,17 +599,18 @@ const AddPrescription = (props) => {
 
 
                                                     )}
-                                                    <h3 className="prescription-lab--main-header mb-3 mt-2">
-                                                        OR
-                                                    </h3>
-                                                    <Button
-                                                        className="medicineButton"
-                                                        variant="primary"
-                                                        onClick={(e) => handlePrescriptionUploadShow()}
-                                                    >
-                                                        Only Upload Image/Document
-                                                    </Button>
+
                                                 </div>
+                                                <h3 className="prescription-lab--main-header mb-3 mt-2">
+                                                    OR
+                                                </h3>
+                                                <Button
+                                                    className="medicineButtonPrescription"
+                                                    variant="primary"
+                                                    onClick={(e) => handlePrescriptionUploadShow()}
+                                                >
+                                                    Upload Image/Document
+                                                </Button>
                                             </div>
 
 
@@ -648,7 +633,7 @@ const AddPrescription = (props) => {
 
 
                     </div>
-                    <Button style={{ marginLeft: '50%' }}
+                    <Button style={{ marginLeft: '48%' }}
                         variant="primary"
                         type="submit"
                         onClick={(e) => handlePrescriptionSubmission(e)}

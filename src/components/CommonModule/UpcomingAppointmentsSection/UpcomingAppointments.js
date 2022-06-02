@@ -81,8 +81,9 @@ const UpcomingAppointments = () => {
                         }
                     }
                 });
+
+                setUpcomingAppointments(updateArray.reverse());
                 console.log('updateArray', updateArray);
-                setUpcomingAppointments(updateArray);
             }
         }
 
@@ -104,7 +105,7 @@ const UpcomingAppointments = () => {
                         {upcomingAppointments.length !== 0 ? (
                             upcomingAppointments.map((appointment, index) => {
                                 return (
-                                    <div className="col-md-4 mb-2 mt-2 cursor-pointer" key={index}>
+                                    <div className="col-md-4 mb-2 mt-2" key={index}>
                                         <div className="upcoming-appointment-card">
                                             <UpcomingAppointmentCard appointment={appointment} />
                                         </div>

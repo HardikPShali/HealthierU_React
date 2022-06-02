@@ -415,7 +415,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                             </Col>
                         </Row>
                         <br />
-                        {/* <Row className="align-items-center">
+                        <Row className="align-items-center">
                             <Col md={4}>
                                 <b>Document Name:</b>
                             </Col>
@@ -430,7 +430,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                                     onChange={(e) => handleDocnameChange(e)}
                                 />
                             </Col>
-                        </Row> */}
+                        </Row>
                         {errorMsg && (<span style={{ color: "red", fontSize: "11px" }}>{errorMsg}</span>)}
                         <br />
                     </DialogContent>

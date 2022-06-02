@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./landing.css";
+import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
 import {
   MDBCarousel,
   MDBCarouselCaption,
@@ -53,6 +54,16 @@ import step9 from "../../images/step9.PNG";
 import step10 from "../../images/step10.PNG";
 import step11 from "../../images/step11.PNG";
 import features from "../../images/our-features.png";
+import betterFuture from "../../images/better-future.png";
+import CornelMedicine from "../../images/cornell-medicine-logo.png";
+import ReemHospital from "../../images/reem-hospital-logo.png";
+import Edge1 from "../../images/edgeone.png";
+import Edge2 from "../../images/edgetwo.png";
+import powerfulFeatureImg from "../../images/powerfulFeatureMob.png";
+import heartIcon from "../../images/HeartSpl.png"
+import labIcon from "../../images/LabSpl.png"
+import molecularIcon from "../../images/MolecularSpl.png"
+import careIcon from "../../images/CareSpl.png"
 
 //import firebase from './../../firebase';
 // import education from '../../images/education.png'
@@ -62,7 +73,7 @@ import features from "../../images/our-features.png";
 
 const Homepage = () => {
   const history = useHistory();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [article, setArticle] = useState([]);
   const cookies = new Cookies();
 
@@ -85,7 +96,7 @@ const Homepage = () => {
   };
 
   useEffect(() => {
-    loadArticle();
+    // loadArticle();
   }, []);
 
   useEffect(() => {
@@ -122,8 +133,8 @@ const Homepage = () => {
     });
     setArticle(response?.articlesList);
     setTimeout(() => setLoading(false), 2000);
-    console.log(article);
-    console.log(response?.articlesList);
+    // console.log(article);
+    // console.log(response?.articlesList);
   };
 
   return (
@@ -148,13 +159,13 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
+                {/* <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
                 <p className="help-desc">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
                 <Link to="/signin">
                   <button className="btn btn-primary">
                     {HOMEPAGE_GETHELP.BTN_TEXT}
                   </button>
-                </Link>
+                </Link> */}
               </MDBCarouselCaption>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="2">
@@ -167,13 +178,13 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                <h3 className="h3-responsive">Book Appointment</h3>
+                {/* <h3 className="h3-responsive">Book Appointment</h3>
                 <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
                 <Link to="/signin">
                   <button className="btn btn-primary">
                     {HOMEPAGE_TAKEACTION.BTN_TEXT}
                   </button>
-                </Link>
+                </Link> */}
               </MDBCarouselCaption>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="3">
@@ -186,13 +197,13 @@ const Homepage = () => {
                 <MDBMask overlay="black-slight" />
               </MDBView>
               <MDBCarouselCaption>
-                <h3 className="h3-responsive">Take Charge of your Health</h3>
+                {/* <h3 className="h3-responsive">Take Charge of your Health</h3>
                 <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
                 <Link to="/signin">
                   <button className="btn btn-primary">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
                   </button>
-                </Link>
+                </Link> */}
               </MDBCarouselCaption>
             </MDBCarouselItem>
           </MDBCarouselInner>
@@ -270,7 +281,7 @@ const Homepage = () => {
           </Col>
         </Row>
       </Container>
-      <div id="our-services">
+      {/* <div id="our-services">
         <Container>
           <Row id="aboutus-four">
             <Col md={5} style={{ padding: "0px" }}>
@@ -321,10 +332,187 @@ const Homepage = () => {
             </Col>
           </Row>
         </Container>
+      </div> */}
+      <div>
+        <div id="how-it-work" className="about-us_section">
+          <Container>
+            <h3 className="better-future text-uppercase text-center">
+              HAND-IN-HAND FOR A BETTER FUTURE
+            </h3>
+            <div className="better-future-content">
+              <div className="about-sec">
+                <Row>
+                  <Col sm={12} md={7} lg={5}>
+                    <div className="how-content">
+                      <h3>HOW?</h3>
+                      <ul className="light">
+                        <li>We use technology to transform your experience.</li>
+                        <li>
+                          We believe in a proactive care management approach.
+                        </li>
+                        <li >
+                          We create a consumer-first approach and a personalized
+                          data-driven digital health experience.
+                        </li>
+                        <li id="about-us">
+                          We are pioneers in bringing the Internet of Health to
+                          everyone.
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="about-content">
+                      <h3>ABOUT US</h3>
+                      <span className="line"></span>
+                      <p className="light">
+                        HealthierU utilizes next-generation telemedicine to
+                        provide you with the best access to highly trained and
+                        licensed experts from wellness centers and clinics
+                        across the UAE and across the globe.
+                      </p>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </div>
+          </Container>
+        </div>
+        <div className="purpose-section">
+          <Container>
+            <div class="row">
+              <Col sm={12} md={6} lg={6} xl={6} className="purpose-left">
+                <h2>PURPOSE</h2>
+                <p>WE EMPOWER YOU TO BECOME A BETTER VERSION OF YOURSELF.</p>
+              </Col>
+              <Col sm={12} md={6} lg={6} xl={6} className="purpose-right">
+                <h1>HEALING</h1>
+                <h1 class="mt0">PEOPLE,</h1>
+                <span>NOT PATIENTS.</span>
+              </Col>
+            </div>
+          </Container>
+        </div>
+        <div className="edge-section">
+          <Container className="edge-section_container">
+            <Row>
+              <Col className="edge-text" sm={12} md={12} lg={6} xl={6}>
+                <h1>OUR EDGE</h1>
+                <p className="light edge-subtitle">
+                  A one-of-a-kind and scalable wellness and prevention
+                  telemedicine platform.
+                </p>
+                <ul>
+                  <li>Personalized</li>
+                  <li>Proactive system: Predicts diseases before they occur</li>
+                  <li>Patient-centered</li>
+                  <li>Value and not volume-based</li>
+                  <li>Designed to prevent diseases</li>
+                  <li>Barely any waiting time</li>
+                  <li>
+                    Treatment decisions are influenced by what is best for the
+                    patient
+                  </li>
+                </ul>
+              </Col>
+              <Col className="edge-image" sm={12} md={12} lg={6} xl={6}>
+                {/* <img className="mr-4" src={Edge1} alt=""></img> */}
+                <img src={step3} alt=""></img>
+              </Col>
+              <div className="our_partners">
+                <h4>Our Partners</h4>
+                <div className="our_partners-logo">
+                  <div className="cornel-logo">
+                    <img src={CornelMedicine} alt="" />
+                  </div>
+                  <div className="our_partners-vr-line"></div>
+                  <div className="reem-logo">
+                    <img src={ReemHospital} alt="" />
+                  </div>
+                </div>
+              </div>
+            </Row>
+          </Container>
+        </div>
+        <div className="powerful_feature">
+          <div>
+            <Row>
+              <Col className="powerful_Ftr-image" sm={12} md={12} lg={6} xl={6}>
+                <img src={features} alt=""></img>
+              </Col>
+              <Col className="powerful_Ftr-text" sm={12} md={12} lg={6} xl={6}>
+                <h1>POWERFUL FEATURES</h1>
+                <ul>
+                  <li>Convenient and easy-to-use app</li>
+                  <li>
+                    Comprehensive solutions to help prevent and predict diseases
+                  </li>
+                  <li>
+                    Unlimited 24/7 access to professionals in the wellness and
+                    prevention field
+                  </li>
+                  <li>Robust and powerful technology</li>
+                  <li>
+                    Quick access to personalized supplements and wearables
+                  </li>
+                  <li>Customized nutrition meal and fitness plans</li>
+                  <li>E-courses on wellness, health, and much more</li>
+                  <li>Medicine and appointment reminders</li>
+                  <li>Quick access to labs near you</li>
+                  <li id="our-service">Healthcare data security</li>
+                </ul>
+              </Col>
+            </Row>
+          </div>
+        </div>
+        <div className="our_spl-section">
+          <Container>
+            <div>
+              <h1 className="our_spl-title">OUR SPECIALITIES</h1>
+              <p className="our_spl-subtitle">
+                We offer programs and plans to help support your wellness
+                journey.
+              </p>
+            </div>
+            <Row>
+              <Col sm={12} md={6} lg={3} xl={3} l>
+                <img src={heartIcon} alt="" />
+                <h3>REGENERATIVE MEDICINE</h3>
+                <ul>
+                  <li>Sleep Therapy</li>
+                  <li>Immune Health</li>
+                  <li>Sexual health</li>
+                </ul>
+              </Col>
+              <Col sm={12} md={6} lg={3} xl={3} l>
+                <img src={labIcon} alt="" />
+                <h3>FUNCTIONAL MEDICINE</h3>
+                <ul>
+                  <li>Comprehensive lab diagnostics</li>
+                  <li>Gut Microbiome</li>
+                  <li>Sexual health hormones</li>
+                </ul>
+              </Col>
+              <Col sm={12} md={6} lg={3} xl={3} l>
+                <img src={molecularIcon} alt="" />
+                <h3>MOLECULAR MEDICINE</h3>
+                <ul>
+                  <li>
+                    Integrative and Holistic Nutrition and sport Performance
+                  </li>
+                </ul>
+              </Col>
+              <Col sm={12} md={6} lg={3} xl={3} l>
+                <img src={careIcon} alt="" />
+                <h3>ENERGY / BODY-MIND MEDICINE</h3>
+                <ul>
+                  <li>Stress management</li>
+                  <li>Mental management</li>
+                </ul>
+              </Col>
+            </Row>
+          </Container>
+        </div>
       </div>
-      <br />
-      <br />
-      <Container id="aboutus-three">
+      {/* <Container id="aboutus-three">
         <MDBContainer id="how-it-work">
           <MDBCarousel
             activeItem={1}
@@ -440,40 +628,11 @@ const Homepage = () => {
                     </MDBCard>
                   </MDBCol>
                 </MDBCarouselItem>
-                {/* <MDBCarouselItem itemId="5">
-                  <MDBCol md="5">
-                    <MDBCard className="mb-2">
-                      <MDBCardImage className="img-fluid" src={step10} />
-                      <MDBCardBody>
-                        <MDBCardText>
-                          Access your personalized <br />
-                          supplements and wearables.
-                        </MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                  <MDBCol md="2"></MDBCol>
-                  <MDBCol md="5">
-                    <MDBCard className="mb-2">
-                      <MDBCardImage className="img-fluid" src={step11} />
-                      <MDBCardBody>
-                        <MDBCardText>
-                          Find out more about our nutrition and <br />
-                          workout plans, courses and latest <br /> scientific
-                          articles.
-                        </MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                </MDBCarouselItem> */}
               </MDBRow>
             </MDBCarouselInner>
           </MDBCarousel>
         </MDBContainer>
-      </Container>
-      <br />
-      <br />
-
+      </Container> */}
       {/* <Container id="first-box">
                 <Row>
                     <Col md={6} id="col-card">
@@ -598,7 +757,8 @@ const Homepage = () => {
             </Container> */}
       {/* <br />
             <br /> */}
-      <Footer />
+      <Footer id="footer" />
+      {/* <ChatPage /> */}
     </div>
   );
 };

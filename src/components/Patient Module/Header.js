@@ -10,10 +10,16 @@ import profileicon from '../../images/Icons/profile.svg';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import NotificationMenu from '../CommonModule/NotificationMenu';
+import Cookies from 'universal-cookie';
 // import { updatePatientTimeZone } from '../../service/frontendapiservices';
 // import { toast } from 'react-toastify';
 
 const Header = (props) => {
+  const cookies = new Cookies();
+
+  const currentUser = cookies.get('profileDetails');
+
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -26,14 +32,14 @@ const Header = (props) => {
   const {
     doctorDetailsList,
     unReadMessageList,
-    currentPatient: { picture },
   } = props;
   const unReadMessageCount = (unReadMessageList && Object.keys(unReadMessageList).length) || 0;
 
   const pathname = window.location.pathname;
 
+
   return (
-    <Navbar variant="dark" expand="lg" id="navbar">
+    <Navbar variant="dark" expand="lg" id="navbar" sticky='top'>
       <Container>
         <NavLink to="/patient" className="mr-auto">
           <img
@@ -78,7 +84,7 @@ const Header = (props) => {
                     My Appointments
                   </NavLink>
                   <NavLink
-                    to="/patient/questionnaire"
+                    to="/patient/questionnaire/existing"
                     className="dropdown-item"
                   >
                     Health Assessment
@@ -103,7 +109,7 @@ const Header = (props) => {
                     <NavLink to="#search">
                         <MenuIcon />
                     </NavLink> */}
-              {unReadMessageCount > 0 && (
+              {(
                 <div className="dropdown headerNavbar notification-Navbar">
                   <IconButton
                     aria-label="show 17 new notifications"
@@ -130,11 +136,11 @@ const Header = (props) => {
             </>
           )}
           <NavLink to="#">
-            {picture ? (
+            {currentUser.picture ? (
               <img
                 id="profilePicId"
                 width="35"
-                src={picture}
+                src={currentUser.picture}
                 alt=""
                 onClick={handleClick}
                 className="profile-icon"
