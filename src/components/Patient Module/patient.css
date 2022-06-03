@@ -3994,3 +3994,34 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   transform: translateY(-2px);
   color: #00d0cc;
 }
+
+.doctor-info-value {
+  color: var(--text-primary);
+  font-weight: normal;
+  text-align: left;
+}
+
+.doctor-info-title {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.doctor-info-icon {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+/* QUESTIONNAIRE ASSESSMENT MODAL */
+.score-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-modal-btn-wrapper {
+  margin: 0 auto;
+  align-items: center;
+}

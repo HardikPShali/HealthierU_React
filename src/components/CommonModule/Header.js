@@ -2,6 +2,7 @@ import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../images/logo/logo_white.svg';
+import logoQuote from "../../images/logo/logo-with-quote.png";
 import './landing.css'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -31,10 +32,10 @@ const Header = () => {
             <Container>
                 <NavLink to="/" className="mr-auto">
                     <img
-                        src={logo}
+                        src={logoQuote}
                         id="icon"
                         alt="HealthierU Logo"
-                        style={{ width: "70%" }}
+                        style={{ width: "160px" }}
                     />
                 </NavLink>
                 {/* <span className="ml-2 text-light" style={{fontSize: "12px", width: "100%"}}>Hi! &nbsp;{currentuserInfo.firstName}</span> */}
