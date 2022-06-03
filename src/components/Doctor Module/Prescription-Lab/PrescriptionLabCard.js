@@ -49,7 +49,7 @@ const PrescriptionLabCard = (props) => {
             </div>
             <div style={{ textAlign: "center" }} className='col-md-3'>
 
-                <button className='prescription-lab-card__download' onClick={(e) => props.download(props.data)}><img width={'30px'} height={'30px'} src={download} /></button>
+                <button className='prescription-lab-card__download' onClick={(e) => props.download(props.data)}><img width={'22px'} height={'22px'} src={download} /></button>
             </div>
 
         </div>

@@ -16,8 +16,9 @@
 .our-doctors--main-header {
   margin-left: 10px;
   color: var(--text-primary);
-  font-weight: 700;
+  font-weight: 400;
   text-shadow: none;
+  font-size: 1.4rem;
 }
 
 .our-doctor__card__img-wrapper {
@@ -57,9 +58,9 @@
 }
 
 .our-doctor__name {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 6px;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-top: 16px;
   margin-bottom: 4px;
 }
 
