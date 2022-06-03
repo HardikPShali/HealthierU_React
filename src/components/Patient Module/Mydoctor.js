@@ -639,7 +639,7 @@ const MyDoctor = (props) => {
       method: "put",
       mode: "no-cors",
       data: JSON.stringify(finalAppointmentDataArray),
-      url: `/api/appointments/bulk`,
+      url: `/api/v2/appointments/bulk`,
       headers: {
         Authorization: "Bearer " + LocalStorageService.getAccessToken(),
         "Content-Type": "application/json",
