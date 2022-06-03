@@ -1,8 +1,9 @@
 .chatPage-wrapper {
     display: flex;
-    max-height: 36rem;
-    min-height: 36rem;
+    max-height: 50rem;
+    min-height: 50rem;
     width: 100%;
+
 }
 .chatPage-wrapper .chat-item-container {
     flex-grow: 2;
@@ -10,7 +11,8 @@
     overflow-y: scroll;
 }
 .chatPage-wrapper .chat-details-container{
-    flex-grow: 10;
+    /* flex-grow: 10; */
+    flex: 0 0 60%;
     overflow-y: scroll;
 
 }

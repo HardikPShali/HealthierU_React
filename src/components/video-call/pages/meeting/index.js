@@ -480,7 +480,7 @@ const Meeting = (props) => {
       try {
         shareClient && shareEnd();
         client && client.unpublish(localStream);
-        // localStream && localStream.close();
+        localStream && localStream.close();
         client &&
           client.leave(
             () => {
@@ -656,7 +656,7 @@ const Meeting = (props) => {
         mainId = uid;
         mainStream = localStream;
       }
-      alert(JSON.stringify(localStream));
+      // alert(JSON.stringify(localStream));
       enableDualStream();
       localStream.init(
         () => {
@@ -686,7 +686,7 @@ const Meeting = (props) => {
     <>
       {/* <Row> */}
       {/* <Col md={9}> */}
-      <div className="wrapper w-50" id="page-meeting">
+      <div className="wrapper w-100" id="page-meeting">
         {/*<div className="ag-header">
               <div className="ag-header-lead">
                 <img className="ag-header-logo" src={logo} alt="" />

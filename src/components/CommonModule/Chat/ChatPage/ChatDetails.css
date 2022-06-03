@@ -58,15 +58,35 @@
   font-weight: 400;
 }
 .chat_detail_received {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   overflow: auto;
-  height: 60vh;
+  justify-content: flex-end;
+  padding: 8px;
+  max-height: 92vh;
+}
+
+.chat_detail_received::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat_detail_received::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
+}
+
+.chat_detail_received::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+.chat_detail_received::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
 
 .sent_chat-msg-wrap {
   background: #d2eeec;
-  border-radius: 18px;
+  border-radius: 18px 2px 18px 18px;
   padding: 0.8rem;
   max-width: 40%;
   min-width: 22rem;

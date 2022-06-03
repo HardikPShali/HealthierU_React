@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { Link, NavLink } from 'react-router-dom'
-import logo from '../../images/logo/logo-with-quote.png';
+import logoQuote from '../../images/logo/logo-with-quote.png';
 import './landing.css'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -31,7 +31,7 @@ const Header = () => {
             <Container className="p-0">
                 <NavLink to="/" className="m-0 mr-auto">
                     <img
-                        src={logo}
+                        src={logoQuote}
                         id="icon"
                         alt="HealthierU Logo"
                         style={{ width: "160px" }}
