@@ -1,16 +1,17 @@
-import React from "react"; //useEffect
-import ErrorBoundary from "./error-boundary/MyErrorBoundary";
-import Routes from "./routes";
-import "bootstrap/dist/css/bootstrap.css";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import "./global.css";
+import React from 'react'; //useEffect
+import ErrorBoundary from './error-boundary/MyErrorBoundary';
+import Routes from './routes';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import './global.css';
 // import firebase from "firebase";
 // import {
 //   LOCALFIRESTORECONFIG,
 //   PRODFIRESTORECONFIG,
 // } from "./util/configurations";
 //import Cookies from 'universal-cookie';
-import "./interceptor";
+import './interceptor';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 // import * as firebase from "firebase";
 
 // If you enabled Analytics in your project, add the Firebase SDK for Analytics
@@ -44,7 +45,16 @@ const App = () => {
   // }, []);
   return (
     <ErrorBoundary>
-      <Routes />
+      <PayPalScriptProvider
+        options={{
+          'client-id':
+            'AcH8aU79kD2tItN2vETkGYHZAnbiCAOwTNvNpVTUPSctfTiCSTLzgyXtXQNgIchyniPoP0D9Lg7vxP7N',
+          'currency': 'USD',
+          'intent': 'capture',
+        }}
+      >
+        <Routes />
+      </PayPalScriptProvider>
     </ErrorBoundary>
   );
 };
