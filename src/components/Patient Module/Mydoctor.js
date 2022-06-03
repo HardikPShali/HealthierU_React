@@ -1661,48 +1661,51 @@ const MyDoctor = (props) => {
                         <KeyboardBackspaceIcon />{" "}
                       </IconButton>{" "}
                       Back to calendar
-                      <p className="mt-3">
-                        Available Slots For{" "}
-                        {moment(currentDate).format("DD, MMM YYYY")}
-                      </p>
-                      {appointmentSlot && appointmentSlot.length > 0 ? (
-                        appointmentSlot.map((current, i) => (
-                          <div className="inputGroup" key={i}>
-                            <input
-                              id={`selectedId${i}`}
-                              name="selectedId"
-                              className="choseSlotInput"
-                              type="radio"
-                              value={current.id}
-                              onChange={() =>
-                                onAvailabilitySelected(current, i)
-                              }
-                              checked={
-                                selectedSlotId &&
-                                parseInt(selectedSlotId) === current.id
-                              }
-                            />
-                            <label
-                              htmlFor={`selectedId${i}`}
-                              className="choseSlotLable"
-                            >
-                              <b>
-                                {moment(current.startTime).format("hh:mm A")} -{" "}
-                                {moment(current.endTime).format("hh:mm A")}{" "}
-                              </b>
-                            </label>
+                      <div className="inp-grp-holder scroller-cardlist">
+                        <p className="mt-3">
+                          Available Slots For{" "}
+                          {moment(currentDate).format("DD, MMM YYYY")}
+                        </p>
+                        {appointmentSlot && appointmentSlot.length > 0 ? (
+                          appointmentSlot.map((current, i) => (
+                            <div className="inputGroup" key={i}>
+                              <input
+                                id={`selectedId${i}`}
+                                name="selectedId"
+                                className="choseSlotInput"
+                                type="radio"
+                                value={current.id}
+                                onChange={() =>
+                                  onAvailabilitySelected(current, i)
+                                }
+                                checked={
+                                  selectedSlotId &&
+                                  parseInt(selectedSlotId) === current.id
+                                }
+                              />
+                              <label
+                                htmlFor={`selectedId${i}`}
+                                className="choseSlotLable"
+                              >
+                                <b>
+                                  {moment(current.startTime).format("hh:mm A")} -{" "}
+                                  {moment(current.endTime).format("hh:mm A")}{" "}
+                                </b>
+                              </label>
+                            </div>
+                          ))
+                        ) : appointmentSlot.length === 0 &&
+                          appointment.appointmentMode === "CONSULTATION" ? (
+                          <div style={{ textAlign: "center", marginTop: "50%" }}>
+                            No slots available for consultation.
                           </div>
-                        ))
-                      ) : appointmentSlot.length === 0 &&
-                        appointment.appointmentMode === "CONSULTATION" ? (
-                        <div style={{ textAlign: "center", marginTop: "50%" }}>
-                          No slots available for consultation.
-                        </div>
-                      ) : (
-                        <div style={{ textAlign: "center", marginTop: "50%" }}>
-                          No slots available.
-                        </div>
-                      )}
+                        ) : (
+                          <div style={{ textAlign: "center", marginTop: "50%" }}>
+                            No slots available.
+                          </div>
+                        )}
+                      </div>
+
                     </>
                   )}
                 </div>
