@@ -30,7 +30,8 @@ a.nav-link.active {
 
 #navbar a {
   color: #fff;
-  margin-right: 12px;
+  margin-right: 0;
+  margin-left: 12px;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -110,7 +111,7 @@ svg#search-icon {
   svg#search-icon {
     margin: 4px 0;
   }
-  .MuiIconButton-root[aria-label='show 17 new notifications'] {
+  .MuiIconButton-root[aria-label="show 17 new notifications"] {
     padding: 0;
   }
 }
@@ -244,7 +245,36 @@ div#social-icon {
 #copyright .row {
   align-items: flex-start;
 }
+.footer-wellnes {
+  font-size: 1.2rem;
+}
+.footer-store-icons {
+  display: flex;
+  justify-content: end;
+}
+img#store-icon {
+  width: 7rem;
+}
 
+@media screen and (max-width: 768px) {
+  .footer-store-icons {
+    display: flex;
+    justify-content: center;
+  }
+  .footer-store-icons img {
+    margin-left: 0;
+  }
+  .footer-wellnes {
+    text-align: center;
+    font-size: 1rem;
+  }
+  .padding-mobile {
+    padding: 0 1rem;
+  }
+  p#download-statement {
+    text-align: center;
+  }
+}
 /*
 * Patient home
 */
@@ -748,7 +778,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 100%;
   left: 46%;
@@ -1568,7 +1598,7 @@ div#multiselectContainerReact div {
 }
 
 .list--tags > li:before {
-  content: ',\0000a0'; /* Non-breaking space */
+  content: ",\0000a0"; /* Non-breaking space */
 }
 .list--tags > li:first-child:before {
   content: normal;
@@ -2691,7 +2721,7 @@ button.product-discount {
   text-align: end;
   right: 2px;
   height: 36px;
-  background: url('../../images/shop/offer-back.png');
+  background: url("../../images/shop/offer-back.png");
   border: none;
   background-size: cover;
   color: #fff;
@@ -2702,7 +2732,7 @@ button.product-discount {
 }
 
 button.single-product-discount {
-  background: url('../../images/shop/offer-back.png');
+  background: url("../../images/shop/offer-back.png");
   z-index: 2;
   position: relative;
   display: flex;
@@ -3578,7 +3608,7 @@ button a {
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: '';
+  content: "";
   position: absolute;
   display: none;
 }

@@ -4,25 +4,25 @@ import { Link, NavLink } from "react-router-dom";
 import ChatItemStyle from "./ChatItem.css";
 import patientprof from "../../../../images/patientprof.png"
 
-const ChatItem = (props) => {
+const ChatItem = ({item, onChatChange, messageDateFormat}) => {
 
     
   return (
-    <div className="chat_item-wrapper">
+    <div onClick={() => onChatChange(item)} className="chat_item-wrapper">
       <div className="chat_item">
         <div className="chat_item-left">
           <div className="chat_item-profile">
-            <img src={patientprof} alt="" />
+            <img src={item[item.userKey]?.picture || patientprof} alt="" />
           </div>
           <div className="chat_item-text-wrap">
-            <div className="chat_item-name">{props.item?.patient?.firstName} { props.item?.patient?.lastName}</div>
+            <div className="chat_item-name">{item[item.userKey]?.firstName} { item[item.userKey]?.lastName}</div>
             <div className="chat_item-message-wrap">
-              <span className="chat_item-by">You:</span>
-              <span className="chat_lastMessage">{props.item?.lastMessage?.message}</span>
+              <span className="chat_item-by">{item.lastMessage?.isMyMessage ? 'You' : ''}</span>
+              <span className="chat_lastMessage">{item.lastMessage?.message || ""}</span>
             </div>
           </div>
         </div>
-        <div className="chat_item-right">{props.item?.time}</div>
+        <div className="chat_item-right">{messageDateFormat(item.lastMessage?.createdAt)}</div>
       </div>
     </div>
   );
