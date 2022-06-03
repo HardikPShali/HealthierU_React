@@ -40,6 +40,7 @@ a.nav-link.active {
 
 #navbar a.dropdown-item {
   color: #000 !important;
+  margin-left: 0;
 }
 
 #navbar a.dropdown-item:hover {
@@ -1023,9 +1024,11 @@ div.card-box {
   display: none;
 }
 h2#signin-title {
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 400;
   color: var(--primary);
+  text-align: left;
+  margin-left: 1rem;
 }
 #profile-form p {
   margin-bottom: 5px;
@@ -1285,7 +1288,7 @@ div#multiselectContainerReact div:hover {
 .col-form-label {
   font-size: 16px;
   font-weight: bold;
-  text-align: justify;
+  text-align: left;
 }
 
 #prescription-list {
