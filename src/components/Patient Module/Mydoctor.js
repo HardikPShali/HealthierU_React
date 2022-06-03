@@ -67,6 +67,7 @@ import { firestoreService } from "../../util";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { doctorListLimit } from "../../util/configurations";
 import { Button, Modal } from "react-bootstrap";
+import PaypalCheckoutButton from "./PaypalCheckout/PaypalCheckoutButton";
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
 
@@ -726,7 +727,7 @@ const MyDoctor = (props) => {
       method: "put",
       mode: "no-cors",
       data: JSON.stringify(finalAppointmentDataArray),
-      url: `/api/appointments/bulk`,
+      url: `/api/v2/appointments/bulk`,
       headers: {
         Authorization: "Bearer " + LocalStorageService.getAccessToken(),
         "Content-Type": "application/json",

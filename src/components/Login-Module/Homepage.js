@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./landing.css";
-import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
+// import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
 import {
   MDBCarousel,
   MDBCarouselCaption,
@@ -209,9 +209,9 @@ const Homepage = () => {
           </MDBCarouselInner>
         </MDBCarousel>
       </MDBContainer>
-      <Container>
+      <Container className="p-0 padding-mobile">
         <Row id="aboutus-two">
-          <Col md={5}>
+          <Col md={4} lg={4} xl={4} >
             <h2>HealthierU</h2>
             <h4>Wellness Optimized</h4>
             <br />
@@ -226,7 +226,7 @@ const Homepage = () => {
               'Tap into the best virtual healthcare.'
             </p>
           </Col>
-          <Col md={7}>
+          <Col md={8} lg={8} xl={8}>
             <img className="image" src={aboutUsimg} alt="HealthierU " />
           </Col>
         </Row>
@@ -285,7 +285,7 @@ const Homepage = () => {
       </div> */}
       <div>
         <div id="about-us" className="about-us_section">
-          <Container>
+          <Container className="p-0 padding-mobile">
             <h3 className="better-future text-uppercase text-center">
               HAND-IN-HAND FOR A BETTER FUTURE
             </h3>
@@ -293,7 +293,7 @@ const Homepage = () => {
               <div className="about-sec">
                 <Row>
                   <Col sm={12} md={7} lg={5}>
-                  <div className="about-content">
+                    <div className="about-content">
                       <h3>ABOUT US</h3>
                       <span className="line"></span>
                       <p className="light" id="how-it-work">
@@ -303,7 +303,7 @@ const Homepage = () => {
                         across the UAE and across the globe.
                       </p>
                     </div>
-                    <div  className="how-content">
+                    <div className="how-content">
                       <h3>HOW?</h3>
                       <ul className="light">
                         <li>We use technology to transform your experience.</li>
@@ -327,7 +327,7 @@ const Homepage = () => {
           </Container>
         </div>
         <div className="purpose-section">
-          <Container>
+          <Container className="p-0 padding-mobile">
             <div class="row">
               <Col sm={12} md={6} lg={6} xl={6} className="purpose-left">
                 <h2>PURPOSE</h2>
@@ -383,7 +383,7 @@ const Homepage = () => {
           </Container>
         </div>
         <div className="powerful_feature">
-          <div>
+          <Container>
             <Row>
               <Col className="powerful_Ftr-image" sm={12} md={12} lg={6} xl={6}>
                 <img src={features} alt=""></img>
@@ -411,10 +411,10 @@ const Homepage = () => {
                 </ul>
               </Col>
             </Row>
-          </div>
+          </Container>
         </div>
         <div className="our_spl-section">
-          <Container>
+          <Container className="p-0 padding-mobile">
             <div>
               <h1 className="our_spl-title">OUR SPECIALITIES</h1>
               <p className="our_spl-subtitle">
@@ -707,11 +707,9 @@ const Homepage = () => {
             </Container> */}
       {/* <br />
             <br /> */}
-            <div style={{ backgroundColor: "#eee9df" }}>
-        <Container>
-          <br />
-          <br />
-          <Row>
+      <div style={{ backgroundColor: "#eee9df" }}>
+        <Container className="p-0 padding-mobile">
+          <Row className="pt-5 pb-5">
             <Col md={12} lg={6} xl={6} className="mb-3">
               <Card>
                 <Card.Img variant="top" src={home2} />
@@ -753,8 +751,6 @@ const Homepage = () => {
               </Card>
             </Col>
           </Row>
-          <br />
-          <br />
         </Container>
       </div>
       <Footer id="footer" />

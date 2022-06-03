@@ -241,7 +241,32 @@ div#social-icon {
 #copyright .row {
   align-items: flex-start;
 }
-
+.footer-store-icons {
+  display: flex;
+  justify-content: end;
+}
+img#store-icon {
+  width: 7rem;
+}
+@media screen and (max-width: 768px) {
+  .footer-store-icons {
+    display: flex;
+    justify-content: center;
+  }
+  .footer-store-icons img {
+    margin-left: 0;
+  }
+  .footer-wellnes {
+    text-align: center;
+    font-size: 1rem;
+  }
+  .padding-mobile {
+    padding: 0 1rem;
+  }
+  p#download-statement {
+    text-align: center;
+  }
+}
 /*
 * Patient home
 */
@@ -2987,5 +3012,5 @@ button.reset-btn {
 }
 
 .rbc-time-header.rbc-overflowing {
-  margin-right: 0 !important;
+  margin-right: 4px !important;
 }
