@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./landing.css";
-import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
+// import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
 import {
   MDBCarousel,
   MDBCarouselCaption,
@@ -293,7 +293,7 @@ const Homepage = () => {
               <div className="about-sec">
                 <Row>
                   <Col sm={12} md={7} lg={5}>
-                  <div className="about-content">
+                    <div className="about-content">
                       <h3>ABOUT US</h3>
                       <span className="line"></span>
                       <p className="light" id="how-it-work">
@@ -303,7 +303,7 @@ const Homepage = () => {
                         across the UAE and across the globe.
                       </p>
                     </div>
-                    <div  className="how-content">
+                    <div className="how-content">
                       <h3>HOW?</h3>
                       <ul className="light">
                         <li>We use technology to transform your experience.</li>
@@ -707,7 +707,7 @@ const Homepage = () => {
             </Container> */}
       {/* <br />
             <br /> */}
-            <div style={{ backgroundColor: "#eee9df" }}>
+      <div style={{ backgroundColor: "#eee9df" }}>
         <Container className="p-0 padding-mobile">
           <Row className="pt-5 pb-5">
             <Col md={12} lg={6} xl={6} className="mb-3">
