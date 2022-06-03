@@ -24,7 +24,7 @@ import ChatMessage from "../CommonModule/Chat/ChatMessage/ChatMessage";
 import notesIcon from '../../images/svg/notes-outline-icon.svg';
 import backIcon from '../../images/svg/arrow-left.svg';
 import { uploadNote } from "../../service/frontendapiservices";
-
+import ChatScreen from "../CommonModule/Chat/ChatScreen/ChatScreen";
 
 // import Dialog from "@material-ui/core/Dialog";
 // import DialogTitle from "@material-ui/core/DialogTitle";
@@ -53,69 +53,69 @@ const DoctorChat = (props) => {
   const [dIdState, setDIdState] = useState("");
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const { currentDoctor, patientDetailsList } = props;
-    let chatGroup = searchParams.get("chatgroup");
-    let openVideoAndChat = searchParams.get("openVideoCall");
+    // const searchParams = new URLSearchParams(location.search);
+    // const { currentDoctor, patientDetailsList } = props;
+    // let chatGroup = searchParams.get("chatgroup");
+    // let openVideoAndChat = searchParams.get("openVideoCall");
 
-    if (chatGroup) {
-      setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
-      setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
-    }
+    // if (chatGroup) {
+    //   setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
+    //   setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
+    // }
 
     // if (openVideoAndChat) {
     //   handleAgoraAccessToken(pIdState, dIdState,
     //     () => setOpenVideoCall(true)
     //   );
     // }
-    chatGroup && openConversation(chatGroup);
+    // chatGroup && openConversation(chatGroup);
   }, [location]);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    let chatGroup = searchParams.get("chatgroup");
-    let openVideoAndChat = searchParams.get("openVideoCall");
-    if (openVideoAndChat && pIdState && dIdState) {
-      handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true));
-    }
+    // const searchParams = new URLSearchParams(location.search);
+    // let chatGroup = searchParams.get("chatgroup");
+    // let openVideoAndChat = searchParams.get("openVideoCall");
+    // if (openVideoAndChat && pIdState && dIdState) {
+    //   handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true));
+    // }
   }, [pIdState, dIdState]);
 
   useEffect(() => {
-    if (currentSelectedGroup) {
-      unsubscribe = firestoreService.updateConversation(
-        currentSelectedGroup,
-        currentDoctor.email,
-        setChatMessages
-      );
-    }
+    // if (currentSelectedGroup) {
+    //   unsubscribe = firestoreService.updateConversation(
+    //     currentSelectedGroup,
+    //     currentDoctor.email,
+    //     setChatMessages
+    //   );
+    // }
   }, [currentSelectedGroup]);
 
   useEffect(() => {
-    if (currentSelectedGroup && patientDetailsList[currentSelectedGroup]) {
-      let currentSelectedGroupAppointmentDetails =
-        patientDetailsList[currentSelectedGroup]["appointmentDetails"];
-      if (currentSelectedGroupAppointmentDetails) {
-        //logic for rerender chat and video button based on upcoming timesequence
-        let timeToRerender = chatAndVideoService.isAppoinmentTimeUnderActiveCondition(
-          currentSelectedGroupAppointmentDetails,
-          setActiveButton
-        );
-        if (timeToRerender) {
-          clearSetTimeoutInterval && clearTimeout(clearSetTimeoutInterval);
-          clearSetTimeoutInterval = setTimeout(
-            () => setMilisecondToRerender(timeToRerender),
-            timeToRerender
-          );
-        }
-      }
-    }
+    // if (currentSelectedGroup && patientDetailsList[currentSelectedGroup]) {
+    //   let currentSelectedGroupAppointmentDetails =
+    //     patientDetailsList[currentSelectedGroup]["appointmentDetails"];
+    //   if (currentSelectedGroupAppointmentDetails) {
+    //     //logic for rerender chat and video button based on upcoming timesequence
+    //     let timeToRerender = chatAndVideoService.isAppoinmentTimeUnderActiveCondition(
+    //       currentSelectedGroupAppointmentDetails,
+    //       setActiveButton
+    //     );
+    //     if (timeToRerender) {
+    //       clearSetTimeoutInterval && clearTimeout(clearSetTimeoutInterval);
+    //       clearSetTimeoutInterval = setTimeout(
+    //         () => setMilisecondToRerender(timeToRerender),
+    //         timeToRerender
+    //       );
+    //     }
+    //   }
+    // }
   }, [currentSelectedGroup, props.patientDetailsList, milisecondToRerender]);
 
   useEffect(() => {
-    return () => {
-      typeof unsubscribe === "function" && unsubscribe();
-      clearSetTimeoutInterval && clearTimeout(clearSetTimeoutInterval);
-    };
+    // return () => {
+    //   typeof unsubscribe === "function" && unsubscribe();
+    //   clearSetTimeoutInterval && clearTimeout(clearSetTimeoutInterval);
+    // };
   }, []);
 
   const sendMessage = (event) => {
@@ -263,7 +263,8 @@ const DoctorChat = (props) => {
 
   return (
     <div className="bg-main-color">
-      <div className="main-section mt-5">
+       <ChatScreen />
+      {/* <div className="main-section mt-5">
         <div className="head-section">
           <div className="headLeft-section">
             {!openVideoCall && (
@@ -571,7 +572,7 @@ const DoctorChat = (props) => {
 
           </div>
         </div>
-      </div>
+      </div> */}
     </div >
   );
 };

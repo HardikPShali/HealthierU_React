@@ -94,7 +94,8 @@ const ForgetPassword = () => {
                 <Loader />
             )}
             <Header />
-            <Container id="signin-bg">
+            <div id="signin-bg">
+            <Container>
                 <Row>
                     <Col md={7}></Col>
                     <Col md={5}>
@@ -124,6 +125,8 @@ const ForgetPassword = () => {
                     </Col>
                 </Row>
             </Container>
+            </div>
+           
             <Footer />
 
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>

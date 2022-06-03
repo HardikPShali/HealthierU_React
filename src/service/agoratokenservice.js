@@ -21,7 +21,7 @@ export const handleAgoraAccessToken = async (pId, dId, openVideo) => {
             if (response && response.data) {
                 cookies.set('agora_access_token', response.data.data.token, { path: '/' });
                 cookies.set('channel', response.data.data.channelName, { path: '/' });
-                openVideo()
+                openVideo(response.data.data)
             }
             console.log('Agora response', response);
         }
@@ -40,4 +40,17 @@ export const handleAgoraAccessToken = async (pId, dId, openVideo) => {
     //         })
     //     }
     // })
+}
+
+export const generateRTMToken = async (pID, dID) => {
+    const payload = {
+        method: 'get',
+        mode: 'no-cors',
+        url: '/oauth/agora/rtm/' + pID + '/' + dID,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken()
+        }
+    };
+
+    return axios(payload);
 }

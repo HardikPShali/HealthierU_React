@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./landing.css";
-import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
+// import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
 import {
   MDBCarousel,
   MDBCarouselCaption,
@@ -53,6 +53,8 @@ import step8 from "../../images/step8.PNG";
 import step9 from "../../images/step9.PNG";
 import step10 from "../../images/step10.PNG";
 import step11 from "../../images/step11.PNG";
+import step13 from "../../images/step13.png";
+
 import features from "../../images/our-features.png";
 import betterFuture from "../../images/better-future.png";
 import CornelMedicine from "../../images/cornell-medicine-logo.png";
@@ -159,13 +161,15 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                {/* <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
-                <p className="help-desc">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
+                <Container>
+                <h3 className="text-primary-clr">Connect with our Global Wellness Experts Virtually</h3>
+                <p className="text-primary-clr-p">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
                 <Link to="/signin">
-                  <button className="btn btn-primary">
+                  <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_GETHELP.BTN_TEXT}
                   </button>
-                </Link> */}
+                </Link>
+                </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="2">
@@ -178,13 +182,15 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                {/* <h3 className="h3-responsive">Book Appointment</h3>
+                <Container>
+                <h3 className="h3-responsive">Book Appointment</h3>
                 <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
                 <Link to="/signin">
-                  <button className="btn btn-primary">
+                  <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_TAKEACTION.BTN_TEXT}
                   </button>
-                </Link> */}
+                </Link>
+                </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="3">
@@ -197,71 +203,23 @@ const Homepage = () => {
                 <MDBMask overlay="black-slight" />
               </MDBView>
               <MDBCarouselCaption>
-                {/* <h3 className="h3-responsive">Take Charge of your Health</h3>
+                <Container>
+                <h3 className="h3-responsive">Take Charge of your Health</h3>
                 <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
                 <Link to="/signin">
-                  <button className="btn btn-primary">
+                  <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
                   </button>
-                </Link> */}
+                </Link>
+                </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
           </MDBCarouselInner>
         </MDBCarousel>
       </MDBContainer>
-      <div style={{ backgroundColor: "#eee9df" }}>
-        <Container>
-          <br />
-          <br />
-          <Row>
-            <Col>
-              <Card>
-                <Card.Img variant="top" src={home2} />
-                <Card.Body>
-                  <Card.Title>How healthy are you?</Card.Title>
-                  <Card.Text>
-                    Find out how you measure with health and
-                    <br />
-                    well-being assessment
-                  </Card.Text>
-                  <Link to="/signin">
-                    <button
-                      variant="primary"
-                      className="btn btn-outline-light assessment-btn"
-                    >
-                      Take my assessment
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card>
-                <Card.Img variant="top" src={home3} />
-                <Card.Body>
-                  <Card.Title>Looking for an expert advise?</Card.Title>
-                  <Card.Text>
-                    Check out our available wellness specialists
-                  </Card.Text>
-                  <Link to="/signin">
-                    <button
-                      variant="primary"
-                      className="btn btn-outline-light assessment-btn"
-                    >
-                      Meet Our Doctors
-                    </button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          <br />
-          <br />
-        </Container>
-      </div>
-      <Container>
+      {/* <Container className="p-0 padding-mobile">
         <Row id="aboutus-two">
-          <Col md={5}>
+          <Col md={4} lg={4} xl={4} >
             <h2>HealthierU</h2>
             <h4>Wellness Optimized</h4>
             <br />
@@ -276,11 +234,11 @@ const Homepage = () => {
               'Tap into the best virtual healthcare.'
             </p>
           </Col>
-          <Col md={7}>
+          <Col md={8} lg={8} xl={8}>
             <img className="image" src={aboutUsimg} alt="HealthierU " />
           </Col>
         </Row>
-      </Container>
+      </Container> */}
       {/* <div id="our-services">
         <Container>
           <Row id="aboutus-four">
@@ -334,15 +292,25 @@ const Homepage = () => {
         </Container>
       </div> */}
       <div>
-        <div id="how-it-work" className="about-us_section">
-          <Container>
-            <h3 className="better-future text-uppercase text-center">
+        <div id="about-us" className="about-us_section">
+          <Container className="p-0 padding-mobile">
+            {/* <h3 className="better-future text-uppercase text-center">
               HAND-IN-HAND FOR A BETTER FUTURE
-            </h3>
+            </h3> */}
             <div className="better-future-content">
               <div className="about-sec">
                 <Row>
                   <Col sm={12} md={7} lg={5}>
+                    <div className="about-content">
+                      <h3>ABOUT US</h3>
+                      <span className="line"></span>
+                      <p className="light" id="how-it-work">
+                        HealthierU utilizes next-generation telemedicine to
+                        provide you with the best access to highly trained and
+                        licensed experts from wellness centers and clinics
+                        across the UAE and across the globe.
+                      </p>
+                    </div>
                     <div className="how-content">
                       <h3>HOW?</h3>
                       <ul className="light">
@@ -354,21 +322,11 @@ const Homepage = () => {
                           We create a consumer-first approach and a personalized
                           data-driven digital health experience.
                         </li>
-                        <li id="about-us">
+                        <li >
                           We are pioneers in bringing the Internet of Health to
                           everyone.
                         </li>
                       </ul>
-                    </div>
-                    <div className="about-content">
-                      <h3>ABOUT US</h3>
-                      <span className="line"></span>
-                      <p className="light">
-                        HealthierU utilizes next-generation telemedicine to
-                        provide you with the best access to highly trained and
-                        licensed experts from wellness centers and clinics
-                        across the UAE and across the globe.
-                      </p>
                     </div>
                   </Col>
                 </Row>
@@ -377,7 +335,7 @@ const Homepage = () => {
           </Container>
         </div>
         <div className="purpose-section">
-          <Container>
+          <Container className="p-0 padding-mobile">
             <div class="row">
               <Col sm={12} md={6} lg={6} xl={6} className="purpose-left">
                 <h2>PURPOSE</h2>
@@ -423,20 +381,20 @@ const Homepage = () => {
                   <div className="cornel-logo">
                     <img src={CornelMedicine} alt="" />
                   </div>
-                  <div className="our_partners-vr-line"></div>
-                  <div className="reem-logo">
+                  {/* <div className="our_partners-vr-line"></div> */}
+                  {/* <div className="reem-logo">
                     <img src={ReemHospital} alt="" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Row>
           </Container>
         </div>
         <div className="powerful_feature">
-          <div>
+          <Container>
             <Row>
               <Col className="powerful_Ftr-image" sm={12} md={12} lg={6} xl={6}>
-                <img src={features} alt=""></img>
+                <img src={step13} alt=""></img>
               </Col>
               <Col className="powerful_Ftr-text" sm={12} md={12} lg={6} xl={6}>
                 <h1>POWERFUL FEATURES</h1>
@@ -461,10 +419,10 @@ const Homepage = () => {
                 </ul>
               </Col>
             </Row>
-          </div>
+          </Container>
         </div>
         <div className="our_spl-section">
-          <Container>
+          <Container className="p-0 padding-mobile">
             <div>
               <h1 className="our_spl-title">OUR SPECIALITIES</h1>
               <p className="our_spl-subtitle">
@@ -757,6 +715,52 @@ const Homepage = () => {
             </Container> */}
       {/* <br />
             <br /> */}
+      <div style={{ backgroundColor: "#eee9df" }}>
+        <Container className="p-0 padding-mobile">
+          <Row className="pt-5 pb-5 two-box-padding">
+            <Col md={12} lg={6} xl={6} className="mb-3">
+              <Card>
+                <Card.Img variant="top" src={home2} />
+                <Card.Body>
+                  <Card.Title>How healthy are you?</Card.Title>
+                  <Card.Text>
+                    Find out how you measure with health and
+                    <br />
+                    well-being assessment
+                  </Card.Text>
+                  <Link to="/signin">
+                    <button
+                      variant="primary"
+                      className="btn btn-outline-light assessment-btn "
+                    >
+                      Take my assessment
+                    </button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col md={12} lg={6} xl={6}>
+              <Card>
+                <Card.Img variant="top" src={home3} />
+                <Card.Body>
+                  <Card.Title>Looking for an expert advise?</Card.Title>
+                  <Card.Text>
+                    Check out our available wellness specialists
+                  </Card.Text>
+                  <Link to="/signin">
+                    <button
+                      variant="primary"
+                      className="btn btn-outline-light assessment-btn"
+                    >
+                      Meet Our Doctors
+                    </button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </div>
       <Footer id="footer" />
       {/* <ChatPage /> */}
     </div>

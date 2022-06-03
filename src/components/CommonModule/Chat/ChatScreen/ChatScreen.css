@@ -1,0 +1,5 @@
+.chat-screen-container {
+    display: flex;
+    flex-flow: column;
+    padding: 4rem 0;
+}

@@ -9,10 +9,19 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "universal-cookie";
 import { postHealthAssessment } from "../../../service/frontendapiservices";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import { ScoreSharp } from "@material-ui/icons";
 
 const Questionnaire = ({ match }) => {
   const [questions, setQuestions] = useState([]);
   const isNew = match.params.new;
+
+  const [continueClick, setContinueClick] = useState(false);
+  const [totalscore, settotalScore] = useState(0);
+  const [healthAssess, setHealthAssess] = useState("");
 
   // const [loading, setLoading] = useState(true);
 
@@ -58,35 +67,53 @@ const Questionnaire = ({ match }) => {
       console.log(err);
     });
     console.log(response);
-    let healthBehavior = "";
-    healthBehavior = healthBehaviorOnScore(submitData.totalScore);
-    toast.success(`You are ${healthBehavior}`, {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    settotalScore(submitData.totalScore);
 
+    // toast.success(`You are ${healthBehavior}`, {
+    //   position: 'top-right',
+    //   autoClose: 2000,
+    //   hideProgressBar: true,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    // });
   };
 
   const healthBehaviorOnScore = (score) => {
     if (score <= 3) {
-      return "not Healthy";
+      setHealthAssess("not Healthy");
+      console.log("not healthy", healthAssess);
+      return healthAssess;
+
+      // return 'not Healthy';
     } else if (score > 3 && score <= 7) {
-      return "moderately Healthy";
+      setHealthAssess("moderately Healthy");
+      console.log("mod healthy", healthAssess);
+      return healthAssess;
+
+      // return 'moderately Healthy';
     } else {
-      return "Healthy";
+      setHealthAssess("Healthy");
+      console.log(" healthy", healthAssess);
+      return healthAssess;
+
+      // return 'Healthy';
     }
-  }
+  };
+
+  useEffect(() => {
+    healthBehaviorOnScore(totalscore);
+  }, [totalscore]);
 
   const onContinue = async () => {
     console.log(questions);
     if (questions.length > 0) {
       handleAssessmentSubmit();
-      setTimeout(() => history.push('/patient'), 2000);
+      if (handleAssessmentSubmit()) {
+        setContinueClick(true);
+        // healthBehaviorOnScore(totalscore);
+      }
       // history.push('/patient');
     } else {
       toast.error("Please fill the form!", {
@@ -131,13 +158,18 @@ const Questionnaire = ({ match }) => {
     console.log("Something");
   }, [questions]);
 
+  const closeDialog = () => {
+    setContinueClick(false);
+    history.push("/patient");
+  };
+
   return (
-    <Container style={{ maxWidth: "100%" }}>
+    <Container>
       <Row id="questionnaire-view" style={{ minHeight: "600px" }}>
         <Col md={6} id="questionnaire-view-bg"></Col>
         <Col
           md={6}
-          style={{ background: "#fff", padding: "5%" }}
+          style={{ background: "#fff", padding: "2% 0 2% 2%" }}
           className="questionnaire-container"
         >
           <div className="questionnaire-header">
@@ -176,6 +208,43 @@ const Questionnaire = ({ match }) => {
           </div>
         </Col>
       </Row>
+
+      <Dialog
+        onClose={closeDialog}
+        aria-labelledby="customized-dialog-title"
+        open={continueClick}
+      >
+        <DialogTitle id="customized-dialog-title" onClose={closeDialog}>
+          Assessment Based on Score
+        </DialogTitle>
+
+        <DialogContent>
+          <div className="score-text">
+            <span
+              style={{
+                fontSize: "20px",
+                marginBottom: "20px",
+              }}
+            >
+              You scored {totalscore}
+            </span>
+            <h5>You are {healthAssess}</h5>
+          </div>
+        </DialogContent>
+
+        <DialogActions>
+          <div className="score-modal-btn-wrapper">
+            <button
+              autoFocus={false}
+              onClick={closeDialog}
+              className="btn btn-primary"
+              id="close-btn"
+            >
+              OK
+            </button>
+          </div>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };

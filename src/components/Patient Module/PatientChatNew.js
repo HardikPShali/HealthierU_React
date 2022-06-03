@@ -25,6 +25,7 @@ import {
 } from "../../util";
 import ChatRow from "../CommonModule/Chat/ChatRow/ChatRow";
 import ChatMessage from "../CommonModule/Chat/ChatMessage/ChatMessage";
+import ChatScreen from "../CommonModule/Chat/ChatScreen/ChatScreen";
 
 // var firebaseRef;
 let unsubscribe;
@@ -48,43 +49,43 @@ const PatientChat = (props) => {
   const location = useLocation();
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    let chatGroup = searchParams.get("chatgroup");
-    let openVideoAndChat = searchParams.get("openVideoCall");
-    const { currentPatient, doctorDetailsList } = props;
+    // const searchParams = new URLSearchParams(location.search);
+    // let chatGroup = searchParams.get("chatgroup");
+    // let openVideoAndChat = searchParams.get("openVideoCall");
+    // const { currentPatient, doctorDetailsList } = props;
 
-    if (chatGroup) {
-      setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
-      setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
-    }
+    // if (chatGroup) {
+    //   setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
+    //   setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
+    // }
 
     // if (openVideoAndChat) {
 
     //   handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true))
 
     // }
-    chatGroup && openConversation(chatGroup);
+    // chatGroup && openConversation(chatGroup);
   }, [location]);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    let chatGroup = searchParams.get("chatgroup");
-    let openVideoAndChat = searchParams.get("openVideoCall");
+    // const searchParams = new URLSearchParams(location.search);
+    // let chatGroup = searchParams.get("chatgroup");
+    // let openVideoAndChat = searchParams.get("openVideoCall");
     // if (openVideoAndChat) {
 
-    if (dIdState && pIdState) {
-      handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true));
-    }
+    // if (dIdState && pIdState) {
+    //   handleAgoraAccessToken(pIdState, dIdState, () => setOpenVideoCall(true));
+    // }
   }, [pIdState, dIdState]);
 
   useEffect(() => {
-    if (currentSelectedGroup) {
-      unsubscribe = firestoreService.updateConversation(
-        currentSelectedGroup,
-        currentPatient.email,
-        setChatMessages
-      );
-    }
+    // if (currentSelectedGroup) {
+    //   unsubscribe = firestoreService.updateConversation(
+    //     currentSelectedGroup,
+    //     currentPatient.email,
+    //     setChatMessages
+    //   );
+    // }
   }, [currentSelectedGroup]);
 
   useEffect(() => {
@@ -200,7 +201,8 @@ const PatientChat = (props) => {
 
   return (
     <div className="bg-main-color">
-      <div className="main-section mt-5">
+      <ChatScreen />
+      {/* <div className="main-section mt-5">
         <div className="head-section">
           <div className="headLeft-section">
             {!openVideoCall && (
@@ -327,11 +329,6 @@ const PatientChat = (props) => {
                     <VideocamIcon id="active-video-icon" />
                   </IconButton>
                 }
-                {/* {!videoButton && (
-                  <IconButton id="inactive-video-button">
-                    <VideocamOffIcon id="inactive-video-icon" />
-                  </IconButton>
-                )} */}
               </div>
               <div className="col-sm-2">
                 <Button
@@ -345,7 +342,7 @@ const PatientChat = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

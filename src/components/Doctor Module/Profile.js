@@ -206,10 +206,17 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const handleLanguages = (selectedItem) => {
-        console.log(selectedItem);
-        languages.push({ name: selectedItem.name });
-        //setCurrentDoctorData({ ...currentDoctorData, languages: languages });
-        //console.log("handleLanguages",currentDoctorData);
+        selectedItem.forEach((e) =>
+        {
+            const index = languages.findIndex((x) => x.name == e.name)
+            if(index == -1)
+            {
+                languages.push(e);
+            }
+            
+        })
+        
+        setCurrentDoctorData({ ...currentDoctorData, languages: languages });
     };
     const removeLanguages = (removedItem) => {
         var array = languages;
@@ -242,8 +249,17 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const handleSpecialities = (selectedItem) => {
-        specialities.push({ id: selectedItem.id});
-        // setSpecialityError(false);
+        selectedItem.forEach((e) =>
+        {
+            const index = specialities.findIndex((x) => x.name == e.name)
+            if(index == -1)
+            {
+                specialities.push(e);
+            }
+            
+        })
+       // specialities.push({ id: selectedItem.id, name: selectedItem.name });
+        setSpecialityError(false);
     };
 
     const removeSpecialities = (removedItem) => {
@@ -265,7 +281,7 @@ const Profile = ({ currentDoctor }) => {
         const response = await updateDoctorData(bodyFormData);
         console.log("handleDetails", response);
         if (response.status === 200 || response.status === 201) {
-            cookies.set('profileDetails', currentDoctorData);
+            cookies.set('profileDetails', response.data.data);
             // setCurrentDoctorData({ currentDoctorData: currentDoctorData });
             history.go(0);
         }
