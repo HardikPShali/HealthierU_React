@@ -62,8 +62,8 @@
   flex-direction: column; */
   overflow: auto;
   justify-content: flex-end;
-  height: 100vh;
   padding: 8px;
+  max-height: 92vh;
 }
 
 .chat_detail_received::-webkit-scrollbar {
