@@ -827,6 +827,10 @@ div#demo-simple-select {
 .btn-mob-size {
   font-size: .6rem !important;
 }
+.carousel-caption {
+  padding: 0;
+  top: 0%;
+}
 
 }
 
@@ -1712,7 +1716,7 @@ ul.light {
 .mobile_nav-header {
   background-color: #00d0cc;
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   z-index: 20;
 }

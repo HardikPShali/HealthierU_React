@@ -922,7 +922,7 @@ img.card-img-top {
 .specialities-header {
   margin-top: 10px;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 400;
   color: #344767;
   padding: 20px 0px 15px 40px;
 }
@@ -931,13 +931,20 @@ img.card-img-top {
   padding: 15px 6px;
   cursor: pointer;
   /* background: #fff; */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.specialities-profile:hover img {
+  transform: scale(1.08);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+}
 .speciality-icon {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   margin-bottom: 10px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   /* border: 2px solid var(--primary); */
 }
 
@@ -947,6 +954,7 @@ img.card-img-top {
   text-align: center;
   white-space: nowrap;
   color: #344767;
+  font-weight: 300;
 }
 
 /*
