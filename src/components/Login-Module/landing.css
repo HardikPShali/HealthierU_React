@@ -1290,6 +1290,7 @@ button {
 /* --------About-Us----- */
 .about-us_section {
   background-color: #eee9df;
+  padding-top: 5rem;
 }
 h3.better-future {
   font-weight: 600;
@@ -1579,8 +1580,8 @@ ul.light {
     width: 17rem;
   }
   .powerful_Ftr-text {
-    padding: 0px 60px;
-  }
+    padding: 0px 8px;
+}
 }
 @media screen and (max-width: 500px) {
   .powerful_Ftr-text {

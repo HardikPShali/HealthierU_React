@@ -39,6 +39,7 @@ a.nav-link.active {
 
 #navbar a.dropdown-item {
   color: #000 !important;
+  margin-left: 0;
 }
 
 #navbar a.dropdown-item:hover {

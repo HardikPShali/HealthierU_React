@@ -53,7 +53,7 @@ import step8 from "../../images/step8.PNG";
 import step9 from "../../images/step9.PNG";
 import step10 from "../../images/step10.PNG";
 import step11 from "../../images/step11.PNG";
-import step12 from "../../images/step12.JPEG";
+import step13 from "../../images/step13.png";
 
 import features from "../../images/our-features.png";
 import betterFuture from "../../images/better-future.png";
@@ -161,13 +161,15 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                {/* <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
+                <Container>
+                <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
                 <p className="help-desc">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
                 <Link to="/signin">
                   <button className="btn btn-primary">
                     {HOMEPAGE_GETHELP.BTN_TEXT}
                   </button>
-                </Link> */}
+                </Link>
+                </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="2">
@@ -180,13 +182,15 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                {/* <h3 className="h3-responsive">Book Appointment</h3>
+                <Container>
+                <h3 className="h3-responsive">Book Appointment</h3>
                 <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
                 <Link to="/signin">
                   <button className="btn btn-primary">
                     {HOMEPAGE_TAKEACTION.BTN_TEXT}
                   </button>
-                </Link> */}
+                </Link>
+                </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="3">
@@ -199,19 +203,21 @@ const Homepage = () => {
                 <MDBMask overlay="black-slight" />
               </MDBView>
               <MDBCarouselCaption>
-                {/* <h3 className="h3-responsive">Take Charge of your Health</h3>
+                <Container>
+                <h3 className="h3-responsive">Take Charge of your Health</h3>
                 <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
                 <Link to="/signin">
                   <button className="btn btn-primary">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
                   </button>
-                </Link> */}
+                </Link>
+                </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
           </MDBCarouselInner>
         </MDBCarousel>
       </MDBContainer>
-      <Container className="p-0 padding-mobile">
+      {/* <Container className="p-0 padding-mobile">
         <Row id="aboutus-two">
           <Col md={4} lg={4} xl={4} >
             <h2>HealthierU</h2>
@@ -232,7 +238,7 @@ const Homepage = () => {
             <img className="image" src={aboutUsimg} alt="HealthierU " />
           </Col>
         </Row>
-      </Container>
+      </Container> */}
       {/* <div id="our-services">
         <Container>
           <Row id="aboutus-four">
@@ -288,9 +294,9 @@ const Homepage = () => {
       <div>
         <div id="about-us" className="about-us_section">
           <Container className="p-0 padding-mobile">
-            <h3 className="better-future text-uppercase text-center">
+            {/* <h3 className="better-future text-uppercase text-center">
               HAND-IN-HAND FOR A BETTER FUTURE
-            </h3>
+            </h3> */}
             <div className="better-future-content">
               <div className="about-sec">
                 <Row>
@@ -367,7 +373,7 @@ const Homepage = () => {
               </Col>
               <Col className="edge-image" sm={12} md={12} lg={6} xl={6}>
                 {/* <img className="mr-4" src={Edge1} alt=""></img> */}
-                <img src={step12} alt=""></img>
+                <img src={step3} alt=""></img>
               </Col>
               <div className="our_partners">
                 <h4>Our Partners</h4>
@@ -388,7 +394,7 @@ const Homepage = () => {
           <Container>
             <Row>
               <Col className="powerful_Ftr-image" sm={12} md={12} lg={6} xl={6}>
-                <img src={features} alt=""></img>
+                <img src={step13} alt=""></img>
               </Col>
               <Col className="powerful_Ftr-text" sm={12} md={12} lg={6} xl={6}>
                 <h1>POWERFUL FEATURES</h1>

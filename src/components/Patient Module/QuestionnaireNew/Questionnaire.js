@@ -132,12 +132,12 @@ const Questionnaire = ({ match }) => {
   }, [questions]);
 
   return (
-    <Container style={{ maxWidth: "100%" }}>
+    <Container>
       <Row id="questionnaire-view" style={{ minHeight: "600px" }}>
         <Col md={6} id="questionnaire-view-bg"></Col>
         <Col
           md={6}
-          style={{ background: "#fff", padding: "5%" }}
+          style={{ background: "#fff",     padding: "2% 0 2% 2%"}}
           className="questionnaire-container"
         >
           <div className="questionnaire-header">
