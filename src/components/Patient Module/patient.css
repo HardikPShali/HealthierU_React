@@ -35,12 +35,15 @@ a.nav-link.active {
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 17px;
+  font-weight: 500;
 }
 
 #navbar a.dropdown-item {
   color: #000 !important;
   margin-left: 0;
+  font-weight: 300;
+
 }
 
 #navbar a.dropdown-item:hover {
@@ -63,8 +66,8 @@ a.nav-link.active {
 
 .headerNavbar > button {
   color: #fff;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 17px;
+  font-weight:500;
 }
 
 .headerNavbar > button:hover {
