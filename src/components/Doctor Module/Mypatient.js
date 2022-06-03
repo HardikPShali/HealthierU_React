@@ -45,6 +45,7 @@ import HealthAssessment from '../../images/icons used/Component 16.svg';
 import MedicalRecord from '../../images/icons used/Component 17.svg';
 import calendarSmall from "../../images/svg/calendar-small.svg";
 import timeSmall from "../../images/svg/time-small.svg"
+import { useHistory } from 'react-router'
 import HealthAssestmentReport from './HealthAssestmentReport/HealthAssestmentReport';
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
 // import timeSmall from "../../../images/svg/time-small.svg";
@@ -55,7 +56,7 @@ const Mypatient = (props) => {
     //    m.localeData = momentTz.localeData;
     //    return m;
     //};
-
+    let history = useHistory();
     //const moment = getMoment(currentTimezone);
     const [activeAppointments, setActiveAppointments] = useState([]);
     // const [pastAppointments, setPastAppointments] = useState([]);
@@ -439,7 +440,7 @@ const Mypatient = (props) => {
             }
         })
         if (res) {
-            toast.success("Notification sent to patient successfully.");
+            toast.success("Appointment Rescheduled successfully.");
         }
     }
     const setNextAppointment = (id) => {
@@ -451,7 +452,7 @@ const Mypatient = (props) => {
             if (a.id == apID) {
                 aID = a.id
                 stateData = a
-               
+
                 setTimeout(() => props.history.push({ pathname: `/doctor/setNextAppointment`, state: stateData }), 500);
 
             }
@@ -943,30 +944,30 @@ const Mypatient = (props) => {
                                                     }}
                                                 > */}
                                                 <a onClick={(e) => setNextAppointment(SelectedPatient.id)}>
-                                                <div style={{ display: 'flex', alignItem: 'center' }}>
-                                                    <div style={{ width: '100%' }}>
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={calendar}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Set Next Appointment
+                                                        </div>
                                                         <img
-                                                            width="40"
-                                                            height="40"
-                                                            src={calendar}
-                                                            // onClick='${pathname}'
-                                                            alt=""
-                                                            style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
                                                         />
-                                                        Set Next Appointment
                                                     </div>
-                                                    <img
-                                                        src={rightIcon}
-                                                        alt="right-icon"
-                                                        style={{ marginRight: '35px' }}
-                                                    />
-                                                </div>
-                                            {/* </Link> */}
-                                            </a>
-                                            {/* <span id="info-title">Diseases</span><br />
+                                                    {/* </Link> */}
+                                                </a>
+                                                {/* <span id="info-title">Diseases</span><br />
                                     <p>Hypertension Medium</p>
                                     <br /> */}
-                                            {/* <span id="info-title">Comment</span><br />
+                                                {/* <span id="info-title">Comment</span><br />
                                             <p>{SelectedPatient.remarks}</p>
                                             <br />
                                             <span id="info-title">Chief Complaint</span><br />
@@ -1011,44 +1012,44 @@ const Mypatient = (props) => {
                                                     </ul>
                                                 </span>
                                             )}</div> */}
-                                        </div>
-                                        <Row>
-                                            <Col className="profile-btn">
-                                                {/* <Link
+                                            </div>
+                                            <Row>
+                                                <Col className="profile-btn">
+                                                    {/* <Link
                                                         to={{
                                                             pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`,
                                                             state: SelectedPatient.patient,
                                                         }}
                                                     > */}
-                                                <button className="btn btn-primary view-btn" onClick={(e) => rescheduleAppointment(SelectedPatient.id)}>
-                                                    Reschedule
-                                                </button>
-                                                {/* </Link> */}
-                                            </Col>
-                                        </Row>
-                                    </div>
+                                                    <button className="btn btn-primary view-btn" onClick={(e) => rescheduleAppointment(SelectedPatient.id)}>
+                                                        Reschedule
+                                                    </button>
+                                                    {/* </Link> */}
+                                                </Col>
+                                            </Row>
+                                        </div>
                                     </>
-                        ) : (
+                                ) : (
                                     //{SelectedPatient && SelectedPatient.length === 0 && (
-                            <>
-                                <div
-                                    id="request-box"
-                                    style={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <p className="text-center">
-                                        No Patient Datacard Selected ...
-                                    </p>
-                                </div>
+                                    <>
+                                        <div
+                                            id="request-box"
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                            }}
+                                        >
+                                            <p className="text-center">
+                                                No Patient Datacard Selected ...
+                                            </p>
+                                        </div>
+                                    </>
+                                )}
                             </>
                         )}
-                    </>
-                        )}
-                </Col>
-                {/* <Col lg={3} md={6} id="col">
+                    </Col>
+                    {/* <Col lg={3} md={6} id="col">
                         <div id="chat-box">
                             <div id="chat-heading">Recent Messages</div>
                             <div id="chat-area">
@@ -1069,9 +1070,9 @@ const Mypatient = (props) => {
                             </div>
                         </div>
                     </Col> */}
-            </Row>
-        </Container>
-            {/* <Footer /> */ }
+                </Row>
+            </Container>
+            {/* <Footer /> */}
             <Dialog
                 onClose={confirmVideoClose}
                 aria-labelledby="customized-dialog-title"
