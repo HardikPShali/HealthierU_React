@@ -446,12 +446,13 @@ const Mypatient = (props) => {
         const apID = id;
         let stateData = [];
         let aID;
+        //console.log("appointmentDets",appointmentDets);
         appointmentDets.map((a, i) => {
             if (a.id == apID) {
                 aID = a.id
                 stateData = a
-                // console.log("stateData",stateData);
-                setTimeout(() => props.history.push({ pathname: `/doctor/setNextAppointment/${aID}`, state: stateData }), 500);
+               
+                setTimeout(() => props.history.push({ pathname: `/doctor/setNextAppointment`, state: stateData }), 500);
 
             }
         })

@@ -659,7 +659,7 @@ const MyDoctor = (props) => {
       endTime: slot.endTime,
       id: appointmentSlot[index].id,
     });
-    console.log("appointment", appointment);
+    console.log("appointment", appointmentSlot[index].id);
     setDisable({ ...disable, continue: false });
   };
 
@@ -1117,51 +1117,76 @@ const MyDoctor = (props) => {
     const app = [];
     app.push(appointment)
     console.log("app", app);
-    const data1 = [];
-    const data2 = [];
-    {
-      stateData.map((n) => {
-        {
-          data1.push({
-            id: n.id,
-            type: "DR",
-            status: "PENDING",
-            doctorId: n.doctorId,
-            patientId: n.patientId,
-            unifiedAppointment: n.id + "#" + "FOLLOW_UP",
-            appointmentMode: "FOLLOW_UP",
-            remarks: null,
-            urgency: null,
-            patient: null,
-            patientName: null,
-            timeZone: null,
-            appointmentBookedTime: null,
-            appointmentExpireTime: null
-          })
-        };
-      })
-    }
-    console.log("data1", data1);
+    const data = [];
+    // const data2 = [];
+    // doctorId: appointment.doctorId,
+    //     endTime: appointment.endTime,
+    //     startTime: appointment.startTime,
+    //     type: "DR",
+    //     patientId: appointment.patientId,
+    //     status: "ACCEPTED",
+    //     remarks: remarks,
+    //     appointmentMode: appointment.appointmentMode,
+    //     id: appointment.id,
+    //     urgency: urgency,
+    //     unifiedAppointment: appointment.id + "#" + appointment.appointmentMode,
+    // {
+    //   stateData.map((n) => {
+    //     {
+    //       data1.push({
+    //         id: n.id,
+    //         type: "DR",
+    //         status: "PENDING",
+    //         doctorId: n.doctorId,
+    //         patientId: n.patientId,
+    //         unifiedAppointment: n.id + "#" + "FOLLOW_UP",
+    //         appointmentMode: "FOLLOW_UP",
+    //         remarks: null,
+    //         urgency: null,
+    //         patient: null,
+    //         patientName: null,
+    //         timeZone: null,
+    //         appointmentBookedTime: null,
+    //         appointmentExpireTime: null
+    //       })
+    //     };
+    //   })
+    // }
+    // console.log("data1", data1);
     {
       app.map((a) => {
-        data2.push({
+        data.push({
+          id: a.id,
+          type: "DR",
+          status: "PENDING",
+          doctorId: a.doctorId,
+          patientId: a.patientId,
+          unifiedAppointment: a.id + "#" + "FOLLOW_UP",
+          appointmentMode: "FOLLOW_UP",
+          remarks: null,
+          urgency: null,
+          patient: null,
+          patientName: null,
+          timeZone: null,
+          appointmentBookedTime: null,
+          appointmentExpireTime: null,
           startTime: a.startTime,
           endTime: a.endTime,
         })
       })
     }
-    console.log("data2", data2);
-    const data = {
-      ...data1[0],
-      ...data2[0]
-    }
-    const res = await setNextAppointmentDoctor(data).catch((err) => {
+    console.log("data", data);
+    // const data = {
+    //   ...data1[0],
+    //   ...data2[0]
+    // }
+    const res = await setNextAppointmentDoctor(data[0]).catch((err) => {
       if (err.res.status === 500 || err.res.status === 504) {
         setLoading(false);
       }
     })
     if (res) {
-      toast.success("Notification sent to patient successfully.");
+      toast.success("Next Appointment is Set Successfully.");
       props.history.push({ pathname: `/doctor/mypatient` })
     }
   }
