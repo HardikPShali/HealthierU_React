@@ -54,9 +54,9 @@ const ChatDetails = ({
                           <span className="sent_chat-time">
                             {messageDateFormat(message.createdAt)}
                           </span>
-                          <span className="sent_chat-seen">
+                          {/* <span className="sent_chat-seen">
                             <img src={blueTick} alt="" />
-                          </span>
+                          </span> */}
                         </div>
                       </div>
                     </div>
