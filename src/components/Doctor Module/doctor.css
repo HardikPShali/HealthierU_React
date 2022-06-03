@@ -899,7 +899,7 @@ div.card-box {
 .sign-box {
   background: #fff;
   border-radius: 22px;
-  padding: 10px 10%;
+  padding: 13px 25px 23px 25px;
 }
 
 .sign-box .MuiFormControl-root.MuiTextField-root {
@@ -925,14 +925,16 @@ div.card-box {
 }
 
 h2#signin-title {
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 400;
   color: var(--primary);
+  text-align: left;
+  margin-left: 1rem;
 }
 
 .sign-box p {
   margin-bottom: 5px;
-  font-size: 12px;
+  font-size: .9rem;
 }
 
 p.forget-text {

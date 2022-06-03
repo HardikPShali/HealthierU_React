@@ -162,10 +162,10 @@ const Homepage = () => {
               </MDBView>
               <MDBCarouselCaption>
                 <Container>
-                <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
-                <p className="help-desc">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
+                <h3 className="text-primary-clr">Connect with our Global Wellness Experts Virtually</h3>
+                <p className="text-primary-clr-p">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
                 <Link to="/signin">
-                  <button className="btn btn-primary">
+                  <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_GETHELP.BTN_TEXT}
                   </button>
                 </Link>
@@ -186,7 +186,7 @@ const Homepage = () => {
                 <h3 className="h3-responsive">Book Appointment</h3>
                 <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
                 <Link to="/signin">
-                  <button className="btn btn-primary">
+                  <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_TAKEACTION.BTN_TEXT}
                   </button>
                 </Link>
@@ -207,7 +207,7 @@ const Homepage = () => {
                 <h3 className="h3-responsive">Take Charge of your Health</h3>
                 <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
                 <Link to="/signin">
-                  <button className="btn btn-primary">
+                  <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
                   </button>
                 </Link>
@@ -717,7 +717,7 @@ const Homepage = () => {
             <br /> */}
             <div style={{ backgroundColor: "#eee9df" }}>
         <Container className="p-0 padding-mobile">
-          <Row className="pt-5 pb-5">
+          <Row className="pt-5 pb-5 two-box-padding">
             <Col md={12} lg={6} xl={6} className="mb-3">
               <Card>
                 <Card.Img variant="top" src={home2} />
@@ -731,7 +731,7 @@ const Homepage = () => {
                   <Link to="/signin">
                     <button
                       variant="primary"
-                      className="btn btn-outline-light assessment-btn"
+                      className="btn btn-outline-light assessment-btn "
                     >
                       Take my assessment
                     </button>
