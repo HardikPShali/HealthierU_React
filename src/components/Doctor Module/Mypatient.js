@@ -416,11 +416,22 @@ const Mypatient = (props) => {
     const handleFilterChange = (filter) => {
         getGlobalAppointments(search, filter);
     };
-    const rescheduleAppointment = async () => {
-        console.log('appointmentDets', appointmentDets)
+    const rescheduleAppointment = async (id) => {
+        // console.log('appointmentDets', appointmentDets)
+        // console.log('patientID', id)
+        // console.log('selectedPatID', SelectedPatient)
+        const apID = id;
+        let docID;
+        let aID;
+        appointmentDets.map((a, i) => {
+            if (a.id == apID) {
+                docID = a.doctorId
+                aID = a.id
+            }
+        })
         const data = {
-            id: appointmentDets[0].id,
-            doctorId: appointmentDets[0].doctorId
+            id: aID,
+            doctorId: docID
         }
         const res = await rescheduleAppointmentDoctor(data).catch((err) => {
             if (err.res.status === 500 || err.res.status === 504) {
@@ -430,6 +441,20 @@ const Mypatient = (props) => {
         if (res) {
             toast.success("Notification sent to patient successfully.");
         }
+    }
+    const setNextAppointment = (id) => {
+        const apID = id;
+        let stateData = [];
+        let aID;
+        appointmentDets.map((a, i) => {
+            if (a.id == apID) {
+                aID = a.id
+                stateData = a
+                // console.log("stateData",stateData);
+                setTimeout(() => props.history.push({ pathname: `/doctor/setNextAppointment/${aID}`, state: stateData }), 500);
+
+            }
+        })
     }
     return (
         <div>
@@ -909,36 +934,38 @@ const Mypatient = (props) => {
                                                     </div>
                                                 </Link>
                                                 <br />
-                                                <Link
+                                                {/* <Link
                                                     to={{
-                                                        pathname: `/doctor/setNextAppointment/appointmentID=${appointmentDets[0].id}`,
-                                                        state: appointmentDets[0],
-                                                       
+                                                        // pathname: `/doctor/setNextAppointment/appointmentID=${appointmentDets.id}`,
+                                                        // state: appointmentDets,
+                                                        onClick={(e) => setNextAppointment(SelectedPatient.id)}
                                                     }}
-                                                >
-                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
-                                                        <div style={{ width: '100%' }}>
-                                                            <img
-                                                                width="40"
-                                                                height="40"
-                                                                src={calendar}
-                                                                // onClick='${pathname}'
-                                                                alt=""
-                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                            />
-                                                            Set Next Appointment
-                                                        </div>
+                                                > */}
+                                                <a onClick={(e) => setNextAppointment(SelectedPatient.id)}>
+                                                <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                    <div style={{ width: '100%' }}>
                                                         <img
-                                                            src={rightIcon}
-                                                            alt="right-icon"
-                                                            style={{ marginRight: '35px' }}
+                                                            width="40"
+                                                            height="40"
+                                                            src={calendar}
+                                                            // onClick='${pathname}'
+                                                            alt=""
+                                                            style={{ marginLeft: '5%', marginRight: '5%' }}
                                                         />
+                                                        Set Next Appointment
                                                     </div>
-                                                </Link>
-                                                {/* <span id="info-title">Diseases</span><br />
+                                                    <img
+                                                        src={rightIcon}
+                                                        alt="right-icon"
+                                                        style={{ marginRight: '35px' }}
+                                                    />
+                                                </div>
+                                            {/* </Link> */}
+                                            </a>
+                                            {/* <span id="info-title">Diseases</span><br />
                                     <p>Hypertension Medium</p>
                                     <br /> */}
-                                                {/* <span id="info-title">Comment</span><br />
+                                            {/* <span id="info-title">Comment</span><br />
                                             <p>{SelectedPatient.remarks}</p>
                                             <br />
                                             <span id="info-title">Chief Complaint</span><br />
@@ -983,44 +1010,44 @@ const Mypatient = (props) => {
                                                     </ul>
                                                 </span>
                                             )}</div> */}
-                                            </div>
-                                            <Row>
-                                                <Col className="profile-btn">
-                                                    {/* <Link
+                                        </div>
+                                        <Row>
+                                            <Col className="profile-btn">
+                                                {/* <Link
                                                         to={{
                                                             pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`,
                                                             state: SelectedPatient.patient,
                                                         }}
                                                     > */}
-                                                    <button className="btn btn-primary view-btn" onClick={rescheduleAppointment}>
-                                                        Reschedule
-                                                    </button>
-                                                    {/* </Link> */}
-                                                </Col>
-                                            </Row>
-                                        </div>
+                                                <button className="btn btn-primary view-btn" onClick={(e) => rescheduleAppointment(SelectedPatient.id)}>
+                                                    Reschedule
+                                                </button>
+                                                {/* </Link> */}
+                                            </Col>
+                                        </Row>
+                                    </div>
                                     </>
-                                ) : (
+                        ) : (
                                     //{SelectedPatient && SelectedPatient.length === 0 && (
-                                    <>
-                                        <div
-                                            id="request-box"
-                                            style={{
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <p className="text-center">
-                                                No Patient Datacard Selected ...
-                                            </p>
-                                        </div>
-                                    </>
-                                )}
+                            <>
+                                <div
+                                    id="request-box"
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <p className="text-center">
+                                        No Patient Datacard Selected ...
+                                    </p>
+                                </div>
                             </>
                         )}
-                    </Col>
-                    {/* <Col lg={3} md={6} id="col">
+                    </>
+                        )}
+                </Col>
+                {/* <Col lg={3} md={6} id="col">
                         <div id="chat-box">
                             <div id="chat-heading">Recent Messages</div>
                             <div id="chat-area">
@@ -1041,9 +1068,9 @@ const Mypatient = (props) => {
                             </div>
                         </div>
                     </Col> */}
-                </Row>
-            </Container>
-            {/* <Footer /> */}
+            </Row>
+        </Container>
+            {/* <Footer /> */ }
             <Dialog
                 onClose={confirmVideoClose}
                 aria-labelledby="customized-dialog-title"
@@ -1095,7 +1122,7 @@ const Mypatient = (props) => {
                     </button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </div >
     );
 };
 

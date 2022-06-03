@@ -46,6 +46,7 @@ import {
   getInvalidDates,
   getFilteredDoctors,
   getSearchData,
+  setNextAppointmentDoctor,
 } from "../../service/frontendapiservices";
 import {
   getSpecialityList,
@@ -127,9 +128,13 @@ const MyDoctor = (props) => {
   const pID = profilepID && profilepID.userId;
   // console.log("currentUser", loggedInUserId);
   // console.log("pID", pID);
+  // const stateData = props.location.state;
+  const [nextAppDetails, setNextAppDetails] = useState(null);
   const getCurrentPatient = async () => {
     if (profilepID.activated) {
+      setNextAppDetails(props.location.state)
       const patientInfo = props.location.state;
+      console.log("stateData", patientInfo);
       if (patientInfo) {
         setCurrentPatient({ ...currentPatient, id: patientInfo.patient.id });
         loadUsers(patientInfo.patient.id);
@@ -653,7 +658,7 @@ const MyDoctor = (props) => {
       endTime: slot.endTime,
       id: appointmentSlot[index].id,
     });
-
+    console.log("appointment", appointment);
     setDisable({ ...disable, continue: false });
   };
 
@@ -1104,6 +1109,60 @@ const MyDoctor = (props) => {
       draggable: true,
       progress: undefined,
     });
+  }
+  const setNextAppointment = async () => {
+    const stateData = [];
+    stateData.push(nextAppDetails)
+    const app = [];
+    app.push(appointment)
+    console.log("app", app);
+    const data1 = [];
+    const data2 = [];
+    {
+      stateData.map((n) => {
+        {
+          data1.push({
+            id: n.id,
+            type: "DR",
+            status: "PENDING",
+            doctorId: n.doctorId,
+            patientId: n.patientId,
+            unifiedAppointment: n.id + "#" + "FOLLOW_UP",
+            appointmentMode: "FOLLOW_UP",
+            remarks: null,
+            urgency: null,
+            patient: null,
+            patientName: null,
+            timeZone: null,
+            appointmentBookedTime: null,
+            appointmentExpireTime: null
+          })
+        };
+      })
+    }
+    console.log("data1", data1);
+    {
+      app.map((a) => {
+        data2.push({
+          startTime: a.startTime,
+          endTime: a.endTime,
+        })
+      })
+    }
+    console.log("data2", data2);
+    const data = {
+      ...data1[0],
+      ...data2[0]
+    }
+    const res = await setNextAppointmentDoctor(data).catch((err) => {
+      if (err.res.status === 500 || err.res.status === 504) {
+        setLoading(false);
+      }
+    })
+    if (res) {
+      toast.success("Notification sent to patient successfully.");
+      props.history.push({ pathname: `/doctor/mypatient` })
+    }
   }
 
   return (
@@ -2163,46 +2222,48 @@ const MyDoctor = (props) => {
               </div>
             </Col>
           }
-          <Col md={4} style={{ display: display.appointment }}>
-            <div id="dorctor-list">
-              <IconButton
-                style={{ background: "#F6CEB4", color: "#00d0cc" }}
-                onClick={() => {
-                  setDisplay({
-                    ...display,
-                    doctor: "block",
-                    appointment: "none",
-                  });
-                  setDisable({ ...disable, payment: true });
-                }}
-              >
-                <ArrowBackIcon />
-              </IconButton>
-              <br />
-              <br />
-              <div className="appointment-box">
-                <ValidatorForm onSubmit={() => console.log("Form submitted")}>
-                  <p>Urgency</p>
-                  <FormControl>
-                    <Select
-                      id="demo-controlled-open-select"
-                      variant="filled"
-                      name="urgency"
-                      value={urgency}
-                      displayEmpty
-                      onChange={(e) => handleInputChange(e)}
-                    >
-                      {/* <MenuItem value="">
+          {!profilepID.activated &&
+            <Col md={4} style={{ display: display.appointment }}>
+              <div id="dorctor-list">
+                <IconButton
+                  style={{ background: "#F6CEB4", color: "#00d0cc" }}
+                  onClick={() => {
+                    setDisplay({
+                      ...display,
+                      doctor: "block",
+                      appointment: "none",
+                    });
+                    setDisable({ ...disable, payment: true });
+                  }}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
+                <br />
+                <br />
+
+                <div className="appointment-box">
+                  <ValidatorForm onSubmit={() => console.log("Form submitted")}>
+                    <p>Urgency</p>
+                    <FormControl>
+                      <Select
+                        id="demo-controlled-open-select"
+                        variant="filled"
+                        name="urgency"
+                        value={urgency}
+                        displayEmpty
+                        onChange={(e) => handleInputChange(e)}
+                      >
+                        {/* <MenuItem value="">
                                                     <em>Select</em>
                                                 </MenuItem> */}
-                      <MenuItem value="Low">Low</MenuItem>
-                      <MenuItem value="Medium">Medium</MenuItem>
-                      <MenuItem value="High">High</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <br />
-                  <br />
-                  {/* <p>Diseases</p>
+                        <MenuItem value="Low">Low</MenuItem>
+                        <MenuItem value="Medium">Medium</MenuItem>
+                        <MenuItem value="High">High</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <br />
+                    <br />
+                    {/* <p>Diseases</p>
                                     <FormControl>
                                         <div className="multiselect">
                                             <Multiselect
@@ -2216,138 +2277,272 @@ const MyDoctor = (props) => {
                                     <br />
                                     <br /> */}
 
-                  <p>Comments</p>
-                  <TextValidator
-                    id="standard-basic"
-                    type="textarea"
-                    name="remarks"
-                    onChange={(e) => handleInputChange(e)}
-                    value={remarks}
-                    variant="filled"
-                    multiline
-                    rows={4}
-                  />
-                  <br />
-                </ValidatorForm>
-              </div>
-              <br />
-            </div>
-          </Col>
-
-          <Col md={4} style={{ display: display.appointment }}>
-            <div id="dorctor-list">
-              <b className="blue ml-3">Confirm your booking</b> <br />
-              <Row id="doc-row">
-                <Col xs={6}>
-                  <div className="doc-img">
-                    {doctor && doctor.picture ? (
-                      <img src={doctor.picture} alt="" />
-                    ) : (
-                      <Avatar
-                        name={
-                          doctor &&
-                          doctor.firstName + " " + doctor &&
-                          doctor.lastName
-                        }
-                      />
-                    )}
-                  </div>
-                </Col>
-                <Col xs={6} id="doc-details">
-                  <div>
-                    <b className="doc-name">
-                      {doctor && doctor.firstName} {doctor && doctor.lastName}
-                    </b>
+                    <p>Comments</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="textarea"
+                      name="remarks"
+                      onChange={(e) => handleInputChange(e)}
+                      value={remarks}
+                      variant="filled"
+                      multiline
+                      rows={4}
+                    />
                     <br />
-                    <span style={{ fontSize: 12, display: "block" }}>
-                      {doctor &&
-                        doctor.specialities &&
-                        doctor.specialities.map((speciality, index) => (
-                          <span key={index}>{speciality.name} </span>
-                        ))}
-                    </span>
-                    <span>
-                      Country Of Residence:{" "}
-                      <b>{doctor && doctor.countryName}</b>
-                    </span>
-                    <br />
-                  </div>
-                </Col>
-              </Row>
-              <br />
-              <div className="mr-4 ml-4">
-                <div className="row">
-                  <div className="col-4">
-                    <span style={{ fontSize: 12 }}>Experience</span>
-                    <br />
-                    <b>{doctor && doctor.experience} yrs</b>
-                  </div>
-                  <div className="col-4">
-                    <span style={{ fontSize: 12 }}>Education</span>
-                    <br />
-                    <b>
-                      {doctor &&
-                        doctor.educationalQualifications &&
-                        doctor.educationalQualifications.map((x, index) => (
-                          <li key={index}>{x.educationalQualification} </li>
-                        ))}
-                    </b>
-                  </div>
-                  <div className="col-4">
-                    <span style={{ fontSize: 12 }}>Languange</span>
-                    <br />
-                    <b>
-                      {doctor &&
-                        doctor.languages &&
-                        doctor.languages.map((lang, index) => (
-                          <span key={index}>{lang.name} </span>
-                        ))}
-                    </b>
-                  </div>
+                  </ValidatorForm>
                 </div>
-                <hr style={{ borderColor: "black" }} />
-                <h5 className="blue">
-                  Date: {moment(appointment.startTime).format("MMMM DD")}
-                </h5>
-                <h5 className="blue">
-                  Time:{" "}
-                  {moment(appointment.startTime).format("LT") +
-                    "-" +
-                    moment(appointment.endTime).format("LT")}
-                </h5>
-                <hr style={{ borderColor: "black" }} />
+
+
                 <br />
-                <div className="m-3">
-                  <div className="row">
-                    <div className="col-12">
-                      <span className="price">
-                        $
-
-                        {appointment.appointmentMode === "CONSULTATION" ||
-                          appointment.appointmentMode === ""
-                          ? doctor && doctor.rate
-                          : appointment.appointmentMode === "FOLLOW_UP"
-                            ? doctor && doctor.halfRate
-                            : ""}
-
+              </div>
+            </Col>
+          }
+          {!profilepID.activated ?
+            <Col md={4} style={{ display: display.appointment }}>
+              <div id="dorctor-list">
+                <b className="blue ml-3">Confirm your booking</b> <br />
+                <Row id="doc-row">
+                  <Col xs={6}>
+                    <div className="doc-img">
+                      {doctor && doctor.picture ? (
+                        <img src={doctor.picture} alt="" />
+                      ) : (
+                        <Avatar
+                          name={
+                            doctor &&
+                            doctor.firstName + " " + doctor &&
+                            doctor.lastName
+                          }
+                        />
+                      )}
+                    </div>
+                  </Col>
+                  <Col xs={6} id="doc-details">
+                    <div>
+                      <b className="doc-name">
+                        {doctor && doctor.firstName} {doctor && doctor.lastName}
+                      </b>
+                      <br />
+                      <span style={{ fontSize: 12, display: "block" }}>
+                        {doctor &&
+                          doctor.specialities &&
+                          doctor.specialities.map((speciality, index) => (
+                            <span key={index}>{speciality.name} </span>
+                          ))}
+                      </span>
+                      <span>
+                        Country Of Residence:{" "}
+                        <b>{doctor && doctor.countryName}</b>
                       </span>
                       <br />
-                      <span>
-                        USD /{" "}
-                        {appointment.appointmentMode === "CONSULTATION" ||
-                          appointment.appointmentMode === ""
-                          ? "Consultation"
-                          : appointment.appointmentMode === "FOLLOW_UP"
-                            ? "Follow up"
-                            : ""}
-                      </span>
+                    </div>
+                  </Col>
+                </Row>
+                <br />
+                <div className="mr-4 ml-4">
+                  <div className="row">
+                    <div className="col-4">
+                      <span style={{ fontSize: 12 }}>Experience</span>
+                      <br />
+                      <b>{doctor && doctor.experience} yrs</b>
+                    </div>
+                    <div className="col-4">
+                      <span style={{ fontSize: 12 }}>Education</span>
+                      <br />
+                      <b>
+                        {doctor &&
+                          doctor.educationalQualifications &&
+                          doctor.educationalQualifications.map((x, index) => (
+                            <li key={index}>{x.educationalQualification} </li>
+                          ))}
+                      </b>
+                    </div>
+                    <div className="col-4">
+                      <span style={{ fontSize: 12 }}>Languange</span>
+                      <br />
+                      <b>
+                        {doctor &&
+                          doctor.languages &&
+                          doctor.languages.map((lang, index) => (
+                            <span key={index}>{lang.name} </span>
+                          ))}
+                      </b>
+                    </div>
+                  </div>
+                  <hr style={{ borderColor: "black" }} />
+                  <h5 className="blue">
+                    Date: {moment(appointment.startTime).format("MMMM DD")}
+                  </h5>
+                  <h5 className="blue">
+                    Time:{" "}
+                    {moment(appointment.startTime).format("LT") +
+                      "-" +
+                      moment(appointment.endTime).format("LT")}
+                  </h5>
+                  <hr style={{ borderColor: "black" }} />
+                  <br />
+                  <div className="m-3">
+                    <div className="row">
+                      <div className="col-12">
+                        <span className="price">
+                          $
+
+                          {appointment.appointmentMode === "CONSULTATION" ||
+                            appointment.appointmentMode === ""
+                            ? doctor && doctor.rate
+                            : appointment.appointmentMode === "FOLLOW_UP"
+                              ? doctor && doctor.halfRate
+                              : ""}
+
+                        </span>
+                        <br />
+                        <span>
+                          USD /{" "}
+                          {appointment.appointmentMode === "CONSULTATION" ||
+                            appointment.appointmentMode === ""
+                            ? "Consultation"
+                            : appointment.appointmentMode === "FOLLOW_UP"
+                              ? "Follow up"
+                              : ""}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Col>
+            </Col>
+            :
+            <>
+              <Col md={8} style={{ display: display.appointment }}>
 
+                <div id="dorctor-list">
+                  <IconButton
+                    style={{ background: "#F6CEB4", color: "#00d0cc" }}
+                    onClick={() => {
+                      setDisplay({
+                        ...display,
+                        doctor: "block",
+                        appointment: "none",
+                      });
+                      setDisable({ ...disable, payment: true });
+                    }}
+                  >
+                    <ArrowBackIcon />
+                  </IconButton>
+                  <b className="blue ml-3">Confirm your booking</b> <br />
+
+                  <Row id="doc-row">
+                    <Col xs={6}>
+                      <div className="doc-img">
+                        {doctor && doctor.picture ? (
+                          <img src={doctor.picture} alt="" />
+                        ) : (
+                          <Avatar
+                            name={
+                              doctor &&
+                              doctor.firstName + " " + doctor &&
+                              doctor.lastName
+                            }
+                          />
+                        )}
+                      </div>
+                    </Col>
+                    <Col xs={6} id="doc-details">
+                      <div>
+                        <b className="doc-name">
+                          {doctor && doctor.firstName} {doctor && doctor.lastName}
+                        </b>
+                        <br />
+                        <span style={{ fontSize: 12, display: "block" }}>
+                          {doctor &&
+                            doctor.specialities &&
+                            doctor.specialities.map((speciality, index) => (
+                              <span key={index}>{speciality.name} </span>
+                            ))}
+                        </span>
+                        <span>
+                          Country Of Residence:{" "}
+                          <b>{doctor && doctor.countryName}</b>
+                        </span>
+                        <br />
+                      </div>
+                    </Col>
+                  </Row>
+                  <br />
+                  <div className="mr-4 ml-4">
+                    <div className="row">
+                      <div className="col-4">
+                        <span style={{ fontSize: 12 }}>Experience</span>
+                        <br />
+                        <b>{doctor && doctor.experience} yrs</b>
+                      </div>
+                      <div className="col-4">
+                        <span style={{ fontSize: 12 }}>Education</span>
+                        <br />
+                        <b>
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map((x, index) => (
+                              <li key={index}>{x.educationalQualification} </li>
+                            ))}
+                        </b>
+                      </div>
+                      <div className="col-4">
+                        <span style={{ fontSize: 12 }}>Languange</span>
+                        <br />
+                        <b>
+                          {doctor &&
+                            doctor.languages &&
+                            doctor.languages.map((lang, index) => (
+                              <span key={index}>{lang.name} </span>
+                            ))}
+                        </b>
+                      </div>
+                    </div>
+                    <hr style={{ borderColor: "black" }} />
+                    <h5 className="blue">
+                      Date: {moment(appointment.startTime).format("MMMM DD")}
+                    </h5>
+                    <h5 className="blue">
+                      Time:{" "}
+                      {moment(appointment.startTime).format("LT") +
+                        "-" +
+                        moment(appointment.endTime).format("LT")}
+                    </h5>
+                    <hr style={{ borderColor: "black" }} />
+                    <br />
+                    <div className="m-3">
+                      <div className="row">
+                        <div className="col-12">
+                          <span className="price">
+                            $
+
+                            {appointment.appointmentMode === "CONSULTATION" ||
+                              appointment.appointmentMode === ""
+                              ? doctor && doctor.rate
+                              : appointment.appointmentMode === "FOLLOW_UP"
+                                ? doctor && doctor.halfRate
+                                : ""}
+
+                          </span>
+                          <br />
+                          <span>
+                            USD /{" "}
+                            {appointment.appointmentMode === "CONSULTATION" ||
+                              appointment.appointmentMode === ""
+                              ? "Consultation"
+                              : appointment.appointmentMode === "FOLLOW_UP"
+                                ? "Follow up"
+                                : ""}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Col>
+            </>
+          }
           <Col md={4} style={{ display: display.appointment }}>
             <div id="dorctor-list" className="doctor-list-new">
               <p style={{ fontSize: 12 }}>
@@ -2480,9 +2675,9 @@ const MyDoctor = (props) => {
                         <button
                           className="btn btn-primary"
                           style={{ width: "100%" }}
-                          onClick={() => {
-                            setDisable({ ...disable, payment: false })
-
+                          onClick={(e) => {
+                            // setDisable({ ...disable, payment: false })
+                            setNextAppointment()
 
                           }}
 
@@ -2492,6 +2687,7 @@ const MyDoctor = (props) => {
                       </Col>
                     </Row>
                   }
+
                 </div>
               </div>
             </div>
