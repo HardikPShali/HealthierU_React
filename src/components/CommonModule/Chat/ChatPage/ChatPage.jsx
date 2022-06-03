@@ -175,7 +175,12 @@ const ChatPage = () => {
   return (
     <Container className="chatPage-wrapper">
       <div className="chat-item-container">
-        {!openVideoCall && <ChatItems messageDateFormat={messageDateFormat} onChatChange={changeChatItem} chat={chatList} />}
+        {!openVideoCall && <ChatItems 
+        messageDateFormat={messageDateFormat} 
+        onChatChange={changeChatItem} 
+        chat={chatList} 
+        selectedChatItem={selectedChatItem}
+        />}
         {openVideoCall && <Meeting onClose={() => setOpenVideoCall(false)} />}
       </div>
       <div className="chat-details-container">

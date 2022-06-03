@@ -62,8 +62,8 @@
   flex-direction: column; */
   overflow: auto;
   justify-content: flex-end;
-  height: 100vh;
   padding: 8px;
+  max-height: 92vh;
 }
 
 .chat_detail_received::-webkit-scrollbar {
@@ -86,7 +86,7 @@
 
 .sent_chat-msg-wrap {
   background: #d2eeec;
-  border-radius: 18px;
+  border-radius: 18px 2px 18px 18px;
   padding: 0.8rem;
   max-width: 40%;
   min-width: 22rem;
