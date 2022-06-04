@@ -61,12 +61,12 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar>button {
+.headerNavbar > button {
   color: #fff;
   font-size: 14px;
 }
 
-.headerNavbar>button:hover {
+.headerNavbar > button:hover {
   color: #fff;
 }
 
@@ -95,9 +95,8 @@ svg#search-icon {
 }
 
 @media (max-width: 992px) {
-
   #navbar a,
-  .headerNavbar>button {
+  .headerNavbar > button {
     padding: 10px 20px;
   }
 
@@ -675,12 +674,17 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
+  .MuiGridListTileBar-title {
   color: #fff;
   transition: 0.5s;
 }
@@ -1136,7 +1140,7 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #5FCCC8;
+  background: #5fccc8;
   margin: 1em;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
@@ -1154,7 +1158,7 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #FFC9AE;
+  background: #ffc9ae;
   margin: 1em;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
@@ -1261,13 +1265,13 @@ table#user-info {
   align-items: center;
 }
 
-.record-tabs>.nav-link:hover {
+.record-tabs > .nav-link:hover {
   color: #495057 !important;
   text-decoration: none;
   outline: none;
 }
 
-.record-tabs>.nav-link.active {
+.record-tabs > .nav-link.active {
   color: #fff !important;
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
@@ -1969,7 +1973,7 @@ div#primary-card {
 }
 
 @media (max-width: 700px) {
-  #footer .row>div {
+  #footer .row > div {
     margin-bottom: 40px;
   }
 
@@ -1990,7 +1994,7 @@ div#primary-card {
     text-align: center !important;
   }
 
-  #copyright .row>div {
+  #copyright .row > div {
     margin-bottom: 20px;
   }
 
@@ -2237,16 +2241,16 @@ div.reply .messageBody span.messageTime {
   text-transform: capitalize;
 }
 
-.list--tags>li {
+.list--tags > li {
   display: inline;
 }
 
-.list--tags>li:before {
+.list--tags > li:before {
   content: ',\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags>li:first-child:before {
+.list--tags > li:first-child:before {
   content: normal;
 }
 
@@ -2361,7 +2365,7 @@ Health Assessment
   margin-left: 27px;
 }
 
-.modal-body>.form-group>label.col-form-label {
+.modal-body > .form-group > label.col-form-label {
   font-size: 14.5px;
 }
 
@@ -3017,4 +3021,9 @@ button.reset-btn {
 
 .rbc-time-header.rbc-overflowing {
   margin-right: 4px !important;
+}
+
+/* MY APPOINTMENTS TAB */
+.tab-view-app {
+  padding: 0 15px;
 }
