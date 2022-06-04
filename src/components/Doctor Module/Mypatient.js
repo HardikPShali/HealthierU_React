@@ -539,6 +539,7 @@ const Mypatient = (props) => {
                                                                                             details.patient.lastName
                                                                                         }
                                                                                         size={60}
+                                                                                        className='my-appointment-avatar'
                                                                                     />
                                                                                 )}
                                                                             </div>
@@ -635,6 +636,7 @@ const Mypatient = (props) => {
                                                                                             details.patient.lastName
                                                                                         }
                                                                                         size={60}
+                                                                                        className='my-appointment-avatar'
                                                                                     />
                                                                                 )}
                                                                             </div>
@@ -743,6 +745,7 @@ const Mypatient = (props) => {
                                                                         SelectedPatient.patient.lastName
                                                                     }
                                                                     size="140"
+                                                                    className='my-patient-avatar'
                                                                 />
                                                             ))}
                                                     </Col>
@@ -917,7 +920,7 @@ const Mypatient = (props) => {
                                                         />
                                                     </div>
                                                 </Link>
-                                                <br />
+
                                                 <Link
                                                     to={{
                                                         pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}`,
@@ -943,7 +946,7 @@ const Mypatient = (props) => {
                                                         />
                                                     </div>
                                                 </Link>
-                                                <br />
+
                                                 {/* <Link
                                                     to={{
                                                         // pathname: `/doctor/setNextAppointment/appointmentID=${appointmentDets.id}`,
@@ -951,7 +954,7 @@ const Mypatient = (props) => {
                                                         onClick={(e) => setNextAppointment(SelectedPatient.id)}
                                                     }}
                                                 > */}
-                                                <a onClick={(e) => setNextAppointment(SelectedPatient.id)}>
+                                                <a onClick={(e) => setNextAppointment(SelectedPatient.id)} className='set-next'>
                                                     <div style={{ display: 'flex', alignItem: 'center' }}>
                                                         <div style={{ width: '100%' }}>
                                                             <img
