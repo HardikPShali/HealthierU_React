@@ -300,7 +300,8 @@ const Signin = () => {
       {loading && <Loader />}
       {loader && <TransparentLoader />}
       <Header hideButton={true} />
-      <Container id="signin-bg">
+      <div id="signin-bg">
+      <Container>
         <Row>
           <Col md={7}></Col>
           <Col md={5}>
@@ -472,6 +473,8 @@ const Signin = () => {
           </Col>
         </Row>
       </Container>
+      </div>
+     
       <Footer />
 
       <Dialog aria-labelledby="customized-dialog-title" open={activateError}>

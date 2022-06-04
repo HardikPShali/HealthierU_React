@@ -95,6 +95,23 @@ export const rescheduleAppointmentDoctor = async (data) => {
     });
     return response;
 }
+export const setNextAppointmentDoctor = async (data) => {
+    var payload = {
+        method: 'put',
+        data: data,
+        url: `/api/v2/next/appointment`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
 export const signupWithEmail = async (userData) => {
     var payload = {
         method: 'post',

@@ -33,12 +33,14 @@ a.nav-link.active {
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 17px;
+  font-weight: 500;
 }
 
 #navbar a.dropdown-item {
   color: #000 !important;
+  margin-left: 0;
+  font-weight: 300;
 }
 
 #navbar a.dropdown-item:hover {
@@ -902,7 +904,7 @@ div.card-box {
 .sign-box {
   background: #fff;
   border-radius: 22px;
-  padding: 10px 10%;
+  padding: 13px 25px 23px 25px;
 }
 
 .sign-box .MuiFormControl-root.MuiTextField-root {
@@ -928,14 +930,16 @@ div.card-box {
 }
 
 h2#signin-title {
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 400;
   color: var(--primary);
+  text-align: left;
+  margin-left: 1rem;
 }
 
 .sign-box p {
   margin-bottom: 5px;
-  font-size: 12px;
+  font-size: .9rem;
 }
 
 p.forget-text {
