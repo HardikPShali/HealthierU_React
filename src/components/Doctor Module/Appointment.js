@@ -198,6 +198,7 @@ const Myappointment = (props) => {
     const [transparentLoading, setTransparentLoading] = useState(false);
     const [serverError] = useState(false); //setServerError
     const [acceptedAppointment, setAcceptedAppointment] = useState([]);
+    const [tomorrowAppointment, setTomorrowAppointment] = useState([]);
 
     const [selectedAppointment, setSelectedAppointment] = useState();
     const [openAppointmentInfo, setopenAppointmentInfo] = useState(false);
@@ -271,18 +272,17 @@ const Myappointment = (props) => {
     useEffect(() => {
         const { id } = currentDoctor
         id && loadAppointment(id);
+        id && loadTomorrowAppointment(id);
     }, [currentDoctor]);
 
     const newStartDate = new Date().setDate(new Date().getDate() - 30);
     console.log("newStartDate", newStartDate)
     const tomorrowDate = new Date().setDate(new Date().getDate() + 1);
+    const tomorrowEndDate = new Date().setDate(new Date().getDate() + 1);
     const newEndDate = new Date().setDate(new Date().getDate() + 25);
     console.log("newEndDate", newEndDate)
     const loadAppointment = async (doctorId) => {
         //setLoading(true);
-
-        const starttime = new Date();
-        starttime.getHours(23, 59, 0);
 
         const endtime = new Date();
         endtime.setHours(23, 59, 0);
@@ -293,25 +293,15 @@ const Myappointment = (props) => {
             doctorId: doctorId,
             status: null
         }
-        const dateforTomorrowDay = {
-            startTime: new Date(tomorrowDate).toISOString(),
-            endtime: endtime,
-            doctorId: doctorId,
-            status: null
-        }
+
         const res = await getDoctorAppointment(dataForSelectedDay).catch(err => {
             if (err.response.status === 500 || err.response.status === 504) {
                 setLoading(false);
                 setTransparentLoading(false);
             }
         });
+        console.log("res", res)
 
-        const resTomorrow = await getDoctorAppointment(dateforTomorrowDay).catch(err => {
-            if (err.response.status === 500 || err.response.status === 504) {
-                setLoading(false);
-                setTransparentLoading(false);
-            }
-        })
         if (res && res.data) {
             //setLoading(false);
             const updateArray = [];
@@ -330,6 +320,7 @@ const Myappointment = (props) => {
             //setState({ ...state, data: updateArray });
             setState(updateArray);
             setAcceptedAppointment(acceptedArray);
+            console.log("acceptedArray:::::::::::::::", acceptedArray)
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
             const tourState = cookies.get("appointmentTour");
@@ -338,24 +329,46 @@ const Myappointment = (props) => {
             }
         }
 
-        if (res && res.data) {
+
+    }
+
+    const loadTomorrowAppointment = async (doctorId) => {
+
+        const dateforTomorrowDay = {
+            startTime: new Date(tomorrowDate).toISOString(),
+            endtime: new Date(tomorrowEndDate).toISOString(),
+            doctorId: doctorId,
+            status: null
+        }
+
+
+        const resTomorrow = await getDoctorAppointment(dateforTomorrowDay).catch(err => {
+            if (err.response.status === 500 || err.response.status === 504) {
+                setLoading(false);
+                setTransparentLoading(false);
+            }
+        })
+
+        if (resTomorrow && resTomorrow.data) {
             //setLoading(false);
             const updateArray = [];
-            const acceptedArray = [];
-            res.data.reverse();
-            //console.log("res.data : ", res.data);
-            res.data.map((value, index) => {
+            const acceptedTomorrowArray = [];
+            resTomorrow.data.reverse();
+            console.log("resTomorrow.data : ", resTomorrow.data.reverse());
+            resTomorrow.data.map((value, index) => {
                 if (value.status === "ACCEPTED" || value.status === "AVAILABLE") {
                     updateArray.push({ id: value.id, startTime: new Date(value.startTime), endTime: new Date(value.endTime), title: value.status === "AVAILABLE" ? "Slot Available" : `This is ${value?.patient?.firstName} have ${value.urgency ? value.urgency : "no"} urgency, comments : ${value.remarks ? value.remarks : "no comments"}`, remarks: value.remarks, status: value.status, doctorId: value.doctorId, patientId: value.patientId, patientFirstName: value && value.patient && value.patient.firstName, patientLastName: value && value.patient && value.patient.lastName, unifiedAppointment: value.unifiedAppointment, patient: value?.patient && value.patient })
                 }
-                if (value.status === "ACCEPTED" && new Date(value.endTime) >= new Date()) {
-                    acceptedArray.push({ id: value.id, startTime: new Date(value.startTime), endTime: new Date(value.endTime), remarks: value.remarks, status: value.status, doctorId: value.doctorId, patientId: value.patientId, patient: value.patient, unifiedAppointment: value.unifiedAppointment })
+                if (value.status === "ACCEPTED" && new Date(value.startTime) >= new Date()) {
+                    acceptedTomorrowArray.push({ id: value.id, startTime: new Date(value.startTime), endTime: new Date(value.endTime), remarks: value.remarks, status: value.status, doctorId: value.doctorId, patientId: value.patientId, patient: value.patient, unifiedAppointment: value.unifiedAppointment })
                 }
                 return value;
             })
             //setState({ ...state, data: updateArray });
-            setState(updateArray);
-            setAcceptedAppointment(acceptedArray);
+            // setState(updateArray);
+            setTomorrowAppointment(acceptedTomorrowArray);
+            console.log("acceptedTomorrowArray", acceptedTomorrowArray)
+            console.log("updateArray", updateArray)
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
             const tourState = cookies.get("appointmentTour");
