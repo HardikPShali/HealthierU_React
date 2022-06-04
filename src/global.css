@@ -24,6 +24,8 @@ body {
 .empty-message {
   color: var(--text-secondary);
   text-shadow: none;
+  font-weight: 400;
+  font-size: 1.1rem;
 }
 
 .bg-main-color {

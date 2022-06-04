@@ -13,6 +13,7 @@ import {
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
 import Loader from '../Loader/Loader'
+import MyDoctor from "../Patient Module/Mydoctor";
 
 const Homepage = React.lazy(() => import("./Homepage"));
 const Profile = React.lazy(() => import("./Profile"));
@@ -22,6 +23,7 @@ const Mypatient = React.lazy(() => import("./Mypatient"));
 const Healthassessment = React.lazy(() => import("./Healthassessment"));
 const HealthAssestmentReport = React.lazy(() => import("./HealthAssestmentReport/HealthAssestmentReport"));
 const MedicalRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
+const SetNextAppointment = React.lazy(() => import("../Patient Module/Mydoctor"));
 const MyRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
 const ConsulatationHistory = React.lazy(() => import("./ConsulatationHistory/ConsulatationHistory"));
 const AddPrescription = React.lazy(() => import("./Prescription-Lab/AddPrescription"));
@@ -122,6 +124,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/mypatient" render={(props) => <Mypatient timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/medicalrecord/:id" component={Healthassessment} />
+        <Route exact path="/doctor/setNextAppointment" component={SetNextAppointment} />
         <Route exact path="/doctor/healthassesment-report/:id" component={HealthAssestmentReport} />
         <Route exact path="/doctor/medicalrecord" component={MedicalRecord} />
         <Route exact path="/doctor/consulatationhistory" component={ConsulatationHistory} />
