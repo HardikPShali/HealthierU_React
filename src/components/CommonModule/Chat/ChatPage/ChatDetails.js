@@ -8,6 +8,9 @@ import VideocamIcon from "@material-ui/icons/Videocam";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
 import IconButton from "@material-ui/core/IconButton";
 import moment from "moment";
+import useRole from "../../../../custom-hooks/useRole";
+import { ROLES } from "../../../../util/configurations";
+
 
 const ChatDetails = ({
   selectedItem,
@@ -18,16 +21,19 @@ const ChatDetails = ({
   endRef,
   messageDateFormat,
   onVideoClick,
+  onNoteClick,
 }) => {
   const [enableVideo, setEnableVideo] = useState(false);
   const [enableChat, setEnableChat] = useState(false);
+
+  const [roles] = useRole();
 
   useEffect(() => {
     if (selectedItem.id) {
       const currentTime = moment(new Date());
       const appointmentStartTime = moment(
         new Date(selectedItem.latestAppointment.startTime)
-        
+
       );
       const appointmentEndTime = moment(
         new Date(selectedItem.latestAppointment.endTime)
@@ -48,12 +54,12 @@ const ChatDetails = ({
       console.log("video condition", videoEnableTime);
       console.log("chat end condition", chatEndCondition);
 
-      if(currentTime.isSameOrAfter(appointmentStartTime) && currentTime.isBefore(appointmentEndTime)) {
+      if (currentTime.isSameOrAfter(appointmentStartTime) && currentTime.isBefore(appointmentEndTime)) {
         console.log("VIDEO ENABLED");
         setEnableVideo(true);
       }
 
-      if(currentTime.isSameOrAfter(chatEnableTime) && currentTime.isBefore(chatEndCondition)) {
+      if (currentTime.isSameOrAfter(chatEnableTime) && currentTime.isBefore(chatEndCondition)) {
         console.log("CHAT ENABLED")
         setEnableChat(true);
       }
@@ -62,13 +68,18 @@ const ChatDetails = ({
   }, [selectedItem]);
 
   const handleVideo = () => {
-    if(!enableVideo) return;
+    if (!enableVideo) return;
     onVideoClick();
   }
 
   const handleSend = () => {
-    if(!enableChat) return;
+    if (!enableChat) return;
     onSend();
+  }
+
+  const handleNoteToggle = () => {
+    // if (!enableChat) return;
+    onNoteClick();
   }
 
   return (
@@ -76,8 +87,8 @@ const ChatDetails = ({
       <h2 className="chating_with">
         {selectedItem[selectedItem.userKey] &&
           selectedItem[selectedItem.userKey]?.firstName +
-            " " +
-            selectedItem[selectedItem.userKey]?.lastName}
+          " " +
+          selectedItem[selectedItem.userKey]?.lastName}
       </h2>
       <div className="chat-section">
         <div className="chat_detail-body">
@@ -152,6 +163,17 @@ const ChatDetails = ({
           >
             Send
           </button>
+          {
+            roles.some((role) => role === ROLES.ROLE_DOCTOR) && (
+              <button
+                onClick={handleNoteToggle}
+                className="notes-btn"
+              // disabled={!enableChat}
+              >
+                Notes
+              </button>
+            )
+          }
         </div>
       </div>
     </div>

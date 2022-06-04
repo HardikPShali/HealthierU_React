@@ -203,67 +203,11 @@ const DoctorChat = (props) => {
 
 
   // NOTES CODE
-  const [toggleNotes, setToggleNotes] = useState({
-    notesArea: false,
-  });
 
-  const [notes, setNotes] = useState({
-    chiefComplaint: '',
-    presentIllness: '',
-    vitalSigns: '',
-    physicalExam: '',
-    planAssessment: '',
-  });
-
-  const {
-    chiefComplaint,
-    presentIllness,
-    vitalSigns,
-    physicalExam,
-    planAssessment,
-  } = notes;
-
-  const handleInputChange = (e) => {
-    setNotes({ ...notes, [e.target.name]: e.target.value });
-  };
-
-  const sendNotesDetails = async (e) => {
-    e.preventDefault();
-    // console.log(notes);
-
-    const { currentDoctor, patientDetailsList } = props;
-    console.log(patientDetailsList[currentSelectedGroup]);
-    // console.log(currentDoctor);
-
-    const appointmentId = patientDetailsList[currentSelectedGroup].appointmentDetails
-    console.log(appointmentId);
-
-
-    const note = {
-      chiefComplaint: notes.chiefComplaint,
-      presentIllness: notes.presentIllness,
-      vitalSigns: notes.vitalSigns,
-      physicalExam: notes.physicalExam,
-      planAssessment: notes.planAssessment,
-      patientId: patientDetailsList[currentSelectedGroup].id,
-      doctorId: currentDoctor.id,
-      // appointmentId: patientDetailsList[currentSelectedGroup].appointmentDetails,
-    }
-
-    // console.log("Note", note);
-
-    const noteResponse = await uploadNote(note).catch(err => {
-      console.log(err);
-    })
-
-    console.log(noteResponse);
-
-    setToggleNotes({ ...toggleNotes, notesArea: false })
-  }
 
   return (
     <div className="bg-main-color">
-       <ChatScreen />
+      <ChatScreen />
       {/* <div className="main-section mt-5">
         <div className="head-section">
           <div className="headLeft-section">

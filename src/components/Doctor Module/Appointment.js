@@ -781,6 +781,7 @@ const Myappointment = (props) => {
                                                                                                     appointment.patient.lastName
                                                                                                 }
                                                                                                 size={60}
+                                                                                                className='my-appointment-avatar'
                                                                                             />
                                                                                         )}
                                                                                     </div>

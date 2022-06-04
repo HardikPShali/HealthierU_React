@@ -20,6 +20,7 @@ import {
 } from '../../../../service/chatService';
 import moment from 'moment';
 import Meeting from '../../../video-call/pages/meeting';
+import Notes from '../../../Doctor Module/NotesSection/Notes';
 
 const ChatPage = () => {
   const [chatList, setChatList] = useState([]);
@@ -186,6 +187,13 @@ const ChatPage = () => {
     getToken(pIdState, dIdState);
   };
 
+  //NOTES CODE
+  const [notesClick, setNotesClick] = useState(false);
+
+  const handleNotesClick = (e) => {
+    setNotesClick(!notesClick);
+  };
+
   return (
     <Container className="chatPage-wrapper">
       <div className="chat-item-container">
@@ -209,7 +217,9 @@ const ChatPage = () => {
           onSend={sendMsg}
           endRef={endRef}
           onVideoClick={onVideoClick}
+          onNoteClick={handleNotesClick}
         />
+        {notesClick && <Notes onClose={() => setNotesClick(false)} />}
       </div>
     </Container>
   );
