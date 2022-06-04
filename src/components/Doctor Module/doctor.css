@@ -939,7 +939,7 @@ h2#signin-title {
 
 .sign-box p {
   margin-bottom: 5px;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 p.forget-text {
@@ -3026,4 +3026,9 @@ button.reset-btn {
 /* MY APPOINTMENTS TAB */
 .tab-view-app {
   padding: 0 15px;
+}
+
+.my-appointment-avatar > .sb-avatar__text {
+  width: 60px !important;
+  height: 60px !important;
 }
