@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
+import MyDoctor from '../Patient Module/Mydoctor'
 import SearchBarComponent from '../CommonModule/SearchAndFilter/SearchBarComponent';
 import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
 import {
@@ -44,6 +45,7 @@ import HealthAssessment from '../../images/icons used/Component 16.svg';
 import MedicalRecord from '../../images/icons used/Component 17.svg';
 import calendarSmall from "../../images/svg/calendar-small.svg";
 import timeSmall from "../../images/svg/time-small.svg"
+import { useHistory } from 'react-router'
 import HealthAssestmentReport from './HealthAssestmentReport/HealthAssestmentReport';
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
 // import timeSmall from "../../../images/svg/time-small.svg";
@@ -54,7 +56,7 @@ const Mypatient = (props) => {
     //    m.localeData = momentTz.localeData;
     //    return m;
     //};
-
+    let history = useHistory();
     //const moment = getMoment(currentTimezone);
     const [activeAppointments, setActiveAppointments] = useState([]);
     // const [pastAppointments, setPastAppointments] = useState([]);
@@ -415,20 +417,46 @@ const Mypatient = (props) => {
     const handleFilterChange = (filter) => {
         getGlobalAppointments(search, filter);
     };
-    const rescheduleAppointment = async () => {
-        console.log('appointmentDets',appointmentDets)
+    const rescheduleAppointment = async (id) => {
+        // console.log('appointmentDets', appointmentDets)
+        // console.log('patientID', id)
+        // console.log('selectedPatID', SelectedPatient)
+        const apID = id;
+        let docID;
+        let aID;
+        appointmentDets.map((a, i) => {
+            if (a.id == apID) {
+                docID = a.doctorId
+                aID = a.id
+            }
+        })
         const data = {
-            id : appointmentDets[0].id,
-            doctorId : appointmentDets[0].doctorId
+            id: aID,
+            doctorId: docID
         }
         const res = await rescheduleAppointmentDoctor(data).catch((err) => {
             if (err.res.status === 500 || err.res.status === 504) {
                 setLoading(false);
-            }  
+            }
         })
         if (res) {
-            toast.success("Notification sent to patient successfully.");
+            toast.success("Appointment Rescheduled successfully.");
         }
+    }
+    const setNextAppointment = (id) => {
+        const apID = id;
+        let stateData = [];
+        let aID;
+        //console.log("appointmentDets",appointmentDets);
+        appointmentDets.map((a, i) => {
+            if (a.id == apID) {
+                aID = a.id
+                stateData = a
+
+                setTimeout(() => props.history.push({ pathname: `/doctor/setNextAppointment`, state: stateData }), 500);
+
+            }
+        })
     }
     return (
         <div>
@@ -908,7 +936,14 @@ const Mypatient = (props) => {
                                                     </div>
                                                 </Link>
                                                 <br />
-                                                <Link to={{ pathname: `/doctor/setnextappointment` }}>
+                                                {/* <Link
+                                                    to={{
+                                                        // pathname: `/doctor/setNextAppointment/appointmentID=${appointmentDets.id}`,
+                                                        // state: appointmentDets,
+                                                        onClick={(e) => setNextAppointment(SelectedPatient.id)}
+                                                    }}
+                                                > */}
+                                                <a onClick={(e) => setNextAppointment(SelectedPatient.id)}>
                                                     <div style={{ display: 'flex', alignItem: 'center' }}>
                                                         <div style={{ width: '100%' }}>
                                                             <img
@@ -927,7 +962,8 @@ const Mypatient = (props) => {
                                                             style={{ marginRight: '35px' }}
                                                         />
                                                     </div>
-                                                </Link>
+                                                    {/* </Link> */}
+                                                </a>
                                                 {/* <span id="info-title">Diseases</span><br />
                                     <p>Hypertension Medium</p>
                                     <br /> */}
@@ -985,7 +1021,7 @@ const Mypatient = (props) => {
                                                             state: SelectedPatient.patient,
                                                         }}
                                                     > */}
-                                                    <button className="btn btn-primary view-btn" onClick={rescheduleAppointment}>
+                                                    <button className="btn btn-primary view-btn" onClick={(e) => rescheduleAppointment(SelectedPatient.id)}>
                                                         Reschedule
                                                     </button>
                                                     {/* </Link> */}
@@ -1088,7 +1124,7 @@ const Mypatient = (props) => {
                     </button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </div >
     );
 };
 
