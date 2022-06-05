@@ -19,7 +19,7 @@ const Homepage = React.lazy(() => import("./Homepage"));
 const Profile = React.lazy(() => import("./Profile"));
 const Logout = React.lazy(() => import("../Logout"));
 const Appointment = React.lazy(() => import("./Appointment"));
-const Mypatient = React.lazy(() => import("./Mypatient"));
+const MyAppointments = React.lazy(() => import("./MyAppointments"));
 const Healthassessment = React.lazy(() => import("./Healthassessment"));
 const HealthAssestmentReport = React.lazy(() => import("./HealthAssestmentReport/HealthAssestmentReport"));
 const MedicalRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
@@ -46,6 +46,8 @@ const HelpAndSupportPage = React.lazy(() => import("../CommonModule/HelpAndSuppo
 const LicensesPage = React.lazy(() => import("../CommonModule/Licenses"));
 
 const PartnersPage = React.lazy(() => import("../CommonModule/Partners"));
+
+const MyPatients = React.lazy(() => import("./MyPatientsSection/MyPatients"));
 
 
 const DoctorRoute = () => {
@@ -122,7 +124,8 @@ const DoctorRoute = () => {
       <Switch>
         <Route exact path="/doctor" component={Homepage} />
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
-        <Route exact path="/doctor/mypatient" render={(props) => <Mypatient timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
+        <Route exact path="/doctor/my-appointments" render={(props) => <MyAppointments timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
+        <Route exact path="/doctor/my-patients" render={(props) => <MyPatients timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/medicalrecord/:id" component={Healthassessment} />
         <Route exact path="/doctor/setNextAppointment" component={SetNextAppointment} />
         <Route exact path="/doctor/healthassesment-report/:id" component={HealthAssestmentReport} />

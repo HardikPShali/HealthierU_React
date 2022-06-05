@@ -149,10 +149,13 @@ const Header = (props) => {
               className="btn dropdown-toggle"
               data-toggle="dropdown"
             >
-              My Patients
+              My Appointments
             </button>
             <div className="dropdown-menu">
-              <NavLink to="/doctor/mypatient" className="dropdown-item">
+              <NavLink to="/doctor/my-appointments" className="dropdown-item">
+                My Appointments
+              </NavLink>
+              <NavLink to="/doctor/my-patients" className="dropdown-item">
                 My Patients
               </NavLink>
               <NavLink to="/doctor/myrecord" className="dropdown-item">
