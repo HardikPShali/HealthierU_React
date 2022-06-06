@@ -8,7 +8,7 @@ const AppoitmentCountsSection = () => {
     endtime.setHours(23, 59, 0);
     const [appointmentsCount, setAppointmentsCount] = useState(0);
     const cookie = new Cookies();
-    const currentUserFromCookie = cookie.get('currentUser');
+    const currentUserFromCookie = cookie.get('profileDetails');
     const getAppointmentsCount = async (startTime, endTime, doctorId) => {
         const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString(), doctorId = currentUserFromCookie.id).catch((err) => {
             console.log('err', err);
