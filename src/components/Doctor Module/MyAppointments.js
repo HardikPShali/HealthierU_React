@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import './doctor.css';
 import { toast } from 'react-toastify';
 import { Container, Row, Col } from 'react-bootstrap';
-import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import Cookies from 'universal-cookie';
 import Loader from './../Loader/Loader';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import moment from 'moment';
 import Avatar from 'react-avatar';
@@ -16,30 +14,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import MyDoctor from '../Patient Module/Mydoctor'
 import SearchBarComponent from '../CommonModule/SearchAndFilter/SearchBarComponent';
 import FilterComponent from '../CommonModule/SearchAndFilter/FilterComponent';
 import {
-    getAppointmentsBySearch,
     getGlobalAppointmentsSearch,
     rescheduleAppointmentDoctor
 } from '../../service/frontendapiservices';
 import rightIcon from '../../images/svg/right-icon.svg';
-
-// import { handleAgoraAccessToken } from '../../service/agoratokenservice';
-// import { handleSignin } from '../../service/AccountService';
-// import momentTz from 'moment-timezone';
-import {
-    getDoctorByUserId,
-    getPatientChiefComplaint,
-    getPatientFamilyAndSocialHistoryData,
-    loadActivePatient,
-    loadPastPatient,
-} from '../../service/frontendapiservices';
 import calendar from '../../images/icons used/Component 12.svg';
-import time from '../../images/icons used/Component 11.svg';
-import dollar from '../../images/icons used/Component 13.svg';
-import payment from '../../images/icons used/Component 14.svg';
 import conHistory from '../../images/icons used/Component 15.svg';
 import HealthAssessment from '../../images/icons used/Component 16.svg';
 import MedicalRecord from '../../images/icons used/Component 17.svg';
@@ -49,7 +31,7 @@ import { useHistory } from 'react-router'
 import HealthAssestmentReport from './HealthAssestmentReport/HealthAssestmentReport';
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
 // import timeSmall from "../../../images/svg/time-small.svg";
-const Mypatient = (props) => {
+const MyAppointments = (props) => {
     // const currentTimezone = props.timeZone;
     //const getMoment = (timezone) => {
     //    const m = (...args) => momentTz.tz(...args, timezone);
@@ -468,7 +450,7 @@ const Mypatient = (props) => {
                 <Row>
                     <Col lg={6} md={6} id="col">
                         <div id="patient-col-1">
-                            <div id="patient-heading">My Patients</div>
+                            <div id="patient-heading">My Appointments</div>
                             <div className="d-flex mt-2 justify-content-between">
                                 <SearchBarComponent updatedSearch={handleSearchInputChange} />
                                 <FilterComponent updatedFilter={handleFilterChange} />
@@ -1139,4 +1121,4 @@ const Mypatient = (props) => {
     );
 };
 
-export default Mypatient;
+export default MyAppointments;

@@ -120,9 +120,9 @@ const FilterComponent = (props) => {
                                                     })
                                                 }
                                                 className="filterDate"
-                                                inputProps={{
-                                                    min: moment(new Date()).format('YYYY-MM-DD'),
-                                                }}
+                                                // inputProps={{
+                                                //     min: moment(new Date()).format('YYYY-MM-DD'),
+                                                // }}
                                                 value={moment(new Date(patientStartTime)).format(
                                                     'YYYY-MM-DD'
                                                 )}

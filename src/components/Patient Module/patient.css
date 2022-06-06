@@ -43,7 +43,6 @@ a.nav-link.active {
   color: #000 !important;
   margin-left: 0;
   font-weight: 300;
-
 }
 
 #navbar a.dropdown-item:hover {
@@ -67,7 +66,7 @@ a.nav-link.active {
 .headerNavbar > button {
   color: #fff;
   font-size: 17px;
-  font-weight:500;
+  font-weight: 500;
 }
 
 .headerNavbar > button:hover {
@@ -937,7 +936,6 @@ img.card-img-top {
 .specialities-profile:hover img {
   transform: scale(1.08);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
 }
 .speciality-icon {
   width: 60px;
@@ -3355,7 +3353,7 @@ button.howToBtn {
   border-radius: 22px;
   position: absolute;
   right: 30px;
-  top: 8px;
+  top: -28px;
   background: var(--primary);
   color: #fff;
   border: 0;
