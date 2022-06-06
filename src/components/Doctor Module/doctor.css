@@ -2023,6 +2023,11 @@ div#primary-card {
   div#primary-card {
     height: 65vh;
   }
+  #patient-card .card,
+  img.card-img-top {
+    border-radius: 20px 20px 0 0;
+   
+  }
 }
 
 @media (max-width: 400px) {

@@ -897,6 +897,13 @@ img.card-img-top {
   align-items: unset;
 }
 
+@media screen and (max-width: 500px) {
+  #patient-card .card,
+  img.card-img-top {
+    border-radius: 20px 20px 0 0;
+   
+  }
+}
 @media (min-width: 481px) and (max-width: 990px) {
   .specialities-profile {
     padding: 10px 6px !important;
