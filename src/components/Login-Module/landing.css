@@ -187,7 +187,7 @@ img#store-icon {
 a#copy-link {
   color: #3e4543;
   text-decoration: none;
-  font-size: 12px;
+  font-size: .6rem;
   margin: 0 20px 0 0;
 }
 
@@ -198,7 +198,7 @@ div#copyright {
 
 p#copyright-text {
   margin: 15px 0 0;
-  font-size: 12px;
+  font-size: .6rem;
   color: #999;
 }
 
@@ -218,6 +218,8 @@ p#lang-select {
 
 div#social-icon {
   justify-content: flex-end;
+  align-items: center;
+
 }
 
 #foot-icon img {
@@ -1634,6 +1636,13 @@ ul.light {
 }
 
 @media (max-width: 500px) {
+  #footer {
+    padding: 20px 10px 20px !important;
+  }
+  div#social-icon {
+    justify-content: center !important;
+    margin-top: 1rem !important;
+  }
   #patient-card .card,
   img.card-img-top {
     border-radius: 20px 20px 0 0;

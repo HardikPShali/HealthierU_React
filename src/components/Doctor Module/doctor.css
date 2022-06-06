@@ -201,7 +201,7 @@ img#store-icon {
 a#copy-link {
   color: #3e4543;
   text-decoration: none;
-  font-size: 12px;
+  font-size: .6rem;
   margin: 0 20px 0 0;
 }
 
@@ -216,7 +216,7 @@ div#copyright {
 
 p#copyright-text {
   margin: 15px 0 0;
-  font-size: 12px;
+  font-size: .6rem;
   color: #999;
 }
 
@@ -233,6 +233,8 @@ p#lang-select {
 
 div#social-icon {
   justify-content: flex-end;
+  align-items: center;
+
 }
 
 #foot-icon img {
@@ -2024,6 +2026,14 @@ div#primary-card {
 }
 
 @media (max-width: 500px) {
+  #patient-card .card-title.h5 {
+    font-size: 1rem !important;
+  }
+  div#social-icon {
+    justify-content: center !important;
+    margin-top: 1rem !important;
+
+  }
   div#primary-card {
     height: 65vh;
   }
@@ -2032,6 +2042,10 @@ div#primary-card {
     border-radius: 20px 20px 0 0;
    
   }
+  #footer {
+    padding: 20px 10px 20px !important;
+  }
+  
 }
 
 @media (max-width: 400px) {
@@ -2578,7 +2592,7 @@ span.availableColor {
 }
 
 .notification-Menu .dropdown-title {
-  font-weight: 700;
+  font-weight: 300;
   font-size: 0.825rem;
   line-height: 1.25rem;
   padding: 0.5rem 0.75rem;
