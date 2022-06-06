@@ -355,10 +355,11 @@ const Healthassessment = (props) => {
             <div className="container">
                 <IconButton
                     style={{ margin: '10px 0 -25px', width: '40px', height: '40px' }}
+                    onClick={() => history.goBack()}
                 >
-                    <Link to="/doctor/mypatient">
-                        <ArrowBackIcon />
-                    </Link>
+                    {/* <Link to="/doctor/mypatient"> */}
+                    <ArrowBackIcon />
+                    {/* </Link> */}
                 </IconButton>
                 <br />
                 <br />
@@ -469,7 +470,7 @@ const Healthassessment = (props) => {
 
                                             <div className="prescription-lab__card-box">
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
                                                 </h3>
                                                 <div className="card-holder">
                                                     <div className="row">

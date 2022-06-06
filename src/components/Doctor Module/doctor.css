@@ -1602,6 +1602,14 @@ button.view-btn {
   border-color: var(--primary) !important;
 }
 
+button.my-patient-chat {
+  width: 50%;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
 svg#accept-icon {
   color: #4ad24a;
   cursor: pointer;
@@ -2595,7 +2603,6 @@ button.howToBtn {
   border-radius: 22px;
   position: absolute;
   right: 30px;
-  top: -30px;
   background: var(--primary);
   color: #fff;
   border: 0;
@@ -2921,6 +2928,22 @@ button.reset-btn {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 22px;
   filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+  border-left: 3px solid var(--primary);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.patient-list__card-completed {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 22px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
   border-left: 3px solid var(--primarysecond);
   transition: all 0.2s;
   cursor: pointer;
@@ -2981,7 +3004,7 @@ button.reset-btn {
   margin-top: 5px;
 }
 
-/* MY PATIENT CARD */
+/* PATIENT CARD */
 .my-patient-card__card-details--date-div {
   display: flex;
   align-items: center;
@@ -3034,11 +3057,178 @@ button.reset-btn {
 }
 
 .my-patient-avatar > .sb-avatar__text {
-  width: 140px !important;
-  height: 135px !important;
+  width: 100px !important;
+  height: 100px !important;
   border-radius: 50%;
+  margin-left: 21px;
 }
 
 .set-next {
   cursor: pointer;
+}
+
+/* MY PATIENTS PAGE */
+.consultation-history-display,
+.diagnosis-desc__p-tag {
+  margin-top: -15px;
+}
+
+.diagnosis-desc__p-tag {
+  font-size: 12px !important;
+}
+
+.symptoms-description,
+.diagnosis-description {
+  padding: 0 25px;
+}
+
+.my-patients__view::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+.my-patients__view::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+.my-patients__view::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+.my-patients__view::-webkit-scrollbar-thumb:hover {
+  background: #375eaa;
+}
+
+/* APPOINTMENT DETAILS CSS */
+.details-container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.details-wrapper {
+  /* max-width: 420px; */
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 1rem;
+}
+
+.details-content {
+  padding-bottom: 20px;
+  padding-top: 54px;
+}
+
+.details-content img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  margin-top: -52px;
+  margin-bottom: 20px;
+}
+
+.details-content h2 {
+  color: hsl(229, 23%, 23%);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.details-content h2 span {
+  color: hsl(227, 10%, 46%);
+  font-weight: 400;
+}
+
+.details-body {
+  text-align: left;
+  margin: 0 15px;
+}
+
+.details-body__appointment,
+.details-body__payment {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items: flex-start;
+}
+
+.details-body__appointment-time-row-image {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+
+.details-links {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+}
+
+.details-links > a,
+.details-links > div {
+  border-radius: 10px;
+  text-align: justify;
+  color: #000;
+  font-weight: 600;
+}
+
+.details-links > a:hover,
+.details-links > div:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  color: #00d0cc;
+}
+
+.doctor-info-value {
+  color: var(--text-primary);
+  font-weight: normal;
+  text-align: left;
+}
+
+.doctor-info-title {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.doctor-info-icon {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.details-body__common-span {
+  font-size: 14px;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: normal;
+  /* color: #fff; */
+  margin-left: 10px;
+}
+
+.details-content__app-type {
+  font-size: 12px;
+}
+
+.modal-button-wrapper {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.my-patient-modal__avatar > .sb-avatar__text {
+  width: 120px !important;
+  height: 120px !important;
+  margin-top: -50px;
+  margin-left: -10px;
+  border-radius: 50%;
 }
