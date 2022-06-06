@@ -10,13 +10,27 @@ export const Checkbox = ({ question, followQuestion }) => {
 
         // setAnswer(!answer);
         const index = answers.indexOf(e);
-        if (index === -1) {
-            setAnswer([...answers, e]);
-            question.answers = [...answers, e];
+        if (e === 'None') {
+            if (index === -1) {
+                setAnswer([e])
+                question.answers = [e]
+            }
+            else {
+                setAnswer(answers.filter(item => item !== e));
 
+            }
         }
         else {
-            setAnswer(answers.filter(item => item !== e));
+            if (answers.indexOf('None') > -1) return;
+
+            if (index === -1) {
+                setAnswer([...answers, e]);
+                question.answers = [...answers, e];
+
+            }
+            else {
+                setAnswer(answers.filter(item => item !== e));
+            }
         }
 
         followQuestion();
@@ -32,11 +46,11 @@ export const Checkbox = ({ question, followQuestion }) => {
                     <input
                         type="checkbox"
                         className="form-check-input"
-                        id={question.questionTitle+index}
+                        id={question.questionTitle + index}
                         checked={answers.includes(choice)}
                         onChange={() => handleCheckboxChange(choice)}
                     />
-                    <label htmlFor={question.questionTitle+index} className="form-check-label checkbox-container">
+                    <label htmlFor={question.questionTitle + index} className="form-check-label checkbox-container">
                         {choice}
                     </label>
                 </div>
