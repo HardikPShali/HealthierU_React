@@ -25,7 +25,7 @@ const HealthAssestmentReport = React.lazy(() => import("./HealthAssestmentReport
 const MedicalRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
 const SetNextAppointment = React.lazy(() => import("../Patient Module/Mydoctor"));
 const MyRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
-const ConsulatationHistory = React.lazy(() => import("./ConsulatationHistory/ConsulatationHistory"));
+const ConsultationHistory = React.lazy(() => import("./ConsultationHistory/ConsultationHistory"));
 const AddPrescription = React.lazy(() => import("./Prescription-Lab/AddPrescription"));
 const DoctorChatNew = React.lazy(() => import("../Doctor Module/DoctorChatNew"));
 
@@ -130,7 +130,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/setNextAppointment" component={SetNextAppointment} />
         <Route exact path="/doctor/healthassesment-report/:id" component={HealthAssestmentReport} />
         <Route exact path="/doctor/medicalrecord" component={MedicalRecord} />
-        <Route exact path="/doctor/consulatationhistory" component={ConsulatationHistory} />
+        <Route exact path="/doctor/consultationhistory/:id" component={ConsultationHistory} />
         {/*/render={(props) => <Healthassessment patient={patient} {...props} />} />*/}
         <Route exact path="/doctor/profile" render={(props) => <Profile currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/logout" component={Logout} />
