@@ -22,7 +22,7 @@ const ConsulatationHistorySection = (props) => {
 
     return (
         <div className='conhistory__card-box'>
-            <h3 className='conhistory--main-header'>Consulatation History</h3>
+            <h3 className='conhistory--main-header'>Consultation History</h3>
             <div className="conhistory-card-holder">
                 <div className='conhistory-card'>
                     {dummyConsultationHistory.length > 0 &&

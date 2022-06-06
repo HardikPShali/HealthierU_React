@@ -356,7 +356,7 @@ const Healthassessment = (props) => {
                 <IconButton
                     style={{ margin: '10px 0 -25px', width: '40px', height: '40px' }}
                 >
-                    <Link to="/doctor/mypatient">
+                    <Link to="/doctor/my-appointments">
                         <ArrowBackIcon />
                     </Link>
                 </IconButton>

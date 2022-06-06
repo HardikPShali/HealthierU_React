@@ -542,7 +542,7 @@ const MyPatients = (props) => {
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <Link to={{ pathname: `/doctor/consulatationhistory` }}>
+                                                <Link to={{ pathname: `/doctor/consultationhistory/${SelectedPatient.id}` }}>
                                                     <div style={{ display: 'flex', alignItem: 'center' }}>
                                                         <div style={{ width: '100%' }}>
                                                             <img
