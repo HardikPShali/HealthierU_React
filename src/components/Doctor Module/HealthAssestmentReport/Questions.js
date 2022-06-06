@@ -14,7 +14,7 @@ const Questions = ({ answers }) => {
                                 answers ? (
                                     answers.map((answer, index) => (
                                         <div className='Questions-card__card-details' key={index}>
-                                            <h6 className='Questions-card__question-title'>{answer.questionId}. {answer.questionTitle}</h6>
+                                            <h6 className='Questions-card__question-title'>{answer.questionId + 1}. {answer.questionTitle}</h6>
                                             {
                                                 answer.answers.map((answer, index) => (
                                                     <h6 className='Questions-card__question-answer' key={index}>{answer}</h6>
