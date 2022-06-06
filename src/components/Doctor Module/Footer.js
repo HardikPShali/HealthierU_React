@@ -109,8 +109,8 @@ const Footer = () => {
     </div>
     <div id="copyright">
       <Container className="p-0 padding-mobile">
-        <Row>
-          <Col md={8}>
+        <>
+          <Col md={8} className="p-0">
             <div className="terms-container">
               <Link to="/privacy-policy" className="" id="copy-link">
                 Privacy and Security
@@ -132,7 +132,7 @@ const Footer = () => {
               © 2021 <Link to="/">HealthierU</Link> - All Rights Reserved.
             </p>
           </Col>
-          <Col id="last-col">
+          <Col id="last-col p-0">
             {/* <p id="lang-select">
               Language
               <select onChange={(e) => change(e)}>
@@ -198,7 +198,7 @@ const Footer = () => {
               </a>
             </div>
           </Col>
-        </Row>
+        </>
       </Container>
     </div>
   </footer>
