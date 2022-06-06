@@ -2708,7 +2708,7 @@ const MyDoctor = (props) => {
                           }}
 
                         >
-                          Book Now
+                          Book Slot
                         </button>
                       </Col>
                     </Row>

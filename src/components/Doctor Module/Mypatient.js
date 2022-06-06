@@ -458,6 +458,9 @@ const Mypatient = (props) => {
             }
         })
     }
+    const consultationHistory = (id) => {
+        setTimeout(() => props.history.push({ pathname: `/doctor/consultationhistory/${id}`}), 500);
+    }
     return (
         <div>
             {loading && <Loader />}
@@ -862,7 +865,11 @@ const Mypatient = (props) => {
                                                 </Row>
                                             </div>
                                             <div id="req-info">
-                                                <Link to={{ pathname: `/doctor/consulatationhistory` }}>
+                                                {/* <Link to={{
+                                                    pathname: `/doctor/consulatationhistory`,
+                                                    state: SelectedPatient.patient,
+                                                }}> */}
+                                                <a onClick={(e) => consultationHistory(SelectedPatient.id)}>
                                                     <div style={{ display: 'flex', alignItem: 'center' }}>
                                                         <div style={{ width: '100%' }}>
                                                             <img
@@ -881,7 +888,8 @@ const Mypatient = (props) => {
                                                             style={{ marginRight: '35px' }}
                                                         />
                                                     </div>
-                                                </Link>
+                                                </a>
+                                                {/* </Link> */}
                                                 <br />
 
                                                 <Link
