@@ -3057,9 +3057,10 @@ button.reset-btn {
 }
 
 .my-patient-avatar > .sb-avatar__text {
-  width: 140px !important;
-  height: 135px !important;
+  width: 100px !important;
+  height: 100px !important;
   border-radius: 50%;
+  margin-left: 21px;
 }
 
 .set-next {
@@ -3070,6 +3071,10 @@ button.reset-btn {
 .consultation-history-display,
 .diagnosis-desc__p-tag {
   margin-top: -15px;
+}
+
+.diagnosis-desc__p-tag {
+  font-size: 12px !important;
 }
 
 .symptoms-description,

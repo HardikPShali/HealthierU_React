@@ -62,14 +62,17 @@ const MyPatients = (props) => {
         const currentDoctor = cookies.get('profileDetails');
         setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
 
-        const starttime = new Date();
+        // const starttime = new Date().getFullYear();
+        // const startTimeFromPrevYear = starttime - 1;
+        // console.log({ startTimeFromPrevYear });
         // startTime.setHours(0, 0, 0).toISOString();
         // const endTime = new Date()
         // endTime().setHours(23, 59, 59).toISOString();
         const data = {
             doctorId: currentDoctor.id,
             status: 'ACCEPTED',
-            startTime: starttime.toISOString(),
+            // startTime: startTimeFromPrevYear,
+            endTime: new Date(),
             patientName: search,
         };
         if (filter.patientSlot && filter.patientSlot !== '') {
@@ -153,7 +156,7 @@ const MyPatients = (props) => {
                     }
                 });
                 console.log('updateArray | My Patient', updateArray);
-                setAppointmentDets(updateArray);
+                setAppointmentDets(updateArray.reverse());
             }
         }
     };
@@ -463,7 +466,7 @@ const MyPatients = (props) => {
                                                                         ' ' +
                                                                         SelectedPatient.patient.lastName
                                                                     }
-                                                                    size="140"
+                                                                    size="113"
                                                                     className="my-patient-avatar"
                                                                 />
                                                             ))}
