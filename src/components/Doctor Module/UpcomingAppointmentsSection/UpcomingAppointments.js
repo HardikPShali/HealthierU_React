@@ -9,12 +9,15 @@ const UpcomingAppointments = () => {
 
 
     const cookie = new Cookies();
-    const currentUserFromCookie = cookie.get('currentUser');
+    const currentUserFromCookie = cookie.get('profileDetails');
     const getUpcomingAppointments = async (startTime, endTime, doctorId) => {
         const starttime = new Date();
         starttime.setHours(0, 0, 0);
         const endtime = new Date();
         endtime.setHours(23, 59, 0);
+        console.log("starttime", starttime);
+        console.log("endtime", endtime);
+        console.log("currentUserFromCookie", currentUserFromCookie.id);
         const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString(), doctorId = currentUserFromCookie.id).catch((err) => {
             console.log('err', err);
         });
