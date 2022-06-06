@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import moment from "moment";
 import useRole from "../../../../custom-hooks/useRole";
 import { ROLES } from "../../../../util/configurations";
+import notesIcon from '../../../../images/svg/notes-outline-icon.svg';
 
 
 const ChatDetails = ({
@@ -78,7 +79,7 @@ const ChatDetails = ({
   }
 
   const handleNoteToggle = () => {
-    // if (!enableChat) return;
+    if (!enableChat) return;
     onNoteClick();
   }
 
@@ -168,9 +169,9 @@ const ChatDetails = ({
               <button
                 onClick={handleNoteToggle}
                 className="notes-btn"
-              // disabled={!enableChat}
+                disabled={!enableChat}
               >
-                Notes
+                <img src={notesIcon} alt='icon' />
               </button>
             )
           }

@@ -6,8 +6,7 @@ import backIcon from '../../../images/svg/arrow-left.svg';
 
 import './Notes.css'
 
-const Notes = ({ onClose }) => {
-
+const Notes = ({ onClose, selectedChatGroup }) => {
 
     const [notes, setNotes] = useState({
         chiefComplaint: '',
@@ -31,15 +30,6 @@ const Notes = ({ onClose }) => {
 
     const sendNotesDetails = async (e) => {
         e.preventDefault();
-        // console.log(notes);
-
-        // const { currentDoctor, patientDetailsList } = props;
-        // console.log(patientDetailsList[currentSelectedGroup]);
-        // // console.log(currentDoctor);
-
-        // const appointmentId = patientDetailsList[currentSelectedGroup].appointmentDetails
-        // console.log(appointmentId);
-
 
         const note = {
             chiefComplaint: notes.chiefComplaint,
@@ -47,9 +37,9 @@ const Notes = ({ onClose }) => {
             vitalSigns: notes.vitalSigns,
             physicalExam: notes.physicalExam,
             planAssessment: notes.planAssessment,
-            // patientId: id,
-            // doctorId: currentDoctor.id,
-            // appointmentId: patientDetailsList[currentSelectedGroup].appointmentDetails,
+            patientId: selectedChatGroup.patientInfo.id,
+            doctorId: selectedChatGroup.doctorInfo.id,
+            appointmentId: selectedChatGroup.latestAppointment.id
         }
 
         // console.log("Note", note);
@@ -58,7 +48,10 @@ const Notes = ({ onClose }) => {
             console.log(err);
         })
 
-        console.log(noteResponse);
+        console.log({ noteResponse });
+        if (noteResponse.data.status === true) {
+            onClose();
+        }
     }
     return (
         <div className="notes-section">
@@ -66,13 +59,14 @@ const Notes = ({ onClose }) => {
                 <Row>
                     <Col md={2}></Col>
                     <Col md={8} className='notes-column'>
-                        <Button
+                        <button
                             variant="primary"
                             onClick={onClose}
-                            style={{ borderRadius: '48%', marginBottom: '5px' }}
+                            style={{ borderRadius: '50%', marginBottom: '5px' }}
+                            className='btn'
                         >
                             <img src={backIcon} alt='icon' />
-                        </Button>
+                        </button>
 
                         <form onSubmit={(e) => sendNotesDetails(e)}>
                             <div className="form-group">
@@ -134,6 +128,7 @@ const Notes = ({ onClose }) => {
                                 className="btn btn-primary sign-btn"
                                 type="submit"
                                 value="ADD NOTE"
+                                autoFocus={false}
                             />
                         </form>
                     </Col>
