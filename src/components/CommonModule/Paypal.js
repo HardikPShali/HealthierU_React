@@ -33,7 +33,6 @@ const Paypal = (props) => {
               payer: {
                 name: {
                   given_name: firstName,
-                  middle_name: middleName,
                   surname: lastName,
                 },
                 email_address: email,
