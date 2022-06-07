@@ -114,7 +114,7 @@ svg#search-icon {
   svg#search-icon {
     margin: 4px 0;
   }
-  .MuiIconButton-root[aria-label="show 17 new notifications"] {
+  .MuiIconButton-root[aria-label='show 17 new notifications'] {
     padding: 0;
   }
 }
@@ -207,7 +207,7 @@ img#store-icon {
 a#copy-link {
   color: #3e4543;
   text-decoration: none;
-  font-size: .6rem;
+  font-size: 0.6rem;
   margin: 0 20px 0 0;
 }
 a#copy-link:hover {
@@ -222,7 +222,7 @@ div#copyright {
 
 p#copyright-text {
   margin: 15px 0 0;
-  font-size: .6rem;
+  font-size: 0.6rem;
   color: #999;
 }
 
@@ -240,7 +240,6 @@ p#lang-select {
 div#social-icon {
   justify-content: flex-end;
   align-items: center;
-
 }
 
 #foot-icon img {
@@ -684,23 +683,25 @@ span.MuiBottomNavigationAction-wrapper {
 }
 
 .doc-img {
-  height: 140px;
+  /* height: 140px; */
   display: flex;
   justify-content: center;
-  border-radius: 22px;
-  background: #f8f8f8;
+  /* border-radius: 22px; */
+  /* background: #f8f8f8; */
   overflow: hidden;
 }
 
 .doc-img img {
-  border-radius: 22px;
-  height: 214px;
-  width: auto !important;
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
 }
 
-b.doc-name {
+p.doc-name {
   color: var(--primary) !important;
-  font-size: 15px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 600;
 }
 
 .MuiFormControl-root.MuiTextField-root {
@@ -767,7 +768,8 @@ div#doc-row {
 
 div#doc-details {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  padding: 10px 30px;
 }
 
 .blue {
@@ -783,7 +785,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 46%;
@@ -834,8 +836,8 @@ div#price-box:before {
   background-position: center;
   border-radius: 20px;
   display: flex;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
   border: none;
   height: 100%;
 }
@@ -847,7 +849,6 @@ div#price-box:before {
   color: #f5f5f5;
   font-weight: 500;
   text-shadow: 1px 1px 4px #6c6a6a;
-
 }
 
 #patient-card .card,
@@ -922,7 +923,7 @@ img.card-img-top {
     border-radius: 20px 20px 0 0;
   }
   #patient-card .patient-card_text h2 {
-    font-size: 1.4rem!important;
+    font-size: 1.4rem !important;
   }
   .specialities-header {
     font-size: 1.5rem !important;
@@ -988,7 +989,6 @@ img.card-img-top {
   border-radius: 22px;
   padding: 0 2rem;
 }
-
 
 .specialities-header {
   margin-top: 10px;
@@ -1683,7 +1683,7 @@ div#multiselectContainerReact div {
 }
 
 .list--tags > li:before {
-  content: ",\0000a0"; /* Non-breaking space */
+  content: ',\0000a0'; /* Non-breaking space */
 }
 .list--tags > li:first-child:before {
   content: normal;
@@ -2806,7 +2806,7 @@ button.product-discount {
   text-align: end;
   right: 2px;
   height: 36px;
-  background: url("../../images/shop/offer-back.png");
+  background: url('../../images/shop/offer-back.png');
   border: none;
   background-size: cover;
   color: #fff;
@@ -2817,7 +2817,7 @@ button.product-discount {
 }
 
 button.single-product-discount {
-  background: url("../../images/shop/offer-back.png");
+  background: url('../../images/shop/offer-back.png');
   z-index: 2;
   position: relative;
   display: flex;
@@ -3694,7 +3694,7 @@ button a {
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
@@ -4169,6 +4169,46 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
+  background: #00d0cc;
+  border-right: 1px solid white;
+  -moz-appearance: none !important;
+}
+
+/* MY DOCTOR AVAILABLE SLOTS CSS */
+.availability-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.availability-card-holder {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* overflow-x: scroll; */
+}
+
+.slot-display {
+  overflow-y: scroll;
+  height: 400px;
+}
+
+/* SCROLL-BAR CSS FOR SLOT DISPLAY */
+
+.slot-display {
+  scrollbar-color: #00d0cc white; /* thumb and track color */
+  scrollbar-width: thin !important;
+  -moz-appearance: none !important;
+  border-radius: 2px;
+}
+.slot-display::-webkit-scrollbar {
+  width: 7px;
+  -moz-appearance: none !important;
+}
+.slot-display::-webkit-scrollbar {
+  background: white;
+  -moz-appearance: none !important;
+}
+.slot-display::-webkit-scrollbar {
   background: #00d0cc;
   border-right: 1px solid white;
   -moz-appearance: none !important;

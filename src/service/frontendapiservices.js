@@ -1036,3 +1036,22 @@ export const getAppointmentsTablistByStatus = async (patientId) => {
     });
     return response;
 }
+
+export const getAvailableSlotsForMyDoctors = async (doctorId, type) => {
+    var payload = {
+        method: 'get',
+        mode: 'no-cors',
+        url: `/api/v2/appointments/active-past/count?doctorId=${doctorId}&type=${type}`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
