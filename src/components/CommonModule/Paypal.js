@@ -1,4 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import { useHistory } from 'react-router';
 
 const Paypal = (props) => {
   const { appointment, bookappointment, currentPatient, doctor } = props;
@@ -14,6 +19,15 @@ const Paypal = (props) => {
     // countryName,
   } = currentPatient;
   const paypalButton = useRef();
+
+  // ON CANCEL FALLBACK---- STARTS
+  const history = useHistory()
+  const [cancelSelect, setCancelSelect] = useState(false);
+
+  const handleCancel = () => {
+    setCancelSelect(true);
+  }
+  // ON CANCEL FALLBACK---- ENDS
 
   useEffect(() => {
     if (window.paypal && window.paypal.Buttons) {
@@ -109,8 +123,9 @@ const Paypal = (props) => {
             bookappointment(orderData);
           },
           onCancel: function (data) {
-            // Show a cancel page, or return to cart
+            // Show a cancel page, or return to MyDoctors
             console.log(data);
+            handleCancel();
           },
           onError: (err, a) => {
             console.log(err);
@@ -123,6 +138,30 @@ const Paypal = (props) => {
   return (
     <div>
       <div ref={paypalButton}></div>
+      {/* ON CANCEL FALLBACK MODAL---- STARTS */}
+      <Dialog
+        onClose={() => setCancelSelect(true)}
+        aria-labelledby="customized-dialog-title"
+        open={cancelSelect}
+      >
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={() => setCancelSelect(true)}
+        >
+          You have cancelled you payment. Press OK to go back.
+        </DialogTitle>
+        <DialogActions>
+          <button
+            autoFocus={false}
+            onClick={() => history.go(0)}
+            className="btn btn-primary"
+            id="close-btn"
+          >
+            Ok
+          </button>
+        </DialogActions>
+      </Dialog>
+      {/* ON CANCEL FALLBACK MODAL---- ENDS */}
     </div>
   );
 };
