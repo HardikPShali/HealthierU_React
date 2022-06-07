@@ -95,7 +95,7 @@ export const rescheduleAppointmentDoctor = async (data) => {
     });
     return response;
 }
-export const consulatationHistory = async (patientId, doctorId) => {
+export const consultationHistory = async (patientId, doctorId) => {
     var payload = {
         method: 'get',
         url: `/api/v2/notes/?patientId=${patientId}&doctorId=${doctorId}`,

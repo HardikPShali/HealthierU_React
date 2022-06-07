@@ -11,6 +11,7 @@ import SearchBarComponent from '../../CommonModule/SearchAndFilter/SearchBarComp
 import FilterComponent from '../../CommonModule/SearchAndFilter/FilterComponent';
 import {
     getGlobalAppointmentsSearch,
+    consultationHistory
 } from '../../../service/frontendapiservices';
 import rightIcon from '../../../images/svg/right-icon.svg';
 import conHistory from '../../../images/icons used/Component 15.svg';
@@ -49,8 +50,10 @@ const MyPatients = (props) => {
     };
 
     const handleConsultationClick = (slot, slot1EndTime) => {
+        console.log("slot1EndTime", slot1EndTime);
         slot.endTime = slot1EndTime;
         setSelectedPatient(slot);
+        // getNotesData(slot.patient.id)
     };
 
 
@@ -93,9 +96,12 @@ const MyPatients = (props) => {
         });
         if (responseTwo.status === 200 || responseTwo.status === 201) {
             if (responseTwo && responseTwo.data) {
+
+
+
                 setLoading(false);
                 const appointmentDetails = responseTwo.data.data;
-                // console.log('appointmentDetails', appointmentDetails);
+                //console.log('appointmentDetails', appointmentDetails);
                 const reversedAppointments = appointmentDetails.reverse();
                 const updateArray = [];
                 reversedAppointments.map((value, index) => {
@@ -179,7 +185,15 @@ const MyPatients = (props) => {
     const handleFilterChange = (filter) => {
         getGlobalAppointments(search, filter);
     };
-
+    const [notesData, setNotesData] = useState([])
+    let count = 0;
+    const getNotesData = async (id) => {
+        const docId = cookies.get("profileDetails")
+        const res = await consultationHistory(id, docId.id);
+        const consultationHistoryArray = [];
+        consultationHistoryArray.push(res.data.data)
+        setNotesData(res.data.data[0])
+    }
 
     return (
         <div>
@@ -218,11 +232,13 @@ const MyPatients = (props) => {
                                                                                 details,
                                                                                 activeAppointments[index + 1].endTime
                                                                             );
+                                                                            //getNotesData(details.patient.id)
                                                                             Object.keys(details.patient).map(
                                                                                 (patientData) => {
                                                                                     return calculate_age(
                                                                                         details.patient.dateOfBirth &&
                                                                                         details.patient.dateOfBirth
+
                                                                                     );
                                                                                 }
                                                                             );
@@ -315,14 +331,18 @@ const MyPatients = (props) => {
                                                                         className="patient-list__card-completed"
                                                                         onClick={async () => {
                                                                             setSelectedPatient(details);
+                                                                            getNotesData(details.patient.id);
                                                                             Object.keys(details.patient).map(
                                                                                 (patientData) => {
                                                                                     return calculate_age(
                                                                                         details.patient.dateOfBirth &&
-                                                                                        details.patient.dateOfBirth
+                                                                                        details.patient.dateOfBirth, details.patient
                                                                                     );
+
                                                                                 }
                                                                             );
+
+
                                                                         }}
                                                                     >
                                                                         <div className="row align-items-start py-1">
@@ -513,36 +533,54 @@ const MyPatients = (props) => {
                                             </div>
                                             <div id="req-info" className="my-patients__view">
                                                 <div className="consultation-history-display">
-                                                    <div className="symptoms-description">
-                                                        <p>Symptoms Description</p>
-                                                        <span>
-                                                            <ul
-                                                                style={{
-                                                                    fontSize: 12,
-                                                                    display: 'block',
-                                                                    marginTop: -10,
-                                                                }}
-                                                            >
-                                                                {/* SYMPTOMS ARRAY WILL BE MAPPED HERE */}
-                                                                <li>Fever</li>
-                                                                <li>Tiredness</li>
-                                                                <li>Cough</li>
-                                                                <li>Loss of Taste and Smell</li>
-                                                            </ul>
-                                                        </span>
-                                                    </div>
-                                                    <div className="diagnosis-description">
-                                                        <p>Diagnosis Description</p>
-                                                        {/* MAP DIAGNOSIS DESCRIPTION HERE */}
-                                                        <p className='diagnosis-desc__p-tag'>
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                            elit, sed do eiusmod tempor incididunt ut labore
-                                                            et dolore magna aliqua. Ut enim ad minim veniam,
-                                                            quis nostrud exercitation ullamco laboris
-                                                        </p>
-                                                    </div>
+                                                    {notesData ?
+                                                        <div className="diagnosis-description">
+                                                            <Row>
+                                                                <Col md={6}>
+                                                                    <p><b>Chief Complaint</b></p>
+                                                                    <p className='diagnosis-desc__p-tag'>
+                                                                        {notesData.chiefComplaint}
+                                                                    </p>
+                                                                </Col>
+                                                                <Col md={6}>
+                                                                    <p><b>Present Illness</b></p>
+                                                                    <p className='diagnosis-desc__p-tag'>
+                                                                        {notesData.presentIllness}
+                                                                    </p>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row>
+                                                                <Col md={4}>
+                                                                    <p><b>Vital Signs</b></p>
+                                                                    <p className='diagnosis-desc__p-tag'>
+                                                                        {notesData.vitalSigns}
+                                                                    </p>
+                                                                </Col>
+                                                                <Col md={4}>
+                                                                    <p><b>Physical Exam</b></p>
+                                                                    <p className='diagnosis-desc__p-tag'>
+                                                                        {notesData.physicalExam}
+                                                                    </p>
+                                                                </Col>
+                                                                <Col md={4}>
+                                                                    <p><b>Plan Assessment</b></p>
+                                                                    <p className='diagnosis-desc__p-tag'>
+                                                                        {notesData.planAssessment}
+                                                                    </p>
+                                                                </Col>
+                                                            </Row>
+                                                        </div>
+                                                        :
+                                                        <div
+                                                            className="col-12 ml-2"
+                                                            style={{ textShadow: 'none', color: 'black' }}
+                                                        >
+                                                            <b>No Consultation Found</b>
+                                                        </div>
+                                                    }
                                                 </div>
-                                                <Link to={{ pathname: `/doctor/consultationhistory/${SelectedPatient.id}` }}>
+                                                <br />
+                                                <Link to={{ pathname: `/doctor/consultationhistory/${SelectedPatient.patientId}` }}>
                                                     <div style={{ display: 'flex', alignItem: 'center' }}>
                                                         <div style={{ width: '100%' }}>
                                                             <img
