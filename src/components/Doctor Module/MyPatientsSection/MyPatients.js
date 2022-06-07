@@ -271,7 +271,7 @@ const MyPatients = (props) => {
                                                                                             details.patient.lastName}
                                                                                     </b>
                                                                                 </h5>
-                                                                                <span className="patient-list__common-span">
+                                                                                <span className="patient-list__common-span-consult">
                                                                                     {details.unifiedAppointment
                                                                                         .split('#')[1]
                                                                                         .replace('_', ' ')}
@@ -368,7 +368,7 @@ const MyPatients = (props) => {
                                                                                             details.patient.lastName}
                                                                                     </b>
                                                                                 </h5>
-                                                                                <span className="patient-list__common-span">
+                                                                                <span className="patient-list__common-span-consult">
                                                                                     {details.unifiedAppointment &&
                                                                                         details.unifiedAppointment
                                                                                             .split('#')[1]
@@ -385,7 +385,7 @@ const MyPatients = (props) => {
                                             ) : (
                                                 <div
                                                     className="col-12 ml-2"
-                                                    style={{ textShadow: 'none', color: 'black' }}
+                                                    style={{ textShadow: 'none', color: '#3e4543', }}
                                                 >
                                                     No Patients Found
                                                 </div>

@@ -43,7 +43,7 @@
     width: 70px;
     height: 70px;
     box-shadow: 2px 6px 20px -4px rgb(0 0 0 / 74%);
-    -webkit-box-shadow: 2px 6px 20px -4px rgb(0 0 0 / 74%);
+    -webkit-box-shadow: 2px 6px 20px -4px rgb(0 0 0 / 20%);
   }
   
   .conhistory-card__card-details {

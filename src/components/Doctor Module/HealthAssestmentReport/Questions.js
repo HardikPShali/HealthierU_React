@@ -27,7 +27,7 @@ const Questions = ({ answers }) => {
 
                                     <div
                                         className="col-12 ml-2"
-                                        style={{ textShadow: 'none', color: 'black' }}
+                                        style={{ textShadow: 'none', color: '#3e4543' }}
                                     >
                                         Loading...
                                     </div>

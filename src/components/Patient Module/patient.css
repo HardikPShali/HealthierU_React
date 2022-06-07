@@ -40,14 +40,14 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item {
-  color: #000 !important;
+  color: #3e4543 !important;
   margin-left: 0;
   font-weight: 300;
 }
 
 #navbar a.dropdown-item:hover {
-  background-color: var(--primary) !important;
-  color: #fff !important;
+  background-color: #F5F5F5 !important;
+  color: var(--primary)!important;
 }
 
 #navbar button {
@@ -55,10 +55,15 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item.active {
-  background-color: var(--primary) !important;
-  color: #fff !important;
+  background-color: #F5F5F5 !important;
+  color: var(--primary)!important;
 }
-
+.patient-card_how-healthy-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+}
 .headerNavbar {
   margin: 0;
 }
@@ -943,6 +948,9 @@ img.card-img-top {
   .upcoming-appointment--main-header {
     font-size: 1.1rem !important;
   }
+  .no-appointments {
+    color: #3e4543;
+  }
   .empty-message {
     font-size: 0.8rem !important;
   }
@@ -1248,7 +1256,7 @@ button.btn.timeSlot:hover {
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: #000 !important;
+  color: #3e4543 !important;
 }
 
 .sb-avatar__text {
@@ -1936,6 +1944,11 @@ span#chat-time {
   width: 25px !important;
   height: 25px !important;
   color: #00d1cd;
+}
+#chat-buttons #inactive-video-icon:hover {
+  color: var(--primarysecond);
+  transition: all 0.3s;
+
 }
 
 /*
@@ -3613,12 +3626,12 @@ button a {
 }
 
 .MuiMenu-paper li.MuiButtonBase-root {
-  color: #000 !important;
+  color: #3e4543 !important;
 }
 
 .MuiMenu-paper li.MuiButtonBase-root:hover {
-  color: #fff !important;
-  background-color: var(--primary) !important;
+  background-color: #F5F5F5 !important;
+  color: var(--primary)!important;
 }
 
 .MuiFormControlLabel-root span {

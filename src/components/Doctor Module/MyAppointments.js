@@ -533,7 +533,7 @@ const MyAppointments = (props) => {
                                                                                             details.patient.lastName}
                                                                                     </b>
                                                                                 </h5>
-                                                                                <span className="patient-list__common-span">
+                                                                                <span className="patient-list__common-span-consult">
                                                                                     {details.unifiedAppointment
                                                                                         .split('#')[1]
                                                                                         .replace('_', ' ')}
@@ -630,7 +630,7 @@ const MyAppointments = (props) => {
                                                                                             details.patient.lastName}
                                                                                     </b>
                                                                                 </h5>
-                                                                                <span className="patient-list__common-span">
+                                                                                <span className="patient-list__common-span-consult">
                                                                                     {details.unifiedAppointment && details.unifiedAppointment
                                                                                         .split('#')[1]
                                                                                         .replace('_', ' ')}
@@ -646,7 +646,7 @@ const MyAppointments = (props) => {
                                             ) : (
                                                 <div
                                                     className="col-12 ml-2"
-                                                    style={{ textShadow: 'none', color: 'black' }}
+                                                    style={{ textShadow: 'none', color: '#3e4543', }}
                                                 >
                                                     No Upcoming Appointments
                                                 </div>
@@ -656,11 +656,11 @@ const MyAppointments = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <Link to="/doctor/appointment">
+                        {/* <Link to="/doctor/appointment">
                             <button className="btn btn-primary calendar-btn">
                                 My Calendar
                             </button>
-                        </Link>
+                        </Link> */}
                     </Col>
                     <Col lg={6} md={6} id="col">
                         {dataLoading && (

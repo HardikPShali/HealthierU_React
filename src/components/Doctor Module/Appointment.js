@@ -775,7 +775,7 @@ const Myappointment = (props) => {
                 <>
                     <br />
                     <br />
-                    <Container>
+                    <Container className="p-0">
                         <Row>
                             <Col>
                                 <Tooltip title="Take a appointment calendar tour again." arrow>
@@ -934,7 +934,7 @@ const Myappointment = (props) => {
                                                                                                             .lastName}
                                                                                                 </b>
                                                                                             </h5>
-                                                                                            <span className="patient-list__common-span">
+                                                                                            <span className="patient-list__common-span-consult">
                                                                                                 {appointment.unifiedAppointment
                                                                                                     ?.split('#')[1]
                                                                                                     ?.replace('_', ' ')}
@@ -1138,7 +1138,7 @@ const Myappointment = (props) => {
                                                                                                             .lastName}
                                                                                                 </b>
                                                                                             </h5>
-                                                                                            <span className="patient-list__common-span">
+                                                                                            <span className="patient-list__common-span-consult">
                                                                                                 {appointment.unifiedAppointment
                                                                                                     ?.split('#')[1]
                                                                                                     ?.replace('_', ' ')}
@@ -1235,7 +1235,7 @@ const Myappointment = (props) => {
                                                                                                             .lastName}
                                                                                                 </b>
                                                                                             </h5>
-                                                                                            <span className="patient-list__common-span">
+                                                                                            <span className="patient-list__common-span-consult">
                                                                                                 {appointment.unifiedAppointment
                                                                                                     ?.split('#')[1]
                                                                                                     ?.replace('_', ' ')}

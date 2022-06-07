@@ -60,7 +60,7 @@ function patientHomePage() {
                     <Col md={6}>
                         <div id="patient-card">
                             <div className="patient-card_text">
-                                <div>
+                                <div className="patient-card_how-healthy-wrap">
                                     <h2>How healthy are you?</h2>
                                     <Link to="/patient/questionnaire/existing">
                                         <button variant="primary" className="btn btn-primary assessment-btn">

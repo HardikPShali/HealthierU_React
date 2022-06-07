@@ -728,7 +728,9 @@ div#price-box:before {
 /*
 * Card
 */
-
+.no-appointments {
+  color: #3e4543;
+}
 #patient-card {
   border-radius: 22px !important;
 }
@@ -901,7 +903,12 @@ div.card-box {
 .sign-box .MuiFilledInput-underline:before {
   display: none;
 }
-
+.patient-card_how-healthy-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+}
 h2#signin-title {
   font-size: 2rem;
   font-weight: 400;
