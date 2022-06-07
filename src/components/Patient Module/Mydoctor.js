@@ -1714,7 +1714,6 @@ const MyDoctor = (props) => {
                         <br />
                         <span>{doctor.experience} yrs</span>
                       </p>
-                      <br />
                       <div className="mx-0">
                         <div className="row">
                           <div className="col-12">
