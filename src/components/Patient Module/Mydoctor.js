@@ -1667,7 +1667,11 @@ const MyDoctor = (props) => {
                             {doctor.firstName} {doctor.lastName}
                           </p>
                           <ul
-                            style={{ fontSize: 12, display: 'block', textAlign: 'center' }}
+                            style={{
+                              fontSize: 12,
+                              display: 'block',
+                              textAlign: 'center',
+                            }}
                             className="list--tags"
                           >
                             {doctor &&
@@ -1676,11 +1680,15 @@ const MyDoctor = (props) => {
                                 <li key={index}>{speciality.name} </li>
                               ))}
                           </ul>
-                          <p style={{
-                            fontSize: 12,
-                            textAlign: 'center',
-                            fontWeight: '600'
-                          }}>{doctor.experience} years of experience</p>
+                          <p
+                            style={{
+                              fontSize: 12,
+                              textAlign: 'center',
+                              fontWeight: '600',
+                            }}
+                          >
+                            {doctor.experience} years of experience
+                          </p>
                         </div>
                       </Col>
                     </Row>
@@ -1700,10 +1708,19 @@ const MyDoctor = (props) => {
                                   availableSlotsDisplay.data.length > 0 &&
                                   availableSlotsDisplay.data.map(
                                     (slot, index) => (
-                                      <div className="availability-card" key={index}>
-                                        <span>Slots Available: {slot.count}</span>
-                                        <span>Date: {slot.date}</span>
+
+                                      <div
+                                        className="availability-card"
+                                        key={index}
+                                      >
+                                        <span>
+                                          {moment(slot.instantDate).format('DD/MM/YY')}
+                                        </span>
+                                        <span>
+                                          {slot.count} slots available
+                                        </span>
                                       </div>
+
                                     )
                                   )}
                               </div>
@@ -1713,8 +1730,8 @@ const MyDoctor = (props) => {
                         </>
                       )}
                     <div className="mr-4 ml-4">
-                      <div className='row'>
-                        <div className='col-12'>
+                      <div className="row">
+                        <div className="col-12">
                           <span style={{ fontSize: 12 }}>
                             Country Of Residence: <b>{doctor.countryName}</b>
                           </span>
@@ -1737,7 +1754,7 @@ const MyDoctor = (props) => {
                           </b>
                         </div>
                       </div>
-                      <div className='row'>
+                      <div className="row">
                         <div className="col-12">
                           <span style={{ fontSize: 12 }}>Institution</span>
                           <br />
@@ -1753,7 +1770,7 @@ const MyDoctor = (props) => {
                         </div>
                       </div>
 
-                      <div className='row'>
+                      <div className="row">
                         <div className="col-12">
                           <span style={{ fontSize: 12 }}>Languange</span>
                           <br />
@@ -1769,7 +1786,7 @@ const MyDoctor = (props) => {
                     </div>
                     <hr />
                     {/* <h5>About</h5> */}
-                    <div className='ml-4'>
+                    <div className="ml-4">
                       <p style={{ fontSize: 12 }}>
                         {/* <span><b>Bio : </b></span><br/> */}
                         <span>{doctor.bio}</span>
@@ -1783,34 +1800,27 @@ const MyDoctor = (props) => {
                             <br />
                             <span>{doctor.awards}</span>
                           </>
-                        )
-                        }
+                        )}
                         <br />
-                        {
-                          doctor.certificates && (
-                            <>
-                              <span>
-                                <b>Certificates : </b>
-                              </span>
-                              <br />
-                              <span>{doctor.certificates}</span>
-                            </>
-
-                          )
-                        }
+                        {doctor.certificates && (
+                          <>
+                            <span>
+                              <b>Certificates : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.certificates}</span>
+                          </>
+                        )}
                         <br />
-                        {
-                          doctor.experience && (
-                            <>
-                              <span>
-                                <b>Experience : </b>
-                              </span>
-                              <br />
-                              <span>{doctor.experience} yrs</span>
-                            </>
-                          )
-                        }
-
+                        {doctor.experience && (
+                          <>
+                            <span>
+                              <b>Experience : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.experience} yrs</span>
+                          </>
+                        )}
                       </p>
                       <div className="mx-0">
                         <div className="row">
@@ -2008,7 +2018,11 @@ const MyDoctor = (props) => {
                             {doctor.firstName} {doctor.lastName}
                           </p>
                           <ul
-                            style={{ fontSize: 12, display: 'block', textAlign: 'center' }}
+                            style={{
+                              fontSize: 12,
+                              display: 'block',
+                              textAlign: 'center',
+                            }}
                             className="list--tags"
                           >
                             {doctor &&
@@ -2017,11 +2031,15 @@ const MyDoctor = (props) => {
                                 <li key={index}>{speciality.name} </li>
                               ))}
                           </ul>
-                          <p style={{
-                            fontSize: 12,
-                            textAlign: 'center',
-                            fontWeight: '600'
-                          }}>{doctor.experience} years of experience</p>
+                          <p
+                            style={{
+                              fontSize: 12,
+                              textAlign: 'center',
+                              fontWeight: '600',
+                            }}
+                          >
+                            {doctor.experience} years of experience
+                          </p>
                         </div>
                       </Col>
                     </Row>
@@ -2041,8 +2059,13 @@ const MyDoctor = (props) => {
                                   availableSlotsDisplay.data.length > 0 &&
                                   availableSlotsDisplay.data.map(
                                     (slot, index) => (
-                                      <div className="availability-card" key={index}>
-                                        <span>Slots Available: {slot.count}</span>
+                                      <div
+                                        className="availability-card"
+                                        key={index}
+                                      >
+                                        <span>
+                                          Slots Available: {slot.count}
+                                        </span>
                                         <span>Date: {slot.date}</span>
                                       </div>
                                     )
@@ -2054,8 +2077,8 @@ const MyDoctor = (props) => {
                         </>
                       )}
                     <div className="mr-4 ml-4">
-                      <div className='row'>
-                        <div className='col-12'>
+                      <div className="row">
+                        <div className="col-12">
                           <span style={{ fontSize: 12 }}>
                             Country Of Residence: <b>{doctor.countryName}</b>
                           </span>
@@ -2078,7 +2101,7 @@ const MyDoctor = (props) => {
                           </b>
                         </div>
                       </div>
-                      <div className='row'>
+                      <div className="row">
                         <div className="col-12">
                           <span style={{ fontSize: 12 }}>Institution</span>
                           <br />
@@ -2094,7 +2117,7 @@ const MyDoctor = (props) => {
                         </div>
                       </div>
 
-                      <div className='row'>
+                      <div className="row">
                         <div className="col-12">
                           <span style={{ fontSize: 12 }}>Languange</span>
                           <br />
@@ -2110,7 +2133,7 @@ const MyDoctor = (props) => {
                     </div>
                     <hr />
                     {/* <h5>About</h5> */}
-                    <div className='ml-4'>
+                    <div className="ml-4">
                       <p style={{ fontSize: 12 }}>
                         {/* <span><b>Bio : </b></span><br/> */}
                         <span>{doctor.bio}</span>
@@ -2124,34 +2147,27 @@ const MyDoctor = (props) => {
                             <br />
                             <span>{doctor.awards}</span>
                           </>
-                        )
-                        }
+                        )}
                         <br />
-                        {
-                          doctor.certificates && (
-                            <>
-                              <span>
-                                <b>Certificates : </b>
-                              </span>
-                              <br />
-                              <span>{doctor.certificates}</span>
-                            </>
-
-                          )
-                        }
+                        {doctor.certificates && (
+                          <>
+                            <span>
+                              <b>Certificates : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.certificates}</span>
+                          </>
+                        )}
                         <br />
-                        {
-                          doctor.experience && (
-                            <>
-                              <span>
-                                <b>Experience : </b>
-                              </span>
-                              <br />
-                              <span>{doctor.experience} yrs</span>
-                            </>
-                          )
-                        }
-
+                        {doctor.experience && (
+                          <>
+                            <span>
+                              <b>Experience : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.experience} yrs</span>
+                          </>
+                        )}
                       </p>
                       <div className="mx-0">
                         <div className="row">
@@ -2656,7 +2672,11 @@ const MyDoctor = (props) => {
                         {doctor.firstName} {doctor.lastName}
                       </p>
                       <ul
-                        style={{ fontSize: 12, display: 'block', textAlign: 'center' }}
+                        style={{
+                          fontSize: 12,
+                          display: 'block',
+                          textAlign: 'center',
+                        }}
                         className="list--tags"
                       >
                         {doctor &&
@@ -2665,17 +2685,21 @@ const MyDoctor = (props) => {
                             <li key={index}>{speciality.name} </li>
                           ))}
                       </ul>
-                      <p style={{
-                        fontSize: 12,
-                        textAlign: 'center',
-                        fontWeight: '600'
-                      }}>{doctor.experience} years of experience</p>
+                      <p
+                        style={{
+                          fontSize: 12,
+                          textAlign: 'center',
+                          fontWeight: '600',
+                        }}
+                      >
+                        {doctor.experience} years of experience
+                      </p>
                     </div>
                   </Col>
                 </Row>
                 <div className="mr-4 ml-4">
-                  <div className='row'>
-                    <div className='col-12'>
+                  <div className="row">
+                    <div className="col-12">
                       <span style={{ fontSize: 12 }}>
                         Country Of Residence: <b>{doctor.countryName}</b>
                       </span>
@@ -2688,33 +2712,27 @@ const MyDoctor = (props) => {
                       <b>
                         {doctor &&
                           doctor.educationalQualifications &&
-                          doctor.educationalQualifications.map(
-                            (x, index) => (
-                              <li key={index}>
-                                {x.educationalQualification}{' '}
-                              </li>
-                            )
-                          )}
+                          doctor.educationalQualifications.map((x, index) => (
+                            <li key={index}>{x.educationalQualification} </li>
+                          ))}
                       </b>
                     </div>
                   </div>
-                  <div className='row'>
+                  <div className="row">
                     <div className="col-12">
                       <span style={{ fontSize: 12 }}>Institution</span>
                       <br />
                       <b>
                         {doctor &&
                           doctor.educationalQualifications &&
-                          doctor.educationalQualifications.map(
-                            (x, index) => (
-                              <li key={index}>{x.institution} </li>
-                            )
-                          )}
+                          doctor.educationalQualifications.map((x, index) => (
+                            <li key={index}>{x.institution} </li>
+                          ))}
                       </b>
                     </div>
                   </div>
 
-                  <div className='row'>
+                  <div className="row">
                     <div className="col-12">
                       <span style={{ fontSize: 12 }}>Languange</span>
                       <br />
@@ -2770,7 +2788,7 @@ const MyDoctor = (props) => {
           ) : (
             <>
               <Col md={8} style={{ display: display.appointment }}>
-                <div id="dorctor-list" className='doctor-list-new'>
+                <div id="dorctor-list" className="doctor-list-new">
                   <IconButton
                     style={{ background: '#F6CEB4', color: '#00d0cc' }}
                     onClick={() => {
@@ -2803,7 +2821,11 @@ const MyDoctor = (props) => {
                           {doctor.firstName} {doctor.lastName}
                         </p>
                         <ul
-                          style={{ fontSize: 12, display: 'block', textAlign: 'center' }}
+                          style={{
+                            fontSize: 12,
+                            display: 'block',
+                            textAlign: 'center',
+                          }}
                           className="list--tags"
                         >
                           {doctor &&
@@ -2812,17 +2834,21 @@ const MyDoctor = (props) => {
                               <li key={index}>{speciality.name} </li>
                             ))}
                         </ul>
-                        <p style={{
-                          fontSize: 12,
-                          textAlign: 'center',
-                          fontWeight: '600'
-                        }}>{doctor.experience} years of experience</p>
+                        <p
+                          style={{
+                            fontSize: 12,
+                            textAlign: 'center',
+                            fontWeight: '600',
+                          }}
+                        >
+                          {doctor.experience} years of experience
+                        </p>
                       </div>
                     </Col>
                   </Row>
                   <div className="mr-4 ml-4">
-                    <div className='row'>
-                      <div className='col-12'>
+                    <div className="row">
+                      <div className="col-12">
                         <span style={{ fontSize: 12 }}>
                           Country Of Residence: <b>{doctor.countryName}</b>
                         </span>
@@ -2835,33 +2861,27 @@ const MyDoctor = (props) => {
                         <b>
                           {doctor &&
                             doctor.educationalQualifications &&
-                            doctor.educationalQualifications.map(
-                              (x, index) => (
-                                <li key={index}>
-                                  {x.educationalQualification}{' '}
-                                </li>
-                              )
-                            )}
+                            doctor.educationalQualifications.map((x, index) => (
+                              <li key={index}>{x.educationalQualification} </li>
+                            ))}
                         </b>
                       </div>
                     </div>
-                    <div className='row'>
+                    <div className="row">
                       <div className="col-12">
                         <span style={{ fontSize: 12 }}>Institution</span>
                         <br />
                         <b>
                           {doctor &&
                             doctor.educationalQualifications &&
-                            doctor.educationalQualifications.map(
-                              (x, index) => (
-                                <li key={index}>{x.institution} </li>
-                              )
-                            )}
+                            doctor.educationalQualifications.map((x, index) => (
+                              <li key={index}>{x.institution} </li>
+                            ))}
                         </b>
                       </div>
                     </div>
 
-                    <div className='row'>
+                    <div className="row">
                       <div className="col-12">
                         <span style={{ fontSize: 12 }}>Languange</span>
                         <br />

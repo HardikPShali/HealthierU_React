@@ -4175,16 +4175,28 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 /* MY DOCTOR AVAILABLE SLOTS CSS */
-.availability-card {
-  display: flex;
-  flex-direction: column;
-}
-
 .availability-card-holder {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* overflow-x: scroll; */
+  overflow-x: scroll;
+}
+
+.availability-card {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: flex-start;
+  padding: 10px 14px 10px 12px;
+  width: 120px;
+  height: 56px;
+  background: #eef4f4;
+  border-radius: 8px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  font-size: 12px;
+  margin-right: 10px;
 }
 
 .slot-display {
@@ -4210,6 +4222,28 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 .slot-display::-webkit-scrollbar {
   background: #00d0cc;
+  border-right: 1px solid white;
+  -moz-appearance: none !important;
+}
+
+/* SCROLL FOR AVAILABILITY SLOT DISPLAY */
+.availability-card-holder::-webkit-scrollbar {
+  scrollbar-color: #00d0cc white !important; /* thumb and track color */
+  scrollbar-width: thin !important;
+  -moz-appearance: none !important;
+  border-radius: 1px !important;
+  height: 5px !important;
+}
+.availability-card-holder::-webkit-scrollbar-track {
+  height: 4px !important;
+  -moz-appearance: none !important;
+}
+.availability-card-holder::-webkit-scrollbar-thumb {
+  background: #e5e5e5 !important;
+  -moz-appearance: none !important;
+}
+.availability-card-holder::-webkit-scrollbar-thumb:hover {
+  background: #00d0cc !important;
   border-right: 1px solid white;
   -moz-appearance: none !important;
 }
