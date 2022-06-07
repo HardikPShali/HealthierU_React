@@ -326,7 +326,7 @@ const MyPatients = (props) => {
                                                                         }}
                                                                     >
                                                                         <div className="row align-items-start py-1">
-                                                                            <div className="col-md-2  d-flex flex-column mt-3 ml-3">
+                                                                            <div className="patient-list_common-date-wrap col-md-3 col-lg-3 col-xl-3 d-flex flex-column">
                                                                                 <h5 className="patient-list__common-date">
                                                                                     <b>
                                                                                         {moment(details.startTime).format(
@@ -340,7 +340,7 @@ const MyPatients = (props) => {
                                                                                     )}
                                                                                 </span>
                                                                             </div>
-                                                                            <div className="col-md-2  ml-3 mt-2 pb-2">
+                                                                            <div className="patient-list_common-pic-wrap col-md-3 col-lg-3 col-xl-3">
                                                                                 {details.patient.picture ? (
                                                                                     <img
                                                                                         src={details.patient.picture}
@@ -360,7 +360,7 @@ const MyPatients = (props) => {
                                                                                     />
                                                                                 )}
                                                                             </div>
-                                                                            <div className="col-md-7  d-flex flex-column mt-3">
+                                                                            <div className="patient-list_common-name-wrap col-md-6 col-lg-6 col-xl-6 d-flex flex-column">
                                                                                 <h5 className="patient-list__common-name">
                                                                                     <b>
                                                                                         {details.patient.firstName +
@@ -511,7 +511,7 @@ const MyPatients = (props) => {
                                                     </Col>
                                                 </Row>
                                             </div>
-                                            <div id="req-info" className="my-patients__view">
+                                            <div id="req-info" className="my-patients__view scroller-cardlist">
                                                 <div className="consultation-history-display">
                                                     <div className="symptoms-description">
                                                         <p>Symptoms Description</p>

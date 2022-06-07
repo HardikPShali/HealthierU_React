@@ -113,7 +113,7 @@ svg#search-icon {
     margin: 4px 0;
   }
 
-  .MuiIconButton-root[aria-label='show 17 new notifications'] {
+  .MuiIconButton-root[aria-label="show 17 new notifications"] {
     padding: 0;
   }
 }
@@ -201,7 +201,7 @@ img#store-icon {
 a#copy-link {
   color: #3e4543;
   text-decoration: none;
-  font-size: .6rem;
+  font-size: 0.6rem;
   margin: 0 20px 0 0;
 }
 
@@ -216,7 +216,7 @@ div#copyright {
 
 p#copyright-text {
   margin: 15px 0 0;
-  font-size: .6rem;
+  font-size: 0.6rem;
   color: #999;
 }
 
@@ -234,7 +234,6 @@ p#lang-select {
 div#social-icon {
   justify-content: flex-end;
   align-items: center;
-
 }
 
 #foot-icon img {
@@ -558,7 +557,7 @@ input#doctor-search {
 .appointment-card-header {
   margin-left: 5px;
   color: #344767;
-  font-weight: 700;
+  font-weight: 400;
   text-shadow: none;
   font-size: 28px;
 }
@@ -743,7 +742,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 100%;
   left: 46%;
@@ -1126,7 +1125,7 @@ table#user-info {
 
 .page-contain {
   display: flex;
-  /* justify-content: center; */
+  justify-content: space-between;
   /* background: #8df0ee; */
   /* border: .75em solid white; */
   /* padding: 2em; */
@@ -1137,13 +1136,13 @@ table#user-info {
 .data-card {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 100%;
   min-height: 40%;
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
   background: #5fccc8;
-  margin: 1em;
+  margin: .5rem;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
@@ -1155,20 +1154,20 @@ table#user-info {
 .data-card1 {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 100%;
   min-height: 40%;
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
   background: #ffc9ae;
-  margin: 1em;
+  margin: .5rem;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
 
 .appointment-count-h3 {
   color: white;
-  font-size: 3.5em;
+  font-size: 2.5em;
   font-weight: 600;
   line-height: 1;
   padding-bottom: 0.5em;
@@ -1189,8 +1188,8 @@ table#user-info {
 .appointment-count-h4 {
   color: white;
   text-transform: uppercase;
-  font-size: 1.125em;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 400;
   line-height: 1;
   letter-spacing: 0.1em;
   /* margin: 0 0 1.777777778em; */
@@ -2034,13 +2033,35 @@ div#primary-card {
 }
 
 @media (max-width: 500px) {
+  .patient-list__card-completed {
+    padding: 1rem !important;
+  }
+  .patient-list_common-date-wrap,.patient-list_common-pic-wrap, .patient-list_common-name-wrap  {
+    padding-bottom: 1rem;
+  }
+  
+  .page-contain {
+    flex-direction: column !important;
+  }
+  .data-card, .data-card1 {
+    margin: .5rem 0 ;
+  }
+  div#patient-heading {
+    font-weight: 400 !important;
+  }
+  .patient-list__card {
+    padding: 1rem !important;
+  }
+  .patient-list__common-name {
+    font-weight: 300 !important;
+  }
+
   #patient-card .card-title.h5 {
     font-size: 1rem !important;
   }
   div#social-icon {
     justify-content: center !important;
     margin-top: 1rem !important;
-
   }
   div#primary-card {
     height: 65vh;
@@ -2048,12 +2069,10 @@ div#primary-card {
   #patient-card .card,
   img.card-img-top {
     border-radius: 20px 20px 0 0;
-   
   }
   #footer {
     padding: 20px 10px 20px !important;
   }
-  
 }
 
 @media (max-width: 400px) {
@@ -2273,7 +2292,7 @@ div.reply .messageBody span.messageTime {
 }
 
 .list--tags > li:before {
-  content: ',\0000a0';
+  content: ",\0000a0";
   /* Non-breaking space */
 }
 
@@ -2417,7 +2436,7 @@ Health Assessment
 }
 
 .rbc-time-slot.active:after {
-  content: 'click here to create slot';
+  content: "click here to create slot";
   position: absolute;
   background: #00d0ce;
   color: #fff;
@@ -2530,7 +2549,7 @@ Health Assessment
 }
 
 span.followupColor:before {
-  content: '';
+  content: "";
   width: 20px;
   height: 10px;
   background: #4f80e2;
@@ -2546,7 +2565,7 @@ span.followupColor {
 }
 
 span.consultationColor:before {
-  content: '';
+  content: "";
   width: 20px;
   height: 10px;
   background: #3157a3;
@@ -2562,7 +2581,7 @@ span.consultationColor {
 }
 
 span.availableColor:before {
-  content: '';
+  content: "";
   width: 20px;
   height: 10px;
   background: #00d1cd;
@@ -2934,6 +2953,8 @@ button.reset-btn {
 
 .patient-list__card-holder {
   width: 100%;
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .patient-list__card {
@@ -2957,6 +2978,7 @@ button.reset-btn {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  padding: .7rem;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
@@ -2967,6 +2989,7 @@ button.reset-btn {
   transition: all 0.2s;
   cursor: pointer;
 }
+
 
 .patient-list__card:hover {
   transform: translateY(-2px);
@@ -2986,8 +3009,8 @@ button.reset-btn {
 
 .patient-list__common-name {
   text-shadow: none;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 1.05rem;
+  font-weight: 300;
   margin-bottom: 2px;
   text-transform: capitalize;
   color: #3e4543;
@@ -3008,6 +3031,7 @@ button.reset-btn {
   text-decoration: none;
   text-shadow: none;
   color: #3e4543;
+  font-weight: 500;
 }
 
 .patient-list__common-date {
@@ -3015,7 +3039,7 @@ button.reset-btn {
   font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.1rem;
   line-height: 22px;
   color: #3e4543;
   margin-bottom: 2px;
