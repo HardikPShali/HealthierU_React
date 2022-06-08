@@ -482,6 +482,12 @@
   width: 35px !important;
   height: 35px !important;
   color: var(--primary);
+  transition: all 0.3s;
+}
+#inactive-video-icon:hover {
+  color: var(--primarysecond);
+  transition: all 0.3s;
+
 }
 
 button#inactive-video-button {

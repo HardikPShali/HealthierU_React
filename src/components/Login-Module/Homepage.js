@@ -164,11 +164,11 @@ const Homepage = () => {
                 <Container>
                 <h3 className="text-primary-clr">Connect with our Global Wellness Experts Virtually</h3>
                 <p className="text-primary-clr-p">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
-                <Link to="/signin">
+                {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_GETHELP.BTN_TEXT}
                   </button>
-                </Link>
+                </Link> */}
                 </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
@@ -185,11 +185,11 @@ const Homepage = () => {
                 <Container>
                 <h3 className="h3-responsive">Book Appointment</h3>
                 <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
-                <Link to="/signin">
+                {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_TAKEACTION.BTN_TEXT}
                   </button>
-                </Link>
+                </Link> */}
                 </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
@@ -206,11 +206,11 @@ const Homepage = () => {
                 <Container>
                 <h3 className="h3-responsive">Take Charge of your Health</h3>
                 <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
-                <Link to="/signin">
+                {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
                   </button>
-                </Link>
+                </Link> */}
                 </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
@@ -376,7 +376,7 @@ const Homepage = () => {
                 <img src={step3} alt=""></img>
               </Col>
               <div className="our_partners">
-                <h4>Our Partners</h4>
+                <h4>Our Partner</h4>
                 <div className="our_partners-logo">
                   <div className="cornel-logo">
                     <img src={CornelMedicine} alt="" />

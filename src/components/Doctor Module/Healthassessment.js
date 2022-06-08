@@ -486,7 +486,7 @@ const Healthassessment = (props) => {
                             ) : (
                                 <div
                                     className="col-12 ml-2"
-                                    style={{ textShadow: 'none', color: 'black' }}
+                                    style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
                                     No Documents
                                 </div>
@@ -566,7 +566,7 @@ const Healthassessment = (props) => {
 
                                 <div
                                     className="col-12 ml-2"
-                                    style={{ textShadow: 'none', color: 'black' }}
+                                    style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
                                     No Documents
                                 </div>

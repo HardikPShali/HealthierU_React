@@ -10,7 +10,7 @@
 }
 
 body {
-  background: #e5e5e5 !important;
+  background: white !important;
 }
 
 /*
@@ -38,14 +38,14 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item {
-  color: #000 !important;
+  color: #3e4543 !important;
   margin-left: 0;
   font-weight: 300;
 }
 
 #navbar a.dropdown-item:hover {
-  background-color: var(--primary) !important;
-  color: #fff !important;
+  background-color: #F5F5F5 !important;
+    color: var(--primary)!important;
 }
 
 #navbar button {
@@ -53,10 +53,15 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item.active {
-  background-color: var(--primary) !important;
-  color: #fff !important;
+  background-color: #F5F5F5 !important;
+  color: var(--primary)!important;
 }
-
+.patient-card_how-healthy-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+}
 .headerNavbar {
   margin: 0;
 }
@@ -113,7 +118,7 @@ svg#search-icon {
     margin: 4px 0;
   }
 
-  .MuiIconButton-root[aria-label='show 17 new notifications'] {
+  .MuiIconButton-root[aria-label="show 17 new notifications"] {
     padding: 0;
   }
 }
@@ -201,7 +206,7 @@ img#store-icon {
 a#copy-link {
   color: #3e4543;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 0.6rem;
   margin: 0 20px 0 0;
 }
 
@@ -216,7 +221,7 @@ div#copyright {
 
 p#copyright-text {
   margin: 15px 0 0;
-  font-size: 12px;
+  font-size: 0.6rem;
   color: #999;
 }
 
@@ -233,6 +238,7 @@ p#lang-select {
 
 div#social-icon {
   justify-content: flex-end;
+  align-items: center;
 }
 
 #foot-icon img {
@@ -336,6 +342,7 @@ div#dorctor-list {
 .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 26px !important;
   height: 26px !important;
+  fill: #3e4543;
 }
 
 .MuiAppBar-root {
@@ -534,8 +541,9 @@ ul.MuiGridList-root {
   /* width: auto; */
   display: inline-flex;
   border-radius: 27px;
-  box-shadow: none !important;
-  background: var(--primary);
+  background: #f8f8f8;
+  color: #3e4543;
+  box-shadow: 0px 1px 5px rgb(0 0 0 / 8%);
 }
 
 div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
@@ -556,7 +564,7 @@ input#doctor-search {
 .appointment-card-header {
   margin-left: 5px;
   color: #344767;
-  font-weight: 700;
+  font-weight: 400;
   text-shadow: none;
   font-size: 28px;
 }
@@ -741,7 +749,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 100%;
   left: 46%;
@@ -1124,7 +1132,7 @@ table#user-info {
 
 .page-contain {
   display: flex;
-  /* justify-content: center; */
+  justify-content: space-between;
   /* background: #8df0ee; */
   /* border: .75em solid white; */
   /* padding: 2em; */
@@ -1135,13 +1143,13 @@ table#user-info {
 .data-card {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 100%;
   min-height: 40%;
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
   background: #5fccc8;
-  margin: 1em;
+  margin: 0.5rem;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
@@ -1153,21 +1161,21 @@ table#user-info {
 .data-card1 {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 100%;
   min-height: 40%;
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #ffc9ae;
-  margin: 1em;
+  background: #F5F5F5;
+  margin: 0.5rem;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
 
 .appointment-count-h3 {
-  color: white;
-  font-size: 3.5em;
-  font-weight: 600;
+  color: #3e4543;
+  font-size: 2.5em;
+  font-weight: 400;
   line-height: 1;
   padding-bottom: 0.5em;
   margin: 0 0 0.142857143em;
@@ -1175,9 +1183,9 @@ table#user-info {
 }
 
 .appointment-count-h3 {
-  color: white;
+  color: #3e4543;
   font-size: 3.5em;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1;
   padding-bottom: 0.5em;
   margin: 0 0 0.142857143em;
@@ -1185,10 +1193,10 @@ table#user-info {
 }
 
 .appointment-count-h4 {
-  color: white;
+  color: #3e4543;
   text-transform: uppercase;
-  font-size: 1.125em;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 400;
   line-height: 1;
   letter-spacing: 0.1em;
   /* margin: 0 0 1.777777778em; */
@@ -1365,6 +1373,7 @@ div#multiselectContainerReact div {
 div#patient-col-1 {
   background: var(--primarybg);
   border-radius: 22px;
+  box-shadow: 0px 0px 5px #e9e9e9;
   /* text-align: center; */
 }
 
@@ -1385,8 +1394,8 @@ div#patient-heading {
   text-align: left;
   width: 100%;
   padding: 10px 20px;
-  background: var(--primary);
-  color: #fff;
+  background: var(--primarysecond);
+  color: white;
   border-top-left-radius: 22px;
   border-top-right-radius: 22px;
   font-weight: 600;
@@ -1536,7 +1545,7 @@ div#patient-row {
 .btn-primary.Low {
   background-color: #eee9df !important;
   border-color: #eee9df !important;
-  color: #000 !important;
+  color: #3e4543 !important;
   font-size: 11px;
   padding: 2px 20px;
 }
@@ -2032,8 +2041,48 @@ div#primary-card {
 }
 
 @media (max-width: 500px) {
+  .patient-list__card-completed {
+    padding: 1rem !important;
+  }
+  .patient-list_common-date-wrap,
+  .patient-list_common-pic-wrap,
+  .patient-list_common-name-wrap {
+    padding-bottom: 1rem;
+  }
+
+  .page-contain {
+    flex-direction: column !important;
+  }
+  .data-card,
+  .data-card1 {
+    margin: 0.5rem 0;
+  }
+  div#patient-heading {
+    font-weight: 400 !important;
+  }
+  .patient-list__card {
+    padding: 1rem !important;
+  }
+  .patient-list__common-name {
+    font-weight: 300 !important;
+  }
+
+  #patient-card .card-title.h5 {
+    font-size: 1rem !important;
+  }
+  div#social-icon {
+    justify-content: center !important;
+    margin-top: 1rem !important;
+  }
   div#primary-card {
     height: 65vh;
+  }
+  #patient-card .card,
+  img.card-img-top {
+    border-radius: 20px 20px 0 0;
+  }
+  #footer {
+    padding: 20px 10px 20px !important;
   }
 }
 
@@ -2254,7 +2303,7 @@ div.reply .messageBody span.messageTime {
 }
 
 .list--tags > li:before {
-  content: ',\0000a0';
+  content: ",\0000a0";
   /* Non-breaking space */
 }
 
@@ -2353,7 +2402,10 @@ Health Assessment
   height: 25px !important;
   color: #00d1cd;
 }
-
+#chat-buttons #inactive-video-icon:hover {
+  color: var(--primarysecond);
+  transition: all 0.3s;
+}
 .doc-img div {
   height: 140px !important;
   justify-content: center;
@@ -2398,7 +2450,7 @@ Health Assessment
 }
 
 .rbc-time-slot.active:after {
-  content: 'click here to create slot';
+  content: "click here to create slot";
   position: absolute;
   background: #00d0ce;
   color: #fff;
@@ -2511,7 +2563,7 @@ Health Assessment
 }
 
 span.followupColor:before {
-  content: '';
+  content: "";
   width: 20px;
   height: 10px;
   background: #4f80e2;
@@ -2527,7 +2579,7 @@ span.followupColor {
 }
 
 span.consultationColor:before {
-  content: '';
+  content: "";
   width: 20px;
   height: 10px;
   background: #3157a3;
@@ -2543,7 +2595,7 @@ span.consultationColor {
 }
 
 span.availableColor:before {
-  content: '';
+  content: "";
   width: 20px;
   height: 10px;
   background: #00d1cd;
@@ -2653,12 +2705,12 @@ button a {
 }
 
 .MuiMenu-paper li.MuiButtonBase-root {
-  color: #000 !important;
+  color: #3e4543 !important;
 }
 
 .MuiMenu-paper li.MuiButtonBase-root:hover {
-  color: #fff !important;
-  background-color: var(--primary) !important;
+  background-color: #F5F5F5 !important;
+  color: var(--primary)!important;
 }
 
 sup {
@@ -2930,6 +2982,8 @@ button.reset-btn {
 
 .patient-list__card-holder {
   width: 100%;
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .patient-list__card {
@@ -2940,12 +2994,13 @@ button.reset-btn {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 22px;
-  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
-  border-left: 3px solid var(--primary);
-  transition: all 0.2s;
+  /* filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08)); */
+  border-left: 3px solid var(--primarysecond);
+  transition: all 0.3s;
   cursor: pointer;
+  margin: 0 0.2rem;
+  box-shadow: 0px 0px 4px #e9e9e9;
 }
 
 .patient-list__card-completed {
@@ -2953,20 +3008,26 @@ button.reset-btn {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  padding: 0.7rem;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  /* border: 1px solid rgba(0, 0, 0, 0.125); */
   border-radius: 22px;
-  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+  box-shadow: 0px 0px 4px #e9e9e9;
   border-left: 3px solid var(--primarysecond);
   transition: all 0.2s;
+  margin: 0 0.2rem;
   cursor: pointer;
 }
+.patient-list__card-completed:hover  {
+  border-left: 6px solid var(--primary);
+  transition: all 0.2s;
 
+}
 .patient-list__card:hover {
-  transform: translateY(-2px);
-  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
+  border-left: 6px solid var(--primary);
+  transition: all 0.3s;
 }
 
 .patient-list__card-details {
@@ -2978,15 +3039,17 @@ button.reset-btn {
   border-radius: 50%;
   width: 60px;
   height: 60px;
+  box-shadow: 0px 2px 9px #978d8d;
 }
 
 .patient-list__common-name {
   text-shadow: none;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 1.05rem;
+  font-weight: 300;
   margin-bottom: 2px;
   text-transform: capitalize;
   color: #3e4543;
+  padding-bottom: 0.5rem;
 }
 
 .patient-list__appointment-type {
@@ -3000,10 +3063,18 @@ button.reset-btn {
 }
 
 .patient-list__common-span {
-  font-size: 10px;
+  font-size: 0.8rem;
   text-decoration: none;
   text-shadow: none;
-  color: #3e4543;
+  color: var(--primarysecond);
+  font-weight: 400;
+}
+.patient-list__common-span-consult {
+  font-size: 0.8rem;
+  text-decoration: none;
+  text-shadow: none;
+  color: #999999;
+  font-weight: 400;
 }
 
 .patient-list__common-date {
@@ -3011,9 +3082,9 @@ button.reset-btn {
   font-family: var(--font-primary);
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.1rem;
   line-height: 22px;
-  color: #3e4543;
+  color: var(--primarysecond);
   margin-bottom: 2px;
   text-transform: capitalize;
   margin-top: 5px;
@@ -3191,7 +3262,7 @@ button.reset-btn {
 .details-links > div {
   border-radius: 10px;
   text-align: justify;
-  color: #000;
+  color: #3e4543;
   font-weight: 600;
 }
 

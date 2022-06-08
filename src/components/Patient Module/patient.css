@@ -40,14 +40,14 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item {
-  color: #000 !important;
+  color: #3e4543 !important;
   margin-left: 0;
   font-weight: 300;
 }
 
 #navbar a.dropdown-item:hover {
-  background-color: var(--primary) !important;
-  color: #fff !important;
+  background-color: #F5F5F5 !important;
+  color: var(--primary)!important;
 }
 
 #navbar button {
@@ -55,10 +55,15 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item.active {
-  background-color: var(--primary) !important;
-  color: #fff !important;
+  background-color: #F5F5F5 !important;
+  color: var(--primary)!important;
 }
-
+.patient-card_how-healthy-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+}
 .headerNavbar {
   margin: 0;
 }
@@ -682,23 +687,25 @@ span.MuiBottomNavigationAction-wrapper {
 }
 
 .doc-img {
-  height: 140px;
+  /* height: 140px; */
   display: flex;
   justify-content: center;
-  border-radius: 22px;
-  background: #f8f8f8;
+  /* border-radius: 22px; */
+  /* background: #f8f8f8; */
   overflow: hidden;
 }
 
 .doc-img img {
-  border-radius: 22px;
-  height: 214px;
-  width: auto !important;
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
 }
 
-b.doc-name {
+p.doc-name {
   color: var(--primary) !important;
-  font-size: 15px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 600;
 }
 
 .MuiFormControl-root.MuiTextField-root {
@@ -765,7 +772,8 @@ div#doc-row {
 
 div#doc-details {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  padding: 10px 30px;
 }
 
 .blue {
@@ -896,6 +904,65 @@ img.card-img-top {
   align-items: unset;
 }
 
+@media screen and (max-width: 500px) {
+  #patient-card {
+    min-height: 17rem !important;
+  }
+  #patient-card .card-title.h5 {
+    font-size: 1rem !important;
+  }
+  #patient-card .card,
+  img.card-img-top {
+    border-radius: 20px 20px 0 0;
+  }
+  #patient-card .patient-card_text h2 {
+    font-size: 1.4rem!important;
+  }
+  .specialities-header {
+    font-size: 1.5rem !important;
+    padding: 1.2rem !important;
+    text-align: center !important;
+  }
+  .speciality-icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .speciality-name {
+    white-space: normal !important;
+    font-size: 0.8rem !important;
+  }
+  #patient-card button.assessment-btn {
+    font-size: 0.7rem !important;
+  }
+  .upcoming-appointment--main-header {
+    font-size: 1.1rem !important;
+  }
+  .no-appointments {
+    color: #3e4543;
+  }
+  .empty-message {
+    font-size: 0.8rem !important;
+  }
+  .our-doctors--main-header {
+    font-size: 0.9rem !important;
+  }
+  .our-doctor__name {
+    font-size: 1rem !important;
+  }
+  .our-doctor__speciality {
+    font-size: 0.8rem !important;
+  }
+  .specialities {
+    margin-top: 2rem !important;
+  }
+  div#social-icon {
+    justify-content: center;
+    margin-top: 1rem !important;
+  }
+  #footer {
+    padding: 20px 10px 20px !important;
+  }
+}
 @media (min-width: 481px) and (max-width: 990px) {
   .specialities-profile {
     padding: 10px 6px !important;
@@ -1175,7 +1242,7 @@ button.btn.timeSlot:hover {
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: #000 !important;
+  color: #3e4543 !important;
 }
 
 .sb-avatar__text {
@@ -1863,6 +1930,11 @@ span#chat-time {
   width: 25px !important;
   height: 25px !important;
   color: #00d1cd;
+}
+#chat-buttons #inactive-video-icon:hover {
+  color: var(--primarysecond);
+  transition: all 0.3s;
+
 }
 
 /*
@@ -3540,12 +3612,12 @@ button a {
 }
 
 .MuiMenu-paper li.MuiButtonBase-root {
-  color: #000 !important;
+  color: #3e4543 !important;
 }
 
 .MuiMenu-paper li.MuiButtonBase-root:hover {
-  color: #fff !important;
-  background-color: var(--primary) !important;
+  background-color: #F5F5F5 !important;
+  color: var(--primary)!important;
 }
 
 .MuiFormControlLabel-root span {
@@ -4097,6 +4169,80 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
   background: #00d0cc;
+  border-right: 1px solid white;
+  -moz-appearance: none !important;
+}
+
+/* MY DOCTOR AVAILABLE SLOTS CSS */
+.availability-card-holder {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: scroll;
+}
+
+.availability-card {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: flex-start;
+  padding: 10px 14px 10px 12px;
+  width: 120px;
+  height: 56px;
+  background: #eef4f4;
+  border-radius: 8px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.slot-display {
+  overflow-y: scroll;
+  height: 400px;
+}
+
+/* SCROLL-BAR CSS FOR SLOT DISPLAY */
+
+.slot-display {
+  scrollbar-color: #00d0cc white; /* thumb and track color */
+  scrollbar-width: thin !important;
+  -moz-appearance: none !important;
+  border-radius: 2px;
+}
+.slot-display::-webkit-scrollbar {
+  width: 7px;
+  -moz-appearance: none !important;
+}
+.slot-display::-webkit-scrollbar {
+  background: white;
+  -moz-appearance: none !important;
+}
+.slot-display::-webkit-scrollbar {
+  background: #00d0cc;
+  border-right: 1px solid white;
+  -moz-appearance: none !important;
+}
+
+/* SCROLL FOR AVAILABILITY SLOT DISPLAY */
+.availability-card-holder::-webkit-scrollbar {
+  scrollbar-color: #00d0cc white !important; /* thumb and track color */
+  scrollbar-width: thin !important;
+  -moz-appearance: none !important;
+  border-radius: 1px !important;
+  height: 5px !important;
+}
+.availability-card-holder::-webkit-scrollbar-track {
+  height: 4px !important;
+  -moz-appearance: none !important;
+}
+.availability-card-holder::-webkit-scrollbar-thumb {
+  background: #e5e5e5 !important;
+  -moz-appearance: none !important;
+}
+.availability-card-holder::-webkit-scrollbar-thumb:hover {
+  background: #00d0cc !important;
   border-right: 1px solid white;
   -moz-appearance: none !important;
 }
