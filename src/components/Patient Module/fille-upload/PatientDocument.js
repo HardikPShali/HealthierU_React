@@ -21,7 +21,7 @@ import {
     //getPatientDetail,
     //getDocuments,
 } from "../../../service/DocumentService";
-// import '../../Doctor Module/doctor.css'
+import '../../Doctor Module/doctor.css'
 import moment from 'moment';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -266,7 +266,7 @@ const PatientDocument = (props) => {
 
     const clickTabEvent = async (event) => {
         //let documents;
-        setLoading(true);
+        // setLoading(true);
         if (event === 'labResult') {
             const labDocuments = await getPatientDocuments("LabResult", 0, patient && patient.id);
             setLabDocument(labDocuments)
@@ -484,7 +484,6 @@ const PatientDocument = (props) => {
         getGlobalLabResults(search, filter);
     };
     const handleSearchInputChange = (searchValue) => {
-        setLoading(false);
         if (searchValue === '') {
             console.log('blank searchValue is | in SearchBarComponent', searchValue);
             getGlobalLabResults(searchValue)
