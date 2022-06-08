@@ -1,5 +1,10 @@
 [
     {
+        "Chief_Complaint": "Test",
+        "Present_Illness" : "Test",
+        "Vital_Signs" : "Test",
+        "Physical_Exam" : "Test",
+        "Plan_Assessment": "Test",
         "Date": "13 May 2022",
         "Symptoms Description": [
             "Fever",

@@ -14,7 +14,7 @@ const Questions = ({ answers }) => {
                                 answers ? (
                                     answers.map((answer, index) => (
                                         <div className='Questions-card__card-details' key={index}>
-                                            <h6 className='Questions-card__question-title'>{answer.questionId + 1}. {answer.questionTitle}</h6>
+                                            <h6 className='Questions-card__question-title'>{answer.questionId}. {answer.questionTitle}</h6>
                                             {
                                                 answer.answers.map((answer, index) => (
                                                     <h6 className='Questions-card__question-answer' key={index}>{answer}</h6>
@@ -27,7 +27,7 @@ const Questions = ({ answers }) => {
 
                                     <div
                                         className="col-12 ml-2"
-                                        style={{ textShadow: 'none', color: 'black' }}
+                                        style={{ textShadow: 'none', color: '#3e4543' }}
                                     >
                                         Loading...
                                     </div>

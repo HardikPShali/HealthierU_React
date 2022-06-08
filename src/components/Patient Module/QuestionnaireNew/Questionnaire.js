@@ -160,11 +160,11 @@ const Questionnaire = ({ match }) => {
 
   const closeDialog = () => {
     setContinueClick(false);
-    history.push("/patient");
+    history.push("/patient/mydoctor");
   };
 
   return (
-    <Container>
+    <div className="container-fluid">
       <Row id="questionnaire-view" style={{ minHeight: "600px" }}>
         <Col md={6} id="questionnaire-view-bg"></Col>
         <Col
@@ -172,8 +172,8 @@ const Questionnaire = ({ match }) => {
           style={{ background: "#fff", padding: "2% 0 2% 2%" }}
           className="questionnaire-container"
         >
-          <div className="questionnaire-header pt-4 pb-4">
-            <h2>Health Assessment</h2>
+          <div className="questionnaire-header">
+            <h1>Health Assessment</h1>
           </div>
           <div className="question-box scroller-cardlist">
             {questions &&
@@ -240,12 +240,12 @@ const Questionnaire = ({ match }) => {
               className="btn btn-primary"
               id="close-btn"
             >
-              OK
+              Connect with an Expert
             </button>
           </div>
         </DialogActions>
       </Dialog>
-    </Container>
+    </div>
   );
 };
 

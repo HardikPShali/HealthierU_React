@@ -219,12 +219,7 @@ const ChatPage = () => {
           onVideoClick={onVideoClick}
           onNoteClick={handleNotesClick}
         />
-        {notesClick && (
-          <Notes
-            onClose={() => setNotesClick(false)}
-            selectedChatGroup={selectedChatItem}
-          />
-        )}
+        {notesClick && <Notes onClose={() => setNotesClick(false)} />}
       </div>
     </Container>
   );

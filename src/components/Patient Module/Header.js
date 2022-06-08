@@ -71,17 +71,17 @@ const Header = (props) => {
                   className="btn dropdown-toggle"
                   data-toggle="dropdown"
                 >
-                  My Health
+                  My Portal
                 </button>
                 <div className="dropdown-menu">
-                  <NavLink to="/patient/document" className="dropdown-item">
-                    My Records
-                  </NavLink>
                   <NavLink
                     to="/patient/myappointment"
                     className="dropdown-item"
                   >
                     My Appointments
+                  </NavLink>
+                  <NavLink to="/patient/document" className="dropdown-item">
+                    My Records
                   </NavLink>
                   <NavLink
                     to="/patient/questionnaire/existing"
