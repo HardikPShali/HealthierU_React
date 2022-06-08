@@ -16,6 +16,7 @@ import {
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
+import PaypalMobile from "./MobilePayment/PaypalMobile";
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
 
@@ -185,6 +186,7 @@ const PatientRoute = () => {
         <Route exact path="/patient/licenses" render={(props) => <LicensesPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/partners" render={(props) => <PartnersPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/logout" component={Logout} />
+        <Route exact path='/patient/mobile-payment' component={(props) => <PaypalMobile {...props} />} />
       </Switch>
       <Footer />
     </Suspense>
