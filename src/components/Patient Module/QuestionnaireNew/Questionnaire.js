@@ -160,7 +160,7 @@ const Questionnaire = ({ match }) => {
 
   const closeDialog = () => {
     setContinueClick(false);
-    history.push("/patient");
+    history.push("/patient/mydoctor");
   };
 
   return (
@@ -240,7 +240,7 @@ const Questionnaire = ({ match }) => {
               className="btn btn-primary"
               id="close-btn"
             >
-              OK
+              Connect with an Expert
             </button>
           </div>
         </DialogActions>
