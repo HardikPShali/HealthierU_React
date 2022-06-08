@@ -160,7 +160,12 @@ const Questionnaire = ({ match }) => {
 
   const closeDialog = () => {
     setContinueClick(false);
-    history.push("/patient/mydoctor");
+    if (isNew === 'new') {
+      history.push("/patient");
+    }
+    else {
+      history.push("/patient/mydoctor");
+    }
   };
 
   return (
