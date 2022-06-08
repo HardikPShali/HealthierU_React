@@ -26,15 +26,8 @@ const Footer = () => {
     <footer>
       <div id="footer">
         <Container className="p-0 padding-mobile">
-          <Row>
-            <Col md={3} lg={2} xl={2}>
-              <img
-                src={logo}
-                id="icon"
-                alt="HealthierU Logo"
-                style={{ width: "10rem", marginBottom: 22 }}
-              />
-              <br />
+          <Row className="align-item-center">
+          <Col md={3} lg={2} xl={2}>
               <Link to="/about-us" id="footer-link">
                 About us
               </Link>
