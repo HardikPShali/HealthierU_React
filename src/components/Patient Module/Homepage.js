@@ -55,22 +55,23 @@ function patientHomePage() {
         <div>
             <br />
             <br />
-            <Container className="p-0 our-spl-wrapper">
+            <Container>
                 <Row>
                     <Col md={6}>
-                        <div id="patient-card">
-                            <div className="patient-card_text">
-                                <div>
-                                    <h2>How healthy are you?</h2>
+                        <Card id="patient-card">
+                            <Card.Img variant="top" src={home2} />
+                            <Card.ImgOverlay>
+                                <Card.Body>
+                                    <Card.Title>How healthy are you?</Card.Title>
                                     <Link to="/patient/questionnaire/existing">
                                         <button variant="primary" className="btn btn-primary assessment-btn">
                                             Take my assessment
                                         </button>
                                     </Link>
-                                </div>
-                            </div>
+                                </Card.Body>
+                            </Card.ImgOverlay>
 
-                        </div>
+                        </Card>
                     </Col>
                     <Col md={6}>
                         <SpecialitiesSection />

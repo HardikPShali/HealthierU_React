@@ -1199,8 +1199,8 @@ const MyDoctor = (props) => {
       }
     });
     if (res) {
-      toast.success('Next Appointment is Set Successfully.');
-      props.history.push({ pathname: `/doctor/mypatient` });
+      toast.success("Next Appointment is Set Successfully.");
+      props.history.push({ pathname: `/doctor/my-appointments` })
     }
   };
 
