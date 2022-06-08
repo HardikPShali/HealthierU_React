@@ -119,15 +119,11 @@ label{
   overflow-y: scroll;*/
   margin-bottom: 10px;
 }
-.questionnaire-header h1 {
-  font-size: 2rem;
-}
 
 .questionnaaire-container {
   height: 620px;
   overflow-y: scroll;
 }
-
 
 /* width */
 

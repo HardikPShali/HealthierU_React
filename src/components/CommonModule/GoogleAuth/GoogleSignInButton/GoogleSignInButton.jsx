@@ -6,7 +6,7 @@ const GoogleSignInButton = ({
   responseCallBack,
   responseError,
   context = "signin",
-  autoSelect = false,
+  autoSelect = true,
   theme = "outline",
   size = "large",
   width = "100%",
