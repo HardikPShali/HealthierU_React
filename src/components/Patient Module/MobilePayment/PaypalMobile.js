@@ -3,12 +3,30 @@ import { useLocation } from 'react-router';
 import Paypal from '../../CommonModule/Paypal';
 
 const PaypalMobile = (props) => {
-    const { bookappointment, doctor, appointment } = props; //
+    // const { bookappointment, doctor, appointment } = props;
     const location = useLocation();
 
-    const searchParams = new URLSearchParams(location);
+    const searchParams = new URLSearchParams(location.search);
     console.log({ searchParams });
-    // let chatGroup = searchParams.get("chatgroup");
+    let userIdParams = searchParams.get("userId");
+    let firstnameParams = searchParams.get("firstName");
+    let lastnameParams = searchParams.get("lastName");
+    let emailParams = searchParams.get("email");
+    let appointmentIdParams = searchParams.get("id");
+    let appointmentModeParams = searchParams.get("appointmentMode");
+    let rateParams = searchParams.get("rate");
+    let halfRateParams = searchParams.get("halfRate");
+
+
+    console.log({ userIdParams })
+    console.log({ firstnameParams })
+    console.log({ lastnameParams })
+    console.log({ emailParams })
+    console.log({ appointmentIdParams })
+    console.log({ appointmentModeParams })
+    console.log({ rateParams })
+    console.log({ halfRateParams })
+
     // let openVideoAndChat = searchParams.get("openVideoCall");
 
     return (
