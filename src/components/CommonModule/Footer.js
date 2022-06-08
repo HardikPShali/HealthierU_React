@@ -48,7 +48,7 @@ const Footer = () => {
               md={9}
               lg={6}
               xl={6}
-              style={{ display: "flex", height: 180, alignItems: "center" }}
+              style={{ display: "flex", height: 135, alignItems: "center" }}
             >
               {/*<div id="active-user">
                                 <b id="right-border">

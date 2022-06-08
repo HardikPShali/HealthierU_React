@@ -926,31 +926,31 @@ const MyAppointments = (props) => {
                           </div>
                         </Link>
 
-                        <Link
-                          to={{
-                            pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}`,
-                            state: SelectedPatient.patient,
-                          }}
-                        >
-                          <div style={{ display: "flex", alignItem: "center" }}>
-                            <div style={{ width: "100%" }}>
-                              <img
-                                width="40"
-                                height="40"
-                                src={MedicalRecord}
-                                // onClick='${pathname}'
-                                alt=""
-                                style={{ marginLeft: "5%", marginRight: "5%" }}
-                              />
-                              Medical Record
-                            </div>
-                            <img
-                              src={rightIcon}
-                              alt="right-icon"
-                              style={{ marginRight: "35px" }}
-                            />
-                          </div>
-                        </Link>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}`
+                                                        
+                                                    }}
+                                                >
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={MedicalRecord}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Medical Record
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
+                                                </Link>
 
                         {/* <Link
                                                     to={{

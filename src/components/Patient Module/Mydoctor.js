@@ -1,36 +1,36 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 //import Footer from "./Footer";
-import { Container, Row, Col } from "react-bootstrap";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import TuneIcon from "@material-ui/icons/Tune";
-import axios from "axios";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import SearchBar from "material-ui-search-bar";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import IconButton from "@material-ui/core/IconButton";
-import moment from "moment";
-import TextField from "@material-ui/core/TextField";
-import { Link, useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import LocalStorageService from "./../../util/LocalStorageService";
-import Cookies from "universal-cookie";
-import Loader from "./../Loader/Loader";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions";
-import Avatar from "react-avatar";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import Paypal from "../CommonModule/Paypal";
-import TransparentLoader from "../Loader/transparentloader";
+import { Container, Row, Col } from 'react-bootstrap';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import TuneIcon from '@material-ui/icons/Tune';
+import axios from 'axios';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import SearchBar from 'material-ui-search-bar';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import IconButton from '@material-ui/core/IconButton';
+import moment from 'moment';
+import TextField from '@material-ui/core/TextField';
+import { Link, useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import LocalStorageService from './../../util/LocalStorageService';
+import Cookies from 'universal-cookie';
+import Loader from './../Loader/Loader';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import Avatar from 'react-avatar';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Paypal from '../CommonModule/Paypal';
+import TransparentLoader from '../Loader/transparentloader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import SearchIcon from "@material-ui/icons/Search";
@@ -47,31 +47,30 @@ import {
   getFilteredDoctors,
   getSearchData,
   setNextAppointmentDoctor,
-} from "../../service/frontendapiservices";
+  getAvailableSlotsForMyDoctors,
+} from '../../service/frontendapiservices';
 import {
   getSpecialityList,
   getCountryList,
   getLanguageList,
-} from "../../service/adminbackendservices";
-import "./patient.css";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import Tour from "reactour";
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import Tooltip from "@material-ui/core/Tooltip";
-import Slider from "@material-ui/core/Slider";
-import { Multiselect } from "multiselect-react-dropdown";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import { searchFilterForDoctor } from "../../service/searchfilter";
-import { firestoreService } from "../../util";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { doctorListLimit } from "../../util/configurations";
-import { Button, Modal } from "react-bootstrap";
-import PaypalCheckoutButton from "./PaypalCheckout/PaypalCheckoutButton";
+} from '../../service/adminbackendservices';
+import './patient.css';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import Tour from 'reactour';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import Tooltip from '@material-ui/core/Tooltip';
+import Slider from '@material-ui/core/Slider';
+import { Multiselect } from 'multiselect-react-dropdown';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { searchFilterForDoctor } from '../../service/searchfilter';
+import { firestoreService } from '../../util';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { doctorListLimit } from '../../util/configurations';
+import { Button, Modal } from 'react-bootstrap';
+import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
-
-
 
 const rightArrow = <FontAwesomeIcon icon={faChevronRight} />;
 
@@ -93,7 +92,7 @@ const MyDoctor = (props) => {
   const [transparentLoading, setTransparentLoading] = useState(false);
   const [currentPatient, setCurrentPatient] = useState({});
 
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const [filterData, setFilterData] = useState(users);
   const [specialityArray, setSpecialityArray] = useState({
     name: [],
@@ -108,24 +107,25 @@ const MyDoctor = (props) => {
   // const { diseasesOptions } = diseasesList
 
   const [appointment, setAppointment] = useState({
-    type: "DR",
-    status: "ACCEPTED",
-    urgency: "Low",
-    remarks: "",
-    doctorId: "",
-    patientId: "",
-    appointmentMode: "",
+    type: 'DR',
+    status: 'ACCEPTED',
+    urgency: 'Low',
+    remarks: '',
+    doctorId: '',
+    patientId: '',
+    appointmentMode: '',
   });
 
+  const [availableSlotsDisplay, setAvailableSlotsDisplay] = useState([]);
 
   const [finalAppointmentData, setFinalAppointmentData] = useState([]);
   const { remarks, urgency } = appointment;
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  const currentLoggedInUser = cookies.get("currentUser");
+  const currentLoggedInUser = cookies.get('currentUser');
   const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
-  const profilepID = cookies.get("profileDetails");
-  console.log("profileDetails", profilepID);
+  const profilepID = cookies.get('profileDetails');
+  // console.log("profileDetails", profilepID);
   const pID = profilepID && profilepID.userId;
   // console.log("currentUser", loggedInUserId);
   // console.log("pID", pID);
@@ -133,17 +133,16 @@ const MyDoctor = (props) => {
   const [nextAppDetails, setNextAppDetails] = useState(null);
   const getCurrentPatient = async () => {
     if (profilepID.activated) {
-      setNextAppDetails(props.location.state)
+      setNextAppDetails(props.location.state);
       const patientInfo = props.location.state;
-      console.log("stateData", patientInfo);
+      console.log('stateData', patientInfo);
       if (patientInfo) {
         setCurrentPatient({ ...currentPatient, id: patientInfo.patient.id });
         loadUsers(patientInfo.patient.id);
       }
-    }
-    else {
+    } else {
       const res = await getLoggedInUserDataByUserId(loggedInUserId);
-      console.log("res1", res);
+      console.log('res1', res);
       if (res && res.data) {
         res.data.map((value, index) => {
           if (value.userId === loggedInUserId) {
@@ -154,14 +153,11 @@ const MyDoctor = (props) => {
         });
       }
     }
-
-
-
   };
 
   const getAllLikedDoctors = async () => {
     setTransparentLoading(true);
-    setDisplay({ ...display, like: "block", unlike: "none" });
+    setDisplay({ ...display, like: 'block', unlike: 'none' });
     const res = await getLikedDoctorByPatientId(currentPatient, 0).catch(
       (err) => {
         if (err.response.status === 500 || err.response.status === 504) {
@@ -195,7 +191,7 @@ const MyDoctor = (props) => {
       const docId = users[0].id;
       getInValidAppointments(docId);
       setLikedOffset(0);
-      setDisplay({ ...display, like: "none", unlike: "block" });
+      setDisplay({ ...display, like: 'none', unlike: 'block' });
     }
   };
 
@@ -224,12 +220,16 @@ const MyDoctor = (props) => {
         //const currentSelectedDate = new Date();
         //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
         const docId = result.data.doctors[0]?.id;
-        setAppointment({ ...appointment, patientId: patientId, doctorId: docId });
+        setAppointment({
+          ...appointment,
+          patientId: patientId,
+          doctorId: docId,
+        });
         getInValidAppointments(docId);
         setFilterData(result.data.doctors);
         //setTimeout(() => searchNutritionDoctor(), 3000);
         setTimeout(() => setLoading(false), 1000);
-        const tourState = cookies.get("tour");
+        const tourState = cookies.get('tour');
         if (!tourState) {
           setIsTourOpen(true);
         }
@@ -238,18 +238,18 @@ const MyDoctor = (props) => {
           props &&
           props.location &&
           props.location.state &&
-          props.location.state === "sports medicine"
+          props.location.state === 'sports medicine'
         ) {
           const text = props.location.state;
-          var element = document.getElementById("doctor-search");
+          var element = document.getElementById('doctor-search');
           var trigger = Object.getOwnPropertyDescriptor(
             window.HTMLInputElement.prototype,
-            "value"
+            'value'
           ).set;
           trigger.call(element, text);
-          var event = new Event("change", { bubbles: true });
+          var event = new Event('change', { bubbles: true });
           element.dispatchEvent(event);
-          document.querySelector(".searchForwardIcon").click();
+          document.querySelector('.searchForwardIcon').click();
           setSearchText(text);
           handleSearchData();
           history.replace({ state: null });
@@ -257,7 +257,7 @@ const MyDoctor = (props) => {
           props &&
           props.location &&
           props.location.state &&
-          props.location.state !== "sports medicine"
+          props.location.state !== 'sports medicine'
         ) {
           const user = props.location.state;
           //console.log("User from props:::", user);
@@ -277,11 +277,10 @@ const MyDoctor = (props) => {
       } else {
         setTimeout(() => setLoading(false), 1000);
       }
-    }
-    else {
+    } else {
       setOffset(1);
       const doctorInfo = profilepID;
-      console.log("doctorInfo", doctorInfo);
+      console.log('doctorInfo', doctorInfo);
       setUser(doctorInfo.id);
       setdoctor(doctorInfo.id);
       //const currentSelectedDate = new Date();
@@ -292,7 +291,7 @@ const MyDoctor = (props) => {
       setFilterData(doctorInfo);
       //setTimeout(() => searchNutritionDoctor(), 3000);
       setTimeout(() => setLoading(false), 1000);
-      const tourState = cookies.get("tour");
+      const tourState = cookies.get('tour');
       if (!tourState) {
         setIsTourOpen(false);
       }
@@ -301,18 +300,18 @@ const MyDoctor = (props) => {
         props &&
         props.location &&
         props.location.state &&
-        props.location.state === "sports medicine"
+        props.location.state === 'sports medicine'
       ) {
         const text = props.location.state;
-        var element = document.getElementById("doctor-search");
+        var element = document.getElementById('doctor-search');
         var trigger = Object.getOwnPropertyDescriptor(
           window.HTMLInputElement.prototype,
-          "value"
+          'value'
         ).set;
         trigger.call(element, text);
-        var event = new Event("change", { bubbles: true });
+        var event = new Event('change', { bubbles: true });
         element.dispatchEvent(event);
-        document.querySelector(".searchForwardIcon").click();
+        document.querySelector('.searchForwardIcon').click();
         setSearchText(text);
         handleSearchData();
         history.replace({ state: null });
@@ -320,9 +319,9 @@ const MyDoctor = (props) => {
         props &&
         props.location &&
         props.location.state &&
-        props.location.state !== "sports medicine"
+        props.location.state !== 'sports medicine'
       ) {
-        const user = cookies.get("profileDetails");
+        const user = cookies.get('profileDetails');
         //console.log("User from props:::", user);
         setdoctor(user);
         //const currentSelectedDate = new Date();
@@ -384,7 +383,6 @@ const MyDoctor = (props) => {
       }
     }
   };
-
 
   // Load more Liked Doctors
   const loadMoreLike = async () => {
@@ -448,10 +446,14 @@ const MyDoctor = (props) => {
     loadLanguage();
   }, []);
 
+  useEffect(() => {
+    getAvailableSlotsOfDoctors();
+  }, [appointment]);
+
   const handleSearchInputChange = (searchValue) => {
     //console.log("searchValue :::::::", searchValue);
-    if (searchValue === "") {
-      setSearchText("");
+    if (searchValue === '') {
+      setSearchText('');
       setFilterData(users);
       setdoctor(users[0]);
       //const currentSelectedDate = new Date();
@@ -460,16 +462,16 @@ const MyDoctor = (props) => {
       setAppointmentSlot([]);
       getInValidAppointments(users[0].id);
       setOffset(1);
-      setDisplay({ ...display, suggestion: "none" });
+      setDisplay({ ...display, suggestion: 'none' });
     } else {
       setSearchText(searchValue);
-      setTimeout(() => setDisplay({ ...display, suggestion: "block" }), 1500);
+      setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
       //searchData(searchValue);
     }
   };
 
   const handleSearchData = async (showToast = false) => {
-    if (searchText !== "") {
+    if (searchText !== '') {
       setTransparentLoading(true);
       const res = await getSearchData(searchText, 0, doctorListLimit);
       if (res.status === 200 && res.data?.doctors.length > 0) {
@@ -481,7 +483,7 @@ const MyDoctor = (props) => {
         setTransparentLoading(false);
       } else if (res.status === 204) {
         setFilterData([]);
-        setdoctor("");
+        setdoctor('');
         setTransparentLoading(false);
       }
     }
@@ -499,28 +501,38 @@ const MyDoctor = (props) => {
   const [selectedSlotId, setSelectedSlotId] = useState();
 
   const handleAppoitnmentType = (e) => {
-    setSlotError("");
-    setSelectedSlotId("0");
+    setSlotError('');
+    setSelectedSlotId('0');
     setAppointment({ ...appointment, appointmentMode: e.target.value });
+    const user = doctor;
+    console.log({ user });
+
+    getAvailableSlotsOfDoctors(user.id, e.target.value);
+    console.log(e.target.value);
+    // console.log({ appointment })
     if (Availability && Availability.length > 0) {
-      if (e.target.value === "CONSULTATION") {
+      if (e.target.value === 'FIRST_CONSULTATION') {
         const consultationSlots = createConsultationSlots(Availability);
         if (consultationSlots && consultationSlots.length > 0) {
           setAppointmentSlot(consultationSlots);
-          document.querySelector("#calendar-list").scrollTo(0, 500);
+          console.log({ consultationSlots });
+          document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
           setDisplaySlot(true);
+          getAvailableSlotsOfDoctors(user.id, e.target.value);
         } else {
           setAppointmentSlot([]);
           setDisplayCalendar(false);
           setDisplaySlot(true);
         }
-      } else if (e.target.value === "FOLLOW_UP") {
+      } else if (e.target.value === 'FOLLOW_UP') {
         setAppointmentSlot(Availability);
-        document.querySelector("#calendar-list").scrollTo(0, 500);
+        console.log({ Availability });
+        document.querySelector('#calendar-list').scrollTo(0, 500);
         setDisplayCalendar(false);
         setDisplaySlot(true);
-      } else if (e.target.value === "") {
+        getAvailableSlotsOfDoctors(user.id, e.target.value);
+      } else if (e.target.value === '') {
         setAppointmentSlot([]);
       }
       setDisable({ ...disable, continue: true });
@@ -563,12 +575,12 @@ const MyDoctor = (props) => {
   // //console.log("Selected Doctor ::::  ", doctor);
   const onDaySelect = async (slectedDate, doctorId) => {
     setTransparentLoading(true);
-    setSlotError("");
+    setSlotError('');
     setCurrentDate(slectedDate);
     const dataForSelectedDay = {
       startTime: new Date(slectedDate.setHours(0, 0, 0)).toISOString(),
       endTime: new Date(slectedDate.setHours(23, 59, 59)).toISOString(),
-      status: "AVAILABLE",
+      status: 'AVAILABLE',
       doctorId: doctorId,
     };
     // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
@@ -581,7 +593,7 @@ const MyDoctor = (props) => {
         response.data.map((value) => {
           if (
             new Date(value.startTime) >=
-            new Date(moment(new Date()).subtract(25, "minutes"))
+            new Date(moment(new Date()).subtract(25, 'minutes'))
           ) {
             arraySlot.push(value);
           } else {
@@ -593,12 +605,12 @@ const MyDoctor = (props) => {
       setDisplaySlot(false);
       setTransparentLoading(false);
       if (appointment.appointmentMode) {
-        if (appointment.appointmentMode === "CONSULTATION") {
+        if (appointment.appointmentMode === 'FIRST_CONSULTATION') {
           const consultationSlots = createConsultationSlots(arraySlot);
           //console.log("consultationSlots :: ", consultationSlots);
           if (consultationSlots && consultationSlots.length > 0) {
             setAppointmentSlot(consultationSlots);
-            document.querySelector("#calendar-list").scrollTo(0, 500);
+            document.querySelector('#calendar-list').scrollTo(0, 500);
             setDisplayCalendar(false);
             setDisplaySlot(true);
           } else {
@@ -606,9 +618,9 @@ const MyDoctor = (props) => {
             setDisplayCalendar(false);
             setDisplaySlot(true);
           }
-        } else if (appointment.appointmentMode === "FOLLOW_UP") {
+        } else if (appointment.appointmentMode === 'FOLLOW_UP') {
           setAppointmentSlot(arraySlot);
-          document.querySelector("#calendar-list").scrollTo(0, 500);
+          document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
           setDisplaySlot(true);
         }
@@ -648,9 +660,9 @@ const MyDoctor = (props) => {
   const [combinedSlotId, setCombinedSlotId] = useState();
   //console.log("combinedSlotId : ", combinedSlotId)
   const onAvailabilitySelected = (slot, index) => {
-    setSlotError("");
+    setSlotError('');
     setSelectedSlotId(slot.id);
-    if (appointment.appointmentMode === "CONSULTATION") {
+    if (appointment.appointmentMode === 'FIRST_CONSULTATION') {
       setCombinedSlotId(slot.slotId);
     }
     setAppointment({
@@ -659,20 +671,20 @@ const MyDoctor = (props) => {
       endTime: slot.endTime,
       id: appointmentSlot[index].id,
     });
-    console.log("appointment", appointmentSlot[index].id);
+    console.log('appointment', appointmentSlot[index].id);
     setDisable({ ...disable, continue: false });
   };
 
   const bookappointment = async (orderData) => {
     setLoading(true);
-    let tempSlotConsultationId = "";
+    let tempSlotConsultationId = '';
     const finalAppointmentDataArray = [];
-    if (appointment.appointmentMode === "CONSULTATION") {
+    if (appointment.appointmentMode === 'FIRST_CONSULTATION') {
       combinedSlots &&
         combinedSlots.map((slotData) => {
           if (combinedSlotId === slotData.slotId) {
             tempSlotConsultationId =
-              slotData.slot1.id + "-" + slotData.slot2.id;
+              slotData.slot1.id + '-' + slotData.slot2.id;
             !orderData.appointmentId &&
               (orderData.appointmentId = tempSlotConsultationId);
             finalAppointmentDataArray.push(
@@ -680,70 +692,70 @@ const MyDoctor = (props) => {
                 doctorId: appointment.doctorId,
                 endTime: slotData.slot1.endTime,
                 startTime: slotData.slot1.startTime,
-                type: "DR",
+                type: 'DR',
                 patientId: appointment.patientId,
-                status: "ACCEPTED",
+                status: 'ACCEPTED',
                 remarks: remarks,
                 appointmentMode: appointment.appointmentMode,
                 id: slotData.slot1.id,
                 urgency: urgency,
                 unifiedAppointment:
-                  tempSlotConsultationId + "#" + appointment.appointmentMode,
+                  tempSlotConsultationId + '#' + appointment.appointmentMode,
               },
               {
                 doctorId: appointment.doctorId,
                 endTime: slotData.slot2.endTime,
                 startTime: slotData.slot2.startTime,
-                type: "DR",
+                type: 'DR',
                 patientId: appointment.patientId,
-                status: "ACCEPTED",
+                status: 'ACCEPTED',
                 remarks: remarks,
                 appointmentMode: appointment.appointmentMode,
                 id: slotData.slot2.id,
                 urgency: urgency,
                 unifiedAppointment:
-                  tempSlotConsultationId + "#" + appointment.appointmentMode,
+                  tempSlotConsultationId + '#' + appointment.appointmentMode,
               }
             );
           }
         });
-    } else if (appointment.appointmentMode === "FOLLOW_UP") {
+    } else if (appointment.appointmentMode === 'FOLLOW_UP') {
       finalAppointmentDataArray.push({
         doctorId: appointment.doctorId,
         endTime: appointment.endTime,
         startTime: appointment.startTime,
-        type: "DR",
+        type: 'DR',
         patientId: appointment.patientId,
-        status: "ACCEPTED",
+        status: 'ACCEPTED',
         remarks: remarks,
         appointmentMode: appointment.appointmentMode,
         id: appointment.id,
         urgency: urgency,
-        unifiedAppointment: appointment.id + "#" + appointment.appointmentMode, //unifiedAppointment: "2145#FOLLOW_UP"
+        unifiedAppointment: appointment.id + '#' + appointment.appointmentMode, //unifiedAppointment: "2145#FOLLOW_UP"
       });
     }
 
     const bookAppointmentApiHeader = {
-      method: "put",
-      mode: "no-cors",
+      method: 'put',
+      mode: 'no-cors',
       data: JSON.stringify(finalAppointmentDataArray),
       url: `/api/v2/appointments/bulk`,
       headers: {
-        Authorization: "Bearer " + LocalStorageService.getAccessToken(),
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     };
 
     const storePaypalTransitionInfo = {
-      method: "post",
-      mode: "no-cors",
+      method: 'post',
+      mode: 'no-cors',
       data: JSON.stringify(orderData),
       url: `/api/paypal/transaction-info`,
       headers: {
-        Authorization: "Bearer " + LocalStorageService.getAccessToken(),
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     };
 
@@ -757,21 +769,19 @@ const MyDoctor = (props) => {
         doctor,
         props
       );
-      props.history.push("/patient/myappointment");
+      props.history.push('/patient/myappointment');
     }
   };
   const [display, setDisplay] = useState({
-    doctor: "block",
-    appointment: "none",
-    like: "none",
-    unlike: "block",
-    suggestion: "none",
+    doctor: 'block',
+    appointment: 'none',
+    like: 'none',
+    unlike: 'block',
+    suggestion: 'none',
   });
   const [disable, setDisable] = useState({
     continue: true,
     payment: true,
-
-
   });
   //for payment waiting modal
   const [show, setShow] = useState(false);
@@ -779,18 +789,18 @@ const MyDoctor = (props) => {
   const handleClosemodal = () => setShow(false);
   const handleShowmodal = () => setShow(true);
 
-  const [slotError, setSlotError] = useState("");
+  const [slotError, setSlotError] = useState('');
 
   const checkSlot = () => {
     const startTime = appointment.startTime;
     //console.log(new Date(startTime), new Date(moment(new Date()).subtract(25, "minutes")))
     if (
-      new Date(startTime) > new Date(moment(new Date()).subtract(25, "minutes"))
+      new Date(startTime) > new Date(moment(new Date()).subtract(25, 'minutes'))
     ) {
-      setDisplay({ ...display, doctor: "none", appointment: "block" });
+      setDisplay({ ...display, doctor: 'none', appointment: 'block' });
     } else {
       setSlotError(
-        "Time for booking this slot has been elapsed. Please select another slot!"
+        'Time for booking this slot has been elapsed. Please select another slot!'
       );
     }
   };
@@ -807,7 +817,7 @@ const MyDoctor = (props) => {
   const enableBody = (target) => enableBodyScroll(target);
 
   const closeTour = () => {
-    cookies.set("tour", false);
+    cookies.set('tour', false);
     setIsTourOpen(false);
   };
 
@@ -815,23 +825,23 @@ const MyDoctor = (props) => {
     setIsAppointmentTourOpen(false);
   };
 
-  const accentColor = "#5cb7b7";
+  const accentColor = '#5cb7b7';
 
   const tourConfig = [
     {
-      selector: "li.MuiGridListTile-root:nth-child(2)",
+      selector: 'li.MuiGridListTile-root:nth-child(2)',
       content: `Select your doctor.`,
     },
     {
-      selector: ".appointment-type",
+      selector: '.appointment-type',
       content: `Select the appointment type either FollowUp or Consultation.`,
     },
     {
-      selector: ".react-calendar",
+      selector: '.react-calendar',
       content: `Select a date from Calendar to see the available slots.`,
     },
     {
-      selector: ".MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded",
+      selector: '.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded',
       content: () => (
         <div>
           <p>Search your doctor from here by typing speciality.</p>
@@ -845,7 +855,7 @@ const MyDoctor = (props) => {
 
   const appointmentTypeTour = [
     {
-      selector: ".appointment-type",
+      selector: '.appointment-type',
       content: () => (
         <div>
           <p>
@@ -864,9 +874,9 @@ const MyDoctor = (props) => {
   ];
 
   if (isTourOpen || isAppointmentTourOpen) {
-    document.body.style.color = "#00000080";
+    document.body.style.color = '#00000080';
   } else {
-    document.body.style.color = "unset";
+    document.body.style.color = 'unset';
   }
 
   // Filter Box Code
@@ -876,14 +886,14 @@ const MyDoctor = (props) => {
   const [filterValues, setFilterValues] = useState({
     specialityFilter: [],
     languageFilter: [],
-    genderFilter: "",
-    docStartTime: "",
-    docEndTime: "",
-    locationFilter: "",
-    insuranceFilter: "",
-    countryFilter: "",
+    genderFilter: '',
+    docStartTime: '',
+    docEndTime: '',
+    locationFilter: '',
+    insuranceFilter: '',
+    countryFilter: '',
     feesFilter: [0, 1000],
-    sortFilter: "",
+    sortFilter: '',
   });
 
   const {
@@ -910,14 +920,14 @@ const MyDoctor = (props) => {
       ...filterValues,
       specialityFilter: [],
       languageFilter: [],
-      genderFilter: "",
-      docStartTime: "",
-      docEndTime: "",
-      locationFilter: "",
-      insuranceFilter: "",
-      countryFilter: "",
+      genderFilter: '',
+      docStartTime: '',
+      docEndTime: '',
+      locationFilter: '',
+      insuranceFilter: '',
+      countryFilter: '',
       feesFilter: [0, 1000],
-      sortFilter: "",
+      sortFilter: '',
     });
     setSelectedFilter({
       ...selectedFilter,
@@ -930,7 +940,7 @@ const MyDoctor = (props) => {
 
   const handleCheckbox = (checked) => {
     if (checked === false) {
-      setFilterValues({ ...filterValues, docEndTime: "" });
+      setFilterValues({ ...filterValues, docEndTime: '' });
       setEndTimeChecked(checked);
     } else {
       setEndTimeChecked(checked);
@@ -1024,29 +1034,29 @@ const MyDoctor = (props) => {
     let endTime;
     const newStartTime = new Date(docStartTime);
     const newEndTime = new Date(docEndTime);
-    if (docStartTime !== "" && docEndTime === "") {
+    if (docStartTime !== '' && docEndTime === '') {
       startTime = new Date(newStartTime.setHours(0, 0, 0)).toISOString();
       endTime = new Date(newStartTime.setHours(23, 59, 59)).toISOString();
-    } else if (docStartTime !== "" && docEndTime !== "") {
+    } else if (docStartTime !== '' && docEndTime !== '') {
       startTime = new Date(newStartTime.setHours(0, 0, 0)).toISOString();
       endTime = new Date(newEndTime.setHours(23, 59, 59)).toISOString();
     }
-    return startTime + "," + endTime;
+    return startTime + ',' + endTime;
   };
 
   const handleFilter = async () => {
     setTransparentLoading(true);
     setFilter(false);
     const availabilityFilter = getAvalabilityTime();
-    const splitStr = availabilityFilter?.split(",");
+    const splitStr = availabilityFilter?.split(',');
     const startTime = splitStr[0];
     const endTime = splitStr[1];
     if (
-      genderFilter === "" &&
+      genderFilter === '' &&
       feesFilter[0] === 0 &&
       feesFilter[1] === 1000 &&
-      countryFilter === "" &&
-      docStartTime === "" &&
+      countryFilter === '' &&
+      docStartTime === '' &&
       specialityFilter.length === 0 &&
       languageFilter.length === 0
     ) {
@@ -1101,22 +1111,25 @@ const MyDoctor = (props) => {
   const [endtimeChecked, setEndTimeChecked] = useState(false);
 
   const handleToast = () => {
-    toast.success('Please select a doctor before proceeding to appointment selection', {
-      position: 'top-right',
-      autoClose: 7000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
+    toast.success(
+      'Please select a doctor before proceeding to appointment selection',
+      {
+        position: 'top-right',
+        autoClose: 7000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    );
+  };
   const setNextAppointment = async () => {
     const stateData = [];
-    stateData.push(nextAppDetails)
+    stateData.push(nextAppDetails);
     const app = [];
-    app.push(appointment)
-    console.log("app", app);
+    app.push(appointment);
+    console.log('app', app);
     const data = [];
     // const data2 = [];
     // doctorId: appointment.doctorId,
@@ -1157,12 +1170,12 @@ const MyDoctor = (props) => {
       app.map((a) => {
         data.push({
           id: a.id,
-          type: "DR",
-          status: "PENDING",
+          type: 'DR',
+          status: 'PENDING',
           doctorId: a.doctorId,
           patientId: a.patientId,
-          unifiedAppointment: a.id + "#" + "FOLLOW_UP",
-          appointmentMode: "FOLLOW_UP",
+          unifiedAppointment: a.id + '#' + 'FOLLOW_UP',
+          appointmentMode: 'FOLLOW_UP',
           remarks: null,
           urgency: null,
           patient: null,
@@ -1172,10 +1185,10 @@ const MyDoctor = (props) => {
           appointmentExpireTime: null,
           startTime: a.startTime,
           endTime: a.endTime,
-        })
-      })
+        });
+      });
     }
-    console.log("data", data);
+    console.log('data', data);
     // const data = {
     //   ...data1[0],
     //   ...data2[0]
@@ -1184,21 +1197,34 @@ const MyDoctor = (props) => {
       if (err.res.status === 500 || err.res.status === 504) {
         setLoading(false);
       }
-    })
+    });
     if (res) {
       toast.success("Next Appointment is Set Successfully.");
       props.history.push({ pathname: `/doctor/my-appointments` })
     }
-  }
+  };
+
+  // AVAILABLE SLOTS OF A DOCTOR
+  const getAvailableSlotsOfDoctors = async (id, type) => {
+    if (id) {
+      const response = await getAvailableSlotsForMyDoctors(
+        id,
+        type
+      ).catch((err) => console.log({ err }));
+      // console.log({ response })
+      setAvailableSlotsDisplay(response.data);
+      console.log({ availableSlotsDisplay });
+    }
+    return null;
+  };
 
   return (
     <div>
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
       <Container className="my-doctor">
-
         <Row>
-          {!profilepID.activated &&
+          {!profilepID.activated && (
             <Col md={6} lg={4} style={{ display: display.doctor }}>
               <div id="dorctor-list">
                 <div className="Togglebar">
@@ -1213,8 +1239,8 @@ const MyDoctor = (props) => {
                           feesFilter[1] < 1000 ||
                           docStartTime ||
                           countryFilter
-                          ? "#F6CEB4"
-                          : ""
+                          ? '#F6CEB4'
+                          : ''
                           }`,
                         color: `${specialityFilter.length > 0 ||
                           languageFilter.length > 0 ||
@@ -1223,8 +1249,8 @@ const MyDoctor = (props) => {
                           feesFilter[1] < 1000 ||
                           docStartTime ||
                           countryFilter
-                          ? "#00d0cc"
-                          : ""
+                          ? '#00d0cc'
+                          : ''
                           }`,
                       }}
                     >
@@ -1247,13 +1273,14 @@ const MyDoctor = (props) => {
                     type="text"
                     value={searchText}
                     id="doctor-search"
-                    autoComplete='off'
+                    autoComplete="off"
                     onChange={(value) => handleSearchInputChange(value)}
-                    onCancelSearch={() => handleSearchInputChange("")}
+                    onCancelSearch={() => handleSearchInputChange('')}
                     onRequestSearch={() => handleSearchData(false)}
                     cancelOnEscape={true}
-                    onKeyDown={(e) => e.keyCode === 13 ? handleSearchData(true) : ""}
-
+                    onKeyDown={(e) =>
+                      e.keyCode === 13 ? handleSearchData(true) : ''
+                    }
                   />
                   <ToastContainer
                     position="top-right"
@@ -1266,7 +1293,7 @@ const MyDoctor = (props) => {
                     draggable
                     pauseOnHover
                   />
-                  {searchText !== "" && (
+                  {searchText !== '' && (
                     <IconButton
                       onClick={() => handleSearchData(true)}
                       className="searchForwardIcon"
@@ -1282,7 +1309,7 @@ const MyDoctor = (props) => {
                         onSubmit={() => handleFilter()}
                         onError={(error) => console.log(error)}
                       >
-                        <div className="filter-body" >
+                        <div className="filter-body">
                           <div className="row m-0">
                             <div className="col-md-12 col-xs-12">
                               <FormControl>
@@ -1341,20 +1368,20 @@ const MyDoctor = (props) => {
                                       setFilterValues({
                                         ...filterValues,
                                         docStartTime:
-                                          e.target.value === ""
-                                            ? ""
+                                          e.target.value === ''
+                                            ? ''
                                             : new Date(e.target.value),
                                       })
                                     }
                                     className="filterDate"
                                     inputProps={{
                                       min: moment(new Date()).format(
-                                        "YYYY-MM-DD"
+                                        'YYYY-MM-DD'
                                       ),
                                     }}
-                                    value={moment(new Date(docStartTime)).format(
-                                      "YYYY-MM-DD"
-                                    )}
+                                    value={moment(
+                                      new Date(docStartTime)
+                                    ).format('YYYY-MM-DD')}
                                     variant="filled"
                                     onKeyDown={(e) => e.preventDefault()}
                                   />
@@ -1366,19 +1393,19 @@ const MyDoctor = (props) => {
                                       setFilterValues({
                                         ...filterValues,
                                         docEndTime:
-                                          e.target.value === ""
-                                            ? ""
+                                          e.target.value === ''
+                                            ? ''
                                             : new Date(e.target.value),
                                       })
                                     }
                                     className="filterDate"
                                     inputProps={{
-                                      min: moment(new Date(docStartTime)).format(
-                                        "YYYY-MM-DD"
-                                      ),
+                                      min: moment(
+                                        new Date(docStartTime)
+                                      ).format('YYYY-MM-DD'),
                                     }}
                                     value={moment(new Date(docEndTime)).format(
-                                      "YYYY-MM-DD"
+                                      'YYYY-MM-DD'
                                     )}
                                     variant="filled"
                                     disabled={endtimeChecked ? false : true}
@@ -1487,7 +1514,8 @@ const MyDoctor = (props) => {
                   <Link to="/patient/myappointment" id="menuLinks">
                     <div id="card" className="card">
                       <div className="card-body">
-                        My Appointments <span id="arrowright">{rightArrow}</span>
+                        My Appointments{' '}
+                        <span id="arrowright">{rightArrow}</span>
                       </div>
                     </div>
                   </Link>
@@ -1501,7 +1529,7 @@ const MyDoctor = (props) => {
                       <GridListTile
                         key="Subheader"
                         cols={2}
-                        style={{ height: "auto" }}
+                        style={{ height: 'auto' }}
                       ></GridListTile>
                       {filterData.map(
                         (user, index) =>
@@ -1513,25 +1541,25 @@ const MyDoctor = (props) => {
                                   id="fav-icon"
                                   onClick={() => createLikedDoctor(user.id)}
                                 />
-
                               )}
                               console.log(user.liked)
-
                               {user.liked && (
                                 <FavoriteIcon
                                   id="fav-icon"
-                                  onClick={() => createUnlikedDoctor(user.likeId)}
+                                  onClick={() =>
+                                    createUnlikedDoctor(user.likeId)
+                                  }
                                 />
                               )}
                               {user.picture ? (
                                 <img src={user.picture} alt="" />
                               ) : (
                                 <Avatar
-                                  name={user.firstName + " " + user.lastName}
+                                  name={user.firstName + ' ' + user.lastName}
                                 />
                               )}
                               <GridListTileBar
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: 'pointer' }}
                                 title={
                                   <span>
                                     Dr. {user.firstName} {user.lastName}
@@ -1555,10 +1583,11 @@ const MyDoctor = (props) => {
                                   });
                                   setDisplay({
                                     ...display,
-                                    doctor: "block",
-                                    appointment: "none",
+                                    doctor: 'block',
+                                    appointment: 'none',
                                   });
                                   setDisable({ ...disable, continue: true });
+                                  // getAvailableSlotsOfDoctors(user.id);
                                   //const currentSelectedDate = new Date();
                                   //onDaySelect(currentSelectedDate, user.id);
                                   setAvailability([]);
@@ -1612,32 +1641,37 @@ const MyDoctor = (props) => {
                 </div>
               </div>
             </Col>
-          }
-          {!profilepID.activated ?
+          )}
+          {!profilepID.activated ? (
             <Col md={6} lg={4} style={{ display: display.doctor }}>
               <div id="dorctor-list" className="doctor-list-new">
                 {doctor && doctor.activated ? (
                   <>
                     <Row id="doc-row">
-                      <Col xs={6}>
+                      <Col xs={12}>
                         <div className="doc-img">
                           {doctor.picture ? (
                             <img src={doctor.picture} alt="" />
                           ) : (
                             <Avatar
-                              name={doctor.firstName + " " + doctor.lastName}
+                              name={doctor.firstName + ' ' + doctor.lastName}
                             />
                           )}
                         </div>
                       </Col>
-                      <Col xs={6} id="doc-details">
+                    </Row>
+                    <Row>
+                      <Col xs={12} id="doc-details">
                         <div>
-                          <b className="doc-name">
+                          <p className="doc-name">
                             {doctor.firstName} {doctor.lastName}
-                          </b>
-                          <br />
+                          </p>
                           <ul
-                            style={{ fontSize: 12, display: "block" }}
+                            style={{
+                              fontSize: 12,
+                              display: 'block',
+                              textAlign: 'center',
+                            }}
                             className="list--tags"
                           >
                             {doctor &&
@@ -1646,101 +1680,175 @@ const MyDoctor = (props) => {
                                 <li key={index}>{speciality.name} </li>
                               ))}
                           </ul>
-                          <span>
-                            Country Of Residence: <b>{doctor.countryName}</b>
-                          </span>
-                          <br />
+                          <p
+                            style={{
+                              fontSize: 12,
+                              textAlign: 'center',
+                              fontWeight: '600',
+                            }}
+                          >
+                            {doctor.experience} years of experience
+                          </p>
                         </div>
                       </Col>
                     </Row>
-                    <br />
+                    <hr />
+                    {availableSlotsDisplay &&
+                      appointment.appointmentMode !== '' &&
+                      availableSlotsDisplay.data &&
+                      availableSlotsDisplay.data.length > 0 && (
+                        <>
+                          <div className="row">
+                            <div className="col-12 ml-4">
+                              <span>Availability</span>
+                              {/* {console.log({ doctor })} */}
+                              <div className="availability-card-holder">
+                                {/* MAP HERE */}
+                                {availableSlotsDisplay.data &&
+                                  availableSlotsDisplay.data.length > 0 &&
+                                  availableSlotsDisplay.data.map(
+                                    (slot, index) => (
+
+                                      <div
+                                        className="availability-card"
+                                        key={index}
+                                      >
+                                        <span>
+                                          {moment(slot.instantDate).format('DD/MM/YY')}
+                                        </span>
+                                        <span>
+                                          {slot.count} slots available
+                                        </span>
+                                      </div>
+
+                                    )
+                                  )}
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                        </>
+                      )}
                     <div className="mr-4 ml-4">
                       <div className="row">
-                        <div className="col-4">
+                        <div className="col-12">
+                          <span style={{ fontSize: 12 }}>
+                            Country Of Residence: <b>{doctor.countryName}</b>
+                          </span>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
                           <span style={{ fontSize: 12 }}>Education</span>
                           <br />
                           <b>
                             {doctor &&
                               doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map((x, index) => (
-                                <li key={index}>{x.educationalQualification} </li>
-                              ))}
+                              doctor.educationalQualifications.map(
+                                (x, index) => (
+                                  <li key={index}>
+                                    {x.educationalQualification}{' '}
+                                  </li>
+                                )
+                              )}
                           </b>
                         </div>
-                        <div className="col-4">
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
                           <span style={{ fontSize: 12 }}>Institution</span>
                           <br />
                           <b>
                             {doctor &&
                               doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map((x, index) => (
-                                <li key={index}>{x.institution} </li>
-                              ))}
+                              doctor.educationalQualifications.map(
+                                (x, index) => (
+                                  <li key={index}>{x.institution} </li>
+                                )
+                              )}
                           </b>
                         </div>
-                        <div className="col-4">
+                      </div>
+
+                      <div className="row">
+                        <div className="col-12">
                           <span style={{ fontSize: 12 }}>Languange</span>
                           <br />
                           <b>
                             {doctor &&
                               doctor.languages &&
                               doctor.languages.map((lang, index) => (
-                                <span key={index}>{lang.name} </span>
+                                <li key={index}>{lang.name} </li>
                               ))}
                           </b>
                         </div>
                       </div>
-                      <hr style={{ borderColor: "black" }} />
-                      {/* <h5>About</h5> */}
+                    </div>
+                    <hr />
+                    {/* <h5>About</h5> */}
+                    <div className="ml-4">
                       <p style={{ fontSize: 12 }}>
                         {/* <span><b>Bio : </b></span><br/> */}
                         <span>{doctor.bio}</span>
-                        <br /><br />
-                        <span>
-                          <b>Awards : </b>
-                        </span>
                         <br />
-                        <span>{doctor.awards}</span>
+
+                        {doctor.awards && (
+                          <>
+                            <span>
+                              <b>Awards : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.awards}</span>
+                          </>
+                        )}
                         <br />
-                        <span>
-                          <b>Certificates : </b>
-                        </span>
+                        {doctor.certificates && (
+                          <>
+                            <span>
+                              <b>Certificates : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.certificates}</span>
+                          </>
+                        )}
                         <br />
-                        <span>{doctor.certificates}</span>
-                        <br />
-                        <span>
-                          <b>Experience : </b>
-                        </span>
-                        <br />
-                        <span>{doctor.experience} yrs</span>
+                        {doctor.experience && (
+                          <>
+                            <span>
+                              <b>Experience : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.experience} yrs</span>
+                          </>
+                        )}
                       </p>
-                      <br />
                       <div className="mx-0">
                         <div className="row">
                           <div className="col-12">
                             <span className="price">
                               $
-
-                              {appointment.appointmentMode === "CONSULTATION" ||
-                                appointment.appointmentMode === ""
+                              {appointment.appointmentMode ===
+                                'FIRST_CONSULTATION' ||
+                                appointment.appointmentMode === ''
                                 ? doctor.rate
-                                : appointment.appointmentMode === "FOLLOW_UP"
+                                : appointment.appointmentMode === 'FOLLOW_UP'
                                   ? doctor.halfRate
-                                  : ""}
-
+                                  : ''}
                             </span>
                             <br />
                             <span>
-                              USD /{" "}
-                              {appointment.appointmentMode === "CONSULTATION" ||
-                                appointment.appointmentMode === ""
-                                ? "Consultation"
-                                : appointment.appointmentMode === "FOLLOW_UP"
-                                  ? "Follow up"
-                                  : ""}
+                              USD /{' '}
+                              {appointment.appointmentMode ===
+                                'FIRST_CONSULTATION' ||
+                                appointment.appointmentMode === ''
+                                ? 'Consultation'
+                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                  ? 'Follow up'
+                                  : ''}
                             </span>
                           </div>
                         </div>
+                        <br />
                       </div>
                     </div>
                   </>
@@ -1751,31 +1859,170 @@ const MyDoctor = (props) => {
                 )}
               </div>
             </Col>
-            :
+          ) : (
             <Col md={6} lg={8} style={{ display: display.doctor }}>
               <div id="dorctor-list" className="doctor-list-new">
                 {doctor && doctor.activated ? (
+                  // <>
+                  //   <Row id="doc-row">
+                  //     <Col xs={4}>
+                  //       <div className="doc-img">
+                  //         {doctor.picture ? (
+                  //           <img src={doctor.picture} alt="" />
+                  //         ) : (
+                  //           <Avatar
+                  //             name={doctor.firstName + ' ' + doctor.lastName}
+                  //           />
+                  //         )}
+                  //       </div>
+                  //     </Col>
+                  //     <Col xs={8} id="doc-details">
+                  //       <div>
+                  //         <b className="doc-name">
+                  //           {doctor.firstName} {doctor.lastName}
+                  //         </b>
+                  //         <br />
+                  //         <ul
+                  //           style={{ fontSize: 12, display: 'block' }}
+                  //           className="list--tags"
+                  //         >
+                  //           {doctor &&
+                  //             doctor.specialities &&
+                  //             doctor.specialities.map((speciality, index) => (
+                  //               <li key={index}>{speciality.name} </li>
+                  //             ))}
+                  //         </ul>
+                  //         <span>
+                  //           Country Of Residence: <b>{doctor.countryName}</b>
+                  //         </span>
+                  //         <br />
+                  //       </div>
+                  //     </Col>
+                  //   </Row>
+                  //   <br />
+                  //   <div className="mr-4 ml-4">
+                  //     <div className="row">
+                  //       <div className="col-4">
+                  //         <span style={{ fontSize: 12 }}>Education</span>
+                  //         <br />
+                  //         <b>
+                  //           {doctor &&
+                  //             doctor.educationalQualifications &&
+                  //             doctor.educationalQualifications.map(
+                  //               (x, index) => (
+                  //                 <li key={index}>
+                  //                   {x.educationalQualification}{' '}
+                  //                 </li>
+                  //               )
+                  //             )}
+                  //         </b>
+                  //       </div>
+                  //       <div className="col-4">
+                  //         <span style={{ fontSize: 12 }}>Institution</span>
+                  //         <br />
+                  //         <b>
+                  //           {doctor &&
+                  //             doctor.educationalQualifications &&
+                  //             doctor.educationalQualifications.map(
+                  //               (x, index) => (
+                  //                 <li key={index}>{x.institution} </li>
+                  //               )
+                  //             )}
+                  //         </b>
+                  //       </div>
+                  //       <div className="col-4">
+                  //         <span style={{ fontSize: 12 }}>Languange</span>
+                  //         <br />
+                  //         <b>
+                  //           {doctor &&
+                  //             doctor.languages &&
+                  //             doctor.languages.map((lang, index) => (
+                  //               <span key={index}>{lang.name} </span>
+                  //             ))}
+                  //         </b>
+                  //       </div>
+                  //     </div>
+                  //     <hr style={{ borderColor: 'black' }} />
+                  //     {/* <h5>About</h5> */}
+                  //     <p style={{ fontSize: 12 }}>
+                  //       {/* <span><b>Bio : </b></span><br/> */}
+                  //       <span>{doctor.bio}</span>
+                  //       <br />
+                  //       <br />
+                  //       <span>
+                  //         <b>Awards : </b>
+                  //       </span>
+                  //       <br />
+                  //       <span>{doctor.awards}</span>
+                  //       <br />
+                  //       <span>
+                  //         <b>Certificates : </b>
+                  //       </span>
+                  //       <br />
+                  //       <span>{doctor.certificates}</span>
+                  //       <br />
+                  //       <span>
+                  //         <b>Experience : </b>
+                  //       </span>
+                  //       <br />
+                  //       <span>{doctor.experience} yrs</span>
+                  //     </p>
+                  //     <br />
+                  //     <div className="mx-0">
+                  //       <div className="row">
+                  //         <div className="col-12">
+                  //           <span className="price">
+                  //             $
+                  //             {appointment.appointmentMode ===
+                  //               'FIRST_CONSULTATION' ||
+                  //               appointment.appointmentMode === ''
+                  //               ? doctor.rate
+                  //               : appointment.appointmentMode === 'FOLLOW_UP'
+                  //                 ? doctor.halfRate
+                  //                 : ''}
+                  //           </span>
+                  //           <br />
+                  //           <span>
+                  //             USD /{' '}
+                  //             {appointment.appointmentMode ===
+                  //               'FIRST_CONSULTATION' ||
+                  //               appointment.appointmentMode === ''
+                  //               ? 'Consultation'
+                  //               : appointment.appointmentMode === 'FOLLOW_UP'
+                  //                 ? 'Follow up'
+                  //                 : ''}
+                  //           </span>
+                  //         </div>
+                  //       </div>
+                  //     </div>
+                  //   </div>
+                  // </>
                   <>
                     <Row id="doc-row">
-                      <Col xs={4}>
+                      <Col xs={12}>
                         <div className="doc-img">
                           {doctor.picture ? (
                             <img src={doctor.picture} alt="" />
                           ) : (
                             <Avatar
-                              name={doctor.firstName + " " + doctor.lastName}
+                              name={doctor.firstName + ' ' + doctor.lastName}
                             />
                           )}
                         </div>
                       </Col>
-                      <Col xs={8} id="doc-details">
+                    </Row>
+                    <Row>
+                      <Col xs={12} id="doc-details">
                         <div>
-                          <b className="doc-name">
+                          <p className="doc-name">
                             {doctor.firstName} {doctor.lastName}
-                          </b>
-                          <br />
+                          </p>
                           <ul
-                            style={{ fontSize: 12, display: "block" }}
+                            style={{
+                              fontSize: 12,
+                              display: 'block',
+                              textAlign: 'center',
+                            }}
                             className="list--tags"
                           >
                             {doctor &&
@@ -1784,101 +2031,171 @@ const MyDoctor = (props) => {
                                 <li key={index}>{speciality.name} </li>
                               ))}
                           </ul>
-                          <span>
-                            Country Of Residence: <b>{doctor.countryName}</b>
-                          </span>
-                          <br />
+                          <p
+                            style={{
+                              fontSize: 12,
+                              textAlign: 'center',
+                              fontWeight: '600',
+                            }}
+                          >
+                            {doctor.experience} years of experience
+                          </p>
                         </div>
                       </Col>
                     </Row>
-                    <br />
+                    <hr />
+                    {availableSlotsDisplay &&
+                      appointment.appointmentMode !== '' &&
+                      availableSlotsDisplay.data &&
+                      availableSlotsDisplay.data.length > 0 && (
+                        <>
+                          <div className="row">
+                            <div className="col-12 ml-4">
+                              <span>Availability</span>
+                              {/* {console.log({ doctor })} */}
+                              <div className="availability-card-holder">
+                                {/* MAP HERE */}
+                                {availableSlotsDisplay.data &&
+                                  availableSlotsDisplay.data.length > 0 &&
+                                  availableSlotsDisplay.data.map(
+                                    (slot, index) => (
+                                      <div
+                                        className="availability-card"
+                                        key={index}
+                                      >
+                                        <span>
+                                          Slots Available: {slot.count}
+                                        </span>
+                                        <span>Date: {slot.date}</span>
+                                      </div>
+                                    )
+                                  )}
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                        </>
+                      )}
                     <div className="mr-4 ml-4">
                       <div className="row">
-                        <div className="col-4">
+                        <div className="col-12">
+                          <span style={{ fontSize: 12 }}>
+                            Country Of Residence: <b>{doctor.countryName}</b>
+                          </span>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
                           <span style={{ fontSize: 12 }}>Education</span>
                           <br />
                           <b>
                             {doctor &&
                               doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map((x, index) => (
-                                <li key={index}>{x.educationalQualification} </li>
-                              ))}
+                              doctor.educationalQualifications.map(
+                                (x, index) => (
+                                  <li key={index}>
+                                    {x.educationalQualification}{' '}
+                                  </li>
+                                )
+                              )}
                           </b>
                         </div>
-                        <div className="col-4">
+                      </div>
+                      <div className="row">
+                        <div className="col-12">
                           <span style={{ fontSize: 12 }}>Institution</span>
                           <br />
                           <b>
                             {doctor &&
                               doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map((x, index) => (
-                                <li key={index}>{x.institution} </li>
-                              ))}
+                              doctor.educationalQualifications.map(
+                                (x, index) => (
+                                  <li key={index}>{x.institution} </li>
+                                )
+                              )}
                           </b>
                         </div>
-                        <div className="col-4">
+                      </div>
+
+                      <div className="row">
+                        <div className="col-12">
                           <span style={{ fontSize: 12 }}>Languange</span>
                           <br />
                           <b>
                             {doctor &&
                               doctor.languages &&
                               doctor.languages.map((lang, index) => (
-                                <span key={index}>{lang.name} </span>
+                                <li key={index}>{lang.name} </li>
                               ))}
                           </b>
                         </div>
                       </div>
-                      <hr style={{ borderColor: "black" }} />
-                      {/* <h5>About</h5> */}
+                    </div>
+                    <hr />
+                    {/* <h5>About</h5> */}
+                    <div className="ml-4">
                       <p style={{ fontSize: 12 }}>
                         {/* <span><b>Bio : </b></span><br/> */}
                         <span>{doctor.bio}</span>
-                        <br /><br />
-                        <span>
-                          <b>Awards : </b>
-                        </span>
                         <br />
-                        <span>{doctor.awards}</span>
+
+                        {doctor.awards && (
+                          <>
+                            <span>
+                              <b>Awards : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.awards}</span>
+                          </>
+                        )}
                         <br />
-                        <span>
-                          <b>Certificates : </b>
-                        </span>
+                        {doctor.certificates && (
+                          <>
+                            <span>
+                              <b>Certificates : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.certificates}</span>
+                          </>
+                        )}
                         <br />
-                        <span>{doctor.certificates}</span>
-                        <br />
-                        <span>
-                          <b>Experience : </b>
-                        </span>
-                        <br />
-                        <span>{doctor.experience} yrs</span>
+                        {doctor.experience && (
+                          <>
+                            <span>
+                              <b>Experience : </b>
+                            </span>
+                            <br />
+                            <span>{doctor.experience} yrs</span>
+                          </>
+                        )}
                       </p>
-                      <br />
                       <div className="mx-0">
                         <div className="row">
                           <div className="col-12">
                             <span className="price">
                               $
-
-                              {appointment.appointmentMode === "CONSULTATION" ||
-                                appointment.appointmentMode === ""
+                              {appointment.appointmentMode ===
+                                'FIRST_CONSULTATION' ||
+                                appointment.appointmentMode === ''
                                 ? doctor.rate
-                                : appointment.appointmentMode === "FOLLOW_UP"
+                                : appointment.appointmentMode === 'FOLLOW_UP'
                                   ? doctor.halfRate
-                                  : ""}
-
+                                  : ''}
                             </span>
                             <br />
                             <span>
-                              USD /{" "}
-                              {appointment.appointmentMode === "CONSULTATION" ||
-                                appointment.appointmentMode === ""
-                                ? "Consultation"
-                                : appointment.appointmentMode === "FOLLOW_UP"
-                                  ? "Follow up"
-                                  : ""}
+                              USD /{' '}
+                              {appointment.appointmentMode ===
+                                'FIRST_CONSULTATION' ||
+                                appointment.appointmentMode === ''
+                                ? 'Consultation'
+                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                  ? 'Follow up'
+                                  : ''}
                             </span>
                           </div>
                         </div>
+                        <br />
                       </div>
                     </div>
                   </>
@@ -1889,8 +2206,8 @@ const MyDoctor = (props) => {
                 )}
               </div>
             </Col>
-          }
-          {!profilepID.activated ?
+          )}
+          {!profilepID.activated ? (
             <Col
               md={6}
               lg={4}
@@ -1898,15 +2215,15 @@ const MyDoctor = (props) => {
               style={{ display: display.doctor }}
             >
               <Tooltip title="Take a Booking appointment tour again." arrow>
-                <button onClick={() => setIsTourOpen(true)} className="howToBtn">
+                <button
+                  onClick={() => setIsTourOpen(true)}
+                  className="howToBtn"
+                >
                   How to?
                 </button>
               </Tooltip>
               <div id="dorctor-list">
-                <div
-                  style={{ height: 470 }}
-                  id="calendar-list"
-                >
+                <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
                     {/* <p>Select Date</p>
                                     <TextField
@@ -1935,7 +2252,7 @@ const MyDoctor = (props) => {
                               <MenuItem value="">
                                 <em>Select</em>
                               </MenuItem>
-                              <MenuItem value="CONSULTATION">
+                              <MenuItem value="FIRST_CONSULTATION">
                                 Consultation(1 Hr)
                               </MenuItem>
                               <MenuItem value="FOLLOW_UP">
@@ -1976,60 +2293,70 @@ const MyDoctor = (props) => {
                       <>
                         <IconButton
                           style={{
-                            background: "#F6CEB4",
-                            color: "#00d0cc",
-                            marginRight: "10px",
+                            background: '#F6CEB4',
+                            color: '#00d0cc',
+                            marginRight: '10px',
                           }}
                           onClick={() => {
                             setDisplaySlot(false);
                             setDisplayCalendar(true);
                           }}
                         >
-                          <KeyboardBackspaceIcon />{" "}
-                        </IconButton>{" "}
+                          <KeyboardBackspaceIcon />{' '}
+                        </IconButton>{' '}
                         Back to calendar
                         <p className="mt-3">
-                          Available Slots For{" "}
-                          {moment(currentDate).format("DD, MMM YYYY")}
+                          Available Slots For{' '}
+                          {moment(currentDate).format('DD, MMM YYYY')}
                         </p>
-                        {appointmentSlot && appointmentSlot.length > 0 ? (
-                          appointmentSlot.map((current, i) => (
-                            <div className="inputGroup" key={i}>
-                              <input
-                                id={`selectedId${i}`}
-                                name="selectedId"
-                                className="choseSlotInput"
-                                type="radio"
-                                value={current.id}
-                                onChange={() =>
-                                  onAvailabilitySelected(current, i)
-                                }
-                                checked={
-                                  selectedSlotId &&
-                                  parseInt(selectedSlotId) === current.id
-                                }
-                              />
-                              <label
-                                htmlFor={`selectedId${i}`}
-                                className="choseSlotLable"
-                              >
-                                <b>
-                                  {moment(current.startTime).format("hh:mm A")} -{" "}
-                                  {moment(current.endTime).format("hh:mm A")}{" "}
-                                </b>
-                              </label>
+                        <div className="slot-display">
+                          {appointmentSlot && appointmentSlot.length > 0 ? (
+                            appointmentSlot.map((current, i) => (
+                              <div className="inputGroup" key={i}>
+                                <input
+                                  id={`selectedId${i}`}
+                                  name="selectedId"
+                                  className="choseSlotInput"
+                                  type="radio"
+                                  value={current.id}
+                                  onChange={() =>
+                                    onAvailabilitySelected(current, i)
+                                  }
+                                  checked={
+                                    selectedSlotId &&
+                                    parseInt(selectedSlotId) === current.id
+                                  }
+                                />
+                                <label
+                                  htmlFor={`selectedId${i}`}
+                                  className="choseSlotLable"
+                                >
+                                  <b>
+                                    {moment(current.startTime).format(
+                                      'hh:mm A'
+                                    )}{' '}
+                                    -{' '}
+                                    {moment(current.endTime).format('hh:mm A')}{' '}
+                                  </b>
+                                </label>
+                              </div>
+                            ))
+                          ) : appointmentSlot.length === 0 &&
+                            appointment.appointmentMode ===
+                            'FIRST_CONSULTATION' ? (
+                            <div
+                              style={{ textAlign: 'center', marginTop: '50%' }}
+                            >
+                              No slots available for consultation.
                             </div>
-                          ))
-                        ) : appointmentSlot.length === 0 &&
-                          appointment.appointmentMode === "CONSULTATION" ? (
-                          <div style={{ textAlign: "center", marginTop: "50%" }}>
-                            No slots available for consultation.
-                          </div>
-                        ) : (
-                          <div style={{ textAlign: "center", marginTop: "50%" }}>
-                            No slots available.
-                          </div>
-                        )}
+                          ) : (
+                            <div
+                              style={{ textAlign: 'center', marginTop: '50%' }}
+                            >
+                              No slots available.
+                            </div>
+                          )}
+                        </div>
                       </>
                     )}
                   </div>
@@ -2048,9 +2375,9 @@ const MyDoctor = (props) => {
                   <label
                     style={{
                       fontSize: 12,
-                      color: "#ff9393",
-                      marginBottom: "10px",
-                      marginTop: "10px",
+                      color: '#ff9393',
+                      marginBottom: '10px',
+                      marginTop: '10px',
                     }}
                     className="left"
                   >
@@ -2068,7 +2395,7 @@ const MyDoctor = (props) => {
                 </button>
               </div>
             </Col>
-            :
+          ) : (
             <Col
               md={6}
               lg={4}
@@ -2081,10 +2408,7 @@ const MyDoctor = (props) => {
                 </button>
               </Tooltip> */}
               <div id="dorctor-list">
-                <div
-                  style={{ height: 470 }}
-                  id="calendar-list"
-                >
+                <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
                     {/* <p>Select Date</p>
                                     <TextField
@@ -2113,7 +2437,7 @@ const MyDoctor = (props) => {
                               <MenuItem value="">
                                 <em>Select</em>
                               </MenuItem>
-                              {/* <MenuItem value="CONSULTATION">
+                              {/* <MenuItem value="FIRST_CONSULTATION">
                                 Consultation(1 Hr)
                               </MenuItem> */}
                               <MenuItem value="FOLLOW_UP">
@@ -2123,7 +2447,6 @@ const MyDoctor = (props) => {
                           </FormControl>
                         </div>
                         <Calendar
-
                           onChange={(e) =>
                             onDaySelect(new Date(e), doctor && doctor.id)
                           }
@@ -2155,21 +2478,21 @@ const MyDoctor = (props) => {
                       <>
                         <IconButton
                           style={{
-                            background: "#F6CEB4",
-                            color: "#00d0cc",
-                            marginRight: "10px",
+                            background: '#F6CEB4',
+                            color: '#00d0cc',
+                            marginRight: '10px',
                           }}
                           onClick={() => {
                             setDisplaySlot(false);
                             setDisplayCalendar(true);
                           }}
                         >
-                          <KeyboardBackspaceIcon />{" "}
-                        </IconButton>{" "}
+                          <KeyboardBackspaceIcon />{' '}
+                        </IconButton>{' '}
                         Back to calendar
                         <p className="mt-3">
-                          Available Slots For{" "}
-                          {moment(currentDate).format("DD, MMM YYYY")}
+                          Available Slots For{' '}
+                          {moment(currentDate).format('DD, MMM YYYY')}
                         </p>
                         {appointmentSlot && appointmentSlot.length > 0 ? (
                           appointmentSlot.map((current, i) => (
@@ -2193,19 +2516,24 @@ const MyDoctor = (props) => {
                                 className="choseSlotLable"
                               >
                                 <b>
-                                  {moment(current.startTime).format("hh:mm A")} -{" "}
-                                  {moment(current.endTime).format("hh:mm A")}{" "}
+                                  {moment(current.startTime).format('hh:mm A')}{' '}
+                                  - {moment(current.endTime).format('hh:mm A')}{' '}
                                 </b>
                               </label>
                             </div>
                           ))
                         ) : appointmentSlot.length === 0 &&
-                          appointment.appointmentMode === "CONSULTATION" ? (
-                          <div style={{ textAlign: "center", marginTop: "50%" }}>
+                          appointment.appointmentMode ===
+                          'FIRST_CONSULTATION' ? (
+                          <div
+                            style={{ textAlign: 'center', marginTop: '50%' }}
+                          >
                             No slots available for consultation.
                           </div>
                         ) : (
-                          <div style={{ textAlign: "center", marginTop: "50%" }}>
+                          <div
+                            style={{ textAlign: 'center', marginTop: '50%' }}
+                          >
                             No slots available.
                           </div>
                         )}
@@ -2227,9 +2555,9 @@ const MyDoctor = (props) => {
                   <label
                     style={{
                       fontSize: 12,
-                      color: "#ff9393",
-                      marginBottom: "10px",
-                      marginTop: "10px",
+                      color: '#ff9393',
+                      marginBottom: '10px',
+                      marginTop: '10px',
                     }}
                     className="left"
                   >
@@ -2247,17 +2575,17 @@ const MyDoctor = (props) => {
                 </button>
               </div>
             </Col>
-          }
-          {!profilepID.activated &&
+          )}
+          {!profilepID.activated && (
             <Col md={4} style={{ display: display.appointment }}>
               <div id="dorctor-list">
                 <IconButton
-                  style={{ background: "#F6CEB4", color: "#00d0cc" }}
+                  style={{ background: '#F6CEB4', color: '#00d0cc' }}
                   onClick={() => {
                     setDisplay({
                       ...display,
-                      doctor: "block",
-                      appointment: "none",
+                      doctor: 'block',
+                      appointment: 'none',
                     });
                     setDisable({ ...disable, payment: true });
                   }}
@@ -2268,7 +2596,7 @@ const MyDoctor = (props) => {
                 <br />
 
                 <div className="appointment-box">
-                  <ValidatorForm onSubmit={() => console.log("Form submitted")}>
+                  <ValidatorForm onSubmit={() => console.log('Form submitted')}>
                     <p>Urgency</p>
                     <FormControl>
                       <Select
@@ -2318,61 +2646,67 @@ const MyDoctor = (props) => {
                   </ValidatorForm>
                 </div>
 
-
                 <br />
               </div>
             </Col>
-          }
-          {!profilepID.activated ?
+          )}
+          {!profilepID.activated ? (
             <Col md={4} style={{ display: display.appointment }}>
-              <div id="dorctor-list">
-                <b className="blue ml-3">Confirm your booking</b> <br />
+              <div id="dorctor-list" className="doctor-list-new">
+                <p className="blue ml-2 text-center">Confirm your booking</p>
                 <Row id="doc-row">
-                  <Col xs={6}>
+                  <Col xs={12}>
                     <div className="doc-img">
-                      {doctor && doctor.picture ? (
+                      {doctor.picture ? (
                         <img src={doctor.picture} alt="" />
                       ) : (
                         <Avatar
-                          name={
-                            doctor &&
-                            doctor.firstName + " " + doctor &&
-                            doctor.lastName
-                          }
+                          name={doctor.firstName + ' ' + doctor.lastName}
                         />
                       )}
                     </div>
                   </Col>
-                  <Col xs={6} id="doc-details">
+                  <Col xs={12} id="doc-details">
                     <div>
-                      <b className="doc-name">
-                        {doctor && doctor.firstName} {doctor && doctor.lastName}
-                      </b>
-                      <br />
-                      <span style={{ fontSize: 12, display: "block" }}>
+                      <p className="doc-name">
+                        {doctor.firstName} {doctor.lastName}
+                      </p>
+                      <ul
+                        style={{
+                          fontSize: 12,
+                          display: 'block',
+                          textAlign: 'center',
+                        }}
+                        className="list--tags"
+                      >
                         {doctor &&
                           doctor.specialities &&
                           doctor.specialities.map((speciality, index) => (
-                            <span key={index}>{speciality.name} </span>
+                            <li key={index}>{speciality.name} </li>
                           ))}
-                      </span>
-                      <span>
-                        Country Of Residence:{" "}
-                        <b>{doctor && doctor.countryName}</b>
-                      </span>
-                      <br />
+                      </ul>
+                      <p
+                        style={{
+                          fontSize: 12,
+                          textAlign: 'center',
+                          fontWeight: '600',
+                        }}
+                      >
+                        {doctor.experience} years of experience
+                      </p>
                     </div>
                   </Col>
                 </Row>
-                <br />
                 <div className="mr-4 ml-4">
                   <div className="row">
-                    <div className="col-4">
-                      <span style={{ fontSize: 12 }}>Experience</span>
-                      <br />
-                      <b>{doctor && doctor.experience} yrs</b>
+                    <div className="col-12">
+                      <span style={{ fontSize: 12 }}>
+                        Country Of Residence: <b>{doctor.countryName}</b>
+                      </span>
                     </div>
-                    <div className="col-4">
+                  </div>
+                  <div className="row">
+                    <div className="col-12">
                       <span style={{ fontSize: 12 }}>Education</span>
                       <br />
                       <b>
@@ -2383,53 +2717,67 @@ const MyDoctor = (props) => {
                           ))}
                       </b>
                     </div>
-                    <div className="col-4">
+                  </div>
+                  <div className="row">
+                    <div className="col-12">
+                      <span style={{ fontSize: 12 }}>Institution</span>
+                      <br />
+                      <b>
+                        {doctor &&
+                          doctor.educationalQualifications &&
+                          doctor.educationalQualifications.map((x, index) => (
+                            <li key={index}>{x.institution} </li>
+                          ))}
+                      </b>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-12">
                       <span style={{ fontSize: 12 }}>Languange</span>
                       <br />
                       <b>
                         {doctor &&
                           doctor.languages &&
                           doctor.languages.map((lang, index) => (
-                            <span key={index}>{lang.name} </span>
+                            <li key={index}>{lang.name} </li>
                           ))}
                       </b>
                     </div>
                   </div>
-                  <hr style={{ borderColor: "black" }} />
+                  <hr style={{ borderColor: 'black' }} />
                   <h5 className="blue">
-                    Date: {moment(appointment.startTime).format("MMMM DD")}
+                    Date: {moment(appointment.startTime).format('MMMM DD')}
                   </h5>
                   <h5 className="blue">
-                    Time:{" "}
-                    {moment(appointment.startTime).format("LT") +
-                      "-" +
-                      moment(appointment.endTime).format("LT")}
+                    Time:{' '}
+                    {moment(appointment.startTime).format('LT') +
+                      '-' +
+                      moment(appointment.endTime).format('LT')}
                   </h5>
-                  <hr style={{ borderColor: "black" }} />
-                  <br />
+                  <hr style={{ borderColor: 'black' }} />
                   <div className="m-3">
                     <div className="row">
                       <div className="col-12">
-                        <span className="price">
+                        <span className="price mr-1">
                           $
-
-                          {appointment.appointmentMode === "CONSULTATION" ||
-                            appointment.appointmentMode === ""
+                          {appointment.appointmentMode ===
+                            'FIRST_CONSULTATION' ||
+                            appointment.appointmentMode === ''
                             ? doctor && doctor.rate
-                            : appointment.appointmentMode === "FOLLOW_UP"
+                            : appointment.appointmentMode === 'FOLLOW_UP'
                               ? doctor && doctor.halfRate
-                              : ""}
-
+                              : ''}
                         </span>
-                        <br />
                         <span>
-                          USD /{" "}
-                          {appointment.appointmentMode === "CONSULTATION" ||
-                            appointment.appointmentMode === ""
-                            ? "Consultation"
-                            : appointment.appointmentMode === "FOLLOW_UP"
-                              ? "Follow up"
-                              : ""}
+                          USD /{' '}
+                          {appointment.appointmentMode ===
+                            'FIRST_CONSULTATION' ||
+                            appointment.appointmentMode === ''
+                            ? 'Consultation'
+                            : appointment.appointmentMode === 'FOLLOW_UP'
+                              ? 'Follow up'
+                              : ''}
                         </span>
                       </div>
                     </div>
@@ -2437,72 +2785,77 @@ const MyDoctor = (props) => {
                 </div>
               </div>
             </Col>
-            :
+          ) : (
             <>
               <Col md={8} style={{ display: display.appointment }}>
-
-                <div id="dorctor-list">
+                <div id="dorctor-list" className="doctor-list-new">
                   <IconButton
-                    style={{ background: "#F6CEB4", color: "#00d0cc" }}
+                    style={{ background: '#F6CEB4', color: '#00d0cc' }}
                     onClick={() => {
                       setDisplay({
                         ...display,
-                        doctor: "block",
-                        appointment: "none",
+                        doctor: 'block',
+                        appointment: 'none',
                       });
                       setDisable({ ...disable, payment: true });
                     }}
                   >
                     <ArrowBackIcon />
                   </IconButton>
-                  <b className="blue ml-3">Confirm your booking</b> <br />
-
+                  <p className="blue ml-2 text-center">Confirm your booking</p>
                   <Row id="doc-row">
-                    <Col xs={6}>
+                    <Col xs={12}>
                       <div className="doc-img">
-                        {doctor && doctor.picture ? (
+                        {doctor.picture ? (
                           <img src={doctor.picture} alt="" />
                         ) : (
                           <Avatar
-                            name={
-                              doctor &&
-                              doctor.firstName + " " + doctor &&
-                              doctor.lastName
-                            }
+                            name={doctor.firstName + ' ' + doctor.lastName}
                           />
                         )}
                       </div>
                     </Col>
-                    <Col xs={6} id="doc-details">
+                    <Col xs={12} id="doc-details">
                       <div>
-                        <b className="doc-name">
-                          {doctor && doctor.firstName} {doctor && doctor.lastName}
-                        </b>
-                        <br />
-                        <span style={{ fontSize: 12, display: "block" }}>
+                        <p className="doc-name">
+                          {doctor.firstName} {doctor.lastName}
+                        </p>
+                        <ul
+                          style={{
+                            fontSize: 12,
+                            display: 'block',
+                            textAlign: 'center',
+                          }}
+                          className="list--tags"
+                        >
                           {doctor &&
                             doctor.specialities &&
                             doctor.specialities.map((speciality, index) => (
-                              <span key={index}>{speciality.name} </span>
+                              <li key={index}>{speciality.name} </li>
                             ))}
-                        </span>
-                        <span>
-                          Country Of Residence:{" "}
-                          <b>{doctor && doctor.countryName}</b>
-                        </span>
-                        <br />
+                        </ul>
+                        <p
+                          style={{
+                            fontSize: 12,
+                            textAlign: 'center',
+                            fontWeight: '600',
+                          }}
+                        >
+                          {doctor.experience} years of experience
+                        </p>
                       </div>
                     </Col>
                   </Row>
-                  <br />
                   <div className="mr-4 ml-4">
                     <div className="row">
-                      <div className="col-4">
-                        <span style={{ fontSize: 12 }}>Experience</span>
-                        <br />
-                        <b>{doctor && doctor.experience} yrs</b>
+                      <div className="col-12">
+                        <span style={{ fontSize: 12 }}>
+                          Country Of Residence: <b>{doctor.countryName}</b>
+                        </span>
                       </div>
-                      <div className="col-4">
+                    </div>
+                    <div className="row">
+                      <div className="col-12">
                         <span style={{ fontSize: 12 }}>Education</span>
                         <br />
                         <b>
@@ -2513,53 +2866,69 @@ const MyDoctor = (props) => {
                             ))}
                         </b>
                       </div>
-                      <div className="col-4">
+                    </div>
+                    <div className="row">
+                      <div className="col-12">
+                        <span style={{ fontSize: 12 }}>Institution</span>
+                        <br />
+                        <b>
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map((x, index) => (
+                              <li key={index}>{x.institution} </li>
+                            ))}
+                        </b>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-12">
                         <span style={{ fontSize: 12 }}>Languange</span>
                         <br />
                         <b>
                           {doctor &&
                             doctor.languages &&
                             doctor.languages.map((lang, index) => (
-                              <span key={index}>{lang.name} </span>
+                              <li key={index}>{lang.name} </li>
                             ))}
                         </b>
                       </div>
                     </div>
-                    <hr style={{ borderColor: "black" }} />
+                    <hr style={{ borderColor: 'black' }} />
                     <h5 className="blue">
-                      Date: {moment(appointment.startTime).format("MMMM DD")}
+                      Date: {moment(appointment.startTime).format('MMMM DD')}
                     </h5>
                     <h5 className="blue">
-                      Time:{" "}
-                      {moment(appointment.startTime).format("LT") +
-                        "-" +
-                        moment(appointment.endTime).format("LT")}
+                      Time:{' '}
+                      {moment(appointment.startTime).format('LT') +
+                        '-' +
+                        moment(appointment.endTime).format('LT')}
                     </h5>
-                    <hr style={{ borderColor: "black" }} />
+                    <hr style={{ borderColor: 'black' }} />
                     <br />
                     <div className="m-3">
                       <div className="row">
                         <div className="col-12">
-                          <span className="price">
+                          <span className="price mr-1">
                             $
-
-                            {appointment.appointmentMode === "CONSULTATION" ||
-                              appointment.appointmentMode === ""
+                            {appointment.appointmentMode ===
+                              'FIRST_CONSULTATION' ||
+                              appointment.appointmentMode === ''
                               ? doctor && doctor.rate
-                              : appointment.appointmentMode === "FOLLOW_UP"
+                              : appointment.appointmentMode === 'FOLLOW_UP'
                                 ? doctor && doctor.halfRate
-                                : ""}
-
+                                : ''}
                           </span>
                           <br />
                           <span>
-                            USD /{" "}
-                            {appointment.appointmentMode === "CONSULTATION" ||
-                              appointment.appointmentMode === ""
-                              ? "Consultation"
-                              : appointment.appointmentMode === "FOLLOW_UP"
-                                ? "Follow up"
-                                : ""}
+                            USD /{' '}
+                            {appointment.appointmentMode ===
+                              'FIRST_CONSULTATION' ||
+                              appointment.appointmentMode === ''
+                              ? 'Consultation'
+                              : appointment.appointmentMode === 'FOLLOW_UP'
+                                ? 'Follow up'
+                                : ''}
                           </span>
                         </div>
                       </div>
@@ -2568,7 +2937,7 @@ const MyDoctor = (props) => {
                 </div>
               </Col>
             </>
-          }
+          )}
           <Col md={4} style={{ display: display.appointment }}>
             <div id="dorctor-list" className="doctor-list-new">
               <p style={{ fontSize: 12 }}>
@@ -2578,24 +2947,22 @@ const MyDoctor = (props) => {
                 <div id="price-box">
                   <span className="price">
                     $
-
-                    {appointment.appointmentMode === "CONSULTATION" ||
-                      appointment.appointmentMode === ""
+                    {appointment.appointmentMode === 'FIRST_CONSULTATION' ||
+                      appointment.appointmentMode === ''
                       ? doctor && doctor.rate
-                      : appointment.appointmentMode === "FOLLOW_UP"
+                      : appointment.appointmentMode === 'FOLLOW_UP'
                         ? doctor && doctor.halfRate
-                        : ""}
-
+                        : ''}
                   </span>
                   <br />
                   <span>
-                    USD /{" "}
-                    {appointment.appointmentMode === "CONSULTATION" ||
-                      appointment.appointmentMode === ""
-                      ? "Consultation"
-                      : appointment.appointmentMode === "FOLLOW_UP"
-                        ? "Follow up"
-                        : ""}
+                    USD /{' '}
+                    {appointment.appointmentMode === 'FIRST_CONSULTATION' ||
+                      appointment.appointmentMode === ''
+                      ? 'Consultation'
+                      : appointment.appointmentMode === 'FOLLOW_UP'
+                        ? 'Follow up'
+                        : ''}
                   </span>
                   <br />
                   <span style={{ fontSize: 12 }}>
@@ -2609,7 +2976,7 @@ const MyDoctor = (props) => {
                   <Row>
                     <Col
                       md={12}
-                      style={{ display: "flex", alignItems: "flex-end" }}
+                      style={{ display: 'flex', alignItems: 'flex-end' }}
                     >
                       <p style={{ fontSize: 9, marginBottom: 0 }}>
                         You can cancel your appointment before 2 days or else it
@@ -2622,7 +2989,7 @@ const MyDoctor = (props) => {
                   <Row>
                     <Col
                       md={12}
-                      style={{ display: "flex", alignItems: "flex-end" }}
+                      style={{ display: 'flex', alignItems: 'flex-end' }}
                     >
                       <p style={{ fontSize: 9, marginBottom: 0 }}>
                         Appointment is 95% reimbursed if cancelled 24h before
@@ -2631,7 +2998,7 @@ const MyDoctor = (props) => {
                     </Col>
                   </Row>
                   <br />
-                  {!profilepID.activated ?
+                  {!profilepID.activated ? (
                     <Row>
                       {/* <Col md={1}></Col> */}
                       {/* <Col md={5} style={{ paddingLeft: 0 }}><button type="button" className="btn btn-primary continue-btn" onClick={bookappointment}>Pay by PayPal</button></Col> */}
@@ -2640,13 +3007,10 @@ const MyDoctor = (props) => {
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           <button
                             className="btn btn-primary"
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             onClick={() => {
-                              setDisable({ ...disable, payment: false })
-
-
+                              setDisable({ ...disable, payment: false });
                             }}
-
                           >
                             Pay Now
                           </button>
@@ -2655,7 +3019,6 @@ const MyDoctor = (props) => {
                           Click to Pay
                         </button> */}
                         </Col>
-
                       )}
 
                       {/* <Modal  show={show} onHide={handleClosemodal}>
@@ -2683,7 +3046,6 @@ const MyDoctor = (props) => {
                       </Modal.Footer>
                     </Modal> */}
 
-
                       {!disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           <Paypal
@@ -2694,26 +3056,25 @@ const MyDoctor = (props) => {
                           />
                         </Col>
                       )}
+                      {/* 1, Create component called mobile payment and add a route to this mobile payment
+                      2. Add Paypal component inside mobile payment */}
                     </Row>
-                    :
+                  ) : (
                     <Row>
                       <Col md={12} style={{ paddingLeft: 0 }}>
                         <button
                           className="btn btn-primary"
-                          style={{ width: "100%" }}
+                          style={{ width: '100%' }}
                           onClick={(e) => {
                             // setDisable({ ...disable, payment: false })
-                            setNextAppointment()
-
+                            setNextAppointment();
                           }}
-
                         >
                           Book Slot
                         </button>
                       </Col>
                     </Row>
-                  }
-
+                  )}
                 </div>
               </div>
             </div>
@@ -2772,4 +3133,3 @@ const MyDoctor = (props) => {
 };
 
 export default MyDoctor;
-

@@ -1,4 +1,4 @@
-import React, { Component } from "react"; 
+import React, { Component } from "react";
 import logo from "../../images/logo/logo-with-quote.png";
 import "./patient.css";
 import { Container, Row, Col } from "react-bootstrap";
@@ -17,10 +17,10 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { HashLink } from "react-router-hash-link";
 
 const Footer = () => {
-//   const change = (e) => {
-//     localStorage.setItem("language", e.target.value);
-//     // window.location.reload();
-//   };
+  //   const change = (e) => {
+  //     localStorage.setItem("language", e.target.value);
+  //     // window.location.reload();
+  //   };
 
   return (
     <footer>
@@ -48,7 +48,7 @@ const Footer = () => {
               md={9}
               lg={6}
               xl={6}
-              style={{ display: "flex", height: 180, alignItems: "center" }}
+              style={{ display: "flex", height: 135, alignItems: "center" }}
             >
               {/*<div id="active-user">
                                 <b id="right-border">
