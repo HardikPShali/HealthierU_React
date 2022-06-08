@@ -646,7 +646,7 @@ const MyAppointments = (props) => {
                                             ) : (
                                                 <div
                                                     className="col-12 ml-2"
-                                                    style={{ textShadow: 'none', color: 'black' }}
+                                                    style={{ textShadow: 'none', color: '#3e4543' }}
                                                 >
                                                     No Upcoming Appointments
                                                 </div>
@@ -860,6 +860,7 @@ const MyAppointments = (props) => {
                                                             <img
                                                                 width="40"
                                                                 height="40"
+                                                                font-weight="300"
                                                                 src={conHistory}
                                                                 // onClick='${pathname}'
                                                                 alt=""

@@ -1,4 +1,4 @@
-import React, { Component } from "react"; 
+import React, { Component } from "react";
 import logo from "../../images/logo/logo-with-quote.png";
 import "./landing.css";
 import { Container, Row, Col } from "react-bootstrap";
@@ -17,24 +17,17 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { HashLink } from "react-router-hash-link";
 
 const Footer = () => {
-//   const change = (e) => {
-//     localStorage.setItem("language", e.target.value);
-//     // window.location.reload();
-//   };
+  //   const change = (e) => {
+  //     localStorage.setItem("language", e.target.value);
+  //     // window.location.reload();
+  //   };
 
   return (
     <footer>
       <div id="footer">
         <Container className="p-0 padding-mobile">
-          <Row>
-          <Col md={3} lg={2} xl={2}>
-              <img
-                src={logo}
-                id="icon"
-                alt="HealthierU Logo"
-                style={{ width: "10rem", marginBottom: 22 }}
-              />
-              <br />
+          <Row className="align-items-center">
+            <Col md={3} lg={2} xl={2}>
               <Link to="/about-us" id="footer-link">
                 About us
               </Link>
