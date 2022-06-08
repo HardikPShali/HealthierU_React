@@ -1233,9 +1233,10 @@ ul.light {
 .about-content h3:after {
   position: absolute;
   left: 0;
-  bottom: -26px;
-  width: 70px;
+  bottom: -18px;
+  width: 159px;
   height: 6px;
+  border-radius: 6px;
   background-color: #00d1cd;
   display: block;
   margin-top: 15px;
@@ -1297,9 +1298,10 @@ ul.light {
 .edge-text h1:after {
   position: absolute;
   left: 0;
-  bottom: -26px;
-  width: 70px;
+  bottom: -23px;
+  width: 161px;
   height: 6px;
+  border-radius: 6px;
   background-color: #00d1cd;
   display: block;
   margin-top: 15px;
@@ -1332,20 +1334,16 @@ ul.light {
 }
 
 .our_partners {
-  position: relative;
-  display: inline;
+  display: flex;
+  justify-content:center;
+  align-items: center;
   margin-top: 2rem;
 }
-.our_partners h4:after {
-  position: absolute;
-  left: 0;
-  top: 37px;
-  width: 70px;
-  height: 3px;
-  background-color: #3e3e3e;
-  display: block;
-  margin-top: 4px;
-  content: "";
+
+.our_partners h4 {
+  padding-bottom: 16px;
+  border-bottom: 3px solid #3e3e3e;
+  border-radius: 2px;
 }
 
 .our_partners-logo {
@@ -1356,7 +1354,6 @@ ul.light {
 }
 .our_partners-logo img {
   width: 14rem;
-  margin-top: 2rem;
 }
 
 .our_partners-logo .cornel-logo {
@@ -1393,8 +1390,9 @@ ul.light {
   position: absolute;
   left: 0;
   bottom: -26px;
-  width: 70px;
+  width: 341px;
   height: 6px;
+  border-radius: 18px;
   background-color: #00d1cd;
   display: block;
   margin-top: 15px;
@@ -1435,7 +1433,8 @@ ul.light {
   position: absolute;
   left: 0;
   bottom: -26px;
-  width: 70px;
+  width: 284px;
+  border-radius: 6px;
   height: 6px;
   background-color: #00d1cd;
   display: block;
@@ -1690,10 +1689,10 @@ ul.light {
     font-size: 1.2rem !important;
   }
   .about-content h3:after {
-    bottom: -18px !important;
-    width: 48px !important;
-    height: 3px !important;
-    margin-top: 15px !important;
+    bottom: -21px !important;
+    width: 97px !important;
+    height: 4px !important;
+    margin-top: 4px !important;
   }
   .about-content p {
     font-size: 0.9rem !important;
@@ -1732,8 +1731,8 @@ ul.light {
     font-size: 1.3rem !important;
   }
   .edge-text h1:after {
-    bottom: -15px !important;
-    width: 60px !important;
+    bottom: -19px !important;
+    width: 104px !important;
     height: 3px !important;
     margin-top: 15px !important;
   }
@@ -1749,13 +1748,12 @@ ul.light {
   }
   .our_partners h4:after {
     top: 26px !important;
-    width: 40px !important;
+    width: 99px !important;
     height: 2px !important;
     margin-top: 4px !important;
   }
   .our_partners-logo img {
     width: 10rem !important;
-    margin-top: 1rem !important;
   }
   .powerful_Ftr-text {
     padding: 1rem 1rem !important;
@@ -1769,7 +1767,7 @@ ul.light {
   }
   .powerful_Ftr-text h1:after {
     bottom: -23px !important;
-    width: 72px !important;
+    width: 206px !important;
     height: 4px !important;
     margin-top: 15px !important;
   }
@@ -1782,7 +1780,7 @@ ul.light {
   }
   .our_spl-section h1:after {
     bottom: -26px !important;
-    width: 65px !important;
+    width: 158px !important;
     height: 3px !important;
   }
   .our_spl-subtitle {
@@ -1866,9 +1864,9 @@ ul.light {
   .about-content p {
     margin-bottom: 2rem;
   }
-  .our_partners-logo img {
+  /* .our_partners-logo img {
     margin-top: 2rem;
-  }
+  } */
   .powerful_Ftr-text h1 {
     font-size: 2rem;
   }
@@ -2024,9 +2022,9 @@ ul.light {
   .about-content h3 {
     font-size: 2rem;
   }
-  .our_partners-logo img {
+  /* .our_partners-logo img {
     margin-top: 2rem;
-  }
+  } */
   .powerful_Ftr-text h1 {
     font-size: 2rem;
   }

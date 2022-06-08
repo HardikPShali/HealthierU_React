@@ -376,7 +376,7 @@ const Homepage = () => {
                 <img src={step3} alt=""></img>
               </Col>
               <div className="our_partners">
-                <h4>Our Partners</h4>
+                <h4>Our Partner</h4>
                 <div className="our_partners-logo">
                   <div className="cornel-logo">
                     <img src={CornelMedicine} alt="" />
