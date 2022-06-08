@@ -2807,7 +2807,7 @@ button {
   text-align: left;
 
   box-shadow: 0px 0px 10px #ddd;
-  height: 31%;
+  /* height: 31%; */
   /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
   overflow: auto;
 }
@@ -2823,7 +2823,7 @@ button {
   text-align: left;
 
   box-shadow: 0px 0px 10px #ddd;
-  height: 31%;
+  /* height: 31%; */
   /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
   overflow: auto;
 }
@@ -2925,6 +2925,10 @@ button.reset-btn {
 }
 
 .appointment-filter-body p {
+  margin: 0 !important;
+  font-size: 14px;
+}
+.medicalrecord-filter-body p {
   margin: 0 !important;
   font-size: 14px;
 }

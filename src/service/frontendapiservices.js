@@ -921,7 +921,7 @@ export const getAppointmentsBySearch = async (patientName) => {
 }
 export const getGlobalMedicalRecordsSearch = async (data) => {
     var payload = {
-        method: 'get',
+        method: 'post',
         mode: 'no-cors',
         url: `/api/v2/medical-documents/filter`,
         data: data,

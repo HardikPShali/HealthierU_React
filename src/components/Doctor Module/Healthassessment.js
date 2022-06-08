@@ -45,6 +45,7 @@ import './Prescription-Lab/PrescriptionLab.css'
 import { useHistory } from 'react-router';
 import { dateFnsLocalizer } from 'react-big-calendar';
 import SearchBarComponent from './SearchAndFilter/SearchComponent';
+import PrescriptionFilter from './SearchAndFilter/PrescriptionFIlter'
 import FilterComponent from './SearchAndFilter/FilterComponent';
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
@@ -356,7 +357,48 @@ const Healthassessment = (props) => {
     const [medicalRecordData, setMedicalRecordData] = useState([]);
     const [currentDoctor, setCurrentDoctor] = useState("");
     const [loading, setLoading] = useState(true);
-    const getGlobalMedicalRecords = async (search, filter = {}) => {
+    const getGlobalPrescriptions = async (search, filter = {}) => {
+        const currentDoctor = cookies.get('profileDetails');
+        setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
+
+        const starttime = new Date();
+        const endtime = new Date();
+        const data = {
+            doctorId: currentDoctor.id,
+            patientId: patient,
+            documentType: "Prescription",
+            //startTime: starttime.toISOString(),
+            //endTime: endtime.toISOString(),
+            doctorName: search,
+            //resultType: search,
+            //page: 0,
+            //size: 0,
+            //labName: search,
+            //id: "null"
+        };
+        if (filter.startTime && filter.startTime !== '') {
+            data.startTime = filter.startTime;
+        }
+        if (filter.endTime && filter.endTime !== '') {
+            const endtime = new Date(filter.endTime);
+            endtime.setHours(23, 59, 59);
+            data.endTime = endtime.toISOString();
+        }
+        if (filter.resultType && filter.resultType !== '') {
+            data.resultType = filter.resultType;
+        }
+        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
+            if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (responseTwo.status === 200 || responseTwo.status === 201) {
+            setPresecriptionDocument(responseTwo.data.data)
+            setCurrentPageNumber(1);
+        }
+    };
+
+    const getGlobalLabResults = async (search, filter = {}) => {
         const currentDoctor = cookies.get('profileDetails');
         setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
 
@@ -366,16 +408,15 @@ const Healthassessment = (props) => {
             doctorId: currentDoctor.id,
             patientId: patient,
             documentType: "LabResult",
-            startTime: starttime.toISOString(),
-            endTime: endtime.toISOString(),
-            //doctorName: "null",
-            resultType: search,
-            pageNo: 0,
-           // pageSize: 1,
-           // labName: "null",
+            //startTime: starttime.toISOString(),
+            //endTime: endtime.toISOString(),
+            //doctorName: search,
+            //resultType: search,
+            //page: 0,
+            //size: 0,
+            labName: search,
             //id: "null"
         };
-        console.log("data", data);
         if (filter.startTime && filter.startTime !== '') {
             data.startTime = filter.startTime;
         }
@@ -384,37 +425,41 @@ const Healthassessment = (props) => {
             endtime.setHours(23, 59, 59);
             data.endTime = endtime.toISOString();
         }
-        // if (labDocument) {
+        if (filter.resultType && filter.resultType !== '') {
+            data.resultType = filter.resultType;
+        }
         const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
             if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
                 setLoading(false);
             }
         });
-        console.log("responseTwo", responseTwo);
         if (responseTwo.status === 200 || responseTwo.status === 201) {
             setLabDocument(responseTwo.data.data)
             setCurrentPageNumber(1);
         }
-        //}
-        // else {
-        //     const documents = await getDoctorPatientDocuments(
-        //         'LabResult',
-        //         0,
-        //         doctor.id,
-        //         patient
-        //     );
-        //     setLabDocument(documents.data);
-        // }
     };
     const handleFilterChange = (filter) => {
-        getGlobalMedicalRecords(search, filter);
+        getGlobalLabResults(search, filter);
     };
     const handleSearchInputChange = (searchValue) => {
         if (searchValue === '') {
             console.log('blank searchValue is | in SearchBarComponent', searchValue);
-            getGlobalMedicalRecords(searchValue)
+            getGlobalLabResults(searchValue)
         } else {
-            getGlobalMedicalRecords(searchValue);
+            getGlobalLabResults(searchValue);
+            setSearch(searchValue);
+        }
+    };
+
+    const handleFilterChangePrescription = (filter) => {
+        getGlobalPrescriptions(search, filter);
+    };
+    const handleSearchInputChangePrescription = (searchValue) => {
+        if (searchValue === '') {
+            console.log('blank searchValue is | in SearchBarComponent', searchValue);
+            getGlobalPrescriptions(searchValue)
+        } else {
+            getGlobalPrescriptions(searchValue);
             setSearch(searchValue);
         }
     };
@@ -438,7 +483,10 @@ const Healthassessment = (props) => {
 
 
                         <div className="row">
-                            <div className="col-md-10"></div>
+                            <div className="col-md-10" style={{ display: 'flex' }}>
+                                <SearchBarComponent updatedSearch={handleSearchInputChangePrescription} />
+                                <PrescriptionFilter updatedFilter={handleFilterChangePrescription} />
+                            </div>
                             <div className="col-md-2 text-right">
                                 <button
                                     type="button"

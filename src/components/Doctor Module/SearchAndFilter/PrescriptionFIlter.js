@@ -41,10 +41,6 @@ const FilterComponent = (props) => {
             setEndTimeChecked(checked);
         }
     };
-    const handleLabResultChange = (e) => {
-        setFilterValues({ ...filterValues, [e.target.name]: e.target.value });
-    }
-
 
     const clearFilter = () => {
         setFilterValues({
@@ -87,7 +83,7 @@ const FilterComponent = (props) => {
                         <div className="medicalrecord-filter-body">
                             <div className="row m-0">
                                 <div className="col-md-12 col-xs-12">
-                                    <p>Lab Result Date:</p>
+                                    <p>Prescription Date:</p>
                                     <div className="row">
                                         <div className="col-md-6 col-xs-6 pr-1">
                                             <TextField
@@ -146,25 +142,10 @@ const FilterComponent = (props) => {
                                                 label="Include End Date."
                                             />
                                         </div>
-                                       
-                                        <div className="col-md-12 col-xs-12">
-                                            <p>Result Type:</p>
-                                            <select
-                                                name="resultType"
-                                                value={filterValues?.resultType}
-                                                onChange={e => handleLabResultChange(e)}
-                                                required
-                                                className="browser-default custom-select">
-                                                <option>Select Result Type</option>
-                                                <option value="Imaging">Imaging</option>
-                                                <option value="Blood Tests">Blood Tests</option>
-                                            </select>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <br/>
                         <div className="filter-action">
                             <div className="row m-0 mt-1">
                                 <div className="col-md-6 col-6">
