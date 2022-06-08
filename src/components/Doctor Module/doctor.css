@@ -143,9 +143,8 @@ a#footer-link {
   display: block;
   color: #fff !important;
   text-decoration: none !important;
-  margin-top: 5px;
   font-size: 15px;
-  margin-bottom: 11px;
+  margin-bottom: 15px;
 }
 
 div#active-user {
@@ -204,7 +203,7 @@ img#store-icon {
 }
 
 a#copy-link {
-  color: #3e4543;
+  color: white;
   text-decoration: none;
   font-size: 0.6rem;
   margin: 0 20px 0 0;
@@ -213,6 +212,7 @@ a#copy-link {
 a#copy-link:hover {
   cursor: pointer;
   text-decoration: none;
+  color: #3e4543;
 }
 
 div#copyright {
@@ -222,11 +222,13 @@ div#copyright {
 p#copyright-text {
   margin: 15px 0 0;
   font-size: 0.6rem;
-  color: #999;
+  color: white;
 }
+
 
 p#lang-select {
   font-size: 12px;
+  color: white;
 }
 
 #lang-select select {
@@ -234,6 +236,8 @@ p#lang-select {
   border-bottom: 1px solid;
   outline: none;
   box-shadow: none;
+  margin-left: .5rem;
+
 }
 
 div#social-icon {
@@ -1526,6 +1530,7 @@ div#patient-row {
 #req-name,
 #req-date {
   font-size: 10px;
+  font-weight: 300;
 }
 
 .btn-primary.High {
@@ -1569,18 +1574,18 @@ div#req-info {
   align-items: stretch;
   flex-wrap: wrap;
   margin-top: 10px;
+  font-weight: 300;
 }
 
 div#req-info > a {
   border-radius: 10px;
   text-align: justify;
   color: #3e4543;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 div#req-info > a:hover {
   text-decoration: none;
-  transform: translateY(-2px);
   color: #00d0cc;
 }
 
@@ -2764,7 +2769,8 @@ sup {
 
 #copyright-text a,
 #nutrition-col a {
-  color: var(--primary);
+  color: white;
+
 }
 
 button {
