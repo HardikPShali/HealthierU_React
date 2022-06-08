@@ -561,6 +561,7 @@ const Myappointment = (props) => {
                                   style={{
                                     textAlign: 'center',
                                     textShadow: 'none',
+                                    color: '#f6ceb4'
                                   }}
                                 >
                                   No Upcoming Appointments

@@ -164,7 +164,7 @@ const Questionnaire = ({ match }) => {
   };
 
   return (
-    <Container>
+    <div className="container-fluid">
       <Row id="questionnaire-view" style={{ minHeight: "600px" }}>
         <Col md={6} id="questionnaire-view-bg"></Col>
         <Col
@@ -245,7 +245,7 @@ const Questionnaire = ({ match }) => {
           </div>
         </DialogActions>
       </Dialog>
-    </Container>
+    </div>
   );
 };
 

@@ -99,7 +99,7 @@ const UpcomingAppointments = () => {
             <h3 className="upcoming-appointment--main-header mb-3 mt-2">
                 Upcoming Appointments
             </h3>
-            <div className="upcoming-appointment__card-box scroller-cardlist">
+            <div className="upcoming-appointment__card-box scroller-cardlist mb-4">
                 <div className="card-holder">
                     <div className="row">
                         {upcomingAppointments.length !== 0 ? (
@@ -114,7 +114,7 @@ const UpcomingAppointments = () => {
                             })
                         ) : (
                             <div
-                                className="col-12 ml-2 empty-message"
+                                className="col-12 ml-2 empty-message no-appointments"
                             >
                                 No Upcoming Appointments
                             </div>

@@ -146,13 +146,14 @@ button.send-msg-btn {
   border: none;
   border-radius: 8px;
   color: white;
-  background: #5fccc8;
+  background: var(--primary);
   border-radius: 18px;
   transition: ease-in-out 0.3s all;
+  cursor: pointer;
 }
 button.send-msg-btn:hover {
   transition: ease-in-out 0.3s all;
-  background: #5ebab7;
+  background: var(--primarysecond);
 }
 
 .chat_detail-body {
