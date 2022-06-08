@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ConsultationHistoryCard from './ConsultationHistoryCard'
 import './ConsultationHistory.css'
 import dummyConsultationHistory from './dummyConsulatationHistory.json'
-import { consulatationHistory } from '../../../service/frontendapiservices'
+import { consultationHistory } from '../../../service/frontendapiservices'
 import { useEffect } from 'react'
 import Cookies from "universal-cookie";
 import { useParams } from "react-router-dom"
@@ -11,10 +11,20 @@ const ConsulatationHistorySection = (props) => {
     let params = useParams()
     const profilepID = cookies.get("profileDetails");
     console.log("profileDetails", profilepID);
-    const [notesData, setNotesData] = useState(null)
+    const [notesData, setNotesData] = useState([])
+
     const getNotesData = async () => {
-        const res = await consulatationHistory(params.id, profilepID.id);
-        setNotesData(res.data);
+        const res = await consultationHistory(params.id, profilepID.id);
+        console.log("res", res.data.data);
+        const consultationHistoryArray = [];
+        consultationHistoryArray.push(res.data.data)
+        notesData.push(res.data.data)
+        setNotesData([...notesData, consultationHistoryArray[0]]);
+        {
+            notesData.map((n) => {
+                setNotesData(n)
+            })
+        }
     }
     useEffect(() => {
         getNotesData();
@@ -22,23 +32,29 @@ const ConsulatationHistorySection = (props) => {
 
     return (
         <div className='conhistory__card-box'>
-            <h3 className='conhistory--main-header'>Consulatation History</h3>
+            <h3 className='conhistory--main-header'>Consultation History</h3>
             <div className="conhistory-card-holder">
+
                 <div className='conhistory-card'>
-                    {dummyConsultationHistory.length > 0 &&
-                        dummyConsultationHistory.map(
-                            (q, index) => (
+                    {notesData && notesData.map(
+                        (q, index) => {
+
+                            return (
                                 <div key={index}>
                                     <ConsultationHistoryCard
-
-                                        date={q.Date}
-                                        symptomsData={q['Symptoms Description']}
-                                        diagnosisData={q['Diagnosis Description']}
+                                        chief_complaint={q.chiefComplaint}
+                                        present_illness={q.presentIllness}
+                                        vital_signs={q.vitalSigns}
+                                        physical_exam={q.physicalExam}
+                                        plan_assessment={q.planAssessment}
                                     />
                                 </div>
                             )
-                        )}
+
+                        }
+                    )}
                 </div>
+
             </div>
         </div>
     )

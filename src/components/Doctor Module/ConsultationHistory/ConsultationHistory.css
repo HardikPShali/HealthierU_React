@@ -47,8 +47,20 @@
   }
   
   .conhistory-card__card-details {
+    padding: 20px;
     margin: 10px;
     color: #3e4543;
+    /* filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08)); */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 10px;
+    filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
   }
   
   .conhistory-card__doctor-name {
@@ -79,5 +91,6 @@
     justify-content: space-between;
     align-items: center;
     margin-right: 50px;
+   
   }
   

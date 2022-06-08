@@ -854,7 +854,7 @@ const MyAppointments = (props) => {
                                                     pathname: `/doctor/consulatationhistory`,
                                                     state: SelectedPatient.patient,
                                                 }}> */}
-                                                <a onClick={(e) => consultationHistory(SelectedPatient.id)}>
+                                                <a onClick={(e) => consultationHistory(SelectedPatient.patientId)}>
                                                     <div style={{ display: 'flex', alignItem: 'center' }}>
                                                         <div style={{ width: '100%' }}>
                                                             <img
@@ -875,7 +875,7 @@ const MyAppointments = (props) => {
                                                     </div>
                                                 </a>
                                                 {/* </Link> */}
-                                                <br />
+                                              
 
                                                 <Link
                                                     to={{

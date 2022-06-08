@@ -55,7 +55,7 @@ function patientHomePage() {
         <div>
             <br />
             <br />
-            <Container className="p-0 our-spl-wrapper">
+            <Container>
                 <Row>
                     <Col md={6}>
                         <div id="patient-card">

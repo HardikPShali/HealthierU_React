@@ -31,7 +31,7 @@ a.nav-link.active {
   align-items: center;
   text-decoration: none;
   font-size: 17px;
-  font-weight: 500;
+  font-weight:500 ;
 }
 
 .header-btn {
@@ -137,7 +137,7 @@ img#store-icon {
 a#copy-link {
   color: #3e4543;
   text-decoration: none;
-  font-size: .6rem;
+  font-size: 12px;
   margin: 0 20px 0 0;
 }
 
@@ -152,7 +152,7 @@ div#copyright {
 
 p#copyright-text {
   margin: 15px 0 0;
-  font-size: .6rem;
+  font-size: 12px;
   color: #999;
 }
 
@@ -169,7 +169,6 @@ p#lang-select {
 
 div#social-icon {
   justify-content: flex-end;
-  align-items: center;
 }
 
 #foot-icon img {
@@ -767,23 +766,6 @@ img.card-img-top {
   display: unset;
   align-items: unset;
 }
-@media screen and (max-width: 500px) {
-  #patient-card .card,
-  img.card-img-top {
-    border-radius: 20px 20px 0 0;
-   
-  }
-  div#social-icon {
-    justify-content: center !important;
-    margin-top: 1rem !important;
-  }
-  #footer {
-    padding: 20px 10px 20px !important;
-  }
-  #patient-card .card-title.h5 {
-    font-size: 1rem !important;
-  }
-}
 @media (min-width: 481px) and (max-width: 990px) {
   #patient-card .card-body {
     position: relative;
@@ -919,7 +901,7 @@ h2#signin-title {
 
 .sign-box p {
   margin-bottom: 5px;
-  font-size: 0.9rem;
+  font-size: .9rem;
 }
 
 p.forget-text {
