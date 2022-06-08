@@ -12,7 +12,7 @@ const PaypalMobile = (props) => {
     let firstnameParams = searchParams.get("firstName");
     let lastnameParams = searchParams.get("lastName");
     let emailParams = searchParams.get("email");
-    let appointmentIdParams = searchParams.get("id");
+    let appointmentIdParams = searchParams.get("appointment");
     let appointmentModeParams = searchParams.get("appointmentMode");
     let rateParams = searchParams.get("rate");
     let halfRateParams = searchParams.get("halfRate");
@@ -27,25 +27,20 @@ const PaypalMobile = (props) => {
     console.log({ rateParams })
     console.log({ halfRateParams })
 
-    // let openVideoAndChat = searchParams.get("openVideoCall");
-
     return (
         <div className='container'>
             <h1>Reached Paypal Mobile Payment</h1>
-            {/* <Paypal
-                // appointment={appointment}
-                appointmentId={appointment.id}
-                appointmentMode={appointment.appointmentMode}
-                bookappointment={bookappointment}
-                // currentPatient={props.currentPatient}
-                // doctor={doctor}
-                firstName={props.currentPatient.firstName}
-                lastName={props.currentPatient.lastName}
-                email={props.currentPatient.email}
-                userId={props.currentPatient.userId}
-                rate={doctor.rate}
-                halfRate={doctor.halfRate}
-            /> */}
+            <Paypal
+                appointmentId={appointmentIdParams}
+                appointmentMode={appointmentModeParams}
+                // bookappointment={bookappointment}
+                firstName={firstnameParams}
+                lastName={lastnameParams}
+                email={emailParams}
+                userId={userIdParams}
+                rate={rateParams}
+                halfRate={halfRateParams}
+            />
         </div>
     )
 }

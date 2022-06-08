@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 
 const Paypal = (props) => {
   const { bookappointment, email, firstName, lastName, rate, halfRate, userId, appointmentId, appointmentMode } = props;
+  console.log({ appointmentId })
   // const { appointmentMode, id: appointmentId } = appointment;
   // const {
   //   // address,
