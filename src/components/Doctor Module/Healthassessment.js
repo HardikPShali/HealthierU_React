@@ -15,6 +15,7 @@ import 'react-tabs/style/react-tabs.css';
 import IconButton from '@material-ui/core/IconButton';
 import Cookies from 'universal-cookie';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { getGlobalMedicalRecordsSearch } from '../../service/frontendapiservices'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import {
     formatDate,
@@ -43,10 +44,13 @@ import PrescriptionLabCard from './Prescription-Lab/PrescriptionLabCard';
 import './Prescription-Lab/PrescriptionLab.css'
 import { useHistory } from 'react-router';
 import { dateFnsLocalizer } from 'react-big-calendar';
+import SearchBarComponent from './SearchAndFilter/SearchComponent';
+import PrescriptionFilter from './SearchAndFilter/PrescriptionFIlter'
+import FilterComponent from './SearchAndFilter/FilterComponent';
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
-    //const { id } = useParams();
+    let params = useParams();
     const history = useHistory();
     const topicSet = new Set();
     const [questionnaire, setQuestionnaire] = useState(null);
@@ -244,8 +248,8 @@ const Healthassessment = (props) => {
             setDoctor(doctor);
         }
         //const patientInfo = await getPatientInfoByPatientId(`${id}`);
-        const patientInfo = props.location.state;
-
+        const patientInfo = params.id;
+        console.log("patientInfo", patientInfo);
         if (patientInfo) {
             setPatient(patientInfo);
         }
@@ -254,7 +258,7 @@ const Healthassessment = (props) => {
             0,
             doctor.id,
 
-            patientInfo && patientInfo.id
+            patientInfo && patientInfo
 
         );
         setPresecriptionDocument(presecriptionDocument.data);
@@ -268,8 +272,8 @@ const Healthassessment = (props) => {
         // setDate(0);
         // setShowPrescriptionUpload(true);
         // setPrescriptionResult(null);
-        const patientInfo = props.location.state;
-        props.history.push({ pathname: `/doctor/addPrescription/${patientInfo.id}`, state: patientInfo });
+        const patientInfo = params.id;
+        props.history.push({ pathname: `/doctor/addPrescription/${patientInfo}` });
     };
     const handleUploadLabResultShow = () => {
         setShowLabResultUpload(true);
@@ -292,7 +296,7 @@ const Healthassessment = (props) => {
             'Lab Result',
             0,
             doctor.data.id,
-            patient.id
+            patient
         );
 
         setLabDocument(labDocument);
@@ -305,7 +309,7 @@ const Healthassessment = (props) => {
                 'LabResult',
                 0,
                 doctor.id,
-                patient.id
+                patient
             );
             // console.log("doctor", doctor.id)
             // console.log("patient.id", patient.id)
@@ -318,7 +322,7 @@ const Healthassessment = (props) => {
                 'Prescription',
                 0,
                 doctor.id,
-                patient.id
+                patient
             );
             setPresecriptionDocument(documents.data);
         }
@@ -341,14 +345,124 @@ const Healthassessment = (props) => {
 
     function getFileExtension(filename) {
         // get file extension
-        console.log("filename", filename)
+        //console.log("filename", filename)
         const extension = filename.split('.').pop();
-        console.log("extension", extension)
+        // console.log("extension", extension)
         return extension;
 
 
     }
+    //Search
+    const [search, setSearch] = useState('');
+    const [medicalRecordData, setMedicalRecordData] = useState([]);
+    const [currentDoctor, setCurrentDoctor] = useState("");
+    const [loading, setLoading] = useState(true);
+    const getGlobalPrescriptions = async (search, filter = {}) => {
+        const currentDoctor = cookies.get('profileDetails');
+        setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
 
+        const starttime = new Date();
+        const endtime = new Date();
+        const data = {
+            doctorId: currentDoctor.id,
+            patientId: patient,
+            documentType: "Prescription",
+            //startTime: starttime.toISOString(),
+            //endTime: endtime.toISOString(),
+            doctorName: search,
+            //resultType: search,
+            //page: 0,
+            //size: 0,
+            //labName: search,
+            //id: "null"
+        };
+        if (filter.startTime && filter.startTime !== '') {
+            data.startTime = filter.startTime;
+        }
+        if (filter.endTime && filter.endTime !== '') {
+            const endtime = new Date(filter.endTime);
+            endtime.setHours(23, 59, 59);
+            data.endTime = endtime.toISOString();
+        }
+        if (filter.resultType && filter.resultType !== '') {
+            data.resultType = filter.resultType;
+        }
+        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
+            if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (responseTwo.status === 200 || responseTwo.status === 201) {
+            setPresecriptionDocument(responseTwo.data.data)
+            setCurrentPageNumber(1);
+        }
+    };
+
+    const getGlobalLabResults = async (search, filter = {}) => {
+        const currentDoctor = cookies.get('profileDetails');
+        setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
+
+        const starttime = new Date();
+        const endtime = new Date();
+        const data = {
+            doctorId: currentDoctor.id,
+            patientId: patient,
+            documentType: "LabResult",
+            //startTime: starttime.toISOString(),
+            //endTime: endtime.toISOString(),
+            //doctorName: search,
+            //resultType: search,
+            //page: 0,
+            //size: 0,
+            labName: search,
+            //id: "null"
+        };
+        if (filter.startTime && filter.startTime !== '') {
+            data.startTime = filter.startTime;
+        }
+        if (filter.endTime && filter.endTime !== '') {
+            const endtime = new Date(filter.endTime);
+            endtime.setHours(23, 59, 59);
+            data.endTime = endtime.toISOString();
+        }
+        if (filter.resultType && filter.resultType !== '') {
+            data.resultType = filter.resultType;
+        }
+        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
+            if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (responseTwo.status === 200 || responseTwo.status === 201) {
+            setLabDocument(responseTwo.data.data)
+            setCurrentPageNumber(1);
+        }
+    };
+    const handleFilterChange = (filter) => {
+        getGlobalLabResults(search, filter);
+    };
+    const handleSearchInputChange = (searchValue) => {
+        if (searchValue === '') {
+            console.log('blank searchValue is | in SearchBarComponent', searchValue);
+            getGlobalLabResults(searchValue)
+        } else {
+            getGlobalLabResults(searchValue);
+            setSearch(searchValue);
+        }
+    };
+
+    const handleFilterChangePrescription = (filter) => {
+        getGlobalPrescriptions(search, filter);
+    };
+    const handleSearchInputChangePrescription = (searchValue) => {
+        if (searchValue === '') {
+            console.log('blank searchValue is | in SearchBarComponent', searchValue);
+            getGlobalPrescriptions(searchValue)
+        } else {
+            getGlobalPrescriptions(searchValue);
+            setSearch(searchValue);
+        }
+    };
 
     return (
         <>
@@ -369,7 +483,10 @@ const Healthassessment = (props) => {
 
 
                         <div className="row">
-                            <div className="col-md-10"></div>
+                            <div className="col-md-10" style={{ display: 'flex' }}>
+                                <SearchBarComponent updatedSearch={handleSearchInputChangePrescription} />
+                                <PrescriptionFilter updatedFilter={handleFilterChangePrescription} />
+                            </div>
                             <div className="col-md-2 text-right">
                                 <button
                                     type="button"
@@ -450,17 +567,17 @@ const Healthassessment = (props) => {
                     </Tab>
                     <Tab eventKey="labResult" title="Lab Result" onSelect={clickTabEvent}>
                         <br />
-
                         <div className="row">
-                            <div className="col-md-10"></div>
-                            {/* <div className="col-md-2 text-right">
-                                <button type="button" className="btn btn-primary"
-                                    onClick={handleUploadLabResultShow}>Add
-                                    Lab Result
-                                </button>
-                            </div> */}
+                            <div className="col-md-10">
+
+                            </div>
+                            <div className="d-flex mt-2 justify-content-between">
+                                <SearchBarComponent updatedSearch={handleSearchInputChange} />
+                                <FilterComponent updatedFilter={handleFilterChange} />
+                            </div>
                         </div>
                         <br />
+
                         <div>
                             {labDocument?.documentsList ? (
                                 labDocument?.documentsList.map(
@@ -469,7 +586,7 @@ const Healthassessment = (props) => {
 
                                             <div className="prescription-lab__card-box">
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
                                                 </h3>
                                                 <div className="card-holder">
                                                     <div className="row">
@@ -494,13 +611,48 @@ const Healthassessment = (props) => {
                                     }
                                 )
                             ) : (
+
                                 <div
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
                                     No Documents
                                 </div>
+
                             )}
+
+                            {/* {medicalRecordData?.documentsList &&
+                                medicalRecordData?.documentsList.map(
+                                    (dataItem, subIndex) => {
+                                        return (
+
+                                            <div className="prescription-lab__card-box">
+                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                </h3>
+                                                <div className="card-holder">
+                                                    <div className="row">
+
+                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
+
+                                                            <PrescriptionLabCard
+                                                                filetype={getFileExtension(dataItem.name)}
+                                                                name={"Lab Result"}
+                                                                apid={dataItem.id}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showLabDocument(dataItem)}
+                                                            />
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )
+                            } */}
                         </div>
                         <div>
                             <br />
