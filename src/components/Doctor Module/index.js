@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Cookies from "universal-cookie";
 // import firebase from "firebase";
 //import useAxios from "../../util/axiosService";
-
+import Availability from "./Availability"
 import Header from "./Header";
 import Footer from "./Footer";
 import { firestoreService, chatAndVideoService } from "../../util";

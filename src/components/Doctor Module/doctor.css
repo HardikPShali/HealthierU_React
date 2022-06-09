@@ -44,8 +44,8 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item:hover {
-  background-color: #F5F5F5 !important;
-    color: var(--primary)!important;
+  background-color: #f5f5f5 !important;
+  color: var(--primary) !important;
 }
 
 #navbar button {
@@ -53,14 +53,14 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item.active {
-  background-color: #F5F5F5 !important;
-  color: var(--primary)!important;
+  background-color: #f5f5f5 !important;
+  color: var(--primary) !important;
 }
 .patient-card_how-healthy-wrap {
   display: flex;
   flex-direction: column;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 }
 .headerNavbar {
   margin: 0;
@@ -225,7 +225,6 @@ p#copyright-text {
   color: white;
 }
 
-
 p#lang-select {
   font-size: 12px;
   color: white;
@@ -236,8 +235,7 @@ p#lang-select {
   border-bottom: 1px solid;
   outline: none;
   box-shadow: none;
-  margin-left: .5rem;
-
+  margin-left: 0.5rem;
 }
 
 div#social-icon {
@@ -1170,7 +1168,7 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #F5F5F5;
+  background: #f5f5f5;
   margin: 0.5rem;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
@@ -2714,8 +2712,8 @@ button a {
 }
 
 .MuiMenu-paper li.MuiButtonBase-root:hover {
-  background-color: #F5F5F5 !important;
-  color: var(--primary)!important;
+  background-color: #f5f5f5 !important;
+  color: var(--primary) !important;
 }
 
 sup {
@@ -2770,7 +2768,6 @@ sup {
 #copyright-text a,
 #nutrition-col a {
   color: white;
-
 }
 
 button {
@@ -3030,10 +3027,9 @@ button.reset-btn {
   margin: 0 0.2rem;
   cursor: pointer;
 }
-.patient-list__card-completed:hover  {
+.patient-list__card-completed:hover {
   border-left: 6px solid var(--primary);
   transition: all 0.2s;
-
 }
 .patient-list__card:hover {
   border-left: 6px solid var(--primary);
@@ -3327,4 +3323,41 @@ button.reset-btn {
   margin-top: -50px;
   margin-left: -10px;
   border-radius: 50%;
+}
+
+.slot-time, .set-time-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  border: none;
+  margin: 2rem 0;
+  padding: 2rem 0;
+  border-radius: 18px;
+
+}
+.slot-time h3 {
+  font-weight: 400;
+  color: #3e4543;
+  text-align: center;
+}
+.slot-time p {
+  color: #666666;
+  font-weight: 300;
+}
+.slot-time button {
+  background: var(--primary);
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+}
+
+.start-time-section h3 {
+  font-weight: 400;
+  color: #3e4543;
+  text-align: center;
 }
