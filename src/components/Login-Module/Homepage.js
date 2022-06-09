@@ -241,7 +241,7 @@ const Homepage = () => {
           </MDBCarouselInner>
         </MDBCarousel>
       </MDBContainer>
-      {/* <Availability /> */}
+      <Availability />
       {/* <Container className="p-0 padding-mobile">
         <Row id="aboutus-two">
           <Col md={4} lg={4} xl={4} >
