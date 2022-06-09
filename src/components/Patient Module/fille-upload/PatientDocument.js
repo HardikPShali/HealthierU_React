@@ -371,8 +371,6 @@ const PatientDocument = (props) => {
                 return item.email.match(regex);
             });
         }
-        // console.log('Matches', matches);
-        // console.log('Suggestion', suggestion);
         setSuggestion(matches);
         setSearchText(text);
     }
@@ -388,9 +386,7 @@ const PatientDocument = (props) => {
     }
     function getFileExtension(filename) {
         // get file extension
-        // console.log("filename", filename)
         const extension = filename.split('.').pop();
-        // console.log("extension", extension)
         return extension;
 
 
@@ -409,14 +405,7 @@ const PatientDocument = (props) => {
             doctorId: doctor.id,
             patientId: currentPatient.id,
             documentType: "Prescription",
-            //startTime: starttime.toISOString(),
-            //endTime: endtime.toISOString(),
             doctorName: search,
-            //resultType: search,
-            //page: 0,
-            //size: 0,
-            //labName: search,
-            //id: "null"
         };
         if (filter.startTime && filter.startTime !== '') {
             data.startTime = filter.startTime;
@@ -450,14 +439,7 @@ const PatientDocument = (props) => {
             doctorId: doctor.id,
             patientId: currentPatient.id,
             documentType: "LabResult",
-            //startTime: starttime.toISOString(),
-            //endTime: endtime.toISOString(),
-            //doctorName: search,
-            //resultType: search,
-            //page: 0,
-            //size: 0,
             labName: search,
-            //id: "null"
         };
         if (filter.startTime && filter.startTime !== '') {
             data.startTime = filter.startTime;

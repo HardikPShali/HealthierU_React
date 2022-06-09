@@ -234,6 +234,7 @@ const Healthassessment = (props) => {
     };
 
     const [editDocument, setEditDocument] = useState(false);
+    const [appointmentID, setAppointmentID] = useState(0);
     const cookies = new Cookies();
     const loadDocuments = async () => {
         // GET request using fetch with async/await
@@ -248,8 +249,11 @@ const Healthassessment = (props) => {
             setDoctor(doctor);
         }
         //const patientInfo = await getPatientInfoByPatientId(`${id}`);
-        const patientInfo = params.id;
-        console.log("patientInfo", patientInfo);
+        const patientInfo = params.patientID;
+        const APID = params.apid;
+        if (APID) {
+            setAppointmentID(APID)
+        }
         if (patientInfo) {
             setPatient(patientInfo);
         }
@@ -517,7 +521,7 @@ const Healthassessment = (props) => {
                                                             <PrescriptionLabCard
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
-                                                                apid={dataItem.id}
+                                                                apid={appointmentID}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showDocument(dataItem)}
@@ -596,7 +600,8 @@ const Healthassessment = (props) => {
                                                             <PrescriptionLabCard
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Lab Result"}
-                                                                apid={dataItem.id}
+                                                                //apid={dataItem.id}
+                                                                docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showLabDocument(dataItem)}
