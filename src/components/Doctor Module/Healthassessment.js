@@ -345,9 +345,9 @@ const Healthassessment = (props) => {
 
     function getFileExtension(filename) {
         // get file extension
-        //console.log("filename", filename)
+        console.log("filename", filename)
         const extension = filename.split('.').pop();
-        // console.log("extension", extension)
+        console.log("extension", extension)
         return extension;
 
 
@@ -515,7 +515,7 @@ const Healthassessment = (props) => {
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
                                                             <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.name)}
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
                                                                 apid={dataItem.id}
                                                                 date={dataItem.docUploadTime}
@@ -594,7 +594,7 @@ const Healthassessment = (props) => {
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
                                                             <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.name)}
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Lab Result"}
                                                                 apid={dataItem.id}
                                                                 date={dataItem.docUploadTime}

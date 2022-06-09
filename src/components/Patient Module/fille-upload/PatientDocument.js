@@ -548,7 +548,7 @@ const PatientDocument = (props) => {
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
                                                             <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.name)}
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
                                                                 apid={dataItem.id}
                                                                 date={dataItem.docUploadTime}
@@ -627,9 +627,10 @@ const PatientDocument = (props) => {
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
                                                             <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.name)}
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Lab Result"}
-                                                                apid={dataItem.id}
+                                                                //apid={dataItem.id}
+                                                                docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showLabDocument(dataItem)}
