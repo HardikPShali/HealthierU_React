@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import { useLocation } from 'react-router';
 import LocalStorageService from '../../../util/LocalStorageService';
 import Paypal from '../../CommonModule/Paypal';
+import PaypalCheckoutButton from '../PaypalCheckout/PaypalCheckoutButton';
 
 const PaypalMobile = (props) => {
     // const { bookappointment, doctor, appointment } = props;
@@ -52,7 +54,7 @@ const PaypalMobile = (props) => {
         let slotConsultationId = '';
         if (appointmentModeParams === 'FIRST_CONSULTATION') {
             slotConsultationId = slot1Id + '-' + slot2Id;
-            !orderData.slot1Id && (orderData.aId = slotConsultationId);
+            // !orderData.slot1Id && (orderData.appointmentIdParams = slotConsultationId);
             finalAppointmentArray.push(
                 {
                     doctorId: doctorId,
@@ -125,12 +127,17 @@ const PaypalMobile = (props) => {
                 'Access-Control-Allow-Origin': '*',
             },
         };
-        const bookingResponse = await axios(bookAppointmentApiHeader);
-        const storePaypalInfo = await axios(storePaypalTransitionInfo);
+        // const bookingResponse = await axios(bookAppointmentApiHeader);
+        // const storePaypalInfo = await axios(storePaypalTransitionInfo);
+
+        console.log({ bookAppointmentApiHeader })
+        console.log({ storePaypalTransitionInfo })
+        // console.log({ storePaypalInfo })
     };
 
     useEffect(() => {
         // getAppointmentResopnse(appointmentIdParams);
+        bookAppointment();
     }, []);
 
     // console.log({ slot1Id });
@@ -150,18 +157,29 @@ const PaypalMobile = (props) => {
 
     return (
         <div className="container">
-            <h1>Reached Paypal Mobile Payment</h1>
-            <Paypal
-                appointmentId={appointmentIdParams}
-                appointmentMode={appointmentModeParams}
-                bookappointment={bookAppointment}
-                firstName={firstnameParams}
-                lastName={lastnameParams}
-                email={emailParams}
-                userId={userIdParams}
-                rate={rateParams}
-                halfRate={halfRateParams}
-            />
+            <Container>
+                <Row>
+                    <Col md={12}>
+                        {/* <h3>Reached Paypal Mobile Payment</h3> */}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={12} className='mt-4 text-center'>
+                        <Paypal
+                            appointmentId={appointmentIdParams}
+                            appointmentMode={appointmentModeParams}
+                            bookappointment={bookAppointment}
+                            firstName={firstnameParams}
+                            lastName={lastnameParams}
+                            email={emailParams}
+                            userId={userIdParams}
+                            rate={rateParams}
+                            halfRate={halfRateParams}
+                        />
+                    </Col>
+                </Row>
+            </Container>
+
         </div>
     );
 };

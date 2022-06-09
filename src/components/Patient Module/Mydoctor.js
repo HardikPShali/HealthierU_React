@@ -760,6 +760,9 @@ const MyDoctor = (props) => {
       },
     };
 
+    console.log({ bookAppointmentApiHeader });
+    console.log({ storePaypalTransitionInfo });
+
     const bookingResponse = await axios(bookAppointmentApiHeader);
     const storePaypalInfo = await axios(storePaypalTransitionInfo);
 
@@ -1226,7 +1229,7 @@ const MyDoctor = (props) => {
       <Container className="my-doctor">
         {/* /mobile-payment?firstName="nithi"&lastName="raj" */}
         <Link
-          to={`/patient/mobile-payment?s1Id=1&s2Id=2&s1Sd=2&s1Ed=2&s2Sd=2&s2Ed=2$dId=${doctor.id}&uId=${props.currentPatient.userId}&fN=${props.currentPatient.firstName}&lN=${props.currentPatient.lastName}&em=${props.currentPatient.email}&r=${doctor.rate}&hR=${doctor.halfRate}&aId=2&aM=${appointment.appointmentMode}&rM=${remarks}&u=${urgency}`}
+          to={`/patient/mobile-payment?s1Id=1&s2Id=2&s1Sd=2&s1Ed=2&s2Sd=2&s2Ed=2$dId=${doctor.id}&uId=${props.currentPatient.userId}&fN=${props.currentPatient.firstName}&lN=${props.currentPatient.lastName}&em=${props.currentPatient.email}&r=10&hR=10&aId=2&aM=FIRST_CONSULTATION&rM=REMARKS&u=URGENCY`}
         >
           Pay here
         </Link>
