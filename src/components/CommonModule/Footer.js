@@ -26,15 +26,8 @@ const Footer = () => {
     <footer>
       <div id="footer">
         <Container className="p-0 padding-mobile">
-          <Row>
+          <Row className="align-items-center">
             <Col md={3} lg={2} xl={2}>
-              <img
-                src={logo}
-                id="icon"
-                alt="HealthierU Logo"
-                style={{ width: "10rem", marginBottom: 22 }}
-              />
-              <br />
               <Link to="/about-us" id="footer-link">
                 About us
               </Link>
@@ -47,9 +40,13 @@ const Footer = () => {
               {/* <Link to="" id="footer-link">
                                 Articles
                             </Link> */}
-              {/* <HashLink to="/about-us#contact-us" id="footer-link">
-                                Contact us
-                            </HashLink> */}
+              <a
+                href="https://info@healthieru.ae"
+                target="_blank"
+                id="footer-link"
+              >
+                Contact Us: info@healthieru.ae
+              </a>
             </Col>
             <Col
               md={9}

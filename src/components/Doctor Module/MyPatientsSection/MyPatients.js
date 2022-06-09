@@ -573,7 +573,7 @@ const MyPatients = (props) => {
                                                         :
                                                         <div
                                                             className="col-12 ml-2"
-                                                            style={{ textShadow: 'none', color: 'black' }}
+                                                            style={{ textShadow: 'none', color: '#3e4543' }}
                                                         >
                                                             <b>No Consultation Found</b>
                                                         </div>
@@ -586,6 +586,7 @@ const MyPatients = (props) => {
                                                             <img
                                                                 width="40"
                                                                 height="40"
+                                                                font-weight="300"
                                                                 src={conHistory}
                                                                 alt=""
                                                                 style={{ marginLeft: '5%', marginRight: '5%' }}

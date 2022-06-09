@@ -77,7 +77,7 @@ svg#search-icon {
 }
 .nav-menu-ul a {
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: white;
   font-weight: 300;
 }
@@ -102,15 +102,14 @@ footer .row {
   align-items: flex-end;
 }
 .footer-wellnes {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 a#footer-link {
   display: block;
   color: #fff !important;
   text-decoration: none !important;
-  margin-top: 5px;
   font-size: 15px;
-  margin-bottom: 11px;
+  margin-bottom: 15px;
 }
 .terms-container {
   display: flex;
@@ -185,25 +184,28 @@ img#store-icon {
 }
 
 a#copy-link {
-  color: #3e4543;
+  color: white;
   text-decoration: none;
   font-size: 12px;
   margin: 0 20px 0 0;
 }
-
+a#copy-link:hover {
+  color: #3e4543;
+}
 div#copyright {
   padding: 15px 0;
-  background-color: #eee9df;
+  background-color: var(--primary);
 }
 
 p#copyright-text {
   margin: 15px 0 0;
   font-size: 12px;
-  color: #999;
+  color: white;
 }
 
 p#lang-select {
   font-size: 12px;
+  color: white;
 }
 
 #lang-select select {
@@ -211,6 +213,7 @@ p#lang-select {
   border-bottom: 1px solid;
   outline: none;
   box-shadow: none;
+  margin-left: 0.5rem;
 }
 
 div#social-icon {
@@ -704,6 +707,57 @@ div#demo-simple-select {
   z-index: 99;
 }
 
+@media (max-width: 400px) {
+  .google-signup div {
+    margin-left: 5%;
+    margin-right: 0 !important;
+  }
+}
+@media (max-width: 450px) {
+  .google-signup div {
+    margin-left: 10%;
+  }
+}
+@media (max-width: 500px) {
+  .google-signup div {
+    margin-left: 15%;
+  }
+  h3.h3-responsive,
+  .text-primary-clr {
+    font-size: 17px !important;
+    /* width: 18ch !important; */
+  }
+  p.help-desc,
+  .text-primary-clr-p {
+    font-size: 10px !important;
+    /* width: 35ch !important; */
+  }
+
+  .purpose-section,
+  .our_spl-section {
+    padding: 5rem 1rem !important;
+  }
+  .two-box-padding {
+    padding: 2rem 1rem !important;
+  }
+  .about-us_section {
+    padding-top: 2rem !important;
+  }
+  .btn-mob-size {
+    font-size: 0.6rem !important;
+  }
+  .carousel-caption {
+    padding: 0;
+    top: 0%;
+  }
+}
+
+@media (max-width: 600px) {
+  .google-signup div {
+    margin-left: 20%;
+  }
+}
+
 @media screen and (max-width: 768px) {
   #footer .row > div {
     margin-bottom: 40px;
@@ -730,7 +784,12 @@ div#demo-simple-select {
   p#download-statement {
     text-align: center;
   }
-
+  .about-content h3:after, .edge-text h1:after {
+    width: 160px !important;
+  }
+  .powerful_Ftr-text h1:after {
+    width: 343px !important;
+  }
   input.btn.submit-btn {
     width: 37% !important;
     right: 6.5% !important;
@@ -776,13 +835,17 @@ div#demo-simple-select {
   .carousel-caption {
     top: 10% !important;
   }
-  h3.h3-responsive, .text-primary-clr {
+  h3.h3-responsive,
+  .text-primary-clr {
     font-size: 24px !important;
+    width: 18ch !important;
   }
-  p.help-desc, .text-primary-clr-p {
-    font-size: 10px !important;
+  p.help-desc,
+  .text-primary-clr-p {
+    font-size: 13px !important;
+    width: 32ch !important;
   }
- 
+
   button.get-started-btn {
     font-size: 10px !important;
   }
@@ -794,56 +857,6 @@ div#demo-simple-select {
   }
   .google-signup div {
     margin-left: 25%;
-  }
-}
-
-@media (max-width: 600px) {
-  .google-signup div {
-    margin-left: 20%;
-  }
-}
-
-@media (max-width: 500px) {
-  .google-signup div {
-    margin-left: 15%;
-  }
-  h3.h3-responsive, .text-primary-clr {
-    font-size: 17px !important;
-    width: auto !important;
-  }
-  p.help-desc, .text-primary-clr-p {
-    font-size: 10px !important;
-    width: auto !important;
-  }
-  .purpose-section, .our_spl-section {
-    padding: 5rem 1rem !important;
-}
-.two-box-padding {
-  padding: 2rem 1rem !important;
-}
-.about-us_section {
-  padding-top: 2rem !important;
-}
-.btn-mob-size {
-  font-size: .6rem !important;
-}
-.carousel-caption {
-  padding: 0;
-  top: 0%;
-}
-
-}
-
-@media (max-width: 450px) {
-  .google-signup div {
-    margin-left: 10%;
-  }
-}
-
-@media (max-width: 400px) {
-  .google-signup div {
-    margin-left: 5%;
-    margin-right: 0 !important;
   }
 }
 
@@ -1250,14 +1263,14 @@ sup {
 .patient-card_how-healthy-wrap {
   display: flex;
   flex-direction: column;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 }
 /*Footer anchor css*/
 
 #copyright-text a,
 #nutrition-col a {
-  color: var(--primary);
+  color: white;
 }
 
 .article-top-row a:hover {
@@ -1386,7 +1399,7 @@ ul.light {
   position: absolute;
   left: 0;
   bottom: -18px;
-  width: 159px;
+  width: 197px;
   height: 6px;
   border-radius: 6px;
   background-color: #00d1cd;
@@ -1484,7 +1497,7 @@ ul.light {
   position: absolute;
   left: 0;
   bottom: -23px;
-  width: 161px;
+  width: 196px;
   height: 6px;
   border-radius: 6px;
   background-color: #00d1cd;
@@ -1544,7 +1557,7 @@ ul.light {
 
 .our_partners {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   margin-top: 2rem;
 }
@@ -1563,6 +1576,7 @@ ul.light {
 }
 .our_partners-logo img {
   width: 14rem;
+  margin-left: 1rem;
 }
 
 .our_partners-logo .cornel-logo {
@@ -1598,7 +1612,7 @@ ul.light {
   position: absolute;
   left: 0;
   bottom: -26px;
-  width: 341px;
+  width: 427px;
   height: 6px;
   border-radius: 18px;
   background-color: #00d1cd;
@@ -1653,7 +1667,7 @@ ul.light {
   position: absolute;
   left: 0;
   bottom: -26px;
-  width: 284px;
+  width: 357px;
   border-radius: 6px;
   height: 6px;
   background-color: #00d1cd;
@@ -1883,12 +1897,12 @@ ul.light {
   h3.h3-responsive,
   .text-primary-clr {
     font-size: 17px !important;
-    width: auto !important;
+    /* width: auto !important; */
   }
   p.help-desc,
   .text-primary-clr-p {
     font-size: 10px !important;
-    width: auto !important;
+    /* width: auto !important; */
   }
   .purpose-section,
   .our_spl-section {

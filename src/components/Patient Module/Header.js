@@ -71,10 +71,10 @@ const Header = (props) => {
                   className="btn dropdown-toggle"
                   data-toggle="dropdown"
                 >
-                  My Appointments
+                  My Portal
                 </button>
                 <div className="dropdown-menu">
-                <NavLink
+                  <NavLink
                     to="/patient/myappointment"
                     className="dropdown-item"
                   >
