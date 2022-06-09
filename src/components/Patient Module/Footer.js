@@ -41,11 +41,11 @@ const Footer = () => {
                                 Articles
                             </Link> */}
               <a
-                href="https://info@healthieru.ae/"
+                href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
                 target="_blank"
                 id="footer-link"
               >
-                Contact Us: info@healthieru.ae
+                Contact Us
               </a>
             </Col>
             <Col

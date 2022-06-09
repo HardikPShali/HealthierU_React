@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import Availability from "../Doctor Module/Availability";
 import "./landing.css";
 // import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
 import {
@@ -23,9 +24,11 @@ import {
   useHistory,
   // Redirect
 } from "react-router-dom";
-import screen1 from "../../images/patient-banner.png";
-import screen2 from "../../images/patient-banner-2.png";
-import screen3 from "../../images/patient-banner-3.png";
+import banner1 from "../../images/appointment-banner.png";
+import banner2 from "../../images/global-connection.jpg";
+import banner3 from "../../images/take-charge.jpg";
+import banner4 from "../../images/empower.jpg";
+
 import home2 from "../../images/home-2.png";
 import home3 from "../../images/home-3.png";
 import { Container, Row, Col, Card } from "react-bootstrap";
@@ -146,7 +149,7 @@ const Homepage = () => {
       <MDBContainer id="carousel-container">
         <MDBCarousel
           activeItem={1}
-          length={3}
+          length={4}
           showIndicators={true}
           className="z-depth-1"
         >
@@ -155,15 +158,15 @@ const Homepage = () => {
               <MDBView>
                 <img
                   className="d-block w-100"
-                  src={screen1}
+                  src={banner1}
                   alt="First slide"
                 />
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
                 <Container>
-                <h3 className="text-primary-clr">Connect with our Global Wellness Experts Virtually</h3>
-                <p className="text-primary-clr-p">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
+                <h3 className="h3-responsive">Book Appointment</h3>
+                <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
                 {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_GETHELP.BTN_TEXT}
@@ -176,15 +179,15 @@ const Homepage = () => {
               <MDBView>
                 <img
                   className="d-block w-100"
-                  src={screen2}
+                  src={banner2}
                   alt="Second slide"
                 />
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
                 <Container>
-                <h3 className="h3-responsive">Book Appointment</h3>
-                <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
+                <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
+                <p className="help-desc">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
                 {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_TAKEACTION.BTN_TEXT}
@@ -197,15 +200,36 @@ const Homepage = () => {
               <MDBView>
                 <img
                   className="d-block w-100"
-                  src={screen3}
+                  src={banner3}
                   alt="Third slide"
                 />
                 <MDBMask overlay="black-slight" />
               </MDBView>
               <MDBCarouselCaption>
                 <Container>
-                <h3 className="h3-responsive">Take Charge of your Health</h3>
-                <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
+                <h3 className="text-primary-clr">Take Charge of your Health</h3>
+                <p className="text-primary-clr-p">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
+                {/* <Link to="/signin">
+                  <button className="btn btn-primary btn-mob-size">
+                    {HOMEPAGE_LEARNMORE.BTN_TEXT}
+                  </button>
+                </Link> */}
+                </Container>
+              </MDBCarouselCaption>
+            </MDBCarouselItem>
+            <MDBCarouselItem itemId="4">
+              <MDBView>
+                <img
+                  className="d-block w-100"
+                  src={banner4}
+                  alt="Third slide"
+                />
+                <MDBMask overlay="black-slight" />
+              </MDBView>
+              <MDBCarouselCaption>
+                <Container>
+                <h3 className="h3-responsive">We empower you to become a better version of yourself.</h3>
+                {/* <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p> */}
                 {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
@@ -217,6 +241,7 @@ const Homepage = () => {
           </MDBCarouselInner>
         </MDBCarousel>
       </MDBContainer>
+      {/* <Availability /> */}
       {/* <Container className="p-0 padding-mobile">
         <Row id="aboutus-two">
           <Col md={4} lg={4} xl={4} >
@@ -334,7 +359,7 @@ const Homepage = () => {
             </div>
           </Container>
         </div>
-        <div className="purpose-section">
+        {/* <div className="purpose-section">
           <Container className="p-0 padding-mobile">
             <div class="row">
               <Col sm={12} md={6} lg={6} xl={6} className="purpose-left">
@@ -348,7 +373,7 @@ const Homepage = () => {
               </Col>
             </div>
           </Container>
-        </div>
+        </div> */}
         <div className="edge-section">
           <Container className="edge-section_container">
             <Row>
