@@ -43,9 +43,9 @@ export const Header = ({ hideButton }) => {
                         <li>
                           <Link to="/#our-service">Our Services</Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Link to="/#footer">Contact Us</Link>
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                     <NavLink to="/signin">

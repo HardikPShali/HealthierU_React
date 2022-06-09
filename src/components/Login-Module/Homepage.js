@@ -415,8 +415,11 @@ const Homepage = () => {
                   <li>E-courses on wellness, health, and much more</li>
                   <li>Medicine and appointment reminders</li>
                   <li>Quick access to labs near you</li>
-                  <li id="our-service">Healthcare data security</li>
+                  <li >Healthcare data security</li>
                 </ul>
+                <br></br>
+                <br></br>
+              <br id="our-service"></br>
               </Col>
             </Row>
           </Container>
@@ -424,6 +427,7 @@ const Homepage = () => {
         <div className="our_spl-section">
           <Container className="p-0 padding-mobile">
             <div>
+              <br></br>
               <h1 className="our_spl-title">OUR SPECIALITIES</h1>
               <p className="our_spl-subtitle">
                 We offer programs and plans to help support your wellness
