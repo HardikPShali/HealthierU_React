@@ -18,7 +18,7 @@ import {
 import Cookies from "universal-cookie";
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
-
+const RescheduleAppointment = React.lazy(() => import("./RescheduleAppointment"));
 const Homepage = React.lazy(() => import("./Homepage"));
 const Profile = React.lazy(() => import("./Profile"));
 const Logout = React.lazy(() => import("../Logout"));
@@ -136,6 +136,7 @@ const PatientRoute = () => {
       <Switch>
         <Route exact path="/patient" render={(props) => <Homepage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/mydoctor" render={(props) => <Mydoctor currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
+        <Route exact path="/patient/rescheduleappointment/:id" render={(props) => <RescheduleAppointment currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
         <Route exact path="/patient/profile" component={Profile} />
         <Route exact path="/patient/myappointment" render={(props) => <Myappointment currentPatient={currentPatient} doctorDetailsList={doctorDetailsList} {...props} />} />
         <Route exact path="/patient/questionnaire/:new" component={Questionnaire} />

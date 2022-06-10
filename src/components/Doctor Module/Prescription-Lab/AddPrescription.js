@@ -152,7 +152,7 @@ const AddPrescription = (props) => {
             setDoctor(currentDoctor);
             console.log("doctorInfo", currentDoctor)
         }
-        const patientInfo = params.id;
+        const patientInfo = params.patientID;
         if (patientInfo) {
             setPatient(patientInfo);
             console.log("patientID", patient)
@@ -243,8 +243,9 @@ const AddPrescription = (props) => {
         const response = await postDocumentAddPrescriptionLabResult(formData);
         if (response) {
             toast.success("Document successfully Uploaded.");
-            const patientInfo = params.id;
-            setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo}`}), 500);
+            const patientInfo = params.patientID;
+            const apID = params.apid;       
+            setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}`}), 500);
         }
     };
     const handlePrescriptionChange = (e) => {

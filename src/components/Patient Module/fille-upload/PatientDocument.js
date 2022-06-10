@@ -7,6 +7,7 @@ import { formatDate } from "../../questionnaire/QuestionnaireService";
 import { toast } from 'react-toastify';
 import { Form } from 'react-bootstrap';
 import PrescriptionLabCard from '../../Doctor Module/Prescription-Lab/PrescriptionLabCard';
+import PatientPrescriptionCard from '../../Doctor Module/Prescription-Lab/PatientPrescriptionCard';
 import '../../Doctor Module/Prescription-Lab/PrescriptionLab.css'
 import { getCurrentPatientInfo, getCurrentUserInfo } from "../../../service/AccountService";
 import {
@@ -529,10 +530,19 @@ const PatientDocument = (props) => {
 
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
-                                                            <PrescriptionLabCard
+                                                            {/* <PrescriptionLabCard
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
                                                                 apid={dataItem.id}
+                                                                //docName={dataItem.doctorName}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showDocument(dataItem)}
+                                                            /> */}
+                                                            <PatientPrescriptionCard
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
+                                                                name={"Prescription"}
+                                                                docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showDocument(dataItem)}
@@ -612,7 +622,7 @@ const PatientDocument = (props) => {
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Lab Result"}
                                                                 //apid={dataItem.id}
-                                                                docName={dataItem.doctorName}
+                                                                docName={dataItem.labName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showLabDocument(dataItem)}

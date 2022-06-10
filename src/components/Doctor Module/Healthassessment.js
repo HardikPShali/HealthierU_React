@@ -276,8 +276,9 @@ const Healthassessment = (props) => {
         // setDate(0);
         // setShowPrescriptionUpload(true);
         // setPrescriptionResult(null);
-        const patientInfo = params.id;
-        props.history.push({ pathname: `/doctor/addPrescription/${patientInfo}` });
+        const patientInfo = params.patientID;
+        const ApID = params.apid
+        props.history.push({ pathname: `/doctor/addPrescription/${patientInfo}/${ApID}` });
     };
     const handleUploadLabResultShow = () => {
         setShowLabResultUpload(true);
