@@ -7,6 +7,7 @@ import { formatDate } from "../../questionnaire/QuestionnaireService";
 import { toast } from 'react-toastify';
 import { Form } from 'react-bootstrap';
 import PrescriptionLabCard from '../../Doctor Module/Prescription-Lab/PrescriptionLabCard';
+import PatientPrescriptionCard from '../../Doctor Module/Prescription-Lab/PatientPrescriptionCard';
 import '../../Doctor Module/Prescription-Lab/PrescriptionLab.css'
 import { getCurrentPatientInfo, getCurrentUserInfo } from "../../../service/AccountService";
 import {
@@ -371,8 +372,6 @@ const PatientDocument = (props) => {
                 return item.email.match(regex);
             });
         }
-        // console.log('Matches', matches);
-        // console.log('Suggestion', suggestion);
         setSuggestion(matches);
         setSearchText(text);
     }
@@ -388,9 +387,7 @@ const PatientDocument = (props) => {
     }
     function getFileExtension(filename) {
         // get file extension
-        // console.log("filename", filename)
         const extension = filename.split('.').pop();
-        // console.log("extension", extension)
         return extension;
 
 
@@ -409,14 +406,7 @@ const PatientDocument = (props) => {
             doctorId: doctor.id,
             patientId: currentPatient.id,
             documentType: "Prescription",
-            //startTime: starttime.toISOString(),
-            //endTime: endtime.toISOString(),
             doctorName: search,
-            //resultType: search,
-            //page: 0,
-            //size: 0,
-            //labName: search,
-            //id: "null"
         };
         if (filter.startTime && filter.startTime !== '') {
             data.startTime = filter.startTime;
@@ -450,14 +440,7 @@ const PatientDocument = (props) => {
             doctorId: doctor.id,
             patientId: currentPatient.id,
             documentType: "LabResult",
-            //startTime: starttime.toISOString(),
-            //endTime: endtime.toISOString(),
-            //doctorName: search,
-            //resultType: search,
-            //page: 0,
-            //size: 0,
             labName: search,
-            //id: "null"
         };
         if (filter.startTime && filter.startTime !== '') {
             data.startTime = filter.startTime;
@@ -547,10 +530,19 @@ const PatientDocument = (props) => {
 
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
-                                                            <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.name)}
+                                                            {/* <PrescriptionLabCard
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
                                                                 apid={dataItem.id}
+                                                                //docName={dataItem.doctorName}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showDocument(dataItem)}
+                                                            /> */}
+                                                            <PatientPrescriptionCard
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
+                                                                name={"Prescription"}
+                                                                docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showDocument(dataItem)}
@@ -627,9 +619,10 @@ const PatientDocument = (props) => {
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
                                                             <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.name)}
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Lab Result"}
-                                                                apid={dataItem.id}
+                                                                //apid={dataItem.id}
+                                                                docName={dataItem.labName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showLabDocument(dataItem)}

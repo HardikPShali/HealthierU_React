@@ -2,6 +2,7 @@ import React from 'react';
 //import ReactDOM from 'react-dom'
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
+import PaypalMobile from '../components/Patient Module/MobilePayment/PaypalMobile';
 
 const Homepage = Loadable({
     loader: () => import('../components/Login-Module/Homepage'),
@@ -87,6 +88,7 @@ const MainRoute = () => (
         <Route exact path="/licenses" component={LicensesPage} />
         <Route exact path="/partners" component={PartnersPage} />
         <Route exact path="/select-role" component={SelectRolePage} />
+        <Route exact path='/mobile-payment' component={(props) => <PaypalMobile {...props} />} />
         <Redirect to='/signin' />
     </Switch>
 );

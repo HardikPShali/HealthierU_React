@@ -295,7 +295,6 @@ const Myappointment = (props) => {
         //setLoading(true);
         const today = new Date();
         // to return the date number(1-31) for the specified date
-        console.log('today => ', today);
         let tomorrow = new Date();
         tomorrow.setDate(today.getDate() + 1);
         tomorrow.setHours(0, 0, 0);
@@ -303,17 +302,12 @@ const Myappointment = (props) => {
         let tomoEndTime = new Date();
         tomoEndTime.setDate(today.getDate() + 1);
         tomoEndTime.setHours(23, 59, 0);
-        console.log('tomorrow => ', new Date(tomorrow).toISOString());
-        console.log('tomoEndTime => ', new Date(tomoEndTime).toISOString());
-
         //  Today
         const starttime = new Date();
         starttime.setHours(0, 0, 0);
-        console.log('starttime => ', new Date(starttime).toISOString());
 
         const endtime = new Date();
         endtime.setHours(23, 59, 0);
-        console.log('endtime => ', new Date(endtime).toISOString());
         const TodayData = {
             startTime: new Date(starttime).toISOString(),
             endTime: new Date(endtime).toISOString(),
@@ -332,7 +326,6 @@ const Myappointment = (props) => {
             doctorId: docId.id,
             status: null,
         };
-        console.log('dataForSelectedDay => ', dataForSelectedDay);
         const res = await getDoctorAppointment(dataForSelectedDay).catch((err) => {
             if (err.response.status === 500 || err.response.status === 504) {
                 setLoading(false);
