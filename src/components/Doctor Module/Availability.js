@@ -23,35 +23,49 @@ const Availability = () => {
     ]);
     value(" ");
   };
-
+  
+  const [monday, setMonday] = useState("");
   const mondayHandler =(e)=> {
     const isMonday = e.target.checked;
     console.log(isMonday);
-    
+    setMonday("Monday");
   }
+
+  const [tuesday, setTuesday] = useState("");
   const tuesdayHandler =(e)=> {
     const isTuesday = e.target.checked;
-
+    setTuesday("Tuesday");
   }
+  
+  const [wednesday, setWednesday] = useState("");
   const wednesdayHandler =(e)=> {
     const isWednesday = e.target.checked;
+    setWednesday("Wednesday");
 
   }
+
+  const [thursday, setThursday] = useState("");
   const thursdayHandler =(e)=> {
     const isThursday = e.target.checked;
-
+    setThursday("Thursday");
   }
+
+  const [friday, setFriday] = useState("");
   const fridayHandler =(e)=> {
     const isFriday = e.target.checked;
-
+    setFriday("Friday");
   }
+
+  const [saturday, setSaturday] = useState("");
   const saturdayHandler =(e)=> {
     const isSaturday = e.target.checked;
-
+    setSaturday("Saturday");
   }
+
+  const [sunday, setSunday] = useState("");
   const sundayHandler =(e)=> {
     const isSunday = e.target.checked;
-
+    setSunday("Sunday");
   }
 
   return (
