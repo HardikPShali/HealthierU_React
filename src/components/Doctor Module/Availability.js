@@ -5,32 +5,65 @@ import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
 import closeBtn from "../../images/svg/close-btn.svg";
 import "./doctor.css";
 const Availability = () => {
-  const [value, onChange] = useState(["10:00", "11:00"]);
-  const [fromTime, setFromTime] = useState();
-  const [toTime, setToTime] = useState();
-  const [timeSlot, setTimeSlot] = useState(false);
+  const [value, setValue] = useState([]);
+  const [times, setTimes] = useState([]);
 
-  const setTimeData = [
-    { id: 1, from: "10AM", to: "11AM" },
-    { id: 2, from: "11.15AM", to: "11.30AM" },
-    { id: 3, from: "1PM", to: "1.15PM" },
-    { id: 4, from: "1.40PM", to: "2.10PM" },
-  ];
+  const handleValue = (value) => {
+    console.log(value);
+    setValue(value);
+  };
+  const saveTimeHandler = () => {
+    setTimes([
+      ...times,
+      {
+        from: value[0],
+        to: value[1],
+        id: new Date().getMilliseconds(),
+      },
+    ]);
+    value(" ");
+  };
 
- const saveTimeHandler = (event) => {
+  const mondayHandler =(e)=> {
+    const isMonday = e.target.checked;
+    console.log(isMonday);
+    
+  }
+  const tuesdayHandler =(e)=> {
+    const isTuesday = e.target.checked;
 
- }
- 
+  }
+  const wednesdayHandler =(e)=> {
+    const isWednesday = e.target.checked;
+
+  }
+  const thursdayHandler =(e)=> {
+    const isThursday = e.target.checked;
+
+  }
+  const fridayHandler =(e)=> {
+    const isFriday = e.target.checked;
+
+  }
+  const saturdayHandler =(e)=> {
+    const isSaturday = e.target.checked;
+
+  }
+  const sundayHandler =(e)=> {
+    const isSunday = e.target.checked;
+
+  }
+
   return (
     <Container>
       <div className="slot-time available-btn">
         <h3>Set Availability</h3>
-        <p>There is no time slots. Please add your time slots</p>
-        <button onClick={() => setTimeSlot(true)}>Set Time Slots</button>
+        <p>There is no time slots. Please add your time slots.</p>
+        <button>Set Time Slots</button>
       </div>
-      {timeSlot ? (
+      {value && (
         <Row className="time-slot-container">
-          <Col sm={12} md={6} lg={6} xl={6}>
+          <Col sm={12} md={6} lg={6} xSl={6}>
             <div className="slot-time-wrap">
               <div className="start-time-wrap">
                 <h5>Set Time</h5>
@@ -38,18 +71,80 @@ const Availability = () => {
                   className=" mt-1 mb-3"
                   amPmAriaLabel="Select AM/PM"
                   value={value}
-                  onchange={onChange}
+                  onChange={handleValue}
                 />
               </div>
               <div className="available-btn">
-                <button onChange={saveTimeHandler}>Set Time</button>
+                <button onClick={saveTimeHandler}>Set Time</button>
+              </div>
+            </div>
+            <div className="days-wrapper">
+              <div className="day-wrapper">
+                <h6>Monday</h6>
+                <input
+                  type="checkbox"
+                  // value={monday}
+                  onChange={mondayHandler}
+                />
+              </div>
+              <div className="day-wrapper">
+                <h6>Tuesday</h6>
+                <input
+                  type="checkbox"
+                  // value={tuesday}
+                  onChange={tuesdayHandler}
+                />
+              </div>
+              <div className="day-wrapper">
+                <h6>Wednesday</h6>
+                <input
+                  type="checkbox"
+                  // value={wednesday}
+                  onChange={wednesdayHandler}
+                />
+              </div>
+              <div className="day-wrapper">
+                <h6>Thursday</h6>
+                <input
+                  type="checkbox"
+                  // value={thursday}
+                  onChange={thursdayHandler}
+                />
+              </div>
+              <div className="day-wrapper">
+                <h6>Friday</h6>
+                <input
+                  type="checkbox"
+                  // value={friday}
+                  onChange={fridayHandler}
+                />
+              </div>
+              <div className="day-wrapper">
+                <h6>Saturday</h6>
+                <input
+                  type="checkbox"
+                  // value={saturday}
+                  onChange={saturdayHandler}
+                />
+              </div>
+              <div className="day-wrapper">
+                <h6>Sunday</h6>
+                <input
+                  type="checkbox"
+                  // value={sunday}
+                  onChange={sundayHandler}
+                />
+              </div>
+              <div className="available-btn">
+                <button>Add Time Slots</button>
               </div>
             </div>
           </Col>
           <Col sm={12} md={6} lg={6} xl={6}>
-            <div className="selected-time">
+            <div className="selected-time-container">
               <h5>Select Time Slots</h5>
-              {setTimeData.map((timeData) => (
+
+              {times.map((timeData) => (
                 <div className="selected_time" key={timeData.id}>
                   <div className="select-time-wrap">
                     <div className="select-time-font">
@@ -64,9 +159,25 @@ const Availability = () => {
                 </div>
               ))}
             </div>
+            <div className="selected-day-container">
+              <h5>Select Time with Day Slots</h5>
+              <div className="selected-day-wrap">
+                <div className="selected-days">
+                  <h5>Monday to Friday</h5>
+                  <span className="mr-3">10AM to 12PM</span>
+                  <span>1AM to 2PM</span>
+                </div>
+                <div className="selected-days-toggle">
+                  <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
           </Col>
         </Row>
-      ) : null}
+      )}
     </Container>
   );
 };
