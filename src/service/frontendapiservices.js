@@ -192,7 +192,7 @@ export const deleteAppointment = async (appointmentData) => {
         method: 'put',
         mode: 'no-cors',
         data: appointmentData,
-        url: `/api/appointments`,
+        url: `/api/v2/appointments`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json',
