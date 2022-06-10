@@ -24,25 +24,29 @@ const Footer = () => {
 
   return (
     <footer>
-    <div id="footer">
-      <Container className="p-0 padding-mobile">
-        <Row className="align-items-center">
-        <Col md={3} lg={2} xl={2}>
-            <Link to="/about-us" id="footer-link">
-              About us
-            </Link>
-            <HashLink to="/about-us#how-it-work" id="footer-link">
-              How it Works
-            </HashLink>
-            <HashLink to="/about-us#our-services" id="footer-link">
-              Our services
-            </HashLink>
-            {/* <Link to="" id="footer-link">
+      <div id="footer">
+        <Container className="p-0 padding-mobile">
+          <Row className="align-items-center">
+            <Col md={3} lg={2} xl={2}>
+              <Link to="/about-us" id="footer-link">
+                About us
+              </Link>
+              <HashLink to="/about-us#how-it-work" id="footer-link">
+                How it Works
+              </HashLink>
+              <HashLink to="/about-us#our-services" id="footer-link">
+                Our services
+              </HashLink>
+              {/* <Link to="" id="footer-link">
                               Articles
                           </Link> */}
-              {/* <HashLink to="/about-us#contact-us" id="footer-link">
-                              Contact us
-                          </HashLink> */}
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
+                target="_blank"
+                id="footer-link"
+              >
+                Contact Us
+              </a>
             </Col>
             <Col
               md={9}
