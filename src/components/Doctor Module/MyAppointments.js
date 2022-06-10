@@ -317,13 +317,10 @@ const MyAppointments = (props) => {
                 patientId: value.patientId,
                 doctorId: value.doctorId,
                 doctor: value.doctor,
-                title: `Appointment booked with Dr. ${
-                  value?.doctor?.firstName
-                } with ${
-                  value.urgency ? value.urgency : "no"
-                } urgency, comments : ${
-                  value.remarks ? value.remarks : "no comments"
-                }`,
+                title: `Appointment booked with Dr. ${value?.doctor?.firstName
+                  } with ${value.urgency ? value.urgency : "no"
+                  } urgency, comments : ${value.remarks ? value.remarks : "no comments"
+                  }`,
                 startTime: new Date(value.startTime),
                 endTime: new Date(reversedAppointments[index + 1].endTime),
                 remarks: value.remarks,
@@ -334,20 +331,20 @@ const MyAppointments = (props) => {
               });
             } else if (
               value.unifiedAppointment !==
-                (reversedAppointments[index + 1] &&
-                  reversedAppointments[index + 1].unifiedAppointment) &&
+              (reversedAppointments[index + 1] &&
+                reversedAppointments[index + 1].unifiedAppointment) &&
               value.unifiedAppointment ===
-                (responseTwo[index - 1] &&
-                  responseTwo[index - 1].unifiedAppointment)
+              (responseTwo[index - 1] &&
+                responseTwo[index - 1].unifiedAppointment)
             ) {
               return false;
             } else if (
               value.unifiedAppointment !==
-                (reversedAppointments[index + 1] &&
-                  reversedAppointments[index + 1].unifiedAppointment) &&
+              (reversedAppointments[index + 1] &&
+                reversedAppointments[index + 1].unifiedAppointment) &&
               value.unifiedAppointment !==
-                (reversedAppointments[index - 1] &&
-                  reversedAppointments[index - 1].unifiedAppointment)
+              (reversedAppointments[index - 1] &&
+                reversedAppointments[index - 1].unifiedAppointment)
             ) {
               updateArray.push({
                 id: value.id,
@@ -497,7 +494,7 @@ const MyAppointments = (props) => {
                                         (patientData) => {
                                           return calculate_age(
                                             details.patient.dateOfBirth &&
-                                              details.patient.dateOfBirth
+                                            details.patient.dateOfBirth
                                           );
                                         }
                                       );
@@ -559,26 +556,26 @@ const MyAppointments = (props) => {
                             }
                           } else if (
                             details.unifiedAppointment !==
-                              (activeAppointments[index + 1] &&
-                                activeAppointments[index + 1]
-                                  .unifiedAppointment) &&
+                            (activeAppointments[index + 1] &&
+                              activeAppointments[index + 1]
+                                .unifiedAppointment) &&
                             details.unifiedAppointment ===
-                              (activeAppointments[index - 1] &&
-                                activeAppointments[index - 1]
-                                  .unifiedAppointment)
+                            (activeAppointments[index - 1] &&
+                              activeAppointments[index - 1]
+                                .unifiedAppointment)
                           ) {
                             if (details && details.patient) {
                               return false;
                             }
                           } else if (
                             details.unifiedAppointment !==
-                              (activeAppointments[index + 1] &&
-                                activeAppointments[index + 1]
-                                  .unifiedAppointment) &&
+                            (activeAppointments[index + 1] &&
+                              activeAppointments[index + 1]
+                                .unifiedAppointment) &&
                             details.unifiedAppointment !==
-                              (activeAppointments[index - 1] &&
-                                activeAppointments[index - 1]
-                                  .unifiedAppointment)
+                            (activeAppointments[index - 1] &&
+                              activeAppointments[index - 1]
+                                .unifiedAppointment)
                           ) {
                             if (details && details.patient) {
                               return (
@@ -594,7 +591,7 @@ const MyAppointments = (props) => {
                                         (patientData) => {
                                           return calculate_age(
                                             details.patient.dateOfBirth &&
-                                              details.patient.dateOfBirth
+                                            details.patient.dateOfBirth
                                           );
                                         }
                                       );
@@ -829,8 +826,8 @@ const MyAppointments = (props) => {
                                 {SelectedPatient &&
                                   SelectedPatient.patient &&
                                   SelectedPatient.patient.firstName +
-                                    " " +
-                                    SelectedPatient.patient.lastName}
+                                  " " +
+                                  SelectedPatient.patient.lastName}
                               </b>
                               <br />
                               {age} Years Old
@@ -926,31 +923,31 @@ const MyAppointments = (props) => {
                           </div>
                         </Link>
 
-                                                <Link
-                                                    to={{
-                                                        pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}`
-                                                        
-                                                    }}
-                                                >
-                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
-                                                        <div style={{ width: '100%' }}>
-                                                            <img
-                                                                width="40"
-                                                                height="40"
-                                                                src={MedicalRecord}
-                                                                // onClick='${pathname}'
-                                                                alt=""
-                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
-                                                            />
-                                                            Medical Record
-                                                        </div>
-                                                        <img
-                                                            src={rightIcon}
-                                                            alt="right-icon"
-                                                            style={{ marginRight: '35px' }}
-                                                        />
-                                                    </div>
-                                                </Link>
+                        <Link
+                          to={{
+                            pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}/${SelectedPatient.id}`
+
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItem: 'center' }}>
+                            <div style={{ width: '100%' }}>
+                              <img
+                                width="40"
+                                height="40"
+                                src={MedicalRecord}
+                                // onClick='${pathname}'
+                                alt=""
+                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                              />
+                              Medical Record
+                            </div>
+                            <img
+                              src={rightIcon}
+                              alt="right-icon"
+                              style={{ marginRight: '35px' }}
+                            />
+                          </div>
+                        </Link>
 
                         {/* <Link
                                                     to={{
