@@ -16,6 +16,7 @@ import {
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
+import PaypalMobile from "./MobilePayment/PaypalMobile";
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
 

@@ -6,18 +6,19 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { useHistory } from 'react-router';
 
 const Paypal = (props) => {
-  const { appointment, bookappointment, currentPatient, doctor } = props;
-  const { appointmentMode, id: appointmentId } = appointment;
-  const {
-    // address,
-    email,
-    firstName,
-    lastName,
-    middleName,
-    // phone,
-    userId,
-    // countryName,
-  } = currentPatient;
+  const { bookappointment, email, firstName, lastName, rate, halfRate, userId, appointmentId, appointmentMode } = props;
+  console.log({ appointmentId })
+  // const { appointmentMode, id: appointmentId } = appointment;
+  // const {
+  //   // address,
+  //   email,
+  //   firstName,
+  //   lastName,
+  //   middleName,
+  //   // phone,
+  //   userId,
+  //   // countryName,
+  // } = currentPatient;
   const paypalButton = useRef();
 
   // ON CANCEL FALLBACK---- STARTS
@@ -67,9 +68,9 @@ const Paypal = (props) => {
                   amount: {
                     currency_code: 'USD',
                     value:
-                      appointmentMode === 'CONSULTATION'
-                        ? doctor.rate
-                        : doctor.halfRate,
+                      appointmentMode === 'FIRST_CONSULTATION'
+                        ? rate
+                        : halfRate,
                   },
                 },
               ],

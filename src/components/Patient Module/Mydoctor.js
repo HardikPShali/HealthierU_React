@@ -69,6 +69,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { doctorListLimit } from '../../util/configurations';
 import { Button, Modal } from 'react-bootstrap';
 import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
+import PaypalMobile from './MobilePayment/PaypalMobile';
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
 
@@ -759,6 +760,9 @@ const MyDoctor = (props) => {
       },
     };
 
+    console.log({ bookAppointmentApiHeader });
+    console.log({ storePaypalTransitionInfo });
+
     const bookingResponse = await axios(bookAppointmentApiHeader);
     const storePaypalInfo = await axios(storePaypalTransitionInfo);
 
@@ -1223,6 +1227,12 @@ const MyDoctor = (props) => {
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
       <Container className="my-doctor">
+        {/* /mobile-payment?firstName="nithi"&lastName="raj" */}
+        {/* <Link
+          to={`/mobile-payment?s1Id=${slot1id}&s2Id=${slot2Id}&s1Sd=${slot1startTime}&s1Ed=${slot1endTime}&s2Sd=${slot12startTime}&s2Ed=${slot2endTime}&dId=${doctor.id}&uId=${currentPatient.userId}&fN=${currentPatient.firstName}&lN=${currentPatient.lastName}&em=${currentPatient.email}&r=${doctor.rate}&hR=${doctor.halfrate}&aId=${appointmentId}&aM=${appointentMode}rM=${remarks}&u=${urgency}`}
+        >
+          Pay here
+        </Link> */}
         <Row>
           {!profilepID.activated && (
             <Col md={6} lg={4} style={{ display: display.doctor }}>
@@ -1708,19 +1718,19 @@ const MyDoctor = (props) => {
                                   availableSlotsDisplay.data.length > 0 &&
                                   availableSlotsDisplay.data.map(
                                     (slot, index) => (
-
                                       <div
                                         className="availability-card"
                                         key={index}
                                       >
                                         <span>
-                                          {moment(slot.instantDate).format('DD/MM/YY')}
+                                          {moment(slot.instantDate).format(
+                                            'DD/MM/YY'
+                                          )}
                                         </span>
                                         <span>
                                           {slot.count} slots available
                                         </span>
                                       </div>
-
                                     )
                                   )}
                               </div>
@@ -1863,140 +1873,6 @@ const MyDoctor = (props) => {
             <Col md={6} lg={8} style={{ display: display.doctor }}>
               <div id="dorctor-list" className="doctor-list-new">
                 {doctor && doctor.activated ? (
-                  // <>
-                  //   <Row id="doc-row">
-                  //     <Col xs={4}>
-                  //       <div className="doc-img">
-                  //         {doctor.picture ? (
-                  //           <img src={doctor.picture} alt="" />
-                  //         ) : (
-                  //           <Avatar
-                  //             name={doctor.firstName + ' ' + doctor.lastName}
-                  //           />
-                  //         )}
-                  //       </div>
-                  //     </Col>
-                  //     <Col xs={8} id="doc-details">
-                  //       <div>
-                  //         <b className="doc-name">
-                  //           {doctor.firstName} {doctor.lastName}
-                  //         </b>
-                  //         <br />
-                  //         <ul
-                  //           style={{ fontSize: 12, display: 'block' }}
-                  //           className="list--tags"
-                  //         >
-                  //           {doctor &&
-                  //             doctor.specialities &&
-                  //             doctor.specialities.map((speciality, index) => (
-                  //               <li key={index}>{speciality.name} </li>
-                  //             ))}
-                  //         </ul>
-                  //         <span>
-                  //           Country Of Residence: <b>{doctor.countryName}</b>
-                  //         </span>
-                  //         <br />
-                  //       </div>
-                  //     </Col>
-                  //   </Row>
-                  //   <br />
-                  //   <div className="mr-4 ml-4">
-                  //     <div className="row">
-                  //       <div className="col-4">
-                  //         <span style={{ fontSize: 12 }}>Education</span>
-                  //         <br />
-                  //         <b>
-                  //           {doctor &&
-                  //             doctor.educationalQualifications &&
-                  //             doctor.educationalQualifications.map(
-                  //               (x, index) => (
-                  //                 <li key={index}>
-                  //                   {x.educationalQualification}{' '}
-                  //                 </li>
-                  //               )
-                  //             )}
-                  //         </b>
-                  //       </div>
-                  //       <div className="col-4">
-                  //         <span style={{ fontSize: 12 }}>Institution</span>
-                  //         <br />
-                  //         <b>
-                  //           {doctor &&
-                  //             doctor.educationalQualifications &&
-                  //             doctor.educationalQualifications.map(
-                  //               (x, index) => (
-                  //                 <li key={index}>{x.institution} </li>
-                  //               )
-                  //             )}
-                  //         </b>
-                  //       </div>
-                  //       <div className="col-4">
-                  //         <span style={{ fontSize: 12 }}>Languange</span>
-                  //         <br />
-                  //         <b>
-                  //           {doctor &&
-                  //             doctor.languages &&
-                  //             doctor.languages.map((lang, index) => (
-                  //               <span key={index}>{lang.name} </span>
-                  //             ))}
-                  //         </b>
-                  //       </div>
-                  //     </div>
-                  //     <hr style={{ borderColor: 'black' }} />
-                  //     {/* <h5>About</h5> */}
-                  //     <p style={{ fontSize: 12 }}>
-                  //       {/* <span><b>Bio : </b></span><br/> */}
-                  //       <span>{doctor.bio}</span>
-                  //       <br />
-                  //       <br />
-                  //       <span>
-                  //         <b>Awards : </b>
-                  //       </span>
-                  //       <br />
-                  //       <span>{doctor.awards}</span>
-                  //       <br />
-                  //       <span>
-                  //         <b>Certificates : </b>
-                  //       </span>
-                  //       <br />
-                  //       <span>{doctor.certificates}</span>
-                  //       <br />
-                  //       <span>
-                  //         <b>Experience : </b>
-                  //       </span>
-                  //       <br />
-                  //       <span>{doctor.experience} yrs</span>
-                  //     </p>
-                  //     <br />
-                  //     <div className="mx-0">
-                  //       <div className="row">
-                  //         <div className="col-12">
-                  //           <span className="price">
-                  //             $
-                  //             {appointment.appointmentMode ===
-                  //               'FIRST_CONSULTATION' ||
-                  //               appointment.appointmentMode === ''
-                  //               ? doctor.rate
-                  //               : appointment.appointmentMode === 'FOLLOW_UP'
-                  //                 ? doctor.halfRate
-                  //                 : ''}
-                  //           </span>
-                  //           <br />
-                  //           <span>
-                  //             USD /{' '}
-                  //             {appointment.appointmentMode ===
-                  //               'FIRST_CONSULTATION' ||
-                  //               appointment.appointmentMode === ''
-                  //               ? 'Consultation'
-                  //               : appointment.appointmentMode === 'FOLLOW_UP'
-                  //                 ? 'Follow up'
-                  //                 : ''}
-                  //           </span>
-                  //         </div>
-                  //       </div>
-                  //     </div>
-                  //   </div>
-                  // </>
                   <>
                     <Row id="doc-row">
                       <Col xs={12}>
@@ -3049,10 +2925,18 @@ const MyDoctor = (props) => {
                       {!disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           <Paypal
-                            appointment={appointment}
+                            // appointment={appointment}
+                            appointmentId={appointment.id}
+                            appointmentMode={appointment.appointmentMode}
                             bookappointment={bookappointment}
-                            currentPatient={props.currentPatient}
-                            doctor={doctor}
+                            // currentPatient={props.currentPatient}
+                            // doctor={doctor}
+                            firstName={props.currentPatient.firstName}
+                            lastName={props.currentPatient.lastName}
+                            email={props.currentPatient.email}
+                            userId={props.currentPatient.userId}
+                            rate={doctor.rate}
+                            halfRate={doctor.halfRate}
                           />
                         </Col>
                       )}
