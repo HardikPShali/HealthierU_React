@@ -186,7 +186,6 @@ const PatientRoute = () => {
         <Route exact path="/patient/licenses" render={(props) => <LicensesPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/partners" render={(props) => <PartnersPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/logout" component={Logout} />
-        <Route exact path='/patient/mobile-payment' component={(props) => <PaypalMobile {...props} />} />
       </Switch>
       <Footer />
     </Suspense>

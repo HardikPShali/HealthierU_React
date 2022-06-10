@@ -1228,11 +1228,11 @@ const MyDoctor = (props) => {
       {transparentLoading && <TransparentLoader />}
       <Container className="my-doctor">
         {/* /mobile-payment?firstName="nithi"&lastName="raj" */}
-        <Link
-          to={`/patient/mobile-payment?s1Id=1&s2Id=2&s1Sd=2&s1Ed=2&s2Sd=2&s2Ed=2$dId=${doctor.id}&uId=${props.currentPatient.userId}&fN=${props.currentPatient.firstName}&lN=${props.currentPatient.lastName}&em=${props.currentPatient.email}&r=10&hR=10&aId=2&aM=FIRST_CONSULTATION&rM=REMARKS&u=URGENCY`}
+        {/* <Link
+          to={`/mobile-payment?s1Id=${slot1id}&s2Id=${slot2Id}&s1Sd=${slot1startTime}&s1Ed=${slot1endTime}&s2Sd=${slot12startTime}&s2Ed=${slot2endTime}&dId=${doctor.id}&uId=${currentPatient.userId}&fN=${currentPatient.firstName}&lN=${currentPatient.lastName}&em=${currentPatient.email}&r=${doctor.rate}&hR=${doctor.halfrate}&aId=${appointmentId}&aM=${appointentMode}rM=${remarks}&u=${urgency}`}
         >
           Pay here
-        </Link>
+        </Link> */}
         <Row>
           {!profilepID.activated && (
             <Col md={6} lg={4} style={{ display: display.doctor }}>

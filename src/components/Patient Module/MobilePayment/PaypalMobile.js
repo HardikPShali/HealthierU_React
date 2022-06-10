@@ -46,8 +46,6 @@ const PaypalMobile = (props) => {
     let appointmentModeParams = searchParams.get('aM');
     let rateParams = searchParams.get('r');
     let halfRateParams = searchParams.get('hR');
-    let remarksParams = searchParams.get('remarks');
-    let urgencyParams = searchParams.get('urgency');
 
     const bookAppointment = async (orderData) => {
         const finalAppointmentArray = [];
@@ -63,10 +61,8 @@ const PaypalMobile = (props) => {
                     type: 'DR',
                     patientId: userIdParams,
                     status: 'ACCEPTED',
-                    remarks: remarksParams,
                     appointmentMode: appointmentModeParams,
                     id: slot1Id,
-                    urgency: urgencyParams,
                     unifiedAppointment: slotConsultationId + '#' + appointmentModeParams,
                 },
                 {
@@ -76,10 +72,8 @@ const PaypalMobile = (props) => {
                     type: 'DR',
                     patientId: userIdParams,
                     status: 'ACCEPTED',
-                    remarks: remarksParams,
                     appointmentMode: appointmentModeParams,
                     id: slot2Id,
-                    urgency: urgencyParams,
                     unifiedAppointment: slotConsultationId + '#' + appointmentModeParams,
                 }
             );
@@ -95,10 +89,8 @@ const PaypalMobile = (props) => {
                     type: 'DR',
                     patientId: userIdParams,
                     status: 'ACCEPTED',
-                    remarks: remarksParams,
                     appointmentMode: appointmentModeParams,
                     id: slot1Id,
-                    urgency: urgencyParams,
                     unifiedAppointment: slotConsultationId + '#' + appointmentModeParams,
                 }
             );
