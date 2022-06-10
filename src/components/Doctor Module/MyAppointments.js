@@ -540,7 +540,7 @@ const MyAppointments = (props) => {
                                           <b>
                                             {details.patient.firstName +
                                               " " +
-                                              details.patient.lastName}
+                                              (details.patient.lastName || "")}
                                           </b>
                                         </h5>
                                         <span className="patient-list__common-span-consult">
@@ -637,7 +637,7 @@ const MyAppointments = (props) => {
                                           <b>
                                             {details.patient.firstName +
                                               " " +
-                                              details.patient.lastName}
+                                              (details.patient.lastName || "")}
                                           </b>
                                         </h5>
                                         <span className="patient-list__common-span-consult">
