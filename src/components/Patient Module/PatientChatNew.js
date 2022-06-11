@@ -129,7 +129,6 @@ const PatientChat = (props) => {
         toUser: doctorDetailsList[currentSelectedGroup].email,
       };
 
-      firestoreService.sendMessageToFirestore(currentSelectedGroup, message);
       tempMessage.current.value = "";
     }
   };

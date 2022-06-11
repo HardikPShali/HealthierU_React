@@ -75,42 +75,6 @@ const PatientRoute = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const { email, firebasePwd } = currentPatient;
-    if (email) {
-      firestoreService
-        .signIn(email, firebasePwd)
-        .then((userCredential) => {
-          firestoreService.makeChatGroupList("patientEmailId", email, setChatGroupList, setUpdateChatGroupListTrigger, setAddedNewUpdateChatGroupListTrigger);
-        })
-        .catch((err) => {
-          let {
-            code,
-            // message
-          } = err;
-          if (code === "auth/user-not-found") { //replaced '==' with '==='
-            firestoreService
-              .createNewUser(email, firebasePwd)
-              .then((userRecord) => {
-                setRestartFirebaseLogin((prevStat) => prevStat + 1);
-              })
-              .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log("user Created failed", errorCode, errorMessage);
-              });
-          }
-          else console.log("error in firestore signIn", err);
-        });
-    }
-  }, [currentPatient, restartFirebaseLogin]);
-
-  useEffect(() => {
-    if (Object.keys(chatGroupList).length > 0) {
-      chatAndVideoService.getAllModuleDetails(chatGroupList, "doctors", currentPatient.id, setDoctorDetailsList);
-      firestoreService.makeUnReadMessageList(chatGroupList, currentPatient.email, setUnReadMessageList, setTrigger);
-    }
-  }, [addedNewChatGroupListTrigger]);
 
   const getCurrentPatient = async () => {
     // const currentPatient = await getCurrentPatientInfo(currentuserInfo.id, currentuserInfo.login);
