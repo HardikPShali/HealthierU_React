@@ -118,7 +118,7 @@ svg#search-icon {
     margin: 4px 0;
   }
 
-  .MuiIconButton-root[aria-label="show 17 new notifications"] {
+  .MuiIconButton-root[aria-label='show 17 new notifications'] {
     padding: 0;
   }
 }
@@ -437,7 +437,7 @@ button.MuiButtonBase-root {
 }
 
 .card-body {
-  padding:1.2rem 10px !important;
+  padding: 1.2rem 10px !important;
   align-items: flex-end;
   display: flex;
   font-size: 17px;
@@ -751,7 +751,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 46%;
@@ -2306,7 +2306,7 @@ div.reply .messageBody span.messageTime {
 }
 
 .list--tags > li:before {
-  content: ",\0000a0";
+  content: ',\0000a0';
   /* Non-breaking space */
 }
 
@@ -2453,7 +2453,7 @@ Health Assessment
 }
 
 .rbc-time-slot.active:after {
-  content: "click here to create slot";
+  content: 'click here to create slot';
   position: absolute;
   background: #00d0ce;
   color: #fff;
@@ -2566,7 +2566,7 @@ Health Assessment
 }
 
 span.followupColor:before {
-  content: "";
+  content: '';
   width: 20px;
   height: 10px;
   background: #4f80e2;
@@ -2582,7 +2582,7 @@ span.followupColor {
 }
 
 span.consultationColor:before {
-  content: "";
+  content: '';
   width: 20px;
   height: 10px;
   background: #3157a3;
@@ -2598,7 +2598,7 @@ span.consultationColor {
 }
 
 span.availableColor:before {
-  content: "";
+  content: '';
   width: 20px;
   height: 10px;
   background: #00d1cd;
@@ -3446,7 +3446,8 @@ button.reset-btn {
 .day-wrapper input {
   background-color: #00d0cc;
 }
-.selected-day-container h5, .selected-time-container h5{
+.selected-day-container h5,
+.selected-time-container h5 {
   font-weight: 400;
   margin-bottom: 1rem;
 }
@@ -3486,12 +3487,12 @@ button.reset-btn {
   right: 0;
   bottom: 0;
   background-color: #b1b6b5;
-  transition: .4s;
+  transition: 0.4s;
 }
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 23px;
   width: 24px;
   left: 0px;
@@ -3523,4 +3524,29 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* NOTIFICATION_MENU */
+.notification-Menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+.notification-Menu::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+.notification-Menu::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+.notification-Menu::-webkit-scrollbar-thumb:hover {
+  background: #375eaa;
 }
