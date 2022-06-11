@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";  //useEffect, useState
 import { NavLink } from "react-router-dom"; //Link
 import rightIcon from "../../images/svg/right-icon.svg";
 // import { getFirebaseToken } from "../../util/firebaseCloudMessages";
-import { getFirebaseToken } from "../../util";
+import { getFirebaseToken, getPermissions } from "../../util";
 
 
 const NotificationMenu = (props) => {
@@ -13,7 +13,6 @@ const NotificationMenu = (props) => {
 
   useEffect(() => {
     let data;
-
     const tokenFunction = async () => {
       data = await getFirebaseToken(setTokenFound);
       if (data) {
@@ -22,7 +21,15 @@ const NotificationMenu = (props) => {
       return data;
     }
 
-    tokenFunction();
+    const getPermission = async () => {
+      const permission = await getPermissions();
+      if (permission === 'granted') {
+        tokenFunction();
+      }
+    }
+    getPermission()
+
+
   }, [])
 
   const totalUnreadMessage = () =>
