@@ -1,6 +1,5 @@
 import React from "react";  //useEffect, useState 
 import { NavLink } from "react-router-dom"; //Link
-import { messageHandle } from "../../util/firebaseCloudMessages";
 
 const NotificationMenu = (props) => {
   const { unReadMessageList, detailsList, module } = props;
@@ -40,11 +39,11 @@ const NotificationMenu = (props) => {
   return (
     <>
       <div className="dropdown-title" style={{ paddingLeft: "10px" }}>
-        Unread Messages
+        Notifications
       </div>
       <hr />
       <div className="d-flex flex-column">
-        {Object.keys(unReadMessageList).map((key, i) => (
+        {/* {Object.keys(unReadMessageList).map((key, i) => (
           <NavLink
             to={`/${module}/chat?chatgroup=${key}`}
             className="d-flex flex-column p-2 text-dark align-items-stretch"
@@ -72,7 +71,7 @@ const NotificationMenu = (props) => {
               i
             )}
           </NavLink>
-        ))}
+        ))} */}
       </div>
     </>
   );
