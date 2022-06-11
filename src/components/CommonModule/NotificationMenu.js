@@ -1,10 +1,29 @@
-import React from "react";  //useEffect, useState 
+import React, { useState, useEffect } from "react";  //useEffect, useState 
 import { NavLink } from "react-router-dom"; //Link
 import rightIcon from "../../images/svg/right-icon.svg";
+// import { getFirebaseToken } from "../../util/firebaseCloudMessages";
+import { getFirebaseToken } from "../../util";
 
 
 const NotificationMenu = (props) => {
   const { unReadMessageList, detailsList, module } = props;
+  const [tokenFound, setTokenFound] = useState(false);
+
+  console.log({ tokenFound });
+
+  useEffect(() => {
+    let data;
+
+    const tokenFunction = async () => {
+      data = await getFirebaseToken(setTokenFound);
+      if (data) {
+        console.log({ data });
+      }
+      return data;
+    }
+
+    tokenFunction();
+  }, [])
 
   const totalUnreadMessage = () =>
     Object.values(unReadMessageList).length &&

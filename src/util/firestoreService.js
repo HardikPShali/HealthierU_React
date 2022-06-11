@@ -5,6 +5,7 @@ import {
   LOCALFIRESTORECONFIG,
   PRODFIRESTORECONFIG,
 } from '../util/configurations';
+import '@firebase/messaging';
 
 export const firestoreService = {
   signIn,
@@ -451,4 +452,42 @@ function updateDataOnGroup(chatGroupId, messageBody) {
     .collection('groups')
     .doc(chatGroupId)
     .update(messageBody);
+}
+
+
+
+export const getFirebaseToken = async (setTokenFound) => {
+  initializeFirestore();
+  const messaging = firebase.getMessaging();
+
+  let currentToken = '';
+
+  try {
+    currentToken = await messaging.getToken({
+      vapidKey: "BMDkjCarQVzdebqtAcVnfW84-WK7QWHsxGfhmPhFHuGvnG8d--zSwRGj9xzx03fE9CTgwYfoq52CmtUo-biyFxM"
+    });
+    if (currentToken) {
+      setTokenFound(true);
+
+    }
+    else {
+      setTokenFound(false);
+    }
+  }
+  catch (err) {
+    console.log({ err });
+  }
+  return currentToken;
+}
+
+export const onMessageListener = () => {
+  initializeFirestore();
+  const messaging = firebase.getMessaging();
+
+  new Promise(resolve => {
+    messaging.onMessage(payload => {
+      console.log({ payload });
+      resolve(payload);
+    })
+  })
 }
