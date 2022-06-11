@@ -767,12 +767,6 @@ const MyDoctor = (props) => {
     const storePaypalInfo = await axios(storePaypalTransitionInfo);
 
     if (bookingResponse.status === 200 || bookingResponse.status === 201) {
-      firestoreService.newAppointmentBookingMessageToFirestore(
-        appointment,
-        tempSlotConsultationId,
-        doctor,
-        props
-      );
       props.history.push('/patient/myappointment');
     }
   };

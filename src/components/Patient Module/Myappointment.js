@@ -415,12 +415,6 @@ const Myappointment = (props) => {
     });
     // console.log({ res });
     if (res?.status === 200 || res?.status === 201) {
-      firestoreService.sendCancelAppointmentToFirestoreMessage(
-        selectedAppointment,
-        'patient',
-        currentPatient,
-        doctorDetailsList
-      );
       getMyAppointmentList(currentPatient.id);
       handleClose();
     }
