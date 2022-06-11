@@ -1,5 +1,6 @@
 import React from "react";  //useEffect, useState 
 import { NavLink } from "react-router-dom"; //Link
+import { messageHandle } from "../../util/firebaseCloudMessages";
 
 const NotificationMenu = (props) => {
   const { unReadMessageList, detailsList, module } = props;
@@ -33,6 +34,8 @@ const NotificationMenu = (props) => {
       </div>
     );
   };
+
+  // messageHandle();
 
   return (
     <>
