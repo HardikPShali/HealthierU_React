@@ -374,6 +374,8 @@ const Myappointment = (props) => {
       }
     );
 
+    // console.log({ response });
+
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
         // const upcomingArray = response.data.data.upcoming;
@@ -382,9 +384,10 @@ const Myappointment = (props) => {
 
         const completedAppointmentsArray = response.data.data.completed;
         setCompletedAppointment(completedAppointmentsArray);
-        console.log('completedAppointmentsArray', completedAppointmentsArray);
+        // console.log('completedAppointmentsArray', completedAppointmentsArray);
 
         const cancelledAppointmentsArray = response.data.data.cancelled;
+        console.log({ cancelledAppointmentsArray });
         setCancelledAppointment(cancelledAppointmentsArray);
       }
     }
@@ -394,22 +397,23 @@ const Myappointment = (props) => {
     const { currentPatient, doctorDetailsList } = props;
     setLoading(true);
     handleClose();
+    // console.log({ selectedAppointment })
     const payload = {
       id: selectedAppointment.id,
+      startTime: new Date(selectedAppointment.startTime).toISOString(),
+      endTime: new Date(selectedAppointment.endTime).toISOString(),
       patientId: selectedAppointment.patientId,
       doctorId: selectedAppointment.doctorId,
       type: 'DR',
       status: 'CANCELLED_BY_PATIENT',
-      remarks: selectedAppointment.remarks,
-      startTime: new Date(selectedAppointment.startTime).toISOString(),
-      endTime: new Date(selectedAppointment.endTime).toISOString(),
-      timeZone: timeZone,
+      unifiedAppointment: selectedAppointment.unifiedAppointment,
     };
     const res = await deleteAppointment(payload).catch((err) => {
       if (err.response.status === 500 || err.response.status === 504) {
         setLoading(false);
       }
     });
+    // console.log({ res });
     if (res?.status === 200 || res?.status === 201) {
       getMyAppointmentList(currentPatient.id);
       handleClose();
@@ -491,7 +495,7 @@ const Myappointment = (props) => {
                                       className="col-md-6 mb-2 mt-2"
                                       key={index}
                                     >
-                                      {console.log(appointment)}
+                                      {/* {console.log(appointment)} */}
                                       <div className="my-appointments-card">
                                         <div
                                           className="row align-items-start mb-2"
@@ -811,7 +815,7 @@ const Myappointment = (props) => {
                 <div className="details-container">
                   <div className="details-wrapper">
                     <div className="details-content">
-                      {console.log(selectedAppointment)}
+                      {/* {console.log(selectedAppointment)} */}
                       <img src={selectedAppointment.doctor.picture} alt="" />
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}
@@ -887,8 +891,9 @@ const Myappointment = (props) => {
                     <div className="details-links">
                       <Link
                         to={{
-                          pathname: `/patient/help-and-support`,
+                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}`,
                           // state: SelectedPatient.patient,
+                      
                         }}
                       >
                         <div style={{ display: 'flex', alignItem: 'center' }}>
@@ -1020,7 +1025,7 @@ const Myappointment = (props) => {
                 <div className="details-container">
                   <div className="details-wrapper">
                     <div className="details-content">
-                      {console.log(selectedAppointment)}
+                      {/* {console.log(selectedAppointment)} */}
                       <img src={selectedAppointment.doctor.picture} alt="" />
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}
@@ -1282,7 +1287,7 @@ const Myappointment = (props) => {
                 <div className="details-container">
                   <div className="details-wrapper">
                     <div className="details-content">
-                      {console.log("selectedAPP", selectedAppointment)}
+                      {/* {console.log("selectedAPP", selectedAppointment)} */}
                       <img src={selectedAppointment.doctor.picture} alt="" />
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}

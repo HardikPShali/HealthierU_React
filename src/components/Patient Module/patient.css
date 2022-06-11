@@ -149,9 +149,8 @@ a#footer-link {
   display: block;
   color: #fff !important;
   text-decoration: none !important;
-  margin-top: 5px;
   font-size: 15px;
-  margin-bottom: 11px;
+  margin-bottom: 15px;
 }
 
 div#active-user {
@@ -210,7 +209,7 @@ img#store-icon {
 }
 
 a#copy-link {
-  color: #3e4543;
+  color: white;
   text-decoration: none;
   font-size: 12px;
   margin: 0 20px 0 0;
@@ -218,21 +217,24 @@ a#copy-link {
 a#copy-link:hover {
   cursor: pointer;
   text-decoration: none;
+  color: #3e4543;
 }
 
 div#copyright {
   padding: 15px 0;
-  background-color: #eee9df;
+  background-color: var(--primary);
 }
 
 p#copyright-text {
   margin: 15px 0 0;
   font-size: 12px;
-  color: #999;
+  color: white;
 }
+
 
 p#lang-select {
   font-size: 12px;
+  color: white;
 }
 
 #lang-select select {
@@ -240,6 +242,8 @@ p#lang-select {
   border-bottom: 1px solid;
   outline: none;
   box-shadow: none;
+  margin-left: .5rem;
+
 }
 
 div#social-icon {
@@ -254,7 +258,7 @@ div#social-icon {
   align-items: flex-start;
 }
 .footer-wellnes {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 .footer-store-icons {
   display: flex;
@@ -457,7 +461,7 @@ button.MuiButtonBase-root {
 }
 
 .card-body {
-  padding: 0 1.2rem 10px !important;
+  padding:1.2rem 10px !important;
   align-items: flex-end;
   display: flex;
   font-size: 17px;
@@ -3639,7 +3643,8 @@ button a {
 
 #copyright-text a,
 #nutrition-col a {
-  color: var(--primary);
+  color: white;
+
 }
 
 /* Search css */
@@ -4245,4 +4250,11 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   background: #00d0cc !important;
   border-right: 1px solid white;
   -moz-appearance: none !important;
+}
+
+.doc-img div {
+  height: 140px !important;
+  justify-content: center;
+  border-radius: 50%;
+  width: 140px !important;
 }

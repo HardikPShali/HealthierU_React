@@ -95,6 +95,23 @@ export const rescheduleAppointmentDoctor = async (data) => {
     });
     return response;
 }
+export const rescheduleAppointmentPatient = async (data) => {
+    var payload = {
+        method: 'post',
+        data: data,
+        url: `/api/v2/appointment/patient/reschedule`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
 export const consultationHistory = async (patientId, doctorId) => {
     var payload = {
         method: 'get',
@@ -192,7 +209,7 @@ export const deleteAppointment = async (appointmentData) => {
         method: 'put',
         mode: 'no-cors',
         data: appointmentData,
-        url: `/api/appointments`,
+        url: `/api/v2/appointments`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json',
@@ -919,7 +936,51 @@ export const getAppointmentsBySearch = async (patientName) => {
     });
     return response;
 }
-
+export const getGlobalMedicalRecordsSearch = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/medical-documents/filter`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+// export const getGlobalMedicalRecordsSearch = async (documentType, patientId, resultType, startTime, doctorId, pageNo, endTime, labName, doctorName, pageSize, id) => {
+//     var payload = {
+//         method: 'get',
+//         mode: 'no-cors',
+//         url: `/api/v2/medical-documents/filter?documentType=${documentType}
+//         &patientId=${patientId}
+//         &resultType=${resultType}
+//         &startTime=${startTime}
+//         &doctorId=${doctorId}
+//         &pageNo=${pageNo}
+//         &endTime=${endTime}
+//         &labName=${labName}
+//         &doctorName=${doctorName}
+//         &pageSize=${pageSize}
+//         &id=${id}`,
+//         headers: {
+//             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+//             'Content-Type': 'application/json'
+//         }
+//     };
+//     const response = await axios(payload).then(res => {
+//         if (res) {
+//             return res;
+//         }
+//     });
+//     return response;
+// }
 export const getGlobalAppointmentsSearch = async (data) => {
     var payload = {
         method: 'post',

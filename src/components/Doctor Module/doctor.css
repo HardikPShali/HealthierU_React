@@ -44,8 +44,8 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item:hover {
-  background-color: #F5F5F5 !important;
-    color: var(--primary)!important;
+  background-color: #f5f5f5 !important;
+  color: var(--primary) !important;
 }
 
 #navbar button {
@@ -53,14 +53,14 @@ a.nav-link.active {
 }
 
 #navbar a.dropdown-item.active {
-  background-color: #F5F5F5 !important;
-  color: var(--primary)!important;
+  background-color: #f5f5f5 !important;
+  color: var(--primary) !important;
 }
 .patient-card_how-healthy-wrap {
   display: flex;
   flex-direction: column;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 }
 .headerNavbar {
   margin: 0;
@@ -143,9 +143,8 @@ a#footer-link {
   display: block;
   color: #fff !important;
   text-decoration: none !important;
-  margin-top: 5px;
   font-size: 15px;
-  margin-bottom: 11px;
+  margin-bottom: 15px;
 }
 
 div#active-user {
@@ -204,7 +203,7 @@ img#store-icon {
 }
 
 a#copy-link {
-  color: #3e4543;
+  color: white;
   text-decoration: none;
   font-size: 0.6rem;
   margin: 0 20px 0 0;
@@ -213,6 +212,7 @@ a#copy-link {
 a#copy-link:hover {
   cursor: pointer;
   text-decoration: none;
+  color: #3e4543;
 }
 
 div#copyright {
@@ -222,11 +222,12 @@ div#copyright {
 p#copyright-text {
   margin: 15px 0 0;
   font-size: 0.6rem;
-  color: #999;
+  color: white;
 }
 
 p#lang-select {
   font-size: 12px;
+  color: white;
 }
 
 #lang-select select {
@@ -234,6 +235,7 @@ p#lang-select {
   border-bottom: 1px solid;
   outline: none;
   box-shadow: none;
+  margin-left: 0.5rem;
 }
 
 div#social-icon {
@@ -435,7 +437,7 @@ button.MuiButtonBase-root {
 }
 
 .card-body {
-  padding: 0 1.2rem 10px !important;
+  padding:1.2rem 10px !important;
   align-items: flex-end;
   display: flex;
   font-size: 17px;
@@ -1166,7 +1168,7 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #F5F5F5;
+  background: #f5f5f5;
   margin: 0.5rem;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
@@ -1526,6 +1528,7 @@ div#patient-row {
 #req-name,
 #req-date {
   font-size: 10px;
+  font-weight: 300;
 }
 
 .btn-primary.High {
@@ -1569,18 +1572,18 @@ div#req-info {
   align-items: stretch;
   flex-wrap: wrap;
   margin-top: 10px;
+  font-weight: 300;
 }
 
 div#req-info > a {
   border-radius: 10px;
   text-align: justify;
   color: #3e4543;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 div#req-info > a:hover {
   text-decoration: none;
-  transform: translateY(-2px);
   color: #00d0cc;
 }
 
@@ -2709,8 +2712,8 @@ button a {
 }
 
 .MuiMenu-paper li.MuiButtonBase-root:hover {
-  background-color: #F5F5F5 !important;
-  color: var(--primary)!important;
+  background-color: #f5f5f5 !important;
+  color: var(--primary) !important;
 }
 
 sup {
@@ -2764,7 +2767,7 @@ sup {
 
 #copyright-text a,
 #nutrition-col a {
-  color: var(--primary);
+  color: white;
 }
 
 button {
@@ -2795,7 +2798,22 @@ button {
 }
 
 /* Filter Box */
+.medicalrecord-filter-box {
+  background: #fff;
+  border-radius: 22px;
+  padding: 20px 5px;
+  position: absolute;
+  /* width: 87% !important; */
+  z-index: 2;
+  display: block;
+  margin-top: 10px;
+  text-align: left;
 
+  box-shadow: 0px 0px 10px #ddd;
+  /* height: 31%; */
+  /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
+  overflow: auto;
+}
 .appointment-filter-box {
   background: #fff;
   border-radius: 22px;
@@ -2808,7 +2826,7 @@ button {
   text-align: left;
 
   box-shadow: 0px 0px 10px #ddd;
-  height: 31%;
+  /* height: 31%; */
   /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
   overflow: auto;
 }
@@ -2913,6 +2931,10 @@ button.reset-btn {
   margin: 0 !important;
   font-size: 14px;
 }
+.medicalrecord-filter-body p {
+  margin: 0 !important;
+  font-size: 14px;
+}
 
 .appointment-filter-multiselect div {
   border: none;
@@ -3005,10 +3027,9 @@ button.reset-btn {
   margin: 0 0.2rem;
   cursor: pointer;
 }
-.patient-list__card-completed:hover  {
+.patient-list__card-completed:hover {
   border-left: 6px solid var(--primary);
   transition: all 0.2s;
-
 }
 .patient-list__card:hover {
   border-left: 6px solid var(--primary);
@@ -3301,5 +3322,205 @@ button.reset-btn {
   height: 120px !important;
   margin-top: -50px;
   margin-left: -10px;
+  border-radius: 50%;
+}
+
+.time-slot-container {
+  min-height: 50vh;
+  /* box-shadow: 0px 4px 4px rgb(0 0 0 / 7%); */
+}
+.slot-time,
+.set-time-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 2rem 0;
+  border-radius: 18px;
+}
+.slot-time h3 {
+  font-weight: 400;
+  color: #3e4543;
+  text-align: center;
+}
+.slot-time p {
+  color: #666666;
+  font-weight: 300;
+}
+.available-btn button {
+  background: var(--primary);
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.available-btn button:hover {
+  background: #02bcb9;
+}
+.slot-time-wrap {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 0 2rem 0;
+  border-radius: 18px;
+  flex-direction: column;
+}
+.start-time-wrap h5,
+.selected-time h5 {
+  color: #666666;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+/* .start-time-wrap,.end-time-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+.selected-time h5 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.select-time-wrap h5 {
+  color: #3e4543;
+  text-align: center;
+}
+.select-time-wrap {
+  color: var(--primary);
+}
+
+.select-time-font {
+  color: white;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.close-btn-select img {
+  width: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.close-btn-select img:hover {
+  transform: rotatez(88deg);
+}
+.selected-time-container,
+.selected-day-container {
+  min-height: 25vh;
+}
+.selected_time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #00d0cc;
+  padding: 0.5em 1.5em;
+  margin-top: 0.5em;
+}
+
+.days-wrapper {
+  /* border-radius: 22px; */
+  /* box-shadow: 0 0 5px #e9e9e9; */
+  /* padding: 1rem; */
+}
+.day-wrapper,
+.selected-day-wrap {
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  border-radius: 13px;
+  background: whitesmoke;
+}
+.day-wrapper h6 {
+  color: #3e4543;
+  font-weight: 300;
+  margin: 0;
+}
+.day-wrapper input {
+  background-color: #00d0cc;
+}
+.selected-day-container h5, .selected-time-container h5{
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.selected-days h5 {
+  color: #3e4543;
+  font-weight: 400;
+  font-size: 1rem;
+}
+.selected-days span {
+  color: #3e4543;
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin: 0;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #b1b6b5;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 23px;
+  width: 24px;
+  left: 0px;
+  bottom: 1px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: var(--primary);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+  height: 25px;
+  width: 51px;
+}
+
+.slider.round:before {
   border-radius: 50%;
 }

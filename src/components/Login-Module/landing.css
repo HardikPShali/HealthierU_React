@@ -77,7 +77,7 @@ svg#search-icon {
 }
 .nav-menu-ul a {
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: white;
   font-weight: 300;
 }
@@ -102,15 +102,14 @@ footer .row {
   align-items: flex-end;
 }
 .footer-wellnes {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 a#footer-link {
   display: block;
   color: #fff !important;
   text-decoration: none !important;
-  margin-top: 5px;
   font-size: 15px;
-  margin-bottom: 11px;
+  margin-bottom: 15px;
 }
 .terms-container {
   display: flex;
@@ -185,25 +184,28 @@ img#store-icon {
 }
 
 a#copy-link {
-  color: #3e4543;
+  color: white;
   text-decoration: none;
   font-size: 12px;
   margin: 0 20px 0 0;
 }
-
+a#copy-link:hover {
+  color: #3e4543;
+}
 div#copyright {
   padding: 15px 0;
-  background-color: #eee9df;
+  background-color: var(--primary);
 }
 
 p#copyright-text {
   margin: 15px 0 0;
   font-size: 12px;
-  color: #999;
+  color: white;
 }
 
 p#lang-select {
   font-size: 12px;
+  color: white;
 }
 
 #lang-select select {
@@ -211,6 +213,7 @@ p#lang-select {
   border-bottom: 1px solid;
   outline: none;
   box-shadow: none;
+  margin-left: 0.5rem;
 }
 
 div#social-icon {
@@ -281,33 +284,35 @@ button.get-started-btn {
 }
 
 h3.h3-responsive {
-  font-size: 40px;
+  font-size: 3rem;
   font-weight: 600;
-  width: 27ch;
+  width: 19ch;
   color: white;
 }
 
 p.help-desc {
-  font-size: 14px;
+  font-size: 1rem;
   white-space: pre-line;
   width: 47ch;
   color: white;
 }
 h3.text-primary-clr {
-  font-size: 40px;
+  font-size: 3rem;
   font-weight: 600;
-  width: 27ch;
+  width: 11ch;
   color: var(--primary);
 }
 p.text-primary-clr-p {
-  font-size: 14px;
+  font-size: 1rem;
   white-space: pre-line;
   width: 47ch;
   color: var(--primary);
+  padding-bottom: 15rem;
 }
 .card-title.h5 {
   font-size: 22px;
   font-weight: 600;
+  text-align: center;
 }
 
 .card,
@@ -322,7 +327,7 @@ img.card-img-top {
   color: #fff;
   background-color: var(--primary);
   width: 100%;
-  height: 130px;
+  height: 150px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   display: block !important;
@@ -332,12 +337,15 @@ img.card-img-top {
 
 p.card-text {
   font-size: 12px;
+  text-align: center;
+}
+.box-card-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button.assessment-btn {
-  position: absolute;
-  bottom: 20%;
-  right: 5%;
   border-radius: 22px;
   padding: 2px 20px;
   border: none;
@@ -704,6 +712,59 @@ div#demo-simple-select {
   z-index: 99;
 }
 
+@media (max-width: 400px) {
+  .google-signup div {
+    margin-left: 5%;
+    margin-right: 0 !important;
+  }
+}
+@media (max-width: 450px) {
+  .google-signup div {
+    margin-left: 10%;
+  }
+}
+@media (max-width: 500px) {
+  .google-signup div {
+    margin-left: 15%;
+  }
+  h3.h3-responsive,
+  .text-primary-clr {
+    font-size: 17px !important;
+    /* width: 18ch !important; */
+  }
+  p.help-desc,
+  .text-primary-clr-p {
+    font-size: 10px !important;
+    /* width: 35ch !important; */
+  }
+  p.text-primary-clr-p {
+    padding: 0;
+  }
+  .purpose-section,
+  .our_spl-section {
+    padding: 5rem 1rem !important;
+  }
+  .two-box-padding {
+    padding: 2rem 1rem !important;
+  }
+  .about-us_section {
+    padding-top: 2rem !important;
+  }
+  .btn-mob-size {
+    font-size: 0.6rem !important;
+  }
+  .carousel-caption {
+    padding: 0;
+    top: 0%;
+  }
+}
+
+@media (max-width: 600px) {
+  .google-signup div {
+    margin-left: 20%;
+  }
+}
+
 @media screen and (max-width: 768px) {
   #footer .row > div {
     margin-bottom: 40px;
@@ -730,7 +791,15 @@ div#demo-simple-select {
   p#download-statement {
     text-align: center;
   }
-
+  p.text-primary-clr-p {
+    padding-bottom: 13rem;
+  }
+  /* .about-content h3:after, .edge-text h1:after {
+    width: 160px !important;
+  } */
+  /* .powerful_Ftr-text h1:after {
+    width: 343px !important;
+  } */
   input.btn.submit-btn {
     width: 37% !important;
     right: 6.5% !important;
@@ -776,13 +845,17 @@ div#demo-simple-select {
   .carousel-caption {
     top: 10% !important;
   }
-  h3.h3-responsive, .text-primary-clr {
+  h3.h3-responsive,
+  .text-primary-clr {
     font-size: 24px !important;
+    width: 18ch !important;
   }
-  p.help-desc, .text-primary-clr-p {
-    font-size: 10px !important;
+  p.help-desc,
+  .text-primary-clr-p {
+    font-size: 13px !important;
+    width: 32ch !important;
   }
- 
+
   button.get-started-btn {
     font-size: 10px !important;
   }
@@ -794,56 +867,6 @@ div#demo-simple-select {
   }
   .google-signup div {
     margin-left: 25%;
-  }
-}
-
-@media (max-width: 600px) {
-  .google-signup div {
-    margin-left: 20%;
-  }
-}
-
-@media (max-width: 500px) {
-  .google-signup div {
-    margin-left: 15%;
-  }
-  h3.h3-responsive, .text-primary-clr {
-    font-size: 17px !important;
-    width: auto !important;
-  }
-  p.help-desc, .text-primary-clr-p {
-    font-size: 10px !important;
-    width: auto !important;
-  }
-  .purpose-section, .our_spl-section {
-    padding: 5rem 1rem !important;
-}
-.two-box-padding {
-  padding: 2rem 1rem !important;
-}
-.about-us_section {
-  padding-top: 2rem !important;
-}
-.btn-mob-size {
-  font-size: .6rem !important;
-}
-.carousel-caption {
-  padding: 0;
-  top: 0%;
-}
-
-}
-
-@media (max-width: 450px) {
-  .google-signup div {
-    margin-left: 10%;
-  }
-}
-
-@media (max-width: 400px) {
-  .google-signup div {
-    margin-left: 5%;
-    margin-right: 0 !important;
   }
 }
 
@@ -1250,14 +1273,14 @@ sup {
 .patient-card_how-healthy-wrap {
   display: flex;
   flex-direction: column;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 }
 /*Footer anchor css*/
 
 #copyright-text a,
 #nutrition-col a {
-  color: var(--primary);
+  color: white;
 }
 
 .article-top-row a:hover {
@@ -1341,7 +1364,7 @@ button {
 /* --------About-Us----- */
 .about-us_section {
   background-color: #eee9df;
-  padding-top: 5rem;
+  padding: 5rem 0;
 }
 h3.better-future {
   font-weight: 600;
@@ -1375,29 +1398,31 @@ ul.light {
   line-height: 150%;
 }
 .about-content h3 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #3e3e3e;
   margin-top: 2rem;
   margin-bottom: 4rem;
   position: relative;
   display: inline;
+  border-bottom: 6px solid var(--primary);
+  border-radius: 4px;
 }
-.about-content h3:after {
+/* .about-content h3:after {
   position: absolute;
   left: 0;
   bottom: -18px;
-  width: 159px;
+  width: 197px;
   height: 6px;
   border-radius: 6px;
   background-color: #00d1cd;
   display: block;
   margin-top: 15px;
   content: "";
-}
+} */
 .about-content p {
   font-size: 1rem;
   font-weight: 400;
-  margin-top: 2rem;
+  margin: 1.5rem 0 3rem 0;
   line-height: 160%;
 }
 
@@ -1479,19 +1504,21 @@ ul.light {
   margin-top: 2rem;
   position: relative;
   display: inline;
+  border-bottom: 6px solid var(--primary);
+  border-radius: 4px;
 }
-.edge-text h1:after {
+/* .edge-text h1:after {
   position: absolute;
   left: 0;
   bottom: -23px;
-  width: 161px;
+  width: 196px;
   height: 6px;
   border-radius: 6px;
   background-color: #00d1cd;
   display: block;
   margin-top: 15px;
   content: "";
-}
+} */
 .edge-subtitle {
   margin-top: 2rem;
   font-size: 1.1rem;
@@ -1544,7 +1571,7 @@ ul.light {
 
 .our_partners {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   margin-top: 2rem;
 }
@@ -1563,6 +1590,7 @@ ul.light {
 }
 .our_partners-logo img {
   width: 14rem;
+  margin-left: 1rem;
 }
 
 .our_partners-logo .cornel-logo {
@@ -1593,21 +1621,23 @@ ul.light {
   position: relative;
   display: inline-block;
   margin-top: 4rem;
+  border-bottom: 6px solid var(--primary);
+  border-radius: 4px;
 }
-.powerful_Ftr-text h1:after {
+/* .powerful_Ftr-text h1:after {
   position: absolute;
   left: 0;
   bottom: -26px;
-  width: 341px;
+  width: 427px;
   height: 6px;
   border-radius: 18px;
   background-color: #00d1cd;
   display: block;
   margin-top: 15px;
   content: "";
-}
+} */
 .powerful_Ftr-text ul {
-  margin-top: 3rem;
+  margin-top: 1rem;
   padding-left: 20px;
 }
 
@@ -1648,24 +1678,26 @@ ul.light {
   display: inline-block;
   position: relative;
   color: #3e3e3e;
+  border-bottom: 6px solid var(--primary);
+  border-radius: 4px;
 }
-.our_spl-section h1:after {
+/* .our_spl-section h1:after {
   position: absolute;
   left: 0;
   bottom: -26px;
-  width: 284px;
+  width: 357px;
   border-radius: 6px;
   height: 6px;
   background-color: #00d1cd;
   display: block;
   margin-top: 15px;
   content: "";
-}
+} */
 
 .our_spl-subtitle {
   color: #3e3e3e;
   font-size: 1.2rem;
-  margin: 3rem 0 5rem 0;
+  margin: 1rem 0 5rem 0;
   width: 33ch;
 }
 .our_spl-section img {
@@ -1883,12 +1915,12 @@ ul.light {
   h3.h3-responsive,
   .text-primary-clr {
     font-size: 17px !important;
-    width: auto !important;
+    /* width: auto !important; */
   }
   p.help-desc,
   .text-primary-clr-p {
     font-size: 10px !important;
-    width: auto !important;
+    /* width: auto !important; */
   }
   .purpose-section,
   .our_spl-section {
@@ -1914,12 +1946,12 @@ ul.light {
   .about-content h3 {
     font-size: 1.2rem !important;
   }
-  .about-content h3:after {
+  /* .about-content h3:after {
     bottom: -21px !important;
     width: 97px !important;
     height: 4px !important;
     margin-top: 4px !important;
-  }
+  } */
   .about-content p {
     font-size: 0.9rem !important;
   }
@@ -1956,12 +1988,12 @@ ul.light {
   .edge-text h1 {
     font-size: 1.3rem !important;
   }
-  .edge-text h1:after {
+  /* .edge-text h1:after {
     bottom: -19px !important;
     width: 104px !important;
     height: 3px !important;
     margin-top: 15px !important;
-  }
+  } */
   .edge-text p {
     font-size: 0.9rem !important;
   }
@@ -1991,12 +2023,12 @@ ul.light {
     margin-top: 3rem !important;
     font-size: 1.2rem !important;
   }
-  .powerful_Ftr-text h1:after {
+  /* .powerful_Ftr-text h1:after {
     bottom: -23px !important;
     width: 206px !important;
     height: 4px !important;
     margin-top: 15px !important;
-  }
+  } */
   .powerful_Ftr-text ul li {
     font-size: 0.9rem !important;
     font-weight: 300 !important;
@@ -2004,11 +2036,11 @@ ul.light {
   .our_spl-section h1 {
     font-size: 1.1rem !important;
   }
-  .our_spl-section h1:after {
+  /* .our_spl-section h1:after {
     bottom: -26px !important;
     width: 158px !important;
     height: 3px !important;
-  }
+  } */
   .our_spl-subtitle {
     font-size: 1rem !important;
     margin: 3rem 0 2rem 0 !important;

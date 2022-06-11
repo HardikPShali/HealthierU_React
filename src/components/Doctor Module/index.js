@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import Cookies from "universal-cookie";
-
+import Availability from "./Availability"
 import Header from "./Header";
 import Footer from "./Footer";
 import {
@@ -85,7 +85,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/my-appointments" render={(props) => <MyAppointments timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/my-patients" render={(props) => <MyPatients timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
-        <Route exact path="/doctor/medicalrecord/:id" component={Healthassessment} />
+        <Route exact path="/doctor/medicalrecord/:patientID/:apid" component={Healthassessment} />
         <Route exact path="/doctor/setNextAppointment" component={SetNextAppointment} />
         <Route exact path="/doctor/healthassesment-report/:id" component={HealthAssestmentReport} />
         <Route exact path="/doctor/medicalrecord" component={MedicalRecord} />
@@ -97,7 +97,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/shop" component={DoctorShop} />
         <Route exact path="/doctor/article" component={DoctorArticle} />
         <Route exact path="/doctor/changepassword" component={ChangeAccountPassword} />
-        <Route exact path="/doctor/addPrescription/:id" component={AddPrescription} />
+        <Route exact path="/doctor/addPrescription/:patientID/:apid" component={AddPrescription} />
         <Route exact path="/doctor/about-us" render={(props) => <AboutUs currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/privacy-policy" render={(props) => <PrivacyPolicyPage currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/terms-and-conditions" render={(props) => <TermsAndConditionsPage currentuserInfo={currentLoggedInUser} {...props} />} />
