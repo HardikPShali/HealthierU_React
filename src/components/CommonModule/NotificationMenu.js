@@ -1,5 +1,7 @@
 import React from "react";  //useEffect, useState 
 import { NavLink } from "react-router-dom"; //Link
+import rightIcon from "../../images/svg/right-icon.svg";
+
 
 const NotificationMenu = (props) => {
   const { unReadMessageList, detailsList, module } = props;
@@ -72,6 +74,40 @@ const NotificationMenu = (props) => {
             )}
           </NavLink>
         ))} */}
+        {
+          Object.keys(unReadMessageList).map((key, i) => (
+            <NavLink
+              to={`/${module}/chat?chatgroup=${key}`}
+              className="d-flex flex-column text-dark"
+              key={i}
+            >
+              <div className="notif-section">
+                <div className='profile-img col-md-3'>
+                  <img src={detailsList[key]?.picture} alt='profile' style={{
+                    height: 40,
+                    width: 40,
+                    borderRadius: "50%"
+                  }} />
+                </div>
+                <div className="notif-section__message">
+                  <div className="message-notif">
+                    <span>You have an appointment with {`${detailsList[key]?.firstName} ${detailsList[key]?.lastName}`}.</span>
+                    <span>TIME</span>
+                  </div>
+                </div>
+                <div className="notif-section__arrow">
+                  <img
+                    src={rightIcon}
+                    alt="right-icon"
+                    style={{ marginRight: "15px" }}
+                    className='ml-2'
+                  />
+                </div>
+              </div>
+            </NavLink>
+          ))
+        }
+
       </div>
     </>
   );
