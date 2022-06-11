@@ -65,10 +65,10 @@ import ReemHospital from "../../images/reem-hospital-logo.png";
 import Edge1 from "../../images/edgeone.png";
 import Edge2 from "../../images/edgetwo.png";
 import powerfulFeatureImg from "../../images/powerfulFeatureMob.png";
-import heartIcon from "../../images/HeartSpl.png"
-import labIcon from "../../images/LabSpl.png"
-import molecularIcon from "../../images/MolecularSpl.png"
-import careIcon from "../../images/CareSpl.png"
+import heartIcon from "../../images/HeartSpl.png";
+import labIcon from "../../images/LabSpl.png";
+import molecularIcon from "../../images/MolecularSpl.png";
+import careIcon from "../../images/CareSpl.png";
 
 //import firebase from './../../firebase';
 // import education from '../../images/education.png'
@@ -165,9 +165,11 @@ const Homepage = () => {
               </MDBView>
               <MDBCarouselCaption>
                 <Container>
-                <h3 className="h3-responsive">Book Appointment</h3>
-                <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
-                {/* <Link to="/signin">
+                  <h3 className="h3-responsive">Book Appointment</h3>
+                  <p className="help-desc">
+                    Your virtual health advisor in your preferred time zone.
+                  </p>
+                  {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_GETHELP.BTN_TEXT}
                   </button>
@@ -186,9 +188,14 @@ const Homepage = () => {
               </MDBView>
               <MDBCarouselCaption>
                 <Container>
-                <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
-                <p className="help-desc">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
-                {/* <Link to="/signin">
+                  <h3 className="h3-responsive">
+                    Connect with our Global Wellness Experts Virtually
+                  </h3>
+                  <p className="help-desc">
+                    Our specialties include mental health, nutrition, sleep
+                    health, immunity, fitness, and much more.
+                  </p>
+                  {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_TAKEACTION.BTN_TEXT}
                   </button>
@@ -207,9 +214,14 @@ const Homepage = () => {
               </MDBView>
               <MDBCarouselCaption>
                 <Container>
-                <h3 className="text-primary-clr">Take Charge of your Health</h3>
-                <p className="text-primary-clr-p">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
-                {/* <Link to="/signin">
+                  <h3 className="text-primary-clr">
+                    Take Charge of your Health
+                  </h3>
+                  <p className="text-primary-clr-p">
+                    Get your personalized wellness plan to prevent and manage
+                    possible future diseases.
+                  </p>
+                  {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
                   </button>
@@ -228,9 +240,11 @@ const Homepage = () => {
               </MDBView>
               <MDBCarouselCaption>
                 <Container>
-                <h3 className="h3-responsive">We empower you to become a better version of yourself.</h3>
-                {/* <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p> */}
-                {/* <Link to="/signin">
+                  <h3 className="h3-responsive">
+                    We empower you to become a better version of yourself.
+                  </h3>
+                  {/* <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p> */}
+                  {/* <Link to="/signin">
                   <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
                   </button>
@@ -343,11 +357,11 @@ const Homepage = () => {
                         <li>
                           We believe in a proactive care management approach.
                         </li>
-                        <li >
+                        <li>
                           We create a consumer-first approach and a personalized
                           data-driven digital health experience.
                         </li>
-                        <li >
+                        <li>
                           We are pioneers in bringing the Internet of Health to
                           everyone.
                         </li>
@@ -440,11 +454,11 @@ const Homepage = () => {
                   <li>E-courses on wellness, health, and much more</li>
                   <li>Medicine and appointment reminders</li>
                   <li>Quick access to labs near you</li>
-                  <li >Healthcare data security</li>
+                  <li>Healthcare data security</li>
                 </ul>
                 <br></br>
                 <br></br>
-              <br id="our-service"></br>
+                <br id="our-service"></br>
               </Col>
             </Row>
           </Container>
@@ -753,18 +767,18 @@ const Homepage = () => {
                 <Card.Body>
                   <Card.Title>How healthy are you?</Card.Title>
                   <Card.Text>
-                    Find out how you measure with health and
-                    <br />
-                    well-being assessment
+                    Find out how you measure with health and well-being assessment
                   </Card.Text>
-                  <Link to="/signin">
-                    <button
-                      variant="primary"
-                      className="btn btn-outline-light assessment-btn "
-                    >
-                      Take my assessment
-                    </button>
-                  </Link>
+                  <div className="box-card-btn">
+                    <Link to="/signin">
+                      <button
+                        variant="primary"
+                        className="btn btn-outline-light assessment-btn "
+                      >
+                        Take my assessment
+                      </button>
+                    </Link>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>
@@ -776,14 +790,16 @@ const Homepage = () => {
                   <Card.Text>
                     Check out our available wellness specialists
                   </Card.Text>
-                  <Link to="/signin">
-                    <button
-                      variant="primary"
-                      className="btn btn-outline-light assessment-btn"
-                    >
-                      Meet Our Doctors
-                    </button>
-                  </Link>
+                  <div className="box-card-btn">
+                    <Link to="/signin">
+                      <button
+                        variant="primary"
+                        className="btn btn-outline-light assessment-btn"
+                      >
+                        Meet Our Doctors
+                      </button>
+                    </Link>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>

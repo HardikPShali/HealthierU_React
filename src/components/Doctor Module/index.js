@@ -1,13 +1,9 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-// import Loadable from "react-loadable";
 import Cookies from "universal-cookie";
-// import firebase from "firebase";
-//import useAxios from "../../util/axiosService";
 import Availability from "./Availability"
 import Header from "./Header";
 import Footer from "./Footer";
-import { firestoreService, chatAndVideoService } from "../../util";
 import {
   getDoctorByUserId,
   // getModulesDetailsByIds
@@ -80,47 +76,10 @@ const DoctorRoute = () => {
     setCurrentDoctor(currentDoctor);
   };
 
-  useEffect(() => {
-    const { email, firebasePwd } = currentDoctor;
-    if (email) {
-      firestoreService
-        .signIn(email, firebasePwd)
-        .then((userCredential) => {
-          firestoreService.makeChatGroupList("doctorEmailId", email, setChatGroupList, setUpdateChatGroupListTrigger, setAddedNewUpdateChatGroupListTrigger);
-        })
-        .catch((err) => {
-          let {
-            code,
-            // message
-          } = err;
-          if (code === "auth/user-not-found") { //replaced '==' with '==='
-            firestoreService
-              .createNewUser(email, firebasePwd)
-              .then((userRecord) => {
-                setRestartFirebaseLogin((prevStat) => prevStat + 1);
-              })
-              .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log("user Created failed", errorCode, errorMessage);
-              });
-          }
-          else console.log("error in firestore signIn", err);
-        });
-      setTimeout(() => setHeaderFooterLoad(true), 1000);
-    }
-  }, [currentDoctor, restartFirebaseLogin]);
-
-  useEffect(() => {
-    if (Object.keys(chatGroupList).length > 0) {
-      chatAndVideoService.getAllModuleDetails(chatGroupList, "patients", currentDoctor.id, setPatientDetailsList);
-      firestoreService.makeUnReadMessageList(chatGroupList, currentDoctor.email, setUnReadMessageList, setTrigger);
-    }
-  }, [addedNewChatGroupListTrigger]);
 
   return (
     <Suspense fallback={<Loader />}>
-      {headerFooterLoad && currentLoggedInUser?.profileCompleted === true && <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />}
+      {currentLoggedInUser?.profileCompleted === true && <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />}
       <Switch>
         <Route exact path="/doctor" component={Homepage} />
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
