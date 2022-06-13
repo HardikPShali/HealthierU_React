@@ -8,7 +8,6 @@ import {
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/messaging";
-import LocalStorageService from './LocalStorageService';
 import { sendFcmTokenToServer } from '../service/firebaseservice';
 import Cookies from 'universal-cookie';
 
