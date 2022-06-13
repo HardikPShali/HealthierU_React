@@ -47,8 +47,7 @@ const App = () => {
     <ErrorBoundary>
       <PayPalScriptProvider
         options={{
-          'client-id':
-            'AcH8aU79kD2tItN2vETkGYHZAnbiCAOwTNvNpVTUPSctfTiCSTLzgyXtXQNgIchyniPoP0D9Lg7vxP7N',
+          'client-id': process.env.REACT_APP_PAYPAL_CLIENTID,
           //AVQsrQWNO79AZmzitgrSy2bPd_r8YqYLOKVIGTkcWxbl6_oDKI-rQzDa60LBSYn7XOHStiiWy_u7bhJQ ------> client_id uae
           'currency': 'USD',
         }}
