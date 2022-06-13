@@ -509,6 +509,7 @@ const MyDoctor = (props) => {
     console.log({ user });
     getAvailableSlotsOfDoctors(user.id, e.target.value);
     console.log(e.target.value);
+    getInValidAppointmentsForSetNextAppointment(user.id)
     // console.log({ appointment })
     if (Availability && Availability.length > 0) {
       if (e.target.value === 'FIRST_CONSULTATION') {
@@ -532,7 +533,6 @@ const MyDoctor = (props) => {
         setDisplayCalendar(false);
         setDisplaySlot(true);
         getAvailableSlotsOfDoctors(user.id, e.target.value);
-        getInValidAppointments(user.id)
       } else if (e.target.value === '') {
         setAppointmentSlot([]);
       }
@@ -632,7 +632,33 @@ const MyDoctor = (props) => {
   };
 
   const [disabledDates, setDisabledDates] = useState([]);
+  const getInValidAppointmentsForSetNextAppointment = async (doctorId) => {
+    setDisabledDates([]);
+    const inValidAppointmentFilter = {
+      startTime: new Date(new Date().setHours(0, 0, 0)).toISOString(),
+      endTime: new Date(
+        new Date().setDate(new Date().getDate() + 22)
+      ).toISOString(),
+      doctorId: doctorId,
+    };
+    // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
+    const response = await getInvalidDates(inValidAppointmentFilter);
+    // //console.log(response.status);
+    if (response.status === 200 || response.status === 201) {
+      const datesArray = [];
+      response.data.map((inValidDates) => {
+        datesArray.push(new Date(inValidDates));
+        return inValidDates;
+      });
+      if (datesArray) {
+        setDisabledDates(datesArray);
 
+        setTransparentLoading(false);
+      }
+      console.log("DisabledDates", { disabledDates });
+
+    }
+  };
   const getInValidAppointments = async (doctorId) => {
     setDisabledDates([]);
     const inValidAppointmentFilter = {
