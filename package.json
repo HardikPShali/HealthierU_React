@@ -26,6 +26,7 @@
     "@types/node": "12.0.7",
     "@types/react": "16.8.19",
     "@types/react-dom": "16.8.4",
+    "@wojtekmaj/react-timerange-picker": "^3.5.0",
     "agora-rtc-sdk": "^3.4.0",
     "agora-rtm-sdk": "^1.4.5",
     "agora-stream-player": "^1.2.0",
@@ -41,8 +42,9 @@
     "core-js": "^3.6.5",
     "crypto-js": "^4.0.0",
     "date-fns": "^2.15.0",
+    "env-cmd": "^10.1.0",
     "fetch-defaults": "^1.0.0",
-    "firebase": "^6.1.0",
+    "firebase": "^9.8.3",
     "google-map-react": "^2.1.9",
     "http-proxy-middleware": "^1.0.5",
     "image-conversion": "^2.1.1",
@@ -150,7 +152,10 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "proxy": "http://localhost:3000"
+    "proxy": "http://localhost:3000",
+    "build:development": "env-cmd -f .env.development react-scripts build",
+    "build:staging": "env-cmd -f .env.staging react-scripts build",
+    "build:production": "env-cmd -f .env.production react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app",

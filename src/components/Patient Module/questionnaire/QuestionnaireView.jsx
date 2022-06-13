@@ -54,10 +54,10 @@ class QuestionnaireView extends React.Component {
       <div>
         {isLoading && <TransparentLoader />}
         {/* <Header /> */}
-        <Container style={{ maxWidth: '100%' }}>
+        <Container>
           <Row id="questionnaire-view">
             <Col md={6} id="questionnaire-view-bg"></Col>
-            <Col md={6} style={{ background: '#fff', padding: '5%' }}>
+            <Col md={6} style={{ background: '#fff',  padding: "2% 0 2% 2%" }}>
               <div className="Questionnaire-header">
                 <h1>Health Behaviours</h1>
                 <p> Do You Suffer from Any of the Following?</p>

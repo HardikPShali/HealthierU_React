@@ -138,10 +138,10 @@ const Header = (props) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <NavLink to="#" style={{ cursor: 'default', margin: '5px' }}>
+          {/* <NavLink to="#" style={{ cursor: 'default', margin: '5px' }}>
             Current TimeZone:{' '}
             <span className="p-1 border ml-1 mr-1" style={{ cursor: 'default' }}>{systemTimeZone}</span>
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/doctor" style={{ margin: '5px' }}>Home</NavLink>
           <div className="dropdown headerNavbar">
             <button
@@ -149,10 +149,13 @@ const Header = (props) => {
               className="btn dropdown-toggle"
               data-toggle="dropdown"
             >
-              My Patients
+              My Portal
             </button>
             <div className="dropdown-menu">
-              <NavLink to="/doctor/mypatient" className="dropdown-item">
+              <NavLink to="/doctor/my-appointments" className="dropdown-item">
+                My Appointments
+              </NavLink>
+              <NavLink to="/doctor/my-patients" className="dropdown-item">
                 My Patients
               </NavLink>
               <NavLink to="/doctor/myrecord" className="dropdown-item">
@@ -177,8 +180,8 @@ const Header = (props) => {
           {/* ```<NavLink to="#search">
             <SearchIcon id="search-icon" />
           </NavLink>``` */}
-
-          {unReadMessageCount > 0 && (
+          {/* unReadMessageCount > 0 && */}
+          {(
             <div className="dropdown headerNavbar notification-Navbar">
               <IconButton
                 aria-label="show 17 new notifications"
@@ -192,7 +195,7 @@ const Header = (props) => {
               </IconButton>
               <div
                 className="dropdown-menu notification-Menu"
-                style={{ width: '200px' }}
+                style={{ width: '280px' }}
               >
                 <NotificationMenu
                   unReadMessageList={unReadMessageList}

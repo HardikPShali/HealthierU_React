@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import Availability from "../Doctor Module/Availability";
 import "./landing.css";
 // import ChatPage from '../CommonModule/Chat/ChatPage/ChatPage'
 import {
@@ -23,9 +24,11 @@ import {
   useHistory,
   // Redirect
 } from "react-router-dom";
-import screen1 from "../../images/patient-banner.png";
-import screen2 from "../../images/patient-banner-2.png";
-import screen3 from "../../images/patient-banner-3.png";
+import banner1 from "../../images/appointment-banner.png";
+import banner2 from "../../images/global-connection.jpg";
+import banner3 from "../../images/take-charge.jpg";
+import banner4 from "../../images/empower.jpg";
+
 import home2 from "../../images/home-2.png";
 import home3 from "../../images/home-3.png";
 import { Container, Row, Col, Card } from "react-bootstrap";
@@ -53,6 +56,8 @@ import step8 from "../../images/step8.PNG";
 import step9 from "../../images/step9.PNG";
 import step10 from "../../images/step10.PNG";
 import step11 from "../../images/step11.PNG";
+import step13 from "../../images/step13.png";
+
 import features from "../../images/our-features.png";
 import betterFuture from "../../images/better-future.png";
 import CornelMedicine from "../../images/cornell-medicine-logo.png";
@@ -60,10 +65,10 @@ import ReemHospital from "../../images/reem-hospital-logo.png";
 import Edge1 from "../../images/edgeone.png";
 import Edge2 from "../../images/edgetwo.png";
 import powerfulFeatureImg from "../../images/powerfulFeatureMob.png";
-import heartIcon from "../../images/HeartSpl.png"
-import labIcon from "../../images/LabSpl.png"
-import molecularIcon from "../../images/MolecularSpl.png"
-import careIcon from "../../images/CareSpl.png"
+import heartIcon from "../../images/HeartSpl.png";
+import labIcon from "../../images/LabSpl.png";
+import molecularIcon from "../../images/MolecularSpl.png";
+import careIcon from "../../images/CareSpl.png";
 
 //import firebase from './../../firebase';
 // import education from '../../images/education.png'
@@ -144,7 +149,7 @@ const Homepage = () => {
       <MDBContainer id="carousel-container">
         <MDBCarousel
           activeItem={1}
-          length={3}
+          length={4}
           showIndicators={true}
           className="z-depth-1"
         >
@@ -153,63 +158,105 @@ const Homepage = () => {
               <MDBView>
                 <img
                   className="d-block w-100"
-                  src={screen1}
+                  src={banner1}
                   alt="First slide"
                 />
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                {/* <h3 className="h3-responsive">Connect with our Global Wellness Experts Virtually</h3>
-                <p className="help-desc">Our specialties include mental health, nutrition, sleep health, immunity, fitness, and much more.</p>
-                <Link to="/signin">
-                  <button className="btn btn-primary">
+                <Container>
+                  <h3 className="h3-responsive">Book Appointment</h3>
+                  <p className="help-desc">
+                    Your virtual health advisor in your preferred time zone.
+                  </p>
+                  {/* <Link to="/signin">
+                  <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_GETHELP.BTN_TEXT}
                   </button>
                 </Link> */}
+                </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="2">
               <MDBView>
                 <img
                   className="d-block w-100"
-                  src={screen2}
+                  src={banner2}
                   alt="Second slide"
                 />
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                {/* <h3 className="h3-responsive">Book Appointment</h3>
-                <p className="help-desc">Your virtual health advisor in your preferred time zone.</p>
-                <Link to="/signin">
-                  <button className="btn btn-primary">
+                <Container>
+                  <h3 className="h3-responsive">
+                    Connect with our Global Wellness Experts Virtually
+                  </h3>
+                  <p className="help-desc">
+                    Our specialties include mental health, nutrition, sleep
+                    health, immunity, fitness, and much more.
+                  </p>
+                  {/* <Link to="/signin">
+                  <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_TAKEACTION.BTN_TEXT}
                   </button>
                 </Link> */}
+                </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="3">
               <MDBView>
                 <img
                   className="d-block w-100"
-                  src={screen3}
+                  src={banner3}
                   alt="Third slide"
                 />
                 <MDBMask overlay="black-slight" />
               </MDBView>
               <MDBCarouselCaption>
-                {/* <h3 className="h3-responsive">Take Charge of your Health</h3>
-                <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p>
-                <Link to="/signin">
-                  <button className="btn btn-primary">
+                <Container>
+                  <h3 className="text-primary-clr">
+                    Take Charge of your Health
+                  </h3>
+                  <p className="text-primary-clr-p">
+                    Get your personalized wellness plan to prevent and manage
+                    possible future diseases.
+                  </p>
+                  {/* <Link to="/signin">
+                  <button className="btn btn-primary btn-mob-size">
                     {HOMEPAGE_LEARNMORE.BTN_TEXT}
                   </button>
                 </Link> */}
+                </Container>
+              </MDBCarouselCaption>
+            </MDBCarouselItem>
+            <MDBCarouselItem itemId="4">
+              <MDBView>
+                <img
+                  className="d-block w-100"
+                  src={banner4}
+                  alt="Third slide"
+                />
+                <MDBMask overlay="black-slight" />
+              </MDBView>
+              <MDBCarouselCaption>
+                <Container>
+                  <h3 className="h3-responsive">
+                    We empower you to become a better version of yourself.
+                  </h3>
+                  {/* <p className="help-desc">Get your personalized wellness plan to prevent and manage possible future diseases.</p> */}
+                  {/* <Link to="/signin">
+                  <button className="btn btn-primary btn-mob-size">
+                    {HOMEPAGE_LEARNMORE.BTN_TEXT}
+                  </button>
+                </Link> */}
+                </Container>
               </MDBCarouselCaption>
             </MDBCarouselItem>
           </MDBCarouselInner>
         </MDBCarousel>
       </MDBContainer>
-      <Container className="p-0 padding-mobile">
+      {/* <Availability /> */}
+      {/* <Container className="p-0 padding-mobile">
         <Row id="aboutus-two">
           <Col md={4} lg={4} xl={4} >
             <h2>HealthierU</h2>
@@ -230,7 +277,7 @@ const Homepage = () => {
             <img className="image" src={aboutUsimg} alt="HealthierU " />
           </Col>
         </Row>
-      </Container>
+      </Container> */}
       {/* <div id="our-services">
         <Container>
           <Row id="aboutus-four">
@@ -286,9 +333,9 @@ const Homepage = () => {
       <div>
         <div id="about-us" className="about-us_section">
           <Container className="p-0 padding-mobile">
-            <h3 className="better-future text-uppercase text-center">
+            {/* <h3 className="better-future text-uppercase text-center">
               HAND-IN-HAND FOR A BETTER FUTURE
-            </h3>
+            </h3> */}
             <div className="better-future-content">
               <div className="about-sec">
                 <Row>
@@ -310,11 +357,11 @@ const Homepage = () => {
                         <li>
                           We believe in a proactive care management approach.
                         </li>
-                        <li >
+                        <li>
                           We create a consumer-first approach and a personalized
                           data-driven digital health experience.
                         </li>
-                        <li >
+                        <li>
                           We are pioneers in bringing the Internet of Health to
                           everyone.
                         </li>
@@ -326,7 +373,7 @@ const Homepage = () => {
             </div>
           </Container>
         </div>
-        <div className="purpose-section">
+        {/* <div className="purpose-section">
           <Container className="p-0 padding-mobile">
             <div class="row">
               <Col sm={12} md={6} lg={6} xl={6} className="purpose-left">
@@ -340,7 +387,7 @@ const Homepage = () => {
               </Col>
             </div>
           </Container>
-        </div>
+        </div> */}
         <div className="edge-section">
           <Container className="edge-section_container">
             <Row>
@@ -368,7 +415,7 @@ const Homepage = () => {
                 <img src={step3} alt=""></img>
               </Col>
               <div className="our_partners">
-                <h4>Our Partners</h4>
+                <h4>Our Partner</h4>
                 <div className="our_partners-logo">
                   <div className="cornel-logo">
                     <img src={CornelMedicine} alt="" />
@@ -386,7 +433,7 @@ const Homepage = () => {
           <Container>
             <Row>
               <Col className="powerful_Ftr-image" sm={12} md={12} lg={6} xl={6}>
-                <img src={features} alt=""></img>
+                <img src={step13} alt=""></img>
               </Col>
               <Col className="powerful_Ftr-text" sm={12} md={12} lg={6} xl={6}>
                 <h1>POWERFUL FEATURES</h1>
@@ -407,8 +454,11 @@ const Homepage = () => {
                   <li>E-courses on wellness, health, and much more</li>
                   <li>Medicine and appointment reminders</li>
                   <li>Quick access to labs near you</li>
-                  <li id="our-service">Healthcare data security</li>
+                  <li>Healthcare data security</li>
                 </ul>
+                <br></br>
+                <br></br>
+                <br id="our-service"></br>
               </Col>
             </Row>
           </Container>
@@ -416,6 +466,7 @@ const Homepage = () => {
         <div className="our_spl-section">
           <Container className="p-0 padding-mobile">
             <div>
+              <br></br>
               <h1 className="our_spl-title">OUR SPECIALITIES</h1>
               <p className="our_spl-subtitle">
                 We offer programs and plans to help support your wellness
@@ -709,25 +760,25 @@ const Homepage = () => {
             <br /> */}
       <div style={{ backgroundColor: "#eee9df" }}>
         <Container className="p-0 padding-mobile">
-          <Row className="pt-5 pb-5">
+          <Row className="pt-5 pb-5 two-box-padding">
             <Col md={12} lg={6} xl={6} className="mb-3">
               <Card>
                 <Card.Img variant="top" src={home2} />
                 <Card.Body>
                   <Card.Title>How healthy are you?</Card.Title>
                   <Card.Text>
-                    Find out how you measure with health and
-                    <br />
-                    well-being assessment
+                    Find out how you measure with health and well-being assessment
                   </Card.Text>
-                  <Link to="/signin">
-                    <button
-                      variant="primary"
-                      className="btn btn-outline-light assessment-btn"
-                    >
-                      Take my assessment
-                    </button>
-                  </Link>
+                  <div className="box-card-btn">
+                    <Link to="/signin">
+                      <button
+                        variant="primary"
+                        className="btn btn-outline-light assessment-btn "
+                      >
+                        Take my assessment
+                      </button>
+                    </Link>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>
@@ -739,14 +790,16 @@ const Homepage = () => {
                   <Card.Text>
                     Check out our available wellness specialists
                   </Card.Text>
-                  <Link to="/signin">
-                    <button
-                      variant="primary"
-                      className="btn btn-outline-light assessment-btn"
-                    >
-                      Meet Our Doctors
-                    </button>
-                  </Link>
+                  <div className="box-card-btn">
+                    <Link to="/signin">
+                      <button
+                        variant="primary"
+                        className="btn btn-outline-light assessment-btn"
+                      >
+                        Meet Our Doctors
+                      </button>
+                    </Link>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>

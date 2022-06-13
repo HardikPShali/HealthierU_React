@@ -4,11 +4,12 @@ import { Link, NavLink } from "react-router-dom";
 import ChatItemStyle from "./ChatItem.css";
 import patientprof from "../../../../images/patientprof.png"
 
-const ChatItem = ({item, onChatChange, messageDateFormat}) => {
+const ChatItem = ({item, onChatChange, messageDateFormat, selectedChatItem}) => {
 
     
   return (
-    <div onClick={() => onChatChange(item)} className="chat_item-wrapper">
+    <div onClick={() => onChatChange(item)} 
+    className={`chat_item-wrapper ${selectedChatItem && selectedChatItem.id === item.id && 'selected-chat-item'}`}>
       <div className="chat_item">
         <div className="chat_item-left">
           <div className="chat_item-profile">
@@ -17,7 +18,7 @@ const ChatItem = ({item, onChatChange, messageDateFormat}) => {
           <div className="chat_item-text-wrap">
             <div className="chat_item-name">{item[item.userKey]?.firstName} { item[item.userKey]?.lastName}</div>
             <div className="chat_item-message-wrap">
-              <span className="chat_item-by">{item.lastMessage?.isMyMessage ? 'You' : ''}</span>
+              {item.lastMessage?.isMyMessage && <span className="chat_item-by">You</span>}
               <span className="chat_lastMessage">{item.lastMessage?.message || ""}</span>
             </div>
           </div>

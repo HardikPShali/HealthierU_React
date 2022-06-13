@@ -4,7 +4,7 @@ import Routes from './routes';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import './global.css';
-// import firebase from "firebase";
+// import firebase from '.firebaseUtils';
 // import {
 //   LOCALFIRESTORECONFIG,
 //   PRODFIRESTORECONFIG,
@@ -47,10 +47,9 @@ const App = () => {
     <ErrorBoundary>
       <PayPalScriptProvider
         options={{
-          'client-id':
-            'AVQsrQWNO79AZmzitgrSy2bPd_r8YqYLOKVIGTkcWxbl6_oDKI-rQzDa60LBSYn7XOHStiiWy_u7bhJQ',
+          'client-id': process.env.REACT_APP_PAYPAL_CLIENTID,
+          //AVQsrQWNO79AZmzitgrSy2bPd_r8YqYLOKVIGTkcWxbl6_oDKI-rQzDa60LBSYn7XOHStiiWy_u7bhJQ ------> client_id uae
           'currency': 'USD',
-          'intent': 'capture',
         }}
       >
         <Routes />

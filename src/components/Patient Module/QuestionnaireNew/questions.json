@@ -165,7 +165,7 @@
   },
   {
     "questionId": 10,
-    "questionTitle": "How long have you been smoking?",
+    "questionTitle": "How long have you been drinking?",
     "type": "text",
     "answers": "",
     "choices": [],
@@ -179,7 +179,7 @@
   },
   {
     "questionId": 11,
-    "questionTitle": "Does any of your family members suffer from the following? (Premature history of coronary heart disease or heart events, Diabetes, Lipid/Cholesterol disorders, Essesntial Hypertension, Stroke)",
+    "questionTitle": "Do any of your family members suffer from the following? (Premature history of coronary heart disease or heart events, Diabetes, Lipid/Cholesterol disorders, Essesntial Hypertension, Stroke)",
     "choices": [
       "None",
       "Mother",

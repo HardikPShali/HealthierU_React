@@ -15,7 +15,6 @@ const ConsulatationHistorySection = () => {
                             (q, index) => (
                                 <div key={index}>
                                     <ConsulatationHistoryCard
-
                                         date={q.Date}
                                         symptomsData={q['Symptoms Description']}
                                         diagnosisData={q['Diagnosis Description']}

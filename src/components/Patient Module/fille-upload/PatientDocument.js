@@ -7,6 +7,7 @@ import { formatDate } from "../../questionnaire/QuestionnaireService";
 import { toast } from 'react-toastify';
 import { Form } from 'react-bootstrap';
 import PrescriptionLabCard from '../../Doctor Module/Prescription-Lab/PrescriptionLabCard';
+import PatientPrescriptionCard from '../../Doctor Module/Prescription-Lab/PatientPrescriptionCard';
 import '../../Doctor Module/Prescription-Lab/PrescriptionLab.css'
 import { getCurrentPatientInfo, getCurrentUserInfo } from "../../../service/AccountService";
 import {
@@ -21,6 +22,7 @@ import {
     //getPatientDetail,
     //getDocuments,
 } from "../../../service/DocumentService";
+import '../../Doctor Module/doctor.css'
 import moment from 'moment';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -28,8 +30,11 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import TransparentLoader from '../../Loader/transparentloader';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { IconButton } from "@material-ui/core";
-import { getSearchData } from '../../../service/frontendapiservices';
+import { getSearchData, getGlobalMedicalRecordsSearch } from '../../../service/frontendapiservices';
 import Cookies from "universal-cookie";
+import SearchBarComponent from '../../Doctor Module/SearchAndFilter/SearchComponent'
+import PrescriptionFilter from '../../Doctor Module/SearchAndFilter/PrescriptionFIlter'
+import FilterComponent from '../../Doctor Module/SearchAndFilter/FilterComponent'
 // import documentViewImage from '../../../images/icons used/document icon@2x.png';
 // import Footer from '../Footer';
 
@@ -262,7 +267,7 @@ const PatientDocument = (props) => {
 
     const clickTabEvent = async (event) => {
         //let documents;
-        setLoading(true);
+        // setLoading(true);
         if (event === 'labResult') {
             const labDocuments = await getPatientDocuments("LabResult", 0, patient && patient.id);
             setLabDocument(labDocuments)
@@ -367,8 +372,6 @@ const PatientDocument = (props) => {
                 return item.email.match(regex);
             });
         }
-        // console.log('Matches', matches);
-        // console.log('Suggestion', suggestion);
         setSuggestion(matches);
         setSearchText(text);
     }
@@ -384,13 +387,107 @@ const PatientDocument = (props) => {
     }
     function getFileExtension(filename) {
         // get file extension
-        console.log("filename", filename)
         const extension = filename.split('.').pop();
-        console.log("extension", extension)
         return extension;
 
 
     }
+    //Search
+    const [search, setSearch] = useState('');
+    const [medicalRecordData, setMedicalRecordData] = useState([]);
+    const [currentPatient, setCurrentPatient] = useState("");
+    const getGlobalPrescriptions = async (search, filter = {}) => {
+        const currentPatient = cookies.get('profileDetails');
+        setCurrentPatient({ ...currentPatient, patientId: currentPatient.id });
+
+        const starttime = new Date();
+        const endtime = new Date();
+        const data = {
+            doctorId: doctor.id,
+            patientId: currentPatient.id,
+            documentType: "Prescription",
+            doctorName: search,
+        };
+        if (filter.startTime && filter.startTime !== '') {
+            data.startTime = filter.startTime;
+        }
+        if (filter.endTime && filter.endTime !== '') {
+            const endtime = new Date(filter.endTime);
+            endtime.setHours(23, 59, 59);
+            data.endTime = endtime.toISOString();
+        }
+        if (filter.resultType && filter.resultType !== '') {
+            data.resultType = filter.resultType;
+        }
+        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
+            if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (responseTwo.status === 200 || responseTwo.status === 201) {
+            setPresecriptionDocument(responseTwo.data.data)
+            setCurrentPageNumber(1);
+        }
+    };
+
+    const getGlobalLabResults = async (search, filter = {}) => {
+        const currentPatient = cookies.get('profileDetails');
+        setCurrentPatient({ ...currentPatient, patientId: currentPatient.id });
+
+        const starttime = new Date();
+        const endtime = new Date();
+        const data = {
+            doctorId: doctor.id,
+            patientId: currentPatient.id,
+            documentType: "LabResult",
+            labName: search,
+        };
+        if (filter.startTime && filter.startTime !== '') {
+            data.startTime = filter.startTime;
+        }
+        if (filter.endTime && filter.endTime !== '') {
+            const endtime = new Date(filter.endTime);
+            endtime.setHours(23, 59, 59);
+            data.endTime = endtime.toISOString();
+        }
+        if (filter.resultType && filter.resultType !== '') {
+            data.resultType = filter.resultType;
+        }
+        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
+            if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (responseTwo.status === 200 || responseTwo.status === 201) {
+            setLabDocument(responseTwo.data.data)
+            setCurrentPageNumber(1);
+        }
+    };
+    const handleFilterChange = (filter) => {
+        getGlobalLabResults(search, filter);
+    };
+    const handleSearchInputChange = (searchValue) => {
+        if (searchValue === '') {
+            console.log('blank searchValue is | in SearchBarComponent', searchValue);
+            getGlobalLabResults(searchValue)
+        } else {
+            getGlobalLabResults(searchValue);
+            setSearch(searchValue);
+        }
+    };
+
+    const handleFilterChangePrescription = (filter) => {
+        getGlobalPrescriptions(search, filter);
+    };
+    const handleSearchInputChangePrescription = (searchValue) => {
+        if (searchValue === '') {
+            console.log('blank searchValue is | in SearchBarComponent', searchValue);
+            getGlobalPrescriptions(searchValue)
+        } else {
+            getGlobalPrescriptions(searchValue);
+            setSearch(searchValue);
+        }
+    };
     return (
         <>
             {loading && (
@@ -407,7 +504,10 @@ const PatientDocument = (props) => {
 
 
                         <div className="row">
-                            <div className="col-md-10"></div>
+                            <div className="col-md-10" style={{ display: 'flex' }}>
+                                <SearchBarComponent updatedSearch={handleSearchInputChangePrescription} />
+                                <PrescriptionFilter updatedFilter={handleFilterChangePrescription} />
+                            </div>
                             <div className="col-md-2 text-right">
                                 {/* <button type="button" className="btn btn-primary"
                                     onClick={e => handlePrescriptionUploadShow()}>Add Prescription
@@ -430,10 +530,19 @@ const PatientDocument = (props) => {
 
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
-                                                            <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.name)}
+                                                            {/* <PrescriptionLabCard
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
                                                                 apid={dataItem.id}
+                                                                //docName={dataItem.doctorName}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showDocument(dataItem)}
+                                                            /> */}
+                                                            <PatientPrescriptionCard
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
+                                                                name={"Prescription"}
+                                                                docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showDocument(dataItem)}
@@ -450,7 +559,7 @@ const PatientDocument = (props) => {
                             ) : (
                                 <div
                                     className="col-12 ml-2"
-                                    style={{ textShadow: 'none', color: 'black' }}
+                                    style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
                                     No Documents
                                 </div>
@@ -481,9 +590,13 @@ const PatientDocument = (props) => {
                         <br />
 
                         <div className="row">
-                            <div className="col-md-10"></div>
+                            <div className="col-md-10" style={{ display: 'flex' }}>
+                                <SearchBarComponent updatedSearch={handleSearchInputChange} />
+                                <FilterComponent updatedFilter={handleFilterChange} />
+                            </div>
                             <div className="col-md-2 text-right">
                                 <button type="button" className="btn btn-primary"
+                                    style={{ fontSize: '0.65rem' }}
                                     onClick={handleUploadLabResultShow}>Add
                                     Lab Result
                                 </button>
@@ -506,9 +619,10 @@ const PatientDocument = (props) => {
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
                                                             <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.name)}
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Lab Result"}
-                                                                apid={dataItem.id}
+                                                                //apid={dataItem.id}
+                                                                docName={dataItem.labName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showLabDocument(dataItem)}
@@ -525,7 +639,7 @@ const PatientDocument = (props) => {
                             ) : (
                                 <div
                                     className="col-12 ml-2"
-                                    style={{ textShadow: 'none', color: 'black' }}
+                                    style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
                                     No Documents
                                 </div>

@@ -8,7 +8,7 @@ const AppoitmentCountsSection = () => {
     endtime.setHours(23, 59, 0);
     const [appointmentsCount, setAppointmentsCount] = useState(0);
     const cookie = new Cookies();
-    const currentUserFromCookie = cookie.get('currentUser');
+    const currentUserFromCookie = cookie.get('profileDetails');
     const getAppointmentsCount = async (startTime, endTime, doctorId) => {
         const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString(), doctorId = currentUserFromCookie.id).catch((err) => {
             console.log('err', err);
@@ -27,17 +27,17 @@ const AppoitmentCountsSection = () => {
             <h3 className="appointment-card-header">Overview</h3>
             <section className="page-contain">
 
-                <div className="data-card">
+                {/* <div className="data-card">
                     <div className='data-card__helper'>
                         <h3 className="appointment-count-h3">{appointmentsCount.totalAppointmentsForTheDay}</h3>
                         <h4 className="appointment-count-h4">Total Appointments</h4>
 
                     </div>
-                </div>
+                </div> */}
                 <div className="data-card1">
                     <div className='data-card__helper'>
                         <h3 className="appointment-count-h3">{appointmentsCount.pendingAppointments}</h3>
-                        <h4 className="appointment-count-h4">Pending Appointments</h4>
+                        <h4 className="appointment-count-h4">No upcoming appointments</h4>
 
                     </div>
                 </div>
