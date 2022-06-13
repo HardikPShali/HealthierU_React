@@ -9,12 +9,15 @@ const UpcomingAppointments = () => {
 
 
     const cookie = new Cookies();
-    const currentUserFromCookie = cookie.get('currentUser');
+    const currentUserFromCookie = cookie.get('profileDetails');
     const getUpcomingAppointments = async (startTime, endTime, doctorId) => {
         const starttime = new Date();
         starttime.setHours(0, 0, 0);
         const endtime = new Date();
         endtime.setHours(23, 59, 0);
+        console.log("starttime", starttime);
+        console.log("endtime", endtime);
+        console.log("currentUserFromCookie", currentUserFromCookie.id);
         const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString(), doctorId = currentUserFromCookie.id).catch((err) => {
             console.log('err', err);
         });
@@ -96,7 +99,7 @@ const UpcomingAppointments = () => {
             <h3 className="upcoming-appointment--main-header mb-3 mt-2">
                 New Appointments
             </h3>
-            <div className="upcoming-appointment__card-box scroller-cardlist">
+            <div className="upcoming-appointment__card-box scroller-cardlist mb-4">
                 <div className="card-holder">
                     <div className="row">
                         {upcomingAppointments.length !== 0 ? (
@@ -112,7 +115,7 @@ const UpcomingAppointments = () => {
                         ) : (
                             <div
                                 className="col-12 ml-2"
-                                style={{ textShadow: 'none', color: 'black' }}
+                                style={{ textShadow: 'none', color: '#3e4543' }}
                             >
                                 No New Appointments
                             </div>

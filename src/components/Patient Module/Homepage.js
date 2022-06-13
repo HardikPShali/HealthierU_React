@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './patient.css';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import home2 from '../../images/home-2.png';
+import healthAssessmentBg from '../../images/svg/health-assessment-bg.svg';
 import { Link } from 'react-router-dom';
 import Welcome from './../CommonModule/Welcome';
 import Loader from './../Loader/Loader';
@@ -58,20 +59,25 @@ function patientHomePage() {
             <Container>
                 <Row>
                     <Col md={6}>
-                        <Card id="patient-card">
-                            <Card.Img variant="top" src={home2} />
-                            <Card.ImgOverlay>
-                                <Card.Body>
-                                    <Card.Title>How healthy are you?</Card.Title>
-                                    <Link to="/patient/questionnaire/existing">
+                        <div id="patient-card">
+                            <div className="patient-card_text col-md-6">
+                                <div className="patient-card_how-healthy-wrap">
+                                    <h3 style={{ marginLeft: 15 }}>How healthy are you?</h3>
+                                    <Link to="/patient/questionnaire/existing" style={{ marginRight: 20 }}>
                                         <button variant="primary" className="btn btn-primary assessment-btn">
-                                            Take my assessment
+                                            Take Assessment
                                         </button>
                                     </Link>
-                                </Card.Body>
-                            </Card.ImgOverlay>
+                                </div>
+                            </div>
+                            <div className='col-md-6 text-center w-100'>
+                                <div className='health-assess-bg__wrapper'>
+                                    <img src={healthAssessmentBg} alt="home-2" className='health-assess-bg' />
+                                </div>
 
-                        </Card>
+                            </div>
+
+                        </div>
                     </Col>
                     <Col md={6}>
                         <SpecialitiesSection />

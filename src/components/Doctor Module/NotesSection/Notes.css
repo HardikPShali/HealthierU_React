@@ -1,0 +1,15 @@
+.notes-section {
+  position: absolute;
+  top: -20px;
+  width: 55%;
+}
+
+.notes-column {
+  width: 100%;
+  height: 100%;
+  margin: 20px 30px;
+  background: #fff;
+  padding: 30px 30px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
+}

@@ -31,25 +31,41 @@ export const GOOGLECLIENTID = "741301312281-ms7qbvkauftg8pmo5tfb2fjcq6d5bpkm.app
 
 // Prod config for firebase
 export const LOCALFIRESTORECONFIG = {
-    apiKey: "AIzaSyB6gyL6tsZRE5Fm-7ALqD7n2aew3BjEJ74",
-    authDomain: "healthyu-b4eed.firebaseapp.com",
-    databaseURL: "https://healthyu-b4eed-default-rtdb.firebaseio.com",
-    projectId: "healthyu-b4eed",
-    storageBucket: "healthyu-b4eed.appspot.com",
-    messagingSenderId: "478300887103",
-    appId: "1:478300887103:web:042d796cf0101d451dc08a",
-    measurementId: "G-FK4MVR5HB0"
+    // apiKey: "AIzaSyB6gyL6tsZRE5Fm-7ALqD7n2aew3BjEJ74",
+    // authDomain: "healthyu-b4eed.firebaseapp.com",
+    // databaseURL: "https://healthyu-b4eed-default-rtdb.firebaseio.com",
+    // projectId: "healthyu-b4eed",
+    // storageBucket: "healthyu-b4eed.appspot.com",
+    // messagingSenderId: "478300887103",
+    // appId: "1:478300887103:web:042d796cf0101d451dc08a",
+    // measurementId: "G-FK4MVR5HB0"
+    apiKey: "AIzaSyAqFn4kqi4cPxYOBwDT5CqRMiPPCqV60u8",
+    authDomain: "healthyu-app.firebaseapp.com",
+    databaseURL: "https://healthyu-app.firebaseio.com",
+    projectId: "healthyu-app",
+    storageBucket: "healthyu-app.appspot.com",
+    messagingSenderId: "497531508979",
+    appId: "1:497531508979:web:0364ed9baeb95a54173f86",
+    measurementId: "G-9TC3WY9D1B"
 };
 
 export const PRODFIRESTORECONFIG = {
-    apiKey: "AIzaSyD9zrRLWWWtqOLPNp6FbeD_JRcvpo0QCkk",
-    authDomain: "healthieru-prod.firebaseapp.com",
-    projectId: "healthieru-prod",
-    storageBucket: "healthieru-prod.appspot.com",
-    messagingSenderId: "407644997080",
-    appId: "1:407644997080:web:400404278530670006dead",
-    measurementId: "G-GWQS2XZBH6"
-  };
+    // apiKey: "AIzaSyD9zrRLWWWtqOLPNp6FbeD_JRcvpo0QCkk",
+    // authDomain: "healthieru-prod.firebaseapp.com",
+    // projectId: "healthieru-prod",
+    // storageBucket: "healthieru-prod.appspot.com",
+    // messagingSenderId: "407644997080",
+    // appId: "1:407644997080:web:400404278530670006dead",
+    // measurementId: "G-GWQS2XZBH6"
+    apiKey: "AIzaSyAqFn4kqi4cPxYOBwDT5CqRMiPPCqV60u8",
+    authDomain: "healthyu-app.firebaseapp.com",
+    databaseURL: "https://healthyu-app.firebaseio.com",
+    projectId: "healthyu-app",
+    storageBucket: "healthyu-app.appspot.com",
+    messagingSenderId: "497531508979",
+    appId: "1:497531508979:web:0364ed9baeb95a54173f86",
+    measurementId: "G-9TC3WY9D1B"
+};
 
 // Firebase server key for push notification on prod
 

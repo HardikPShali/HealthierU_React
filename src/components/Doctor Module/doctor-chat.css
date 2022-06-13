@@ -482,6 +482,12 @@
   width: 35px !important;
   height: 35px !important;
   color: var(--primary);
+  transition: all 0.3s;
+}
+#inactive-video-icon:hover {
+  color: var(--primarysecond);
+  transition: all 0.3s;
+
 }
 
 button#inactive-video-button {
@@ -517,14 +523,4 @@ button {
 .body-section {
   max-height: 700px;
   min-height: 700px;
-}
-
-.notes-column {
-  width: 100%;
-  height: 100%;
-  margin: 20px 30px;
-  background: #fff;
-  padding: 30px 30px;
-  border-radius: 10px;
-  box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import ChatDetailsStyle from "./ChatDetails.css";
@@ -7,6 +7,11 @@ import greyTick from "../../../../images/icons used/greyTick.png";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
 import IconButton from "@material-ui/core/IconButton";
+import moment from "moment";
+import useRole from "../../../../custom-hooks/useRole";
+import { ROLES } from "../../../../util/configurations";
+import ChatIcon from '../../../../images/svg/notes-outline-icon.svg'
+
 
 const ChatDetails = ({
   selectedItem,
@@ -17,14 +22,74 @@ const ChatDetails = ({
   endRef,
   messageDateFormat,
   onVideoClick,
+  onNoteClick,
 }) => {
+  const [enableVideo, setEnableVideo] = useState(false);
+  const [enableChat, setEnableChat] = useState(false);
+
+  const [roles] = useRole();
+
+  useEffect(() => {
+    if (selectedItem.id) {
+      const currentTime = moment(new Date());
+      const appointmentStartTime = moment(
+        new Date(selectedItem.latestAppointment.startTime)
+
+      );
+      const appointmentEndTime = moment(
+        new Date(selectedItem.latestAppointment.endTime)
+      );
+      const chatEnableTime = appointmentStartTime.clone().subtract(2, "days");
+      const videoEnableTime = appointmentStartTime.clone().subtract(5, "minutes");
+      const chatEndCondition = appointmentEndTime.clone().add(3, "days");
+
+
+      const chatCondition = currentTime.clone().subtract(2, "days");
+      const videoCondition = currentTime.clone().subtract(5, "minuts");
+
+
+      console.log("current time", currentTime);
+      console.log("appointment start time", appointmentStartTime);
+      console.log("appointment end time", appointmentEndTime);
+      console.log("chat condition", chatEnableTime);
+      console.log("video condition", videoEnableTime);
+      console.log("chat end condition", chatEndCondition);
+
+      if (currentTime.isSameOrAfter(appointmentStartTime) && currentTime.isBefore(appointmentEndTime)) {
+        console.log("VIDEO ENABLED");
+        setEnableVideo(true);
+      }
+
+      if (currentTime.isSameOrAfter(chatEnableTime) && currentTime.isBefore(chatEndCondition)) {
+        console.log("CHAT ENABLED")
+        setEnableChat(true);
+      }
+
+    }
+  }, [selectedItem]);
+
+  const handleVideo = () => {
+    if (!enableVideo) return;
+    onVideoClick();
+  }
+
+  const handleSend = () => {
+    if (!enableChat) return;
+    onSend();
+  }
+
+  const handleNoteToggle = () => {
+    // if (!enableChat) return;
+    onNoteClick();
+  }
+
   return (
     <div className="chatDetails-wrapper">
       <h2 className="chating_with">
         {selectedItem[selectedItem.userKey] &&
           selectedItem[selectedItem.userKey]?.firstName +
-            " " +
-            selectedItem[selectedItem.userKey]?.lastName}
+          " " +
+          selectedItem[selectedItem.userKey]?.lastName}
       </h2>
       <div className="chat-section">
         <div className="chat_detail-body">
@@ -65,11 +130,6 @@ const ChatDetails = ({
               );
             })}
             <div style={{ float: "left", clear: "both" }} ref={endRef}></div>
-            {/* <div className="received_chat-first-msg-wrap">
-            <span className="received_chat-userName">Hasib</span>
-            <br></br>
-            <span className="chat-msg-text">Hello, Krysia!</span>
-          </div> */}
           </div>
         </div>
         <div className="send-msg-input-wrapper">
@@ -79,22 +139,42 @@ const ChatDetails = ({
               onChange={onMessageChange}
               onKeyPress={(event) => {
                 if (event.key === "Enter") {
-                  onSend();
+                  handleSend()
                 }
               }}
               type="text"
               placeholder="Write you message here"
+              disabled={!enableChat}
             />
           </div>
-          <IconButton onClick={onVideoClick}>
-            <VideocamIcon id="active-video-icon" />
-          </IconButton>
-          {/* <IconButton id="inactive-video-button">
-            <VideocamOffIcon id="inactive-video-icon" />
-          </IconButton> */}
-          <button onClick={onSend} className="send-msg-btn">
+          {enableVideo && (
+            <IconButton onClick={handleVideo}>
+              <VideocamIcon id="active-video-icon" />
+            </IconButton>
+          )}
+          {!enableVideo && (
+            <IconButton id="inactive-video-button">
+              <VideocamOffIcon id="inactive-video-icon" />
+            </IconButton>
+          )}
+          <button
+            onClick={handleSend}
+            className="send-msg-btn"
+            disabled={!enableChat}
+          >
             Send
           </button>
+          {
+            roles.some((role) => role === ROLES.ROLE_DOCTOR) && (
+              <button
+                onClick={handleNoteToggle}
+                className="notes-btn"
+              // disabled={!enableChat}
+              >
+                <img src={ChatIcon} alt='chat-icon' />
+              </button>
+            )
+          }
         </div>
       </div>
     </div>

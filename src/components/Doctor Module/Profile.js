@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import './doctor.css';
+import { Button } from 'react-bootstrap';
 // import '../Patient Module/patient.css';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import Avatar from 'react-avatar';
@@ -91,7 +92,7 @@ const Profile = ({ currentDoctor }) => {
         dateOfBirth,
         countryId,
         languages,
-        education,
+        educationalQualifications,
         experience,
         specialities,
     } = currentDoctorData ? currentDoctorData : currentDoctor;
@@ -205,10 +206,18 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const handleLanguages = (selectedItem) => {
-        languages.push({ name: selectedItem.name });
+        selectedItem.forEach((e) =>
+        {
+            const index = languages.findIndex((x) => x.name == e.name)
+            if(index == -1)
+            {
+                languages.push(e);
+            }
+            
+        })
+        
         setCurrentDoctorData({ ...currentDoctorData, languages: languages });
     };
-
     const removeLanguages = (removedItem) => {
         var array = languages;
         var index = array.indexOf(removedItem);
@@ -240,7 +249,16 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const handleSpecialities = (selectedItem) => {
-        specialities.push({ id: selectedItem.id, name: selectedItem.name });
+        selectedItem.forEach((e) =>
+        {
+            const index = specialities.findIndex((x) => x.name == e.name)
+            if(index == -1)
+            {
+                specialities.push(e);
+            }
+            
+        })
+       // specialities.push({ id: selectedItem.id, name: selectedItem.name });
         setSpecialityError(false);
     };
 
@@ -263,12 +281,38 @@ const Profile = ({ currentDoctor }) => {
         const response = await updateDoctorData(bodyFormData);
         console.log("handleDetails", response);
         if (response.status === 200 || response.status === 201) {
-            cookies.set('profileDetails', currentDoctorData);
+            cookies.set('profileDetails', response.data.data);
             // setCurrentDoctorData({ currentDoctorData: currentDoctorData });
             history.go(0);
         }
     }
 
+    const [educationList, setEducationList] = useState([{ institution: '', educationalQualification: '' }]);
+    // handle input change
+    const handleEducationDetailsInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...currentDoctorData.educationalQualifications];
+        list[index][name] = value;
+        //setEducationList(list);
+        setCurrentDoctorData({ ...currentDoctorData, educationalQualifications: list });
+        console.log("state", currentDoctorData)
+    };
+    // handle click event of the Remove button
+    const handleRemoveClick = (index) => {
+        const list = [...currentDoctorData.educationalQualifications];
+        list.splice(index, 1);
+        //setEducationList(list);
+        setCurrentDoctorData({ ...currentDoctorData, educationalQualifications: list })
+    };
+
+
+    // handle click event of the Add button
+    const handleAddClick = () => {
+        const list = [...currentDoctorData.educationalQualifications];
+        list.push({ institution: '', educationalQualification: '' })
+        setCurrentDoctorData({ ...currentDoctorData, educationalQualifications: list });
+
+    };
 
 
     return (
@@ -366,8 +410,35 @@ const Profile = ({ currentDoctor }) => {
                                                     <div className="d-flex flex-column">
                                                         <ProfileRow
                                                             icon={educationIcon}
-                                                            title="Education"
-                                                            value={currentDoctor.education}
+                                                            title="EducationalQualification"
+                                                            value={
+                                                                currentDoctor &&
+                                                                currentDoctor.educationalQualifications &&
+                                                                currentDoctor.educationalQualifications.map(
+                                                                    (edu, index) => (
+                                                                        <div>
+                                                                            <li key={index}>{edu.educationalQualification}</li>
+
+                                                                        </div>
+                                                                    )
+                                                                )
+                                                            }
+                                                        //value={currentDoctor.education}
+                                                        /> <ProfileRow
+                                                            icon={educationIcon}
+                                                            title="Institution"
+                                                            value={
+                                                                currentDoctor &&
+                                                                currentDoctor.educationalQualifications &&
+                                                                currentDoctor.educationalQualifications.map(
+                                                                    (edu, index) => (
+                                                                        <div>
+                                                                            <li key={index}>{edu.institution}</li>
+                                                                        </div>
+                                                                    )
+                                                                )
+                                                            }
+                                                        //value={currentDoctor.education}
                                                         />
                                                         <ProfileRow
                                                             icon={experienceIcon}
@@ -575,19 +646,61 @@ const Profile = ({ currentDoctor }) => {
 
                                         <Tab eventKey="education" title="Education">
                                             <div className="general-tab">
+                                                {currentDoctorData?.educationalQualifications.map((x, i) => {
+                                                    return (
+                                                        <div key={i}>
+                                                            <Row>
+                                                                <Col md={6}>
+                                                                    <p>Education<sup>*</sup></p>
+                                                                    <TextValidator id="standard-basic" type="text" name="educationalQualification"
+                                                                        onChange={(e) => handleEducationDetailsInputChange(e, i)}
+                                                                        value={x.educationalQualification}
+                                                                        validators={['required']}
+                                                                        errorMessages={['This field is required']}
+                                                                        variant="filled"
+                                                                        placeholder='Education' />
+
+                                                                </Col>
+                                                                <Col md={6}>
+                                                                    <p>Institution<sup>*</sup></p>
+                                                                    <TextValidator id="standard-basic" type="text" name="institution"
+                                                                        onChange={(e) => handleEducationDetailsInputChange(e, i)}
+                                                                        value={x.institution}
+                                                                        validators={['required']}
+                                                                        errorMessages={['This field is required']}
+                                                                        variant="filled"
+                                                                        placeholder='Institution' />
+
+                                                                </Col>
+                                                            </Row>
+                                                            <br />
+                                                            <div className="btn-box">
+                                                                {currentDoctorData?.educationalQualifications.length !== 1 && (
+                                                                    <Button
+                                                                        className="medicineRemoveButton"
+                                                                        variant="secondary"
+                                                                        onClick={() => handleRemoveClick(i)}
+                                                                    >
+                                                                        Remove
+                                                                    </Button>
+                                                                )}
+                                                                {currentDoctorData?.educationalQualifications.length - 1 === i && (
+                                                                    <Button
+
+                                                                        className="medicineButton"
+                                                                        variant="primary"
+                                                                        onClick={handleAddClick}
+                                                                    >
+                                                                        Add Education
+                                                                    </Button>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
+                                                <br />
                                                 <Row>
-                                                    <Col md={6}>
-                                                        <p>Education</p>
-                                                        <TextValidator
-                                                            id="standard-basic"
-                                                            type="text"
-                                                            name="education"
-                                                            onChange={(e) => handleInputChange(e)}
-                                                            value={education}
-                                                            variant="filled"
-                                                        />
-                                                    </Col>
-                                                    <Col md={6}>
+                                                    <Col md={12}>
                                                         <p>Experience</p>
                                                         <TextValidator
                                                             id="standard-basic"
@@ -599,6 +712,7 @@ const Profile = ({ currentDoctor }) => {
                                                         />
                                                     </Col>
                                                 </Row>
+                                                {/* </Row> */}
                                                 <br />
 
                                                 <Row>

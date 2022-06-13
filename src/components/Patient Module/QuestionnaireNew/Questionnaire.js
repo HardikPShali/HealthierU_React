@@ -1,19 +1,19 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
-import quesJson from './questions.json';
-import { Questions } from './Questions';
-import '../patient.css';
-import { useHistory } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Cookies from 'universal-cookie';
-import { postHealthAssessment } from '../../../service/frontendapiservices';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import { ScoreSharp } from '@material-ui/icons';
+import React from "react";
+import { useState, useEffect } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import quesJson from "./questions.json";
+import { Questions } from "./Questions";
+import "../patient.css";
+import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Cookies from "universal-cookie";
+import { postHealthAssessment } from "../../../service/frontendapiservices";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import { ScoreSharp } from "@material-ui/icons";
 
 const Questionnaire = ({ match }) => {
   const [questions, setQuestions] = useState([]);
@@ -27,7 +27,7 @@ const Questionnaire = ({ match }) => {
 
   const cookies = new Cookies();
 
-  const currentPatient = cookies.get('profileDetails');
+  const currentPatient = cookies.get("profileDetails");
   const patientID = currentPatient.id;
   console.log(patientID);
 
@@ -58,9 +58,9 @@ const Questionnaire = ({ match }) => {
         0
       ),
     };
-    console.log('submitData.totalScore', submitData.totalScore);
+    console.log("submitData.totalScore", submitData.totalScore);
     const response = await postHealthAssessment(
-      isNew === 'new' ? 'post' : 'put',
+      isNew === "new" ? "post" : "put",
       submitData,
       patientID
     ).catch((err) => {
@@ -81,27 +81,22 @@ const Questionnaire = ({ match }) => {
   };
 
   const healthBehaviorOnScore = (score) => {
-
     if (score <= 3) {
-      setHealthAssess('not Healthy')
-      console.log("not healthy", healthAssess)
+      setHealthAssess("not Healthy");
+      console.log("not healthy", healthAssess);
       return healthAssess;
 
       // return 'not Healthy';
     } else if (score > 3 && score <= 7) {
-
-      setHealthAssess('moderately Healthy')
-      console.log("mod healthy", healthAssess)
+      setHealthAssess("moderately Healthy");
+      console.log("mod healthy", healthAssess);
       return healthAssess;
-
 
       // return 'moderately Healthy';
     } else {
-
-      setHealthAssess('Healthy')
-      console.log(" healthy", healthAssess)
+      setHealthAssess("Healthy");
+      console.log(" healthy", healthAssess);
       return healthAssess;
-
 
       // return 'Healthy';
     }
@@ -109,7 +104,7 @@ const Questionnaire = ({ match }) => {
 
   useEffect(() => {
     healthBehaviorOnScore(totalscore);
-  }, [totalscore])
+  }, [totalscore]);
 
   const onContinue = async () => {
     console.log(questions);
@@ -121,8 +116,8 @@ const Questionnaire = ({ match }) => {
       }
       // history.push('/patient');
     } else {
-      toast.error('Please fill the form!', {
-        position: 'top-right',
+      toast.error("Please fill the form!", {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -135,7 +130,7 @@ const Questionnaire = ({ match }) => {
   };
 
   const handleFollowQuestionsCondition = () => {
-    console.log('Something');
+    console.log("Something");
     questions.forEach((question) => {
       if (question.condition) {
         const previousQuestion = questions.find(
@@ -143,7 +138,7 @@ const Questionnaire = ({ match }) => {
         );
         if (previousQuestion.answers) {
           if (previousQuestion.answers === question.condition.answer) {
-            console.log('HIDDEN');
+            console.log("HIDDEN");
             question.hidden = true;
           } else {
             question.hidden = false;
@@ -160,21 +155,26 @@ const Questionnaire = ({ match }) => {
   }, []);
 
   useEffect(() => {
-    console.log('Something');
+    console.log("Something");
   }, [questions]);
 
   const closeDialog = () => {
-    setContinueClick(false)
-    history.push('/patient');
-  }
+    setContinueClick(false);
+    if (isNew === 'new') {
+      history.push("/patient");
+    }
+    else {
+      history.push("/patient/mydoctor");
+    }
+  };
 
   return (
-    <Container style={{ maxWidth: '100%' }}>
-      <Row id="questionnaire-view" style={{ minHeight: '600px' }}>
+    <div className="container-fluid">
+      <Row id="questionnaire-view" style={{ minHeight: "600px" }}>
         <Col md={6} id="questionnaire-view-bg"></Col>
         <Col
           md={6}
-          style={{ background: '#fff', padding: '5%' }}
+          style={{ background: "#fff", padding: "2% 0 2% 2%" }}
           className="questionnaire-container"
         >
           <div className="questionnaire-header">
@@ -224,32 +224,33 @@ const Questionnaire = ({ match }) => {
         </DialogTitle>
 
         <DialogContent>
-          <div className='score-text'>
+          <div className="score-text">
             <span
               style={{
-                fontSize: '20px',
-                marginBottom: '20px',
+                fontSize: "20px",
+                marginBottom: "20px",
               }}
-            >You scored {totalscore}</span>
+            >
+              You scored {totalscore}
+            </span>
             <h5>You are {healthAssess}</h5>
           </div>
         </DialogContent>
 
         <DialogActions>
-          <div className='score-modal-btn-wrapper'>
+          <div className="score-modal-btn-wrapper">
             <button
               autoFocus={false}
               onClick={closeDialog}
               className="btn btn-primary"
               id="close-btn"
             >
-              OK
+              Connect with an Expert
             </button>
           </div>
-
         </DialogActions>
       </Dialog>
-    </Container>
+    </div>
   );
 };
 

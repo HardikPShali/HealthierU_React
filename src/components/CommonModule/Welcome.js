@@ -38,7 +38,6 @@ import {
 import ImageCropper from './ImageCroper';
 import DoctorDocumentUpload from "./doctordocumentupload";
 import { getCurrentDoctorInfo } from "../../service/AccountService";
-import { firestoreService } from "../../util";
 import DatePicker from 'react-date-picker';
 import { useHistory } from "react-router";
 import { Button } from 'react-bootstrap';
@@ -392,16 +391,6 @@ const Welcome = ({ currentuserInfo }) => {
                 console.log("response", response);
                 if (response && (response.status === 200 || response.status === 201)) {
                     cookies.set("profileDetails", response.data.data);
-                    firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
-                        .then((userRecord) => {
-                            var loginUser = userRecord.userd;
-                            console.log('user Created', loginUser.email, loginUser.uid)
-                        })
-                        .catch((error) => {
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            console.log('user Created failed', errorCode, errorMessage)
-                        });
                     updateCurrentUserData();
                 }
             }
@@ -434,18 +423,6 @@ const Welcome = ({ currentuserInfo }) => {
                 if (response && (response.status === 200 || response.status === 201)) {
                     console.log("email", response.data.data.email)
                     console.log("firebasePwd", response.data.data.firebasePwd)
-                    firestoreService.createNewUser(response.data.data.email, response.data.data.firebasePwd)
-                        .then((userRecord) => {
-                            var loginUser = userRecord.userd;
-                            console.log("loginUser", loginUser)
-                            // console.log('user Created', loginUser.email, loginUser.uid);
-
-                        })
-                        .catch((error) => {
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            console.log('user Created failed', errorCode, errorMessage)
-                        });
                     const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
 
                     if (res) {

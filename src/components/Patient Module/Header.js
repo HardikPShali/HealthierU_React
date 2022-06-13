@@ -71,17 +71,23 @@ const Header = (props) => {
                   className="btn dropdown-toggle"
                   data-toggle="dropdown"
                 >
-                  My Health
+                  My Portal
                 </button>
                 <div className="dropdown-menu">
-                  <NavLink to="/patient/document" className="dropdown-item">
-                    My Records
+                  <NavLink
+                    to="/patient/mydoctor"
+                    className="dropdown-item"
+                  >
+                    My Doctors
                   </NavLink>
                   <NavLink
                     to="/patient/myappointment"
                     className="dropdown-item"
                   >
                     My Appointments
+                  </NavLink>
+                  <NavLink to="/patient/document" className="dropdown-item">
+                    My Records
                   </NavLink>
                   <NavLink
                     to="/patient/questionnaire/existing"
@@ -100,7 +106,7 @@ const Header = (props) => {
                         <NavDropdown.Item href="/patient/questionnaire/edit" style={{ color: '#498ce8' }}><b></b></NavDropdown.Item>
                         <NavDropdown.Item href="/patient/chat" style={{ color: '#498ce8' }}><b></b></NavDropdown.Item>
                     </NavDropdown> */}
-              <NavLink to="/patient/mydoctor" style={{ margin: '5px', marginRight: '15px' }}>My Doctors</NavLink>
+              {/* <NavLink to="/patient/mydoctor" style={{ margin: '5px', marginRight: '15px' }}>My Doctors</NavLink> */}
               {/* <NavLink to="/patient/explore">Explore</NavLink> */}
               {/* <NavLink to="/patient/shop" style={{ marginRight: '22px' }}>Shop</NavLink> */}
               {/* <NavLink to="#search">

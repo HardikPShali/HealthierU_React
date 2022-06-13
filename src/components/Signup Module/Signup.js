@@ -74,19 +74,23 @@ const Signup = () => {
           <Col md={7}></Col>
           <Col md={5}>
             <h2 id="signin-title">Sign up</h2>
-            <div className="sign-box">
+            <div className="sign-box signup-box-helper">
               <Link to="/signupform">
                 <button
                   id="signupBtn"
                   className="btn btn-primary w-100 py-2 sign-btn shadow-sm"
                 >
-                  <img
-                    src={mail}
-                    alt=""
-                    className="sub signup-mail-icon"
-                    width="54px"
-                  />
-                  Sign up with email
+                  <div>
+                    <img
+                      src={mail}
+                      alt=""
+                      className="sub signup-mail-icon"
+                      width="54px"
+                    />
+                    Sign up with email
+                  </div>
+
+
                 </button>
               </Link>
               <p className="text-divider">

@@ -45,6 +45,7 @@ import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router';
 const AddPrescription = (props) => {
     const history = useHistory();
+    let params = useParams();
     const cookies = new Cookies();
     const [prescriptionResult, setPrescriptionResult] = useState({
         decription: '',
@@ -151,7 +152,7 @@ const AddPrescription = (props) => {
             setDoctor(currentDoctor);
             console.log("doctorInfo", currentDoctor)
         }
-        const patientInfo = props.location.state;
+        const patientInfo = params.patientID;
         if (patientInfo) {
             setPatient(patientInfo);
             console.log("patientID", patient)
@@ -215,7 +216,7 @@ const AddPrescription = (props) => {
         console.log("medicalInfo", JSON.stringify(medicalInfo))
         const medicalDocumentInfo = {
             documentType: "Prescription",
-            patientId: patient?.id,
+            patientId: patient,
             doctorId: doctor?.id,
             decription: prescriptionResult?.decription
         };
@@ -242,8 +243,9 @@ const AddPrescription = (props) => {
         const response = await postDocumentAddPrescriptionLabResult(formData);
         if (response) {
             toast.success("Document successfully Uploaded.");
-            const patientInfo = props.location.state;
-            setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo.id}`, state: patientInfo }), 500);
+            const patientInfo = params.patientID;
+            const apID = params.apid;       
+            setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}`}), 500);
         }
     };
     const handlePrescriptionChange = (e) => {

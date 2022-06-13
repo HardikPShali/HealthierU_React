@@ -1,29 +1,27 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-// import Loadable from "react-loadable";
 import Cookies from "universal-cookie";
-// import firebase from "firebase";
-//import useAxios from "../../util/axiosService";
-
+import Availability from "./Availability"
 import Header from "./Header";
 import Footer from "./Footer";
-import { firestoreService, chatAndVideoService } from "../../util";
 import {
   getDoctorByUserId,
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
 import Loader from '../Loader/Loader'
+import MyDoctor from "../Patient Module/Mydoctor";
 
 const Homepage = React.lazy(() => import("./Homepage"));
 const Profile = React.lazy(() => import("./Profile"));
 const Logout = React.lazy(() => import("../Logout"));
 const Appointment = React.lazy(() => import("./Appointment"));
-const Mypatient = React.lazy(() => import("./Mypatient"));
+const MyAppointments = React.lazy(() => import("./MyAppointments"));
 const Healthassessment = React.lazy(() => import("./Healthassessment"));
 const HealthAssestmentReport = React.lazy(() => import("./HealthAssestmentReport/HealthAssestmentReport"));
 const MedicalRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
+const SetNextAppointment = React.lazy(() => import("../Patient Module/Mydoctor"));
 const MyRecord = React.lazy(() => import("./file-upload/DoctorDocument"));
-const ConsulatationHistory = React.lazy(() => import("./ConsulatationHistory/ConsulatationHistory"));
+const ConsultationHistory = React.lazy(() => import("./ConsultationHistory/ConsultationHistory"));
 const AddPrescription = React.lazy(() => import("./Prescription-Lab/AddPrescription"));
 const DoctorChatNew = React.lazy(() => import("../Doctor Module/DoctorChatNew"));
 
@@ -44,6 +42,8 @@ const HelpAndSupportPage = React.lazy(() => import("../CommonModule/HelpAndSuppo
 const LicensesPage = React.lazy(() => import("../CommonModule/Licenses"));
 
 const PartnersPage = React.lazy(() => import("../CommonModule/Partners"));
+
+const MyPatients = React.lazy(() => import("./MyPatientsSection/MyPatients"));
 
 
 const DoctorRoute = () => {
@@ -76,55 +76,20 @@ const DoctorRoute = () => {
     setCurrentDoctor(currentDoctor);
   };
 
-  useEffect(() => {
-    const { email, firebasePwd } = currentDoctor;
-    if (email) {
-      firestoreService
-        .signIn(email, firebasePwd)
-        .then((userCredential) => {
-          firestoreService.makeChatGroupList("doctorEmailId", email, setChatGroupList, setUpdateChatGroupListTrigger, setAddedNewUpdateChatGroupListTrigger);
-        })
-        .catch((err) => {
-          let {
-            code,
-            // message
-          } = err;
-          if (code === "auth/user-not-found") { //replaced '==' with '==='
-            firestoreService
-              .createNewUser(email, firebasePwd)
-              .then((userRecord) => {
-                setRestartFirebaseLogin((prevStat) => prevStat + 1);
-              })
-              .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log("user Created failed", errorCode, errorMessage);
-              });
-          }
-          else console.log("error in firestore signIn", err);
-        });
-      setTimeout(() => setHeaderFooterLoad(true), 1000);
-    }
-  }, [currentDoctor, restartFirebaseLogin]);
-
-  useEffect(() => {
-    if (Object.keys(chatGroupList).length > 0) {
-      chatAndVideoService.getAllModuleDetails(chatGroupList, "patients", currentDoctor.id, setPatientDetailsList);
-      firestoreService.makeUnReadMessageList(chatGroupList, currentDoctor.email, setUnReadMessageList, setTrigger);
-    }
-  }, [addedNewChatGroupListTrigger]);
 
   return (
     <Suspense fallback={<Loader />}>
-      {headerFooterLoad && currentLoggedInUser?.profileCompleted === true && <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />}
+      {currentLoggedInUser?.profileCompleted === true && <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />}
       <Switch>
         <Route exact path="/doctor" component={Homepage} />
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
-        <Route exact path="/doctor/mypatient" render={(props) => <Mypatient timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
-        <Route exact path="/doctor/medicalrecord/:id" component={Healthassessment} />
+        <Route exact path="/doctor/my-appointments" render={(props) => <MyAppointments timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
+        <Route exact path="/doctor/my-patients" render={(props) => <MyPatients timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />
+        <Route exact path="/doctor/medicalrecord/:patientID/:apid" component={Healthassessment} />
+        <Route exact path="/doctor/setNextAppointment" component={SetNextAppointment} />
         <Route exact path="/doctor/healthassesment-report/:id" component={HealthAssestmentReport} />
         <Route exact path="/doctor/medicalrecord" component={MedicalRecord} />
-        <Route exact path="/doctor/consulatationhistory" component={ConsulatationHistory} />
+        <Route exact path="/doctor/consultationhistory/:id" component={ConsultationHistory} />
         {/*/render={(props) => <Healthassessment patient={patient} {...props} />} />*/}
         <Route exact path="/doctor/profile" render={(props) => <Profile currentDoctor={currentDoctor} {...props} />} />
         <Route exact path="/doctor/logout" component={Logout} />
@@ -132,7 +97,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/shop" component={DoctorShop} />
         <Route exact path="/doctor/article" component={DoctorArticle} />
         <Route exact path="/doctor/changepassword" component={ChangeAccountPassword} />
-        <Route exact path="/doctor/addPrescription/:id" component={AddPrescription} />
+        <Route exact path="/doctor/addPrescription/:patientID/:apid" component={AddPrescription} />
         <Route exact path="/doctor/about-us" render={(props) => <AboutUs currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/privacy-policy" render={(props) => <PrivacyPolicyPage currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/terms-and-conditions" render={(props) => <TermsAndConditionsPage currentuserInfo={currentLoggedInUser} {...props} />} />
