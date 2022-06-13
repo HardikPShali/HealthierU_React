@@ -7,11 +7,19 @@ import "./doctor.css";
 const Availability = () => {
   const [value, setValue] = useState([]);
   const [times, setTimes] = useState([]);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState(0);
+
+  const getSelectedTimeDtls = (value) => {
+    setSelectedTimeSlot(value);
+    console.log(selectedTimeSlot);
+    tempDays = [];
+  };
 
   const handleValue = (value) => {
     console.log(value);
     setValue(value);
   };
+
   const saveTimeHandler = () => {
     setTimes([
       ...times,
@@ -19,54 +27,46 @@ const Availability = () => {
         from: value[0],
         to: value[1],
         id: new Date().getMilliseconds(),
+        days: [],
       },
     ]);
     value(" ");
   };
-  
-  const [monday, setMonday] = useState("");
-  const mondayHandler =(e)=> {
-    const isMonday = e.target.checked;
-    console.log(isMonday);
-    setMonday("Monday");
-  }
 
-  const [tuesday, setTuesday] = useState("");
-  const tuesdayHandler =(e)=> {
-    const isTuesday = e.target.checked;
-    setTuesday("Tuesday");
-  }
-  
-  const [wednesday, setWednesday] = useState("");
-  const wednesdayHandler =(e)=> {
-    const isWednesday = e.target.checked;
-    setWednesday("Wednesday");
+  const tempDays = [];
+  const dayHandler = (e) => {
+    const isDayChecked = e.target.checked;
 
-  }
+    if (isDayChecked) {
+      tempDays.push(e.target.value);
+    } else {
+      let uncheckedItem = tempDays.indexOf(e.target.value);
+      tempDays.splice(uncheckedItem, 1);
+    }
+    // console.log(tempDays);
+  };
 
-  const [thursday, setThursday] = useState("");
-  const thursdayHandler =(e)=> {
-    const isThursday = e.target.checked;
-    setThursday("Thursday");
-  }
+  const allDays = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
-  const [friday, setFriday] = useState("");
-  const fridayHandler =(e)=> {
-    const isFriday = e.target.checked;
-    setFriday("Friday");
-  }
+  const addDaySlot = () => {
+    const newTimes = times.map((eachTime, eachIndex) => {
+      if (eachIndex === selectedTimeSlot) {
+        eachTime.days = tempDays;
+      }
+      return eachTime;
+    });
 
-  const [saturday, setSaturday] = useState("");
-  const saturdayHandler =(e)=> {
-    const isSaturday = e.target.checked;
-    setSaturday("Saturday");
-  }
-
-  const [sunday, setSunday] = useState("");
-  const sundayHandler =(e)=> {
-    const isSunday = e.target.checked;
-    setSunday("Sunday");
-  }
+    setTimes(newTimes);
+    console.log(times);
+  };
 
   return (
     <Container>
@@ -92,74 +92,35 @@ const Availability = () => {
                 <button onClick={saveTimeHandler}>Set Time</button>
               </div>
             </div>
-            <div className="days-wrapper">
-              <div className="day-wrapper">
-                <h6>Monday</h6>
-                <input
-                  type="checkbox"
-                  // value={monday}
-                  onChange={mondayHandler}
-                />
+            {value && (
+              <div className="days-wrapper">
+                {allDays.map((dayValue) => (
+                  <label className="day-wrapper">
+                    {dayValue}
+                    <input
+                      type="checkbox"
+                      onChange={dayHandler}
+                      value={dayValue}
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                ))}
+                <div className="available-btn">
+                  <button onClick={addDaySlot}>Add Time Slots</button>
+                </div>
               </div>
-              <div className="day-wrapper">
-                <h6>Tuesday</h6>
-                <input
-                  type="checkbox"
-                  // value={tuesday}
-                  onChange={tuesdayHandler}
-                />
-              </div>
-              <div className="day-wrapper">
-                <h6>Wednesday</h6>
-                <input
-                  type="checkbox"
-                  // value={wednesday}
-                  onChange={wednesdayHandler}
-                />
-              </div>
-              <div className="day-wrapper">
-                <h6>Thursday</h6>
-                <input
-                  type="checkbox"
-                  // value={thursday}
-                  onChange={thursdayHandler}
-                />
-              </div>
-              <div className="day-wrapper">
-                <h6>Friday</h6>
-                <input
-                  type="checkbox"
-                  // value={friday}
-                  onChange={fridayHandler}
-                />
-              </div>
-              <div className="day-wrapper">
-                <h6>Saturday</h6>
-                <input
-                  type="checkbox"
-                  // value={saturday}
-                  onChange={saturdayHandler}
-                />
-              </div>
-              <div className="day-wrapper">
-                <h6>Sunday</h6>
-                <input
-                  type="checkbox"
-                  // value={sunday}
-                  onChange={sundayHandler}
-                />
-              </div>
-              <div className="available-btn">
-                <button>Add Time Slots</button>
-              </div>
-            </div>
+            )}
           </Col>
           <Col sm={12} md={6} lg={6} xl={6}>
             <div className="selected-time-container">
               <h5>Select Time Slots</h5>
 
-              {times.map((timeData) => (
-                <div className="selected_time" key={timeData.id}>
+              {times.map((timeData, timeIndex) => (
+                <div
+                  onClick={() => getSelectedTimeDtls(timeIndex)}
+                  className="selected_time"
+                  key={timeData.id}
+                >
                   <div className="select-time-wrap">
                     <div className="select-time-font">
                       <h6 className="select-time-font">{timeData.from}</h6>
@@ -175,19 +136,24 @@ const Availability = () => {
             </div>
             <div className="selected-day-container">
               <h5>Select Time with Day Slots</h5>
-              <div className="selected-day-wrap">
-                <div className="selected-days">
-                  <h5>Monday to Friday</h5>
-                  <span className="mr-3">10AM to 12PM</span>
-                  <span>1AM to 2PM</span>
-                </div>
-                <div className="selected-days-toggle">
-                  <label class="switch">
-                    <input type="checkbox" />
-                    <span class="slider round"></span>
-                  </label>
-                </div>
-              </div>
+              {times.map((eachTimes) =>
+                eachTimes.days.length ? (
+                  <div className="selected-day-wrap">
+                    <div className="selected-days">
+                      <h5>{eachTimes.days.toString()}</h5>
+                      <span className="mr-3">{eachTimes.from} to {eachTimes.to}</span>
+                    </div>
+                    <div className="selected-days-toggle">
+                      <label class="switch">
+                        <input type="checkbox" />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                  </div>
+                ) : (
+                  <> </>
+                )
+              )}
             </div>
           </Col>
         </Row>

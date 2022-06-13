@@ -181,5 +181,5 @@ button.notes-btn {
 }
 button.notes-btn:hover {
   transition: ease-in-out 0.3s all;
-  background: #5ebab7;
+  background: var(--primarysecond);
 }
