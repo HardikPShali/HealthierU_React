@@ -49,7 +49,8 @@ import {
     getSearchData,
     setNextAppointmentDoctor,
     getAvailableSlotsForMyDoctors,
-    rescheduleAppointmentPatient
+    rescheduleAppointmentPatient,
+    getAvailableSlots
 } from '../../service/frontendapiservices';
 import {
     getSpecialityList,
@@ -117,7 +118,7 @@ const RescheduleAppointment = (props) => {
         patientId: '',
         appointmentMode: '',
     });
-
+    const [availableSlots, setAvailableSlots] = useState([])
     const [availableSlotsDisplay, setAvailableSlotsDisplay] = useState([]);
 
     const [finalAppointmentData, setFinalAppointmentData] = useState([]);
@@ -451,6 +452,9 @@ const RescheduleAppointment = (props) => {
     useEffect(() => {
         getAvailableSlotsOfDoctors();
     }, [appointment]);
+    // useEffect(() => {
+    //     getAvailableSlotsBasedOnType();
+    // }, [appointment])
 
     const handleSearchInputChange = (searchValue) => {
         //console.log("searchValue :::::::", searchValue);
@@ -508,7 +512,6 @@ const RescheduleAppointment = (props) => {
         setAppointment({ ...appointment, appointmentMode: e.target.value });
         const user = doctor;
         console.log({ user });
-
         getAvailableSlotsOfDoctors(user.id, e.target.value);
         console.log(e.target.value);
         // console.log({ appointment })
@@ -521,6 +524,7 @@ const RescheduleAppointment = (props) => {
                     document.querySelector('#calendar-list').scrollTo(0, 500);
                     setDisplayCalendar(false);
                     setDisplaySlot(true);
+                    getInValidAppointments(user.id)
                     getAvailableSlotsOfDoctors(user.id, e.target.value);
                 } else {
                     setAppointmentSlot([]);
@@ -533,6 +537,7 @@ const RescheduleAppointment = (props) => {
                 document.querySelector('#calendar-list').scrollTo(0, 500);
                 setDisplayCalendar(false);
                 setDisplaySlot(true);
+                getInValidAppointments(user.id)
                 getAvailableSlotsOfDoctors(user.id, e.target.value);
             } else if (e.target.value === '') {
                 setAppointmentSlot([]);
@@ -697,33 +702,49 @@ const RescheduleAppointment = (props) => {
                             {
                                 doctorId: appointment.doctorId,
                                 endTime: slotData.slot1.endTime,
-                                // endTime: slotData.slot2.endTime,
                                 startTime: slotData.slot1.startTime,
                                 type: 'DR',
                                 patientId: appointment.patientId,
                                 status: 'ACCEPTED',
-                                remarks: remarks,
-                                appointmentMode: appointment.appointmentMode,
+                                // remarks: remarks,
+                                // appointmentMode: appointment.appointmentMode,
                                 id: slotData.slot1.id,
-                                urgency: urgency,
-                                unifiedAppointment:
-                                    tempSlotConsultationId + '#' + appointment.appointmentMode,
-                            },
-                            {
-                                doctorId: appointment.doctorId,
-                                endTime: slotData.slot2.endTime,
-                                startTime: slotData.slot2.startTime,
-                                type: 'DR',
-                                patientId: appointment.patientId,
-                                status: 'ACCEPTED',
-                                remarks: remarks,
-                                appointmentMode: appointment.appointmentMode,
-                                id: slotData.slot2.id,
-                                urgency: urgency,
-                                unifiedAppointment:
-                                    tempSlotConsultationId + '#' + appointment.appointmentMode,
+                                // urgency: urgency,
+                                // unifiedAppointment:
+                                //     tempSlotConsultationId + '#' + appointment.appointmentMode,
                             }
                         );
+                        // finalAppointmentDataArray.push(
+                        //     {
+                        //         doctorId: appointment.doctorId,
+                        //         endTime: slotData.slot1.endTime,
+                        //         // endTime: slotData.slot2.endTime,
+                        //         startTime: slotData.slot1.startTime,
+                        //         type: 'DR',
+                        //         patientId: appointment.patientId,
+                        //         status: 'ACCEPTED',
+                        //         remarks: remarks,
+                        //         appointmentMode: appointment.appointmentMode,
+                        //         id: slotData.slot1.id,
+                        //         urgency: urgency,
+                        //         unifiedAppointment:
+                        //             tempSlotConsultationId + '#' + appointment.appointmentMode,
+                        //     },
+                        //     {
+                        //         doctorId: appointment.doctorId,
+                        //         endTime: slotData.slot2.endTime,
+                        //         startTime: slotData.slot2.startTime,
+                        //         type: 'DR',
+                        //         patientId: appointment.patientId,
+                        //         status: 'ACCEPTED',
+                        //         remarks: remarks,
+                        //         appointmentMode: appointment.appointmentMode,
+                        //         id: slotData.slot2.id,
+                        //         urgency: urgency,
+                        //         unifiedAppointment:
+                        //             tempSlotConsultationId + '#' + appointment.appointmentMode,
+                        //     }
+                        // );
                     }
                 });
         } else if (appointment.appointmentMode === 'FOLLOW_UP') {
@@ -734,11 +755,11 @@ const RescheduleAppointment = (props) => {
                 type: 'DR',
                 patientId: appointment.patientId,
                 status: 'ACCEPTED',
-                remarks: remarks,
-                appointmentMode: appointment.appointmentMode,
+                //remarks: remarks,
+                //appointmentMode: appointment.appointmentMode,
                 id: appointment.id,
-                urgency: urgency,
-                unifiedAppointment: appointment.id + '#' + appointment.appointmentMode, //unifiedAppointment: "2145#FOLLOW_UP"
+                //urgency: urgency,
+                //unifiedAppointment: appointment.id + '#' + appointment.appointmentMode, //unifiedAppointment: "2145#FOLLOW_UP"
             });
         }
         // const bookAppointmentApiHeader = {
@@ -752,19 +773,16 @@ const RescheduleAppointment = (props) => {
         //         'Access-Control-Allow-Origin': '*',
         //     },
         // };
-
-        // let rescheduleData;
-        // {
-        //     finalAppointmentDataArray.map((f) => {
-        //         rescheduleData = f
-        //     })
-        // }
-
-        // console.log("rescheduleData", rescheduleData);
+        let rescheduleData = [];
+        {
+            finalAppointmentDataArray.map((f) => {
+                rescheduleData = f
+            })
+        }
         const rescheduleAppointmentApiHeader = {
             method: 'post',
             mode: 'no-cors',
-            data: finalAppointmentDataArray,
+            data: rescheduleData,
             url: `/api/v2/appointment/patient/reschedule/${oldAppID}`,
             headers: {
                 Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
@@ -788,12 +806,12 @@ const RescheduleAppointment = (props) => {
         //const storePaypalInfo = await axios(storePaypalTransitionInfo);
         const rescheduleResponse = await axios(rescheduleAppointmentApiHeader);
         if (rescheduleResponse.status === 200 || rescheduleResponse.status === 201) {
-            firestoreService.newAppointmentBookingMessageToFirestore(
-                appointment,
-                tempSlotConsultationId,
-                doctor,
-                props
-            );
+            // firestoreService.newAppointmentBookingMessageToFirestore(
+            //     appointment,
+            //     tempSlotConsultationId,
+            //     doctor,
+            //     props
+            // );
             props.history.push('/patient/myappointment');
         }
     };
@@ -1230,6 +1248,7 @@ const RescheduleAppointment = (props) => {
     };
 
     // AVAILABLE SLOTS OF A DOCTOR
+
     const getAvailableSlotsOfDoctors = async (id, type) => {
         if (id) {
             const response = await getAvailableSlotsForMyDoctors(
