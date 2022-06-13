@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 //import Footer from './Footer'
 import './patient.css';
+import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import moment from 'moment';
 //import LocalStorageService from './../../util/LocalStorageService';
@@ -83,7 +85,7 @@ const Myappointment = (props) => {
   const localizer = momentLocalizer(moment);
   // const [currentPatient, setCurrentPatient] = useState({}); // no longer required delete future ady-delete
   const timeZone = momentTz.tz.guess();
-
+  let history = useHistory()
   // state for selectAppointment for delete operation
   const [selectedAppointment, setSelectedAppointment] = useState();
   //console.log("selectedAppointment  ::", selectedAppointment)
@@ -417,6 +419,8 @@ const Myappointment = (props) => {
     if (res?.status === 200 || res?.status === 201) {
       getMyAppointmentList(currentPatient.id);
       handleClose();
+      toast.success("Appointment Cancelled");
+      history.go(0)
     }
     //})
   };
