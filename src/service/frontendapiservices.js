@@ -112,6 +112,22 @@ export const rescheduleAppointmentPatient = async (data) => {
     });
     return response;
 }
+export const getAvailableSlots = async (type) => {
+    var payload = {
+        method: 'post',
+        url: `/api/v2/appointments/availableslots?type=${type}`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
 export const consultationHistory = async (patientId, doctorId) => {
     var payload = {
         method: 'get',

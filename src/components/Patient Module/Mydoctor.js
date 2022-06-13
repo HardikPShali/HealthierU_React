@@ -507,7 +507,6 @@ const MyDoctor = (props) => {
     setAppointment({ ...appointment, appointmentMode: e.target.value });
     const user = doctor;
     console.log({ user });
-
     getAvailableSlotsOfDoctors(user.id, e.target.value);
     console.log(e.target.value);
     // console.log({ appointment })
@@ -533,6 +532,7 @@ const MyDoctor = (props) => {
         setDisplayCalendar(false);
         setDisplaySlot(true);
         getAvailableSlotsOfDoctors(user.id, e.target.value);
+        getInValidAppointments(user.id)
       } else if (e.target.value === '') {
         setAppointmentSlot([]);
       }
@@ -653,8 +653,11 @@ const MyDoctor = (props) => {
       });
       if (datesArray) {
         setDisabledDates(datesArray);
+
         setTransparentLoading(false);
       }
+      console.log("DisabledDates", { disabledDates });
+
     }
   };
 
@@ -1203,15 +1206,25 @@ const MyDoctor = (props) => {
   };
 
   // AVAILABLE SLOTS OF A DOCTOR
+  const [enableDates, setEnableDates] = useState([])
   const getAvailableSlotsOfDoctors = async (id, type) => {
     if (id) {
       const response = await getAvailableSlotsForMyDoctors(
         id,
         type
       ).catch((err) => console.log({ err }));
-      // console.log({ response })
+      console.log({ response })
       setAvailableSlotsDisplay(response.data);
-      console.log({ availableSlotsDisplay });
+      // {
+      //   availableSlotsDisplay.data &&
+      //     availableSlotsDisplay.data.length > 0 &&
+      //     availableSlotsDisplay.data.map(
+      //       (slot) => (
+      //         setEnableDates(prev => { return [...prev, (new Date(slot.instantDate))] })
+      //       ))
+      // }
+
+      // console.log("enableDates", { enableDates })
     }
     return null;
   };
@@ -1934,9 +1947,13 @@ const MyDoctor = (props) => {
                                         key={index}
                                       >
                                         <span>
-                                          Slots Available: {slot.count}
+                                          {moment(slot.instantDate).format(
+                                            'DD/MM/YY'
+                                          )}
                                         </span>
-                                        <span>Date: {slot.date}</span>
+                                        <span>
+                                          {slot.count} slots available
+                                        </span>
                                       </div>
                                     )
                                   )}
@@ -2143,18 +2160,19 @@ const MyDoctor = (props) => {
                             )
                           } // next 3week condition
                           // Temporarily commented to enable calendar click functionality for appointment.
-                          tileDisabled={({ activeStartDate, date, view }) =>
-                            activeStartDate.getDate() === date.getDate() &&
-                            disabledDates &&
-                            disabledDates.some(
-                              (disabledDate) =>
-                                // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
-                                date.getFullYear() ===
-                                disabledDate.getFullYear() &&
-                                date.getMonth() === disabledDate.getMonth() &&
-                                date.getDate() === disabledDate.getDate()
-                            )
-                          } // greyout dates
+                          tileDisabled={
+                            ({ activeStartDate, date, view }) =>
+                              // activeStartDate.getDate() === date.getDate() &&
+                              disabledDates &&
+                              disabledDates.some(
+                                (disabledDate) =>
+                                  date.getFullYear() ===
+                                  disabledDate.getFullYear() &&
+                                  date.getMonth() === disabledDate.getMonth() &&
+                                  date.getDate() === disabledDate.getDate()
+                              )
+                          }
+                        // } // greyout dates
                         />
                       </>
                     )}
@@ -2329,7 +2347,7 @@ const MyDoctor = (props) => {
                           } // next 3week condition
                           // Temporarily commented to enable calendar click functionality for appointment.
                           tileDisabled={({ activeStartDate, date, view }) =>
-                            activeStartDate.getDate() === date.getDate() &&
+                            //activeStartDate.getDate() === date.getDate() &&
                             disabledDates &&
                             disabledDates.some(
                               (disabledDate) =>
