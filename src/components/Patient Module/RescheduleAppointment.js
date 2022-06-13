@@ -1248,8 +1248,11 @@ const RescheduleAppointment = (props) => {
     };
 
     // AVAILABLE SLOTS OF A DOCTOR
-
+    const [rescheduleMode, setRescheduleMode] = useState("")
     const getAvailableSlotsOfDoctors = async (id, type) => {
+        const state = props.location.state;
+        setRescheduleMode(state.unifiedAppointment.split("#")[1]
+            .replace("_", " "))
         if (id) {
             const response = await getAvailableSlotsForMyDoctors(
                 id,
@@ -2295,13 +2298,17 @@ const RescheduleAppointment = (props) => {
                                                             <MenuItem value="">
                                                                 <em>Select</em>
                                                             </MenuItem>
-
-                                                            <MenuItem value="FIRST_CONSULTATION">
+                                                            {rescheduleMode === 'FOLLOW_UP' ? <MenuItem value="FOLLOW_UP">
+                                                                Follow up(30 Mins)
+                                                            </MenuItem> : <MenuItem value="FIRST_CONSULTATION">
+                                                                Consultation(1 Hr)
+                                                            </MenuItem>}
+                                                            {/* <MenuItem value="FIRST_CONSULTATION">
                                                                 Consultation(1 Hr)
                                                             </MenuItem>
                                                             <MenuItem value="FOLLOW_UP">
                                                                 Follow up(30 Mins)
-                                                            </MenuItem>
+                                                            </MenuItem> */}
                                                         </Select>
                                                     </FormControl>
                                                 </div>

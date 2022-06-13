@@ -892,8 +892,8 @@ const Myappointment = (props) => {
                       <Link
                         to={{
                           pathname: `/patient/rescheduleappointment/${selectedAppointment.id}`,
-                          // state: SelectedPatient.patient,
-                      
+                          state: selectedAppointment,
+
                         }}
                       >
                         <div style={{ display: 'flex', alignItem: 'center' }}>
