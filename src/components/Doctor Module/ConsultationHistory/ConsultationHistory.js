@@ -1,17 +1,17 @@
 import React from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import ConsulatationHistoryComponent from './ConsulatationHistorySection'
-const ConsulatationHistory = () => {
+import ConsultationHistoryComponent from './ConsultationHistorySection'
+const ConsultationHistory = () => {
     return (
         <div>
             <Container>
                 <Row>
                     <Col md={12}>
-                        <ConsulatationHistoryComponent />
+                        <ConsultationHistoryComponent />
                     </Col>
                 </Row>
             </Container>
         </div >
     )
 }
-export default ConsulatationHistory
+export default ConsultationHistory

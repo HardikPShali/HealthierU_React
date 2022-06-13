@@ -58,20 +58,19 @@ function patientHomePage() {
             <Container>
                 <Row>
                     <Col md={6}>
-                        <Card id="patient-card">
-                            <Card.Img variant="top" src={home2} />
-                            <Card.ImgOverlay>
-                                <Card.Body>
-                                    <Card.Title>How healthy are you?</Card.Title>
+                        <div id="patient-card">
+                            <div className="patient-card_text">
+                                <div className="patient-card_how-healthy-wrap">
+                                    <h2>How healthy are you?</h2>
                                     <Link to="/patient/questionnaire/existing">
                                         <button variant="primary" className="btn btn-primary assessment-btn">
                                             Take my assessment
                                         </button>
                                     </Link>
-                                </Card.Body>
-                            </Card.ImgOverlay>
+                                </div>
+                            </div>
 
-                        </Card>
+                        </div>
                     </Col>
                     <Col md={6}>
                         <SpecialitiesSection />

@@ -160,11 +160,16 @@ const Questionnaire = ({ match }) => {
 
   const closeDialog = () => {
     setContinueClick(false);
-    history.push("/patient");
+    if (isNew === 'new') {
+      history.push("/patient");
+    }
+    else {
+      history.push("/patient/mydoctor");
+    }
   };
 
   return (
-    <Container>
+    <div className="container-fluid">
       <Row id="questionnaire-view" style={{ minHeight: "600px" }}>
         <Col md={6} id="questionnaire-view-bg"></Col>
         <Col
@@ -240,12 +245,12 @@ const Questionnaire = ({ match }) => {
               className="btn btn-primary"
               id="close-btn"
             >
-              OK
+              Connect with an Expert
             </button>
           </div>
         </DialogActions>
       </Dialog>
-    </Container>
+    </div>
   );
 };
 

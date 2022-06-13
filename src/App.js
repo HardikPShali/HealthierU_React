@@ -48,9 +48,9 @@ const App = () => {
       <PayPalScriptProvider
         options={{
           'client-id':
-            'AVQsrQWNO79AZmzitgrSy2bPd_r8YqYLOKVIGTkcWxbl6_oDKI-rQzDa60LBSYn7XOHStiiWy_u7bhJQ',
+            'AcH8aU79kD2tItN2vETkGYHZAnbiCAOwTNvNpVTUPSctfTiCSTLzgyXtXQNgIchyniPoP0D9Lg7vxP7N',
+          //AVQsrQWNO79AZmzitgrSy2bPd_r8YqYLOKVIGTkcWxbl6_oDKI-rQzDa60LBSYn7XOHStiiWy_u7bhJQ ------> client_id uae
           'currency': 'USD',
-          'intent': 'capture',
         }}
       >
         <Routes />

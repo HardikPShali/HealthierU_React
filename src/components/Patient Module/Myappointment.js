@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 //import Footer from './Footer'
 import './patient.css';
+import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import moment from 'moment';
 //import LocalStorageService from './../../util/LocalStorageService';
@@ -83,7 +85,7 @@ const Myappointment = (props) => {
   const localizer = momentLocalizer(moment);
   // const [currentPatient, setCurrentPatient] = useState({}); // no longer required delete future ady-delete
   const timeZone = momentTz.tz.guess();
-
+  let history = useHistory()
   // state for selectAppointment for delete operation
   const [selectedAppointment, setSelectedAppointment] = useState();
   //console.log("selectedAppointment  ::", selectedAppointment)
@@ -374,6 +376,8 @@ const Myappointment = (props) => {
       }
     );
 
+    // console.log({ response });
+
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
         // const upcomingArray = response.data.data.upcoming;
@@ -382,9 +386,10 @@ const Myappointment = (props) => {
 
         const completedAppointmentsArray = response.data.data.completed;
         setCompletedAppointment(completedAppointmentsArray);
-        console.log('completedAppointmentsArray', completedAppointmentsArray);
+        // console.log('completedAppointmentsArray', completedAppointmentsArray);
 
         const cancelledAppointmentsArray = response.data.data.cancelled;
+        console.log({ cancelledAppointmentsArray });
         setCancelledAppointment(cancelledAppointmentsArray);
       }
     }
@@ -394,31 +399,28 @@ const Myappointment = (props) => {
     const { currentPatient, doctorDetailsList } = props;
     setLoading(true);
     handleClose();
+    // console.log({ selectedAppointment })
     const payload = {
       id: selectedAppointment.id,
+      startTime: new Date(selectedAppointment.startTime).toISOString(),
+      endTime: new Date(selectedAppointment.endTime).toISOString(),
       patientId: selectedAppointment.patientId,
       doctorId: selectedAppointment.doctorId,
       type: 'DR',
       status: 'CANCELLED_BY_PATIENT',
-      remarks: selectedAppointment.remarks,
-      startTime: new Date(selectedAppointment.startTime).toISOString(),
-      endTime: new Date(selectedAppointment.endTime).toISOString(),
-      timeZone: timeZone,
+      unifiedAppointment: selectedAppointment.unifiedAppointment,
     };
     const res = await deleteAppointment(payload).catch((err) => {
       if (err.response.status === 500 || err.response.status === 504) {
         setLoading(false);
       }
     });
+    // console.log({ res });
     if (res?.status === 200 || res?.status === 201) {
-      firestoreService.sendCancelAppointmentToFirestoreMessage(
-        selectedAppointment,
-        'patient',
-        currentPatient,
-        doctorDetailsList
-      );
       getMyAppointmentList(currentPatient.id);
       handleClose();
+      toast.success("Appointment Cancelled");
+      history.go(0)
     }
     //})
   };
@@ -497,7 +499,7 @@ const Myappointment = (props) => {
                                       className="col-md-6 mb-2 mt-2"
                                       key={index}
                                     >
-                                      {console.log(appointment)}
+                                      {/* {console.log(appointment)} */}
                                       <div className="my-appointments-card">
                                         <div
                                           className="row align-items-start mb-2"
@@ -561,6 +563,7 @@ const Myappointment = (props) => {
                                   style={{
                                     textAlign: 'center',
                                     textShadow: 'none',
+                                    color: '#f6ceb4'
                                   }}
                                 >
                                   No Upcoming Appointments
@@ -816,7 +819,7 @@ const Myappointment = (props) => {
                 <div className="details-container">
                   <div className="details-wrapper">
                     <div className="details-content">
-                      {console.log(selectedAppointment)}
+                      {/* {console.log(selectedAppointment)} */}
                       <img src={selectedAppointment.doctor.picture} alt="" />
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}
@@ -892,8 +895,9 @@ const Myappointment = (props) => {
                     <div className="details-links">
                       <Link
                         to={{
-                          pathname: `/patient/help-and-support`,
-                          // state: SelectedPatient.patient,
+                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.unifiedAppointment.split("#")[1].replace("_", "-")}`,
+
+
                         }}
                       >
                         <div style={{ display: 'flex', alignItem: 'center' }}>
@@ -1025,7 +1029,7 @@ const Myappointment = (props) => {
                 <div className="details-container">
                   <div className="details-wrapper">
                     <div className="details-content">
-                      {console.log(selectedAppointment)}
+                      {/* {console.log(selectedAppointment)} */}
                       <img src={selectedAppointment.doctor.picture} alt="" />
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}
@@ -1287,7 +1291,7 @@ const Myappointment = (props) => {
                 <div className="details-container">
                   <div className="details-wrapper">
                     <div className="details-content">
-                      {console.log("selectedAPP", selectedAppointment)}
+                      {/* {console.log("selectedAPP", selectedAppointment)} */}
                       <img src={selectedAppointment.doctor.picture} alt="" />
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}

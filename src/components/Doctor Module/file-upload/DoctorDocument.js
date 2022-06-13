@@ -374,17 +374,16 @@ const DoctorDocument = (props) => {
                     <Tab eventKey="prescription" title="Prescription">
                         <br />
                         <div className="row">
-                            <div className="col-md-10"></div>
-                            <div className="col-md-2 text-right">
+                            <div className="col text-right">
                                 <button type="button" className="btn btn-primary"
                                     onClick={e => handlePrescriptionUploadShow()}>Add Prescription
                                 </button>
                             </div>
-                            <div className="col-md-3 text-left">
+                            {/* <div className="col-md-3 text-left">
                                 <button className="btn btn-primary btn-red btn-download-prescription" onClick={() => showDefaultPrescriptionDocument()}>
                                     <GetAppIcon /> Sample Prescription
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                         <br />
                         <div id="prescription-list">
