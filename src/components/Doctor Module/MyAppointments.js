@@ -423,6 +423,7 @@ const MyAppointments = (props) => {
     });
     if (res) {
       toast.success("Appointment Rescheduled successfully.");
+      history.go(0)
     }
   };
   const setNextAppointment = (id) => {
