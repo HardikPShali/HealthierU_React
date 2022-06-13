@@ -31,7 +31,7 @@ a.nav-link.active {
   align-items: center;
   text-decoration: none;
   font-size: 17px;
-  font-weight:500 ;
+  font-weight: 500;
 }
 
 .header-btn {
@@ -156,7 +156,6 @@ p#copyright-text {
   color: white;
 }
 
-
 p#lang-select {
   font-size: 12px;
   color: white;
@@ -167,7 +166,7 @@ p#lang-select {
   border-bottom: 1px solid;
   outline: none;
   box-shadow: none;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 div#social-icon {
@@ -243,7 +242,7 @@ img#store-icon {
   bottom: 0;
   width: 100%;
   padding: 10px 0;
-  font-family: "Avenir", sans-serif;
+  font-family: 'Avenir', sans-serif;
   z-index: 1;
 }
 
@@ -366,7 +365,7 @@ button.MuiButtonBase-root {
 }
 
 .card-body {
-  padding:1.2rem 10px !important;
+  padding: 1.2rem 10px !important;
   align-items: flex-end;
   display: flex;
   font-size: 17px;
@@ -681,7 +680,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 46%;
@@ -891,8 +890,8 @@ div.card-box {
 .patient-card_how-healthy-wrap {
   display: flex;
   flex-direction: column;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 }
 h2#signin-title {
   font-size: 2rem;
@@ -904,7 +903,7 @@ h2#signin-title {
 
 .sign-box p {
   margin-bottom: 5px;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 p.forget-text {

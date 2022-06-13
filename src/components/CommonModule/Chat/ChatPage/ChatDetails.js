@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import moment from "moment";
 import useRole from "../../../../custom-hooks/useRole";
 import { ROLES } from "../../../../util/configurations";
+import ChatIcon from '../../../../images/svg/notes-outline-icon.svg'
 
 
 const ChatDetails = ({
@@ -170,7 +171,7 @@ const ChatDetails = ({
                 className="notes-btn"
               // disabled={!enableChat}
               >
-                Notes
+                <img src={ChatIcon} alt='chat-icon' />
               </button>
             )
           }
