@@ -1223,7 +1223,7 @@ const MyDoctor = (props) => {
       <Container className="my-doctor">
         {/* /mobile-payment?firstName="nithi"&lastName="raj" */}
         {/* <Link
-          to={`/mobile-payment?s1Id=${slot1id}&s2Id=${slot2Id}&s1Sd=${slot1startTime}&s1Ed=${slot1endTime}&s2Sd=${slot12startTime}&s2Ed=${slot2endTime}&dId=${doctor.id}&uId=${currentPatient.userId}&fN=${currentPatient.firstName}&lN=${currentPatient.lastName}&em=${currentPatient.email}&r=${doctor.rate}&hR=${doctor.halfrate}&aId=${appointmentId}&aM=${appointentMode}rM=${remarks}&u=${urgency}`}
+          to={`/mobile-payment?uId=${currentPatient.userId}&fN=${currentPatient.firstName}&lN=${currentPatient.lastName}&em=${currentPatient.email}&r=${doctor.rate}&hR=${doctor.halfrate}&aId=${appointmentId}&aM=${appointentMode}`}
         >
           Pay here
         </Link> */}

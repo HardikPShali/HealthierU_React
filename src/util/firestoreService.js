@@ -72,6 +72,8 @@ export const getFirebaseToken = async (setTokenFound) => {
       setTokenFound(true);
       localStorage.setItem('firebaseToken', currentToken);
       fcmTokenApiHandler(currentToken);
+      const messageListener = await onMessageListener()
+      console.log({ messageListener });
     }
     else {
       setTokenFound(false);
@@ -87,7 +89,7 @@ export const onMessageListener = () => {
   initializeFirestore();
   const messaging = firebase.messaging();
 
-  new Promise(resolve => {
+  return new Promise(resolve => {
     messaging.onMessage(payload => {
       console.log({ payload });
       resolve(payload);
