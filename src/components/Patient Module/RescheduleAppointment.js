@@ -812,6 +812,7 @@ const RescheduleAppointment = (props) => {
             //     doctor,
             //     props
             // );
+            toast.success("Appointment Rescheduled.");
             props.history.push('/patient/myappointment');
         }
     };
@@ -1250,9 +1251,9 @@ const RescheduleAppointment = (props) => {
     // AVAILABLE SLOTS OF A DOCTOR
     const [rescheduleMode, setRescheduleMode] = useState("")
     const getAvailableSlotsOfDoctors = async (id, type) => {
-        const state = props.location.state;
-        setRescheduleMode(state.unifiedAppointment.split("#")[1]
-            .replace("_", " "))
+        const state = params.type;
+        console.log("state", state);
+        setRescheduleMode(state)
         if (id) {
             const response = await getAvailableSlotsForMyDoctors(
                 id,
@@ -1260,7 +1261,7 @@ const RescheduleAppointment = (props) => {
             ).catch((err) => console.log({ err }));
             // console.log({ response })
             setAvailableSlotsDisplay(response.data);
-            console.log({ availableSlotsDisplay });
+            console.log("availableSlotsDisplay", { availableSlotsDisplay });
         }
         return null;
     };
@@ -2298,7 +2299,7 @@ const RescheduleAppointment = (props) => {
                                                             <MenuItem value="">
                                                                 <em>Select</em>
                                                             </MenuItem>
-                                                            {rescheduleMode === 'FOLLOW_UP' ? <MenuItem value="FOLLOW_UP">
+                                                            {rescheduleMode === 'FOLLOW-UP' ? <MenuItem value="FOLLOW_UP">
                                                                 Follow up(30 Mins)
                                                             </MenuItem> : <MenuItem value="FIRST_CONSULTATION">
                                                                 Consultation(1 Hr)
@@ -2398,7 +2399,7 @@ const RescheduleAppointment = (props) => {
                                                         <div
                                                             style={{ textAlign: 'center', marginTop: '50%' }}
                                                         >
-                                                            No slots available for consultation.
+                                                            Only Follow Up Consultation is Available.
                                                         </div>
                                                     ) : (
                                                         <div
