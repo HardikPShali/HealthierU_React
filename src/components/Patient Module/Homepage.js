@@ -62,10 +62,10 @@ function patientHomePage() {
                         <div id="patient-card">
                             <div className="patient-card_text col-md-6">
                                 <div className="patient-card_how-healthy-wrap">
-                                    <h2>How healthy are you?</h2>
+                                    <h3 style={{ marginLeft: 15 }}>How healthy are you?</h3>
                                     <Link to="/patient/questionnaire/existing" style={{ marginRight: 20 }}>
                                         <button variant="primary" className="btn btn-primary assessment-btn">
-                                            Take my assessment
+                                            Take Assessment
                                         </button>
                                     </Link>
                                 </div>
