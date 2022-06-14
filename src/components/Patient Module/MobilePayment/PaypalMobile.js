@@ -17,12 +17,7 @@ const PaypalMobile = (props) => {
     const location = useLocation();
 
     const sendDataToAndroid = (content) => {
-        JSBridge.call('onOrderSuccess', {
-            title: 'title',
-            msg: content
-        }, function (ret) {
-            console.log(JSON.stringify(ret))
-        })
+        JSBridge.sendOrderData(content);
     }
 
     // const appointmentService = async (id) => {
