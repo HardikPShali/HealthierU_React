@@ -57,7 +57,8 @@ const PaypalMobile = (props) => {
 
         // window.android.onPaymentStatusChange(true);
         orderData.slotId = appointmentIdParams;
-        window.android.sendOrderData(orderData);
+        const data = JSON.stringify(orderData);
+        window.android.sendOrderData(data);
 
         // if (JSBridge) {
         //     sendDataToAndroid(orderData);
