@@ -52,6 +52,9 @@ const PaypalMobile = (props) => {
     let halfRateParams = searchParams.get('hR');
 
     const bookAppointment = async (orderData) => {
+        alert('Book Appointment accessed')
+        console.log('Book Appointment accessed')
+
         if (JSBridge) {
             sendDataToAndroid(orderData);
         }
