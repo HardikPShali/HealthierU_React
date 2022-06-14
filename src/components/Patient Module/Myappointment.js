@@ -522,7 +522,7 @@ const Myappointment = (props) => {
                                               <h5 className="my-appointments-card__doctor-name">
                                                 {appointment.doctor.firstName +
                                                   ' ' +
-                                                  appointment.doctor.lastName}
+                                                  (appointment.doctor.lastName || "")}
                                               </h5>
                                               <span className="my-appointments-card__specality">
                                                 {appointment.doctor &&
@@ -612,7 +612,7 @@ const Myappointment = (props) => {
                                             <h5 className="my-appointments-card__doctor-name">
                                               {appointment.doctor.firstName +
                                                 ' ' +
-                                                appointment.doctor.lastName}
+                                                (appointment.doctor.lastName || "")}
                                             </h5>
                                             <span className="my-appointments-card__specality">
                                               {appointment.doctor &&
@@ -698,7 +698,7 @@ const Myappointment = (props) => {
                                             <h5 className="my-appointments-card__doctor-name">
                                               {appointment.doctor.firstName +
                                                 ' ' +
-                                                appointment.doctor.lastName}
+                                                (appointment.doctor.lastName || "")}
                                             </h5>
                                             <span className="my-appointments-card__specality">
                                               {appointment.doctor &&
@@ -823,7 +823,7 @@ const Myappointment = (props) => {
                       <img src={selectedAppointment.doctor.picture} alt="" />
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}
-                        {selectedAppointment.doctor.lastName}
+                        {(selectedAppointment.doctor.lastName || "")}
                       </h2>
                       <span>
                         <ul
@@ -1033,7 +1033,7 @@ const Myappointment = (props) => {
                       <img src={selectedAppointment.doctor.picture} alt="" />
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}
-                        {selectedAppointment.doctor.lastName}
+                        {selectedAppointment.doctor.lastName || ""}
                       </h2>
                       <span>
                         <ul
@@ -1295,7 +1295,7 @@ const Myappointment = (props) => {
                       <img src={selectedAppointment.doctor.picture} alt="" />
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}
-                        {selectedAppointment.doctor.lastName}
+                        {selectedAppointment.doctor.lastName || ""}
                       </h2>
                       <span>
                         <ul
