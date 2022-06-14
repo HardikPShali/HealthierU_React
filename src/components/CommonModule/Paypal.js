@@ -126,7 +126,7 @@ const Paypal = (props) => {
             };
             bookappointment(orderData);
           },
-          onCancel: function (data) {
+          onCancel: (data) => {
             // Show a cancel page, or return to MyDoctors
             console.log(data);
             handleCancel();
@@ -163,7 +163,13 @@ const Paypal = (props) => {
         <DialogActions>
           <button
             autoFocus={false}
-            onClick={() => history.go(0)}
+            onClick={() => {
+              if(window.android) {
+                window.android.onPaymentStatusChange(false);
+              } else {
+                history.go(0)
+              }
+            } }
             className="btn btn-primary"
             id="close-btn"
           >
