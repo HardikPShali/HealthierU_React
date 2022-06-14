@@ -1010,6 +1010,7 @@ const Myappointment = (props) => {
                                                                                                         ' ' +
                                                                                                         appointment.patient.lastName
                                                                                                     }
+                                                                                                    className="my-appointment-avatar"
                                                                                                     size={60}
                                                                                                 />
                                                                                             )}
@@ -1214,6 +1215,7 @@ const Myappointment = (props) => {
                                                                                                         ' ' +
                                                                                                         appointment.patient.lastName
                                                                                                     }
+                                                                                                    className="my-appointment-avatar"
                                                                                                     size={60}
                                                                                                 />
                                                                                             )}
