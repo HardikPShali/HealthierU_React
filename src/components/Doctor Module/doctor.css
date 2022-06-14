@@ -3421,9 +3421,12 @@ button.reset-btn {
   padding: 0.5em 1.5em;
   margin-top: 0.5em;
   transition: 0.3s all;
-
 }
 .selected_time:hover {
+  background-color: var(--primarysecond);
+  cursor: pointer;
+}
+.select-time.active {
   background-color: var(--primarysecond);
 }
 .days-wrapper {
@@ -3528,6 +3531,8 @@ label.day-wrapper:hover {
 .selected-day-container h5, .selected-time-container h5{
   font-weight: 400;
   margin-bottom: 1rem;
+  color: #3e4543;
+  font-size: 1.1rem;
 }
 .selected-days h5 {
   color: #3e4543;
