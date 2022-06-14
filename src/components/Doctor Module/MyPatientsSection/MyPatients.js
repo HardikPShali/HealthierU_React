@@ -196,7 +196,7 @@ const MyPatients = (props) => {
     }
 
     return (
-        <div>
+        <div className="bg-grey">
             {loading && <Loader />}
             <Container>
                 <Row>
