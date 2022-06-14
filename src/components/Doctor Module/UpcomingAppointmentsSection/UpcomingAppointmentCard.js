@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import home2 from "../../../images/home-2.png";
 import moment from "moment";
-import calendarSmall from "../../../images/svg/calendar-small.svg";
-import timeSmall from "../../../images/svg/time-small.svg";
+import calendarSmall from "../../../images/svg/calender-beige.svg";
+import timeSmall from "../../../images/svg/time-teal.svg";
 import useRole from "../../../custom-hooks/useRole";
 import { ROLES } from "../../../util/configurations";
 
