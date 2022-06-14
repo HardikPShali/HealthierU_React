@@ -529,7 +529,7 @@ const MyAppointments = (props) => {
                                             name={
                                               details.patient.firstName +
                                               " " +
-                                              details.patient.lastName
+                                              (details.patient.lastName || "")
                                             }
                                             size={60}
                                             className="my-appointment-avatar"
@@ -626,7 +626,7 @@ const MyAppointments = (props) => {
                                             name={
                                               details.patient.firstName +
                                               " " +
-                                              details.patient.lastName
+                                              (details.patient.lastName || "")
                                             }
                                             size={60}
                                             className="my-appointment-avatar"
@@ -737,7 +737,7 @@ const MyAppointments = (props) => {
                                   name={
                                     SelectedPatient.patient.firstName +
                                     " " +
-                                    SelectedPatient.patient.lastName
+                                    (SelectedPatient.patient.lastName || "")
                                   }
                                   size="140"
                                   className="my-patient-avatar"
@@ -828,7 +828,7 @@ const MyAppointments = (props) => {
                                   SelectedPatient.patient &&
                                   SelectedPatient.patient.firstName +
                                   " " +
-                                  SelectedPatient.patient.lastName}
+                                  (SelectedPatient.patient.lastName || "")}
                               </b>
                               <br />
                               {age} Years Old

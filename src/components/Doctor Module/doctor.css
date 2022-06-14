@@ -565,7 +565,7 @@ input#doctor-search {
 
 .appointment-card-header {
   margin-left: 5px;
-  color: #344767;
+  color: #3E4543;
   font-weight: 400;
   text-shadow: none;
   font-size: 28px;
@@ -1150,7 +1150,7 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #5fccc8;
+  background: #5FCCC8;
   margin: 0.5rem;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
@@ -1168,14 +1168,14 @@ table#user-info {
   overflow: hidden;
   border-radius: 0.5em;
   text-decoration: none;
-  background: #f5f5f5;
+  background: #FFC9AE;
   margin: 0.5rem;
   padding: 0.75em 0.8em;
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
 }
 
 .appointment-count-h3 {
-  color: #3e4543;
+  color: #ffffff;
   font-size: 2.5em;
   font-weight: 400;
   line-height: 1;
@@ -1185,7 +1185,7 @@ table#user-info {
 }
 
 .appointment-count-h3 {
-  color: #3e4543;
+  color: #ffffff;
   font-size: 3.5em;
   font-weight: 400;
   line-height: 1;
@@ -1195,7 +1195,7 @@ table#user-info {
 }
 
 .appointment-count-h4 {
-  color: #3e4543;
+  color: #ffffff;
   text-transform: uppercase;
   font-size: 1.2rem;
   font-weight: 400;
@@ -1206,7 +1206,7 @@ table#user-info {
 }
 
 .appointment-count-title {
-  color: #3a3845;
+  color: #ffffff;
   font-size: 20px;
   font-weight: 600;
   padding-left: 15px;
