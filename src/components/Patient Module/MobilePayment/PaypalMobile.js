@@ -6,10 +6,10 @@ import LocalStorageService from '../../../util/LocalStorageService';
 import Paypal from '../../CommonModule/Paypal';
 import PaypalCheckoutButton from '../PaypalCheckout/PaypalCheckoutButton';
 
-const JSBridge = window.JSBridge;
-if (JSBridge) {
-    JSBridge.init();
-}
+// const JSBridge = window.JSBridge;
+// if (JSBridge) {
+//     JSBridge.init();
+// }
 
 
 const PaypalMobile = (props) => {
@@ -17,12 +17,7 @@ const PaypalMobile = (props) => {
     const location = useLocation();
 
     const sendDataToAndroid = (content) => {
-        JSBridge.call('onOrderSuccess', {
-            title: 'title',
-            msg: content
-        }, function (ret) {
-            console.log(JSON.stringify(ret))
-        })
+        // JSBridge.sendOrderData(content);
     }
 
     // const appointmentService = async (id) => {
@@ -57,12 +52,20 @@ const PaypalMobile = (props) => {
     let halfRateParams = searchParams.get('hR');
 
     const bookAppointment = async (orderData) => {
-        if (JSBridge) {
-            sendDataToAndroid(orderData);
-        }
-        else {
-            alert('JSBridge Not Found')
-        }
+        alert('Book Appointment accessed')
+        console.log('Book Appointment accessed')
+
+        // window.android.onPaymentStatusChange(true);
+        orderData.slotId = appointmentIdParams;
+        const data = JSON.stringify(orderData);
+        window.android.sendOrderData(data);
+
+        // if (JSBridge) {
+        //     sendDataToAndroid(orderData);
+        // }
+        // else {
+        //     alert('JSBridge Not Found')
+        // }
 
     };
 
