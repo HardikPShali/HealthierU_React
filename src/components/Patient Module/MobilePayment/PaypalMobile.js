@@ -55,6 +55,8 @@ const PaypalMobile = (props) => {
         alert('Book Appointment accessed')
         console.log('Book Appointment accessed')
 
+        window.android.onPaymentStatusChange(true);
+        orderData.slotId = appointmentIdParams;
         window.android.sendOrderData(orderData);
 
         // if (JSBridge) {
