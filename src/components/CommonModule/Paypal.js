@@ -4,6 +4,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import { useHistory } from 'react-router';
+import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 
 const Paypal = (props) => {
   const { bookappointment, email, firstName, lastName, rate, halfRate, userId, appointmentId, appointmentMode } = props;
@@ -129,9 +130,15 @@ const Paypal = (props) => {
             // Show a cancel page, or return to MyDoctors
             console.log(data);
             handleCancel();
+            if (window.android) {
+              window.android.onPaymentStatusChange(false);
+            }
           },
           onError: (err, a) => {
             console.log(err);
+            if (window.android) {
+              window.android.onPaymentStatusChange(false);
+            }
           },
         })
         .render(paypalButton.current);
