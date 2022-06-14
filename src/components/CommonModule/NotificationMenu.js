@@ -1,8 +1,36 @@
-import React from "react";  //useEffect, useState 
+import React, { useState, useEffect } from "react";  //useEffect, useState 
 import { NavLink } from "react-router-dom"; //Link
+import rightIcon from "../../images/svg/right-icon.svg";
+// import { getFirebaseToken } from "../../util/firebaseCloudMessages";
+import { getFirebaseToken, getPermissions } from "../../util";
+
 
 const NotificationMenu = (props) => {
   const { unReadMessageList, detailsList, module } = props;
+  const [tokenFound, setTokenFound] = useState(false);
+
+  console.log({ tokenFound });
+
+  useEffect(() => {
+    let data;
+    const tokenFunction = async () => {
+      data = await getFirebaseToken(setTokenFound);
+      if (data) {
+        console.log({ data });
+      }
+      return data;
+    }
+
+    const getPermission = async () => {
+      const permission = await getPermissions();
+      if (permission === 'granted') {
+        tokenFunction();
+      }
+    }
+    getPermission()
+
+
+  }, [])
 
   const totalUnreadMessage = () =>
     Object.values(unReadMessageList).length &&
@@ -34,14 +62,16 @@ const NotificationMenu = (props) => {
     );
   };
 
+  // messageHandle();
+
   return (
     <>
       <div className="dropdown-title" style={{ paddingLeft: "10px" }}>
-        Unread Messages
+        Notifications
       </div>
       <hr />
       <div className="d-flex flex-column">
-        {Object.keys(unReadMessageList).map((key, i) => (
+        {/* {Object.keys(unReadMessageList).map((key, i) => (
           <NavLink
             to={`/${module}/chat?chatgroup=${key}`}
             className="d-flex flex-column p-2 text-dark align-items-stretch"
@@ -69,7 +99,41 @@ const NotificationMenu = (props) => {
               i
             )}
           </NavLink>
-        ))}
+        ))} */}
+        {
+          // Object.keys(unReadMessageList).map((key, i) => (
+          //   <NavLink
+          //     to={`/${module}/chat?chatgroup=${key}`}
+          //     className="d-flex flex-column text-dark"
+          //     key={i}
+          //   >
+          <div className="notif-section">
+            <div className='profile-img col-md-3'>
+              <img alt='profile' style={{
+                height: 40,
+                width: 40,
+                borderRadius: "50%"
+              }} />
+            </div>
+            <div className="notif-section__message">
+              <div className="message-notif">
+                <span>You have an appointment with Fistname Lastname.</span>
+                <span>TIME</span>
+              </div>
+            </div>
+            <div className="notif-section__arrow">
+              <img
+                src={rightIcon}
+                alt="right-icon"
+                style={{ marginRight: "15px" }}
+                className='ml-2'
+              />
+            </div>
+          </div>
+          //     </NavLink>
+          //   ))
+        }
+
       </div>
     </>
   );

@@ -619,7 +619,7 @@ button.btn.btn-outline-primary.sign-btn {
 }
 
 .text-divider:before {
-  content: " ";
+  content: ' ';
   display: block;
   border-bottom: 1px solid var(--primary);
 }
@@ -1298,7 +1298,7 @@ button {
 }
 
 #our-services h5:before {
-  content: "\2022";
+  content: '\2022';
   position: absolute;
   left: -5px;
 }
@@ -1600,7 +1600,7 @@ ul.light {
   flex-grow: 1;
 }
 .our_partners-vr-line {
-  content: "";
+  content: '';
   height: 4rem;
   margin: 0 2rem;
   border-right: 2px solid grey;
@@ -1825,7 +1825,7 @@ ul.light {
 .mobile_nav-header .menu-icon .navicon:before,
 .mobile_nav-header .menu-icon .navicon:after {
   background: #333;
-  content: "";
+  content: '';
   display: block;
   height: 100%;
   position: absolute;
@@ -2347,4 +2347,8 @@ ul.light {
   .web-navigation-wrapper {
     display: none;
   }
+}
+
+.signup-box-helper {
+  width: 90% !important;
 }

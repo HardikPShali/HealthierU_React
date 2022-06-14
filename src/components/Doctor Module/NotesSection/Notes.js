@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { uploadNote } from "../../../service/frontendapiservices";
-import { Button } from "react-bootstrap";
 import backIcon from '../../../images/svg/arrow-left.svg';
+import { ToastContainer, toast } from "react-toastify";
+
 
 import './Notes.css'
 
-const Notes = ({ onClose }) => {
+const Notes = ({ onClose, selectedChatNote }) => {
+
+    console.log({ selectedChatNote })
+
+    const { patientInfo, doctorInfo, latestAppointment } = selectedChatNote;
 
 
     const [notes, setNotes] = useState({
@@ -47,9 +52,9 @@ const Notes = ({ onClose }) => {
             vitalSigns: notes.vitalSigns,
             physicalExam: notes.physicalExam,
             planAssessment: notes.planAssessment,
-            // patientId: id,
-            // doctorId: currentDoctor.id,
-            // appointmentId: patientDetailsList[currentSelectedGroup].appointmentDetails,
+            patientId: patientInfo.id,
+            doctorId: doctorInfo.id,
+            appointmentId: latestAppointment.id
         }
 
         // console.log("Note", note);
@@ -59,6 +64,19 @@ const Notes = ({ onClose }) => {
         })
 
         console.log(noteResponse);
+        if (noteResponse.status === 200) {
+            toast.success(`Notes Added Successfully`, {
+                position: 'top-right',
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            onClose();
+        }
+
     }
     return (
         <div className="notes-section">
@@ -66,13 +84,14 @@ const Notes = ({ onClose }) => {
                 <Row>
                     <Col md={2}></Col>
                     <Col md={8} className='notes-column'>
-                        <Button
+                        <button
+                            className='btn'
                             variant="primary"
                             onClick={onClose}
-                            style={{ borderRadius: '48%', marginBottom: '5px' }}
+                            style={{ borderRadius: '50%', marginBottom: '5px' }}
                         >
                             <img src={backIcon} alt='icon' />
-                        </Button>
+                        </button>
 
                         <form onSubmit={(e) => sendNotesDetails(e)}>
                             <div className="form-group">
@@ -135,7 +154,19 @@ const Notes = ({ onClose }) => {
                                 type="submit"
                                 value="ADD NOTE"
                             />
+
                         </form>
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={1000}
+                            hideProgressBar
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                        />
                     </Col>
                 </Row>
 

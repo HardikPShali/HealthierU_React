@@ -180,8 +180,8 @@ const Header = (props) => {
           {/* ```<NavLink to="#search">
             <SearchIcon id="search-icon" />
           </NavLink>``` */}
-
-          {unReadMessageCount > 0 && (
+          {/* unReadMessageCount > 0 && */}
+          {(
             <div className="dropdown headerNavbar notification-Navbar">
               <IconButton
                 aria-label="show 17 new notifications"
@@ -195,7 +195,7 @@ const Header = (props) => {
               </IconButton>
               <div
                 className="dropdown-menu notification-Menu"
-                style={{ width: '200px' }}
+                style={{ width: '280px' }}
               >
                 <NotificationMenu
                   unReadMessageList={unReadMessageList}
