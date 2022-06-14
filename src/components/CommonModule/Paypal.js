@@ -43,6 +43,7 @@ const Paypal = (props) => {
           //   size: 'responsive',
           // },
           createOrder: function (data, actions, err) {
+            console.log('CreateOrder accessed')
             return actions.order.create({
               intent: 'CAPTURE',
               payer: {
@@ -80,6 +81,7 @@ const Paypal = (props) => {
             });
           },
           onApprove: async (data, actions, a) => {
+            console.log('OnApprove accessed')
             const order = await actions.order.capture();
             const {
               id: paymentId,
