@@ -272,7 +272,7 @@ const MyPatients = (props) => {
                                                                                         name={
                                                                                             details.patient.firstName +
                                                                                             ' ' +
-                                                                                            details.patient.lastName
+                                                                                            (details.patient.lastName || "")
                                                                                         }
                                                                                         size={60}
                                                                                         className="my-appointment-avatar"
@@ -284,7 +284,7 @@ const MyPatients = (props) => {
                                                                                     <b>
                                                                                         {details.patient.firstName +
                                                                                             ' ' +
-                                                                                            details.patient.lastName}
+                                                                                            (details.patient.lastName || "")}
                                                                                     </b>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span-consult">
@@ -373,7 +373,7 @@ const MyPatients = (props) => {
                                                                                         name={
                                                                                             details.patient.firstName +
                                                                                             ' ' +
-                                                                                            details.patient.lastName
+                                                                                            (details.patient.lastName || "")
                                                                                         }
                                                                                         size={60}
                                                                                         className="my-appointment-avatar"
@@ -385,7 +385,7 @@ const MyPatients = (props) => {
                                                                                     <b>
                                                                                         {details.patient.firstName +
                                                                                             ' ' +
-                                                                                            details.patient.lastName}
+                                                                                            (details.patient.lastName || "")}
                                                                                     </b>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span-consult">
@@ -484,7 +484,7 @@ const MyPatients = (props) => {
                                                                     name={
                                                                         SelectedPatient.patient.firstName +
                                                                         ' ' +
-                                                                        SelectedPatient.patient.lastName
+                                                                        (SelectedPatient.patient.lastName || "")
                                                                     }
                                                                     size="113"
                                                                     className="my-patient-avatar"
