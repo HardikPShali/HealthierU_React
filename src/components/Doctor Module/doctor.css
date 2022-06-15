@@ -118,7 +118,7 @@ svg#search-icon {
     margin: 4px 0;
   }
 
-  .MuiIconButton-root[aria-label="show 17 new notifications"] {
+  .MuiIconButton-root[aria-label='show 17 new notifications'] {
     padding: 0;
   }
 }
@@ -751,7 +751,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 46%;
@@ -2308,7 +2308,7 @@ div.reply .messageBody span.messageTime {
 }
 
 .list--tags > li:before {
-  content: ",\0000a0";
+  content: ',\0000a0';
   /* Non-breaking space */
 }
 
@@ -2455,16 +2455,16 @@ Health Assessment
 }
 
 .rbc-time-slot.active:after {
-  content: "click here to create slot";
+  content: 'Create Slot';
   position: absolute;
   background: #00d0ce;
   color: #fff;
-  width: 165px;
+  width: 130px;
   display: none;
   border-radius: 7px;
   padding: 4px 10px;
   z-index: 5;
-  left: -76px;
+  /* left: -20px; */
   font-size: 12px;
 }
 
@@ -2568,7 +2568,7 @@ Health Assessment
 }
 
 span.followupColor:before {
-  content: "";
+  content: '';
   width: 20px;
   height: 10px;
   background: #4f80e2;
@@ -2584,7 +2584,7 @@ span.followupColor {
 }
 
 span.consultationColor:before {
-  content: "";
+  content: '';
   width: 20px;
   height: 10px;
   background: #3157a3;
@@ -2600,7 +2600,7 @@ span.consultationColor {
 }
 
 span.availableColor:before {
-  content: "";
+  content: '';
   width: 20px;
   height: 10px;
   background: #00d1cd;
@@ -3522,7 +3522,7 @@ label.day-wrapper:hover {
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .day-wrapper .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
@@ -3596,7 +3596,7 @@ label.day-wrapper:hover {
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 23px;
   width: 24px;
   left: 0px;
