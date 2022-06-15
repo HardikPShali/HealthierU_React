@@ -455,14 +455,14 @@ const MyAppointments = (props) => {
     );
   };
   return (
-    <div>
+    <div className="bg-grey">
       {loading && <Loader />}
       <Container>
         <Row>
           <Col lg={6} md={6} id="col">
             <div id="patient-col-1">
               <div id="patient-heading">My Appointments</div>
-              <div className="d-flex mt-2 justify-content-between">
+              <div className="d-flex mt-2">
                 <SearchBarComponent updatedSearch={handleSearchInputChange} />
                 <FilterComponent updatedFilter={handleFilterChange} />
               </div>

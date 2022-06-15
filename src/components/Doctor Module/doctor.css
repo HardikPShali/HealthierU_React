@@ -3094,7 +3094,7 @@ button.reset-btn {
   font-size: 1.1rem;
   line-height: 22px;
   /* color: var(--primarysecond); */
-  color: #00771c;
+  color: #005514;
   margin-bottom: 2px;
   text-transform: capitalize;
   margin-top: 5px;
@@ -3332,8 +3332,10 @@ button.reset-btn {
 }
 
 .time-slot-container {
-  min-height: 50vh;
-  /* box-shadow: 0px 4px 4px rgb(0 0 0 / 7%); */
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+  border-radius: 18px;
+  padding: 2rem;
+  margin-bottom: 2rem;
 }
 .slot-time,
 .set-time-section {
@@ -3407,10 +3409,12 @@ button.reset-btn {
 }
 
 .close-btn-select img {
-  width: 15px;
+  width: 11px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  margin-left: 1rem;
 }
+
 .close-btn-select img:hover {
   transform: rotatez(88deg);
 }
@@ -3430,8 +3434,8 @@ button.reset-btn {
   align-items: center;
   border-radius: 8px;
   background-color: #00d0cc;
-  padding: 0.5em 1.5em;
-  margin-top: 0.5em;
+  padding: 0.5em;
+  margin: 0.2em;
   transition: 0.3s all;
 }
 .selected_time:hover {
@@ -3539,6 +3543,10 @@ label.day-wrapper:hover {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+.selected-time-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 .selected-day-container h5,
 .selected-time-container h5 {
