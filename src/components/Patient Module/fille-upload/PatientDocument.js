@@ -268,6 +268,7 @@ const PatientDocument = (props) => {
     const clickTabEvent = async (event) => {
         //let documents;
         // setLoading(true);
+        setMedicalRecordData([])
         if (event === 'labResult') {
             const labDocuments = await getPatientDocuments("LabResult", 0, patient && patient.id);
             setLabDocument(labDocuments)
@@ -396,10 +397,11 @@ const PatientDocument = (props) => {
     const [search, setSearch] = useState('');
     const [medicalRecordData, setMedicalRecordData] = useState([]);
     const [currentPatient, setCurrentPatient] = useState("");
+    const [isSearch, setIsSearch] = useState(false);
     const getGlobalPrescriptions = async (search, filter = {}) => {
         const currentPatient = cookies.get('profileDetails');
         setCurrentPatient({ ...currentPatient, patientId: currentPatient.id });
-
+        setPresecriptionDocument({ documentsList: null })
         const starttime = new Date();
         const endtime = new Date();
         const data = {
@@ -425,7 +427,15 @@ const PatientDocument = (props) => {
             }
         });
         if (responseTwo.status === 200 || responseTwo.status === 201) {
-            setPresecriptionDocument(responseTwo.data.data)
+            const res = []
+            const prepData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            if (res.length > 0) {
+                setIsSearch(true)
+            }
+            setMedicalRecordData(res)
             setCurrentPageNumber(1);
         }
     };
@@ -433,7 +443,7 @@ const PatientDocument = (props) => {
     const getGlobalLabResults = async (search, filter = {}) => {
         const currentPatient = cookies.get('profileDetails');
         setCurrentPatient({ ...currentPatient, patientId: currentPatient.id });
-
+        setLabDocument({ documentsList: null })
         const starttime = new Date();
         const endtime = new Date();
         const data = {
@@ -459,7 +469,15 @@ const PatientDocument = (props) => {
             }
         });
         if (responseTwo.status === 200 || responseTwo.status === 201) {
-            setLabDocument(responseTwo.data.data)
+            const res = []
+            const labData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
+            labData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            if (res.length > 0) {
+                setIsSearch(true)
+            }
+            setMedicalRecordData(res)
             setCurrentPageNumber(1);
         }
     };
@@ -561,9 +579,49 @@ const PatientDocument = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    No Documents
+                                    {isSearch === false && "No Documents"}
                                 </div>
                             )}
+                            {medicalRecordData ? (
+                                medicalRecordData.map(
+                                    (dataItem, subIndex) => {
+                                        return (
+
+                                            <div className="prescription-lab__card-box">
+                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                </h3>
+                                                <div className="card-holder">
+                                                    <div className="row">
+
+                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
+
+                                                            <PatientPrescriptionCard
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
+                                                                name={"Prescription"}
+                                                                docName={dataItem.doctorName}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showDocument(dataItem)}
+                                                            />
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )) : (
+
+                                <div
+                                    className="col-12 ml-2"
+                                    style={{ textShadow: 'none', color: '#3e4543' }}
+                                >
+                                    {isSearch === false && "No Documents"}
+                                </div>
+                            )
+                            }
                         </div>
                         <br />
                         <div> <Pagination size="sm" style={{ float: 'right' }}>
@@ -641,9 +699,50 @@ const PatientDocument = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    No Documents
+                                    {isSearch === false && "No Documents"}
                                 </div>
                             )}
+                            {medicalRecordData ? (
+                                medicalRecordData.map(
+                                    (dataItem, subIndex) => {
+                                        return (
+
+                                            <div className="prescription-lab__card-box">
+                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                </h3>
+                                                <div className="card-holder">
+                                                    <div className="row">
+
+                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
+
+                                                            <PrescriptionLabCard
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
+                                                                name={"Lab Result"}
+                                                                //apid={dataItem.id}
+                                                                docName={dataItem.labName}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showLabDocument(dataItem)}
+                                                            />
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )) : (
+
+                                <div
+                                    className="col-12 ml-2"
+                                    style={{ textShadow: 'none', color: '#3e4543' }}
+                                >
+                                    {isSearch === false && "No Documents"}
+                                </div>
+                            )
+                            }
                         </div>
                         <div>
                             <br />

@@ -172,28 +172,44 @@ const Healthassessment = (props) => {
     const clickPagination = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
         setPresecriptionDocument(null);
-
+        setMedicalRecordData(null)
         const prescriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             pageNumber - 1,
             doctor.id,
-            patient.id
+            patient
         );
-
+        const data = {
+            documentType: 'Prescription',
+            doctorId: doctor.id,
+            patientId: patient,
+            pageNo: pageNumber - 1
+        }
+        const response = await getGlobalMedicalRecordsSearch(data)
+        setMedicalRecordData(response.data.data.documentsList)
         setPresecriptionDocument(prescriptionDocument.data);
 
     };
     const clickPaginationForLab = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
-
+        setPresecriptionDocument(null);
+        setMedicalRecordData(null)
         const documents = await getDoctorPatientDocuments(
-            'Lab Result',
+            'LabResult',
             pageNumber - 1,
-            doctor.data.id,
-            patient.id
+            doctor.id,
+            patient
         );
 
-        setLabDocument(documents);
+        setLabDocument(documents.data);
+        const data = {
+            documentType: 'LabResult',
+            doctorId: doctor.id,
+            patientId: patient,
+            pageNo: pageNumber - 1
+        }
+        const response = await getGlobalMedicalRecordsSearch(data)
+        setMedicalRecordData(response.data.data.documentsList)
 
     };
 
@@ -306,8 +322,21 @@ const Healthassessment = (props) => {
 
         setLabDocument(labDocument);
     };
+    const clearAll = async () => {
+        setMedicalRecordData([])
+        const labDocument = await getDoctorPatientDocuments(
+            'LabResult',
+            0,
+            doctor.id,
+            patient
+        );
+
+        setLabDocument(labDocument.data);
+        console.log("clearAll", labDocument);
+    }
 
     const clickTabEvent = async (event) => {
+        setMedicalRecordData([])
         let documents;
         if (event === "labResult") {
             documents = await getDoctorPatientDocuments(
@@ -350,22 +379,21 @@ const Healthassessment = (props) => {
 
     function getFileExtension(filename) {
         // get file extension
-        console.log("filename", filename)
+        // console.log("filename", filename)
         const extension = filename.split('.').pop();
-        console.log("extension", extension)
+        //console.log("extension", extension)
         return extension;
-
-
     }
     //Search
     const [search, setSearch] = useState('');
     const [medicalRecordData, setMedicalRecordData] = useState([]);
     const [currentDoctor, setCurrentDoctor] = useState("");
     const [loading, setLoading] = useState(true);
+    const [isSearch, setIsSearch] = useState(false);
     const getGlobalPrescriptions = async (search, filter = {}) => {
         const currentDoctor = cookies.get('profileDetails');
         setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
-
+        setPresecriptionDocument({ documentsList: null })
         const starttime = new Date();
         const endtime = new Date();
         const data = {
@@ -381,6 +409,7 @@ const Healthassessment = (props) => {
             //labName: search,
             //id: "null"
         };
+
         if (filter.startTime && filter.startTime !== '') {
             data.startTime = filter.startTime;
         }
@@ -397,8 +426,17 @@ const Healthassessment = (props) => {
                 setLoading(false);
             }
         });
+
         if (responseTwo.status === 200 || responseTwo.status === 201) {
-            setPresecriptionDocument(responseTwo.data.data)
+            const res = []
+            const prepData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            if (res.length > 0) {
+                setIsSearch(true)
+            }
+            setMedicalRecordData(res)
             setCurrentPageNumber(1);
         }
     };
@@ -406,7 +444,8 @@ const Healthassessment = (props) => {
     const getGlobalLabResults = async (search, filter = {}) => {
         const currentDoctor = cookies.get('profileDetails');
         setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
-
+        setLabDocument({ documentsList: null })
+        console.log("labDocument", labDocument);
         const starttime = new Date();
         const endtime = new Date();
         const data = {
@@ -433,22 +472,32 @@ const Healthassessment = (props) => {
         if (filter.resultType && filter.resultType !== '') {
             data.resultType = filter.resultType;
         }
+        if (filter.startTime && filter.endTime && filter.resultType === '') {
+            clearAll()
+        }
         const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
             if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
                 setLoading(false);
             }
         });
         if (responseTwo.status === 200 || responseTwo.status === 201) {
-            setLabDocument(responseTwo.data.data)
+            const res = []
+            const labData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
+            labData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            if (res.length > 0) {
+                setIsSearch(true)
+            }
+            setMedicalRecordData(res)
             setCurrentPageNumber(1);
         }
     };
-    const handleFilterChange = (filter) => {
+    const handleFilterChange = async (filter) => {
         getGlobalLabResults(search, filter);
     };
     const handleSearchInputChange = (searchValue) => {
         if (searchValue === '') {
-            console.log('blank searchValue is | in SearchBarComponent', searchValue);
             getGlobalLabResults(searchValue)
         } else {
             getGlobalLabResults(searchValue);
@@ -541,9 +590,49 @@ const Healthassessment = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    No Documents
+                                    {isSearch === false && "No Documents"}
                                 </div>
                             )}
+                            {medicalRecordData ? (
+                                medicalRecordData.map(
+                                    (dataItem, subIndex) => {
+                                        return (
+
+                                            <div className="prescription-lab__card-box">
+                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                </h3>
+                                                <div className="card-holder">
+                                                    <div className="row">
+
+                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
+
+                                                        <PrescriptionLabCard
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
+                                                                name={"Prescription"}
+                                                                apid={appointmentID}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showDocument(dataItem)}
+                                                            />
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )) : (
+
+                                <div
+                                    className="col-12 ml-2"
+                                    style={{ textShadow: 'none', color: '#3e4543' }}
+                                >
+                                    {isSearch === false && "No Documents"}
+                                </div>
+                            )
+                            }
                         </div>
                         <br />
                         <div> <Pagination size="sm" style={{ float: 'right' }}>
@@ -560,15 +649,29 @@ const Healthassessment = (props) => {
 
                             }
                         </Pagination>
+                            <Pagination size="sm" style={{ float: 'right' }}>
+                                {
+                                    medicalRecordData?.totalPages ?
+                                        Array.from(Array(medicalRecordData.totalPages), (e, i) => {
+                                            return <Pagination.Item key={i + 1}
+                                                active={i + 1 === currentPageNumber ? true : false}
+                                                onClick={e => clickPagination(i + 1)}>
+                                                {i + 1}
+                                            </Pagination.Item>
+                                        })
+                                        : <span></span>
+
+                                }
+                            </Pagination>
                         </div>
                         <br />
                         <br />
 
 
-                        <div >
+                        {/* <div >
                             <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
                                 width="100%" />
-                        </div>
+                        </div> */}
                     </Tab>
                     <Tab eventKey="labResult" title="Lab Result" onSelect={clickTabEvent}>
                         <br />
@@ -584,6 +687,7 @@ const Healthassessment = (props) => {
                         <br />
 
                         <div>
+
                             {labDocument?.documentsList ? (
                                 labDocument?.documentsList.map(
                                     (dataItem, subIndex) => {
@@ -622,13 +726,13 @@ const Healthassessment = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    No Documents
+                                    {isSearch === false && "No Documents"}
                                 </div>
 
                             )}
 
-                            {/* {medicalRecordData?.documentsList &&
-                                medicalRecordData?.documentsList.map(
+                            {medicalRecordData ? (
+                                medicalRecordData.map(
                                     (dataItem, subIndex) => {
                                         return (
 
@@ -642,9 +746,9 @@ const Healthassessment = (props) => {
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
                                                             <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.name)}
+                                                                filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Lab Result"}
-                                                                apid={dataItem.id}
+                                                                docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showLabDocument(dataItem)}
@@ -657,8 +761,16 @@ const Healthassessment = (props) => {
                                             </div>
                                         );
                                     }
-                                )
-                            } */}
+                                )) : (
+
+                                <div
+                                    className="col-12 ml-2"
+                                    style={{ textShadow: 'none', color: '#3e4543' }}
+                                >
+                                    {isSearch === false && "No Documents"}
+                                </div>
+                            )
+                            }
                         </div>
                         <div>
                             <br />
@@ -674,10 +786,22 @@ const Healthassessment = (props) => {
 
                                 }
                             </Pagination>
+                            <Pagination size="sm" style={{ float: 'right' }}>
+                                {
+                                    medicalRecordData?.totalPages ?
+                                        Array.from(Array(medicalRecordData.totalPages), (e, i) => {
+                                            return <Pagination.Item key={i + 1} active={i + 1 === currentPageNumber}
+                                                onClick={e => clickPaginationForLab(i + 1)}>
+                                                {i + 1}
+                                            </Pagination.Item>
+                                        }) : <span></span>
+
+                                }
+                            </Pagination>
                         </div>
                         <br />
 
-                        <div >
+                        {/* <div >
 
                             {labDocumentUrl !== null || labDocumentUrl !== "" ?
                                 <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="100px"
@@ -685,7 +809,7 @@ const Healthassessment = (props) => {
                                 : <span></span>
                             }
 
-                        </div>
+                        </div> */}
                     </Tab>
                 </Tabs>
 
