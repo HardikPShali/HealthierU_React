@@ -51,7 +51,7 @@ const fcmTokenApiHandler = async (token) => {
   }
 
   const response = await sendFcmTokenToServer(data)
-  console.log({ response });
+  // console.log({ response });
 }
 
 export const getFirebaseToken = async (setTokenFound) => {
