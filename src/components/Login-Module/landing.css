@@ -1708,7 +1708,7 @@ ul.light {
   font-size: 1.35rem;
   font-weight: 400;
   margin-top: 2rem;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 .our_spl-section ul {
   padding-left: 20px;
