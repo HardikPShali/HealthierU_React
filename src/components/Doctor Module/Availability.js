@@ -86,6 +86,10 @@ const Availability = () => {
               <TimeRangePicker
                 className=" mt-1 mb-3"
                 amPmAriaLabel="Select AM/PM"
+                disableClock="true"
+                // required="true"
+                rangeDivider=" to "
+                // format={"hh:mm:ss a"}
                 value={value}
                 onChange={handleValue}
               />
@@ -94,7 +98,7 @@ const Availability = () => {
               <button onClick={saveTimeHandler}>Set Time</button>
             </div>
           </div>
-          <div className="times-container">
+        {times.time.length ? (  <div className="times-container">
             <h5>Select Time Slots</h5>
             <div className="selected-time-container">
               {times.time.map((timeData, timeIndex) => (
@@ -112,7 +116,7 @@ const Availability = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div>): <></>}
           {times.time.length ? (
             <div className="days-wrapper">
               {allDays.map((dayValue, dayIndex) => (
@@ -136,7 +140,7 @@ const Availability = () => {
           )}
         </Col>
         <Col sm={12} md={6} lg={6} xl={6}>
-          <div className="selected-day-container">
+          {allTimeSlot.length ? (<div className="selected-day-container">
             <h5>Select Time with Day Slots</h5>
             {allTimeSlot.map((eachTimes) => (
               <div className="selected-day-wrap">
@@ -156,7 +160,7 @@ const Availability = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div>): <></>}
         </Col>
       </Row>
     </Container>

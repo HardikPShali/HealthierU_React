@@ -16,8 +16,8 @@ import {
 import rightIcon from '../../../images/svg/right-icon.svg';
 import conHistory from '../../../images/icons used/Component 15.svg';
 import HealthAssessment from '../../../images/icons used/Component 16.svg';
-import calendarSmall from '../../../images/svg/calendar-small.svg';
-import timeSmall from '../../../images/svg/time-small.svg';
+import calendarSmall from '../../../images/svg/calender-beige.svg';
+import timeSmall from '../../../images/svg/time-teal.svg';
 import chatButtonIcon from '../../../images/svg/chat-button-icon.svg';
 
 
