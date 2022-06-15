@@ -9,11 +9,13 @@ const Availability = () => {
   const [times, setTimes] = useState({ time: [], days: [] });
   const [allTimeSlot, setAllTimeSlot] = useState([]);
 
+  //getting time input value
   const handleValue = (value) => {
-    console.log(value);
+    console.log("handleValue", value);
     setValue(value);
   };
 
+  //saving time value into newTimeObj as Object,
   const saveTimeHandler = () => {
     const newTimeObj = { ...times };
     newTimeObj.time.push({ from: value[0], to: value[1] });

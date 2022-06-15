@@ -64,6 +64,7 @@
   font-weight: 400;
   margin-bottom: 2px;
   text-transform: capitalize;
+  color: #3e4543;
 }
 
 .upcoming-appointment-card__common-span {
@@ -74,7 +75,7 @@
 }
 
 .upcoming-appointment-card__specality {
-  color: var(--text-secondary);
+  color: #3e4543;
   font-size: 12px;
   text-decoration: none;
   text-shadow: none;
