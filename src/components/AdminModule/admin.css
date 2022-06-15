@@ -430,11 +430,11 @@ ul.MuiGridList-root {
 }
 
 .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
-  width: 65%;
+  width: 100%;
   display: inline-flex;
   border-radius: 27px;
   box-shadow: none !important;
-  background: var(--primary);
+  background: #f8f8f8;
 }
 
 div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
