@@ -77,7 +77,7 @@
   text-decoration: none;
   text-shadow: none;
   font-weight: 500;
-  color: var(--primarysecond);
+  color: var(--text-primary);
 }
 
 .upcoming-appointment-card__specality {
