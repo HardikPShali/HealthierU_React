@@ -10,9 +10,6 @@
   text-shadow: 0px 0px 15px #000;
 }
 
-.our-doctor-card {
-}
-
 .our-doctors--main-header {
   margin-left: 10px;
   color: var(--text-primary);
@@ -25,10 +22,9 @@
   text-align: center;
 }
 
-.our-doctor__image {
-  width: 100%;
-  max-height: 150px;
-  border-radius: 10px;
+.doctor__image {
+  height: 180px;
+  width: 200px;
 }
 
 .our-doctor__card {
@@ -39,12 +35,12 @@
   min-height: 228px;
   box-shadow: 0px 9px 12px rgba(0, 0, 0, 0.08);
   cursor: pointer;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .our-doctor__card:hover {
   transform: translateY(-2px);
-  box-shadow: 4px 4px 14px rgba(0,0,0,0.09);
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 .our-doctor__details {
@@ -68,5 +64,5 @@
   font-size: 14px;
   font-weight: 400;
   color: var(--text-secondary);
-  margin: 0
+  margin: 0;
 }
