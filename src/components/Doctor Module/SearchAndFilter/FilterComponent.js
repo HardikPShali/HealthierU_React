@@ -51,6 +51,7 @@ const FilterComponent = (props) => {
 
             startTime: '',
             endTime: '',
+            resultType: ''
         });
         props.updatedFilter({});
     };
@@ -146,7 +147,7 @@ const FilterComponent = (props) => {
                                                 label="Include End Date."
                                             />
                                         </div>
-                                       
+
                                         <div className="col-md-12 col-xs-12">
                                             <p>Result Type:</p>
                                             <select
@@ -164,7 +165,7 @@ const FilterComponent = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <br/>
+                        <br />
                         <div className="filter-action">
                             <div className="row m-0 mt-1">
                                 <div className="col-md-6 col-6">
