@@ -277,6 +277,10 @@ img#store-icon {
   .footer-store-icons img {
     margin-left: 0;
   }
+  .tab-align {
+    align-items: center;
+    text-align: center;
+  }
   .footer-wellnes {
     text-align: center;
     font-size: 1rem;
