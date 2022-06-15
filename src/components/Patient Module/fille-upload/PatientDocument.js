@@ -638,6 +638,20 @@ const PatientDocument = (props) => {
 
                             }
                         </Pagination>
+                        <Pagination size="sm" style={{ float: 'right' }}>
+                            {
+                                medicalRecordData?.totalPages ?
+                                    Array.from(Array(medicalRecordData.totalPages), (e, i) => {
+                                        return <Pagination.Item key={i + 1}
+                                            active={i + 1 === currentPageNumber ? true : false}
+                                            onClick={e => clickPagination(i + 1)}>
+                                            {i + 1}
+                                        </Pagination.Item>
+                                    })
+                                    : <span></span>
+
+                            }
+                        </Pagination>
                         </div>
                         <div >
                             <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="100px"
@@ -758,6 +772,20 @@ const PatientDocument = (props) => {
 
                                 }
                             </Pagination>
+                            <Pagination size="sm" style={{ float: 'right' }}>
+                            {
+                                medicalRecordData?.totalPages ?
+                                    Array.from(Array(medicalRecordData.totalPages), (e, i) => {
+                                        return <Pagination.Item key={i + 1}
+                                            active={i + 1 === currentPageNumber ? true : false}
+                                            onClick={e => clickPagination(i + 1)}>
+                                            {i + 1}
+                                        </Pagination.Item>
+                                    })
+                                    : <span></span>
+
+                            }
+                        </Pagination>
                         </div>
                         <br />
 
