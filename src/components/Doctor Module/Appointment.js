@@ -467,6 +467,7 @@ const Myappointment = (props) => {
                 console.log('tomoArray:::::::::::::::', tomoArray);
             }
             setTomorrowAppointment(tomoArray)
+
             console.log('tomoArray:::::::::::::::', tomorrowAppointment);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
@@ -938,7 +939,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        return false;
+                                                                        // return <></>;
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1028,7 +1029,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                {/* return appointment; */}
+                                                                // return appointment;
                                                             })}
                                                         </div>
                                                     )}
@@ -1143,7 +1144,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        {/* return false; */}
+                                                                        // return false;
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1233,7 +1234,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                {/* return appointment; */}
+                                                                // return appointment;
                                                             })}
                                                         </div>
                                                     )}
