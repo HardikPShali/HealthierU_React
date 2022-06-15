@@ -16,7 +16,7 @@ const SearchBarComponent = ({ updatedSearch }) => {
     }
 
     return (
-        <div style={{ marginLeft: '15px' }}>
+        <div style={{ marginLeft: '15px', width: '100%', }}>
             <SearchBar
                 type="text"
                 value={searchText}

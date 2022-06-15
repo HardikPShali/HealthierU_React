@@ -1,15 +1,18 @@
-import './patient-document.css';
+import "./patient-document.css";
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Tab, Tabs } from 'react-bootstrap';
-import editIcon from '../../../images/Icons/edit icon_40 pxl.svg';
-import Pagination from 'react-bootstrap/Pagination'
+import { Button, Modal, Tab, Tabs } from "react-bootstrap";
+import editIcon from "../../../images/Icons/edit icon_40 pxl.svg";
+import Pagination from "react-bootstrap/Pagination";
 import { formatDate } from "../../questionnaire/QuestionnaireService";
-import { toast } from 'react-toastify';
-import { Form } from 'react-bootstrap';
-import PrescriptionLabCard from '../../Doctor Module/Prescription-Lab/PrescriptionLabCard';
-import PatientPrescriptionCard from '../../Doctor Module/Prescription-Lab/PatientPrescriptionCard';
-import '../../Doctor Module/Prescription-Lab/PrescriptionLab.css'
-import { getCurrentPatientInfo, getCurrentUserInfo } from "../../../service/AccountService";
+import { toast } from "react-toastify";
+import { Form } from "react-bootstrap";
+import PrescriptionLabCard from "../../Doctor Module/Prescription-Lab/PrescriptionLabCard";
+import PatientPrescriptionCard from "../../Doctor Module/Prescription-Lab/PatientPrescriptionCard";
+import "../../Doctor Module/Prescription-Lab/PrescriptionLab.css";
+import {
+    getCurrentPatientInfo,
+    getCurrentUserInfo,
+} from "../../../service/AccountService";
 import {
     validateEmail,
     getDocument,
@@ -22,31 +25,34 @@ import {
     //getPatientDetail,
     //getDocuments,
 } from "../../../service/DocumentService";
-import '../../Doctor Module/doctor.css'
-import moment from 'moment';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import TransparentLoader from '../../Loader/transparentloader';
-import CancelIcon from '@material-ui/icons/Cancel';
+import "../../Doctor Module/doctor.css";
+import moment from "moment";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import TransparentLoader from "../../Loader/transparentloader";
+import CancelIcon from "@material-ui/icons/Cancel";
 import { IconButton } from "@material-ui/core";
-import { getSearchData, getGlobalMedicalRecordsSearch } from '../../../service/frontendapiservices';
+import {
+    getSearchData,
+    getGlobalMedicalRecordsSearch,
+} from "../../../service/frontendapiservices";
 import Cookies from "universal-cookie";
-import SearchBarComponent from '../../Doctor Module/SearchAndFilter/SearchComponent'
-import PrescriptionFilter from '../../Doctor Module/SearchAndFilter/PrescriptionFIlter'
-import FilterComponent from '../../Doctor Module/SearchAndFilter/FilterComponent'
+import SearchBarComponent from "../../Doctor Module/SearchAndFilter/SearchComponent";
+import PrescriptionFilter from "../../Doctor Module/SearchAndFilter/PrescriptionFIlter";
+import FilterComponent from "../../Doctor Module/SearchAndFilter/FilterComponent";
 // import documentViewImage from '../../../images/icons used/document icon@2x.png';
 // import Footer from '../Footer';
 
 const PatientDocument = (props) => {
-
     useEffect(() => {
         loadDocuments();
+        setIsSearch(false)
     }, []);
     const cookies = new Cookies();
     const [loading, setLoading] = useState(false);
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
-    const [doctor, setDoctor] = useState('');
+    const [doctor, setDoctor] = useState("");
     const [patient, setPatient] = useState(null);
     const [showLabResultUpload, setShowLabResultUpload] = useState(false);
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
@@ -73,72 +79,71 @@ const PatientDocument = (props) => {
         duration: null,
         labName: "",
         decription: "",
-        labResultDocument: null
+        labResultDocument: null,
     });
     const [prescriptionResult, setPrescriptionResult] = useState({
         name: "",
         duration: null,
         decription: "",
         prescriptionDocument: null,
-
     });
 
     const [errorMsg, setErrorMsg] = useState("");
 
     //const [documentId, setDocumentId] = useState(null);
 
-
     const handleUploadLabResultShow = () => {
         setShowLabResultUpload(true);
         setLabResult(null);
         setDoctor(null);
-    }
+    };
 
     const handleUploadLabResultClosed = () => {
         setShowLabResultUpload(false);
         setErrorMsg("");
-    }
+    };
     const handleUploadPrescriptionClosed = () => {
         setShowPrescriptionUpload(false);
         setErrorMsg("");
-    }
-
-    const handleLabResultChange = e => {
-        if (e.target.type === "file") {
-            const fileSize = e.target.files[0].size;
-            console.log("fileSize ::", fileSize)
-            const maxSize = 1000000;
-            if (e.target.files[0].size <= maxSize) {
-                setErrorMsg("")
-                setLabResult({ ...labResult, labResultDocument: e.target.files[0] });
-            }
-            else {
-                document.getElementById("labResultDocument").value = "";
-                setErrorMsg("Please upload PDF file with size less than 1mb.")
-            }
-        }
-        else {
-            setLabResult({ ...labResult, [e.target.name]: e.target.value });
-        }
-
     };
 
-    const handlePrescriptionChange = e => {
+    const handleLabResultChange = (e) => {
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
-            console.log("fileSize ::", fileSize)
+            console.log("fileSize ::", fileSize);
             const maxSize = 1000000;
             if (e.target.files[0].size <= maxSize) {
-                setErrorMsg("")
-                setPrescriptionResult({ ...prescriptionResult, prescriptionDocument: e.target.value });
+                setErrorMsg("");
+                setLabResult({ ...labResult, labResultDocument: e.target.files[0] });
+            } else {
+                document.getElementById("labResultDocument").value = "";
+                setErrorMsg("Please upload PDF file with size less than 1mb.");
             }
-            else {
-                document.getElementById("prescriptionDocument").value = "";
-                setErrorMsg("Please upload PDF file with size less than 1mb.")
-            }
+        } else {
+            setLabResult({ ...labResult, [e.target.name]: e.target.value });
         }
-        else {
-            setPrescriptionResult({ ...prescriptionResult, [e.target.name]: e.target.value });
+    };
+
+    const handlePrescriptionChange = (e) => {
+        if (e.target.type === "file") {
+            const fileSize = e.target.files[0].size;
+            console.log("fileSize ::", fileSize);
+            const maxSize = 1000000;
+            if (e.target.files[0].size <= maxSize) {
+                setErrorMsg("");
+                setPrescriptionResult({
+                    ...prescriptionResult,
+                    prescriptionDocument: e.target.value,
+                });
+            } else {
+                document.getElementById("prescriptionDocument").value = "";
+                setErrorMsg("Please upload PDF file with size less than 1mb.");
+            }
+        } else {
+            setPrescriptionResult({
+                ...prescriptionResult,
+                [e.target.name]: e.target.value,
+            });
         }
     };
 
@@ -162,24 +167,27 @@ const PatientDocument = (props) => {
         // setSuggestion(matches);
     };
 
-
-
-
-
     const loadDocuments = async () => {
         // GET request using fetch with async/await
-        setLoading(true)
+        setLoading(true);
         const currentUser = await getCurrentUserInfo();
         console.log("patientInfo", currentUser);
         // const currentLoggedInUser = cookies.get("currentUser");
-        const patientInfo = await getCurrentPatientInfo(currentUser.data.userInfo.id, currentUser.data.userInfo.login);
-        setPatient(patientInfo.data)
+        const patientInfo = await getCurrentPatientInfo(
+            currentUser.data.userInfo.id,
+            currentUser.data.userInfo.login
+        );
+        setPatient(patientInfo.data);
 
-        const presecriptionDocument = await getPatientDocuments("Prescription", 0, patientInfo.data.id);
+        const presecriptionDocument = await getPatientDocuments(
+            "Prescription",
+            0,
+            patientInfo.data.id
+        );
         console.log("patientInfo.id", patientInfo);
         setPresecriptionDocument(presecriptionDocument);
-        setLoading(false)
-    }
+        setLoading(false);
+    };
 
     const handleLabResultSubmission = async (event) => {
         event.preventDefault();
@@ -191,27 +199,30 @@ const PatientDocument = (props) => {
             doctorId: doctor?.id,
             name: labResult?.resultName,
             resultType: labResult?.resultType,
-            labName: labResult?.labName
-
+            labName: labResult?.labName,
         };
 
         const formData = new FormData();
-        formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
-            type: "application/json"
-        }));
-        console.log("medicalDocumentInfo", JSON.stringify(medicalDocumentInfo))
-        formData.append("file", (labResult?.labResultDocument))
+        formData.append(
+            "medicalDocumentInfo",
+            new Blob([JSON.stringify(medicalDocumentInfo)], {
+                type: "application/json",
+            })
+        );
+        console.log("medicalDocumentInfo", JSON.stringify(medicalDocumentInfo));
+        formData.append("file", labResult?.labResultDocument);
         //console.log(data);
-        const response = await postDocumentAddPrescriptionLabResult(formData).catch(err => {
-            if (err.response.status === 400) {
-                setLoading(false);
-                setErrorMsg("Please upload the document in PDF format.");
+        const response = await postDocumentAddPrescriptionLabResult(formData).catch(
+            (err) => {
+                if (err.response.status === 400) {
+                    setLoading(false);
+                    setErrorMsg("Please upload the document in PDF format.");
+                } else if (err.response.status === 500) {
+                    setLoading(false);
+                    setErrorMsg("Please upload the document with size less than 1mb.");
+                }
             }
-            else if (err.response.status === 500) {
-                setLoading(false);
-                setErrorMsg("Please upload the document with size less than 1mb.");
-            }
-        });
+        );
         if (response) {
             toast.success("Lab Result successfully Uploaded.");
             setShowLabResultUpload(false);
@@ -221,7 +232,7 @@ const PatientDocument = (props) => {
 
         const labDocument = await getPatientDocuments("LabResult", 0, patient.id);
         setLabDocument(labDocument);
-    }
+    };
 
     const handlePrescriptionSubmission = async (event) => {
         event.preventDefault();
@@ -229,12 +240,11 @@ const PatientDocument = (props) => {
         setErrorMsg("");
         const data = new FormData(event.target);
         //console.log(data);
-        const response = await postDocument(data).catch(err => {
+        const response = await postDocument(data).catch((err) => {
             if (err.response.status === 400) {
                 setLoading(false);
                 setErrorMsg("Please upload the document in PDF format.");
-            }
-            else if (err.response.status === 500) {
+            } else if (err.response.status === 500) {
                 setLoading(false);
                 setErrorMsg("Please upload the document with size less than 1mb.");
             }
@@ -244,20 +254,23 @@ const PatientDocument = (props) => {
             setLoading(false);
             setErrorMsg("");
         }
-        const presecriptionDocument = await getPatientDocuments("Prescription", 0, patient.id);
+        const presecriptionDocument = await getPatientDocuments(
+            "Prescription",
+            0,
+            patient.id
+        );
         setPresecriptionDocument(presecriptionDocument);
-    }
-
+    };
 
     const showDocument = async (val) => {
         // const res = await getDocument(val);
         setPrescriptionDocumentUrl(val.documentUrl);
-    }
+    };
 
     const showLabDocument = async (val) => {
         // const res = await getDocument(val);
         setLabDocumentUrl(val.documentUrl);
-    }
+    };
 
     // const handlePrescriptionUploadShow = () => {
     //     setShowPrescriptionUpload(true);
@@ -268,37 +281,55 @@ const PatientDocument = (props) => {
     const clickTabEvent = async (event) => {
         //let documents;
         // setLoading(true);
-        if (event === 'labResult') {
-            const labDocuments = await getPatientDocuments("LabResult", 0, patient && patient.id);
-            setLabDocument(labDocuments)
+        setMedicalRecordData([])
+        if (event === "labResult") {
+            const labDocuments = await getPatientDocuments(
+                "LabResult",
+                0,
+                patient && patient.id
+            );
+            setLabDocument(labDocuments);
             setLoading(false);
         }
 
-        if (event === 'prescription') {
-            const presecriptionDocument = await getPatientDocuments("Prescription", 0, patient && patient.id);
+        if (event === "prescription") {
+            const presecriptionDocument = await getPatientDocuments(
+                "Prescription",
+                0,
+                patient && patient.id
+            );
             setPresecriptionDocument(presecriptionDocument);
             setLoading(false);
         }
 
-        setCurrentPageNumber(1)
-    }
-
+        setCurrentPageNumber(1);
+        setCurrentTab(event);
+    };
+    const [currentTab, setCurrentTab] = useState("prescription");
 
     const clickPagination = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
         setPresecriptionDocument(null);
-        const prescriptionDocument = await getPatientDocuments("Prescription", pageNumber - 1, patient.id);
+        const prescriptionDocument = await getPatientDocuments(
+            "Prescription",
+            pageNumber - 1,
+            patient.id
+        );
         setPresecriptionDocument(prescriptionDocument);
         //console.log(currentPageNumber)
-    }
+    };
 
     const clickPaginationForLab = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
 
-        const documents = await getPatientDocuments("LabResult", pageNumber - 1, patient.id);
+        const documents = await getPatientDocuments(
+            "LabResult",
+            pageNumber - 1,
+            patient.id
+        );
         setLabDocument(documents);
         //console.log(currentPageNumber)
-    }
+    };
 
     /* NOT REQUIRED AS A PATIENT SHOULD NOT BE ABLE TO EDIT ANY DOCUMENT SENT BY DOCTOR */
 
@@ -321,7 +352,7 @@ const PatientDocument = (props) => {
     //     }
     // }
 
-    const handleEditLabModal = async item => {
+    const handleEditLabModal = async (item) => {
         const payload = {
             id: item.id,
             patientId: item.patient.id,
@@ -329,16 +360,15 @@ const PatientDocument = (props) => {
         const res = await getDocumentById(payload);
         if (res && res.data) {
             if (res.data?.documentUrl !== "") {
-                setEditDocument(true)
-            }
-            else {
-                setEditDocument(false)
+                setEditDocument(true);
+            } else {
+                setEditDocument(false);
             }
             setLabResult(res.data);
             setShowLabResultUpload(true);
-            setDoctor(item.doctor)
+            setDoctor(item.doctor);
         }
-    }
+    };
 
     // FOR HEAL-52
     const [user, setUser] = useState([]);
@@ -353,28 +383,27 @@ const PatientDocument = (props) => {
                     // console.log('res.data.doctors', res.data.doctors);
                     setUser(res.data.doctors);
                 }
-            }
-            else {
-                setSearchText('');
+            } else {
+                setSearchText("");
                 setSuggestion([]);
             }
-        }
+        };
         loadUsers();
     }, []);
 
-    const onChangeHandler = text => {
+    const onChangeHandler = (text) => {
         let matches = [];
-        console.log('onChangehandler')
+        console.log("onChangehandler");
         if (text.length > 0) {
-            matches = user.filter(item => {
-                const regex = new RegExp(`${text}`, 'gi');
+            matches = user.filter((item) => {
+                const regex = new RegExp(`${text}`, "gi");
                 // console.log('text', text);
                 return item.email.match(regex);
             });
         }
         setSuggestion(matches);
         setSearchText(text);
-    }
+    };
 
     const onSuggestHandler = async (text) => {
         // setDoctor(null);
@@ -384,22 +413,21 @@ const PatientDocument = (props) => {
         setSearchText(data.firstName);
         // console.log('Text', data.firstName);
         setSuggestion([]);
-    }
+    };
     function getFileExtension(filename) {
         // get file extension
-        const extension = filename.split('.').pop();
+        const extension = filename.split(".").pop();
         return extension;
-
-
     }
     //Search
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState("");
     const [medicalRecordData, setMedicalRecordData] = useState([]);
     const [currentPatient, setCurrentPatient] = useState("");
+    const [isSearch, setIsSearch] = useState(false);
     const getGlobalPrescriptions = async (search, filter = {}) => {
-        const currentPatient = cookies.get('profileDetails');
+        const currentPatient = cookies.get("profileDetails");
         setCurrentPatient({ ...currentPatient, patientId: currentPatient.id });
-
+        setPresecriptionDocument({ documentsList: null })
         const starttime = new Date();
         const endtime = new Date();
         const data = {
@@ -408,32 +436,42 @@ const PatientDocument = (props) => {
             documentType: "Prescription",
             doctorName: search,
         };
-        if (filter.startTime && filter.startTime !== '') {
+        if (filter.startTime && filter.startTime !== "") {
             data.startTime = filter.startTime;
         }
-        if (filter.endTime && filter.endTime !== '') {
+        if (filter.endTime && filter.endTime !== "") {
             const endtime = new Date(filter.endTime);
             endtime.setHours(23, 59, 59);
             data.endTime = endtime.toISOString();
         }
-        if (filter.resultType && filter.resultType !== '') {
+        if (filter.resultType && filter.resultType !== "") {
             data.resultType = filter.resultType;
         }
-        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
-            if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
-                setLoading(false);
+        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch(
+            (err) => {
+                if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
+                    setLoading(false);
+                }
             }
-        });
+        );
         if (responseTwo.status === 200 || responseTwo.status === 201) {
-            setPresecriptionDocument(responseTwo.data.data)
+            const res = []
+            const prepData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            if (res.length > 0) {
+                setIsSearch(true)
+            }
+            setMedicalRecordData(res)
             setCurrentPageNumber(1);
         }
     };
 
     const getGlobalLabResults = async (search, filter = {}) => {
-        const currentPatient = cookies.get('profileDetails');
+        const currentPatient = cookies.get("profileDetails");
         setCurrentPatient({ ...currentPatient, patientId: currentPatient.id });
-
+        setLabDocument({ documentsList: null })
         const starttime = new Date();
         const endtime = new Date();
         const data = {
@@ -442,24 +480,34 @@ const PatientDocument = (props) => {
             documentType: "LabResult",
             labName: search,
         };
-        if (filter.startTime && filter.startTime !== '') {
+        if (filter.startTime && filter.startTime !== "") {
             data.startTime = filter.startTime;
         }
-        if (filter.endTime && filter.endTime !== '') {
+        if (filter.endTime && filter.endTime !== "") {
             const endtime = new Date(filter.endTime);
             endtime.setHours(23, 59, 59);
             data.endTime = endtime.toISOString();
         }
-        if (filter.resultType && filter.resultType !== '') {
+        if (filter.resultType && filter.resultType !== "") {
             data.resultType = filter.resultType;
         }
-        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
-            if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
-                setLoading(false);
+        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch(
+            (err) => {
+                if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
+                    setLoading(false);
+                }
             }
-        });
+        );
         if (responseTwo.status === 200 || responseTwo.status === 201) {
-            setLabDocument(responseTwo.data.data)
+            const res = []
+            const labData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
+            labData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            if (res.length > 0) {
+                setIsSearch(true)
+            }
+            setMedicalRecordData(res)
             setCurrentPageNumber(1);
         }
     };
@@ -467,11 +515,17 @@ const PatientDocument = (props) => {
         getGlobalLabResults(search, filter);
     };
     const handleSearchInputChange = (searchValue) => {
-        if (searchValue === '') {
-            console.log('blank searchValue is | in SearchBarComponent', searchValue);
-            getGlobalLabResults(searchValue)
+        // if (searchValue === "") {
+        //   console.log("blank searchValue is | in SearchBarComponent", searchValue);
+        // } else {
+        //   getGlobalLabResults(searchValue);
+        // }
+        if (currentTab === "prescription") {
+            getGlobalPrescriptions(searchValue);
         } else {
             getGlobalLabResults(searchValue);
+        }
+        if (searchValue != "") {
             setSearch(searchValue);
         }
     };
@@ -480,9 +534,9 @@ const PatientDocument = (props) => {
         getGlobalPrescriptions(search, filter);
     };
     const handleSearchInputChangePrescription = (searchValue) => {
-        if (searchValue === '') {
-            console.log('blank searchValue is | in SearchBarComponent', searchValue);
-            getGlobalPrescriptions(searchValue)
+        if (searchValue === "") {
+            console.log("blank searchValue is | in SearchBarComponent", searchValue);
+            getGlobalPrescriptions(searchValue);
         } else {
             getGlobalPrescriptions(searchValue);
             setSearch(searchValue);
@@ -490,46 +544,52 @@ const PatientDocument = (props) => {
     };
     return (
         <>
-            {loading && (
-                <TransparentLoader />
-            )}
+            {loading && <TransparentLoader />}
             <div className="container">
-
+                <div className="row mt-4">
+                    <div className="col d-flex justify-content-end">
+                        <SearchBarComponent updatedSearch={handleSearchInputChange} />
+                        {currentTab === "prescription" ? (
+                            <PrescriptionFilter
+                                updatedFilter={handleFilterChangePrescription}
+                            />
+                        ) : (
+                            <FilterComponent updatedFilter={handleFilterChange} />
+                        )}
+                    </div>
+                    {/* <div className="col-md-2 text-right">
+            <button type="button" className="btn btn-primary"
+                                    onClick={e => handlePrescriptionUploadShow()}>Add Prescription
+                                </button>
+          </div> */}
+                </div>
                 <br />
                 <br />
-                <Tabs className="justify-content-center record-tabs" defaultActiveKey="prescription" id="uncontrolled-tab-example"
-                    onSelect={clickTabEvent}>
+                <Tabs
+                    className="justify-content-center record-tabs"
+                    defaultActiveKey="prescription"
+                    id="uncontrolled-tab-example"
+                    onSelect={clickTabEvent}
+                >
                     <Tab eventKey="prescription" title="Prescription">
                         <br />
 
-
-                        <div className="row">
-                            <div className="col-md-10" style={{ display: 'flex' }}>
-                                <SearchBarComponent updatedSearch={handleSearchInputChangePrescription} />
-                                <PrescriptionFilter updatedFilter={handleFilterChangePrescription} />
-                            </div>
-                            <div className="col-md-2 text-right">
-                                {/* <button type="button" className="btn btn-primary"
-                                    onClick={e => handlePrescriptionUploadShow()}>Add Prescription
-                                </button> */}
-                            </div>
-                        </div>
                         <br />
                         <div>
                             {presecriptionDocument?.documentsList ? (
                                 presecriptionDocument?.documentsList.map(
                                     (dataItem, subIndex) => {
                                         return (
-
-                                            <div className="prescription-lab__card-box" >
+                                            <div className="prescription-lab__card-box">
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
                                                     {moment.utc(dataItem.docUploadTime).format("MMM")}
                                                 </h3>
                                                 <div className="card-holder">
                                                     <div className="row">
-
-                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
-
+                                                        <div
+                                                            style={{ cursor: "pointer" }}
+                                                            className="prescription-lab-card"
+                                                        >
                                                             {/* <PrescriptionLabCard
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
@@ -540,7 +600,48 @@ const PatientDocument = (props) => {
                                                                 download={(e) => showDocument(dataItem)}
                                                             /> */}
                                                             <PatientPrescriptionCard
-                                                                filetype={getFileExtension(dataItem.documentUrl)}
+                                                                filetype={getFileExtension(
+                                                                    dataItem.documentUrl
+                                                                )}
+                                                                name={"Prescription"}
+                                                                docName={dataItem.doctorName}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
+                                                                download={(e) => showDocument(dataItem)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )
+                            ) : (
+                                <div
+                                    className="col-12 ml-2"
+                                    style={{ textShadow: "none", color: "#3e4543" }}
+                                >
+                                    {isSearch === false && "No Documents"}
+                                </div>
+                            )}
+                            {medicalRecordData ? (
+                                medicalRecordData.map(
+                                    (dataItem, subIndex) => {
+                                        return (
+
+                                            <div className="prescription-lab__card-box">
+                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
+                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                </h3>
+                                                <div className="card-holder">
+                                                    <div className="row">
+
+                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
+
+                                                            <PatientPrescriptionCard
+                                                                filetype={getFileExtension(
+                                                                    dataItem.documentUrl
+                                                                )}
                                                                 name={"Prescription"}
                                                                 docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
@@ -555,57 +656,109 @@ const PatientDocument = (props) => {
                                             </div>
                                         );
                                     }
-                                )
-                            ) : (
+                                )) : (
+
                                 <div
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    No Documents
+                                    {isSearch === false && "No Documents"}
                                 </div>
-                            )}
+                            )
+                            }
                         </div>
                         <br />
-                        <div> <Pagination size="sm" style={{ float: 'right' }}>
-                            {
-                                presecriptionDocument?.totalPages ?
-                                    Array.from(Array(presecriptionDocument.totalPages), (e, i) => {
-                                        return <Pagination.Item key={i + 1}
-                                            active={i + 1 === currentPageNumber ? true : false}
-                                            onClick={e => clickPagination(i + 1)}>
-                                            {i + 1}
-                                        </Pagination.Item>
-                                    })
-                                    : <span></span>
-
-                            }
-                        </Pagination>
+                        <div>
+                            {" "}
+                            <Pagination size="sm" style={{ float: "right" }}>
+                                {presecriptionDocument?.totalPages ? (
+                                    Array.from(
+                                        Array(presecriptionDocument.totalPages),
+                                        (e, i) => {
+                                            return (
+                                                <Pagination.Item
+                                                    key={i + 1}
+                                                    active={i + 1 === currentPageNumber ? true : false}
+                                                    onClick={(e) => clickPagination(i + 1)}
+                                                >
+                                                    {i + 1}
+                                                </Pagination.Item>
+                                            );
+                                        }
+                                    )
+                                ) : (
+                                    <span></span>
+                                )}
+                            </Pagination>
                         </div>
-                        <div >
-                            <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="100px"
-                                width="100%" />
+                        <div>
+                            <embed
+                                src={prescriptionDocumentUrl}
+                                type="application/pdf"
+                                frameBorder="0"
+                                height="100px"
+                                width="100%"
+                            />
                         </div>
                     </Tab>
                     <Tab eventKey="labResult" title="Lab Result" onSelect={clickTabEvent}>
                         <br />
 
-                        <div className="row">
-                            <div className="col-md-10" style={{ display: 'flex' }}>
-                                <SearchBarComponent updatedSearch={handleSearchInputChange} />
-                                <FilterComponent updatedFilter={handleFilterChange} />
-                            </div>
-                            <div className="col-md-2 text-right">
-                                <button type="button" className="btn btn-primary"
-                                    style={{ fontSize: '0.65rem' }}
-                                    onClick={handleUploadLabResultShow}>Add
-                                    Lab Result
+                        <div className="d-flex justify-content-end">
+                            {/* <div className="col-md-10" style={{ display: "flex" }}>
+                <SearchBarComponent updatedSearch={handleSearchInputChange} />
+              </div> */}
+                            <div className="col text-right">
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    style={{ fontSize: "0.65rem" }}
+                                    onClick={handleUploadLabResultShow}
+                                >
+                                    Add Lab Result
                                 </button>
                             </div>
                         </div>
                         <br />
                         <div>
                             {labDocument?.documentsList ? (
-                                labDocument?.documentsList.map(
+                                labDocument?.documentsList.map((dataItem, subIndex) => {
+                                    return (
+                                        <div className="prescription-lab__card-box">
+                                            <h3 className="prescription-lab--month-header mb-3 mt-2">
+                                                {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                            </h3>
+                                            <div className="card-holder">
+                                                <div className="row">
+                                                    <div
+                                                        style={{ cursor: "pointer" }}
+                                                        className="prescription-lab-card"
+                                                    >
+                                                        <PrescriptionLabCard
+                                                            filetype={getFileExtension(dataItem.documentUrl)}
+                                                            name={"Lab Result"}
+                                                            //apid={dataItem.id}
+                                                            docName={dataItem.labName}
+                                                            date={dataItem.docUploadTime}
+                                                            time={dataItem.docUploadTime}
+                                                            download={(e) => showLabDocument(dataItem)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div
+                                    className="col-12 ml-2"
+                                    style={{ textShadow: "none", color: "#3e4543" }}
+                                >
+                                    {isSearch === false && "No Documents"}
+                                </div>
+                            )}
+                            {medicalRecordData ? (
+                                medicalRecordData.map(
                                     (dataItem, subIndex) => {
                                         return (
 
@@ -635,136 +788,268 @@ const PatientDocument = (props) => {
                                             </div>
                                         );
                                     }
-                                )
-                            ) : (
+                                )) : (
+
                                 <div
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    No Documents
+                                    {isSearch === false && "No Documents"}
                                 </div>
-                            )}
+                            )
+                            }
                         </div>
                         <div>
                             <br />
-                            <Pagination size="sm" style={{ float: 'right' }}>
-                                {
-                                    labDocument?.totalPages ?
-                                        Array.from(Array(labDocument.totalPages), (e, i) => {
-                                            return <Pagination.Item key={i + 1} active={i + 1 === currentPageNumber}
-                                                onClick={e => clickPaginationForLab(i + 1)}>
+                            <Pagination size="sm" style={{ float: "right" }}>
+                                {labDocument?.totalPages ? (
+                                    Array.from(Array(labDocument.totalPages), (e, i) => {
+                                        return (
+                                            <Pagination.Item
+                                                key={i + 1}
+                                                active={i + 1 === currentPageNumber}
+                                                onClick={(e) => clickPaginationForLab(i + 1)}
+                                            >
                                                 {i + 1}
                                             </Pagination.Item>
-                                        }) : <span></span>
-
-                                }
+                                        );
+                                    })
+                                ) : (
+                                    <span></span>
+                                )}
                             </Pagination>
                         </div>
                         <br />
 
-                        <div >
-
-                            {labDocumentUrl !== null || labDocumentUrl !== "" ?
-                                <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
-                                    width="100%" />
-                                : <span></span>
-                            }
-
+                        <div>
+                            {labDocumentUrl !== null || labDocumentUrl !== "" ? (
+                                <embed
+                                    src={labDocumentUrl}
+                                    type="application/pdf"
+                                    frameBorder="0"
+                                    height="400px"
+                                    width="100%"
+                                />
+                            ) : (
+                                <span></span>
+                            )}
                         </div>
                     </Tab>
                 </Tabs>
 
-
-                <Modal show={showPrescriptionUpload} onHide={handleUploadPrescriptionClosed}>
-                    <form onSubmit={e => handlePrescriptionSubmission(e)}>
+                <Modal
+                    show={showPrescriptionUpload}
+                    onHide={handleUploadPrescriptionClosed}
+                >
+                    <form onSubmit={(e) => handlePrescriptionSubmission(e)}>
                         <Modal.Header closeButton>
                             <Modal.Title>Prescription</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <input hidden={true} id="id" name="id" value={prescriptionResult?.id}
-                                onChange={e => handlePrescriptionChange(e)}
+                            <input
+                                hidden={true}
+                                id="id"
+                                name="id"
+                                value={prescriptionResult?.id}
+                                onChange={(e) => handlePrescriptionChange(e)}
                             ></input>
                             <div className="form-group row">
-                                <label htmlFor="topic" className="col-sm-3 col-form-label">Duration</label>
+                                <label htmlFor="topic" className="col-sm-3 col-form-label">
+                                    Duration
+                                </label>
                                 <div className="col-sm-9">
-                                    <input type="text" id="duration" name="duration" className="form-control"
-                                        onChange={e => handlePrescriptionChange(e)}
+                                    <input
+                                        type="text"
+                                        id="duration"
+                                        name="duration"
+                                        className="form-control"
+                                        onChange={(e) => handlePrescriptionChange(e)}
                                         value={prescriptionResult?.duration}
-                                        placeholder="Duration" required></input>
+                                        placeholder="Duration"
+                                        required
+                                    ></input>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="decription" className="col-sm-3 col-form-label">Description</label>
+                                <label htmlFor="decription" className="col-sm-3 col-form-label">
+                                    Description
+                                </label>
                                 <div className="col-sm-9">
-                                    <input type="text" id="decription" name="decription" className="form-control"
-                                        onChange={e => handlePrescriptionChange(e)}
+                                    <input
+                                        type="text"
+                                        id="decription"
+                                        name="decription"
+                                        className="form-control"
+                                        onChange={(e) => handlePrescriptionChange(e)}
                                         value={prescriptionResult?.decription}
-                                        placeholder="Description" required></input>
+                                        placeholder="Description"
+                                        required
+                                    ></input>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="prescriptionDocument"
-                                    className="col-sm-3 col-form-label">Document</label>
+                                <label
+                                    htmlFor="prescriptionDocument"
+                                    className="col-sm-3 col-form-label"
+                                >
+                                    Document
+                                </label>
                                 <div className="col-sm-9">
                                     {errorMsg && (
-                                        <label style={{ fontSize: 12, color: '#ff9393', margin: "5px 0" }} className="left">{errorMsg}</label>
+                                        <label
+                                            style={{
+                                                fontSize: 12,
+                                                color: "#ff9393",
+                                                margin: "5px 0",
+                                            }}
+                                            className="left"
+                                        >
+                                            {errorMsg}
+                                        </label>
                                     )}
                                     {!prescriptionResult?.id && (
-                                        <input type="file" id="prescriptionDocument" name="prescriptionDocument"
+                                        <input
+                                            type="file"
+                                            id="prescriptionDocument"
+                                            name="prescriptionDocument"
                                             className="form-control"
-                                            onChange={e => handlePrescriptionChange(e)}
-                                            placeholder="Document" accept="application/pdf"
-                                            required={prescriptionResult?.id ? false : true}></input>
+                                            onChange={(e) => handlePrescriptionChange(e)}
+                                            placeholder="Document"
+                                            accept="application/pdf"
+                                            required={prescriptionResult?.id ? false : true}
+                                        ></input>
                                     )}
-                                    {prescriptionResult?.id && !editDocument && (<div style={{ display: "inline-flex", alignItems: "center" }}>
-                                        <IconButton onClick={() => setEditDocument(true)}>
-                                            <CancelIcon style={{ color: "red" }} />
-                                        </IconButton>
-                                        <input type="file" id="prescriptionDocument" name="prescriptionDocument"
-                                            className="form-control"
-                                            onChange={e => handlePrescriptionChange(e)}
-                                            placeholder="Document" accept="application/pdf"
-                                            required={prescriptionResult?.id ? false : true}></input></div>)}
-                                    {prescriptionResult?.id && editDocument && (<>
-                                        <button type="button" className="btn btn-primary mr-2" onClick={() => setEditDocument(false)}>Edit</button>
-                                        <a href={prescriptionResult?.documentUrl} download className="btn btn-primary">Download</a>
-                                    </>)}
+                                    {prescriptionResult?.id && !editDocument && (
+                                        <div
+                                            style={{ display: "inline-flex", alignItems: "center" }}
+                                        >
+                                            <IconButton onClick={() => setEditDocument(true)}>
+                                                <CancelIcon style={{ color: "red" }} />
+                                            </IconButton>
+                                            <input
+                                                type="file"
+                                                id="prescriptionDocument"
+                                                name="prescriptionDocument"
+                                                className="form-control"
+                                                onChange={(e) => handlePrescriptionChange(e)}
+                                                placeholder="Document"
+                                                accept="application/pdf"
+                                                required={prescriptionResult?.id ? false : true}
+                                            ></input>
+                                        </div>
+                                    )}
+                                    {prescriptionResult?.id && editDocument && (
+                                        <>
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary mr-2"
+                                                onClick={() => setEditDocument(false)}
+                                            >
+                                                Edit
+                                            </button>
+                                            <a
+                                                href={prescriptionResult?.documentUrl}
+                                                download
+                                                className="btn btn-primary"
+                                            >
+                                                Download
+                                            </a>
+                                        </>
+                                    )}
                                 </div>
                             </div>
 
                             <div className="form-group row">
-                                <label htmlFor="doctorEmail" className="col-sm-3 col-form-label">Doctor Email</label>
+                                <label
+                                    htmlFor="doctorEmail"
+                                    className="col-sm-3 col-form-label"
+                                >
+                                    Doctor Email
+                                </label>
                                 <div className="col-sm-9">
-                                    <input type="email" id="doctorEmail" name="doctorEmail" className="form-control"
-                                        validate="true" value={doctor?.email}
-                                        placeholder="Doctor Email" onChange={e => handleDoctorTag(e.target.value)}></input>
-                                    {doctor?.id ? <span>Doctor Name:  <b>{doctor?.firstName + ' ' + doctor?.lastName}
-                                        <input hidden={true} id="doctorId" name="doctorId" value={doctor?.id} /></b></span>
-                                        : <span>No Doctor Found</span>}
+                                    <input
+                                        type="email"
+                                        id="doctorEmail"
+                                        name="doctorEmail"
+                                        className="form-control"
+                                        validate="true"
+                                        value={doctor?.email}
+                                        placeholder="Doctor Email"
+                                        onChange={(e) => handleDoctorTag(e.target.value)}
+                                    ></input>
+                                    {doctor?.id ? (
+                                        <span>
+                                            Doctor Name:{" "}
+                                            <b>
+                                                {doctor?.firstName + " " + doctor?.lastName}
+                                                <input
+                                                    hidden={true}
+                                                    id="doctorId"
+                                                    name="doctorId"
+                                                    value={doctor?.id}
+                                                />
+                                            </b>
+                                        </span>
+                                    ) : (
+                                        <span>No Doctor Found</span>
+                                    )}
                                 </div>
                             </div>
 
                             <div className="form-group row">
-                                <label htmlFor="patientEmail" className="col-sm-3 col-form-label">Patient Email</label>
+                                <label
+                                    htmlFor="patientEmail"
+                                    className="col-sm-3 col-form-label"
+                                >
+                                    Patient Email
+                                </label>
                                 <div className="col-sm-9">
-                                    <input type="email" id="patientEmail" name="patientEmail" className="form-control"
+                                    <input
+                                        type="email"
+                                        id="patientEmail"
+                                        name="patientEmail"
+                                        className="form-control"
                                         value={patient?.email}
-                                        placeholder="Patient Email" readOnly></input>
-                                    {patient?.id ? <span>Patient Name: <b>{patient?.firstName + ' ' + patient?.lastName}
-                                        <input hidden={true} id="patientId" name="patientId" value={patient?.id} /></b></span> : <span>No Patient found</span>}
+                                        placeholder="Patient Email"
+                                        readOnly
+                                    ></input>
+                                    {patient?.id ? (
+                                        <span>
+                                            Patient Name:{" "}
+                                            <b>
+                                                {patient?.firstName + " " + patient?.lastName}
+                                                <input
+                                                    hidden={true}
+                                                    id="patientId"
+                                                    name="patientId"
+                                                    value={patient?.id}
+                                                />
+                                            </b>
+                                        </span>
+                                    ) : (
+                                        <span>No Patient found</span>
+                                    )}
                                 </div>
                             </div>
 
                             <div className="container">
-                                <div className="row">
-                                </div>
+                                <div className="row"></div>
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="secondary" onClick={handleUploadPrescriptionClosed}>
+                            <Button
+                                variant="secondary"
+                                onClick={handleUploadPrescriptionClosed}
+                            >
                                 Close
                             </Button>
-                            <Button variant="primary" type="submit" disabled={!doctor?.id || !prescriptionResult?.prescriptionDocument}>
+                            <Button
+                                variant="primary"
+                                type="submit"
+                                disabled={
+                                    !doctor?.id || !prescriptionResult?.prescriptionDocument
+                                }
+                            >
                                 Save
                             </Button>
                         </Modal.Footer>
@@ -772,33 +1057,49 @@ const PatientDocument = (props) => {
                 </Modal>
 
                 <Modal show={showLabResultUpload} onHide={handleUploadLabResultClosed}>
-                    <form onSubmit={e => handleLabResultSubmission(e)}>
+                    <form onSubmit={(e) => handleLabResultSubmission(e)}>
                         <Modal.Header closeButton>
                             <Modal.Title>Lab Result</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <input hidden={true} id="id" name="id" value={labResult?.id}
-                                onChange={e => handleLabResultChange(e)}
+                            <input
+                                hidden={true}
+                                id="id"
+                                name="id"
+                                value={labResult?.id}
+                                onChange={(e) => handleLabResultChange(e)}
                             ></input>
                             <div className="form-group row">
-                                <label htmlFor="labName" className="col-sm-3 col-form-label">Result Name</label>
+                                <label htmlFor="labName" className="col-sm-3 col-form-label">
+                                    Result Name
+                                </label>
                                 <div className="col-sm-9">
-                                    <input type="text" id="resultName" name="resultName" className="form-control"
-                                        onChange={e => handleLabResultChange(e)}
+                                    <input
+                                        type="text"
+                                        id="resultName"
+                                        name="resultName"
+                                        className="form-control"
+                                        onChange={(e) => handleLabResultChange(e)}
                                         value={labResult?.resultName}
-                                        placeholder="Result Name" required autoComplete='off'></input>
+                                        placeholder="Result Name"
+                                        required
+                                        autoComplete="off"
+                                    ></input>
                                 </div>
                             </div>
 
                             <div className="form-group row">
-                                <label htmlFor="labName" className="col-sm-3 col-form-label">Result Type</label>
+                                <label htmlFor="labName" className="col-sm-3 col-form-label">
+                                    Result Type
+                                </label>
                                 <div className="col-sm-9">
                                     <select
                                         name="resultType"
                                         value={labResult?.resultType}
-                                        onChange={e => handleLabResultChange(e)}
+                                        onChange={(e) => handleLabResultChange(e)}
                                         required
-                                        className="browser-default custom-select">
+                                        className="browser-default custom-select"
+                                    >
                                         <option>Select Result Type</option>
                                         <option value="Imaging">Imaging</option>
                                         <option value="Blood Tests">Blood Tests</option>
@@ -806,12 +1107,21 @@ const PatientDocument = (props) => {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label htmlFor="labName" className="col-sm-3 col-form-label">Lab Name</label>
+                                <label htmlFor="labName" className="col-sm-3 col-form-label">
+                                    Lab Name
+                                </label>
                                 <div className="col-sm-9">
-                                    <input type="text" id="labName" name="labName" className="form-control"
-                                        onChange={e => handleLabResultChange(e)}
+                                    <input
+                                        type="text"
+                                        id="labName"
+                                        name="labName"
+                                        className="form-control"
+                                        onChange={(e) => handleLabResultChange(e)}
                                         value={labResult?.labName}
-                                        placeholder="Lab Name" required autoComplete='off'></input>
+                                        placeholder="Lab Name"
+                                        required
+                                        autoComplete="off"
+                                    ></input>
                                 </div>
                             </div>
                             {/* 
@@ -826,14 +1136,38 @@ const PatientDocument = (props) => {
                             </div> */}
 
                             <div className="form-group row">
-                                <label htmlFor="doctorEmail" className="col-sm-3 col-form-label">Doctor Email</label>
+                                <label
+                                    htmlFor="doctorEmail"
+                                    className="col-sm-3 col-form-label"
+                                >
+                                    Doctor Email
+                                </label>
                                 <div className="col-sm-9">
-                                    <input type="email" id="doctorEmail" name="doctorEmail" className="form-control"
+                                    <input
+                                        type="email"
+                                        id="doctorEmail"
+                                        name="doctorEmail"
+                                        className="form-control"
                                         value={doctor?.email}
-                                        placeholder="Doctor Email" onChange={e => handleDoctorTag(e)}></input>
-                                    {doctor?.id ? <span>Doctor Name: <b>{doctor?.firstName + ' ' + doctor?.lastName}
-                                        <input hidden={true} id="doctorId" name="doctorId"
-                                            value={doctor?.id} /></b></span> : <span>No Doctor found</span>}
+                                        placeholder="Doctor Email"
+                                        onChange={(e) => handleDoctorTag(e)}
+                                    ></input>
+                                    {doctor?.id ? (
+                                        <span>
+                                            Doctor Name:{" "}
+                                            <b>
+                                                {doctor?.firstName + " " + doctor?.lastName}
+                                                <input
+                                                    hidden={true}
+                                                    id="doctorId"
+                                                    name="doctorId"
+                                                    value={doctor?.id}
+                                                />
+                                            </b>
+                                        </span>
+                                    ) : (
+                                        <span>No Doctor found</span>
+                                    )}
                                 </div>
                             </div>
                             {/* <div className="form-group row">
@@ -866,44 +1200,77 @@ const PatientDocument = (props) => {
                                 </div>
                             </div> */}
                             <div className="form-group row">
-                                <label htmlFor="document" className="col-sm-3 col-form-label">Document</label>
+                                <label htmlFor="document" className="col-sm-3 col-form-label">
+                                    Document
+                                </label>
                                 <div className="col-sm-9">
                                     {errorMsg && (
-                                        <label style={{ fontSize: 12, color: '#ff9393', margin: "5px 0" }} className="left">{errorMsg}</label>
+                                        <label
+                                            style={{
+                                                fontSize: 12,
+                                                color: "#ff9393",
+                                                margin: "5px 0",
+                                            }}
+                                            className="left"
+                                        >
+                                            {errorMsg}
+                                        </label>
                                     )}
                                     {!labResult?.id && (
                                         <input
-                                            style={{ padding: '3px' }}
+                                            style={{ padding: "3px" }}
                                             type="file"
                                             id="labResultDocument"
                                             name="labResultDocument"
                                             className="form-control"
-                                            onChange={e => handleLabResultChange(e)}
+                                            onChange={(e) => handleLabResultChange(e)}
                                             placeholder="Document"
                                             accept="application/pdf"
                                             required={labResult?.id ? false : true}
                                         ></input>
                                         /* <input type="file" id="labResultDocument" name="labResultDocument"
-                                            className="form-control"
-                                            onChange={e => handleLabResultChange(e)}
-                                            placeholder="Document" accept="application/pdf"
-                                            required={labResult?.id ? false : true}></input> */
+                                                                className="form-control"
+                                                                onChange={e => handleLabResultChange(e)}
+                                                                placeholder="Document" accept="application/pdf"
+                                                                required={labResult?.id ? false : true}></input> */
                                     )}
-                                    {labResult?.id && !editDocument && (<div style={{ display: "inline-flex", alignItems: "center" }}>
-                                        <IconButton onClick={() => setEditDocument(true)}>
-                                            <CancelIcon style={{ color: "red" }} />
-                                        </IconButton>
-                                        <input
-                                            type="file" id="labResultDocument" name="labResultDocument"
-                                            className="form-control"
-                                            onChange={e => handleLabResultChange(e)}
-                                            placeholder="Document" accept="application/pdf"
-                                            required={labResult?.id ? false : true}></input>
-                                    </div>)}
-                                    {labResult?.id && editDocument && (<>
-                                        <button type="button" className="btn btn-primary mr-2" onClick={() => setEditDocument(false)}>Edit</button>
-                                        <a href={labResult?.documentUrl} download className="btn btn-primary">Download</a>
-                                    </>)}
+                                    {labResult?.id && !editDocument && (
+                                        <div
+                                            style={{ display: "inline-flex", alignItems: "center" }}
+                                        >
+                                            <IconButton onClick={() => setEditDocument(true)}>
+                                                <CancelIcon style={{ color: "red" }} />
+                                            </IconButton>
+                                            <input
+                                                type="file"
+                                                id="labResultDocument"
+                                                name="labResultDocument"
+                                                className="form-control"
+                                                onChange={(e) => handleLabResultChange(e)}
+                                                placeholder="Document"
+                                                accept="application/pdf"
+                                                required={labResult?.id ? false : true}
+                                            ></input>
+                                        </div>
+                                    )}
+                                    {labResult?.id && editDocument && (
+                                        <>
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary mr-2"
+                                                onClick={() => setEditDocument(false)}
+                                            >
+                                                Edit
+                                            </button>
+                                            <a
+                                                href={labResult?.documentUrl}
+                                                download
+                                                className="btn btn-primary"
+                                            >
+                                                Download
+                                            </a>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                             {/* <div className="form-group row">
@@ -913,32 +1280,42 @@ const PatientDocument = (props) => {
                                         value={patient?.email}
                                         placeholder="Patient Email" readOnly></input> */}
 
-                            {patient?.id ? <span>Patient Name: <b>{patient?.firstName + ' ' + patient?.lastName}
-                                <input hidden={true} id="patientId" name="patientId" value={patient?.id} /></b></span> : <span>No Patient found</span>}
+                            {patient?.id ? (
+                                <span>
+                                    Patient Name:{" "}
+                                    <b>
+                                        {patient?.firstName + " " + patient?.lastName}
+                                        <input
+                                            hidden={true}
+                                            id="patientId"
+                                            name="patientId"
+                                            value={patient?.id}
+                                        />
+                                    </b>
+                                </span>
+                            ) : (
+                                <span>No Patient found</span>
+                            )}
                             {/* </div>
                             </div> */}
                             <div className="container">
-                                <div className="row">
-                                </div>
+                                <div className="row"></div>
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleUploadLabResultClosed}>
                                 Close
                             </Button>
-                            <Button variant="primary" type="submit"
-                                disabled={!doctor?.id}
-                            >
+                            <Button variant="primary" type="submit" disabled={!doctor?.id}>
                                 Save
                             </Button>
                         </Modal.Footer>
                     </form>
                 </Modal>
-
             </div>
 
             {/* <Footer /> */}
         </>
     );
-}
+};
 export default PatientDocument;

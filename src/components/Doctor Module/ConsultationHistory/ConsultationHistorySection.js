@@ -15,16 +15,7 @@ const ConsulatationHistorySection = (props) => {
 
     const getNotesData = async () => {
         const res = await consultationHistory(params.id, profilepID.id);
-        console.log("res", res.data.data);
-        const consultationHistoryArray = [];
-        consultationHistoryArray.push(res.data.data)
-        notesData.push(res.data.data)
-        setNotesData([...notesData, consultationHistoryArray[0]]);
-        {
-            notesData.map((n) => {
-                setNotesData(n)
-            })
-        }
+        setNotesData(res.data.data)
     }
     useEffect(() => {
         getNotesData();

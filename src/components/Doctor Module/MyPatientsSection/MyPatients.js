@@ -16,8 +16,8 @@ import {
 import rightIcon from '../../../images/svg/right-icon.svg';
 import conHistory from '../../../images/icons used/Component 15.svg';
 import HealthAssessment from '../../../images/icons used/Component 16.svg';
-import calendarSmall from '../../../images/svg/calendar-small.svg';
-import timeSmall from '../../../images/svg/time-small.svg';
+import calendarSmall from '../../../images/svg/calender-beige.svg';
+import timeSmall from '../../../images/svg/time-teal.svg';
 import chatButtonIcon from '../../../images/svg/chat-button-icon.svg';
 
 
@@ -196,7 +196,7 @@ const MyPatients = (props) => {
     }
 
     return (
-        <div>
+        <div className="bg-grey">
             {loading && <Loader />}
             <Container>
                 <Row>
@@ -272,7 +272,7 @@ const MyPatients = (props) => {
                                                                                         name={
                                                                                             details.patient.firstName +
                                                                                             ' ' +
-                                                                                            details.patient.lastName
+                                                                                            (details.patient.lastName || "")
                                                                                         }
                                                                                         size={60}
                                                                                         className="my-appointment-avatar"
@@ -284,7 +284,7 @@ const MyPatients = (props) => {
                                                                                     <b>
                                                                                         {details.patient.firstName +
                                                                                             ' ' +
-                                                                                            details.patient.lastName}
+                                                                                            (details.patient.lastName || "")}
                                                                                     </b>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span-consult">
@@ -373,7 +373,7 @@ const MyPatients = (props) => {
                                                                                         name={
                                                                                             details.patient.firstName +
                                                                                             ' ' +
-                                                                                            details.patient.lastName
+                                                                                            (details.patient.lastName || "")
                                                                                         }
                                                                                         size={60}
                                                                                         className="my-appointment-avatar"
@@ -385,7 +385,7 @@ const MyPatients = (props) => {
                                                                                     <b>
                                                                                         {details.patient.firstName +
                                                                                             ' ' +
-                                                                                            details.patient.lastName}
+                                                                                            (details.patient.lastName || "")}
                                                                                     </b>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span-consult">
@@ -484,7 +484,7 @@ const MyPatients = (props) => {
                                                                     name={
                                                                         SelectedPatient.patient.firstName +
                                                                         ' ' +
-                                                                        SelectedPatient.patient.lastName
+                                                                        (SelectedPatient.patient.lastName || "")
                                                                     }
                                                                     size="113"
                                                                     className="my-patient-avatar"

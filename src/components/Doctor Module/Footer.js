@@ -26,9 +26,9 @@ const Footer = () => {
     <footer>
       <div id="footer">
         <Container className="p-0 padding-mobile">
-          <Row className="align-items-center">
-            <Col md={3} lg={2} xl={2}>
-              <Link to="/about-us" id="footer-link">
+          <Row className="align-items-center tab-align">
+            {/* <Col md={3} lg={2} xl={2}> */}
+              {/* <Link to="/about-us" id="footer-link">
                 About us
               </Link>
               <HashLink to="/about-us#how-it-work" id="footer-link">
@@ -36,22 +36,22 @@ const Footer = () => {
               </HashLink>
               <HashLink to="/about-us#our-services" id="footer-link">
                 Our services
-              </HashLink>
+              </HashLink> */}
               {/* <Link to="" id="footer-link">
                               Articles
                           </Link> */}
-              <a
+              {/* <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
                 target="_blank"
                 id="footer-link"
               >
                 Contact Us
-              </a>
-            </Col>
+              </a> */}
+            {/* </Col> */}
             <Col
               md={9}
-              lg={6}
-              xl={6}
+              lg={8}
+              xl={8}
               style={{ display: "flex", height: 135, alignItems: "center" }}
             >
               {/*<div id="active-user">
@@ -62,13 +62,13 @@ const Footer = () => {
                                   <span>128</span> Expert Doctors
                                       </b>
                           </div><br />*/}
-              <div style={{ width: "100%", textAlign: "center" }}>
+              <div style={{ width: "100%"}}>
                 <p>Email Newsletters</p>
                 <p style={{ fontSize: 11 }}>
                   Stay up-to-date with the latest content and offers from
                   HealthierU
                 </p>
-                <form style={{ marginLeft: 26 }}>
+                <form >
                   <input
                     type="email"
                     placeholder="Email Address"
@@ -118,6 +118,13 @@ const Footer = () => {
                 <Link to="/help-and-support" className="" id="copy-link">
                   Help And Support
                 </Link>
+                <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
+                target="_blank"
+                id="copy-link"
+              >
+                Contact Us
+              </a>
                 {/* <Link to="/licenses" className="" id="copy-link">
                                   HealthierU Licenses
                               </Link>

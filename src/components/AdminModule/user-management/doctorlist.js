@@ -63,6 +63,7 @@ const DoctorList = () => {
         }
       }
     );
+    console.log({ res })
     // const row = [];
     if (res && res.data) {
       setUserList(res.data);

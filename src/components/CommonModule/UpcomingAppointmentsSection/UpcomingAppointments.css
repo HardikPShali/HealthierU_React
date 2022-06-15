@@ -34,9 +34,10 @@
   background-clip: border-box;
   border-radius: 22px;
   filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
-  border-left: 3px solid var(--primarysecond);
+  border-left: 3px solid var(--primary);
   transition: all .2s;
   box-shadow: 0px 0px 4px #e9e9e9;
+  margin-bottom: 2rem;
 }
 
 .upcoming-appointment-card:hover {
@@ -68,6 +69,7 @@
   font-weight: 400;
   margin-bottom:6px;
   text-transform: capitalize;
+  color: #3e4543;
 }
 
 .upcoming-appointment-card__common-span {
@@ -79,7 +81,7 @@
 }
 
 .upcoming-appointment-card__specality {
-  color: var(--text-secondary);
+  color: #3e4543;
   font-size: 12px;
   text-decoration: none;
   text-shadow: none;

@@ -25,8 +25,8 @@ import calendar from "../../images/icons used/Component 12.svg";
 import conHistory from "../../images/icons used/Component 15.svg";
 import HealthAssessment from "../../images/icons used/Component 16.svg";
 import MedicalRecord from "../../images/icons used/Component 17.svg";
-import calendarSmall from "../../images/svg/calendar-small.svg";
-import timeSmall from "../../images/svg/time-small.svg";
+import calendarSmall from "../../images/svg/calender-beige.svg";
+import timeSmall from "../../images/svg/time-teal.svg";
 import { useHistory } from "react-router";
 import HealthAssestmentReport from "./HealthAssestmentReport/HealthAssestmentReport";
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
@@ -455,14 +455,14 @@ const MyAppointments = (props) => {
     );
   };
   return (
-    <div>
+    <div className="bg-grey">
       {loading && <Loader />}
       <Container>
         <Row>
           <Col lg={6} md={6} id="col">
             <div id="patient-col-1">
               <div id="patient-heading">My Appointments</div>
-              <div className="d-flex mt-2 justify-content-between">
+              <div className="d-flex mt-2">
                 <SearchBarComponent updatedSearch={handleSearchInputChange} />
                 <FilterComponent updatedFilter={handleFilterChange} />
               </div>
@@ -529,7 +529,7 @@ const MyAppointments = (props) => {
                                             name={
                                               details.patient.firstName +
                                               " " +
-                                              details.patient.lastName
+                                              (details.patient.lastName || "")
                                             }
                                             size={60}
                                             className="my-appointment-avatar"
@@ -626,7 +626,7 @@ const MyAppointments = (props) => {
                                             name={
                                               details.patient.firstName +
                                               " " +
-                                              details.patient.lastName
+                                              (details.patient.lastName || "")
                                             }
                                             size={60}
                                             className="my-appointment-avatar"
@@ -737,7 +737,7 @@ const MyAppointments = (props) => {
                                   name={
                                     SelectedPatient.patient.firstName +
                                     " " +
-                                    SelectedPatient.patient.lastName
+                                    (SelectedPatient.patient.lastName || "")
                                   }
                                   size="140"
                                   className="my-patient-avatar"
@@ -828,7 +828,7 @@ const MyAppointments = (props) => {
                                   SelectedPatient.patient &&
                                   SelectedPatient.patient.firstName +
                                   " " +
-                                  SelectedPatient.patient.lastName}
+                                  (SelectedPatient.patient.lastName || "")}
                               </b>
                               <br />
                               {age} Years Old

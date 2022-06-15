@@ -47,6 +47,7 @@ const FilterComponent = (props) => {
 
             startTime: '',
             endTime: '',
+            resultType: ''
         });
         props.updatedFilter({});
     };
