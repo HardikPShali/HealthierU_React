@@ -95,7 +95,7 @@ const UpcomingAppointments = () => {
     }, []);
 
     return (
-        <div>
+        <div className="mb-5 mt-5">
             <h3 className="upcoming-appointment--main-header mb-3 mt-2">
                 Next Appointments
             </h3>
