@@ -32,7 +32,7 @@ const Homepage = ({ currentuserInfo }) => {
   };
   return (
     <>
-      <Availability />
+      {/* <Availability /> */}
 
       {loading && <Loader />}
       {currentuserInfo && !currentuserInfo.profileCompleted ? (
