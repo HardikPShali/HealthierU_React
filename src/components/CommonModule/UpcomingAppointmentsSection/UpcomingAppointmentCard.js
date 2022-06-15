@@ -6,6 +6,7 @@ import calendarSmall from "../../../images/svg/calender-beige.svg";
 import timeSmall from "../../../images/svg/time-teal.svg";
 import useRole from "../../../custom-hooks/useRole";
 import { ROLES } from "../../../util/configurations";
+import Avatar from "react-avatar";
 
 const UpcomingAppointmentCard = ({ appointment }) => {
   const [appointmentPersonKey, setAppointmentPersonKey] = useState("");
@@ -29,7 +30,27 @@ const UpcomingAppointmentCard = ({ appointment }) => {
     <div className="row align-items-start" style={{ cursor: 'pointer' }} onClick={handleClickToAppointmentsPage}>
       {/* {console.log('UA', appointment)} */}
       <div className="col-md-3">
-        <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" />
+        {/* <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" /> */}
+        {
+          appointment.doctor ? (
+            <img
+              src={appointment.doctor.picture}
+              alt={`${appointment.doctor.firstName}-image`}
+              className="img-circle ml-3 mt-3"
+            />
+          ) : (
+            <Avatar
+              round={true}
+              name={
+                appointment.doctor.firstName +
+                ' ' +
+                (appointment.doctor.lastName || "")
+              }
+              size={60}
+              className="my-appointment-avatar"
+            />
+          )
+        }
       </div>
       <div className="col-md-9">
         <div className="upcoming-appointment-card__card-details">
