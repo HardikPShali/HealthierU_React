@@ -431,7 +431,13 @@ const Myappointment = (props) => {
                 }
                 return value;
             });
-            setTodayAppointment(todayArray);
+            todayAppointment.push(todayArray);
+            setTodayAppointment([...todayAppointment, todayArray]);
+            {
+                todayAppointment.map((t) => {
+                    setTodayAppointment(t);
+                });
+            }
             console.log('todayArray:::::::::::::::', todayAppointment);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
@@ -448,7 +454,6 @@ const Myappointment = (props) => {
             //console.log("res.data : ", res.data);
             resTomorrow.data.map((value, index) => {
                 if (value.status === 'ACCEPTED') {
-
                     tomoArray.push({
                         id: value.id,
                         startTime: new Date(value.startTime),
@@ -463,11 +468,14 @@ const Myappointment = (props) => {
                 }
                 return value;
             });
-            if (tomoArray) {
-                console.log('tomoArray:::::::::::::::', tomoArray);
-            }
-            setTomorrowAppointment(tomoArray)
+            tomorrowAppointment.push(tomoArray);
+            setTomorrowAppointment([...tomorrowAppointment, tomoArray]);
 
+            {
+                tomorrowAppointment.map((t) => {
+                    setTomorrowAppointment(t);
+                });
+            }
             console.log('tomoArray:::::::::::::::', tomorrowAppointment);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
@@ -939,7 +947,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        // return <></>;
+                                                                        return false;
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1029,7 +1037,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                // return appointment;
+                                                                return appointment;
                                                             })}
                                                         </div>
                                                     )}
@@ -1144,7 +1152,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        // return false;
+                                                                        return false;
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1234,7 +1242,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                // return appointment;
+                                                                return appointment;
                                                             })}
                                                         </div>
                                                     )}

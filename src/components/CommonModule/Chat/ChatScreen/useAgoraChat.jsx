@@ -35,10 +35,9 @@ const useAgoraChat = (appId, onMessage, onConnectionChange) => {
     for(let key in channels) {
         channels[key].channel.on("ChannelMessage", (...args) => {
           console.log(args);
-            setMessages((prevMessages) => ([... prevMessages, getMessageObj(false,args[0].text)]) );
-
-
-          onMessage(args);
+          const msgObj =  getMessageObj(false,args[0].text);
+          setMessages((prevMessages) => ([... prevMessages, msgObj]) );
+          onMessage(msgObj);
         })
     }
   }
