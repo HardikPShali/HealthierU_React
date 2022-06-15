@@ -11,7 +11,7 @@ const OurDoctors = () => {
         const response = await getAllDoctorsForHomepage().catch((err) => {
             console.log(err);
         });
-        setDoctorData(response.data.data);
+        setDoctorData(response.data.data.slice(0, 4));
     };
 
     useEffect(() => {
