@@ -277,6 +277,10 @@ img#store-icon {
   .footer-store-icons img {
     margin-left: 0;
   }
+  .tab-align {
+    align-items: center;
+    text-align: center;
+  }
   .footer-wellnes {
     text-align: center;
     font-size: 1rem;
@@ -1048,7 +1052,7 @@ img.card-img-top {
   padding: 0 1rem;
   text-align: center;
   white-space: nowrap;
-  color: #344767;
+  color: #3e4543;
   font-weight: 300;
 }
 
@@ -1361,6 +1365,7 @@ div#multiselectContainerReact div:hover {
   align-items: center;
   justify-content: center;
   background-color: #f5f5f5 !important;
+  color: var(--text-primary);
 }
 
 .question-box {
@@ -3024,7 +3029,7 @@ div#all-workout-list {
   border-color: var(--primary) !important;
   border: 2px solid var(--primary) !important;
   border-radius: 22px;
-  color: #000 !important;
+  color: #3e4543!important;
 }
 
 #my-workout .save-btn:hover {
@@ -4129,7 +4134,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .details-links > div {
   border-radius: 10px;
   text-align: justify;
-  color: #000;
+  color: #3e4543;
   font-weight: 600;
 }
 
