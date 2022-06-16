@@ -318,6 +318,55 @@ const NotificationMenu = (props) => {
                   </div>
                 );
               }
+              if (notification.type === 'APPOINTMENT') {
+                return (
+                  <div key={index}>
+                    <div className="notif-section">
+                      <div className="profile-img col-md-3">
+                        {notification.data.appointmentDTO.doctor?.picture ? (
+                          <img
+                            alt="profile"
+                            src={
+                              notification.data.appointmentDTO.doctor.picture
+                            }
+                            style={{
+                              height: 40,
+                              width: 40,
+                              borderRadius: '50%',
+                            }}
+                          />
+                        ) : (
+                          <Avatar
+                            round={true}
+                            name={
+                              notification.data.appointmentDTO.doctor +
+                              ' ' +
+                              (notification.data.appointmentDTO.doctor || '')
+                            }
+                            size={60}
+                            className="notifications-avatar"
+                          />
+                        )}
+                      </div>
+                      <div className="notif-section__message">
+                        <div className="message-notif">
+                          <span>{notification.data.message}</span>
+                          {/* <span>TIME</span> */}
+                        </div>
+                      </div>
+                      <div className="notif-section__arrow">
+                        <img
+                          src={rightIcon}
+                          alt="right-icon"
+                          style={{ marginRight: '15px' }}
+                          className="ml-2"
+                        />
+                      </div>
+                    </div>
+                    <hr />
+                  </div>
+                );
+              }
             })}
           </div>
         ) : (
