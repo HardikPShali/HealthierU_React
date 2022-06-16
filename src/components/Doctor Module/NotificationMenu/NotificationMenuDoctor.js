@@ -219,7 +219,11 @@ const NotificationMenuDoctor = (props) => {
 
     const getPushNotifications = async () => {
         const user = cookies.get('profileDetails');
+
+        console.log({ user })
         const userId = user.id;
+
+        console.log({ userId })
 
         const page = 1;
         const limit = 2;

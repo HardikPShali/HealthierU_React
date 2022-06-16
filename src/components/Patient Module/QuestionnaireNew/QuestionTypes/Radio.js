@@ -28,6 +28,7 @@ export const Radio = ({ question, followQuestion }) => {
                                 handleRadioChange(choice)
                             }}
                             checked={answers === choice}
+                            required='required'
                         />
                         <label htmlFor={question.questionTitle + index} className="form-check-label">{choice}</label>
                     </div>

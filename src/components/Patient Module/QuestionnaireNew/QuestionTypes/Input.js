@@ -24,6 +24,7 @@ export const Input = ({ question, followQuestion }) => {
                     value={answers}
                     onChange={handleChange}
                     id={question.questionId}
+                    required='required'
                 ></input>
                 {/* <span style={{ marginLeft: '20px' }}>Drinks</span> */}
             </div>

@@ -49,6 +49,7 @@ export const Checkbox = ({ question, followQuestion }) => {
                         id={question.questionTitle + index}
                         checked={answers.includes(choice)}
                         onChange={() => handleCheckboxChange(choice)}
+                        required='required'
                     />
                     <label htmlFor={question.questionTitle + index} className="form-check-label checkbox-container">
                         {choice}
