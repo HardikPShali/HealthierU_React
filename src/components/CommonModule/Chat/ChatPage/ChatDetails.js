@@ -10,8 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import moment from "moment";
 import useRole from "../../../../custom-hooks/useRole";
 import { ROLES } from "../../../../util/configurations";
-import ChatIcon from '../../../../images/svg/notes-outline-icon.svg'
-
+import ChatIcon from "../../../../images/svg/notes-outline-icon.svg";
 
 const ChatDetails = ({
   selectedItem,
@@ -20,7 +19,6 @@ const ChatDetails = ({
   onSend,
   messageState,
   endRef,
-  messageDateFormat,
   onVideoClick,
   onNoteClick,
 }) => {
@@ -34,98 +32,124 @@ const ChatDetails = ({
       const currentTime = moment(new Date());
       const appointmentStartTime = moment(
         new Date(selectedItem.latestAppointment.startTime)
-
       );
       const appointmentEndTime = moment(
         new Date(selectedItem.latestAppointment.endTime)
       );
       const chatEnableTime = appointmentStartTime.clone().subtract(2, "days");
-      const videoEnableTime = appointmentStartTime.clone().subtract(5, "minutes");
+      const videoEnableTime = appointmentStartTime
+        .clone()
+        .subtract(5, "minutes");
       const chatEndCondition = appointmentEndTime.clone().add(3, "days");
-
 
       const chatCondition = currentTime.clone().subtract(2, "days");
       const videoCondition = currentTime.clone().subtract(5, "minuts");
 
-
-      console.log("current time", currentTime);
-      console.log("appointment start time", appointmentStartTime);
-      console.log("appointment end time", appointmentEndTime);
-      console.log("chat condition", chatEnableTime);
-      console.log("video condition", videoEnableTime);
-      console.log("chat end condition", chatEndCondition);
-
-      if (currentTime.isSameOrAfter(appointmentStartTime) && currentTime.isBefore(appointmentEndTime)) {
-        console.log("VIDEO ENABLED");
+      if (
+        currentTime.isSameOrAfter(appointmentStartTime) &&
+        currentTime.isBefore(appointmentEndTime)
+      ) {
         setEnableVideo(true);
       }
 
-      if (currentTime.isSameOrAfter(chatEnableTime) && currentTime.isBefore(chatEndCondition)) {
-        console.log("CHAT ENABLED")
+      if (
+        currentTime.isSameOrAfter(chatEnableTime) &&
+        currentTime.isBefore(chatEndCondition)
+      ) {
+        console.log("CHAT ENABLED");
         setEnableChat(true);
       }
-
     }
   }, [selectedItem]);
 
   const handleVideo = () => {
     if (!enableVideo) return;
     onVideoClick();
-  }
+  };
 
   const handleSend = () => {
     if (!enableChat) return;
     onSend();
-  }
+  };
 
   const handleNoteToggle = () => {
     // if (!enableChat) return;
     onNoteClick();
-  }
+  };
+
+  const groupDateCalculation = (index) => {
+    let currentMessageDate = messages[index];
+
+    if (index === 0) {
+      return true;
+    }
+
+    if (index !== messages.length - 1) {
+      let prevMessageDate = messages[index - 1];
+      return !moment(currentMessageDate.createdAt).isSame(
+        moment(prevMessageDate.createdAt),
+        "day"
+      );
+    }
+
+    return false;
+  };
 
   return (
     <div className="chatDetails-wrapper">
       <h2 className="chating_with">
         {selectedItem[selectedItem.userKey] &&
           selectedItem[selectedItem.userKey]?.firstName +
-          " " +
-          selectedItem[selectedItem.userKey]?.lastName}
+            " " +
+            selectedItem[selectedItem.userKey]?.lastName}
       </h2>
       <div className="chat-section">
         <div className="chat_detail-body">
           {/* <div className="today-date">Jan 12, 2022</div> */}
           <div className="chat_detail_received">
-            {messages.map((message) => {
+            {messages.map((message, index) => {
               return (
                 <>
-                  {!message.myMessage && (
-                    <div
-                      key={message.id}
-                      className="received_chat-msg-wrap my-2"
-                    >
-                      <div className="received_chat-msg">
-                        <div className="chat-msg-text">{message.message}</div>
-                        <div className="received_chat-time">
-                          {messageDateFormat(message.createdAt)}
-                        </div>
-                      </div>
+                  {groupDateCalculation(index) && (
+                    <div class="date-divider">
+                      {moment(message.createdAt).format("DD MMM yyyy")}
                     </div>
                   )}
-                  {message.myMessage && (
-                    <div key={message.id} className="sent_chat-msg-wrap my-2">
-                      <div className="sent_chat-msg">
-                        <span className="chat-msg-text">{message.message}</span>
-                        <div className="sent_chat-time-tick-wrap">
-                          <span className="sent_chat-time">
-                            {messageDateFormat(message.createdAt)}
+                  <div class="container">
+                  <div class="row">
+                    {!message.myMessage && (
+                      <div
+                        key={message.id}
+                        className="received_chat-msg-wrap my-2"
+                      >
+                        <div className="received_chat-msg">
+                          <div className="chat-msg-text">{message.message}</div>
+                          <div className="received_chat-time">
+                            {moment(message.createdAt).format('HH:mm')}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {message.myMessage && (
+                      <div key={message.id} className="sent_chat-msg-wrap my-2">
+                        <div className="sent_chat-msg">
+                          <span className="chat-msg-text">
+                            {message.message}
                           </span>
-                          {/* <span className="sent_chat-seen">
+                          <div className="sent_chat-time-tick-wrap">
+                            <span className="sent_chat-time">
+                              {moment(message.createdAt).format('HH:mm')}
+                            </span>
+                            {/* <span className="sent_chat-seen">
                             <img src={blueTick} alt="" />
                           </span> */}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                  </div>
+                
                 </>
               );
             })}
@@ -139,7 +163,7 @@ const ChatDetails = ({
               onChange={onMessageChange}
               onKeyPress={(event) => {
                 if (event.key === "Enter") {
-                  handleSend()
+                  handleSend();
                 }
               }}
               type="text"
@@ -164,17 +188,15 @@ const ChatDetails = ({
           >
             Send
           </button>
-          {
-            roles.some((role) => role === ROLES.ROLE_DOCTOR) && (
-              <button
-                onClick={handleNoteToggle}
-                className="notes-btn"
+          {roles.some((role) => role === ROLES.ROLE_DOCTOR) && (
+            <button
+              onClick={handleNoteToggle}
+              className="notes-btn"
               // disabled={!enableChat}
-              >
-                <img src={ChatIcon} alt='chat-icon' />
-              </button>
-            )
-          }
+            >
+              <img src={ChatIcon} alt="chat-icon" />
+            </button>
+          )}
         </div>
       </div>
     </div>

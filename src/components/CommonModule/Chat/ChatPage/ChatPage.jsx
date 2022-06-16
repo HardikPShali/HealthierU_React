@@ -24,6 +24,7 @@ import Notes from '../../../Doctor Module/NotesSection/Notes';
 
 const ChatPage = () => {
   const [chatList, setChatList] = useState([]);
+  const [filteredChatList, setFilteredChatList] = useState(chatList);
   const [selectedChatItem, setSelectedChatItem] = useState({});
   // const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
@@ -43,7 +44,7 @@ const ChatPage = () => {
   const onMessageChange = (e) => {
     console.log(e);
     // setMessages([...messages, getMessageObj(false, e[0].text)]);
-
+    reorderChatBoxOnMessageChange(e);
     if (endRef.current) {
       endRef.current.scrollIntoView({
         behavior: 'smooth',
@@ -116,6 +117,7 @@ const ChatPage = () => {
   const getInboxDetails = async () => {
     const result = await getInbox();
     setChatList(result.data.data);
+    setFilteredChatList(result.data.data);
     if (result.data.data.length) {
       setSelectedChatItem(result.data.data[0]);
     }
@@ -154,6 +156,7 @@ const ChatPage = () => {
       try {
         const messageObj = getMessageObj(true, message);
         setMessages([...messages, messageObj]);
+        reorderChatBoxOnMessageChange(messageObj);
 
         await sendChannelMessage(message, channelName);
         if (endRef.current) {
@@ -187,12 +190,39 @@ const ChatPage = () => {
     getToken(pIdState, dIdState);
   };
 
+  
+  const handleSearch = (e) => {
+    if(e.target.value) {
+      const searchedText = e.target.value.toLowerCase();
+      const filteredChatList = chatList.filter(item => {
+        const person = item[item.userKey];
+
+        return person.firstName?.toLowerCase()?.includes(searchedText) || person.lastName?.toLowerCase()?.includes(searchedText)
+      });
+
+      setFilteredChatList(filteredChatList);
+    } else {
+      setFilteredChatList(chatList);
+    }
+  }
+
+  const reorderChatBoxOnMessageChange = (msgObj) => {
+    selectedChatItem.lastMessage = msgObj;
+
+    const selectedChatIndex = chatList.findIndex(item => item.id === selectedChatItem.id);
+    chatList.splice(selectedChatIndex, 1)
+    chatList.unshift(selectedChatItem);
+    setChatList(chatList)
+    setFilteredChatList(chatList)
+  }
+
   //NOTES CODE
   const [notesClick, setNotesClick] = useState(false);
 
   const handleNotesClick = (e) => {
     setNotesClick(!notesClick);
   };
+
 
   return (
     <Container className="chatPage-wrapper">
@@ -201,15 +231,15 @@ const ChatPage = () => {
           <ChatItems
             messageDateFormat={messageDateFormat}
             onChatChange={changeChatItem}
-            chat={chatList}
+            chat={filteredChatList}
             selectedChatItem={selectedChatItem}
+            onSearch={handleSearch}
           />
         )}
         {openVideoCall && <Meeting onClose={() => setOpenVideoCall(false)} />}
       </div>
       <div className="chat-details-container">
         <ChatDetails
-          messageDateFormat={messageDateFormat}
           selectedItem={selectedChatItem}
           messages={messages}
           messageState={message}
@@ -231,10 +261,3 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
-
-// Create a state here and a handle function for notes click
-// Pass those as props to ChatDetails
-// Notes Icon should be visible based on the state we have passed and role should be doctor
-// On click of notes icon, trigger the handle function from props
-// Handle function will update the notes state and set the notes icon to visible
-// if notes state is true show notes component under ChatDetails component

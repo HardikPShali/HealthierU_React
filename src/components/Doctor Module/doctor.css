@@ -2814,7 +2814,8 @@ button {
   display: block;
   margin-top: 10px;
   text-align: left;
-
+  display: flex;
+  margin-left: -35%;
   box-shadow: 0px 0px 10px #ddd;
   /* height: 31%; */
   /* HAVE TO CHANGE THIS WHEN CONSULTATION TYPE WILL BE ADDED */
