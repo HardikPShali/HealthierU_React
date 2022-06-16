@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import Footer from './Footer'
 //import { Link } from 'react-router-dom'
 import './doctor.css';
+import Availability from './Availability';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 // import axios from 'axios';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
@@ -1312,6 +1313,7 @@ const Myappointment = (props) => {
                     </Container>
                     <br />
                     <br />
+                    <Availability />
                     {/* <Footer /> */}
                     <Dialog
                         onClose={handleAppointmentInfoClose}
