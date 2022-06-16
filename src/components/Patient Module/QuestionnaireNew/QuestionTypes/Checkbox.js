@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import '../Questionnaire.css'
 
-export const Checkbox = ({ question, followQuestion }) => {
+export const Checkbox = ({ question, followQuestion, isError }) => {
     const [answers, setAnswer] = useState([]);
 
     const handleCheckboxChange = (e) => {
@@ -32,12 +32,15 @@ export const Checkbox = ({ question, followQuestion }) => {
                 setAnswer(answers.filter(item => item !== e));
             }
         }
+        if(e) {
+            question.isError = false;
+        }
 
         followQuestion();
     }
 
     return (
-        <div className="form-check mb-1 pb-2">
+        <div className={`form-check mb-1 pb-2 ${isError ? 'error-field' : ''}`}>
             <label className="form-check-label col-form-label col-sm-12">
                 {question.questionTitle}
             </label>

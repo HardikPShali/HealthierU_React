@@ -44,7 +44,7 @@ import dollarIcon from '../../images/svg/dollar-icon.svg';
 import creditCardIcon from '../../images/svg/credit-card-icon.svg';
 import chatButtonIcon from '../../images/svg/chat-button-icon.svg';
 import callButtonIcon from '../../images/svg/video-call-icon.svg';
-import Availibility from './Availability'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,6 +62,7 @@ const Myappointment = (props) => {
     const [open, setOpen] = useState(false);
     const timeZone = momentTz.tz.guess();
     const { timeZone: currentTimezone, currentDoctor } = props;
+    console.log(currentTimezone);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -212,6 +213,7 @@ const Myappointment = (props) => {
 
     const [selectedAppointment, setSelectedAppointment] = useState();
     const [openAppointmentInfo, setopenAppointmentInfo] = useState(false);
+    //console.log("selectedAppoinment :: ", selectedAppointment)
 
     const handleAppointmentInfoOpen = (eventData, eventEndTime) => {
         if (eventEndTime) {
@@ -344,12 +346,15 @@ const Myappointment = (props) => {
                 }
             }
         );
+        console.log('res', res);
+        console.log('resTomorrow', resTomorrow);
 
         if (res && res.data) {
             //setLoading(false);
             const updateArray = [];
             const acceptedArray = [];
             res.data.reverse();
+            //console.log("res.data : ", res.data);
             res.data.map((value, index) => {
                 if (value.status === 'ACCEPTED' || value.status === 'AVAILABLE') {
                     updateArray.push({
@@ -393,6 +398,7 @@ const Myappointment = (props) => {
             //setState({ ...state, data: updateArray });
             setState(updateArray);
             setAcceptedAppointment(acceptedArray);
+            console.log('acceptedArray:::::::::::::::', acceptedArray);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
             const tourState = cookies.get('appointmentTour');
@@ -405,6 +411,7 @@ const Myappointment = (props) => {
             //const updateArray = [];
             const todayArray = [];
             resToday.data.reverse();
+            //console.log("res.data : ", res.data);
             resToday.data.map((value, index) => {
                 if (
                     value.status === 'ACCEPTED' &&
@@ -424,7 +431,14 @@ const Myappointment = (props) => {
                 }
                 return value;
             });
-            setTodayAppointment(todayArray);
+            todayAppointment.push(todayArray);
+            setTodayAppointment([...todayAppointment, todayArray]);
+            {
+                todayAppointment.map((t) => {
+                    setTodayAppointment(t);
+                });
+            }
+            console.log('todayArray:::::::::::::::', todayAppointment);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
             const tourState = cookies.get('appointmentTour');
@@ -437,9 +451,9 @@ const Myappointment = (props) => {
             //const updateArray = [];
             const tomoArray = [];
             resTomorrow.data.reverse();
+            //console.log("res.data : ", res.data);
             resTomorrow.data.map((value, index) => {
                 if (value.status === 'ACCEPTED') {
-
                     tomoArray.push({
                         id: value.id,
                         startTime: new Date(value.startTime),
@@ -454,7 +468,15 @@ const Myappointment = (props) => {
                 }
                 return value;
             });
-            setTomorrowAppointment(tomoArray)
+            tomorrowAppointment.push(tomoArray);
+            setTomorrowAppointment([...tomorrowAppointment, tomoArray]);
+
+            {
+                tomorrowAppointment.map((t) => {
+                    setTomorrowAppointment(t);
+                });
+            }
+            console.log('tomoArray:::::::::::::::', tomorrowAppointment);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
             const tourState = cookies.get('appointmentTour');
@@ -464,6 +486,8 @@ const Myappointment = (props) => {
         }
     };
 
+    ////console.log("UTC string :::", new Date(new Date().toUTCString()).toISOString())
+    ////console.log("ISO string :::", new Date().toISOString())
 
     // const handleSelect = async (start, end) => {
     //     const slotTime = moment(new Date()).subtract(25, "minutes");
@@ -526,6 +550,7 @@ const Myappointment = (props) => {
             slotStartTime = slots[0];
             slotEndTime = new Date(moment(slots[0]).add(30, 'minutes'));
         }
+        console.log('slots ::', slotStartTime, slotEndTime);
         const slotTime = moment(new Date()).subtract(25, 'minutes');
         if (new Date(slots[0]) >= new Date(slotTime)) {
             var duplicateFlag = 0;
@@ -853,7 +878,10 @@ const Myappointment = (props) => {
                                                                                     <div className="row align-items-start py-1">
                                                                                         <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                                                             <h5 className="patient-list__common-date">
-                                                                                      
+                                                                                                {console.log(
+                                                                                                    ':::::::',
+                                                                                                    appointment
+                                                                                                )}
                                                                                                 <b>
                                                                                                     {moment(
                                                                                                         appointment.startTime
@@ -919,7 +947,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        // return <></>;
+                                                                        return false;
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1009,7 +1037,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                // return appointment;
+                                                                return appointment;
                                                             })}
                                                         </div>
                                                     )}
@@ -1055,7 +1083,10 @@ const Myappointment = (props) => {
                                                                                     <div className="row align-items-start py-1">
                                                                                         <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                                                             <h5 className="patient-list__common-date">
-                                                                                             
+                                                                                                {console.log(
+                                                                                                    ':::::::',
+                                                                                                    appointment
+                                                                                                )}
                                                                                                 <b>
                                                                                                     {moment(
                                                                                                         appointment.startTime
@@ -1121,7 +1152,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        // return false;
+                                                                        return false;
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1211,7 +1242,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                // return appointment;
+                                                                return appointment;
                                                             })}
                                                         </div>
                                                     )}
@@ -1281,7 +1312,6 @@ const Myappointment = (props) => {
                     </Container>
                     <br />
                     <br />
-                    <Availibility />
                     {/* <Footer /> */}
                     <Dialog
                         onClose={handleAppointmentInfoClose}

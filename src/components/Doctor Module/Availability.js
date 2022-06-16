@@ -10,6 +10,9 @@ import {
   toggleRecurSlots
 } from '../../service/frontendapiservices'
 import closeBtn from "../../images/svg/close-btn.svg";
+// import LocalStorageService from "../../services/LocalStorageService";
+import LocalStorageService from "./../../util/LocalStorageService";
+
 import "./doctor.css";
 import Cookies from 'universal-cookie';
 import { useHistory } from "react-router";

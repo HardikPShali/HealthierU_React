@@ -1382,6 +1382,10 @@ div#multiselectContainerReact div:hover {
   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
 }
 
+.error-field .col-form-label {
+  color: red !important;
+}
+
 .radio-div,
 .checkbox-div {
   margin-top: 20px;
