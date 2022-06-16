@@ -236,28 +236,31 @@ const NotificationMenuDoctor = (props) => {
 
         if (response.status === 200) {
             const notifications = response.data.data.notifications;
-            // console.log({ notifications });
+            console.log({ notifications });
             setNotificationsData(notifications);
         }
     };
 
-    useEffect(() => {
-        let data;
-        const tokenFunction = async () => {
-            data = await getFirebaseToken(setTokenFound);
-            if (data) {
-                console.log({ data });
-            }
-            return data;
-        };
+    const fcmToken = localStorage.getItem('fcmToken');
+    console.log({ fcmToken })
 
-        const getPermission = async () => {
-            const permission = await getPermissions();
-            if (permission === 'granted') {
-                tokenFunction();
-            }
-        };
-        getPermission();
+    useEffect(() => {
+        // let data;
+        // const tokenFunction = async () => {
+        //     data = await getFirebaseToken(setTokenFound);
+        //     if (data) {
+        //         console.log({ data });
+        //     }
+        //     return data;
+        // };
+
+        // const getPermission = async () => {
+        //     const permission = await getPermissions();
+        //     if (permission === 'granted') {
+        //         tokenFunction();
+        //     }
+        // };
+        // getPermission();
         getPushNotifications();
 
     }, []);

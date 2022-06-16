@@ -1169,3 +1169,22 @@ export const pushNotificationsApi = async (userId, pageNo, pageSize) => {
   });
   return response;
 }
+
+export const getFcmTokenApi = async (userId) => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/notification/fcm-token?id=${userId}&platform=web`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}

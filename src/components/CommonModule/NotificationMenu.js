@@ -238,22 +238,22 @@ const NotificationMenu = (props) => {
   };
 
   useEffect(() => {
-    let data;
-    const tokenFunction = async () => {
-      data = await getFirebaseToken(setTokenFound);
-      if (data) {
-        console.log({ data });
-      }
-      return data;
-    };
+    // let data;
+    // const tokenFunction = async () => {
+    //   data = await getFirebaseToken(setTokenFound);
+    //   if (data) {
+    //     console.log({ data });
+    //   }
+    //   return data;
+    // };
 
-    const getPermission = async () => {
-      const permission = await getPermissions();
-      if (permission === 'granted') {
-        tokenFunction();
-      }
-    };
-    getPermission();
+    // const getPermission = async () => {
+    //   const permission = await getPermissions();
+    //   if (permission === 'granted') {
+    //     tokenFunction();
+    //   }
+    // };
+    // getPermission();
     getPushNotifications();
   }, []);
 
@@ -275,11 +275,11 @@ const NotificationMenu = (props) => {
                   <div key={index}>
                     <div className="notif-section">
                       <div className="profile-img col-md-3">
-                        {notification.data.appointmentDTO.doctor?.picture ? (
+                        {notification.data.appointmentDetails.doctor?.picture ? (
                           <img
                             alt="profile"
                             src={
-                              notification.data.appointmentDTO.doctor.picture
+                              notification.data.appointmentDetails.doctor.picture
                             }
                             style={{
                               height: 40,
@@ -291,9 +291,9 @@ const NotificationMenu = (props) => {
                           <Avatar
                             round={true}
                             name={
-                              notification.data.appointmentDTO.doctor +
+                              notification.data.appointmentDetails.doctor +
                               ' ' +
-                              (notification.data.appointmentDTO.doctor || '')
+                              (notification.data.appointmentDetails.doctor || '')
                             }
                             size={60}
                             className="notifications-avatar"
@@ -319,16 +319,16 @@ const NotificationMenu = (props) => {
                   </div>
                 );
               }
-              if (notification.type === 'APPOINTMENT') {
+              if (notification.type === 'CANCEL') {
                 return (
                   <div key={index}>
                     <div className="notif-section">
                       <div className="profile-img col-md-3">
-                        {notification.data.appointmentDTO.doctor?.picture ? (
+                        {notification.data.appointmentDetails.doctor?.picture ? (
                           <img
                             alt="profile"
                             src={
-                              notification.data.appointmentDTO.doctor.picture
+                              notification.data.appointmentDetails.doctor.picture
                             }
                             style={{
                               height: 40,
@@ -340,9 +340,9 @@ const NotificationMenu = (props) => {
                           <Avatar
                             round={true}
                             name={
-                              notification.data.appointmentDTO.doctor +
+                              notification.data.appointmentDetails.doctor +
                               ' ' +
-                              (notification.data.appointmentDTO.doctor || '')
+                              (notification.data.appointmentDetails.doctor || '')
                             }
                             size={60}
                             className="notifications-avatar"

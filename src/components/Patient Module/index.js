@@ -9,14 +9,15 @@ import { getCurrentPatientInfo } from "../../service/AccountService";
 //import Cookies from 'universal-cookie';
 import Header from "./Header";
 import Footer from "./Footer";
-import { firestoreService, chatAndVideoService } from "../../util";
+import { firestoreService, chatAndVideoService, getFirebaseToken, getPermissions } from "../../util";
 import Loader from '../Loader/Loader'
 import {
+  getFcmTokenApi,
   updatePatientTimeZone,
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
-import PaypalMobile from "./MobilePayment/PaypalMobile";
+
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
 const RescheduleAppointment = React.lazy(() => import("./RescheduleAppointment"));
@@ -94,6 +95,9 @@ const PatientRoute = () => {
     };
     await updatePatientTimeZone(payload);
   };
+
+  const fcmToken = localStorage.getItem('fcmToken');
+  console.log({ fcmToken });
 
   return (
     <Suspense fallback={<Loader />}>
