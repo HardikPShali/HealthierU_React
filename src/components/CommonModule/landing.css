@@ -71,7 +71,7 @@ footer .row {
 }
 
 a#footer-link {
-  display: block;
+  display: flex;
   color: #fff !important;
   text-decoration: none !important;
   font-size: 15px;
@@ -1403,5 +1403,11 @@ button.btn.btn-outline-primary.sign-btn:hover {
   }
   button.continue-btn {
     margin-top: 69px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  a#copy-link {
+    font-size: 10px;
   }
 }

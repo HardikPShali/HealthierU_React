@@ -473,7 +473,7 @@ const Myappointment = (props) => {
               <Col md={12}>
                 <div>
                   <h2 className="mt-3 mb-3 text-center font-weight-bold">
-                    List of Appointments
+                   LIST OF APPOINTMENTS
                   </h2>
 
                   <Tabs
