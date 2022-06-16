@@ -17,6 +17,7 @@ import {
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
+import moment from "moment";
 
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
@@ -68,6 +69,8 @@ const PatientRoute = () => {
   const [restartFirebaseLogin, setRestartFirebaseLogin] = useState(0);
   const systemTimeZone = momentTz.tz.guess();
 
+  const [tokenFound, setTokenFound] = useState(false);
+
   const cookie = new Cookies();
 
   useEffect(() => {
@@ -95,9 +98,6 @@ const PatientRoute = () => {
     };
     await updatePatientTimeZone(payload);
   };
-
-  const fcmToken = localStorage.getItem('fcmToken');
-  console.log({ fcmToken });
 
   return (
     <Suspense fallback={<Loader />}>

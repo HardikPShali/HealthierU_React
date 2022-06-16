@@ -391,7 +391,7 @@ const Myappointment = (props) => {
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
         const upcomingArray = response.data.data.upcoming;
-        console.log('upcomingArray', upcomingArray);
+        // console.log('upcomingArray', upcomingArray);
         setUpcomingAppointment(upcomingArray);
 
         const completedAppointmentsArray = response.data.data.completed;
@@ -399,7 +399,7 @@ const Myappointment = (props) => {
         // console.log('completedAppointmentsArray', completedAppointmentsArray);
 
         const cancelledAppointmentsArray = response.data.data.cancelled;
-        console.log({ cancelledAppointmentsArray });
+        // console.log({ cancelledAppointmentsArray });
         setCancelledAppointment(cancelledAppointmentsArray);
       }
     }
@@ -495,7 +495,6 @@ const Myappointment = (props) => {
                       <div className="my-appointments__card-box">
                         <div className="my-appointments__card-holder">
                           <div className="row">
-                            {console.log({ myAppointment })}
                             {UpcomingAppointment &&
                               Array.isArray(UpcomingAppointment) &&
                               UpcomingAppointment.length > 0 &&
@@ -714,7 +713,6 @@ const Myappointment = (props) => {
                       <div className="my-appointments__card-box">
                         <div className="my-appointments__card-holder">
                           <div className="row">
-                            {console.log({ cancelledAppointment })}
                             {cancelledAppointment &&
                               Array.isArray(cancelledAppointment) &&
                               cancelledAppointment.length > 0 &&

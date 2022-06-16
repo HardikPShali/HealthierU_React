@@ -474,6 +474,26 @@ const Welcome = ({ currentuserInfo }) => {
     const cookie = new Cookies();
     const [tokenFound, setTokenFound] = useState(false);
 
+    const fcmTokenGenerationHandler = async () => {
+        let tokenToBeGenerated;
+        const tokenFunction = async () => {
+            tokenToBeGenerated = await getFirebaseToken(setTokenFound);
+            if (tokenToBeGenerated) {
+                console.log({ tokenToBeGenerated });
+            }
+            return tokenToBeGenerated;
+        };
+
+        const getPermission = async () => {
+            const permission = await getPermissions();
+            if (permission === 'granted') {
+                tokenFunction();
+            }
+        };
+        getPermission();
+        alert('token generated')
+    }
+
 
     const triggerFcmTokenHandler = async () => {
         const currentPatient = cookie.get('profileDetails');
@@ -482,36 +502,36 @@ const Welcome = ({ currentuserInfo }) => {
         console.log({ response })
 
         if (response.data.data === null) {
-            // const tokenGenerated = response.data.data.token;
 
-            // console.log({ tokenGenerated })
-            // const creationDateOfToken = moment(response.data.data.createdAt).format('YYYY-MM-DD HH:mm:ss');
-            // console.log({ creationDateOfToken })
-            // if (tokenGenerated === '') {
-            let tokenToBeGenerated;
-            const tokenFunction = async () => {
-                tokenToBeGenerated = await getFirebaseToken(setTokenFound);
-                if (tokenToBeGenerated) {
-                    console.log({ tokenToBeGenerated });
-                }
-                return tokenToBeGenerated;
-            };
+            fcmTokenGenerationHandler();
 
-            const getPermission = async () => {
-                const permission = await getPermissions();
-                if (permission === 'granted') {
-                    tokenFunction();
-                }
-            };
-            getPermission();
-            alert('token generated')
-            // }
         }
         else {
-            const tokenGenerated = response.data.data.token;
 
-            localStorage.setItem('fcmToken', tokenGenerated);
-            console.log({ 'fcmToken': tokenGenerated });
+            const dateAfter30Days = new Date().setDate(new Date().getDate() + 31);
+            const dayAfter30daysConverted = moment(dateAfter30Days).format('YYYY-MM-DD');
+
+            let fcmTokenCreationDate = ''
+            let fcmTokenCreationDateConverted = ''
+
+
+            if (response.status === 200) {
+                fcmTokenCreationDate = response.data.data.createdAt;
+                fcmTokenCreationDateConverted = moment(fcmTokenCreationDate).format('YYYY-MM-DD');
+
+            }
+
+            if (fcmTokenCreationDateConverted > dayAfter30daysConverted) {
+                console.log("Token expired");
+                fcmTokenGenerationHandler();
+            }
+            else {
+                console.log("Token not expired");
+                const tokenGenerated = response.data.data.token;
+
+                localStorage.setItem('fcmToken', tokenGenerated);
+                console.log({ 'fcmToken': tokenGenerated });
+            }
         }
 
     }
