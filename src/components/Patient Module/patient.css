@@ -3707,12 +3707,12 @@ button a {
 /* Create a custom checkbox */
 .checkmark {
   position: absolute;
-  top: 0;
-  left: 0;
+  /* top: 0;
+  left: 0; */
   height: 20px;
   width: 20px;
-  background-color: #eee;
-  border: 1px solid #00000060;
+  /* background-color: #eee;
+  border: 1px solid #00000060; */
 }
 
 /* On mouse-over, add a grey background color */

@@ -970,6 +970,60 @@ export const getGlobalMedicalRecordsSearch = async (data) => {
     });
     return response;
 }
+export const addRecurringSLot = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/appointments/recur`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+export const getRecurringSLots = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/appointments/recur/doctor`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+export const toggleRecurSlots = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/recur/toggle`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
 // export const getGlobalMedicalRecordsSearch = async (documentType, patientId, resultType, startTime, doctorId, pageNo, endTime, labName, doctorName, pageSize, id) => {
 //     var payload = {
 //         method: 'get',
