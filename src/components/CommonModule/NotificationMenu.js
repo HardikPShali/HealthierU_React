@@ -219,10 +219,10 @@ const NotificationMenu = (props) => {
 
   const getPushNotifications = async () => {
     const user = cookies.get('profileDetails');
-    const userId = user.id;
+    const userId = user.userId;
 
-    const page = 1;
-    const limit = 2;
+    const page = 0;
+    const limit = 100;
 
     const response = await pushNotificationsApi(
       userId,
@@ -232,7 +232,7 @@ const NotificationMenu = (props) => {
 
     if (response.status === 200) {
       const notifications = response.data.data.notifications;
-      // console.log({ notifications });
+      console.log({ notifications });
       setNotificationsData(notifications);
     }
   };
@@ -254,9 +254,10 @@ const NotificationMenu = (props) => {
       }
     };
     getPermission();
+    getPushNotifications();
   }, []);
 
-  getPushNotifications();
+
   // messageHandle();
 
   return (

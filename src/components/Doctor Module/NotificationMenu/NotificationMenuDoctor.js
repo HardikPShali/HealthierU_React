@@ -14,7 +14,7 @@ const NotificationMenuDoctor = (props) => {
 
     const [notificationsData, setNotificationsData] = useState([]);
 
-    console.log({ tokenFound });
+    // console.log({ tokenFound });
 
     // const staticResponse = {
     //   "status": true,
@@ -220,10 +220,10 @@ const NotificationMenuDoctor = (props) => {
     const getPushNotifications = async () => {
         const user = cookies.get('profileDetails');
 
-        console.log({ user })
+        // console.log({ user })
         const userId = user.id;
 
-        console.log({ userId })
+        // console.log({ userId })
 
         const page = 1;
         const limit = 2;
@@ -236,7 +236,7 @@ const NotificationMenuDoctor = (props) => {
 
         if (response.status === 200) {
             const notifications = response.data.data.notifications;
-            console.log({ notifications });
+            // console.log({ notifications });
             setNotificationsData(notifications);
         }
     };
@@ -258,9 +258,10 @@ const NotificationMenuDoctor = (props) => {
             }
         };
         getPermission();
+        getPushNotifications();
+
     }, []);
 
-    getPushNotifications();
     // messageHandle();
 
     return (

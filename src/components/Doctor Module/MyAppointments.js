@@ -823,6 +823,7 @@ const MyAppointments = (props) => {
                         <Row style={{ alignItems: "center", marginTop: "5px" }}>
                           <Col xs={4} style={{ textAlign: "center" }}>
                             <div id="req-name">
+                              {console.log(SelectedPatient)}
                               <b>
                                 {SelectedPatient &&
                                   SelectedPatient.patient &&
@@ -881,7 +882,7 @@ const MyAppointments = (props) => {
                               <img
                                 width="40"
                                 height="40"
-                                font-weight="300"
+                                fontWeight="300"
                                 src={conHistory}
                                 // onClick='${pathname}'
                                 alt=""

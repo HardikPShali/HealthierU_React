@@ -47,7 +47,8 @@ const fcmTokenApiHandler = async (token) => {
   const data = {
     token: token,
     platform: 'web',
-    userId: userId
+    userId: userId,
+    createdAt: new Date().toISOString()
   }
 
   const response = await sendFcmTokenToServer(data)
