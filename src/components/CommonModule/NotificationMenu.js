@@ -274,7 +274,7 @@ const NotificationMenu = (props) => {
               if (notification.type === 'RESCHEDULE') {
                 return (
                   <NavLink
-                    to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id}/${notification.data.appointmentDetails.appointmentMode}`}
+                    to={`patient/rescheduleappointment/${notification?.data?.appointmentDetails?.id}/${notification?.data?.appointmentDetails?.appointmentMode}`}
                     className="d-flex flex-column text-dark"
                     key={index}
                     style={{ marginLeft: 0 }}
