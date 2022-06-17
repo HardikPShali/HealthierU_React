@@ -492,7 +492,7 @@ const Welcome = ({ currentuserInfo }) => {
             }
         };
         getPermission();
-        alert('token generated')
+        // alert('token generated')
     }
 
 
