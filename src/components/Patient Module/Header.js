@@ -124,9 +124,9 @@ const Header = (props) => {
                     type="button"
                     data-toggle="dropdown"
                   >
-                    <Badge badgeContent={unReadMessageCount} color="secondary">
-                      <NotificationsIcon />
-                    </Badge>
+                    {/* <Badge badgeContent={unReadMessageCount} color="secondary"> */}
+                    <NotificationsIcon />
+                    {/* </Badge> */}
                   </IconButton>
                   <div
                     className="dropdown-menu notification-Menu"

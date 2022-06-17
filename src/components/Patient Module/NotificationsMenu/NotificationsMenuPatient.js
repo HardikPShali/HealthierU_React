@@ -6,7 +6,7 @@ import AcceptedAppointmentsNotification from './NotificationTypes/AcceptedAppoin
 import CancelledByDoctorNotifications from './NotificationTypes/CancelledByDoctorNotifications';
 import NextAppointmentNotifications from './NotificationTypes/NextAppointmentNotifications';
 import RescheduleNotification from './NotificationTypes/RescheduleNotification';
-import StringNotifications from './NotificationTypes/StringNotifications';
+// import StringNotifications from './NotificationTypes/StringNotifications';
 
 const NotificationMenuPatient = () => {
 
@@ -31,7 +31,7 @@ const NotificationMenuPatient = () => {
 
         if (response.status === 200) {
             const notifications = response.data.data.notifications;
-            console.log({ notifications });
+            // console.log({ notifications });
             setNotificationsData(notifications);
         }
     };

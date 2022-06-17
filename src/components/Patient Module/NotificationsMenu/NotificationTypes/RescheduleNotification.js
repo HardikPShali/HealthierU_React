@@ -11,7 +11,7 @@ const RescheduleNotification = ({ notification, key }) => {
                 to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id}/${notification.data.appointmentDetails.appointmentMode}`}
                 className="d-flex flex-column text-dark"
                 key={key}
-                style={{ marginLeft: 0 }}
+                style={{ marginLeft: 0, marginTop: -16 }}
             >
                 <div key={key}>
                     <div className="notif-section">

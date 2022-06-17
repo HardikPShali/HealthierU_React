@@ -130,14 +130,14 @@ const Footer = () => {
               </p>
             </Col>
             <Col id="last-col">
-              <p id="lang-select">
+              {/* <p id="lang-select">
                 Language
                 <select onChange={(e) => change(e)}>
                   <option value="en">English</option>
                   <option value="ar">Arabic</option>
                   <option value="enuk">English(UK)</option>
                 </select>
-              </p>
+              </p> */}
               <div id="social-icon" className="d-flex">
                 <a
                   href="https://www.facebook.com/HealthierU-109526728064645"

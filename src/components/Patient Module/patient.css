@@ -854,7 +854,7 @@ div#price-box:before {
 }
 
 .health-assess-bg__wrapper {
-  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.2));
+  /* filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.2)); */
   /* border-radius: 10px; */
   border-radius: 10px;
   /* background: #f5f5f5; */
@@ -4311,6 +4311,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   display: flex;
   align-items: center;
   font-size: 12px;
+  margin-top: 10px;
 }
 
 .message-notif {
@@ -4357,4 +4358,12 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 70px !important;
   height: 70px !important;
   margin: 15px !important;
+}
+
+.set-next-notif__button {
+  height: 50px;
+  width: 70px;
+  border-radius: 10px;
+  padding: 2px;
+  font-size: 14px;
 }
