@@ -454,8 +454,9 @@ const Myappointment = (props) => {
           <Container>
             <Row>
               <Col>
-                <div className="calender_container">
+                <div className="calender_container bg-white">
                   <Calendar
+                    views={['month', 'week', 'day',]}
                     selectable={true}
                     localizer={localizer}
                     events={myAppointment}
@@ -470,6 +471,7 @@ const Myappointment = (props) => {
                     timeslots={1}
                     step={60}
                     onSelectEvent={(event) => handleAppointmentInfoOpen(event)}
+                    messages={{previous: "Previous", next: "Next", today: "Today"}}
                   />
                 </div>
               </Col>
@@ -477,7 +479,7 @@ const Myappointment = (props) => {
             <br />
          
 
-            <Row className="mt-3 mx-1 calender_container">
+            <Row className="mt-3 mx-1 calender_container bg-white">
               <Col md={12}></Col>
               {/* <Col md={3}></Col> */}
               <Col md={12}>
