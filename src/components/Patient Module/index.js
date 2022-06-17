@@ -9,14 +9,16 @@ import { getCurrentPatientInfo } from "../../service/AccountService";
 //import Cookies from 'universal-cookie';
 import Header from "./Header";
 import Footer from "./Footer";
-import { firestoreService, chatAndVideoService } from "../../util";
+import { firestoreService, chatAndVideoService, getFirebaseToken, getPermissions } from "../../util";
 import Loader from '../Loader/Loader'
 import {
+  getFcmTokenApi,
   updatePatientTimeZone,
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
-import PaypalMobile from "./MobilePayment/PaypalMobile";
+import moment from "moment";
+
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
 const RescheduleAppointment = React.lazy(() => import("./RescheduleAppointment"));
@@ -66,6 +68,8 @@ const PatientRoute = () => {
   const [trigger, setTrigger] = useState(0);
   const [restartFirebaseLogin, setRestartFirebaseLogin] = useState(0);
   const systemTimeZone = momentTz.tz.guess();
+
+  const [tokenFound, setTokenFound] = useState(false);
 
   const cookie = new Cookies();
 

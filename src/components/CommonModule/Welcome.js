@@ -34,6 +34,7 @@ import {
     updateRolePatient,
     updateRoleDoctor,
     getUpdatedUserData,
+    getFcmTokenApi,
 } from '../../service/frontendapiservices';
 import ImageCropper from './ImageCroper';
 import DoctorDocumentUpload from "./doctordocumentupload";
@@ -41,6 +42,7 @@ import { getCurrentDoctorInfo } from "../../service/AccountService";
 import DatePicker from 'react-date-picker';
 import { useHistory } from "react-router";
 import { Button } from 'react-bootstrap';
+import { getFirebaseToken, getPermissions } from '../../util';
 // import 'react-calendar/dist/Calendar.css';
 
 //import axios from 'axios';
@@ -287,9 +289,11 @@ const Welcome = ({ currentuserInfo }) => {
                 setCurrentUserDataAfterApproval(currentUserInformation.data);
                 setDisplayDocumentForm(true);
                 setTransparentLoading(false);
+                triggerFcmTokenHandler();
             }
             if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
                 getUpdatedCurrentUserData();
+                triggerFcmTokenHandler();
             }
         }
     }
@@ -465,6 +469,72 @@ const Welcome = ({ currentuserInfo }) => {
     const [currentDoctor, setCurrentDoctor] = useState();
 
     console.log("currentUserInfo ::", currentuserInfo);
+
+    // FCM TOKEN VALIDATIONS AND CREATIONS
+    const cookie = new Cookies();
+    const [tokenFound, setTokenFound] = useState(false);
+
+    const fcmTokenGenerationHandler = async () => {
+        let tokenToBeGenerated;
+        const tokenFunction = async () => {
+            tokenToBeGenerated = await getFirebaseToken(setTokenFound);
+            if (tokenToBeGenerated) {
+                console.log({ tokenToBeGenerated });
+            }
+            return tokenToBeGenerated;
+        };
+
+        const getPermission = async () => {
+            const permission = await getPermissions();
+            if (permission === 'granted') {
+                tokenFunction();
+            }
+        };
+        getPermission();
+        alert('token generated')
+    }
+
+
+    const triggerFcmTokenHandler = async () => {
+        const currentPatient = cookie.get('profileDetails');
+        const userId = currentPatient.userId;
+        const response = await getFcmTokenApi(userId).catch(err => console.log({ err }))
+        console.log({ response })
+
+        if (response.data.data === null) {
+
+            fcmTokenGenerationHandler();
+
+        }
+        else {
+
+            const dateAfter30Days = new Date().setDate(new Date().getDate() + 31);
+            const dayAfter30daysConverted = moment(dateAfter30Days).format('YYYY-MM-DD');
+
+            let fcmTokenCreationDate = ''
+            let fcmTokenCreationDateConverted = ''
+
+
+            if (response.status === 200) {
+                fcmTokenCreationDate = response.data.data.createdAt;
+                fcmTokenCreationDateConverted = moment(fcmTokenCreationDate).format('YYYY-MM-DD');
+
+            }
+
+            if (fcmTokenCreationDateConverted > dayAfter30daysConverted) {
+                console.log("Token expired");
+                fcmTokenGenerationHandler();
+            }
+            else {
+                console.log("Token not expired");
+                const tokenGenerated = response.data.data.token;
+
+                localStorage.setItem('fcmToken', tokenGenerated);
+                console.log({ 'fcmToken': tokenGenerated });
+            }
+        }
+
+    }
 
     return (
         <div>

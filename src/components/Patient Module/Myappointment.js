@@ -24,9 +24,9 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import ChatIcon from '@material-ui/icons/Chat';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-import calendarSmall from '../../images/svg/calendar-small.svg';
+import calendarSmall from '../../images/svg/calender-beige.svg';
 import calendarIcon from '../../images/svg/calendar-green.svg';
-import timeSmall from '../../images/svg/time-small.svg';
+import timeSmall from '../../images/svg/time-teal.svg';
 import timeBig from '../../images/svg/time-big-icon.svg';
 import rightIcon from '../../images/svg/right-icon.svg';
 import chatButtonIcon from '../../images/svg/chat-button-icon.svg';
@@ -78,6 +78,7 @@ const app = makeStyles(() => ({
 
 const Myappointment = (props) => {
   const [myAppointment, setMyAppoitment] = useState([]);
+  const [UpcomingAppointment, setUpcomingAppointment] = useState([]);
   const [completedAppointment, setCompletedAppointment] = useState([]);
   const [cancelledAppointment, setCancelledAppointment] = useState([]);
 
@@ -98,6 +99,10 @@ const Myappointment = (props) => {
     openCancelledAndCompletedAppointmentInfo,
     setOpenCancelledAndCompletedAppointmentInfo,
   ] = useState(false);
+  const [
+    openUpcomingAppointmentInfo,
+    setOpenUpcomingAppointmentInfo,
+  ] = useState(false);
   const [moreDoctorInfo, setMoreDoctorInfo] = useState(false);
 
   const handleClickOpen = (appointmentData) => {
@@ -115,6 +120,11 @@ const Myappointment = (props) => {
   const handleAppointmentInfoOpen = (eventData) => {
     setSelectedAppointment(eventData);
     setopenAppointmentInfo(true);
+  };
+
+  const handleUpcomingAppointmentInfoOpen = (eventData) => {
+    setSelectedAppointment(eventData);
+    setOpenUpcomingAppointmentInfo(true);
   };
 
   const handleCancelledAndCompletedAppointmentInfoOpen = (eventData) => {
@@ -380,16 +390,16 @@ const Myappointment = (props) => {
 
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        // const upcomingArray = response.data.data.upcoming;
+        const upcomingArray = response.data.data.upcoming;
         // console.log('upcomingArray', upcomingArray);
-        // setMyAppoitment(upcomingArray);
+        setUpcomingAppointment(upcomingArray);
 
         const completedAppointmentsArray = response.data.data.completed;
         setCompletedAppointment(completedAppointmentsArray);
         // console.log('completedAppointmentsArray', completedAppointmentsArray);
 
         const cancelledAppointmentsArray = response.data.data.cancelled;
-        console.log({ cancelledAppointmentsArray });
+        // console.log({ cancelledAppointmentsArray });
         setCancelledAppointment(cancelledAppointmentsArray);
       }
     }
@@ -485,10 +495,10 @@ const Myappointment = (props) => {
                       <div className="my-appointments__card-box">
                         <div className="my-appointments__card-holder">
                           <div className="row">
-                            {myAppointment &&
-                              Array.isArray(myAppointment) &&
-                              myAppointment.length > 0 &&
-                              myAppointment.map((appointment, index) => {
+                            {UpcomingAppointment &&
+                              Array.isArray(UpcomingAppointment) &&
+                              UpcomingAppointment.length > 0 &&
+                              UpcomingAppointment.map((appointment, index) => {
                                 if (
                                   appointment.status &&
                                   new Date(appointment.endTime) >= new Date() &&
@@ -953,7 +963,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            $20
+                            {selectedAppointment.appointmentFee}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -962,7 +972,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            CREDIT CARD
+                            {selectedAppointment.paymentMethod}
                           </span>
                         </div>
                       </div>
@@ -1183,7 +1193,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            $20
+                            {selectedAppointment.appointmentFee}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -1192,7 +1202,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            CREDIT CARD
+                            {selectedAppointment.paymentMethod}
                           </span>
                         </div>
                       </div>

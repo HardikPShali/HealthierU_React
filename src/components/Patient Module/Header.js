@@ -129,7 +129,7 @@ const Header = (props) => {
                   </IconButton>
                   <div
                     className="dropdown-menu notification-Menu"
-                    style={{ width: '200px' }}
+                    style={{ width: '350px', left: '-100px' }}
                   >
                     <NotificationMenu
                       unReadMessageList={unReadMessageList}

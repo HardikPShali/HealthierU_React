@@ -9,6 +9,7 @@ import Loader from './../Loader/Loader';
 import SpecialitiesSection from './SpecialitiesSection';
 import UpcomingAppointments from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments';
 import OurDoctors from './OurDoctorsSections/OurDoctors';
+
 // import { getCurrentUserInfo } from "../../service/AccountService";
 // import LocalStorageService from './../../util/LocalStorageService';
 // import Footer from './Footer'
@@ -34,6 +35,8 @@ const Homepage = ({ currentuserInfo }) => {
     //     setCurrentUser(currentUser)
     // }
 
+
+
     return (<>
         {loading && (
             <Loader />
@@ -50,7 +53,7 @@ const Homepage = ({ currentuserInfo }) => {
 }
 
 
-function patientHomePage() {
+const patientHomePage = () => {
 
     return (
         <div>

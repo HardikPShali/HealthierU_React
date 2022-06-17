@@ -143,7 +143,7 @@ const MyDoctor = (props) => {
       }
     } else {
       const res = await getLoggedInUserDataByUserId(loggedInUserId);
-      console.log('res1', res);
+      // console.log('res1', res);
       if (res && res.data) {
         res.data.map((value, index) => {
           if (value.userId === loggedInUserId) {
@@ -430,7 +430,7 @@ const MyDoctor = (props) => {
   };
   const loadSpeciality = async () => {
     const res = await getSpecialityList();
-    console.log('Res speciality', res);
+    // console.log('Res speciality', res);
     if (res && res.data.data) {
       res.data.data.map((specialityName) => {
         name.push(specialityName.name);
@@ -682,7 +682,7 @@ const MyDoctor = (props) => {
 
         setTransparentLoading(false);
       }
-      console.log("DisabledDates", { disabledDates });
+      // console.log("DisabledDates", { disabledDates });
 
     }
   };
@@ -1050,7 +1050,7 @@ const MyDoctor = (props) => {
         setLoading(false);
       }
     });
-    console.log('Country List', res);
+    // console.log('Country List', res);
     if (res && res.data.data) {
       setCountryList(res.data.data);
     }

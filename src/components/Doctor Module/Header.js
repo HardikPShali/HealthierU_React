@@ -15,6 +15,7 @@ import { updateDoctorTimeZone } from '../../service/frontendapiservices';
 import { toast } from 'react-toastify';
 import NotificationMenu from '../CommonModule/NotificationMenu';
 import momentTz from 'moment-timezone';
+import NotificationMenuDoctor from './NotificationMenu/NotificationMenuDoctor';
 // import TimezoneSelect from "react-timezone-select";
 // import Dialog from "@material-ui/core/Dialog";
 // import DialogContent from "@material-ui/core/DialogContent";
@@ -195,13 +196,14 @@ const Header = (props) => {
               </IconButton>
               <div
                 className="dropdown-menu notification-Menu"
-                style={{ width: '280px' }}
+                style={{ width: '350px', left: '-100px' }}
               >
-                <NotificationMenu
+                {/* <NotificationMenu
                   unReadMessageList={unReadMessageList}
                   detailsList={patientDetailsList}
                   module={'doctor'}
-                />
+                /> */}
+                <NotificationMenuDoctor />
               </div>
             </div>
           )}
