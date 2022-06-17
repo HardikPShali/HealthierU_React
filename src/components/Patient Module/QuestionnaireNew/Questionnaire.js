@@ -33,7 +33,49 @@ const Questionnaire = ({ match }) => {
 
   const history = useHistory();
 
+  const isAnswerEmpty = (question) => {
+    let isInvalid;
+    if (question.type === 'checkbox') {
+      isInvalid = question.answers.length == 0;
+    } else {
+      isInvalid = question.answers === "";
+    }
+
+    if (isInvalid) {
+      question.isError = true;
+    } else {
+      question.isError = false
+    }
+
+    return isInvalid
+  }
+
+  const handleValidation = () => {
+    questions.forEach((question) => {
+      if (question.condition) {
+        const previousQuestion = questions.find(
+          (q) => q.questionId === question.condition.questionId
+        );
+
+        if (previousQuestion.answers === question.condition.answer) {
+          question.isError = false;
+          return false;
+        } else {
+          isAnswerEmpty(question)
+        }
+      } else {
+        isAnswerEmpty(question)
+      }
+
+
+    })
+
+    setQuestions([...questions])
+    return questions.some((question) => question.isError)
+  }
+
   const handleAssessmentSubmit = async () => {
+
     const submitData = {
       selections: questions.map((question) => {
         if (!Array.isArray(question.answers)) {
@@ -107,6 +149,21 @@ const Questionnaire = ({ match }) => {
   }, [totalscore]);
 
   const onContinue = async () => {
+    const isInvalid = handleValidation();
+    if (isInvalid) {
+      window.scrollTo(0, 0);
+      toast.error("Please answer all the questions", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
     console.log(questions);
     if (questions.length > 0) {
       handleAssessmentSubmit();
@@ -184,6 +241,7 @@ const Questionnaire = ({ match }) => {
             {questions &&
               questions.map((question) => (
                 <Questions
+                  isError={question.isError}
                   followQuestion={handleFollowQuestionsCondition}
                   key={question.questionId}
                   question={question}
@@ -231,7 +289,7 @@ const Questionnaire = ({ match }) => {
                 marginBottom: "20px",
               }}
             >
-              You scored {totalscore}
+              {/* You scored {totalscore} */}
             </span>
             <h5>You are {healthAssess}</h5>
           </div>

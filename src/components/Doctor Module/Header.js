@@ -13,8 +13,9 @@ import profileicon from '../../images/Icons/profile.svg';
 import { getDoctorByUserId } from '../../service/frontendapiservices';
 import { updateDoctorTimeZone } from '../../service/frontendapiservices';
 import { toast } from 'react-toastify';
-import NotificationMenu from '../CommonModule/NotificationMenu';
+// import NotificationMenu from '../CommonModule/NotificationMenu';
 import momentTz from 'moment-timezone';
+import NotificationMenuDoctor from './NotificationMenu/NotificationMenuDoctor';
 // import TimezoneSelect from "react-timezone-select";
 // import Dialog from "@material-ui/core/Dialog";
 // import DialogContent from "@material-ui/core/DialogContent";
@@ -189,19 +190,20 @@ const Header = (props) => {
                 type="button"
                 data-toggle="dropdown"
               >
-                <Badge badgeContent={unReadMessageCount} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
+                {/* <Badge badgeContent={unReadMessageCount} color="secondary"> */}
+                <NotificationsIcon />
+                {/* </Badge> */}
               </IconButton>
               <div
                 className="dropdown-menu notification-Menu"
-                style={{ width: '280px' }}
+                style={{ width: '350px', left: '-100px' }}
               >
-                <NotificationMenu
+                {/* <NotificationMenu
                   unReadMessageList={unReadMessageList}
                   detailsList={patientDetailsList}
                   module={'doctor'}
-                />
+                /> */}
+                <NotificationMenuDoctor />
               </div>
             </div>
           )}

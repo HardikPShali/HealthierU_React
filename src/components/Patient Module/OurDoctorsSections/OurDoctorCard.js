@@ -1,8 +1,8 @@
 import React from 'react'
-import Avatar from 'react-calendar'
+import Avatar from 'react-avatar';
 
 const OurDoctorCard = ({ doctor }) => {
-    console.log({ doctor })
+    // console.log({ doctor })
     return (
         <div className='our-doctor__card'>
             <div className='our-doctor__card__img-wrapper'>

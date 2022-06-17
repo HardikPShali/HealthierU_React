@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import Footer from './Footer'
 //import { Link } from 'react-router-dom'
 import './doctor.css';
+import Availability from './Availability';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 // import axios from 'axios';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
@@ -748,6 +749,7 @@ const Myappointment = (props) => {
     }
 
     const TouchCellWrapper = ({ children, value, handleSelect }) =>
+    
         React.cloneElement(React.Children.only(children), {
             onTouchEnd: () => handleSelect({ slots: [value] }),
         });
@@ -947,7 +949,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        return false;
+                                                                        {/* return false; */}
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1037,7 +1039,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                return appointment;
+                                                                {/* return appointment; */}
                                                             })}
                                                         </div>
                                                     )}
@@ -1152,7 +1154,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        return false;
+                                                                        {/* return false; */}
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1242,7 +1244,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                return appointment;
+                                                                {/* return appointment; */}
                                                             })}
                                                         </div>
                                                     )}
@@ -1312,6 +1314,7 @@ const Myappointment = (props) => {
                     </Container>
                     <br />
                     <br />
+                    <Availability />
                     {/* <Footer /> */}
                     <Dialog
                         onClose={handleAppointmentInfoClose}
@@ -1431,7 +1434,7 @@ const Myappointment = (props) => {
                                             <br />
                                             <Link
                                                 to={{
-                                                    pathname: `/doctor/medicalrecord/${selectedAppointment?.patient?.id}`,
+                                                    pathname: `/doctor/medicalrecord/${selectedAppointment?.patient?.id}/${selectedAppointment?.id}`,
                                                     state: selectedAppointment?.patient,
                                                 }}
                                             >

@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 
-export const Radio = ({ question, followQuestion }) => {
+export const Radio = ({ question, followQuestion, isError }) => {
     const [answers, setAnswer] = useState("");
 
     const handleRadioChange = (e) => {
         setAnswer(e);
         question.answers = e;
         console.log('Event', answers);
+        question.isError = false;
         followQuestion();
     }
 
     return (
         <>
-            <div className="form-check mb-1 pb-2">
+            <div className={`form-check mb-1 pb-2  ${isError ? 'error-field' : ''}`}>
                 <label className="form-check-label col-sm-12 col-form-label">
                     {question.questionTitle}
                 </label>
@@ -28,6 +29,7 @@ export const Radio = ({ question, followQuestion }) => {
                                 handleRadioChange(choice)
                             }}
                             checked={answers === choice}
+                            required='required'
                         />
                         <label htmlFor={question.questionTitle + index} className="form-check-label">{choice}</label>
                     </div>

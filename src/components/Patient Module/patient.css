@@ -122,7 +122,7 @@ svg#search-icon {
   svg#search-icon {
     margin: 4px 0;
   }
-  .MuiIconButton-root[aria-label="show 17 new notifications"] {
+  .MuiIconButton-root[aria-label='show 17 new notifications'] {
     padding: 0;
   }
 }
@@ -798,7 +798,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 46%;
@@ -1382,6 +1382,10 @@ div#multiselectContainerReact div:hover {
   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
 }
 
+.error-field .col-form-label {
+  color: red !important;
+}
+
 .radio-div,
 .checkbox-div {
   margin-top: 20px;
@@ -1712,7 +1716,7 @@ div#multiselectContainerReact div {
 }
 
 .list--tags > li:before {
-  content: ",\0000a0"; /* Non-breaking space */
+  content: ',\0000a0'; /* Non-breaking space */
 }
 .list--tags > li:first-child:before {
   content: normal;
@@ -2839,7 +2843,7 @@ button.product-discount {
   text-align: end;
   right: 2px;
   height: 36px;
-  background: url("../../images/shop/offer-back.png");
+  background: url('../../images/shop/offer-back.png');
   border: none;
   background-size: cover;
   color: #fff;
@@ -2850,7 +2854,7 @@ button.product-discount {
 }
 
 button.single-product-discount {
-  background: url("../../images/shop/offer-back.png");
+  background: url('../../images/shop/offer-back.png');
   z-index: 2;
   position: relative;
   display: flex;
@@ -3029,7 +3033,7 @@ div#all-workout-list {
   border-color: var(--primary) !important;
   border: 2px solid var(--primary) !important;
   border-radius: 22px;
-  color: #3e4543!important;
+  color: #3e4543 !important;
 }
 
 #my-workout .save-btn:hover {
@@ -3707,12 +3711,12 @@ button a {
 /* Create a custom checkbox */
 .checkmark {
   position: absolute;
-  top: 0;
-  left: 0;
+  /* top: 0;
+  left: 0; */
   height: 20px;
   width: 20px;
-  background-color: #eee;
-  border: 1px solid #00000060;
+  /* background-color: #eee;
+  border: 1px solid #00000060; */
 }
 
 /* On mouse-over, add a grey background color */
@@ -3727,7 +3731,7 @@ button a {
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
@@ -4286,4 +4290,57 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   justify-content: center;
   border-radius: 50%;
   width: 140px !important;
+}
+
+/* NOTIFICATION_MENU */
+.notif-section {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.message-notif {
+  display: flex;
+  flex-direction: column;
+  margin: 2px 10px;
+}
+
+.notification-Menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+.notification-Menu::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+.notification-Menu::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+.notification-Menu::-webkit-scrollbar-thumb:hover {
+  background: #375eaa;
+}
+
+.notifications-avatar > .sb-avatar__text {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.my-appointment-avatar > .sb-avatar__text {
+  width: 70px !important;
+  height: 70px !important;
+}
+
+.my-appointments-avatar > .sb-avatar__text {
+  width: 70px !important;
+  height: 70px !important;
+  margin: 15px !important;
 }

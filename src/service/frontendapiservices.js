@@ -638,9 +638,8 @@ export const loadPastPatient = async (data, pastOffset, limit) => {
     method: "post",
     mode: "no-cors",
     data: data,
-    url: `/api/appointments/active-past?page=${
-      pastOffset ? pastOffset : "0"
-    }&size=${limit ? limit : "25"}&sort=startTime,desc`,
+    url: `/api/appointments/active-past?page=${pastOffset ? pastOffset : "0"
+      }&size=${limit ? limit : "25"}&sort=startTime,desc`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
@@ -697,9 +696,8 @@ export const getModulesDetailsByIds = (arrayIds, module) => {
   var payload = {
     method: "get",
     mode: "no-cors",
-    url: `/api/${module}/profile?${module}Ids=${arrayIds.join()}&page=0&size=${
-      arrayIds.length
-    }&sort=firstName,asc=`,
+    url: `/api/${module}/profile?${module}Ids=${arrayIds.join()}&page=0&size=${arrayIds.length
+      }&sort=firstName,asc=`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
@@ -973,23 +971,77 @@ export const getAppointmentsBySearch = async (patientName) => {
   return response;
 };
 export const getGlobalMedicalRecordsSearch = async (data) => {
-  var payload = {
-    method: "post",
-    mode: "no-cors",
-    url: `/api/v2/medical-documents/filter`,
-    data: data,
-    headers: {
-      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
-      "Content-Type": "application/json",
-    },
-  };
-  const response = await axios(payload).then((res) => {
-    if (res) {
-      return res;
-    }
-  });
-  return response;
-};
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/medical-documents/filter`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+export const addRecurringSLot = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/appointments/recur`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+export const getRecurringSLots = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/appointments/recur/doctor`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+export const toggleRecurSlots = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        url: `/api/v2/recur/toggle`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
 // export const getGlobalMedicalRecordsSearch = async (documentType, patientId, resultType, startTime, doctorId, pageNo, endTime, labName, doctorName, pageSize, id) => {
 //     var payload = {
 //         method: 'get',
@@ -1136,19 +1188,57 @@ export const getAppointmentsTablistByStatus = async (patientId) => {
 
 export const getAvailableSlotsForMyDoctors = async (doctorId, type) => {
   var payload = {
-    method: "get",
-    mode: "no-cors",
+    method: 'get',
+    mode: 'no-cors',
     url: `/api/v2/appointments/active-past/count?doctorId=${doctorId}&type=${type}`,
     headers: {
-      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
   };
-  const response = await axios(payload).then((res) => {
+  const response = await axios(payload).then(res => {
     if (res) {
       return res;
     }
   });
   return response;
-};
+}
+
+export const pushNotificationsApi = async (userId, pageNo, pageSize) => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/notifications?userId=${userId}&pageNo=${pageNo}&pageSize=${pageSize}`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
+
+export const getFcmTokenApi = async (userId) => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/notification/fcm-token?id=${userId}&platform=web`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}

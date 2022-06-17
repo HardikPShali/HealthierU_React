@@ -18,7 +18,7 @@ const UpcomingAppointments = () => {
         const response = await getUpcomingAppointmentsForHomepage().catch((err) => {
             console.log('err', err);
         });
-        console.log('UA response', response);
+        // console.log('UA response', response);
         if (response.status === 200 || response.status === 201) {
             if (response && response.data) {
                 //console.log("response.data ::: ", response.data)
@@ -83,7 +83,7 @@ const UpcomingAppointments = () => {
                 });
 
                 setUpcomingAppointments(updateArray.reverse());
-                console.log('updateArray', updateArray);
+                // console.log('updateArray', updateArray);
             }
         }
 
