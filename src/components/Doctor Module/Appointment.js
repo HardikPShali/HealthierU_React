@@ -749,6 +749,7 @@ const Myappointment = (props) => {
     }
 
     const TouchCellWrapper = ({ children, value, handleSelect }) =>
+    
         React.cloneElement(React.Children.only(children), {
             onTouchEnd: () => handleSelect({ slots: [value] }),
         });
@@ -948,7 +949,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        return false;
+                                                                        {/* return false; */}
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1038,7 +1039,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                return appointment;
+                                                                {/* return appointment; */}
                                                             })}
                                                         </div>
                                                     )}
@@ -1153,7 +1154,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        return false;
+                                                                        {/* return false; */}
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1243,7 +1244,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                return appointment;
+                                                                {/* return appointment; */}
                                                             })}
                                                         </div>
                                                     )}
@@ -1433,7 +1434,7 @@ const Myappointment = (props) => {
                                             <br />
                                             <Link
                                                 to={{
-                                                    pathname: `/doctor/medicalrecord/${selectedAppointment?.patient?.id}`,
+                                                    pathname: `/doctor/medicalrecord/${selectedAppointment?.patient?.id}/${selectedAppointment?.id}`,
                                                     state: selectedAppointment?.patient,
                                                 }}
                                             >

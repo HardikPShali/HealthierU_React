@@ -39,6 +39,15 @@ const MyAppointments = (props) => {
   //    return m;
   //};
   let history = useHistory();
+  const [openReschedule, setOpenReschedule] = useState(false);
+  const [rescheduleID, setRescheduleID] = useState("");
+  const handleRescheduleOpen = (id) => {
+    setRescheduleID(id);
+    setOpenReschedule(true);
+  };
+  const handleRescheduleClose = () => {
+    setOpenReschedule(false);
+  };
   //const moment = getMoment(currentTimezone);
   const [activeAppointments, setActiveAppointments] = useState([]);
   // const [pastAppointments, setPastAppointments] = useState([]);
@@ -400,9 +409,7 @@ const MyAppointments = (props) => {
     getGlobalAppointments(search, filter);
   };
   const rescheduleAppointment = async (id) => {
-    // console.log('appointmentDets', appointmentDets)
-    // console.log('patientID', id)
-    // console.log('selectedPatID', SelectedPatient)
+    handleRescheduleClose()
     const apID = id;
     let docID;
     let aID;
@@ -1043,8 +1050,8 @@ const MyAppointments = (props) => {
                                                     > */}
                           <button
                             className="btn btn-primary view-btn"
-                            onClick={(e) =>
-                              rescheduleAppointment(SelectedPatient.id)
+                            onClick={() =>
+                              handleRescheduleOpen(SelectedPatient.id)
                             }
                           >
                             Reschedule
@@ -1146,6 +1153,36 @@ const MyAppointments = (props) => {
             id="close-btn"
           >
             Ok
+          </button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        onClose={handleRescheduleClose}
+        aria-labelledby="customized-dialog-title"
+        open={openReschedule}
+      >
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={handleRescheduleClose}
+        >
+          Are you sure you want to Reschedule this patient's slot?
+        </DialogTitle>
+        <DialogActions>
+          <button
+            className="btn btn-primary"
+            onClick={(e) =>
+              rescheduleAppointment(SelectedPatient.id)
+            }
+          >
+            Reschedule
+          </button>
+          <button
+            autoFocus
+            onClick={handleRescheduleClose}
+            className="btn btn-secondary"
+            id="close-btn"
+          >
+            Close
           </button>
         </DialogActions>
       </Dialog>
