@@ -262,6 +262,7 @@ const Welcome = ({ currentuserInfo }) => {
             cookies.set("currentUser", currentUserInformation.data);
             setCurrentUserDataAfterApproval(currentUserInformation.data);
             if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted) {
+                triggerFcmTokenHandler();
                 history.push('/patient/questionnaire/new');
             }
         }
@@ -274,7 +275,7 @@ const Welcome = ({ currentuserInfo }) => {
                 setTransparentLoading(false);
                 handleClickOpen();
             } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
-
+                triggerFcmTokenHandler();
                 history.push('/doctor');
             }
         }
@@ -491,13 +492,13 @@ const Welcome = ({ currentuserInfo }) => {
             }
         };
         getPermission();
-        alert('token generated')
+        // alert('token generated')
     }
 
 
     const triggerFcmTokenHandler = async () => {
-        const currentPatient = cookie.get('profileDetails');
-        const userId = currentPatient.userId;
+        const currentPatient = cookie.get('currentUser');
+        const userId = currentPatient.id;
         const response = await getFcmTokenApi(userId).catch(err => console.log({ err }))
         console.log({ response })
 

@@ -429,7 +429,7 @@ const MyAppointments = (props) => {
       }
     });
     if (res) {
-      toast.success("Appointment Rescheduled successfully.");
+      toast.success("Update sent to patient for rescheduling.");
       history.go(0)
     }
   };

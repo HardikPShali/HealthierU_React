@@ -35,13 +35,13 @@ const Questionnaire = ({ match }) => {
 
   const isAnswerEmpty = (question) => {
     let isInvalid;
-    if(question.type === 'checkbox') {
+    if (question.type === 'checkbox') {
       isInvalid = question.answers.length == 0;
     } else {
       isInvalid = question.answers === "";
     }
 
-    if(isInvalid) {
+    if (isInvalid) {
       question.isError = true;
     } else {
       question.isError = false
@@ -52,12 +52,12 @@ const Questionnaire = ({ match }) => {
 
   const handleValidation = () => {
     questions.forEach((question) => {
-      if(question.condition) {
+      if (question.condition) {
         const previousQuestion = questions.find(
           (q) => q.questionId === question.condition.questionId
         );
 
-        if(previousQuestion.answers === question.condition.answer) {
+        if (previousQuestion.answers === question.condition.answer) {
           question.isError = false;
           return false;
         } else {
@@ -67,7 +67,7 @@ const Questionnaire = ({ match }) => {
         isAnswerEmpty(question)
       }
 
-     
+
     })
 
     setQuestions([...questions])
@@ -150,8 +150,8 @@ const Questionnaire = ({ match }) => {
 
   const onContinue = async () => {
     const isInvalid = handleValidation();
-    if(isInvalid) {
-      window.scrollTo(0,0);
+    if (isInvalid) {
+      window.scrollTo(0, 0);
       toast.error("Please answer all the questions", {
         position: "top-right",
         autoClose: 2000,
@@ -289,7 +289,7 @@ const Questionnaire = ({ match }) => {
                 marginBottom: "20px",
               }}
             >
-              You scored {totalscore}
+              {/* You scored {totalscore} */}
             </span>
             <h5>You are {healthAssess}</h5>
           </div>
