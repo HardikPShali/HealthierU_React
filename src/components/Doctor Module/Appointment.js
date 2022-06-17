@@ -1433,7 +1433,7 @@ const Myappointment = (props) => {
                                             <br />
                                             <Link
                                                 to={{
-                                                    pathname: `/doctor/medicalrecord/${selectedAppointment?.patient?.id}`,
+                                                    pathname: `/doctor/medicalrecord/${selectedAppointment?.patient?.id}/${selectedAppointment?.id}`,
                                                     state: selectedAppointment?.patient,
                                                 }}
                                             >
