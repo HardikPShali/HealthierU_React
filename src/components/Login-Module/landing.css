@@ -504,7 +504,16 @@ img#article-card-img {
   max-width: 100%;
   padding: 5% 9%;
 }
-
+.signUp_icon {
+  position: absolute;
+  left: 0;
+  width: 22px;
+  bottom: 3px;
+  filter: brightness(0.5);
+}
+.signup-btnWrap {
+  position: relative;
+}
 .sign-box {
   background: #fff;
   border-radius: 22px;
@@ -1495,6 +1504,13 @@ ul.light {
   .banner-txt-align {
     margin-bottom: 8rem;
   }
+  .signUp_icon {
+    position: initial;
+    margin-right: 0.8rem;
+  }
+  .signup-btnWrap {
+    position: initial;
+  }
 }
 /* ----------OUR EDGE-------- */
 .edge-section {
@@ -1720,7 +1736,7 @@ ul.light {
   font-size: 1.35rem;
   font-weight: 400;
   margin-top: 2rem;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 .our_spl-section ul {
   padding-left: 20px;

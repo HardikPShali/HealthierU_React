@@ -1908,7 +1908,7 @@ const RescheduleAppointment = (props) => {
                         </Col>
                     ) : (
                         <Col md={6} lg={8} style={{ display: display.doctor }}>
-                            <div id="dorctor-list" className="doctor-list-new">
+                            <div id="dorctor-list" className="doctor-list-new ml-1">
                                 {doctor && doctor.activated ? (
                                     // <>
                                     //   <Row id="doc-row">

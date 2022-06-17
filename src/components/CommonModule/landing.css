@@ -276,6 +276,7 @@ img#store-icon {
 .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 26px !important;
   height: 26px !important;
+  fill: #3e4543;
 }
 
 .MuiAppBar-root {
@@ -489,7 +490,7 @@ div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
 }
 
 input#doctor-search {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 #appointment-card {

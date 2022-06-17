@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-//import Footer from './Footer'
+// import Footer from './Footer'
 import './patient.css';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -24,9 +24,9 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import ChatIcon from '@material-ui/icons/Chat';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-import calendarSmall from '../../images/svg/calendar-small.svg';
+import calendarSmall from '../../images/svg/calender-beige.svg';
 import calendarIcon from '../../images/svg/calendar-green.svg';
-import timeSmall from '../../images/svg/time-small.svg';
+import timeSmall from '../../images/svg/time-teal.svg';
 import timeBig from '../../images/svg/time-big-icon.svg';
 import rightIcon from '../../images/svg/right-icon.svg';
 import chatButtonIcon from '../../images/svg/chat-button-icon.svg';
@@ -472,7 +472,7 @@ const Myappointment = (props) => {
               {/* <Col md={3}></Col> */}
               <Col md={12}>
                 <div>
-                  <h2 className="mt-3 mb-3 text-center font-weight-bold">
+                  <h2 className="mt-3 mb-3 text-center" style={{color: "var(--text-primary)"}}>
                    LIST OF APPOINTMENTS
                   </h2>
 

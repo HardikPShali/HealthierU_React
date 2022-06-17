@@ -2124,7 +2124,7 @@ const MyDoctor = (props) => {
             <Col
               md={6}
               lg={4}
-              className="p-0"
+             
               style={{ display: display.doctor }}
             >
               <Tooltip title="Take a Booking appointment tour again." arrow>
