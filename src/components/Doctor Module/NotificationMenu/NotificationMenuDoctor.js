@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react'; //useEffect, useState
-import Avatar from 'react-avatar';
-import { NavLink } from 'react-router-dom'; //Link
 import Cookies from 'universal-cookie';
-// import useRole from '../../custom-hooks/useRole';
-import rightIcon from '../../../images/svg/right-icon.svg';
 import { pushNotificationsApi } from '../../../service/frontendapiservices';
-import moment from 'moment'
 import RescheduleAppointment from './NotificationTypes/RescheduleAppointment';
 import StringNotifications from './NotificationTypes/StringAppointment';
 import CancelledByPatient from './NotificationTypes/CancelledByPatient';
+import moment from 'moment'
+import AcceptedAppointment from './NotificationTypes/AcceptedAppointment';
 
 const NotificationMenuDoctor = (props) => {
-
-    const [tokenFound, setTokenFound] = useState(false);
 
     const [notificationsData, setNotificationsData] = useState([]);
 
     const cookies = new Cookies();
+
+    console.log(moment("2022-06-17T09:42:24Z").format("DD-MM-YYYY hh:mm"));
 
     const getPushNotifications = async () => {
         const user = cookies.get('profileDetails');
@@ -26,8 +23,8 @@ const NotificationMenuDoctor = (props) => {
 
         // console.log({ userId })
 
-        const page = 1;
-        const limit = 2;
+        const page = 0;
+        const limit = 10;
 
         const response = await pushNotificationsApi(
             userId,
@@ -80,6 +77,13 @@ const NotificationMenuDoctor = (props) => {
                                 return (
                                     <div key={index}>
                                         <CancelledByPatient notification={notification} index={index} />
+                                    </div>
+                                );
+                            }
+                            if (notification.type === 'ACCEPTED') {
+                                return (
+                                    <div key={index}>
+                                        <AcceptedAppointment notification={notification} index={index} />
                                     </div>
                                 );
                             }

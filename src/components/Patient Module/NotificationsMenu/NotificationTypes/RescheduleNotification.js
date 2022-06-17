@@ -1,7 +1,8 @@
-import React from 'react'
-import Avatar from 'react-avatar'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import Avatar from 'react-avatar';
+import { NavLink } from 'react-router-dom';
 import rightIcon from '../../../../images/svg/right-icon.svg';
+import moment from 'moment'
 
 const RescheduleNotification = ({ notification, key }) => {
     return (
@@ -18,9 +19,7 @@ const RescheduleNotification = ({ notification, key }) => {
                             {notification.data.appointmentDetails.doctor?.picture ? (
                                 <img
                                     alt="profile"
-                                    src={
-                                        notification.data.appointmentDetails.doctor.picture
-                                    }
+                                    src={notification.data.appointmentDetails.doctor.picture}
                                     style={{
                                         height: 40,
                                         width: 40,
@@ -30,11 +29,7 @@ const RescheduleNotification = ({ notification, key }) => {
                             ) : (
                                 <Avatar
                                     round={true}
-                                    name={
-                                        notification.data.appointmentDetails.doctor +
-                                        ' ' +
-                                        (notification.data.appointmentDetails.doctor || '')
-                                    }
+                                    name={notification.data.appointmentDetails.doctor.firstName}
                                     size={60}
                                     className="notifications-avatar"
                                 />
@@ -42,7 +37,13 @@ const RescheduleNotification = ({ notification, key }) => {
                         </div>
                         <div className="notif-section__message">
                             <div className="message-notif">
-                                <span>{notification.data.message}</span>
+                                <span>
+                                    Dr. {notification.data.appointmentDetails.doctor.firstName}{' '}
+                                    has requested to reschedule the appointment booked for{' '}
+                                    {moment(
+                                        notification.data.appointmentDetails.startTime
+                                    ).format('DD-MM-YYYY hh:mm')}{' '}. Click here to reschedule
+                                </span>
                                 {/* <span>TIME</span> */}
                             </div>
                         </div>
@@ -58,9 +59,8 @@ const RescheduleNotification = ({ notification, key }) => {
                     <hr />
                 </div>
             </NavLink>
-
         </div>
-    )
-}
+    );
+};
 
-export default RescheduleNotification
+export default RescheduleNotification;

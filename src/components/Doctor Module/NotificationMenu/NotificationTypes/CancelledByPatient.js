@@ -24,9 +24,7 @@ const CancelledByPatient = ({ notification, index }) => {
                         <Avatar
                             round={true}
                             name={
-                                notification.data.appointmentDetails?.patient +
-                                ' ' +
-                                (notification.data.appointmentDetails?.patient || '')
+                                notification.data.appointmentDetails?.patient.firstName
                             }
                             size={60}
                             className="notifications-avatar"

@@ -24,9 +24,7 @@ const AcceptedAppointmentsNotification = ({ notification, index }) => {
             <Avatar
               round={true}
               name={
-                notification.data.appointmentDetails?.doctor +
-                ' ' +
-                (notification.data.appointmentDetails?.doctor || '')
+                notification.data.appointmentDetails?.doctor.firstName
               }
               size={60}
               className="notifications-avatar"

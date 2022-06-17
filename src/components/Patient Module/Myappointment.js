@@ -392,7 +392,7 @@ const Myappointment = (props) => {
       if (response && response.data) {
         const upcomingArray = response.data.data.upcoming;
         // console.log('upcomingArray', upcomingArray);
-        setUpcomingAppointment(upcomingArray);
+        setUpcomingAppointment(upcomingArray.reverse());
 
         const completedAppointmentsArray = response.data.data.completed;
         setCompletedAppointment(completedAppointmentsArray);
@@ -522,7 +522,7 @@ const Myappointment = (props) => {
                                         >
                                           <div className="col-md-3">
                                             {
-                                              appointment.doctor ? (
+                                              appointment.doctor.picture ? (
                                                 <img
                                                   src={appointment.doctor.picture}
                                                   alt={`${appointment.doctor.firstName}-image`}
@@ -537,7 +537,7 @@ const Myappointment = (props) => {
                                                     (appointment.doctor.lastName || "")
                                                   }
                                                   size={60}
-                                                  className="my-appointment-avatar"
+                                                  className="my-appointments-avatar"
                                                 />
                                               )
                                             }
@@ -633,7 +633,7 @@ const Myappointment = (props) => {
                                             className="img-circle ml-3 mt-3"
                                           /> */}
                                           {
-                                            appointment.doctor ? (
+                                            appointment.doctor.picture ? (
                                               <img
                                                 src={appointment.doctor.picture}
                                                 alt={`${appointment.doctor.firstName}-image`}
@@ -648,7 +648,7 @@ const Myappointment = (props) => {
                                                   (appointment.doctor.lastName || "")
                                                 }
                                                 size={60}
-                                                className="my-appointment-avatar"
+                                                className="my-appointments-avatar"
                                               />
                                             )
                                           }
@@ -754,7 +754,7 @@ const Myappointment = (props) => {
                                                   (appointment.doctor.lastName || "")
                                                 }
                                                 size={60}
-                                                className="my-appointment-avatar"
+                                                className="my-appointments-avatar"
                                               />
                                             )
                                           }

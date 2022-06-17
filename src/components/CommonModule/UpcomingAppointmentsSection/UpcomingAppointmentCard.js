@@ -32,7 +32,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
       <div className="col-md-3">
         {/* <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" /> */}
         {
-          appointment.doctor ? (
+          appointment.doctor.picture ? (
             <img
               src={appointment.doctor.picture}
               alt={`${appointment.doctor.firstName}-image`}

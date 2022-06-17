@@ -60,16 +60,16 @@ const NotificationMenuPatient = () => {
                                     </div>
                                 );
                             }
-                            if (notification.type === 'STRING') {
-                                return (
-                                    <div key={index}>
-                                        <StringNotifications
-                                            notification={notification}
-                                            index={index}
-                                        />
-                                    </div>
-                                );
-                            }
+                            // if (notification.type === 'STRING') {
+                            //     return (
+                            //         <div key={index}>
+                            //             <StringNotifications
+                            //                 notification={notification}
+                            //                 index={index}
+                            //             />
+                            //         </div>
+                            //     );
+                            // }
                             if (notification.type === 'CANCELLED_BY_DOCTOR') {
                                 return (
                                     <div key={index}>

@@ -3,16 +3,16 @@ import Avatar from 'react-avatar'
 import rightIcon from '../../../../images/svg/right-icon.svg';
 import moment from 'moment'
 
-const NextAppointmentNotifications = ({ notification, index }) => {
+const AcceptedAppointment = ({ notification, index }) => {
     return (
         <div key={index}>
             <div className="notif-section">
                 <div className="profile-img col-md-3">
-                    {notification.data.appointmentDetails?.doctor?.picture ? (
+                    {notification.data.appointmentDetails?.patient?.picture ? (
                         <img
                             alt="profile"
                             src={
-                                notification.data.appointmentDetails?.doctor.picture
+                                notification.data.appointmentDetails?.patient.picture
                             }
                             style={{
                                 height: 40,
@@ -24,7 +24,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                         <Avatar
                             round={true}
                             name={
-                                notification.data.appointmentDetails?.doctor.firstName
+                                notification.data.appointmentDetails?.patient.firstName
                             }
                             size={60}
                             className="notifications-avatar"
@@ -33,7 +33,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                 </div>
                 <div className="notif-section__message">
                     <div className="message-notif">
-                        <span>Your next appointment is confirmed for {moment(notification.data.appointmentDetails.startTime).format('DD-MM-YYYY hh:mm')}</span>
+                        <span>Your appointment is confirmed for {moment(notification.data.appointmentDetails.startTime).format('DD-MM-YYYY hh:mm')}</span>
                         {/* <span>TIME</span> */}
                     </div>
                 </div>
@@ -51,4 +51,4 @@ const NextAppointmentNotifications = ({ notification, index }) => {
     )
 }
 
-export default NextAppointmentNotifications
+export default AcceptedAppointment

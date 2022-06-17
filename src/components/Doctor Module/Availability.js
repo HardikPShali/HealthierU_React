@@ -49,12 +49,10 @@ const Availability = () => {
     const f = format.replace("PM", "").replace("AM", "").replace(" ", "")
     const endformat = moment(e.endTime).format("HH:mm A")
     const endf = endformat.replace("PM", "").replace("AM", "").replace(" ", "")
-    if(f && endf)
-    {
+    if (f && endf) {
       setIsDisabled(false)
     }
-    else
-    {
+    else {
       setIsDisabled(true)
     }
     if (f != endf) {
@@ -102,7 +100,7 @@ const Availability = () => {
     }
     const response = await getRecurringSLots(dataForGetSlots);
     if (response) {
-      console.log("response", response);
+      // console.log("response", response);
       setAllTimeSlot(response.data.data);
     }
   }
