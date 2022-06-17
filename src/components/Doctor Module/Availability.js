@@ -39,7 +39,6 @@ const Availability = () => {
   const saveTimeHandler = () => {
     const newTimeObj = { ...times };
     newTimeObj.time.push({ startTime: value[0], endTime: value[1] });
-    console.log("state", state);
     // newTimeObj.time.push({ startTime: state.startTime, endTime: state.endTime });
     setTimes({
       ...newTimeObj,
@@ -50,9 +49,21 @@ const Availability = () => {
     const f = format.replace("PM", "").replace("AM", "").replace(" ", "")
     const endformat = moment(e.endTime).format("HH:mm A")
     const endf = endformat.replace("PM", "").replace("AM", "").replace(" ", "")
-    console.log("f", f);
-    setState({ startTime: moment(e.startTime), endTime: moment(e.endTime) });
-    setValue([f, endf])
+    if (f && endf) {
+      setIsDisabled(false)
+    }
+    else {
+      setIsDisabled(true)
+    }
+    if (f != endf) {
+      setState({ startTime: moment(e.startTime), endTime: moment(e.endTime) });
+      setValue([f, endf])
+      setIsDisabled(false)
+    }
+    else {
+      setIsDisabled(true)
+      toast.success("Start and End Time cant be same.")
+    }
   }
   const [tempDays, setTempDays] = useState([]);
   const dayHandler = (e, dayIndex) => {
@@ -89,13 +100,13 @@ const Availability = () => {
     }
     const response = await getRecurringSLots(dataForGetSlots);
     if (response) {
-      console.log("response", response);
+      // console.log("response", response);
       setAllTimeSlot(response.data.data);
     }
   }
   useEffect(() => {
     loadRecurSlots()
-  }, [allTimeSlot])
+  }, [allTimeSlot, value])
   const addDaySlot = async () => {
     setCount(count + 1);
     console.log(tempDays);
@@ -184,7 +195,7 @@ const Availability = () => {
                   use24Hours="true"
                 />
                 <div className="available-btn">
-                  <button onClick={saveTimeHandler}>Set Time</button>
+                  <button disabled={isDisabled === true} onClick={saveTimeHandler}>Set Time</button>
                 </div>
               </div>
             </div>

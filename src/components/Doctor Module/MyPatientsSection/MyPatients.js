@@ -586,7 +586,7 @@ const MyPatients = (props) => {
                                                             <img
                                                                 width="40"
                                                                 height="40"
-                                                                font-weight="300"
+                                                                fontWeight="300"
                                                                 src={conHistory}
                                                                 alt=""
                                                                 style={{ marginLeft: '5%', marginRight: '5%' }}

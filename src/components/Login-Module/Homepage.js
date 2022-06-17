@@ -473,7 +473,7 @@ const Homepage = () => {
               </p>
             </div>
             <Row>
-              <Col sm={12} md={6} lg={3} xl={3} l>
+              <Col sm={12} md={6} lg={3} xl={3} l='true'>
                 <img src={heartIcon} alt="" />
                 <h3>REGENERATIVE MEDICINE</h3>
                 <ul>
@@ -482,7 +482,7 @@ const Homepage = () => {
                   <li>Sexual health</li>
                 </ul>
               </Col>
-              <Col sm={12} md={6} lg={3} xl={3} l>
+              <Col sm={12} md={6} lg={3} xl={3} l='true'>
                 <img src={labIcon} alt="" />
                 <h3>FUNCTIONAL MEDICINE</h3>
                 <ul>
@@ -491,7 +491,7 @@ const Homepage = () => {
                   <li>Sexual health hormones</li>
                 </ul>
               </Col>
-              <Col sm={12} md={6} lg={3} xl={3} l>
+              <Col sm={12} md={6} lg={3} xl={3} l='true'>
                 <img src={molecularIcon} alt="" />
                 <h3>MOLECULAR MEDICINE</h3>
                 <ul>
@@ -500,7 +500,7 @@ const Homepage = () => {
                   </li>
                 </ul>
               </Col>
-              <Col sm={12} md={6} lg={3} xl={3} l>
+              <Col sm={12} md={6} lg={3} xl={3} l='true'>
                 <img src={careIcon} alt="" />
                 <h3>ENERGY / BODY-MIND MEDICINE</h3>
                 <ul>

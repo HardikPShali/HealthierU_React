@@ -12,7 +12,11 @@ export const Header = ({ hideButton }) => {
   return (
     <div className="navigation_main-wrapper">
       <div className="web-navigation-wrapper">
-        <Navbar variant="dark" id="navbar" sticky="top">
+        <Navbar
+          variant="dark"
+          id="navbar"
+          sticky="top"
+        >
           <div className="web-navigation-main">
             <Container className="web-navigation-content">
               <NavLink to="/" className="mr-auto">
@@ -67,10 +71,10 @@ export const Header = ({ hideButton }) => {
           />
         </NavLink>
         <input className="menu-btn" type="checkbox" id="menu-btn" />
-        <label className="menu-icon" for="menu-btn">
+        <label className="menu-icon" htmlFor="menu-btn">
           <span className="navicon"></span>
         </label>
-        <ul class="menu">
+        <ul className="menu">
           <li>
             <Link to="/#about-us">About Us</Link>
           </li>

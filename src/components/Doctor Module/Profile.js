@@ -207,16 +207,14 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const handleLanguages = (selectedItem) => {
-        selectedItem.forEach((e) =>
-        {
+        selectedItem.forEach((e) => {
             const index = languages.findIndex((x) => x.name == e.name)
-            if(index == -1)
-            {
+            if (index == -1) {
                 languages.push(e);
             }
-            
+
         })
-        
+
         setCurrentDoctorData({ ...currentDoctorData, languages: languages });
     };
     const removeLanguages = (removedItem) => {
@@ -250,16 +248,14 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const handleSpecialities = (selectedItem) => {
-        selectedItem.forEach((e) =>
-        {
+        selectedItem.forEach((e) => {
             const index = specialities.findIndex((x) => x.name == e.name)
-            if(index == -1)
-            {
+            if (index == -1) {
                 specialities.push(e);
             }
-            
+
         })
-       // specialities.push({ id: selectedItem.id, name: selectedItem.name });
+        // specialities.push({ id: selectedItem.id, name: selectedItem.name });
         setSpecialityError(false);
     };
 
@@ -332,7 +328,11 @@ const Profile = ({ currentDoctor }) => {
                                         name={
                                             currentDoctor.firstName + ' ' + currentDoctor.lastName
                                         }
-                                        size={150}
+                                        size={145}
+                                        style={{
+                                            width: 137,
+                                            height: 150
+                                        }}
                                     />
                                 )}
                                 <br />
