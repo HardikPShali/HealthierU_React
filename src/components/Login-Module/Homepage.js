@@ -164,7 +164,7 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                <Container>
+                <Container className="banner-txt-align">
                   <h3 className="h3-responsive">Book Appointment</h3>
                   <p className="help-desc">
                     Your virtual health advisor in your preferred time zone.
@@ -187,7 +187,7 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                <Container>
+                <Container className="banner-txt-align">
                   <h3 className="h3-responsive">
                     Connect with our Global Wellness Experts Virtually
                   </h3>
@@ -239,7 +239,7 @@ const Homepage = () => {
                 <MDBMask overlay="black-slight" />
               </MDBView>
               <MDBCarouselCaption>
-                <Container>
+                <Container className="banner-txt-align">
                   <h3 className="h3-responsive">
                     We empower you to become a better version of yourself.
                   </h3>

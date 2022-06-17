@@ -357,6 +357,7 @@ span.MuiTypography-root.MuiFormControlLabel-label.MuiTypography-body1 {
 .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 16px;
   height: 16px;
+  fill: #3e4543;
 }
 .MuiInput-underline.Mui-error:after {
   border-bottom-color: #f44336 !important;

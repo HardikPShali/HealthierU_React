@@ -152,7 +152,7 @@ const ChatPage = () => {
   };
 
   const sendMsg = async () => {
-    if (message) {
+    if (message && message.trim()) {
       try {
         const messageObj = getMessageObj(true, message);
         setMessages([...messages, messageObj]);

@@ -49,9 +49,9 @@ const Footer = () => {
               </a> */}
             {/* </Col> */}
             <Col
-              md={9}
-              lg={8}
-              xl={8}
+              md={6}
+              lg={6}
+              xl={6}
               style={{ display: "flex", height: 135, alignItems: "center" }}
             >
               {/*<div id="active-user">
@@ -83,7 +83,7 @@ const Footer = () => {
                 </form>
               </div>
             </Col>
-            <Col md={12} lg={4} xl={4} id="last-col">
+            <Col md={6} lg={6} xl={6} id="last-col">
               <h4 className="footer-wellnes">Wellness Optimized</h4>
               <p id="download-statement">
                 Unlock your health data and get instant insights

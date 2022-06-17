@@ -1,5 +1,5 @@
 import React from 'react'
-import Avatar from 'react-calendar'
+import Avatar from 'react-avatar';
 
 const OurDoctorCard = ({ doctor }) => {
     // console.log({ doctor })

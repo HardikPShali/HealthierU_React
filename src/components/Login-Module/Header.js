@@ -87,6 +87,11 @@ export const Header = ({ hideButton }) => {
           <li>
             <Link to="/#footer">Contact Us</Link>
           </li>
+          <li>
+            <NavLink to="/signin">
+              <button className="btn btn-secondary">Sign in / Join Now</button>
+            </NavLink>
+          </li>
         </ul>
       </div>
     </div>
