@@ -1259,7 +1259,7 @@ const MyDoctor = (props) => {
     <div>
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
-      <Container className="my-doctor">
+      <Container className="my-doctor pt-5">
         {/* /mobile-payment?firstName="nithi"&lastName="raj" */}
         {/* <Link
           to={`/mobile-payment?uId=${currentPatient.userId}&fN=${currentPatient.firstName}&lN=${currentPatient.lastName}&em=${currentPatient.email}&r=${doctor.rate}&hR=${doctor.halfrate}&aId=${appointmentId}&aM=${appointentMode}`}

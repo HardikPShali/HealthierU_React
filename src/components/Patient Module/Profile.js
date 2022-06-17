@@ -27,7 +27,7 @@ import {
 import TransparentLoader from "../Loader/transparentloader";
 import { useHistory } from "react-router-dom";
 import callIcon from "../../../src/images/svg/call-icon.svg";
-import calendarIcon from "../../../src/images/svg/calendar-teal.svg";
+import calendarIcon from "../../../src/images/svg/calender-beige.svg";
 import ringIcon from "../../../src/images/svg/marital-status-icon.svg";
 import flagIcon from "../../../src/images/svg/nationality-icon.svg";
 import languageIcon from "../../../src/images/svg/language-icon.svg";

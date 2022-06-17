@@ -156,7 +156,7 @@ const Availability = () => {
   return (
     <Container>
       <div className="slot-time available-btn">
-        <h3>Set Availability</h3>
+        <h3 style={{color: "var(--primary)"}}>Set Availability</h3>
       </div>
 
       <Row className="time-slot-container">
@@ -233,7 +233,7 @@ const Availability = () => {
         </Col>
         <Col sm={12} md={6} lg={6} xl={6}>
           {/* {allTimeSlot.length ? (<div className="selected-day-container"> */}
-          <h5>Select Time with Day Slots</h5>
+          <h5 className="mb-3" style={{color: "var(--primary)"}}>Select Time with Day Slots</h5>
           {allTimeSlot.map((eachTimes) => (
             <div className="selected-day-wrap">
               <div className="selected-days">

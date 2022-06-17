@@ -444,7 +444,7 @@ const Myappointment = (props) => {
           <Container>
             <Row>
               <Col>
-                <div className="bg-white p-5 rounded shadow">
+                <div className="calender_container">
                   <Calendar
                     selectable={true}
                     localizer={localizer}
@@ -465,16 +465,16 @@ const Myappointment = (props) => {
               </Col>
             </Row>
             <br />
-            <hr />
+         
 
-            <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
+            <Row className="mt-3 mx-1 calender_container">
               <Col md={12}></Col>
               {/* <Col md={3}></Col> */}
               <Col md={12}>
                 <div>
-                  <h2 className="mt-3 mb-3 text-center" style={{color: "var(--text-primary)"}}>
+                  <h3 className="mt-3 mb-3 text-center" style={{color: "var(--primary)"}}>
                    LIST OF APPOINTMENTS
-                  </h2>
+                  </h3>
 
                   <Tabs
                     defaultActiveKey="upcoming"

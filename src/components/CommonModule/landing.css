@@ -896,7 +896,7 @@ div.card-box {
 }
 h2#signin-title {
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--primary);
   text-align: left;
   margin-left: 1rem;
@@ -1258,7 +1258,7 @@ p.card-text {
 }
 h2#signin-title {
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--primary);
 }
 #profile-form p {

@@ -77,7 +77,7 @@ const Myappointment = (props) => {
       event.startTime >= new Date(moment(new Date()).subtract(25, "minutes")) &&
       event.status === "AVAILABLE"
     ) {
-      backgroundColor = "#00D1CD";
+      backgroundColor = "#4f80e2 ";
       color = "#fff";
     } else if (
       event.startTime >= new Date() &&
@@ -782,7 +782,7 @@ const Myappointment = (props) => {
                   </button>
                 </Tooltip>
                 <br />
-                <div className="bg-white rounded p-5 shadow">
+                <div className="calender_container">
                   <Calendar
                     components={{
                       dateCellWrapper: (props) => (
@@ -819,21 +819,27 @@ const Myappointment = (props) => {
               <span className="consultationColor">
                 Consultation Appointment
               </span>
-              <span className="availableColor">Available Appointment</span>
+              {/* <span className="availableColor">Available Appointment</span> */}
               <br />
             </div>
-            <hr />
-            <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
+            {/* <hr /> */}
+            <Row className="mt-5 mx-1 appointment_list-container" >
               <Col md={12}>
-                <h2 className="mt-3 mb-3 text-center font-weight-bold">
-                  List of Appointments
+                <h2
+                  className="mt-3 mb-5 text-center"
+                  style={{ color: "var(--primary)" }}
+                >
+                 LIST OF APPOINTMENTS
                 </h2>
               </Col>
               <Col md={6} style={{ marginBottom: 20 }}>
+                <h5
+                  className="mb-3 text-center font-weight-bold"
+                  style={{ color: "var(--primary)" }}
+                >
+                  Booked Appointments
+                </h5>
                 <div className="appointment-slot-list booked">
-                  <h5 className="mb-3 text-center font-weight-bold">
-                    Booked Appointments
-                  </h5>
                   <div className="tab-view-app">
                     <Tabs
                       defaultActiveKey="today"
@@ -921,13 +927,13 @@ const Myappointment = (props) => {
                                             </div>
                                             <div className="col-md-6  d-flex flex-column mt-3">
                                               <h5 className="patient-list__common-name">
-                                                <b>
+                                                <>
                                                   {appointment.patient
                                                     .firstName +
                                                     " " +
                                                     appointment.patient
                                                       .lastName}
-                                                </b>
+                                                </>
                                               </h5>
                                               <span className="patient-list__common-span">
                                                 {appointment.unifiedAppointment
@@ -1019,13 +1025,13 @@ const Myappointment = (props) => {
                                             </div>
                                             <div className="col-md-6  d-flex flex-column mt-3">
                                               <h5 className="patient-list__common-name">
-                                                <b>
+                                                <>
                                                   {appointment.patient
                                                     .firstName +
                                                     " " +
                                                     appointment.patient
                                                       .lastName}
-                                                </b>
+                                                </>
                                               </h5>
                                               <span className="patient-list__common-span">
                                                 {appointment.unifiedAppointment
@@ -1126,13 +1132,13 @@ const Myappointment = (props) => {
                                             </div>
                                             <div className="col-md-6  d-flex flex-column mt-3">
                                               <h5 className="patient-list__common-name">
-                                                <b>
+                                                <>
                                                   {appointment.patient
                                                     .firstName +
                                                     " " +
                                                     appointment.patient
                                                       .lastName}
-                                                </b>
+                                                </>
                                               </h5>
                                               <span className="patient-list__common-span">
                                                 {appointment.unifiedAppointment
@@ -1224,13 +1230,13 @@ const Myappointment = (props) => {
                                             </div>
                                             <div className="col-md-6  d-flex flex-column mt-3">
                                               <h5 className="patient-list__common-name">
-                                                <b>
+                                                <>
                                                   {appointment.patient
                                                     .firstName +
                                                     " " +
                                                     appointment.patient
                                                       .lastName}
-                                                </b>
+                                                </>
                                               </h5>
                                               <span className="patient-list__common-span">
                                                 {appointment.unifiedAppointment
@@ -1255,10 +1261,13 @@ const Myappointment = (props) => {
                 </div>
               </Col>
               <Col md={6}>
+                <h5
+                  className="mb-3 text-center "
+                  style={{ color: "var(--primary)" }}
+                >
+                  Available Slots for Appointments
+                </h5>
                 <div className="appointment-slot-list available">
-                  <h5 className="mb-3 text-center font-weight-bold">
-                    Available Slots for Appointments
-                  </h5>
                   {state && (
                     <div className={classes.root}>
                       {state.map((appointment, index) => {
