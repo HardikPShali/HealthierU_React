@@ -18,7 +18,8 @@ import {
 import TransparentLoader from '../Loader/transparentloader';
 import DoctorDocumentUpload from '../CommonModule/doctordocumentupload';
 import moment from 'moment';
-import calendarIcon from '../../../src/images/svg/dob-icon.svg';
+import calendarIcon from '../../../src/images/svg/calendar-teal.svg';
+import institutionIcon from '../../../src/images/svg/institutionIcon.svg';
 import callIcon from '../../../src/images/svg/call-icon.svg';
 import flagIcon from '../../../src/images/svg/nationality-icon.svg';
 import languageIcon from '../../../src/images/svg/language-icon.svg';
@@ -425,7 +426,7 @@ const Profile = ({ currentDoctor }) => {
                                                             }
                                                         //value={currentDoctor.education}
                                                         /> <ProfileRow
-                                                            icon={educationIcon}
+                                                            icon={institutionIcon}
                                                             title="Institution"
                                                             value={
                                                                 currentDoctor &&

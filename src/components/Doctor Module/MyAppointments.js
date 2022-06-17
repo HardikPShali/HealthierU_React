@@ -25,8 +25,8 @@ import calendar from "../../images/icons used/Component 12.svg";
 import conHistory from "../../images/icons used/Component 15.svg";
 import HealthAssessment from "../../images/icons used/Component 16.svg";
 import MedicalRecord from "../../images/icons used/Component 17.svg";
-import calendarSmall from "../../images/svg/calender-beige.svg";
-import timeSmall from "../../images/svg/time-teal.svg";
+import calendarSmall from "../../images/svg/calendar-white.svg";
+import timeSmall from "../../images/svg/time-white.svg";
 import { useHistory } from "react-router";
 import HealthAssestmentReport from "./HealthAssestmentReport/HealthAssestmentReport";
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
@@ -545,11 +545,11 @@ const MyAppointments = (props) => {
                                       </div>
                                       <div className="col-md-7  d-flex flex-column mt-3">
                                         <h5 className="patient-list__common-name">
-                                          <b>
+                                          <>
                                             {details.patient.firstName +
                                               " " +
                                               (details.patient.lastName || "")}
-                                          </b>
+                                          </>
                                         </h5>
                                         <span className="patient-list__common-span-consult">
                                           {details.unifiedAppointment
@@ -642,11 +642,11 @@ const MyAppointments = (props) => {
                                       </div>
                                       <div className="col-md-7  d-flex flex-column mt-3">
                                         <h5 className="patient-list__common-name">
-                                          <b>
+                                          <>
                                             {details.patient.firstName +
                                               " " +
                                               (details.patient.lastName || "")}
-                                          </b>
+                                          </>
                                         </h5>
                                         <span className="patient-list__common-span-consult">
                                           {details.unifiedAppointment &&

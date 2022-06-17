@@ -27,10 +27,10 @@
     justify-content:center; 
 }
 .chat_item-profile {
-    margin-right: .5rem;
+    margin-right: 1rem;
 }
 .chat_item-profile img {
-    width: 3rem;
+    min-width: 3rem;
     height: 3rem;
     border-radius: 50%;
     
@@ -44,7 +44,7 @@
 .chat_item-name {
     font-size: 1rem;
     color: #3e4543;
-    font-weight: 500;
+    font-weight: 400;
     text-transform: capitalize;
 }
 .chat_item-message-wrap {
@@ -74,4 +74,15 @@
 .selected-chat-item .chat_item-message-wrap,
 .selected-chat-item .chat_item-right {
     color: var(--primary);
+}
+.chat_lastMessage {
+    width: 30ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media screen and (max-width: 990px) {
+    .chat_lastMessage {
+        width: 23ch !important;
+    }
 }

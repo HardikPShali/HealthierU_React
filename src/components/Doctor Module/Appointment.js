@@ -782,7 +782,7 @@ const Myappointment = (props) => {
                                     </button>
                                 </Tooltip>
                                 <br />
-                                <div className="bg-white rounded p-5 shadow">
+                                <div className="calender_container bg-white">
                                     <Calendar
                                         components={{
                                             dateCellWrapper: (props) => (
@@ -792,6 +792,7 @@ const Myappointment = (props) => {
                                                 />
                                             ),
                                         }}
+                                        views={['month', 'week', 'day',]}
                                         selectable={true}
                                         localizer={localizer}
                                         events={state}
@@ -809,6 +810,7 @@ const Myappointment = (props) => {
                                         onSelectSlot={handleSelect}
                                         eventPropGetter={(event) => eventStyleGetter(event)}
                                         slotPropGetter={(event) => slotStyleGetter(event)}
+                                        messages={{previous: "Previous", next: "Next", today: "Today"}}
                                     />
                                 </div>
                             </Col>

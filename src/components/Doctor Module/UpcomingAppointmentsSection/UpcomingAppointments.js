@@ -97,7 +97,7 @@ const UpcomingAppointments = () => {
     return (
         <div className="mb-5 mt-5">
             <h3 className="upcoming-appointment--main-header mb-3 mt-2">
-                Next Appointments
+                Upcoming Appointments
             </h3>
             <div className="upcoming-appointment__card-box scroller-cardlist mb-4">
                 <div className="card-holder">

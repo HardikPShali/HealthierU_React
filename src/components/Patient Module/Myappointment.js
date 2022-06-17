@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-//import Footer from './Footer'
+// import Footer from './Footer'
 import './patient.css';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -454,8 +454,9 @@ const Myappointment = (props) => {
           <Container>
             <Row>
               <Col>
-                <div className="bg-white p-5 rounded shadow">
+                <div className="calender_container bg-white">
                   <Calendar
+                    views={['month', 'week', 'day',]}
                     selectable={true}
                     localizer={localizer}
                     events={myAppointment}
@@ -470,21 +471,22 @@ const Myappointment = (props) => {
                     timeslots={1}
                     step={60}
                     onSelectEvent={(event) => handleAppointmentInfoOpen(event)}
+                    messages={{previous: "Previous", next: "Next", today: "Today"}}
                   />
                 </div>
               </Col>
             </Row>
             <br />
-            <hr />
+         
 
-            <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
+            <Row className="mt-3 mx-1 calender_container bg-white">
               <Col md={12}></Col>
               {/* <Col md={3}></Col> */}
               <Col md={12}>
                 <div>
-                  <h2 className="mt-3 mb-3 text-center font-weight-bold">
-                    List of Appointments
-                  </h2>
+                  <h3 className="mt-3 mb-3 text-center" style={{color: "var(--primary)"}}>
+                   LIST OF APPOINTMENTS
+                  </h3>
 
                   <Tabs
                     defaultActiveKey="upcoming"

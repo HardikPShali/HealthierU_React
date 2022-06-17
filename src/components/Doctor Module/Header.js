@@ -30,7 +30,7 @@ const Header = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   // const [currentDoctorState, setCurrentDoctorState] = useState();
   //const cookies = new Cookies();
-  console.log('props in head ::: ', props);
+  console.log("props in head ::: ", props);
   const systemTimeZone = momentTz.tz.guess();
   // const docId = props.currentDoctor.id;
   // const currentTimezone = props.currentDoctor.doctorTimeZone;
@@ -43,10 +43,10 @@ const Header = (props) => {
   // const [open, setOpen] = useState(false);
 
   const cookies = new Cookies();
-  const currentLoggedInUser = cookies.get('currentUser');
+  const currentLoggedInUser = cookies.get("currentUser");
   const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
 
-  const currentProfileDets = cookies.get('profileDetails');
+  const currentProfileDets = cookies.get("profileDetails");
 
   useEffect(() => {
     getCurrentDoctor();
@@ -89,7 +89,7 @@ const Header = (props) => {
     if (response) {
       //handleCloseOpen();
       toast(`Your timezone has been changed to : ${timezone}`, {
-        position: 'top-right',
+        position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -116,14 +116,14 @@ const Header = (props) => {
   const unReadMessageCount =
     (unReadMessageList && Object.keys(unReadMessageList).length) || 0;
   return (
-    <Navbar variant="dark" expand="lg" id="navbar" sticky='top'>
-      <Container className="p-0">
+    <Navbar variant="dark" expand="lg" id="navbar" sticky="top">
+      <Container className="p-0 d-flex">
         <NavLink to="/doctor" className="m-0 mr-auto">
           <img
             src={logo}
             id="icon"
             alt="HealthierU Logo"
-            style={{ width: '160px' }}
+            style={{ width: "160px" }}
           />
         </NavLink>
         {/* <span className="ml-2 text-light" style={{fontSize: "12px"}}>Hi! &nbsp;{props.currentDoctor.firstName}</span> */}
@@ -143,7 +143,9 @@ const Header = (props) => {
             Current TimeZone:{' '}
             <span className="p-1 border ml-1 mr-1" style={{ cursor: 'default' }}>{systemTimeZone}</span>
           </NavLink> */}
-          <NavLink to="/doctor" style={{ margin: '5px' }}>Home</NavLink>
+          <NavLink to="/doctor" style={{ margin: "5px" }}>
+            Home
+          </NavLink>
           <div className="dropdown headerNavbar">
             <button
               type="button"
@@ -153,6 +155,9 @@ const Header = (props) => {
               My Portal
             </button>
             <div className="dropdown-menu">
+              <NavLink to="/doctor/appointment" className="dropdown-item">
+                My Calendar
+              </NavLink>
               <NavLink to="/doctor/my-appointments" className="dropdown-item">
                 My Appointments
               </NavLink>
@@ -162,9 +167,7 @@ const Header = (props) => {
               <NavLink to="/doctor/myrecord" className="dropdown-item">
                 Patient Records
               </NavLink>
-              <NavLink to="/doctor/appointment" className="dropdown-item">
-                My Calendar
-              </NavLink>
+
               <NavLink to="/doctor/chat" className="dropdown-item">
                 Chat
               </NavLink>
@@ -182,7 +185,7 @@ const Header = (props) => {
             <SearchIcon id="search-icon" />
           </NavLink>``` */}
           {/* unReadMessageCount > 0 && */}
-          {(
+          {
             <div className="dropdown headerNavbar notification-Navbar">
               <IconButton
                 aria-label="show 17 new notifications"
@@ -206,7 +209,7 @@ const Header = (props) => {
                 <NotificationMenuDoctor />
               </div>
             </div>
-          )}
+          }
           <NavLink to="#">
             {currentProfileDets.picture ? (
               <img
@@ -238,16 +241,16 @@ const Header = (props) => {
             //     horizontal: 'center',
             // }}
             transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
+              vertical: "top",
+              horizontal: "center",
             }}
           >
-            <Link to="/doctor/profile" style={{ textDecoration: 'none' }}>
+            <Link to="/doctor/profile" style={{ textDecoration: "none" }}>
               <MenuItem>Profile</MenuItem>
             </Link>
             <Link
               to="/doctor/changepassword"
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: "none" }}
             >
               <MenuItem>Change Password</MenuItem>
             </Link>
@@ -258,7 +261,7 @@ const Header = (props) => {
             >
               <MenuItem>Update Timezone</MenuItem>
             </Link> */}
-            <Link to="/doctor/logout" style={{ textDecoration: 'none' }}>
+            <Link to="/doctor/logout" style={{ textDecoration: "none" }}>
               <MenuItem>Logout</MenuItem>
             </Link>
           </Menu>

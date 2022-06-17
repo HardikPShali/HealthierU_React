@@ -300,7 +300,7 @@ div#dorctor-list {
   padding: 30px 10px;
   margin: 50px 0;
   background: #fff;
-  border-radius: 22px;
+  border-radius: 10px;
   min-height: 600px;
   height: 576px;
 }
@@ -319,7 +319,7 @@ div#dorctor-list {
 
 .Togglebar {
   width: 100%;
-  background: #efefef;
+  /* background: #efefef; */
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
@@ -374,6 +374,7 @@ div#dorctor-list {
 .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 26px !important;
   height: 26px !important;
+  fill: #3e4543;
 }
 
 .MuiAppBar-root {
@@ -580,8 +581,9 @@ ul.MuiGridList-root {
   width: 100%;
   display: inline-flex;
   border-radius: 27px;
-  box-shadow: none !important;
-  background: var(--primary);
+  /* box-shadow: none !important; */
+  background: #f8f8f8;
+  box-shadow: 0px 1px 5px rgb(0 0 0 / 8%);
 }
 
 div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
@@ -589,7 +591,7 @@ div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
 }
 
 input#doctor-search {
-  color: #fff;
+  color: var(--text-primary);
 }
 input#doctor-search :focus {
   background-color: #00d1cd !important;
@@ -1135,7 +1137,7 @@ div.card-box {
 }
 h2#signin-title {
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--primary);
   text-align: left;
   margin-left: 1rem;
@@ -1537,6 +1539,7 @@ img#profile-pic {
 p#description {
   font-size: 14px;
   margin-top: 8px;
+  color: var(--text-primary);
 }
 
 button.request-edit {
@@ -1682,7 +1685,7 @@ table#user-info {
 
 h2#signin-title {
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--primary);
 }
 
@@ -4022,6 +4025,12 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 5px;
 }
 
+.calender_container {
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+  border-radius: 18px;
+  padding: 2rem;
+}
+
 /* Track */
 
 .doctor-list-new::-webkit-scrollbar-track,
@@ -4292,6 +4301,11 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 140px !important;
 }
 
+@media screen and (max-width: 990px) {
+  .navbar > .container {
+    display: flex;
+  }
+}
 /* NOTIFICATION_MENU */
 .notif-section {
   display: flex;

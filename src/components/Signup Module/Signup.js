@@ -78,14 +78,13 @@ const Signup = () => {
               <Link to="/signupform">
                 <button
                   id="signupBtn"
-                  className="btn btn-primary w-100 py-2 sign-btn shadow-sm"
+                  className="btn btn-primary w-100 py-2 pl-2 sign-btn shadow-sm"
                 >
-                  <div>
+                  <div className="signup-btnWrap">
                     <img
                       src={mail}
                       alt=""
-                      className="sub signup-mail-icon"
-                      width="54px"
+                      className="sub signUp_icon"
                     />
                     Sign up with email
                   </div>
