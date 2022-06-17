@@ -118,7 +118,7 @@ export const RESOLUTION_ARR = {
 
 export const SHARE_ID = 1;
 
-export const APP_ID = "d30ca3e7c8b448ff929ee88de298b14f";
+export const APP_ID = process.env.REACT_APP_AGORA_APPID;
 // Agora config for video call ends
 
 // For Access Token Generation
