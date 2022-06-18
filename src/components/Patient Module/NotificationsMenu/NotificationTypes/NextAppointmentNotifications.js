@@ -10,6 +10,7 @@ import Cookies from 'universal-cookie';
 import LocalStorageService from '../../../../util/LocalStorageService';
 import axios from 'axios';
 import { toast } from "react-toastify";
+import rightIcon from '../../../../images/svg/right-icon.svg';
 
 
 const NextAppointmentNotifications = ({ notification, index }) => {
@@ -93,8 +94,8 @@ const NextAppointmentNotifications = ({ notification, index }) => {
     // }, [paymentConfirmed])
 
     return (
-        <div key={index}>
-            <div className="notif-section">
+        <div key={index} className='set-next-appt' >
+            <div className="notif-section" onClick={() => onClickPayNowModalHandler()}>
                 <div className="profile-img col-md-3">
                     {notification.data.appointmentDetails?.doctor?.picture ? (
                         <img
@@ -121,20 +122,26 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                             Your next appointment is confirmed for{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
                                 'DD-MM-YYYY hh:mm'
-                            )}
+                            )} by {notification.data.appointmentDetails?.doctor.firstName}. Click here to pay now.
                         </span>
                         {/* <span>TIME</span> */}
                     </div>
                 </div>
                 <div className="notif-section__arrow">
+                    <img
+                        src={rightIcon}
+                        alt="right-icon"
+                        style={{ marginRight: '15px' }}
+                        className="ml-2"
+                    />
                     {/* {
                         paymentConfirmed ? ( */}
-                    <button
+                    {/* <button
                         className="btn btn-primary set-next-notif__button"
                         onClick={() => onClickPayNowModalHandler()}
                     >
                         Pay Now
-                    </button>
+                    </button> */}
                     {/* ) : (
                             <button
                                 className="btn btn-primary set-next-notif__button"
