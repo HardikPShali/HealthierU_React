@@ -9,9 +9,9 @@ const RescheduleNotification = ({ notification, key }) => {
         <div>
             <NavLink
                 to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id}/${notification.data.appointmentDetails.appointmentMode}`}
-                className="d-flex flex-column text-dark"
+                className="d-flex flex-column text-dark navlink-hover"
                 key={key}
-                style={{ marginLeft: 0, marginTop: -16 }}
+                style={{ marginLeft: 0, marginTop: -16, fontWeight: 400 }}
             >
                 <div key={key}>
                     <div className="notif-section">
@@ -56,9 +56,11 @@ const RescheduleNotification = ({ notification, key }) => {
                             />
                         </div>
                     </div>
-                    <hr />
+
                 </div>
+
             </NavLink>
+            <hr />
         </div>
     );
 };
