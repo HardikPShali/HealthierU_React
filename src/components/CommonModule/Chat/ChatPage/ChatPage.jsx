@@ -1,40 +1,46 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Container } from 'react-bootstrap';
-import { Link, NavLink } from 'react-router-dom';
-import ChatItems from './ChatItems';
-import ChatDetails from './ChatDetails';
-import './ChatPage.css';
-import { APP_ID } from '../../../../util/configurations';
-import useAgoraChat from '../ChatScreen/useAgoraChat';
-import useAgoraVideo from '../ChatScreen/useAgoraVideo';
-import Cookies from 'universal-cookie';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from "react";
+import { Container } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
+import ChatItems from "./ChatItems";
+import ChatDetails from "./ChatDetails";
+import "./ChatPage.css";
+import { APP_ID } from "../../../../util/configurations";
+import useAgoraChat from "../ChatScreen/useAgoraChat";
+import useAgoraVideo from "../ChatScreen/useAgoraVideo";
+import Cookies from "universal-cookie";
+import { useLocation } from "react-router-dom";
 import {
   generateRTMToken,
   handleAgoraAccessToken,
-} from '../../../../service/agoratokenservice';
+} from "../../../../service/agoratokenservice";
 import {
   getInbox,
   getMessages,
   sendMessage,
-} from '../../../../service/chatService';
-import moment from 'moment';
-import Meeting from '../../../video-call/pages/meeting';
-import Notes from '../../../Doctor Module/NotesSection/Notes';
+} from "../../../../service/chatService";
+import moment from "moment";
+import Meeting from "../../../video-call/pages/meeting";
+import Notes from "../../../Doctor Module/NotesSection/Notes";
 
 const ChatPage = () => {
   const [chatList, setChatList] = useState([]);
   const [filteredChatList, setFilteredChatList] = useState(chatList);
   const [selectedChatItem, setSelectedChatItem] = useState({});
   // const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const cookies = new Cookies();
   const location = useLocation();
   const [isAgoraLoggedIn, setAgoraLoggedIn] = useState(false);
-  const [pIdState, setPIdState] = useState('');
-  const [dIdState, setDIdState] = useState('');
-  const [channelName, setChannelName] = useState('');
-  const [agoraToken, setAgoraToken] = useState('');
+  const [pIdState, setPIdState] = useState("");
+  const [dIdState, setDIdState] = useState("");
+  const [channelName, setChannelName] = useState("");
+  const [agoraToken, setAgoraToken] = useState("");
+  const [paginationConfig, setPaginationConfig] = useState({
+    pageNo: 0,
+    totalItems: 1,
+    totalPages: 1
+  })
+
   const endRef = useRef();
 
   const onConnectionChange = (e) => {
@@ -47,12 +53,13 @@ const ChatPage = () => {
     reorderChatBoxOnMessageChange(e);
     if (endRef.current) {
       endRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'start',
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
       });
     }
   };
+
   const {
     login,
     logout,
@@ -69,11 +76,11 @@ const ChatPage = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    let chatGroup = searchParams.get('chatgroup');
+    let chatGroup = searchParams.get("chatgroup");
 
     if (chatGroup) {
-      setPIdState(Number(chatGroup.split('_')[0].replace('P', '')));
-      setDIdState(Number(chatGroup.split('_')[1].replace('D', '')));
+      setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
+      setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
     }
 
     getInboxDetails();
@@ -94,7 +101,12 @@ const ChatPage = () => {
       clearData();
       setPIdState(Number(selectedChatItem.patientInfo.id));
       setDIdState(Number(selectedChatItem.doctorInfo.id));
-      getMessagesDetails();
+      setPaginationConfig({
+        pageNo: 0,
+        totalItems: 1,
+        totalPages: 1
+      })
+      getMessagesDetails(0);
     }
   }, [selectedChatItem]);
 
@@ -124,15 +136,26 @@ const ChatPage = () => {
     console.log(result);
   };
 
-  const getMessagesDetails = async () => {
-    const result = await getMessages(selectedChatItem.id);
-    if (result.data.data.length) {
-      setMessages(result.data.data);
-      if (endRef.current) {
+  const getMessagesDetails = async (pageNo) => {
+    const result = await getMessages(selectedChatItem.id, pageNo, 20);
+    if (result.data.data.messages.length) {
+      setPaginationConfig({
+        pageNo: pageNo,
+        totalItems: result.data.data.totalItems,
+        totalPages: result.data.data.totalPages
+      })
+      const reversedMessages =  result.data.data.messages.reverse();
+      if(pageNo === 0) {
+        setMessages(reversedMessages);
+      } else {
+        setMessages([...reversedMessages, ...messages]);
+      }
+
+      if (endRef.current && pageNo === 0) {
         endRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'start',
+          behavior: "smooth",
+          block: "nearest",
+          inline: "start",
         });
       }
     }
@@ -144,7 +167,7 @@ const ChatPage = () => {
 
   const clearData = () => {
     setMessages([]);
-    setMessage('');
+    setMessage("");
   };
 
   const handleMessageChange = (e) => {
@@ -161,9 +184,9 @@ const ChatPage = () => {
         await sendChannelMessage(message, channelName);
         if (endRef.current) {
           endRef.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'start',
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start",
           });
         }
         const messageData = {
@@ -171,7 +194,7 @@ const ChatPage = () => {
           message: message,
         };
         await sendMessage(messageData);
-        setMessage('');
+        setMessage("");
       } catch (error) {}
     }
   };
@@ -179,10 +202,10 @@ const ChatPage = () => {
   const messageDateFormat = (val) => {
     if (val) {
       const dateValue = new Date(val);
-      return moment(dateValue).format('YYYYMMDD') ===
-        moment().format('YYYYMMDD')
-        ? moment(dateValue).format('HH:mm')
-        : moment(dateValue).format('YYYY-MM-DD HH:mm');
+      return moment(dateValue).format("YYYYMMDD") ===
+        moment().format("YYYYMMDD")
+        ? moment(dateValue).format("HH:mm")
+        : moment(dateValue).format("YYYY-MM-DD HH:mm");
     }
   };
 
@@ -190,31 +213,43 @@ const ChatPage = () => {
     getToken(pIdState, dIdState);
   };
 
-  
   const handleSearch = (e) => {
-    if(e.target.value) {
+    if (e.target.value) {
       const searchedText = e.target.value.toLowerCase();
-      const filteredChatList = chatList.filter(item => {
+      const filteredChatList = chatList.filter((item) => {
         const person = item[item.userKey];
 
-        return person.firstName?.toLowerCase()?.includes(searchedText) || person.lastName?.toLowerCase()?.includes(searchedText)
+        return (
+          person.firstName?.toLowerCase()?.includes(searchedText) ||
+          person.lastName?.toLowerCase()?.includes(searchedText)
+        );
       });
 
       setFilteredChatList(filteredChatList);
     } else {
       setFilteredChatList(chatList);
     }
-  }
+  };
 
   const reorderChatBoxOnMessageChange = (msgObj) => {
     selectedChatItem.lastMessage = msgObj;
 
-    const selectedChatIndex = chatList.findIndex(item => item.id === selectedChatItem.id);
-    chatList.splice(selectedChatIndex, 1)
+    const selectedChatIndex = chatList.findIndex(
+      (item) => item.id === selectedChatItem.id
+    );
+    chatList.splice(selectedChatIndex, 1);
     chatList.unshift(selectedChatItem);
-    setChatList(chatList)
-    setFilteredChatList(chatList)
-  }
+    setChatList(chatList);
+    setFilteredChatList(chatList);
+  };
+
+  const loadMoreData = () => {
+    if(paginationConfig.pageNo < paginationConfig.totalPages) {
+      // setPaginationConfig({...paginationConfig, pageNo: paginationConfig.pageNo + 1})
+      const pageNumber = paginationConfig.pageNo + 1;
+      getMessagesDetails(pageNumber);
+    }
+  };
 
   //NOTES CODE
   const [notesClick, setNotesClick] = useState(false);
@@ -222,7 +257,6 @@ const ChatPage = () => {
   const handleNotesClick = (e) => {
     setNotesClick(!notesClick);
   };
-
 
   return (
     <Container className="chatPage-wrapper">
@@ -248,6 +282,8 @@ const ChatPage = () => {
           endRef={endRef}
           onVideoClick={onVideoClick}
           onNoteClick={handleNotesClick}
+          loadMoreData={loadMoreData}
+          totalItems={paginationConfig.totalItems}
         />
         {notesClick && (
           <Notes

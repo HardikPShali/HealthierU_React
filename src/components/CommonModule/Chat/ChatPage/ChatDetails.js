@@ -21,10 +21,10 @@ const ChatDetails = ({
   endRef,
   onVideoClick,
   onNoteClick,
+  loadMoreData
 }) => {
   const [enableVideo, setEnableVideo] = useState(false);
   const [enableChat, setEnableChat] = useState(false);
-
   const [roles] = useRole();
 
   useEffect(() => {
@@ -106,7 +106,11 @@ const ChatDetails = ({
       <div className="chat-section">
         <div className="chat_detail-body">
           {/* <div className="today-date">Jan 12, 2022</div> */}
-          <div className="chat_detail_received">
+          <div onScroll={(e) => {
+            if(e.target.scrollTop === 0) {
+              loadMoreData()
+            }
+          }} className="chat_detail_received">
             {messages.map((message, index) => {
               return (
                 <>
