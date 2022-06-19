@@ -7,8 +7,8 @@ export const getInbox = async () => {
     return result;
 }
 
-export const getMessages = async (channelId) => {
-    const payload = generatePayLoad('get', `/api/v2/messages?channelId=${channelId}`);
+export const getMessages = async (channelId, pageNo, size) => {
+    const payload = generatePayLoad('get', `/api/v2/messages?channelId=${channelId}&page=${pageNo}&size=${size}`);
     const result =  await axios(payload);
     return result;
 }

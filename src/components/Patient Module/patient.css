@@ -4367,3 +4367,24 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   padding: 2px;
   font-size: 14px;
 }
+
+/* .set-next-appt {
+  height: 92px;
+  margin-top: -16px;
+} */
+
+.set-next-appt:hover {
+  /* background: #ebe4e4; */
+  color: #343a40;
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
+}
+
+.navlink-hover:hover {
+  background: #fff !important;
+  color: #343a40;
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
+}
