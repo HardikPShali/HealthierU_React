@@ -769,7 +769,7 @@ const Homepage = () => {
                     Find out how you measure with health and well-being assessment
                   </Card.Text>
                   <div className="box-card-btn">
-                    <Link to="/signin">
+                    <Link to="/signin" onClick={() => window.scrollTo(0, 0)}>
                       <button
                         variant="primary"
                         className="btn btn-outline-light assessment-btn "
@@ -790,7 +790,7 @@ const Homepage = () => {
                     Check out our available wellness specialists
                   </Card.Text>
                   <div className="box-card-btn">
-                    <Link to="/signin">
+                    <Link to="/signin" onClick={() => window.scrollTo(0, 0)}>
                       <button
                         variant="primary"
                         className="btn btn-outline-light assessment-btn"
