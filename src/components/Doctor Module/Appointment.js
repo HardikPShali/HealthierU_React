@@ -83,7 +83,7 @@ const Myappointment = (props) => {
         } else if (
             event.startTime >= new Date() &&
             event.status === 'ACCEPTED' &&
-            res[1] !== 'CONSULTATION'
+            res !== 'FIRST_CONSULTATION'
         ) {
             backgroundColor = '#4f80e2';
             color = '#fff';
@@ -94,7 +94,7 @@ const Myappointment = (props) => {
             color = '#fff';
             var borderColor = '#696969';
             var pointerEvents = 'none';
-        } else if (res && res[1] === 'CONSULTATION') {
+        } else if (res === 'FIRST_CONSULTATION') {
             backgroundColor = '#3157a3';
             color = '#fff';
         }
@@ -399,7 +399,6 @@ const Myappointment = (props) => {
             //setState({ ...state, data: updateArray });
             setState(updateArray);
             setAcceptedAppointment(acceptedArray);
-            console.log('acceptedArray:::::::::::::::', acceptedArray);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
             const tourState = cookies.get('appointmentTour');
@@ -432,14 +431,7 @@ const Myappointment = (props) => {
                 }
                 return value;
             });
-            todayAppointment.push(todayArray);
-            setTodayAppointment([...todayAppointment, todayArray]);
-            {
-                todayAppointment.map((t) => {
-                    setTodayAppointment(t);
-                });
-            }
-            console.log('todayArray:::::::::::::::', todayAppointment);
+            setTodayAppointment(todayArray);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
             const tourState = cookies.get('appointmentTour');
@@ -469,15 +461,7 @@ const Myappointment = (props) => {
                 }
                 return value;
             });
-            tomorrowAppointment.push(tomoArray);
-            setTomorrowAppointment([...tomorrowAppointment, tomoArray]);
-
-            {
-                tomorrowAppointment.map((t) => {
-                    setTomorrowAppointment(t);
-                });
-            }
-            console.log('tomoArray:::::::::::::::', tomorrowAppointment);
+            setTomorrowAppointment(tomoArray);
             setTimeout(() => setLoading(false), 1000);
             setTimeout(() => setTransparentLoading(false), 1000);
             const tourState = cookies.get('appointmentTour');
