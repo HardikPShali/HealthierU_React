@@ -19,6 +19,7 @@ import FilterComponent from "../CommonModule/SearchAndFilter/FilterComponent";
 import {
   getGlobalAppointmentsSearch,
   rescheduleAppointmentDoctor,
+  getAppointmentsTablistByStatus
 } from "../../service/frontendapiservices";
 import rightIcon from "../../images/svg/right-icon.svg";
 import calendar from "../../images/icons used/Component 12.svg";
@@ -98,7 +99,7 @@ const MyAppointments = (props) => {
       handleAlertVideo();
     }
   };
-
+  const [appointment, setAppointment] = useState([]);
   useEffect(() => {
     // getCurrentDoctor();
     getGlobalAppointments();
@@ -256,7 +257,7 @@ const MyAppointments = (props) => {
     setAge(Math.abs(age.getUTCFullYear() - 1970));
   };
 
-  const handleConsultationClick = (slot, slot1EndTime) => {
+  const handleConsultationClick = async (slot, slot1EndTime) => {
     slot.endTime = slot1EndTime;
     setSelectedPatient(slot);
   };
@@ -277,6 +278,25 @@ const MyAppointments = (props) => {
   const [search, setSearch] = useState("");
   const [appointmentDets, setAppointmentDets] = useState([]);
 
+  const getPaymentInfo = async (data) => {
+    const response = await getAppointmentsTablistByStatus(data.patient.id).catch(
+      (err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          setLoading(false);
+        }
+      }
+    );
+    if (response.status === 200 || response.status === 201) {
+      if (response && response.data) {
+        const array = response.data.data.upcoming;
+        array.map((a) => {
+          if (data.id === a.id) {
+            setAppointment(...array,a)
+          }
+        })
+      }
+    }
+  }
   const getGlobalAppointments = async (search, filter = {}) => {
     const currentDoctor = cookies.get("profileDetails");
     setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
@@ -374,6 +394,7 @@ const MyAppointments = (props) => {
         console.log("updateArray | My Patient", updateArray);
         setAppointmentDets(updateArray);
       }
+
     }
   };
 
@@ -461,6 +482,7 @@ const MyAppointments = (props) => {
       500
     );
   };
+
   return (
     <div className="bg-grey">
       {loading && <Loader />}
@@ -595,6 +617,7 @@ const MyAppointments = (props) => {
                                     className="patient-list__card"
                                     onClick={async () => {
                                       setSelectedPatient(details);
+                                      getPaymentInfo(details)
                                       Object.keys(details.patient).map(
                                         (patientData) => {
                                           return calculate_age(
@@ -846,7 +869,10 @@ const MyAppointments = (props) => {
                             <div id="req-name">
                               <b className="pclass1">Fee & Payment Method</b>
                               <br />
-                              $20 By Credit Card
+                              {appointment.appointmentFee
+                              } &nbsp;
+                              {appointment.paymentMethod
+                              }
                             </div>
                           </Col>
                           {/* <Col xs={1} style={{ alignItems: "center",paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
