@@ -5,15 +5,21 @@ import {
 } from '../util/configurations';
 
 // import { getMessaging } from "firebase/messaging";
-
+import React, { useEffect } from 'react';
 import firebase from "firebase/compat/app";
 import "firebase/compat/messaging";
 import { sendFcmTokenToServer } from '../service/firebaseservice';
 import Cookies from 'universal-cookie';
+import { toast, ToastContainer } from "react-toastify";
+import { Link } from 'react-router-dom';
+import CustomToastMessage from '../components/CommonModule/CustomToastMessage/CustomToastMessage';
 
 // import '@firebase/messaging';
 
 export const firestoreService = {}
+
+let messageListener;
+export let messaging;
 
 
 const initializeFirestore = () => {
@@ -61,7 +67,8 @@ export const getFirebaseToken = async (setTokenFound) => {
   // console.log(firebaseApp);
 
 
-  const messaging = firebase.messaging();
+  messaging = firebase.messaging();
+
 
   let currentToken = '';
 
@@ -75,10 +82,10 @@ export const getFirebaseToken = async (setTokenFound) => {
       fcmTokenApiHandler(currentToken);
       // const messageListener = await onMessageListener()
       // console.log({ messageListener });
-      messaging.onMessage(payload => {
-        console.log({ payload });
-        // resolve(payload);
-      })
+      if (messageListener) {
+        messageListener()
+      }
+
     }
     else {
       setTokenFound(false);
@@ -91,13 +98,47 @@ export const getFirebaseToken = async (setTokenFound) => {
 }
 
 export const onMessageListener = () => {
-  initializeFirestore();
-  const messaging = firebase.messaging();
+  // removeMessageListener();
+  messageListener = messaging.onMessage(payload => {
+    // console.log({ payload });
+    // resolve(payload)
+    console.log(window.location.pathname)
+    if (window.location.pathname.indexOf('/chat') === -1) {
+      toastMessage(payload)
+    }
+  })
 
-  return new Promise(resolve => {
-    messaging.onMessage(payload => {
-      console.log({ payload });
-      resolve(payload);
-    })
+}
+
+export const removeMessageListener = () => {
+  if (messageListener) {
+    messageListener()
+  }
+
+}
+
+export const deleteTokenHandler = async () => {
+  initializeFirestore();
+  messaging = firebase.messaging();
+
+  return messaging.deleteToken()
+}
+
+const toastMessage = (payload) => {
+  console.log({ payloadInToast: payload });
+  // return ({ payloadInToast: payload })
+  const toastBody = payload.notification.body
+  const toastTitle = payload.notification.title
+  const customToast = (
+    <CustomToastMessage title={toastTitle} body={toastBody} />
+  )
+  toast.info(customToast, {
+    position: "top-right",
+    autoClose: 1000,
   })
 }
+
+// //TODO:
+// 1. Check url is not chat url
+// 2. display the message as toast
+// 3. On click should navigate to chat page

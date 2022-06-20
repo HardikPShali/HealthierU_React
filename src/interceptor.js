@@ -36,30 +36,30 @@ const errorHandler = (error) => {
   //console.log("status ::: in error", error.response.status);
   if (error.response && (error.response.status === 504 || error.response.status === 500)) {
     console.log("Interceptor", error.response);
-    confirmAlert({
-      closeOnClickOutside: false,
-      closeOnEscape: false,
-      customUI: () => {
-        return (
-          <div className="custom-ui">
-            <h1>Oops !</h1>
-            <p>
+    // confirmAlert({
+    //   closeOnClickOutside: false,
+    //   closeOnEscape: false,
+    //   customUI: () => {
+    //     return (
+    //       <div className="custom-ui">
+    //         <h1>Oops !</h1>
+    //         <p>
 
-              {error.response.data.message === 'Login name already used!' ? error.response.data.message : "Something went wrong. Unexpected error"}
-              {" "}
-              <b style={{ color: "red" }}>:(</b>
-            </p>
-            <button
-              onClick={() => {
-                window.location.assign(homeUrl);
-              }}
-            >
-              Go to Homepage
-            </button>
-          </div>
-        );
-      }
-    });
+    //           {error.response.data.message === 'Login name already used!' ? error.response.data.message : "Something went wrong. Unexpected error"}
+    //           {" "}
+    //           <b style={{ color: "red" }}>:(</b>
+    //         </p>
+    //         <button
+    //           onClick={() => {
+    //             window.location.assign(homeUrl);
+    //           }}
+    //         >
+    //           Go to Homepage
+    //         </button>
+    //       </div>
+    //     );
+    //   }
+    // });
   }
   return Promise.reject({ ...error })
 }
