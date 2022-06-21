@@ -106,7 +106,7 @@ const Availability = () => {
   }
   useEffect(() => {
     loadRecurSlots()
-  }, [allTimeSlot, value])
+  }, [])
   const addDaySlot = async () => {
     setCount(count + 1);
     console.log(tempDays);
@@ -128,6 +128,7 @@ const Availability = () => {
     if (res) {
       toast.success("Recurring Slot Added");
       setState({ startTime: moment(), endTime: moment() })
+      loadRecurSlots()
       // history.go(0)
     }
 
@@ -166,9 +167,9 @@ const Availability = () => {
   };
   return (
     <Container>
-      <div className="slot-time available-btn">
+      {/* <div className="slot-time available-btn">
         <h3 style={{color: "var(--primary)"}}>Set Availability</h3>
-      </div>
+      </div> */}
 
       <Row className="time-slot-container">
         <Col sm={12} md={6} lg={6} xSl={6}>
