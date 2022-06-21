@@ -10,8 +10,6 @@ import {
   toggleRecurSlots
 } from '../../service/frontendapiservices'
 import closeBtn from "../../images/svg/close-btn.svg";
-// import LocalStorageService from "../../services/LocalStorageService";
-import LocalStorageService from "./../../util/LocalStorageService";
 
 import "./doctor.css";
 import Cookies from 'universal-cookie';
@@ -106,7 +104,7 @@ const Availability = () => {
   }
   useEffect(() => {
     loadRecurSlots()
-  }, [allTimeSlot, value])
+  }, [])
   const addDaySlot = async () => {
     setCount(count + 1);
     console.log(tempDays);
@@ -116,18 +114,31 @@ const Availability = () => {
     console.log(times);
     clearTick();
     setTimes({ time: [], days: [] });
+    const utcTimes = times.time.map((t) => {
+      const currentDate = new Date()
+      currentDate.setHours(t.startTime.split(":")[0], t.startTime.split(":")[1], 0)
+      t.startTime = currentDate.toISOString().split("T")[1].split(".")[0]
+
+      const currentEndDate = new Date()
+      currentEndDate.setHours(t.endTime.split(":")[0], t.endTime.split(":")[1], 0)
+      t.endTime = currentEndDate.toISOString().split("T")[1].split(".")[0]
+
+      return t;
+    })
     const data = {
       doctorId: docId.id,
       days: tempDays.join(),
-      timeSlotsList: times.time,
+      timeSlotsList: utcTimes,
       toggle: true
     }
+
     const dataForRecurSlot = []
     dataForRecurSlot.push(data)
     const res = await addRecurringSLot(dataForRecurSlot);
     if (res) {
       toast.success("Recurring Slot Added");
       setState({ startTime: moment(), endTime: moment() })
+      loadRecurSlots()
       // history.go(0)
     }
 
@@ -166,9 +177,9 @@ const Availability = () => {
   };
   return (
     <Container>
-      <div className="slot-time available-btn">
+      {/* <div className="slot-time available-btn">
         <h3 style={{color: "var(--primary)"}}>Set Availability</h3>
-      </div>
+      </div> */}
 
       <Row className="time-slot-container">
         <Col sm={12} md={6} lg={6} xSl={6}>
@@ -244,7 +255,7 @@ const Availability = () => {
         </Col>
         <Col sm={12} md={6} lg={6} xl={6}>
           {/* {allTimeSlot.length ? (<div className="selected-day-container"> */}
-          <h5 className="mb-3" style={{color: "var(--primary)"}}>Select Time with Day Slots</h5>
+          <h5 className="mb-3" style={{ color: "var(--primary)" }}>Select Time with Day Slots</h5>
           {allTimeSlot.map((eachTimes) => (
             <div className="selected-day-wrap">
               <div className="selected-days">

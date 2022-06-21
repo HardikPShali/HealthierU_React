@@ -10,6 +10,7 @@ import {
 } from "../../service/frontendapiservices";
 import Loader from '../Loader/Loader'
 import MyDoctor from "../Patient Module/Mydoctor";
+import CustomCallNotification from "../CommonModule/CustomToastMessage/CustomCallNotification";
 
 const Homepage = React.lazy(() => import("./Homepage"));
 const Profile = React.lazy(() => import("./Profile"));
@@ -80,6 +81,7 @@ const DoctorRoute = () => {
   return (
     <Suspense fallback={<Loader />}>
       {currentLoggedInUser?.profileCompleted === true && <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />}
+
       <Switch>
         <Route exact path="/doctor" component={Homepage} />
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />

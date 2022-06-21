@@ -9,7 +9,7 @@ import { getCurrentPatientInfo } from "../../service/AccountService";
 //import Cookies from 'universal-cookie';
 import Header from "./Header";
 import Footer from "./Footer";
-import { firestoreService, chatAndVideoService, getFirebaseToken, getPermissions } from "../../util";
+import { firestoreService, chatAndVideoService, getFirebaseToken, getPermissions, onMessageListener } from "../../util";
 import Loader from '../Loader/Loader'
 import {
   getFcmTokenApi,
@@ -18,6 +18,7 @@ import {
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
 import moment from "moment";
+import CustomCallNotification from "../CommonModule/CustomToastMessage/CustomCallNotification";
 
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
@@ -99,8 +100,17 @@ const PatientRoute = () => {
     await updatePatientTimeZone(payload);
   };
 
+  // const [displayCaller, setDisplayCaller] = useState(true);
+
+  // const onCallerClose = () => {
+  //   setDisplayCaller(false);
+  // }
+
   return (
     <Suspense fallback={<Loader />}>
+      {/* {
+        displayCaller && <CustomCallNotification onClose={onCallerClose} />
+      } */}
       {currentuserInfo?.profileCompleted === true && <Header doctorDetailsList={doctorDetailsList} unReadMessageList={unReadMessageList} trigger={trigger} currentPatient={currentPatient} />}
       <Switch>
         <Route exact path="/patient" render={(props) => <Homepage currentuserInfo={currentuserInfo} {...props} />} />

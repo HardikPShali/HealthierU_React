@@ -10,9 +10,10 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/messaging";
 import { sendFcmTokenToServer } from '../service/firebaseservice';
 import Cookies from 'universal-cookie';
-import { toast, ToastContainer } from "react-toastify";
-import { Link } from 'react-router-dom';
+import { toast } from "react-toastify";
 import CustomToastMessage from '../components/CommonModule/CustomToastMessage/CustomToastMessage';
+import { Howl } from 'howler';
+import soundSrc from '../images/svg/notification-chime.wav'
 
 // import '@firebase/messaging';
 
@@ -124,17 +125,24 @@ export const deleteTokenHandler = async () => {
   return messaging.deleteToken()
 }
 
+
+let sound
 const toastMessage = (payload) => {
   console.log({ payloadInToast: payload });
   // return ({ payloadInToast: payload })
   const toastBody = payload.notification.body
   const toastTitle = payload.notification.title
+  sound = new Howl({
+    src: soundSrc,
+    html5: true
+  })
+  sound.play()
   const customToast = (
     <CustomToastMessage title={toastTitle} body={toastBody} />
   )
   toast.info(customToast, {
     position: "top-right",
-    autoClose: 1000,
+    autoClose: 5000,
   })
 }
 
