@@ -10,9 +10,10 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/messaging";
 import { sendFcmTokenToServer } from '../service/firebaseservice';
 import Cookies from 'universal-cookie';
-import { toast, ToastContainer } from "react-toastify";
-import { Link } from 'react-router-dom';
+import { toast } from "react-toastify";
 import CustomToastMessage from '../components/CommonModule/CustomToastMessage/CustomToastMessage';
+import { Howl } from 'howler';
+
 
 // import '@firebase/messaging';
 
