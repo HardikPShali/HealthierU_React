@@ -52,7 +52,7 @@ const NotificationMenuPatient = () => {
                         {notificationsData.map((notification, index) => {
                             if (notification.type === 'RESCHEDULE' && notification.data.appointmentDetails) {
                                 return (
-                                     <div key={index}>
+                                    <div key={index}>
                                         <RescheduleNotification
                                             notification={notification}
                                             index={index}
