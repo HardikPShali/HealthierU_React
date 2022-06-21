@@ -20,18 +20,14 @@ const NotificationMenuPatient = () => {
         const user = cookies.get('profileDetails');
         const userId = user.userId;
 
-        const page = 0;
-        const limit = 100;
-
         const response = await pushNotificationsApi(
             userId,
-            page,
-            limit
+
         ).catch((err) => console.log({ err }));
 
         if (response.status === 200) {
             const notifications = response.data.data.notifications;
-            // console.log({ notifications });
+            console.log({ notifications });
             setNotificationsData(notifications);
         }
     };

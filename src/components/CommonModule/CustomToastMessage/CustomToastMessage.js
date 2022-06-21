@@ -7,30 +7,19 @@ const CustomToastMessage = ({ title, body }) => {
     const history = useHistory();
     const role = useRole()
 
-    console.log({ role })
-
     let roleName;
 
     roleName = role[0].includes('ROLE_DOCTOR') ? 'doctor' : 'patient'
 
-    // if (role[0].includes('ROLE_DOCTOR')) {
-    //     roleName = 'doctor'
-    // }
-    // else {
-    //     roleName = 'patient'
-    // }
-
-    console.log({ roleName })
-
     let sound;
 
-    const soundNotification = () => {
-        sound = new Howl({
-            src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
-            html5: true
-        })
-        sound.play()
-    }
+    // const soundNotification = () => {
+    //     sound = new Howl({
+    //         src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
+    //         html5: true
+    //     })
+    //     sound.play()
+    // }
 
     // soundNotification()
 
@@ -40,9 +29,9 @@ const CustomToastMessage = ({ title, body }) => {
         sound.pause();
     }
 
-    useEffect(() => {
-        // soundNotification()
-    }, [sound])
+    // useEffect(() => {
+    //     // soundNotification()
+    // }, [sound])
 
     return (
         <div onClick={() => {
