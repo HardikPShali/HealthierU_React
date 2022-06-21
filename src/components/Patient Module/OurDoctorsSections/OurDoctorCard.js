@@ -21,7 +21,7 @@ const OurDoctorCard = ({ doctor }) => {
             </div>
             <div className='our-doctor__details'>
                 <h5 className='our-doctor__name'>{doctor.firstName}</h5>
-                <p className='our-doctor__speciality'>{doctor.specialities.length ? doctor.specialities[0].name : ""}</p>
+                <p className='our-doctor__speciality'>{doctor.specialities.length ? doctor.specialities[0].name : "No Specialities Found"}</p>
             </div>
         </div>
     )
