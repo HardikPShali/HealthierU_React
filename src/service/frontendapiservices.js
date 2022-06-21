@@ -971,76 +971,76 @@ export const getAppointmentsBySearch = async (patientName) => {
   return response;
 };
 export const getGlobalMedicalRecordsSearch = async (data) => {
-    var payload = {
-        method: 'post',
-        mode: 'no-cors',
-        url: `/api/v2/medical-documents/filter`,
-        data: data,
-        headers: {
-            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-            'Content-Type': 'application/json'
-        }
-    };
-    const response = await axios(payload).then(res => {
-        if (res) {
-            return res;
-        }
-    });
-    return response;
+  var payload = {
+    method: 'post',
+    mode: 'no-cors',
+    url: `/api/v2/medical-documents/filter`,
+    data: data,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
 }
 export const addRecurringSLot = async (data) => {
-    var payload = {
-        method: 'post',
-        mode: 'no-cors',
-        url: `/api/v2/appointments/recur`,
-        data: data,
-        headers: {
-            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-            'Content-Type': 'application/json'
-        }
-    };
-    const response = await axios(payload).then(res => {
-        if (res) {
-            return res;
-        }
-    });
-    return response;
+  var payload = {
+    method: 'post',
+    mode: 'no-cors',
+    url: `/api/v2/appointments/recur`,
+    data: data,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
 }
 export const getRecurringSLots = async (data) => {
-    var payload = {
-        method: 'post',
-        mode: 'no-cors',
-        url: `/api/v2/appointments/recur/doctor`,
-        data: data,
-        headers: {
-            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-            'Content-Type': 'application/json'
-        }
-    };
-    const response = await axios(payload).then(res => {
-        if (res) {
-            return res;
-        }
-    });
-    return response;
+  var payload = {
+    method: 'post',
+    mode: 'no-cors',
+    url: `/api/v2/appointments/recur/doctor`,
+    data: data,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
 }
 export const toggleRecurSlots = async (data) => {
-    var payload = {
-        method: 'post',
-        mode: 'no-cors',
-        url: `/api/v2/recur/toggle`,
-        data: data,
-        headers: {
-            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-            'Content-Type': 'application/json'
-        }
-    };
-    const response = await axios(payload).then(res => {
-        if (res) {
-            return res;
-        }
-    });
-    return response;
+  var payload = {
+    method: 'post',
+    mode: 'no-cors',
+    url: `/api/v2/recur/toggle`,
+    data: data,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
 }
 // export const getGlobalMedicalRecordsSearch = async (documentType, patientId, resultType, startTime, doctorId, pageNo, endTime, labName, doctorName, pageSize, id) => {
 //     var payload = {
@@ -1205,11 +1205,11 @@ export const getAvailableSlotsForMyDoctors = async (doctorId, type) => {
   return response;
 }
 
-export const pushNotificationsApi = async (userId, pageNo, pageSize) => {
+export const pushNotificationsApi = async (userId) => {
   var payload = {
     method: 'get',
     mode: 'no-cors',
-    url: `/api/v2/notifications?userId=${userId}&pageNo=${pageNo}&pageSize=${pageSize}`,
+    url: `/api/v2/notifications?userId=${userId}`,
     headers: {
       'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
       'Content-Type': 'application/json',
@@ -1229,6 +1229,26 @@ export const getFcmTokenApi = async (userId) => {
     method: 'get',
     mode: 'no-cors',
     url: `/api/notification/fcm-token?id=${userId}&platform=web`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
+
+
+export const getCallUserApi = async (channelId) => {
+  var payload = {
+    method: 'post',
+    mode: 'no-cors',
+    url: `/api/v2/call-user/${channelId}`,
     headers: {
       'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
       'Content-Type': 'application/json',
