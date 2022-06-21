@@ -1,45 +1,45 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Container } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
-import ChatItems from "./ChatItems";
-import ChatDetails from "./ChatDetails";
-import "./ChatPage.css";
-import { APP_ID } from "../../../../util/configurations";
-import useAgoraChat from "../ChatScreen/useAgoraChat";
-import useAgoraVideo from "../ChatScreen/useAgoraVideo";
-import Cookies from "universal-cookie";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState, useRef } from 'react';
+import { Container } from 'react-bootstrap';
+import { Link, NavLink } from 'react-router-dom';
+import ChatItems from './ChatItems';
+import ChatDetails from './ChatDetails';
+import './ChatPage.css';
+import { APP_ID } from '../../../../util/configurations';
+import useAgoraChat from '../ChatScreen/useAgoraChat';
+import useAgoraVideo from '../ChatScreen/useAgoraVideo';
+import Cookies from 'universal-cookie';
+import { useLocation } from 'react-router-dom';
 import {
   generateRTMToken,
   handleAgoraAccessToken,
-} from "../../../../service/agoratokenservice";
+} from '../../../../service/agoratokenservice';
 import {
   getInbox,
   getMessages,
   sendMessage,
-} from "../../../../service/chatService";
-import moment from "moment";
-import Meeting from "../../../video-call/pages/meeting";
-import Notes from "../../../Doctor Module/NotesSection/Notes";
+} from '../../../../service/chatService';
+import moment from 'moment';
+import Meeting from '../../../video-call/pages/meeting';
+import Notes from '../../../Doctor Module/NotesSection/Notes';
 
 const ChatPage = () => {
   const [chatList, setChatList] = useState([]);
   const [filteredChatList, setFilteredChatList] = useState(chatList);
   const [selectedChatItem, setSelectedChatItem] = useState({});
   // const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const cookies = new Cookies();
   const location = useLocation();
   const [isAgoraLoggedIn, setAgoraLoggedIn] = useState(false);
-  const [pIdState, setPIdState] = useState("");
-  const [dIdState, setDIdState] = useState("");
-  const [channelName, setChannelName] = useState("");
-  const [agoraToken, setAgoraToken] = useState("");
+  const [pIdState, setPIdState] = useState('');
+  const [dIdState, setDIdState] = useState('');
+  const [channelName, setChannelName] = useState('');
+  const [agoraToken, setAgoraToken] = useState('');
   const [paginationConfig, setPaginationConfig] = useState({
     pageNo: 0,
     totalItems: 1,
-    totalPages: 1
-  })
+    totalPages: 1,
+  });
 
   const endRef = useRef();
 
@@ -53,9 +53,9 @@ const ChatPage = () => {
     reorderChatBoxOnMessageChange(e);
     if (endRef.current) {
       endRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start",
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start',
       });
     }
   };
@@ -76,11 +76,11 @@ const ChatPage = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    let chatGroup = searchParams.get("chatgroup");
+    let chatGroup = searchParams.get('chatgroup');
 
     if (chatGroup) {
-      setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
-      setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
+      setPIdState(Number(chatGroup.split('_')[0].replace('P', '')));
+      setDIdState(Number(chatGroup.split('_')[1].replace('D', '')));
     }
 
     getInboxDetails();
@@ -104,8 +104,8 @@ const ChatPage = () => {
       setPaginationConfig({
         pageNo: 0,
         totalItems: 1,
-        totalPages: 1
-      })
+        totalPages: 1,
+      });
       getMessagesDetails(0);
     }
   }, [selectedChatItem]);
@@ -142,10 +142,10 @@ const ChatPage = () => {
       setPaginationConfig({
         pageNo: pageNo,
         totalItems: result.data.data.totalItems,
-        totalPages: result.data.data.totalPages
-      })
-      const reversedMessages =  result.data.data.messages.reverse();
-      if(pageNo === 0) {
+        totalPages: result.data.data.totalPages,
+      });
+      const reversedMessages = result.data.data.messages.reverse();
+      if (pageNo === 0) {
         setMessages(reversedMessages);
       } else {
         setMessages([...reversedMessages, ...messages]);
@@ -153,9 +153,9 @@ const ChatPage = () => {
 
       if (endRef.current && pageNo === 0) {
         endRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "start",
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'start',
         });
       }
     }
@@ -167,7 +167,7 @@ const ChatPage = () => {
 
   const clearData = () => {
     setMessages([]);
-    setMessage("");
+    setMessage('');
   };
 
   const handleMessageChange = (e) => {
@@ -184,9 +184,9 @@ const ChatPage = () => {
         await sendChannelMessage(message, channelName);
         if (endRef.current) {
           endRef.current.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-            inline: "start",
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'start',
           });
         }
         const messageData = {
@@ -194,7 +194,7 @@ const ChatPage = () => {
           message: message,
         };
         await sendMessage(messageData);
-        setMessage("");
+        setMessage('');
       } catch (error) {}
     }
   };
@@ -202,10 +202,10 @@ const ChatPage = () => {
   const messageDateFormat = (val) => {
     if (val) {
       const dateValue = new Date(val);
-      return moment(dateValue).format("YYYYMMDD") ===
-        moment().format("YYYYMMDD")
-        ? moment(dateValue).format("HH:mm")
-        : moment(dateValue).format("YYYY-MM-DD HH:mm");
+      return moment(dateValue).format('YYYYMMDD') ===
+        moment().format('YYYYMMDD')
+        ? moment(dateValue).format('HH:mm')
+        : moment(dateValue).format('YYYY-MM-DD HH:mm');
     }
   };
 
@@ -244,7 +244,7 @@ const ChatPage = () => {
   };
 
   const loadMoreData = () => {
-    if(paginationConfig.pageNo < paginationConfig.totalPages) {
+    if (paginationConfig.pageNo < paginationConfig.totalPages) {
       // setPaginationConfig({...paginationConfig, pageNo: paginationConfig.pageNo + 1})
       const pageNumber = paginationConfig.pageNo + 1;
       getMessagesDetails(pageNumber);

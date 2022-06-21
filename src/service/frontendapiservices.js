@@ -1242,3 +1242,23 @@ export const getFcmTokenApi = async (userId) => {
   });
   return response;
 }
+
+
+export const getCallUserApi = async (channelId) => {
+  var payload = {
+    method: 'post',
+    mode: 'no-cors',
+    url: `/api/v2/call-user/${channelId}`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}

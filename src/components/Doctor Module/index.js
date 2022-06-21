@@ -77,19 +77,9 @@ const DoctorRoute = () => {
     setCurrentDoctor(currentDoctor);
   };
 
-  const [displayCaller, setDisplayCaller] = useState(false);
-
-  const onCallerClose = () => {
-    setDisplayCaller(false);
-  }
-
 
   return (
     <Suspense fallback={<Loader />}>
-      {
-        displayCaller && <CustomCallNotification onClose={onCallerClose} />
-      }
-
       {currentLoggedInUser?.profileCompleted === true && <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />}
 
       <Switch>

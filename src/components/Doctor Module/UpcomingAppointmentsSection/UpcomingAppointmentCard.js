@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import home2 from "../../../images/home-2.png";
+import Avatar from "react-avatar";
 import moment from "moment";
 import calendarSmall from "../../../images/svg/calender-beige.svg";
 import timeSmall from "../../../images/svg/time-teal.svg";
@@ -18,11 +18,28 @@ const UpcomingAppointmentCard = ({ appointment }) => {
   }, []);
 
   return (
-    // console.log('UA', appointments)
+
     <div className="row align-items-start">
       {/* {console.log('UA', appointment)} */}
       <div className="col-md-3">
-        <img src={home2} alt="nutrition" className="img-circle ml-3 mt-3" />
+        {
+          appointment.patient.picture ? (
+            <img
+              src={appointment.patient.picture}
+              alt={`${appointment.patient.firstName}-image`}
+              className="img-circle ml-3 mt-3"
+            />
+          ) : (
+            <Avatar
+              round={true}
+              name={
+                appointment.patient.firstName
+              }
+              size={60}
+              className="my-appointments-avatar"
+            />
+          )
+        }
       </div>
       <div className="col-md-9">
         <div className="upcoming-appointment-card__card-details">

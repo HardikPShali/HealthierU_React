@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom';
 import useRole from '../../../custom-hooks/useRole';
-import { Howl } from 'howler';
 
 const CustomToastMessage = ({ title, body }) => {
     const history = useHistory();
@@ -11,27 +10,9 @@ const CustomToastMessage = ({ title, body }) => {
 
     roleName = role[0].includes('ROLE_DOCTOR') ? 'doctor' : 'patient'
 
-    let sound;
-
-    // const soundNotification = () => {
-    //     sound = new Howl({
-    //         src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
-    //         html5: true
-    //     })
-    //     sound.play()
-    // }
-
-    // soundNotification()
-
     const chatNotifHandler = () => {
-
         history.push(`/${roleName}/chat`)
-        sound.pause();
     }
-
-    // useEffect(() => {
-    //     // soundNotification()
-    // }, [sound])
 
     return (
         <div onClick={() => {

@@ -11,6 +11,7 @@ import moment from "moment";
 import useRole from "../../../../custom-hooks/useRole";
 import { ROLES } from "../../../../util/configurations";
 import ChatIcon from "../../../../images/svg/notes-outline-icon.svg";
+import { getCallUserApi } from "../../../../service/frontendapiservices";
 
 const ChatDetails = ({
   selectedItem,
@@ -64,6 +65,7 @@ const ChatDetails = ({
 
   const handleVideo = () => {
     if (!enableVideo) return;
+    callUser();
     onVideoClick();
   };
 
@@ -95,19 +97,40 @@ const ChatDetails = ({
     return false;
   };
 
+  console.log({ selectedItem });
+
+
+
+  let channelId = selectedItem.id;
+  console.log({ channelId: channelId });
+
+
+  //CALL-TOPIC CODE
+  const callUser = async () => {
+    // console.log({ selectedItem });
+    // const channelId = selectedItem.id;
+    console.log({ channelId });
+    const response = await getCallUserApi(channelId).catch(err => console.log({ err }))
+    console.log({ response })
+  };
+
+  // useEffect(() => {
+  //   callUser();
+  // }, [channelId]);
+
   return (
     <div className="chatDetails-wrapper">
       <h2 className="chating_with">
         {selectedItem[selectedItem.userKey] &&
           selectedItem[selectedItem.userKey]?.firstName +
-            " " +
-            selectedItem[selectedItem.userKey]?.lastName}
+          " " +
+          selectedItem[selectedItem.userKey]?.lastName}
       </h2>
       <div className="chat-section">
         <div className="chat_detail-body">
           {/* <div className="today-date">Jan 12, 2022</div> */}
           <div onScroll={(e) => {
-            if(e.target.scrollTop === 0) {
+            if (e.target.scrollTop === 0) {
               loadMoreData()
             }
           }} className="chat_detail_received">
@@ -115,45 +138,45 @@ const ChatDetails = ({
               return (
                 <>
                   {groupDateCalculation(index) && (
-                    <div class="date-divider">
+                    <div className="date-divider">
                       {moment(message.createdAt).format("DD MMM yyyy")}
                     </div>
                   )}
-                  <div class="container">
-                  <div class="row">
-                    {!message.myMessage && (
-                      <div
-                        key={message.id}
-                        className="received_chat-msg-wrap my-2"
-                      >
-                        <div className="received_chat-msg">
-                          <div className="chat-msg-text">{message.message}</div>
-                          <div className="received_chat-time">
-                            {moment(message.createdAt).format('HH:mm')}
+                  <div className="container">
+                    <div className="row">
+                      {!message.myMessage && (
+                        <div
+                          key={message.id}
+                          className="received_chat-msg-wrap my-2"
+                        >
+                          <div className="received_chat-msg">
+                            <div className="chat-msg-text">{message.message}</div>
+                            <div className="received_chat-time">
+                              {moment(message.createdAt).format('HH:mm')}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                    {message.myMessage && (
-                      <div key={message.id} className="sent_chat-msg-wrap my-2">
-                        <div className="sent_chat-msg">
-                          <span className="chat-msg-text">
-                            {message.message}
-                          </span>
-                          <div className="sent_chat-time-tick-wrap">
-                            <span className="sent_chat-time">
-                              {moment(message.createdAt).format('HH:mm')}
+                      )}
+                      {message.myMessage && (
+                        <div key={message.id} className="sent_chat-msg-wrap my-2">
+                          <div className="sent_chat-msg">
+                            <span className="chat-msg-text">
+                              {message.message}
                             </span>
-                            {/* <span className="sent_chat-seen">
+                            <div className="sent_chat-time-tick-wrap">
+                              <span className="sent_chat-time">
+                                {moment(message.createdAt).format('HH:mm')}
+                              </span>
+                              {/* <span className="sent_chat-seen">
                             <img src={blueTick} alt="" />
                           </span> */}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                  </div>
-                
+
                 </>
               );
             })}
@@ -196,7 +219,7 @@ const ChatDetails = ({
             <button
               onClick={handleNoteToggle}
               className="notes-btn"
-              // disabled={!enableChat}
+            // disabled={!enableChat}
             >
               <img src={ChatIcon} alt="chat-icon" />
             </button>
