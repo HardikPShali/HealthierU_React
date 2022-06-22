@@ -1578,7 +1578,10 @@ const MyDoctor = (props) => {
                         (user, index) =>
                           user &&
                           user.activated && (
-                            <GridListTile key={index}>
+                            <GridListTile
+                              key={index}
+                              className='card-list__grid-list-tile'
+                            >
                               {!user.liked && (
                                 <FavoriteBorderIcon
                                   id="fav-icon"
