@@ -10,7 +10,6 @@ import {
 } from "../../service/frontendapiservices";
 import Loader from '../Loader/Loader'
 import MyDoctor from "../Patient Module/Mydoctor";
-import CustomCallNotification from "../CommonModule/CustomToastMessage/CustomCallNotification";
 import { getFirebaseToken, getPermissions, onMessageListener } from "../../util";
 
 const Homepage = React.lazy(() => import("./Homepage"));

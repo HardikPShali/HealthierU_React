@@ -196,8 +196,3 @@ const callToast = (payload) => {
     className: 'caller-toast'
   })
 }
-
-// //TODO:
-// 1. Check url is not chat url
-// 2. display the message as toast
-// 3. On click should navigate to chat page

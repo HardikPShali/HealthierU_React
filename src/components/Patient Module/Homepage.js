@@ -13,7 +13,6 @@ import { getFirebaseToken, getPermissions, onMessageListener } from '../../util'
 import { getFcmTokenApi } from '../../service/frontendapiservices';
 import Cookies from 'universal-cookie';
 import moment from 'moment';
-import CustomToastMessage from '../CommonModule/CustomToastMessage/CustomToastMessage';
 
 // import { getCurrentUserInfo } from "../../service/AccountService";
 // import LocalStorageService from './../../util/LocalStorageService';
@@ -115,7 +114,6 @@ const patientHomePage = () => {
             <br />
             <br />
             {/* <Footer /> */}
-            <CustomToastMessage />
         </div>
     )
 }
