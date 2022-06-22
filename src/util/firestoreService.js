@@ -5,7 +5,7 @@ import {
 } from '../util/configurations';
 
 // import { getMessaging } from "firebase/messaging";
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import firebase from "firebase/compat/app";
 import "firebase/compat/messaging";
 import { sendFcmTokenToServer } from '../service/firebaseservice';
@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import CustomToastMessage from '../components/CommonModule/CustomToastMessage/CustomToastMessage';
 import { Howl } from 'howler';
 import soundSrc from '../images/svg/notification-chime.wav'
+import CustomCallNotification from '../components/CommonModule/CustomToastMessage/CustomCallNotification';
 
 // import '@firebase/messaging';
 
@@ -130,20 +131,45 @@ let sound
 const toastMessage = (payload) => {
   console.log({ payloadInToast: payload });
   // return ({ payloadInToast: payload })
-  const toastBody = payload.notification.body
-  const toastTitle = payload.notification.title
-  sound = new Howl({
-    src: soundSrc,
-    html5: true
-  })
-  sound.play()
-  const customToast = (
-    <CustomToastMessage title={toastTitle} body={toastBody} />
-  )
-  toast.info(customToast, {
-    position: "top-right",
-    autoClose: 5000,
-  })
+  const topicFromPayload = payload.data.topic;
+
+  if (topicFromPayload === 'CHAT') {
+    const toastBody = payload.notification.body
+    const toastTitle = payload.notification.title
+    sound = new Howl({
+      src: soundSrc,
+      html5: true
+    })
+    sound.play()
+    const customToast = (
+      <CustomToastMessage title={toastTitle} body={toastBody} payload={payload} />
+    )
+    toast.info(customToast, {
+      position: "top-right",
+      autoClose: 5000,
+    })
+  }
+
+
+  if (topicFromPayload === 'CALL') {
+    const toastBody = payload.notification.body
+
+    const onCallerClose = () => {
+      toast.dismiss();
+    }
+    // sound = new Howl({
+    //   src: soundSrc,
+    //   html5: true
+    // })
+    // sound.play()
+    const customToast = (
+      <CustomCallNotification body={toastBody} onClose={onCallerClose} payload={payload} />
+    )
+    toast.info(customToast, {
+      // position: "top-right",
+      // autoClose: 5000,
+    })
+  }
 }
 
 // //TODO:

@@ -2,11 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #e5e5e5;
+  background: #fff;
+  border-radius: 10px;
 }
 
 .caller-name {
   margin: 20px;
+  font-size: 14px;
+  color: #3e4543;
 }
 
 .call-actions {

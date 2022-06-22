@@ -74,16 +74,18 @@ const ChatPage = () => {
 
   const [openVideoCall, setOpenVideoCall, getToken] = useAgoraVideo();
 
+  const searchParams = new URLSearchParams(location.search);
+
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
     let chatGroup = searchParams.get('chatgroup');
+    let queryChannelId = searchParams.get('channelId');
 
     if (chatGroup) {
       setPIdState(Number(chatGroup.split('_')[0].replace('P', '')));
       setDIdState(Number(chatGroup.split('_')[1].replace('D', '')));
     }
 
-    getInboxDetails();
+    getInboxDetails(queryChannelId);
   }, []);
 
   useEffect(() => {
@@ -107,6 +109,12 @@ const ChatPage = () => {
         totalPages: 1,
       });
       getMessagesDetails(0);
+      if (searchParams.get('openVideo') === 'true') {
+        getToken(
+          Number(selectedChatItem.patientInfo.id),
+          Number(selectedChatItem.doctorInfo.id)
+        );
+      }
     }
   }, [selectedChatItem]);
 
@@ -126,12 +134,20 @@ const ChatPage = () => {
     }
   };
 
-  const getInboxDetails = async () => {
+  const getInboxDetails = async (channelId = null) => {
     const result = await getInbox();
     setChatList(result.data.data);
     setFilteredChatList(result.data.data);
     if (result.data.data.length) {
-      setSelectedChatItem(result.data.data[0]);
+      if (!channelId) {
+        setSelectedChatItem(result.data.data[0]);
+      } else {
+        const selectedChannel = result.data.data.find((c) => {
+          return c.id == channelId;
+        });
+        setSelectedChatItem(selectedChannel);
+      }
+      // setSelectedChatItem(result.data.data[0]);
     }
     console.log(result);
   };

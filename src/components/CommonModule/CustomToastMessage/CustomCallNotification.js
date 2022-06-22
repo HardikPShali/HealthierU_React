@@ -6,7 +6,7 @@ import { useHistory } from 'react-router'
 import useRole from '../../../custom-hooks/useRole'
 
 
-const CustomCallNotification = ({ onClose }) => {
+const CustomCallNotification = ({ onClose, body, payload }) => {
 
     const history = useHistory();
 
@@ -14,16 +14,22 @@ const CustomCallNotification = ({ onClose }) => {
 
     console.log({ role })
 
+    console.log({ body })
+
+    console.log({ payload })
+
     let roleName;
+    let callerName;
 
     roleName = role[0].includes('ROLE_DOCTOR') ? 'doctor' : 'patient'
+    callerName = payload.notification.title;
 
     const onDeclineClickHandler = () => {
         onClose(true);
     }
 
     const onAcceptClickHandler = () => {
-        history.push(`/${roleName}/chat`)   // ?cId=1
+        history.push(`/${roleName}/chat?channelId=${payload.data.channelId}&openVideo=${true}`)   // ?cId=1
     }
 
     return (
