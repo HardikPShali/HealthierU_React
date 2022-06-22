@@ -217,7 +217,7 @@ const MyDoctor = (props) => {
       ) {
         setOffset(1);
         setUser(result.data.doctors);
-        setdoctor(result.data.doctors[0]);
+        setdoctor(result.data.doctors);
         //const currentSelectedDate = new Date();
         //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
         const docId = result.data.doctors[0]?.id;
@@ -1897,7 +1897,7 @@ const MyDoctor = (props) => {
                   </>
                 ) : (
                   <div className="no-result">
-                    <center>No Doctor Found ...</center>
+                    <center>No Doctor Selected ...</center>
                   </div>
                 )}
               </div>
@@ -2138,70 +2138,67 @@ const MyDoctor = (props) => {
               <div id="dorctor-list">
                 <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
-                    {/* <p>Select Date</p>
-                                    <TextField
-                                        type="date"
-                                        onChange={(e) => onDaySelect(new Date(e.target.value), doctor && doctor.id)}
-                                        className="appointmentDate"
-                                        inputProps={{ min: moment(new Date()).format("YYYY-MM-DD") }}
-                                        value={moment(currentDate).format("YYYY-MM-DD")}
-                                        variant="filled"
-                                    />
-                                    <br />
-                                    <br /> */}
-                    {displayCalendar && (
-                      <>
-                        <div className="appointment-type">
-                          <p>Appointment Type</p>
-                          <FormControl>
-                            <Select
-                              id="demo-controlled-open-select"
-                              variant="outlined"
-                              name="appointmentType"
-                              value={appointment.appointmentMode}
-                              displayEmpty
-                              onChange={(e) => handleAppoitnmentType(e)}
-                            >
-                              <MenuItem value="">
-                                <em>Select</em>
-                              </MenuItem>
-                              <MenuItem value="FIRST_CONSULTATION">
-                                Consultation(1 Hr)
-                              </MenuItem>
-                              <MenuItem value="FOLLOW_UP">
-                                Follow up(30 Mins)
-                              </MenuItem>
-                            </Select>
-                          </FormControl>
+                    {
+                      doctor && doctor.activated ? (
+                        displayCalendar && (
+                          <>
+                            <div className="appointment-type">
+                              <p>Appointment Type</p>
+                              <FormControl>
+                                <Select
+                                  id="demo-controlled-open-select"
+                                  variant="outlined"
+                                  name="appointmentType"
+                                  value={appointment.appointmentMode}
+                                  displayEmpty
+                                  onChange={(e) => handleAppoitnmentType(e)}
+                                >
+                                  <MenuItem value="">
+                                    <em>Select</em>
+                                  </MenuItem>
+                                  <MenuItem value="FIRST_CONSULTATION">
+                                    Consultation(1 Hr)
+                                  </MenuItem>
+                                  <MenuItem value="FOLLOW_UP">
+                                    Follow up(30 Mins)
+                                  </MenuItem>
+                                </Select>
+                              </FormControl>
+                            </div>
+                            <Calendar
+                              onChange={(e) =>
+                                onDaySelect(new Date(e), doctor && doctor.id)
+                              }
+                              value={currentDate}
+                              minDate={new Date()} //to disable past days
+                              maxDate={
+                                new Date(
+                                  new Date().setDate(new Date().getDate() + 180)
+                                )
+                              } // next 3week condition
+                              // Temporarily commented to enable calendar click functionality for appointment.
+                              tileDisabled={
+                                ({ activeStartDate, date, view }) =>
+                                  // activeStartDate.getDate() === date.getDate() &&
+                                  disabledDates &&
+                                  disabledDates.some(
+                                    (disabledDate) =>
+                                      date.getFullYear() ===
+                                      disabledDate.getFullYear() &&
+                                      date.getMonth() === disabledDate.getMonth() &&
+                                      date.getDate() === disabledDate.getDate()
+                                  )
+                              }
+                            // } // greyout dates
+                            />
+                          </>
+                        )
+                      ) : (
+                        <div className="no-result">
+                          <center>Select a Doctor to view Calendar and Availability ...</center>
                         </div>
-                        <Calendar
-                          onChange={(e) =>
-                            onDaySelect(new Date(e), doctor && doctor.id)
-                          }
-                          value={currentDate}
-                          minDate={new Date()} //to disable past days
-                          maxDate={
-                            new Date(
-                              new Date().setDate(new Date().getDate() + 180)
-                            )
-                          } // next 3week condition
-                          // Temporarily commented to enable calendar click functionality for appointment.
-                          tileDisabled={
-                            ({ activeStartDate, date, view }) =>
-                              // activeStartDate.getDate() === date.getDate() &&
-                              disabledDates &&
-                              disabledDates.some(
-                                (disabledDate) =>
-                                  date.getFullYear() ===
-                                  disabledDate.getFullYear() &&
-                                  date.getMonth() === disabledDate.getMonth() &&
-                                  date.getDate() === disabledDate.getDate()
-                              )
-                          }
-                        // } // greyout dates
-                        />
-                      </>
-                    )}
+                      )
+                    }
 
                     {displaySlot && (
                       <>
@@ -2271,21 +2268,18 @@ const MyDoctor = (props) => {
                             </div>
                           )}
                         </div>
+                        <button
+                          className="btn btn-primary continue-btn"
+                          onClick={async () => {
+                            checkSlot();
+                          }}
+                          disabled={disable.continue}
+                        >
+                          Continue
+                        </button>
                       </>
                     )}
                   </div>
-                  {/* <br />
-                                <Row style={{ margin: '0px' }}>
-                                    {Availability && Availability.map((avail, index) => (
-                                        new Date(availappoi.startTime) >= new Date() && (
-                                            <Col xs={6} className="text-center" style={{ padding: '0px' }} key={index}>
-                                                <button className="btn timeSlot" onClick={() => onAvailabilitySelected(avail.startTime, avail.endTime, index)}>
-                                                    {moment(new Date(avail.startTime)).format("h:mm A")} - {moment(new Date(avail.endTime)).format("h:mm A")}
-                                                </button>
-                                            </Col>
-                                        )
-                                    ))}
-                                </Row> */}
                   <label
                     style={{
                       fontSize: 12,
@@ -2298,15 +2292,7 @@ const MyDoctor = (props) => {
                     {slotError}
                   </label>
                 </div>
-                <button
-                  className="btn btn-primary continue-btn"
-                  onClick={async () => {
-                    checkSlot();
-                  }}
-                  disabled={disable.continue}
-                >
-                  Continue
-                </button>
+
               </div>
             </Col>
           ) : (
