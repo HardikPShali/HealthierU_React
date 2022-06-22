@@ -579,7 +579,7 @@ const MyDoctor = (props) => {
     setSlotError('');
     setCurrentDate(slectedDate);
     const dataForSelectedDay = {
-      startTime: new Date(slectedDate.setHours(0, 0, 0)).toISOString(),
+      startTime: new Date(slectedDate).toISOString(),
       endTime: new Date(slectedDate.setHours(23, 59, 59)).toISOString(),
       status: 'AVAILABLE',
       doctorId: doctorId,
@@ -2124,7 +2124,7 @@ const MyDoctor = (props) => {
             <Col
               md={6}
               lg={4}
-             
+
               style={{ display: display.doctor }}
             >
               <Tooltip title="Take a Booking appointment tour again." arrow>
