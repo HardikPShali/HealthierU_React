@@ -5,7 +5,7 @@ import {
 } from '../util/configurations';
 
 // import { getMessaging } from "firebase/messaging";
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import firebase from "firebase/compat/app";
 import "firebase/compat/messaging";
 import { sendFcmTokenToServer } from '../service/firebaseservice';
@@ -14,6 +14,8 @@ import { toast } from "react-toastify";
 import CustomToastMessage from '../components/CommonModule/CustomToastMessage/CustomToastMessage';
 import { Howl } from 'howler';
 import soundSrc from '../images/svg/notification-chime.wav'
+import soundSrcCall from '../images/svg/call-notification-sound.wav'
+import CustomCallNotification from '../components/CommonModule/CustomToastMessage/CustomCallNotification';
 
 // import '@firebase/messaging';
 
@@ -104,9 +106,9 @@ export const onMessageListener = () => {
     // console.log({ payload });
     // resolve(payload)
     console.log(window.location.pathname)
-    if (window.location.pathname.indexOf('/chat') === -1) {
-      toastMessage(payload)
-    }
+
+    toastMessage(payload)
+
   })
 
 }
@@ -126,27 +128,71 @@ export const deleteTokenHandler = async () => {
 }
 
 
-let sound
+let sound = new Howl({
+  src: soundSrc,
+  html5: true
+});
+
+let soundCall = new Howl({
+  src: soundSrcCall,
+  html5: true,
+  loop: true
+})
+
 const toastMessage = (payload) => {
   console.log({ payloadInToast: payload });
   // return ({ payloadInToast: payload })
+  const topicFromPayload = payload?.data?.topic;
+
+  if (topicFromPayload === 'CHAT' && window.location.pathname.indexOf('/chat') === -1) {
+    messageToast(payload);
+  }
+
+
+  if (topicFromPayload === 'CALL') {
+    callToast(payload);
+  }
+}
+
+const messageToast = (payload) => {
   const toastBody = payload.notification.body
   const toastTitle = payload.notification.title
-  sound = new Howl({
-    src: soundSrc,
-    html5: true
-  })
+
   sound.play()
   const customToast = (
-    <CustomToastMessage title={toastTitle} body={toastBody} />
+    <CustomToastMessage title={toastTitle} body={toastBody} payload={payload} />
   )
   toast.info(customToast, {
     position: "top-right",
     autoClose: 5000,
+    className: 'caller-toast'
   })
 }
 
-// //TODO:
-// 1. Check url is not chat url
-// 2. display the message as toast
-// 3. On click should navigate to chat page
+const callToast = (payload) => {
+  const onCallerClose = () => {
+
+    toast.dismiss();
+    soundCall.stop()
+  }
+
+
+  const onAcceptClickHandler = (history, url) => {
+    soundCall.stop();
+    history.push(url)   // ?cId=1
+
+    if (window.location.pathname.indexOf('/chat') > -1) {
+      window.location.reload()
+    }
+  }
+
+  soundCall.play()
+  const customToast = (
+    <CustomCallNotification onAccept={onAcceptClickHandler} onClose={onCallerClose} payload={payload} />
+  )
+  toast.info(customToast, {
+    // position: "top-right",
+    autoClose: false,
+    className: 'caller-toast'
+  })
+}

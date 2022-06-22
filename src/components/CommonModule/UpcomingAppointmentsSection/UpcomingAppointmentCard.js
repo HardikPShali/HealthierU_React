@@ -67,10 +67,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
               appointment[appointmentPersonKey].specialities[0].name}
 
             {appointmentPersonKey === "patient" &&
-              appointment.unifiedAppointment &&
-              appointment.unifiedAppointment.split(
-                "#"
-              )[1].replace("_", " ")}
+              appointment.appointmentMode}
           </span>
           <div className="upcoming-appointment-card__card-details--date-div">
             <div className="upcoming-appointment-card__card-time-row">

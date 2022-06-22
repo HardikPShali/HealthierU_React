@@ -4388,3 +4388,13 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   transform: translateY(-2px);
   box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
 }
+
+.card-list__grid-list-tile:hover {
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all 0.2s ease-in;
+  transform: translateY(-4px);
+  /* box-shadow: 4px 4px 14px rgb(0 0 0 / 9%); */
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.2));
+}

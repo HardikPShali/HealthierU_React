@@ -18,7 +18,6 @@ import {
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
 import moment from "moment";
-import CustomCallNotification from "../CommonModule/CustomToastMessage/CustomCallNotification";
 
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
@@ -75,10 +74,16 @@ const PatientRoute = () => {
   const cookie = new Cookies();
 
   useEffect(() => {
+
     {
       currentuserInfo.profileCompleted == true &&
         getCurrentPatient();
     }
+
+    if(currentuserInfo.profileCompleted == true) {
+      fcmTokenGenerationHandler();
+    }
+
   }, []);
 
 
@@ -100,6 +105,29 @@ const PatientRoute = () => {
     await updatePatientTimeZone(payload);
   };
 
+
+  const fcmTokenGenerationHandler = async () => {
+      let tokenToBeGenerated;
+      const tokenFunction = async () => {
+          tokenToBeGenerated = await getFirebaseToken(setTokenFound);
+          onMessageListener();
+
+          if (tokenToBeGenerated) {
+              console.log({ tokenToBeGenerated });
+          }
+          return tokenToBeGenerated;
+      };
+
+      const getPermission = async () => {
+          const permission = await getPermissions();
+          if (permission === 'granted') {
+              tokenFunction();
+          }
+      };
+      getPermission();
+      // alert('token generated')
+  }
+
   // const [displayCaller, setDisplayCaller] = useState(true);
 
   // const onCallerClose = () => {
@@ -108,9 +136,6 @@ const PatientRoute = () => {
 
   return (
     <Suspense fallback={<Loader />}>
-      {/* {
-        displayCaller && <CustomCallNotification onClose={onCallerClose} />
-      } */}
       {currentuserInfo?.profileCompleted === true && <Header doctorDetailsList={doctorDetailsList} unReadMessageList={unReadMessageList} trigger={trigger} currentPatient={currentPatient} />}
       <Switch>
         <Route exact path="/patient" render={(props) => <Homepage currentuserInfo={currentuserInfo} {...props} />} />

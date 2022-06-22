@@ -65,7 +65,11 @@ const ChatDetails = ({
 
   const handleVideo = () => {
     if (!enableVideo) return;
-    callUser();
+    
+    if(roles.some((role) => role === ROLES.ROLE_DOCTOR)) {
+      callUser();
+    }
+
     onVideoClick();
   };
 
