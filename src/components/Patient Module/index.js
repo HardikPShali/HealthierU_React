@@ -18,7 +18,6 @@ import {
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
 import moment from "moment";
-import CustomCallNotification from "../CommonModule/CustomToastMessage/CustomCallNotification";
 
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
@@ -137,9 +136,6 @@ const PatientRoute = () => {
 
   return (
     <Suspense fallback={<Loader />}>
-      {/* {
-        displayCaller && <CustomCallNotification onClose={onCallerClose} />
-      } */}
       {currentuserInfo?.profileCompleted === true && <Header doctorDetailsList={doctorDetailsList} unReadMessageList={unReadMessageList} trigger={trigger} currentPatient={currentPatient} />}
       <Switch>
         <Route exact path="/patient" render={(props) => <Homepage currentuserInfo={currentuserInfo} {...props} />} />

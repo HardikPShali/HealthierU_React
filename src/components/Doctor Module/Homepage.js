@@ -19,7 +19,6 @@ import { getFirebaseToken, getPermissions, onMessageListener, removeMessageListe
 import { getFcmTokenApi } from "../../service/frontendapiservices";
 import moment from 'moment'
 import Cookies from "universal-cookie";
-import CustomToastMessage from "../CommonModule/CustomToastMessage/CustomToastMessage";
 
 
 const Homepage = ({ currentuserInfo }) => {
@@ -94,7 +93,6 @@ function doctorHomePage() {
         </Row>
       </Container>
       {/* <Footer /> */}
-      <CustomToastMessage />
     </div>
   );
 }
