@@ -83,7 +83,7 @@ const Myappointment = (props) => {
         } else if (
             event.startTime >= new Date() &&
             event.status === 'ACCEPTED' &&
-            res !== 'FIRST_CONSULTATION'
+            res !== 'First Consultation'
         ) {
             backgroundColor = '#4f80e2';
             color = '#fff';
@@ -94,7 +94,7 @@ const Myappointment = (props) => {
             color = '#fff';
             var borderColor = '#696969';
             var pointerEvents = 'none';
-        } else if (res === 'FIRST_CONSULTATION') {
+        } else if (res === 'First Consultation') {
             backgroundColor = '#3157a3';
             color = '#fff';
         }
@@ -375,6 +375,7 @@ const Myappointment = (props) => {
                         patientFirstName: value && value.patient && value.patient.firstName,
                         patientLastName: value && value.patient && value.patient.lastName,
                         unifiedAppointment: value.unifiedAppointment,
+                        appointmentMode: value.appointmentMode,
                         patient: value?.patient && value.patient,
                     });
                 }
@@ -391,6 +392,7 @@ const Myappointment = (props) => {
                         doctorId: value.doctorId,
                         patientId: value.patientId,
                         patient: value.patient,
+                        appointmentMode: value.appointmentMode,
                         unifiedAppointment: value.unifiedAppointment,
                     });
                 }
@@ -426,6 +428,7 @@ const Myappointment = (props) => {
                         doctorId: value.doctorId,
                         patientId: value.patientId,
                         patient: value.patient,
+                        appointmentMode: value.appointmentMode,
                         unifiedAppointment: value.unifiedAppointment,
                     });
                 }
@@ -456,6 +459,7 @@ const Myappointment = (props) => {
                         doctorId: value.doctorId,
                         patientId: value.patientId,
                         patient: value.patient,
+                        appointmentMode: value.appointmentMode,
                         unifiedAppointment: value.unifiedAppointment,
                     });
                 }
@@ -733,7 +737,7 @@ const Myappointment = (props) => {
     }
 
     const TouchCellWrapper = ({ children, value, handleSelect }) =>
-    
+
         React.cloneElement(React.Children.only(children), {
             onTouchEnd: () => handleSelect({ slots: [value] }),
         });
@@ -794,7 +798,7 @@ const Myappointment = (props) => {
                                         onSelectSlot={handleSelect}
                                         eventPropGetter={(event) => eventStyleGetter(event)}
                                         slotPropGetter={(event) => slotStyleGetter(event)}
-                                        messages={{previous: "Previous", next: "Next", today: "Today"}}
+                                        messages={{ previous: "Previous", next: "Next", today: "Today" }}
                                     />
                                 </div>
                             </Col>
@@ -898,7 +902,7 @@ const Myappointment = (props) => {
                                                                                                         appointment.patient
                                                                                                             .firstName +
                                                                                                         ' ' +
-                                                                                                        appointment.patient.lastName
+                                                                                                        (appointment.patient.lastName || "")
                                                                                                     }
                                                                                                     size={60}
                                                                                                     className="my-appointment-avatar"
@@ -911,14 +915,14 @@ const Myappointment = (props) => {
                                                                                                     {appointment.patient
                                                                                                         .firstName +
                                                                                                         ' ' +
-                                                                                                        appointment.patient
-                                                                                                            .lastName}
+                                                                                                        (appointment.patient
+                                                                                                            .lastName || "")
+                                                                                                    }
+
                                                                                                 </b>
                                                                                             </h5>
                                                                                             <span className="patient-list__common-span">
-                                                                                                {appointment.unifiedAppointment
-                                                                                                    ?.split('#')[1]
-                                                                                                    ?.replace('_', ' ')}
+                                                                                                {appointment.appointmentMode}
                                                                                             </span>
                                                                                         </div>
                                                                                     </div>
@@ -935,7 +939,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        {/* return false; */}
+                                                                        {/* return false; */ }
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -996,7 +1000,7 @@ const Myappointment = (props) => {
                                                                                                         appointment.patient
                                                                                                             .firstName +
                                                                                                         ' ' +
-                                                                                                        appointment.patient.lastName
+                                                                                                        (appointment.patient.lastName || "")
                                                                                                     }
                                                                                                     className="my-appointment-avatar"
                                                                                                     size={60}
@@ -1009,14 +1013,12 @@ const Myappointment = (props) => {
                                                                                                     {appointment.patient
                                                                                                         .firstName +
                                                                                                         ' ' +
-                                                                                                        appointment.patient
-                                                                                                            .lastName}
+                                                                                                        (appointment.patient
+                                                                                                            .lastName || "")}
                                                                                                 </b>
                                                                                             </h5>
                                                                                             <span className="patient-list__common-span">
-                                                                                                {appointment.unifiedAppointment
-                                                                                                    ?.split('#')[1]
-                                                                                                    ?.replace('_', ' ')}
+                                                                                                {appointment.appointmentMode}
                                                                                             </span>
                                                                                         </div>
                                                                                     </div>
@@ -1025,7 +1027,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                {/* return appointment; */}
+                                                                {/* return appointment; */ }
                                                             })}
                                                         </div>
                                                     )}
@@ -1063,7 +1065,7 @@ const Myappointment = (props) => {
                                                                                     onClick={() => {
                                                                                         handleAppointmentInfoOpen(
                                                                                             appointment,
-                                                                                            acceptedAppointment[index + 1]
+                                                                                            tomorrowAppointment[index + 1]
                                                                                                 .endTime
                                                                                         );
                                                                                     }}
@@ -1103,7 +1105,7 @@ const Myappointment = (props) => {
                                                                                                         appointment.patient
                                                                                                             .firstName +
                                                                                                         ' ' +
-                                                                                                        appointment.patient.lastName
+                                                                                                        (appointment.patient.lastName || "")
                                                                                                     }
                                                                                                     size={60}
                                                                                                     className="my-appointment-avatar"
@@ -1116,14 +1118,12 @@ const Myappointment = (props) => {
                                                                                                     {appointment.patient
                                                                                                         .firstName +
                                                                                                         ' ' +
-                                                                                                        appointment.patient
-                                                                                                            .lastName}
+                                                                                                        (appointment.patient
+                                                                                                            .lastName || "")}
                                                                                                 </b>
                                                                                             </h5>
                                                                                             <span className="patient-list__common-span">
-                                                                                                {appointment.unifiedAppointment
-                                                                                                    ?.split('#')[1]
-                                                                                                    ?.replace('_', ' ')}
+                                                                                                {appointment.appointmentMode}
                                                                                             </span>
                                                                                         </div>
                                                                                     </div>
@@ -1140,7 +1140,7 @@ const Myappointment = (props) => {
                                                                             acceptedAppointment[index - 1]
                                                                                 .unifiedAppointment)
                                                                     ) {
-                                                                        {/* return false; */}
+                                                                        {/* return false; */ }
                                                                     } else if (
                                                                         appointment.unifiedAppointment !==
                                                                         (acceptedAppointment[index + 1] &&
@@ -1201,7 +1201,7 @@ const Myappointment = (props) => {
                                                                                                         appointment.patient
                                                                                                             .firstName +
                                                                                                         ' ' +
-                                                                                                        appointment.patient.lastName
+                                                                                                        (appointment.patient.lastName || "")
                                                                                                     }
                                                                                                     className="my-appointment-avatar"
                                                                                                     size={60}
@@ -1214,14 +1214,12 @@ const Myappointment = (props) => {
                                                                                                     {appointment.patient
                                                                                                         .firstName +
                                                                                                         ' ' +
-                                                                                                        appointment.patient
-                                                                                                            .lastName}
+                                                                                                        (appointment.patient
+                                                                                                            .lastName || "")}
                                                                                                 </b>
                                                                                             </h5>
                                                                                             <span className="patient-list__common-span">
-                                                                                                {appointment.unifiedAppointment
-                                                                                                    ?.split('#')[1]
-                                                                                                    ?.replace('_', ' ')}
+                                                                                                {appointment.appointmentMode}
                                                                                             </span>
                                                                                         </div>
                                                                                     </div>
@@ -1230,7 +1228,7 @@ const Myappointment = (props) => {
                                                                         );
                                                                     }
                                                                 }
-                                                                {/* return appointment; */}
+                                                                {/* return appointment; */ }
                                                             })}
                                                         </div>
                                                     )}
@@ -1326,14 +1324,14 @@ const Myappointment = (props) => {
                                                     name={
                                                         selectedAppointment.patient.firstName +
                                                         ' ' +
-                                                        selectedAppointment.patient.lastName
+                                                        (selectedAppointment.patient.lastName || "")
                                                     }
                                                     className="my-patient-modal__avatar"
                                                 />
                                             )}
                                             <h2>
                                                 {selectedAppointment.patient.firstName}{' '}
-                                                {selectedAppointment.patient.lastName}
+                                                {selectedAppointment.patient.lastName || ""}
                                             </h2>
                                             <span className="details-content__app-type">
                                                 {selectedAppointment.unifiedAppointment

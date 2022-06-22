@@ -179,7 +179,7 @@ const NotificationMenu = (props) => {
   //             },
   //             "patientName": "test123",
   //             "doctorName": "Test Doctor",
-  //             "unifiedAppointment": "1#FOLLOW_UP",
+  //             "unifiedAppointment": "1#Follow Up",
   //             "appointmentMode": "Follow Up",
   //             "paymentMethod": null,
   //             "appointmentFee": null,
