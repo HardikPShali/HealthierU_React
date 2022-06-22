@@ -175,6 +175,28 @@ const Availability = () => {
     });
     setAllDays(clearAllDays);
   };
+
+  const convertHoursAndMinsToLocal = (hoursAndMins) => {
+    if(hoursAndMins) {
+      const [hr, min] = hoursAndMins.split(":");
+
+  
+      const currentDate = new Date();
+      currentDate.setHours(hr)
+      currentDate.setMinutes(min)
+      currentDate.setSeconds(0)
+
+      const localDate = convertUTCDateToLocalDate(currentDate);
+      const convertedHoursAndMinsInLocal = moment(localDate).format("HH:mm:ss");
+      return convertedHoursAndMinsInLocal;
+    }
+
+  }
+
+  const convertUTCDateToLocalDate = (date) => {
+    const dateUTC = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(),  date.getHours(), date.getMinutes(), date.getSeconds());
+    return new Date(dateUTC);
+  }
   return (
     <Container>
       {/* <div className="slot-time available-btn">
@@ -262,7 +284,7 @@ const Availability = () => {
                 <h5>{eachTimes.days.toString()}</h5>
                 {eachTimes.timeSlotsList.map((timeDtls) => (
                   <span className="mr-3">
-                    {timeDtls.startTime} to {timeDtls.endTime}
+                    {convertHoursAndMinsToLocal(timeDtls.startTime)} to {convertHoursAndMinsToLocal(timeDtls.endTime)}
                   </span>
                 ))}
               </div>
