@@ -24,6 +24,8 @@ const CustomCallNotification = ({ onClose, body, payload }) => {
     roleName = role[0].includes('ROLE_DOCTOR') ? 'doctor' : 'patient'
     callerName = payload.notification.title;
 
+    console.log({ callerName });
+
     const onDeclineClickHandler = () => {
         onClose(true);
     }

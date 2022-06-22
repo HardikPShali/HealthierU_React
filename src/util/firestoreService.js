@@ -14,6 +14,8 @@ import { toast } from "react-toastify";
 import CustomToastMessage from '../components/CommonModule/CustomToastMessage/CustomToastMessage';
 import { Howl } from 'howler';
 import soundSrc from '../images/svg/notification-chime.wav'
+import soundSrcCall from '../images/svg/call-notification-sound.wav'
+
 import CustomCallNotification from '../components/CommonModule/CustomToastMessage/CustomCallNotification';
 
 // import '@firebase/messaging';
@@ -127,7 +129,17 @@ export const deleteTokenHandler = async () => {
 }
 
 
-let sound
+let sound = new Howl({
+  src: soundSrc,
+  html5: true
+});
+
+let soundCall = new Howl({
+  src: soundSrcCall,
+  html5: true,
+  loop: true
+})
+
 const toastMessage = (payload) => {
   console.log({ payloadInToast: payload });
   // return ({ payloadInToast: payload })
@@ -136,10 +148,7 @@ const toastMessage = (payload) => {
   if (topicFromPayload === 'CHAT') {
     const toastBody = payload.notification.body
     const toastTitle = payload.notification.title
-    sound = new Howl({
-      src: soundSrc,
-      html5: true
-    })
+
     sound.play()
     const customToast = (
       <CustomToastMessage title={toastTitle} body={toastBody} payload={payload} />
@@ -155,19 +164,18 @@ const toastMessage = (payload) => {
     const toastBody = payload.notification.body
 
     const onCallerClose = () => {
+
       toast.dismiss();
+      soundCall.stop()
     }
-    // sound = new Howl({
-    //   src: soundSrc,
-    //   html5: true
-    // })
-    // sound.play()
+
+    soundCall.play()
     const customToast = (
       <CustomCallNotification body={toastBody} onClose={onCallerClose} payload={payload} />
     )
     toast.info(customToast, {
       // position: "top-right",
-      // autoClose: 5000,
+      autoClose: false,
     })
   }
 }
