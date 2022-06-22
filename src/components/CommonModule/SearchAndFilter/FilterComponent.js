@@ -36,13 +36,13 @@ const FilterComponent = (props) => {
     const handleAppoitnmentType = (e) => {
 
 
-        if (e.target.value === "CONSULTATION") {
+        if (e.target.value === "First Consultation") {
             console.log("CONSULTATION| selected", e.target.value);
             setFilterValues({
                 ...filterValues,
                 patientSlot: e.target.value,
             })
-        } else if (e.target.value === "FOLLOW_UP") {
+        } else if (e.target.value === "Follow Up") {
             console.log("FOLLOW UP| selected", e.target.value);
             setFilterValues({
                 ...filterValues,
@@ -183,7 +183,7 @@ const FilterComponent = (props) => {
                                             <MenuItem value="CONSULTATION">
                                                 Consultation(1 Hr)
                                             </MenuItem>
-                                            <MenuItem value="FOLLOW_UP">
+                                            <MenuItem value="Follow Up">
                                                 Follow up(30 Mins)
                                             </MenuItem>
                                         </Select>

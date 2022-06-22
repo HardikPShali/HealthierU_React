@@ -61,7 +61,7 @@ const PaypalCheckoutButton = (props) => {
                                     amount: {
                                         currency_code: 'USD',
                                         value:
-                                            appointmentMode === 'FIRST_CONSULTATION'
+                                            appointmentMode === 'First Consultation'
                                                 ? rate
                                                 : halfRate,
                                     },

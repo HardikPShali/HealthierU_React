@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 //import Footer from "./Footer";
+import { getAppointmentMode } from './../../util/appointmentModeUtil'
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import TuneIcon from '@material-ui/icons/Tune';
@@ -217,7 +218,7 @@ const MyDoctor = (props) => {
       ) {
         setOffset(1);
         setUser(result.data.doctors);
-        setdoctor(result.data.doctors);
+        setdoctor(result.data.doctors[0]);
         //const currentSelectedDate = new Date();
         //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
         const docId = result.data.doctors[0]?.id;
@@ -512,7 +513,7 @@ const MyDoctor = (props) => {
     getInValidAppointmentsForSetNextAppointment(user.id)
     // console.log({ appointment })
     if (Availability && Availability.length > 0) {
-      if (e.target.value === 'FIRST_CONSULTATION') {
+      if (e.target.value === 'First Consultation') {
         const consultationSlots = createConsultationSlots(Availability);
         if (consultationSlots && consultationSlots.length > 0) {
           setAppointmentSlot(consultationSlots);
@@ -526,7 +527,7 @@ const MyDoctor = (props) => {
           setDisplayCalendar(false);
           setDisplaySlot(true);
         }
-      } else if (e.target.value === 'FOLLOW_UP') {
+      } else if (e.target.value === 'Follow Up') {
         setAppointmentSlot(Availability);
         console.log({ Availability });
         document.querySelector('#calendar-list').scrollTo(0, 500);
@@ -606,7 +607,7 @@ const MyDoctor = (props) => {
       setDisplaySlot(false);
       setTransparentLoading(false);
       if (appointment.appointmentMode) {
-        if (appointment.appointmentMode === 'FIRST_CONSULTATION') {
+        if (appointment.appointmentMode === 'First Consultation') {
           const consultationSlots = createConsultationSlots(arraySlot);
           //console.log("consultationSlots :: ", consultationSlots);
           if (consultationSlots && consultationSlots.length > 0) {
@@ -619,7 +620,7 @@ const MyDoctor = (props) => {
             setDisplayCalendar(false);
             setDisplaySlot(true);
           }
-        } else if (appointment.appointmentMode === 'FOLLOW_UP') {
+        } else if (appointment.appointmentMode === 'Follow Up') {
           setAppointmentSlot(arraySlot);
           document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
@@ -692,7 +693,7 @@ const MyDoctor = (props) => {
   const onAvailabilitySelected = (slot, index) => {
     setSlotError('');
     setSelectedSlotId(slot.id);
-    if (appointment.appointmentMode === 'FIRST_CONSULTATION') {
+    if (appointment.appointmentMode === 'First Consultation') {
       setCombinedSlotId(slot.slotId);
     }
     setAppointment({
@@ -709,7 +710,7 @@ const MyDoctor = (props) => {
     setLoading(true);
     let tempSlotConsultationId = '';
     const finalAppointmentDataArray = [];
-    if (appointment.appointmentMode === 'FIRST_CONSULTATION') {
+    if (appointment.appointmentMode === 'First Consultation') {
       combinedSlots &&
         combinedSlots.map((slotData) => {
           if (combinedSlotId === slotData.slotId) {
@@ -730,7 +731,8 @@ const MyDoctor = (props) => {
                 id: slotData.slot1.id,
                 urgency: urgency,
                 unifiedAppointment:
-                  tempSlotConsultationId + '#' + appointment.appointmentMode,
+                  tempSlotConsultationId + '#' + getAppointmentMode(appointment.appointmentMode),
+
               },
               {
                 doctorId: appointment.doctorId,
@@ -744,12 +746,12 @@ const MyDoctor = (props) => {
                 id: slotData.slot2.id,
                 urgency: urgency,
                 unifiedAppointment:
-                  tempSlotConsultationId + '#' + appointment.appointmentMode,
+                  tempSlotConsultationId + '#' + getAppointmentMode(appointment.appointmentMode),
               }
             );
           }
         });
-    } else if (appointment.appointmentMode === 'FOLLOW_UP') {
+    } else if (appointment.appointmentMode === 'Follow Up') {
       finalAppointmentDataArray.push({
         doctorId: appointment.doctorId,
         endTime: appointment.endTime,
@@ -761,7 +763,7 @@ const MyDoctor = (props) => {
         appointmentMode: appointment.appointmentMode,
         id: appointment.id,
         urgency: urgency,
-        unifiedAppointment: appointment.id + '#' + appointment.appointmentMode, //unifiedAppointment: "2145#FOLLOW_UP"
+        unifiedAppointment: appointment.id + '#' + getAppointmentMode(appointment.appointmentMode), //unifiedAppointment: "2145#Follow Up"
       });
     }
 
@@ -1179,8 +1181,8 @@ const MyDoctor = (props) => {
     //         status: "PENDING",
     //         doctorId: n.doctorId,
     //         patientId: n.patientId,
-    //         unifiedAppointment: n.id + "#" + "FOLLOW_UP",
-    //         appointmentMode: "FOLLOW_UP",
+    //         unifiedAppointment: n.id + "#" + "Follow Up",
+    //         appointmentMode: "Follow Up",
     //         remarks: null,
     //         urgency: null,
     //         patient: null,
@@ -1202,7 +1204,7 @@ const MyDoctor = (props) => {
           doctorId: a.doctorId,
           patientId: a.patientId,
           unifiedAppointment: a.id + '#' + 'FOLLOW_UP',
-          appointmentMode: 'FOLLOW_UP',
+          appointmentMode: 'Follow Up',
           remarks: null,
           urgency: null,
           patient: null,
@@ -1578,10 +1580,7 @@ const MyDoctor = (props) => {
                         (user, index) =>
                           user &&
                           user.activated && (
-                            <GridListTile
-                              key={index}
-                              className='card-list__grid-list-tile'
-                            >
+                            <GridListTile key={index}>
                               {!user.liked && (
                                 <FavoriteBorderIcon
                                   id="fav-icon"
@@ -1874,10 +1873,10 @@ const MyDoctor = (props) => {
                             <span className="price">
                               $
                               {appointment.appointmentMode ===
-                                'FIRST_CONSULTATION' ||
+                                'First Consultation' ||
                                 appointment.appointmentMode === ''
                                 ? doctor.rate
-                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                : appointment.appointmentMode === 'Follow Up'
                                   ? doctor.halfRate
                                   : ''}
                             </span>
@@ -1885,10 +1884,10 @@ const MyDoctor = (props) => {
                             <span>
                               USD /{' '}
                               {appointment.appointmentMode ===
-                                'FIRST_CONSULTATION' ||
+                                'First Consultation' ||
                                 appointment.appointmentMode === ''
                                 ? 'Consultation'
-                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                : appointment.appointmentMode === 'Follow Up'
                                   ? 'Follow up'
                                   : ''}
                             </span>
@@ -1900,7 +1899,7 @@ const MyDoctor = (props) => {
                   </>
                 ) : (
                   <div className="no-result">
-                    <center>No Doctor Selected ...</center>
+                    <center>No Doctor Found ...</center>
                   </div>
                 )}
               </div>
@@ -2091,10 +2090,10 @@ const MyDoctor = (props) => {
                             <span className="price">
                               $
                               {appointment.appointmentMode ===
-                                'FIRST_CONSULTATION' ||
+                                'First Consultation' ||
                                 appointment.appointmentMode === ''
                                 ? doctor.rate
-                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                : appointment.appointmentMode === 'Follow Up'
                                   ? doctor.halfRate
                                   : ''}
                             </span>
@@ -2102,10 +2101,10 @@ const MyDoctor = (props) => {
                             <span>
                               USD /{' '}
                               {appointment.appointmentMode ===
-                                'FIRST_CONSULTATION' ||
+                                'First Consultation' ||
                                 appointment.appointmentMode === ''
                                 ? 'Consultation'
-                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                : appointment.appointmentMode === 'Follow Up'
                                   ? 'Follow up'
                                   : ''}
                             </span>
@@ -2141,67 +2140,70 @@ const MyDoctor = (props) => {
               <div id="dorctor-list">
                 <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
-                    {
-                      doctor && doctor.activated ? (
-                        displayCalendar && (
-                          <>
-                            <div className="appointment-type">
-                              <p>Appointment Type</p>
-                              <FormControl>
-                                <Select
-                                  id="demo-controlled-open-select"
-                                  variant="outlined"
-                                  name="appointmentType"
-                                  value={appointment.appointmentMode}
-                                  displayEmpty
-                                  onChange={(e) => handleAppoitnmentType(e)}
-                                >
-                                  <MenuItem value="">
-                                    <em>Select</em>
-                                  </MenuItem>
-                                  <MenuItem value="FIRST_CONSULTATION">
-                                    Consultation(1 Hr)
-                                  </MenuItem>
-                                  <MenuItem value="FOLLOW_UP">
-                                    Follow up(30 Mins)
-                                  </MenuItem>
-                                </Select>
-                              </FormControl>
-                            </div>
-                            <Calendar
-                              onChange={(e) =>
-                                onDaySelect(new Date(e), doctor && doctor.id)
-                              }
-                              value={currentDate}
-                              minDate={new Date()} //to disable past days
-                              maxDate={
-                                new Date(
-                                  new Date().setDate(new Date().getDate() + 180)
-                                )
-                              } // next 3week condition
-                              // Temporarily commented to enable calendar click functionality for appointment.
-                              tileDisabled={
-                                ({ activeStartDate, date, view }) =>
-                                  // activeStartDate.getDate() === date.getDate() &&
-                                  disabledDates &&
-                                  disabledDates.some(
-                                    (disabledDate) =>
-                                      date.getFullYear() ===
-                                      disabledDate.getFullYear() &&
-                                      date.getMonth() === disabledDate.getMonth() &&
-                                      date.getDate() === disabledDate.getDate()
-                                  )
-                              }
-                            // } // greyout dates
-                            />
-                          </>
-                        )
-                      ) : (
-                        <div className="no-result">
-                          <center>Select a Doctor to view Calendar and Availability ...</center>
+                    {/* <p>Select Date</p>
+                                    <TextField
+                                        type="date"
+                                        onChange={(e) => onDaySelect(new Date(e.target.value), doctor && doctor.id)}
+                                        className="appointmentDate"
+                                        inputProps={{ min: moment(new Date()).format("YYYY-MM-DD") }}
+                                        value={moment(currentDate).format("YYYY-MM-DD")}
+                                        variant="filled"
+                                    />
+                                    <br />
+                                    <br /> */}
+                    {displayCalendar && (
+                      <>
+                        <div className="appointment-type">
+                          <p>Appointment Type</p>
+                          <FormControl>
+                            <Select
+                              id="demo-controlled-open-select"
+                              variant="outlined"
+                              name="appointmentType"
+                              value={appointment.appointmentMode}
+                              displayEmpty
+                              onChange={(e) => handleAppoitnmentType(e)}
+                            >
+                              <MenuItem value="">
+                                <em>Select</em>
+                              </MenuItem>
+                              <MenuItem value="First Consultation">
+                                Consultation(1 Hr)
+                              </MenuItem>
+                              <MenuItem value="Follow Up">
+                                Follow up(30 Mins)
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
                         </div>
-                      )
-                    }
+                        <Calendar
+                          onChange={(e) =>
+                            onDaySelect(new Date(e), doctor && doctor.id)
+                          }
+                          value={currentDate}
+                          minDate={new Date()} //to disable past days
+                          maxDate={
+                            new Date(
+                              new Date().setDate(new Date().getDate() + 180)
+                            )
+                          } // next 3week condition
+                          // Temporarily commented to enable calendar click functionality for appointment.
+                          tileDisabled={
+                            ({ activeStartDate, date, view }) =>
+                              // activeStartDate.getDate() === date.getDate() &&
+                              disabledDates &&
+                              disabledDates.some(
+                                (disabledDate) =>
+                                  date.getFullYear() ===
+                                  disabledDate.getFullYear() &&
+                                  date.getMonth() === disabledDate.getMonth() &&
+                                  date.getDate() === disabledDate.getDate()
+                              )
+                          }
+                        // } // greyout dates
+                        />
+                      </>
+                    )}
 
                     {displaySlot && (
                       <>
@@ -2257,7 +2259,7 @@ const MyDoctor = (props) => {
                             ))
                           ) : appointmentSlot.length === 0 &&
                             appointment.appointmentMode ===
-                            'FIRST_CONSULTATION' ? (
+                            'First Consultation' ? (
                             <div
                               style={{ textAlign: 'center', marginTop: '50%' }}
                             >
@@ -2271,18 +2273,21 @@ const MyDoctor = (props) => {
                             </div>
                           )}
                         </div>
-                        <button
-                          className="btn btn-primary continue-btn"
-                          onClick={async () => {
-                            checkSlot();
-                          }}
-                          disabled={disable.continue}
-                        >
-                          Continue
-                        </button>
                       </>
                     )}
                   </div>
+                  {/* <br />
+                                <Row style={{ margin: '0px' }}>
+                                    {Availability && Availability.map((avail, index) => (
+                                        new Date(availappoi.startTime) >= new Date() && (
+                                            <Col xs={6} className="text-center" style={{ padding: '0px' }} key={index}>
+                                                <button className="btn timeSlot" onClick={() => onAvailabilitySelected(avail.startTime, avail.endTime, index)}>
+                                                    {moment(new Date(avail.startTime)).format("h:mm A")} - {moment(new Date(avail.endTime)).format("h:mm A")}
+                                                </button>
+                                            </Col>
+                                        )
+                                    ))}
+                                </Row> */}
                   <label
                     style={{
                       fontSize: 12,
@@ -2295,7 +2300,15 @@ const MyDoctor = (props) => {
                     {slotError}
                   </label>
                 </div>
-
+                <button
+                  className="btn btn-primary continue-btn"
+                  onClick={async () => {
+                    checkSlot();
+                  }}
+                  disabled={disable.continue}
+                >
+                  Continue
+                </button>
               </div>
             </Col>
           ) : (
@@ -2340,10 +2353,10 @@ const MyDoctor = (props) => {
                               <MenuItem value="">
                                 <em>Select</em>
                               </MenuItem>
-                              {/* <MenuItem value="FIRST_CONSULTATION">
+                              {/* <MenuItem value="First Consultation">
                                 Consultation(1 Hr)
                               </MenuItem> */}
-                              <MenuItem value="FOLLOW_UP">
+                              <MenuItem value="Follow Up">
                                 Follow up(30 Mins)
                               </MenuItem>
                             </Select>
@@ -2427,7 +2440,7 @@ const MyDoctor = (props) => {
                           ))
                         ) : appointmentSlot.length === 0 &&
                           appointment.appointmentMode ===
-                          'FIRST_CONSULTATION' ? (
+                          'First Consultation' ? (
                           <div
                             style={{ textAlign: 'center', marginTop: '50%' }}
                           >
@@ -2665,20 +2678,20 @@ const MyDoctor = (props) => {
                         <span className="price mr-1">
                           $
                           {appointment.appointmentMode ===
-                            'FIRST_CONSULTATION' ||
+                            'First Consultation' ||
                             appointment.appointmentMode === ''
                             ? doctor && doctor.rate
-                            : appointment.appointmentMode === 'FOLLOW_UP'
+                            : appointment.appointmentMode === 'Follow Up'
                               ? doctor && doctor.halfRate
                               : ''}
                         </span>
                         <span>
                           USD /{' '}
                           {appointment.appointmentMode ===
-                            'FIRST_CONSULTATION' ||
+                            'First Consultation' ||
                             appointment.appointmentMode === ''
-                            ? 'Consultation'
-                            : appointment.appointmentMode === 'FOLLOW_UP'
+                            ? 'First Consultation'
+                            : appointment.appointmentMode === 'Follow Up'
                               ? 'Follow up'
                               : ''}
                         </span>
@@ -2815,10 +2828,10 @@ const MyDoctor = (props) => {
                           <span className="price mr-1">
                             $
                             {appointment.appointmentMode ===
-                              'FIRST_CONSULTATION' ||
+                              'First Consultation' ||
                               appointment.appointmentMode === ''
                               ? doctor && doctor.rate
-                              : appointment.appointmentMode === 'FOLLOW_UP'
+                              : appointment.appointmentMode === 'Follow Up'
                                 ? doctor && doctor.halfRate
                                 : ''}
                           </span>
@@ -2826,10 +2839,10 @@ const MyDoctor = (props) => {
                           <span>
                             USD /{' '}
                             {appointment.appointmentMode ===
-                              'FIRST_CONSULTATION' ||
+                              'First Consultation' ||
                               appointment.appointmentMode === ''
                               ? 'Consultation'
-                              : appointment.appointmentMode === 'FOLLOW_UP'
+                              : appointment.appointmentMode === 'Follow Up'
                                 ? 'Follow up'
                                 : ''}
                           </span>
@@ -2850,21 +2863,21 @@ const MyDoctor = (props) => {
                 <div id="price-box">
                   <span className="price">
                     $
-                    {appointment.appointmentMode === 'FIRST_CONSULTATION' ||
+                    {appointment.appointmentMode === 'First Consultation' ||
                       appointment.appointmentMode === ''
                       ? doctor && doctor.rate
-                      : appointment.appointmentMode === 'FOLLOW_UP'
+                      : appointment.appointmentMode === 'Follow Up'
                         ? doctor && doctor.halfRate
                         : ''}
                   </span>
                   <br />
                   <span>
                     USD /{' '}
-                    {appointment.appointmentMode === 'FIRST_CONSULTATION' ||
+                    {appointment.appointmentMode === 'First Consultation' ||
                       appointment.appointmentMode === ''
-                      ? 'Consultation'
-                      : appointment.appointmentMode === 'FOLLOW_UP'
-                        ? 'Follow up'
+                      ? 'First Consultation'
+                      : appointment.appointmentMode === 'Follow Up'
+                        ? 'Follow Up'
                         : ''}
                   </span>
                   <br />
@@ -3044,3 +3057,4 @@ const MyDoctor = (props) => {
 };
 
 export default MyDoctor;
+

@@ -219,7 +219,7 @@ const Myappointment = (props) => {
     if (
       event.startTime >= new Date() &&
       event.status === 'ACCEPTED' &&
-      res[1] !== 'CONSULTATION'
+      res !== 'First Consultation'
     ) {
       backgroundColor = '#00d0cc';
       color = '#fff';
@@ -230,7 +230,7 @@ const Myappointment = (props) => {
       // var borderColor = '#696969';
       var pointerEvents = 'none';
       outline = 'none';
-    } else if (res[1] === 'CONSULTATION') {
+    } else if (res === 'First Consultation') {
       backgroundColor = '#00d0cc';
       color = '#fff';
       outline = 'none';
@@ -391,7 +391,7 @@ const Myappointment = (props) => {
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
         const upcomingArray = response.data.data.upcoming;
-        // console.log('upcomingArray', upcomingArray);
+        console.log('upcomingArray', upcomingArray);
         setUpcomingAppointment(upcomingArray.reverse());
 
         const completedAppointmentsArray = response.data.data.completed;
@@ -471,21 +471,21 @@ const Myappointment = (props) => {
                     timeslots={1}
                     step={60}
                     onSelectEvent={(event) => handleAppointmentInfoOpen(event)}
-                    messages={{previous: "Previous", next: "Next", today: "Today"}}
+                    messages={{ previous: "Previous", next: "Next", today: "Today" }}
                   />
                 </div>
               </Col>
             </Row>
             <br />
-         
+
 
             <Row className="mt-3 mx-1 calender_container bg-white">
               <Col md={12}></Col>
               {/* <Col md={3}></Col> */}
               <Col md={12}>
                 <div>
-                  <h3 className="mt-3 mb-3 text-center" style={{color: "var(--primary)"}}>
-                   LIST OF APPOINTMENTS
+                  <h3 className="mt-3 mb-3 text-center" style={{ color: "var(--primary)" }}>
+                    LIST OF APPOINTMENTS
                   </h3>
 
                   <Tabs
@@ -983,7 +983,7 @@ const Myappointment = (props) => {
                     <div className="details-links">
                       <Link
                         to={{
-                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.unifiedAppointment.split("#")[1].replace("_", "-")}`,
+                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode.toLowerCase().replace(" ","-")}`,
 
 
                         }}

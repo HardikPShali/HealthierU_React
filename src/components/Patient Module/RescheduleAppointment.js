@@ -516,7 +516,7 @@ const RescheduleAppointment = (props) => {
         console.log(e.target.value);
         // console.log({ appointment })
         if (Availability && Availability.length > 0) {
-            if (e.target.value === 'FIRST_CONSULTATION') {
+            if (e.target.value === 'First Consultation') {
                 const consultationSlots = createConsultationSlots(Availability);
                 if (consultationSlots && consultationSlots.length > 0) {
                     setAppointmentSlot(consultationSlots);
@@ -531,7 +531,7 @@ const RescheduleAppointment = (props) => {
                     setDisplayCalendar(false);
                     setDisplaySlot(true);
                 }
-            } else if (e.target.value === 'FOLLOW_UP') {
+            } else if (e.target.value === 'Follow Up') {
                 setAppointmentSlot(Availability);
                 console.log({ Availability });
                 document.querySelector('#calendar-list').scrollTo(0, 500);
@@ -612,7 +612,7 @@ const RescheduleAppointment = (props) => {
             setDisplaySlot(false);
             setTransparentLoading(false);
             if (appointment.appointmentMode) {
-                if (appointment.appointmentMode === 'FIRST_CONSULTATION') {
+                if (appointment.appointmentMode === 'First Consultation') {
                     const consultationSlots = createConsultationSlots(arraySlot);
                     //console.log("consultationSlots :: ", consultationSlots);
                     if (consultationSlots && consultationSlots.length > 0) {
@@ -625,7 +625,7 @@ const RescheduleAppointment = (props) => {
                         setDisplayCalendar(false);
                         setDisplaySlot(true);
                     }
-                } else if (appointment.appointmentMode === 'FOLLOW_UP') {
+                } else if (appointment.appointmentMode === 'Follow Up') {
                     setAppointmentSlot(arraySlot);
                     document.querySelector('#calendar-list').scrollTo(0, 500);
                     setDisplayCalendar(false);
@@ -669,7 +669,7 @@ const RescheduleAppointment = (props) => {
     const onAvailabilitySelected = (slot, index) => {
         setSlotError('');
         setSelectedSlotId(slot.id);
-        if (appointment.appointmentMode === 'FIRST_CONSULTATION') {
+        if (appointment.appointmentMode === 'First Consultation') {
             setCombinedSlotId(slot.slotId);
         }
         setAppointment({
@@ -690,7 +690,7 @@ const RescheduleAppointment = (props) => {
         setOldAppointmentID(oldAppID)
         let tempSlotConsultationId = '';
         const finalAppointmentDataArray = [];
-        if (appointment.appointmentMode === 'FIRST_CONSULTATION') {
+        if (appointment.appointmentMode === 'First Consultation') {
             combinedSlots &&
                 combinedSlots.map((slotData) => {
                     if (combinedSlotId === slotData.slotId) {
@@ -747,7 +747,7 @@ const RescheduleAppointment = (props) => {
                         // );
                     }
                 });
-        } else if (appointment.appointmentMode === 'FOLLOW_UP') {
+        } else if (appointment.appointmentMode === 'Follow Up') {
             finalAppointmentDataArray.push({
                 doctorId: appointment.doctorId,
                 endTime: appointment.endTime,
@@ -759,7 +759,7 @@ const RescheduleAppointment = (props) => {
                 //appointmentMode: appointment.appointmentMode,
                 id: appointment.id,
                 //urgency: urgency,
-                //unifiedAppointment: appointment.id + '#' + appointment.appointmentMode, //unifiedAppointment: "2145#FOLLOW_UP"
+                //unifiedAppointment: appointment.id + '#' + appointment.appointmentMode, //unifiedAppointment: "2145#Follow Up"
             });
         }
         // const bookAppointmentApiHeader = {
@@ -1196,8 +1196,8 @@ const RescheduleAppointment = (props) => {
         //         status: "PENDING",
         //         doctorId: n.doctorId,
         //         patientId: n.patientId,
-        //         unifiedAppointment: n.id + "#" + "FOLLOW_UP",
-        //         appointmentMode: "FOLLOW_UP",
+        //         unifiedAppointment: n.id + "#" + "Follow Up",
+        //         appointmentMode: "Follow Up",
         //         remarks: null,
         //         urgency: null,
         //         patient: null,
@@ -1218,8 +1218,8 @@ const RescheduleAppointment = (props) => {
                     status: 'PENDING',
                     doctorId: a.doctorId,
                     patientId: a.patientId,
-                    unifiedAppointment: a.id + '#' + 'FOLLOW_UP',
-                    appointmentMode: 'FOLLOW_UP',
+                    unifiedAppointment: a.id + '#' + 'Follow Up',
+                    appointmentMode: 'Follow Up',
                     remarks: null,
                     urgency: null,
                     patient: null,
@@ -1875,10 +1875,10 @@ const RescheduleAppointment = (props) => {
                                                         <span className="price">
                                                             $
                                                             {appointment.appointmentMode ===
-                                                                'FIRST_CONSULTATION' ||
+                                                                'First Consultation' ||
                                                                 appointment.appointmentMode === ''
                                                                 ? doctor.rate
-                                                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                                                : appointment.appointmentMode === 'Follow Up'
                                                                     ? doctor.halfRate
                                                                     : ''}
                                                         </span>
@@ -1886,10 +1886,10 @@ const RescheduleAppointment = (props) => {
                                                         <span>
                                                             USD /{' '}
                                                             {appointment.appointmentMode ===
-                                                                'FIRST_CONSULTATION' ||
+                                                                'First Consultation' ||
                                                                 appointment.appointmentMode === ''
-                                                                ? 'Consultation'
-                                                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                                                ? 'First Consultation'
+                                                                : appointment.appointmentMode === 'Follow Up'
                                                                     ? 'Follow up'
                                                                     : ''}
                                                         </span>
@@ -2021,10 +2021,10 @@ const RescheduleAppointment = (props) => {
                                     //           <span className="price">
                                     //             $
                                     //             {appointment.appointmentMode ===
-                                    //               'FIRST_CONSULTATION' ||
+                                    //               'First Consultation' ||
                                     //               appointment.appointmentMode === ''
                                     //               ? doctor.rate
-                                    //               : appointment.appointmentMode === 'FOLLOW_UP'
+                                    //               : appointment.appointmentMode === 'Follow Up'
                                     //                 ? doctor.halfRate
                                     //                 : ''}
                                     //           </span>
@@ -2032,10 +2032,10 @@ const RescheduleAppointment = (props) => {
                                     //           <span>
                                     //             USD /{' '}
                                     //             {appointment.appointmentMode ===
-                                    //               'FIRST_CONSULTATION' ||
+                                    //               'First Consultation' ||
                                     //               appointment.appointmentMode === ''
                                     //               ? 'Consultation'
-                                    //               : appointment.appointmentMode === 'FOLLOW_UP'
+                                    //               : appointment.appointmentMode === 'Follow Up'
                                     //                 ? 'Follow up'
                                     //                 : ''}
                                     //           </span>
@@ -2222,10 +2222,10 @@ const RescheduleAppointment = (props) => {
                                                         <span className="price">
                                                             $
                                                             {appointment.appointmentMode ===
-                                                                'FIRST_CONSULTATION' ||
+                                                                'First Consultation' ||
                                                                 appointment.appointmentMode === ''
                                                                 ? doctor.rate
-                                                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                                                : appointment.appointmentMode === 'Follow Up'
                                                                     ? doctor.halfRate
                                                                     : ''}
                                                         </span>
@@ -2233,10 +2233,10 @@ const RescheduleAppointment = (props) => {
                                                         <span>
                                                             USD /{' '}
                                                             {appointment.appointmentMode ===
-                                                                'FIRST_CONSULTATION' ||
+                                                                'First Consultation' ||
                                                                 appointment.appointmentMode === ''
-                                                                ? 'Consultation'
-                                                                : appointment.appointmentMode === 'FOLLOW_UP'
+                                                                ? 'First Consultation'
+                                                                : appointment.appointmentMode === 'Follow Up'
                                                                     ? 'Follow up'
                                                                     : ''}
                                                         </span>
@@ -2299,15 +2299,15 @@ const RescheduleAppointment = (props) => {
                                                             <MenuItem value="">
                                                                 <em>Select</em>
                                                             </MenuItem>
-                                                            {rescheduleMode === 'FOLLOW-UP' ? <MenuItem value="FOLLOW_UP">
+                                                            {rescheduleMode === 'follow-up' ? <MenuItem value="Follow Up">
                                                                 Follow up(30 Mins)
-                                                            </MenuItem> : <MenuItem value="FIRST_CONSULTATION">
+                                                            </MenuItem> : <MenuItem value="First Consultation">
                                                                 Consultation(1 Hr)
                                                             </MenuItem>}
-                                                            {/* <MenuItem value="FIRST_CONSULTATION">
+                                                            {/* <MenuItem value="First Consultation">
                                                                 Consultation(1 Hr)
                                                             </MenuItem>
-                                                            <MenuItem value="FOLLOW_UP">
+                                                            <MenuItem value="Follow Up">
                                                                 Follow up(30 Mins)
                                                             </MenuItem> */}
                                                         </Select>
@@ -2395,7 +2395,7 @@ const RescheduleAppointment = (props) => {
                                                         ))
                                                     ) : appointmentSlot.length === 0 &&
                                                         appointment.appointmentMode ===
-                                                        'FIRST_CONSULTATION' ? (
+                                                        'First Consultation' ? (
                                                         <div
                                                             style={{ textAlign: 'center', marginTop: '50%' }}
                                                         >
@@ -2489,10 +2489,10 @@ const RescheduleAppointment = (props) => {
                                                             <MenuItem value="">
                                                                 <em>Select</em>
                                                             </MenuItem>
-                                                            {/* <MenuItem value="FIRST_CONSULTATION">
+                                                            {/* <MenuItem value="First Consultation">
                                 Consultation(1 Hr)
                               </MenuItem> */}
-                                                            <MenuItem value="FOLLOW_UP">
+                                                            <MenuItem value="Follow Up">
                                                                 Follow up(30 Mins)
                                                             </MenuItem>
                                                         </Select>
@@ -2576,7 +2576,7 @@ const RescheduleAppointment = (props) => {
                                                     ))
                                                 ) : appointmentSlot.length === 0 &&
                                                     appointment.appointmentMode ===
-                                                    'FIRST_CONSULTATION' ? (
+                                                    'First Consultation' ? (
                                                     <div
                                                         style={{ textAlign: 'center', marginTop: '50%' }}
                                                     >
@@ -2814,21 +2814,21 @@ const RescheduleAppointment = (props) => {
                                                 <span className="price mr-1">
                                                     $
                                                     {appointment.appointmentMode ===
-                                                        'FIRST_CONSULTATION' ||
+                                                        'First Consultation' ||
                                                         appointment.appointmentMode === ''
                                                         ? doctor && doctor.rate
-                                                        : appointment.appointmentMode === 'FOLLOW_UP'
+                                                        : appointment.appointmentMode === 'Follow Up'
                                                             ? doctor && doctor.halfRate
                                                             : ''}
                                                 </span>
                                                 <span>
                                                     USD /{' '}
                                                     {appointment.appointmentMode ===
-                                                        'FIRST_CONSULTATION' ||
+                                                        'First Consultation' ||
                                                         appointment.appointmentMode === ''
-                                                        ? 'Consultation'
-                                                        : appointment.appointmentMode === 'FOLLOW_UP'
-                                                            ? 'Follow up'
+                                                        ? 'First Consultation'
+                                                        : appointment.appointmentMode === 'Follow Up'
+                                                            ? 'Follow Up'
                                                             : ''}
                                                 </span>
                                             </div>
@@ -2964,10 +2964,10 @@ const RescheduleAppointment = (props) => {
                                                     <span className="price mr-1">
                                                         $
                                                         {appointment.appointmentMode ===
-                                                            'FIRST_CONSULTATION' ||
+                                                            'First Consultation' ||
                                                             appointment.appointmentMode === ''
                                                             ? doctor && doctor.rate
-                                                            : appointment.appointmentMode === 'FOLLOW_UP'
+                                                            : appointment.appointmentMode === 'Follow Up'
                                                                 ? doctor && doctor.halfRate
                                                                 : ''}
                                                     </span>
@@ -2975,11 +2975,11 @@ const RescheduleAppointment = (props) => {
                                                     <span>
                                                         USD /{' '}
                                                         {appointment.appointmentMode ===
-                                                            'FIRST_CONSULTATION' ||
+                                                            'First Consultation' ||
                                                             appointment.appointmentMode === ''
-                                                            ? 'Consultation'
-                                                            : appointment.appointmentMode === 'FOLLOW_UP'
-                                                                ? 'Follow up'
+                                                            ? 'First Consultation'
+                                                            : appointment.appointmentMode === 'Follow Up'
+                                                                ? 'Follow Up'
                                                                 : ''}
                                                     </span>
                                                 </div>
@@ -2999,21 +2999,21 @@ const RescheduleAppointment = (props) => {
                                 <div id="price-box">
                                     <span className="price">
                                         $
-                                        {appointment.appointmentMode === 'FIRST_CONSULTATION' ||
+                                        {appointment.appointmentMode === 'First Consultation' ||
                                             appointment.appointmentMode === ''
                                             ? doctor && doctor.rate
-                                            : appointment.appointmentMode === 'FOLLOW_UP'
+                                            : appointment.appointmentMode === 'Follow Up'
                                                 ? doctor && doctor.halfRate
                                                 : ''}
                                     </span>
                                     <br />
                                     <span>
                                         USD /{' '}
-                                        {appointment.appointmentMode === 'FIRST_CONSULTATION' ||
+                                        {appointment.appointmentMode === 'First Consultation' ||
                                             appointment.appointmentMode === ''
-                                            ? 'Consultation'
-                                            : appointment.appointmentMode === 'FOLLOW_UP'
-                                                ? 'Follow up'
+                                            ? 'First Consultation'
+                                            : appointment.appointmentMode === 'Follow Up'
+                                                ? 'Follow Up'
                                                 : ''}
                                     </span>
                                     <br />

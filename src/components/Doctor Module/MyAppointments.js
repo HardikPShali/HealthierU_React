@@ -291,7 +291,7 @@ const MyAppointments = (props) => {
         const array = response.data.data.upcoming;
         array.map((a) => {
           if (data.id === a.id) {
-            setAppointment(...array,a)
+            setAppointment(...array, a)
           }
         })
       }
@@ -355,6 +355,7 @@ const MyAppointments = (props) => {
                 remarks: value.remarks,
                 status: value.status,
                 appointmentId: value.appointmentId,
+                appointmentMode: value.appointmentMode,
                 unifiedAppointment: value.unifiedAppointment,
                 patient: value.patient,
               });
@@ -384,6 +385,7 @@ const MyAppointments = (props) => {
                 endTime: new Date(value.endTime),
                 remarks: value.remarks,
                 status: value.status,
+                appointmentMode: value.appointmentMode,
                 appointmentId: value.appointmentId,
                 unifiedAppointment: value.unifiedAppointment,
                 patient: value.patient,
@@ -391,7 +393,6 @@ const MyAppointments = (props) => {
             }
           }
         });
-        console.log("updateArray | My Patient", updateArray);
         setAppointmentDets(updateArray);
       }
 
@@ -574,9 +575,7 @@ const MyAppointments = (props) => {
                                           </>
                                         </h5>
                                         <span className="patient-list__common-span-consult">
-                                          {details.unifiedAppointment
-                                            .split("#")[1]
-                                            .replace("_", " ")}
+                                          {details.appointmentMode}
                                         </span>
                                       </div>
                                     </div>
@@ -613,6 +612,7 @@ const MyAppointments = (props) => {
                                   className="col-md-12 mb-2 mt-2 cursor-pointer"
                                   key={index}
                                 >
+
                                   <div
                                     className="patient-list__card"
                                     onClick={async () => {
@@ -672,10 +672,7 @@ const MyAppointments = (props) => {
                                           </>
                                         </h5>
                                         <span className="patient-list__common-span-consult">
-                                          {details.unifiedAppointment &&
-                                            details.unifiedAppointment
-                                              .split("#")[1]
-                                              .replace("_", " ")}
+                                          {details.appointmentMode}
                                         </span>
                                       </div>
                                     </div>
@@ -730,10 +727,7 @@ const MyAppointments = (props) => {
                             <div id="req-name">
                               <b style={{ fontSize: "16px" }}>
                                 APID : {SelectedPatient.id} |{" "}
-                                {SelectedPatient.unifiedAppointment &&
-                                  SelectedPatient.unifiedAppointment
-                                    .split("#")[1]
-                                    .replace("_", " ")}
+                                {SelectedPatient.appointmentMode}
                               </b>
                             </div>
                           </Col>
