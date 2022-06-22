@@ -106,9 +106,9 @@ export const onMessageListener = () => {
     // console.log({ payload });
     // resolve(payload)
     console.log(window.location.pathname)
-   
-      toastMessage(payload)
-    
+
+    toastMessage(payload)
+
   })
 
 }
@@ -142,9 +142,9 @@ let soundCall = new Howl({
 const toastMessage = (payload) => {
   console.log({ payloadInToast: payload });
   // return ({ payloadInToast: payload })
-  const topicFromPayload = payload.data.topic;
+  const topicFromPayload = payload?.data?.topic;
 
-  if (topicFromPayload === 'CHAT' &&  window.location.pathname.indexOf('/chat') === -1) {
+  if (topicFromPayload === 'CHAT' && window.location.pathname.indexOf('/chat') === -1) {
     messageToast(payload);
   }
 
@@ -176,14 +176,14 @@ const callToast = (payload) => {
     soundCall.stop()
   }
 
-  
-  const onAcceptClickHandler = (history, url) => {
-      soundCall.stop();
-      history.push(url)   // ?cId=1
 
-      if(window.location.pathname.indexOf('/chat') > -1) {
-        window.location.reload()
-      }
+  const onAcceptClickHandler = (history, url) => {
+    soundCall.stop();
+    history.push(url)   // ?cId=1
+
+    if (window.location.pathname.indexOf('/chat') > -1) {
+      window.location.reload()
+    }
   }
 
   soundCall.play()

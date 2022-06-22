@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 //import Footer from "./Footer";
-import {getAppointmentMode} from './../../util/appointmentModeUtil'
+import { getAppointmentMode } from './../../util/appointmentModeUtil'
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import TuneIcon from '@material-ui/icons/Tune';
@@ -218,7 +218,7 @@ const MyDoctor = (props) => {
       ) {
         setOffset(1);
         setUser(result.data.doctors);
-        setdoctor(result.data.doctors[0]);
+        setdoctor(result.data.doctors);
         //const currentSelectedDate = new Date();
         //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
         const docId = result.data.doctors[0]?.id;
@@ -731,8 +731,8 @@ const MyDoctor = (props) => {
                 id: slotData.slot1.id,
                 urgency: urgency,
                 unifiedAppointment:
-                  tempSlotConsultationId + '#' +  getAppointmentMode(appointment.appointmentMode),
-                 
+                  tempSlotConsultationId + '#' + getAppointmentMode(appointment.appointmentMode),
+
               },
               {
                 doctorId: appointment.doctorId,
@@ -1575,12 +1575,13 @@ const MyDoctor = (props) => {
                         key="Subheader"
                         cols={2}
                         style={{ height: 'auto' }}
+
                       ></GridListTile>
                       {filterData.map(
                         (user, index) =>
                           user &&
                           user.activated && (
-                            <GridListTile key={index}>
+                            <GridListTile key={index} className='card-list__grid-list-tile'>
                               {!user.liked && (
                                 <FavoriteBorderIcon
                                   id="fav-icon"
@@ -1899,7 +1900,7 @@ const MyDoctor = (props) => {
                   </>
                 ) : (
                   <div className="no-result">
-                    <center>No Doctor Found ...</center>
+                    <center>No Doctor Selected ...</center>
                   </div>
                 )}
               </div>
@@ -2151,59 +2152,68 @@ const MyDoctor = (props) => {
                                     />
                                     <br />
                                     <br /> */}
-                    {displayCalendar && (
-                      <>
-                        <div className="appointment-type">
-                          <p>Appointment Type</p>
-                          <FormControl>
-                            <Select
-                              id="demo-controlled-open-select"
-                              variant="outlined"
-                              name="appointmentType"
-                              value={appointment.appointmentMode}
-                              displayEmpty
-                              onChange={(e) => handleAppoitnmentType(e)}
-                            >
-                              <MenuItem value="">
-                                <em>Select</em>
-                              </MenuItem>
-                              <MenuItem value="First Consultation">
-                                Consultation(1 Hr)
-                              </MenuItem>
-                              <MenuItem value="Follow Up">
-                                Follow up(30 Mins)
-                              </MenuItem>
-                            </Select>
-                          </FormControl>
+                    {
+                      doctor && doctor.activated ? (
+                        displayCalendar && (
+                          <>
+                            <div className="appointment-type">
+                              <p>Appointment Type</p>
+                              <FormControl>
+                                <Select
+                                  id="demo-controlled-open-select"
+                                  variant="outlined"
+                                  name="appointmentType"
+                                  value={appointment.appointmentMode}
+                                  displayEmpty
+                                  onChange={(e) => handleAppoitnmentType(e)}
+                                >
+                                  <MenuItem value="">
+                                    <em>Select</em>
+                                  </MenuItem>
+                                  <MenuItem value="First Consultation">
+                                    Consultation(1 Hr)
+                                  </MenuItem>
+                                  <MenuItem value="Follow Up">
+                                    Follow up(30 Mins)
+                                  </MenuItem>
+                                </Select>
+                              </FormControl>
+                            </div>
+                            <Calendar
+                              onChange={(e) =>
+                                onDaySelect(new Date(e), doctor && doctor.id)
+                              }
+                              value={currentDate}
+                              minDate={new Date()} //to disable past days
+                              maxDate={
+                                new Date(
+                                  new Date().setDate(new Date().getDate() + 180)
+                                )
+                              } // next 3week condition
+                              // Temporarily commented to enable calendar click functionality for appointment.
+                              tileDisabled={
+                                ({ activeStartDate, date, view }) =>
+                                  // activeStartDate.getDate() === date.getDate() &&
+                                  disabledDates &&
+                                  disabledDates.some(
+                                    (disabledDate) =>
+                                      date.getFullYear() ===
+                                      disabledDate.getFullYear() &&
+                                      date.getMonth() === disabledDate.getMonth() &&
+                                      date.getDate() === disabledDate.getDate()
+                                  )
+                              }
+                            // } // greyout dates
+                            />
+                          </>
+                        )
+                      ) : (
+                        <div className="no-result">
+                          <center>Select a Doctor to view Calendar ...</center>
                         </div>
-                        <Calendar
-                          onChange={(e) =>
-                            onDaySelect(new Date(e), doctor && doctor.id)
-                          }
-                          value={currentDate}
-                          minDate={new Date()} //to disable past days
-                          maxDate={
-                            new Date(
-                              new Date().setDate(new Date().getDate() + 180)
-                            )
-                          } // next 3week condition
-                          // Temporarily commented to enable calendar click functionality for appointment.
-                          tileDisabled={
-                            ({ activeStartDate, date, view }) =>
-                              // activeStartDate.getDate() === date.getDate() &&
-                              disabledDates &&
-                              disabledDates.some(
-                                (disabledDate) =>
-                                  date.getFullYear() ===
-                                  disabledDate.getFullYear() &&
-                                  date.getMonth() === disabledDate.getMonth() &&
-                                  date.getDate() === disabledDate.getDate()
-                              )
-                          }
-                        // } // greyout dates
-                        />
-                      </>
-                    )}
+                      )
+                    }
+                    { }
 
                     {displaySlot && (
                       <>
@@ -2273,6 +2283,15 @@ const MyDoctor = (props) => {
                             </div>
                           )}
                         </div>
+                        <button
+                          className="btn btn-primary continue-btn"
+                          onClick={async () => {
+                            checkSlot();
+                          }}
+                          disabled={disable.continue}
+                        >
+                          Continue
+                        </button>
                       </>
                     )}
                   </div>
@@ -2300,15 +2319,7 @@ const MyDoctor = (props) => {
                     {slotError}
                   </label>
                 </div>
-                <button
-                  className="btn btn-primary continue-btn"
-                  onClick={async () => {
-                    checkSlot();
-                  }}
-                  disabled={disable.continue}
-                >
-                  Continue
-                </button>
+
               </div>
             </Col>
           ) : (
@@ -3057,3 +3068,4 @@ const MyDoctor = (props) => {
 };
 
 export default MyDoctor;
+
