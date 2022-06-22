@@ -75,10 +75,16 @@ const PatientRoute = () => {
   const cookie = new Cookies();
 
   useEffect(() => {
+
     {
       currentuserInfo.profileCompleted == true &&
         getCurrentPatient();
     }
+
+    if(currentuserInfo.profileCompleted == true) {
+      fcmTokenGenerationHandler();
+    }
+
   }, []);
 
 
@@ -99,6 +105,29 @@ const PatientRoute = () => {
     };
     await updatePatientTimeZone(payload);
   };
+
+
+  const fcmTokenGenerationHandler = async () => {
+      let tokenToBeGenerated;
+      const tokenFunction = async () => {
+          tokenToBeGenerated = await getFirebaseToken(setTokenFound);
+          onMessageListener();
+
+          if (tokenToBeGenerated) {
+              console.log({ tokenToBeGenerated });
+          }
+          return tokenToBeGenerated;
+      };
+
+      const getPermission = async () => {
+          const permission = await getPermissions();
+          if (permission === 'granted') {
+              tokenFunction();
+          }
+      };
+      getPermission();
+      // alert('token generated')
+  }
 
   // const [displayCaller, setDisplayCaller] = useState(true);
 

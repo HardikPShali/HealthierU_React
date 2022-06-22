@@ -7,9 +7,10 @@
 }
 
 .caller-name {
-  margin: 20px;
+  margin: 15px;
   font-size: 14px;
   color: #3e4543;
+  width: 125px
 }
 
 .call-actions {
@@ -21,13 +22,18 @@
 .call-accept__wrapper {
   cursor: pointer;
   border-radius: 50%;
+  box-shadow: 1px 1px 2px #dedede;
+  transition: .2s;
+  width: 40px;
+  height: 40px;
 }
 
 .call-accept__wrapper:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 15%) !important;
   /* background: #e5e5e5; */
   border-radius: 50%;
+  
 }
 
 .call-decline__wrapper {
@@ -36,14 +42,58 @@
   padding: 10px;
   border-radius: 50%;
   cursor: pointer;
+  width: 40px;
+  height: 40px;
+  box-shadow: 1px 1px 2px #dedede;
+  transition: .2s;
 }
 
 .call-decline__wrapper:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 15%) !important;
 }
 
 .call-accept__image {
-  height: 45px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
+}
+
+.call-decline__icon {
+  margin-top: -5px;
+}
+
+.caller-name .name {
+  font-size: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.call-tag {
+  font-size: 10px;
+}
+
+.caller-toast {
+  background-color: #fff;
+}
+
+.caller-img-container {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+}
+
+.caller-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.msg-name {
+  width: 200px;
+}
+
+.msg-text {
+  font-size: 12px;
 }

@@ -15,7 +15,6 @@ import CustomToastMessage from '../components/CommonModule/CustomToastMessage/Cu
 import { Howl } from 'howler';
 import soundSrc from '../images/svg/notification-chime.wav'
 import soundSrcCall from '../images/svg/call-notification-sound.wav'
-
 import CustomCallNotification from '../components/CommonModule/CustomToastMessage/CustomCallNotification';
 
 // import '@firebase/messaging';
@@ -107,9 +106,9 @@ export const onMessageListener = () => {
     // console.log({ payload });
     // resolve(payload)
     console.log(window.location.pathname)
-    if (window.location.pathname.indexOf('/chat') === -1) {
+   
       toastMessage(payload)
-    }
+    
   })
 
 }
@@ -145,39 +144,57 @@ const toastMessage = (payload) => {
   // return ({ payloadInToast: payload })
   const topicFromPayload = payload.data.topic;
 
-  if (topicFromPayload === 'CHAT') {
-    const toastBody = payload.notification.body
-    const toastTitle = payload.notification.title
-
-    sound.play()
-    const customToast = (
-      <CustomToastMessage title={toastTitle} body={toastBody} payload={payload} />
-    )
-    toast.info(customToast, {
-      position: "top-right",
-      autoClose: 5000,
-    })
+  if (topicFromPayload === 'CHAT' &&  window.location.pathname.indexOf('/chat') === -1) {
+    messageToast(payload);
   }
 
 
   if (topicFromPayload === 'CALL') {
-    const toastBody = payload.notification.body
-
-    const onCallerClose = () => {
-
-      toast.dismiss();
-      soundCall.stop()
-    }
-
-    soundCall.play()
-    const customToast = (
-      <CustomCallNotification body={toastBody} onClose={onCallerClose} payload={payload} />
-    )
-    toast.info(customToast, {
-      // position: "top-right",
-      autoClose: false,
-    })
+    callToast(payload);
   }
+}
+
+const messageToast = (payload) => {
+  const toastBody = payload.notification.body
+  const toastTitle = payload.notification.title
+
+  sound.play()
+  const customToast = (
+    <CustomToastMessage title={toastTitle} body={toastBody} payload={payload} />
+  )
+  toast.info(customToast, {
+    position: "top-right",
+    autoClose: 5000,
+    className: 'caller-toast'
+  })
+}
+
+const callToast = (payload) => {
+  const onCallerClose = () => {
+
+    toast.dismiss();
+    soundCall.stop()
+  }
+
+  
+  const onAcceptClickHandler = (history, url) => {
+      soundCall.stop();
+      history.push(url)   // ?cId=1
+
+      if(window.location.pathname.indexOf('/chat') > -1) {
+        window.location.reload()
+      }
+  }
+
+  soundCall.play()
+  const customToast = (
+    <CustomCallNotification onAccept={onAcceptClickHandler} onClose={onCallerClose} payload={payload} />
+  )
+  toast.info(customToast, {
+    // position: "top-right",
+    autoClose: false,
+    className: 'caller-toast'
+  })
 }
 
 // //TODO:
