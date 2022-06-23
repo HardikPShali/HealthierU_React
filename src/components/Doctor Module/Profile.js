@@ -18,7 +18,8 @@ import {
 import TransparentLoader from '../Loader/transparentloader';
 import DoctorDocumentUpload from '../CommonModule/doctordocumentupload';
 import moment from 'moment';
-import calendarIcon from '../../../src/images/svg/dob-icon.svg';
+import calendarIcon from '../../../src/images/svg/calendar-teal.svg';
+import institutionIcon from '../../../src/images/svg/institutionIcon.svg';
 import callIcon from '../../../src/images/svg/call-icon.svg';
 import flagIcon from '../../../src/images/svg/nationality-icon.svg';
 import languageIcon from '../../../src/images/svg/language-icon.svg';
@@ -206,16 +207,14 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const handleLanguages = (selectedItem) => {
-        selectedItem.forEach((e) =>
-        {
+        selectedItem.forEach((e) => {
             const index = languages.findIndex((x) => x.name == e.name)
-            if(index == -1)
-            {
+            if (index == -1) {
                 languages.push(e);
             }
-            
+
         })
-        
+
         setCurrentDoctorData({ ...currentDoctorData, languages: languages });
     };
     const removeLanguages = (removedItem) => {
@@ -249,16 +248,14 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const handleSpecialities = (selectedItem) => {
-        selectedItem.forEach((e) =>
-        {
+        selectedItem.forEach((e) => {
             const index = specialities.findIndex((x) => x.name == e.name)
-            if(index == -1)
-            {
+            if (index == -1) {
                 specialities.push(e);
             }
-            
+
         })
-       // specialities.push({ id: selectedItem.id, name: selectedItem.name });
+        // specialities.push({ id: selectedItem.id, name: selectedItem.name });
         setSpecialityError(false);
     };
 
@@ -331,7 +328,11 @@ const Profile = ({ currentDoctor }) => {
                                         name={
                                             currentDoctor.firstName + ' ' + currentDoctor.lastName
                                         }
-                                        size={150}
+                                        size={145}
+                                        style={{
+                                            width: 137,
+                                            height: 150
+                                        }}
                                     />
                                 )}
                                 <br />
@@ -425,7 +426,7 @@ const Profile = ({ currentDoctor }) => {
                                                             }
                                                         //value={currentDoctor.education}
                                                         /> <ProfileRow
-                                                            icon={educationIcon}
+                                                            icon={institutionIcon}
                                                             title="Institution"
                                                             value={
                                                                 currentDoctor &&

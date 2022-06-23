@@ -11,56 +11,56 @@ import "./landing.css";
 export const Header = ({ hideButton }) => {
   return (
     <div className="navigation_main-wrapper">
-     <div className="web-navigation-wrapper">
-     <Navbar
-        variant="dark"
-        id="navbar"
-        sticky="top"
-      >
-        <div className="web-navigation-main">
-          <Container className="web-navigation-content">
-          <NavLink to="/" className="mr-auto">
-              <img
-                className="header_logo-image"
-                src={logoQuote}
-                id="icon"
-                alt="HealthierU Logo"
-                style={{width: "160px"}}
-              />
-            </NavLink>
-            <Nav>
-              {!hideButton && (
-                <div>
-                  <div className="nav-menu-wrapper">
-                    <div className="nav-menu-container">
-                      <ul className="nav-menu-ul">
-                        <li>
-                          <Link to="/#about-us">About Us</Link>
-                        </li>
-                        <li>
-                          <Link to="/#how-it-work">How It Works</Link>
-                        </li>
-                        <li>
-                          <Link to="/#our-service">Our Services</Link>
-                        </li>
-                        {/* <li>
+      <div className="web-navigation-wrapper">
+        <Navbar
+          variant="dark"
+          id="navbar"
+          sticky="top"
+        >
+          <div className="web-navigation-main">
+            <Container className="web-navigation-content">
+              <NavLink to="/" className="mr-auto">
+                <img
+                  className="header_logo-image"
+                  src={logoQuote}
+                  id="icon"
+                  alt="HealthierU Logo"
+                  style={{ width: "160px" }}
+                />
+              </NavLink>
+              <Nav>
+                {!hideButton && (
+                  <div>
+                    <div className="nav-menu-wrapper">
+                      <div className="nav-menu-container">
+                        <ul className="nav-menu-ul">
+                          <li>
+                            <Link to="/#about-us">About Us</Link>
+                          </li>
+                          <li>
+                            <Link to="/#how-it-work">How It Works</Link>
+                          </li>
+                          <li>
+                            <Link to="/#our-service">Our Services</Link>
+                          </li>
+                          {/* <li>
                           <Link to="/#footer">Contact Us</Link>
                         </li> */}
-                      </ul>
+                        </ul>
+                      </div>
+                      <NavLink to="/signin">
+                        <button className="btn btn-secondary">
+                          Sign in / Join Now
+                        </button>
+                      </NavLink>
                     </div>
-                    <NavLink to="/signin">
-                      <button className="btn btn-secondary">
-                        Sign in / Join Now
-                      </button>
-                    </NavLink>
                   </div>
-                </div>
-              )}
-            </Nav>
-          </Container>
-        </div>
-      </Navbar>
-     </div>
+                )}
+              </Nav>
+            </Container>
+          </div>
+        </Navbar>
+      </div>
       <div className="mobile_nav-header">
         <NavLink to="/" className="mr-auto">
           <img
@@ -71,10 +71,10 @@ export const Header = ({ hideButton }) => {
           />
         </NavLink>
         <input className="menu-btn" type="checkbox" id="menu-btn" />
-        <label className="menu-icon" for="menu-btn">
+        <label className="menu-icon" htmlFor="menu-btn">
           <span className="navicon"></span>
         </label>
-        <ul class="menu">
+        <ul className="menu">
           <li>
             <Link to="/#about-us">About Us</Link>
           </li>
@@ -86,6 +86,11 @@ export const Header = ({ hideButton }) => {
           </li>
           <li>
             <Link to="/#footer">Contact Us</Link>
+          </li>
+          <li>
+            <NavLink to="/signin">
+              <button className="btn btn-secondary">Sign in / Join Now</button>
+            </NavLink>
           </li>
         </ul>
       </div>

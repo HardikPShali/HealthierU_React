@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { uploadNote } from "../../../service/frontendapiservices";
-import backIcon from '../../../images/svg/arrow-left.svg';
+import backIcon from '../../../images/svg/close-btn.svg';
 import { ToastContainer, toast } from "react-toastify";
 
 

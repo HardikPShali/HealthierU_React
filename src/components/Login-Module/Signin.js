@@ -44,6 +44,10 @@ import { useHistory } from "react-router-dom";
 import { withRouter, BrowserRouter } from "react-router";
 
 import GoogleSignInButton from "../CommonModule/GoogleAuth/GoogleSignInButton/GoogleSignInButton";
+import { getFirebaseToken, getPermissions } from "../../util";
+import { getFcmTokenApi } from "../../service/frontendapiservices";
+
+import moment from "moment";
 
 const Signin = () => {
   const history = useHistory();
@@ -126,6 +130,7 @@ const Signin = () => {
       //console.log("googleAccessToken  :: ", googleAccessToken);
       LocalStorageService.setToken(googleAccessToken);
       getCurrentUserData();
+      // triggerFcmTokenHandler();
     }
   };
 
@@ -295,157 +300,158 @@ const Signin = () => {
     }
   };
 
+
   return (
     <div>
       {loading && <Loader />}
       {loader && <TransparentLoader />}
       <Header hideButton={true} />
       <div id="signin-bg">
-      <Container>
-        <Row>
-          <Col md={7}></Col>
-          <Col md={5}>
-            <h2 id="signin-title">Sign in</h2>
-            <div className="sign-box">
-              {!otpDisplay && (
-                <>
-                  <ValidatorForm
-                    onError={(errors) => console.log(errors)}
-                    onSubmit={(e) => handleLogin(e)}
-                  >
+        <Container>
+          <Row>
+            <Col md={7}></Col>
+            <Col md={5}>
+              <h2 id="signin-title">Sign in</h2>
+              <div className="sign-box">
+                {!otpDisplay && (
+                  <>
+                    <ValidatorForm
+                      onError={(errors) => console.log(errors)}
+                      onSubmit={(e) => handleLogin(e)}
+                    >
+                      <label
+                        style={{ fontSize: 12, color: "#ff9393" }}
+                        className="left"
+                      >
+                        {msg}
+                      </label>
+                      <p>
+                        Username / Email<sup>*</sup>
+                      </p>
+                      <TextValidator
+                        id="standard-basic"
+                        type="text"
+                        name="username"
+                        onChange={(e) => handleInputChange(e)}
+                        value={username}
+                        validators={["required"]}
+                        errorMessages={["This field is required"]}
+                        variant="filled"
+                      />
+                      <br />
+                      <p>
+                        Password<sup>*</sup>
+                      </p>
+                      <TextValidator
+                        id="standard-basic"
+                        name="password"
+                        type={passwordShown ? "text" : "password"}
+                        onChange={(e) => handleInputChange(e)}
+                        value={password}
+                        validators={["required"]}
+                        errorMessages={["This field is required"]}
+                        variant="filled"
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                              >
+                                {passwordShown ? (
+                                  <Visibility />
+                                ) : (
+                                  <VisibilityOff />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      <Link to="/forgetpassword" className="forget-text">
+                        Forgot password?
+                      </Link>
+                      {/* <ReCAPTCHA
+                      sitekey={CAPTCHA_SITE_KEY}
+                      onChange={handleRecaptchaChange}
+                    /> */}
+                      <input
+                        id="signinbtn"
+                        className="btn btn-primary sign-btn shadow-sm"
+                        type="submit"
+                        value="Sign In"
+                      />
+                      <br />
+                      <div className="w-100 mt-3">
+                        <GoogleSignInButton
+                          id="google-btn"
+                          width={googleBtnWidth}
+                          responseCallBack={responseGoogle}
+                          responseError={(e) => console.log(e)}
+                        />
+                      </div>
+                    </ValidatorForm>
+                  </>
+                )}
+                {otpDisplay && (
+                  <div>
                     <label
                       style={{ fontSize: 12, color: "#ff9393" }}
                       className="left"
                     >
                       {msg}
                     </label>
-                    <p>
-                      Username / Email<sup>*</sup>
-                    </p>
-                    <TextValidator
-                      id="standard-basic"
-                      type="text"
-                      name="username"
-                      onChange={(e) => handleInputChange(e)}
-                      value={username}
-                      validators={["required"]}
-                      errorMessages={["This field is required"]}
-                      variant="filled"
+                    <p>Enter OTP:</p>
+                    <OtpInput
+                      value={otp}
+                      onChange={(e) => handleOTPChange(e)}
+                      numInputs={6}
+                      separator={<span>&nbsp;</span>}
+                      className="otpInput"
                     />
                     <br />
-                    <p>
-                      Password<sup>*</sup>
-                    </p>
-                    <TextValidator
-                      id="standard-basic"
-                      name="password"
-                      type={passwordShown ? "text" : "password"}
-                      onChange={(e) => handleInputChange(e)}
-                      value={password}
-                      validators={["required"]}
-                      errorMessages={["This field is required"]}
-                      variant="filled"
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
-                              onMouseDown={handleMouseDownPassword}
-                            >
-                              {passwordShown ? (
-                                <Visibility />
-                              ) : (
-                                <VisibilityOff />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                    <Link to="/forgetpassword" className="forget-text">
-                      Forgot password?
-                    </Link>
-                    {/* <ReCAPTCHA
-                      sitekey={CAPTCHA_SITE_KEY}
-                      onChange={handleRecaptchaChange}
-                    /> */}
-                    <input
-                      id="signinbtn"
-                      className="btn btn-primary sign-btn shadow-sm"
-                      type="submit"
-                      value="Sign In"
-                    />
-                    <br />
-                    <div className="w-100 mt-3">
-                      <GoogleSignInButton
-                        id="google-btn"
-                        width={googleBtnWidth}
-                        responseCallBack={responseGoogle}
-                        responseError={(e) => console.log(e)}
+                    <p className="otpText">
+                      <OtpTimer
+                        seconds={59}
+                        minutes={2}
+                        resend={() => sendOtp()}
+                        text="Code Expires in"
+                        ButtonText="Resent OTP"
+                        textColor={"#56BEEC"}
+                        buttonColor={"#fff"}
+                        background={"#56BEEC"}
                       />
-                    </div>
-                  </ValidatorForm>
-                </>
-              )}
-              {otpDisplay && (
-                <div>
-                  <label
-                    style={{ fontSize: 12, color: "#ff9393" }}
-                    className="left"
-                  >
-                    {msg}
-                  </label>
-                  <p>Enter OTP:</p>
-                  <OtpInput
-                    value={otp}
-                    onChange={(e) => handleOTPChange(e)}
-                    numInputs={6}
-                    separator={<span>&nbsp;</span>}
-                    className="otpInput"
-                  />
-                  <br />
-                  <p className="otpText">
-                    <OtpTimer
-                      seconds={59}
-                      minutes={2}
-                      resend={() => sendOtp()}
-                      text="Code Expires in"
-                      ButtonText="Resent OTP"
-                      textColor={"#56BEEC"}
-                      buttonColor={"#fff"}
-                      background={"#56BEEC"}
+                    </p>
+                    <input
+                      className="btn btn-primary sign-btn shadow-sm"
+                      type="button"
+                      onClick={() => handleOTPSubmit()}
+                      value="Submit"
                     />
-                  </p>
-                  <input
-                    className="btn btn-primary sign-btn shadow-sm"
-                    type="button"
-                    onClick={() => handleOTPSubmit()}
-                    value="Submit"
-                  />
-                </div>
-              )}
-              <div className="row">
-                <div className="col-12">
-                  <p className="signup-text">Don't have an account yet?</p>
-                  <Link className="w-100 d-block" to="/signup">
-                    <button className="btn btn-primary w-100 sign-btn shadow-sm">
-                      Sign Up
-                    </button>
-                  </Link>
+                  </div>
+                )}
+                <div className="row">
+                  <div className="col-12">
+                    <p className="signup-text">Don't have an account yet?</p>
+                    <Link className="w-100 d-block" to="/signup">
+                      <button className="btn btn-primary w-100 sign-btn shadow-sm">
+                        Sign Up
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-            <Dialog aria-labelledby="customized-dialog-title" open={open}>
-              <DialogTitle id="customized-dialog-title">
-                Email Activated!
-              </DialogTitle>
-              <DialogContent dividers>
-                <Typography gutterBottom>
-                  You have successfully activated your email address. Now you
-                  can Log in to your account.
-                </Typography>
-                {/* <>
+              <Dialog aria-labelledby="customized-dialog-title" open={open}>
+                <DialogTitle id="customized-dialog-title">
+                  Email Activated!
+                </DialogTitle>
+                <DialogContent dividers>
+                  <Typography gutterBottom>
+                    You have successfully activated your email address. Now you
+                    can Log in to your account.
+                  </Typography>
+                  {/* <>
                   {currentLoggedInUser && Object.keys(currentLoggedInUser).length > 0 && currentLoggedInUser.authorities.some((user) => user === "ROLE_PATIENT") &&
                     (<Typography gutterBottom>
                     You have successfully activated your email address. Now you can Log in to your account.
@@ -458,23 +464,23 @@ const Signin = () => {
                     </Typography>
                     )}
                 </> */}
-              </DialogContent>
-              <DialogActions>
-                <button
-                  autoFocus
-                  onClick={handleClose}
-                  className="btn btn-primary sign-btn"
-                  id="close-btn"
-                >
-                  Ok
-                </button>
-              </DialogActions>
-            </Dialog>
-          </Col>
-        </Row>
-      </Container>
+                </DialogContent>
+                <DialogActions>
+                  <button
+                    autoFocus
+                    onClick={handleClose}
+                    className="btn btn-primary sign-btn"
+                    id="close-btn"
+                  >
+                    Ok
+                  </button>
+                </DialogActions>
+              </Dialog>
+            </Col>
+          </Row>
+        </Container>
       </div>
-     
+
       <Footer />
 
       <Dialog aria-labelledby="customized-dialog-title" open={activateError}>

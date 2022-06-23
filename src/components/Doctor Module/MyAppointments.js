@@ -19,14 +19,15 @@ import FilterComponent from "../CommonModule/SearchAndFilter/FilterComponent";
 import {
   getGlobalAppointmentsSearch,
   rescheduleAppointmentDoctor,
+  getAppointmentsTablistByStatus
 } from "../../service/frontendapiservices";
 import rightIcon from "../../images/svg/right-icon.svg";
 import calendar from "../../images/icons used/Component 12.svg";
 import conHistory from "../../images/icons used/Component 15.svg";
 import HealthAssessment from "../../images/icons used/Component 16.svg";
 import MedicalRecord from "../../images/icons used/Component 17.svg";
-import calendarSmall from "../../images/svg/calender-beige.svg";
-import timeSmall from "../../images/svg/time-teal.svg";
+import calendarSmall from "../../images/svg/calendar-white.svg";
+import timeSmall from "../../images/svg/time-white.svg";
 import { useHistory } from "react-router";
 import HealthAssestmentReport from "./HealthAssestmentReport/HealthAssestmentReport";
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
@@ -39,6 +40,15 @@ const MyAppointments = (props) => {
   //    return m;
   //};
   let history = useHistory();
+  const [openReschedule, setOpenReschedule] = useState(false);
+  const [rescheduleID, setRescheduleID] = useState("");
+  const handleRescheduleOpen = (id) => {
+    setRescheduleID(id);
+    setOpenReschedule(true);
+  };
+  const handleRescheduleClose = () => {
+    setOpenReschedule(false);
+  };
   //const moment = getMoment(currentTimezone);
   const [activeAppointments, setActiveAppointments] = useState([]);
   // const [pastAppointments, setPastAppointments] = useState([]);
@@ -89,7 +99,7 @@ const MyAppointments = (props) => {
       handleAlertVideo();
     }
   };
-
+  const [appointment, setAppointment] = useState([]);
   useEffect(() => {
     // getCurrentDoctor();
     getGlobalAppointments();
@@ -247,7 +257,7 @@ const MyAppointments = (props) => {
     setAge(Math.abs(age.getUTCFullYear() - 1970));
   };
 
-  const handleConsultationClick = (slot, slot1EndTime) => {
+  const handleConsultationClick = async (slot, slot1EndTime) => {
     slot.endTime = slot1EndTime;
     setSelectedPatient(slot);
   };
@@ -268,6 +278,25 @@ const MyAppointments = (props) => {
   const [search, setSearch] = useState("");
   const [appointmentDets, setAppointmentDets] = useState([]);
 
+  const getPaymentInfo = async (data) => {
+    const response = await getAppointmentsTablistByStatus(data.patient.id).catch(
+      (err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          setLoading(false);
+        }
+      }
+    );
+    if (response.status === 200 || response.status === 201) {
+      if (response && response.data) {
+        const array = response.data.data.upcoming;
+        array.map((a) => {
+          if (data.id === a.id) {
+            setAppointment(...array, a)
+          }
+        })
+      }
+    }
+  }
   const getGlobalAppointments = async (search, filter = {}) => {
     const currentDoctor = cookies.get("profileDetails");
     setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
@@ -326,6 +355,7 @@ const MyAppointments = (props) => {
                 remarks: value.remarks,
                 status: value.status,
                 appointmentId: value.appointmentId,
+                appointmentMode: value.appointmentMode,
                 unifiedAppointment: value.unifiedAppointment,
                 patient: value.patient,
               });
@@ -355,6 +385,7 @@ const MyAppointments = (props) => {
                 endTime: new Date(value.endTime),
                 remarks: value.remarks,
                 status: value.status,
+                appointmentMode: value.appointmentMode,
                 appointmentId: value.appointmentId,
                 unifiedAppointment: value.unifiedAppointment,
                 patient: value.patient,
@@ -362,9 +393,9 @@ const MyAppointments = (props) => {
             }
           }
         });
-        console.log("updateArray | My Patient", updateArray);
         setAppointmentDets(updateArray);
       }
+
     }
   };
 
@@ -400,9 +431,7 @@ const MyAppointments = (props) => {
     getGlobalAppointments(search, filter);
   };
   const rescheduleAppointment = async (id) => {
-    // console.log('appointmentDets', appointmentDets)
-    // console.log('patientID', id)
-    // console.log('selectedPatID', SelectedPatient)
+    handleRescheduleClose()
     const apID = id;
     let docID;
     let aID;
@@ -422,7 +451,7 @@ const MyAppointments = (props) => {
       }
     });
     if (res) {
-      toast.success("Appointment Rescheduled successfully.");
+      toast.success("Update sent to patient for rescheduling.");
       history.go(0)
     }
   };
@@ -454,6 +483,7 @@ const MyAppointments = (props) => {
       500
     );
   };
+
   return (
     <div className="bg-grey">
       {loading && <Loader />}
@@ -538,16 +568,14 @@ const MyAppointments = (props) => {
                                       </div>
                                       <div className="col-md-7  d-flex flex-column mt-3">
                                         <h5 className="patient-list__common-name">
-                                          <b>
+                                          <>
                                             {details.patient.firstName +
                                               " " +
                                               (details.patient.lastName || "")}
-                                          </b>
+                                          </>
                                         </h5>
                                         <span className="patient-list__common-span-consult">
-                                          {details.unifiedAppointment
-                                            .split("#")[1]
-                                            .replace("_", " ")}
+                                          {details.appointmentMode}
                                         </span>
                                       </div>
                                     </div>
@@ -584,10 +612,12 @@ const MyAppointments = (props) => {
                                   className="col-md-12 mb-2 mt-2 cursor-pointer"
                                   key={index}
                                 >
+
                                   <div
                                     className="patient-list__card"
                                     onClick={async () => {
                                       setSelectedPatient(details);
+                                      getPaymentInfo(details)
                                       Object.keys(details.patient).map(
                                         (patientData) => {
                                           return calculate_age(
@@ -635,17 +665,14 @@ const MyAppointments = (props) => {
                                       </div>
                                       <div className="col-md-7  d-flex flex-column mt-3">
                                         <h5 className="patient-list__common-name">
-                                          <b>
+                                          <>
                                             {details.patient.firstName +
                                               " " +
                                               (details.patient.lastName || "")}
-                                          </b>
+                                          </>
                                         </h5>
                                         <span className="patient-list__common-span-consult">
-                                          {details.unifiedAppointment &&
-                                            details.unifiedAppointment
-                                              .split("#")[1]
-                                              .replace("_", " ")}
+                                          {details.appointmentMode}
                                         </span>
                                       </div>
                                     </div>
@@ -700,10 +727,7 @@ const MyAppointments = (props) => {
                             <div id="req-name">
                               <b style={{ fontSize: "16px" }}>
                                 APID : {SelectedPatient.id} |{" "}
-                                {SelectedPatient.unifiedAppointment &&
-                                  SelectedPatient.unifiedAppointment
-                                    .split("#")[1]
-                                    .replace("_", " ")}
+                                {SelectedPatient.appointmentMode}
                               </b>
                             </div>
                           </Col>
@@ -823,6 +847,7 @@ const MyAppointments = (props) => {
                         <Row style={{ alignItems: "center", marginTop: "5px" }}>
                           <Col xs={4} style={{ textAlign: "center" }}>
                             <div id="req-name">
+                              {console.log(SelectedPatient)}
                               <b>
                                 {SelectedPatient &&
                                   SelectedPatient.patient &&
@@ -838,7 +863,10 @@ const MyAppointments = (props) => {
                             <div id="req-name">
                               <b className="pclass1">Fee & Payment Method</b>
                               <br />
-                              $20 By Credit Card
+                              {appointment.appointmentFee
+                              } &nbsp;
+                              {appointment.paymentMethod
+                              }
                             </div>
                           </Col>
                           {/* <Col xs={1} style={{ alignItems: "center",paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
@@ -881,7 +909,7 @@ const MyAppointments = (props) => {
                               <img
                                 width="40"
                                 height="40"
-                                font-weight="300"
+                                fontWeight="300"
                                 src={conHistory}
                                 // onClick='${pathname}'
                                 alt=""
@@ -1042,8 +1070,8 @@ const MyAppointments = (props) => {
                                                     > */}
                           <button
                             className="btn btn-primary view-btn"
-                            onClick={(e) =>
-                              rescheduleAppointment(SelectedPatient.id)
+                            onClick={() =>
+                              handleRescheduleOpen(SelectedPatient.id)
                             }
                           >
                             Reschedule
@@ -1145,6 +1173,36 @@ const MyAppointments = (props) => {
             id="close-btn"
           >
             Ok
+          </button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        onClose={handleRescheduleClose}
+        aria-labelledby="customized-dialog-title"
+        open={openReschedule}
+      >
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={handleRescheduleClose}
+        >
+          Are you sure you want to Reschedule this patient's slot?
+        </DialogTitle>
+        <DialogActions>
+          <button
+            className="btn btn-primary"
+            onClick={(e) =>
+              rescheduleAppointment(SelectedPatient.id)
+            }
+          >
+            Reschedule
+          </button>
+          <button
+            autoFocus
+            onClick={handleRescheduleClose}
+            className="btn btn-secondary"
+            id="close-btn"
+          >
+            Close
           </button>
         </DialogActions>
       </Dialog>

@@ -475,7 +475,7 @@ const PatientDocument = (props) => {
         const starttime = new Date();
         const endtime = new Date();
         const data = {
-            doctorId: doctor.id,
+            //doctorId: doctor.id,
             patientId: currentPatient.id,
             documentType: "LabResult",
             labName: search,
@@ -1135,7 +1135,7 @@ const PatientDocument = (props) => {
                                 </div>
                             </div> */}
 
-                            <div className="form-group row">
+                            {/* <div className="form-group row">
                                 <label
                                     htmlFor="doctorEmail"
                                     className="col-sm-3 col-form-label"
@@ -1169,7 +1169,7 @@ const PatientDocument = (props) => {
                                         <span>No Doctor found</span>
                                     )}
                                 </div>
-                            </div>
+                            </div> */}
                             {/* <div className="form-group row">
                                 <label htmlFor="doctorName" className="col-sm-3 col-form-label">Doctor Name</label>
                                 <div className="col-sm-9 position-relative">
@@ -1306,7 +1306,7 @@ const PatientDocument = (props) => {
                             <Button variant="secondary" onClick={handleUploadLabResultClosed}>
                                 Close
                             </Button>
-                            <Button variant="primary" type="submit" disabled={!doctor?.id}>
+                            <Button variant="primary" type="submit">
                                 Save
                             </Button>
                         </Modal.Footer>

@@ -30,7 +30,7 @@ const AppoitmentCountsSection = () => {
                 <div className="data-card">
                     <div className='data-card__helper'>
                         <h3 className="appointment-count-h3">{appointmentsCount.totalAppointmentsForTheDay}</h3>
-                        <h4 className="appointment-count-h4">Total Appointments</h4>
+                        <h4 className="appointment-count-h4">Today’s Appointments</h4>
 
                     </div>
                 </div>

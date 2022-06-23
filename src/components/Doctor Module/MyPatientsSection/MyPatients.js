@@ -16,8 +16,8 @@ import {
 import rightIcon from '../../../images/svg/right-icon.svg';
 import conHistory from '../../../images/icons used/Component 15.svg';
 import HealthAssessment from '../../../images/icons used/Component 16.svg';
-import calendarSmall from '../../../images/svg/calender-beige.svg';
-import timeSmall from '../../../images/svg/time-teal.svg';
+import calendarSmall from '../../../images/svg/calendar-white.svg';
+import timeSmall from '../../../images/svg/time-white.svg';
 import chatButtonIcon from '../../../images/svg/chat-button-icon.svg';
 
 
@@ -126,6 +126,7 @@ const MyPatients = (props) => {
                                 status: value.status,
                                 appointmentId: value.appointmentId,
                                 unifiedAppointment: value.unifiedAppointment,
+                                appointmentMode: value.appointmentMode,
                                 patient: value.patient,
                             });
                         } else if (
@@ -156,6 +157,7 @@ const MyPatients = (props) => {
                                 status: value.status,
                                 appointmentId: value.appointmentId,
                                 unifiedAppointment: value.unifiedAppointment,
+                                appointmentMode: value.appointmentMode,
                                 patient: value.patient,
                             });
                         }
@@ -281,16 +283,14 @@ const MyPatients = (props) => {
                                                                             </div>
                                                                             <div className="col-md-7  d-flex flex-column mt-3">
                                                                                 <h5 className="patient-list__common-name">
-                                                                                    <b>
+                                                                                    <>
                                                                                         {details.patient.firstName +
                                                                                             ' ' +
                                                                                             (details.patient.lastName || "")}
-                                                                                    </b>
+                                                                                    </>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span-consult">
-                                                                                    {details.unifiedAppointment
-                                                                                        .split('#')[1]
-                                                                                        .replace('_', ' ')}
+                                                                                    {details.appointmentMode}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -382,17 +382,14 @@ const MyPatients = (props) => {
                                                                             </div>
                                                                             <div className="patient-list_common-name-wrap col-md-6 col-lg-6 col-xl-6 d-flex flex-column">
                                                                                 <h5 className="patient-list__common-name">
-                                                                                    <b>
+                                                                                    <>
                                                                                         {details.patient.firstName +
                                                                                             ' ' +
                                                                                             (details.patient.lastName || "")}
-                                                                                    </b>
+                                                                                    </>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span-consult">
-                                                                                    {details.unifiedAppointment &&
-                                                                                        details.unifiedAppointment
-                                                                                            .split('#')[1]
-                                                                                            .replace('_', ' ')}
+                                                                                    {details.appointmentMode}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -447,10 +444,7 @@ const MyPatients = (props) => {
                                                         <div id="req-name">
                                                             <b style={{ fontSize: '16px' }}>
                                                                 APID : {SelectedPatient.id} |{' '}
-                                                                {SelectedPatient.unifiedAppointment &&
-                                                                    SelectedPatient.unifiedAppointment
-                                                                        .split('#')[1]
-                                                                        .replace('_', ' ')}
+                                                                {SelectedPatient.appointmentMode}
                                                             </b>
                                                         </div>
                                                     </Col>
@@ -586,7 +580,7 @@ const MyPatients = (props) => {
                                                             <img
                                                                 width="40"
                                                                 height="40"
-                                                                font-weight="300"
+                                                                fontWeight="300"
                                                                 src={conHistory}
                                                                 alt=""
                                                                 style={{ marginLeft: '5%', marginRight: '5%' }}

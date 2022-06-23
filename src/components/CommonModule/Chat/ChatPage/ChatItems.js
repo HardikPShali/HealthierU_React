@@ -9,6 +9,7 @@ const ChatItems = ({
   onChatChange,
   messageDateFormat,
   selectedChatItem,
+  onSearch,
 }) => {
   return (
     <div className="chatItems-wrapper">
@@ -17,6 +18,7 @@ const ChatItems = ({
           className="search_person"
           placeholder="Search person"
           type="text"
+          onChange={onSearch}
         />{" "}
         <img src={SearchIcon}></img>
       </div>

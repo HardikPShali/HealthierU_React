@@ -9,14 +9,16 @@ import { getCurrentPatientInfo } from "../../service/AccountService";
 //import Cookies from 'universal-cookie';
 import Header from "./Header";
 import Footer from "./Footer";
-import { firestoreService, chatAndVideoService } from "../../util";
+import { firestoreService, chatAndVideoService, getFirebaseToken, getPermissions, onMessageListener } from "../../util";
 import Loader from '../Loader/Loader'
 import {
+  getFcmTokenApi,
   updatePatientTimeZone,
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
-import PaypalMobile from "./MobilePayment/PaypalMobile";
+import moment from "moment";
+
 
 const Mydoctor = React.lazy(() => import("./Mydoctor"));
 const RescheduleAppointment = React.lazy(() => import("./RescheduleAppointment"));
@@ -67,13 +69,21 @@ const PatientRoute = () => {
   const [restartFirebaseLogin, setRestartFirebaseLogin] = useState(0);
   const systemTimeZone = momentTz.tz.guess();
 
+  const [tokenFound, setTokenFound] = useState(false);
+
   const cookie = new Cookies();
 
   useEffect(() => {
+
     {
       currentuserInfo.profileCompleted == true &&
         getCurrentPatient();
     }
+
+    if(currentuserInfo.profileCompleted == true) {
+      fcmTokenGenerationHandler();
+    }
+
   }, []);
 
 
@@ -94,6 +104,35 @@ const PatientRoute = () => {
     };
     await updatePatientTimeZone(payload);
   };
+
+
+  const fcmTokenGenerationHandler = async () => {
+      let tokenToBeGenerated;
+      const tokenFunction = async () => {
+          tokenToBeGenerated = await getFirebaseToken(setTokenFound);
+          onMessageListener();
+
+          if (tokenToBeGenerated) {
+              console.log({ tokenToBeGenerated });
+          }
+          return tokenToBeGenerated;
+      };
+
+      const getPermission = async () => {
+          const permission = await getPermissions();
+          if (permission === 'granted') {
+              tokenFunction();
+          }
+      };
+      getPermission();
+      // alert('token generated')
+  }
+
+  // const [displayCaller, setDisplayCaller] = useState(true);
+
+  // const onCallerClose = () => {
+  //   setDisplayCaller(false);
+  // }
 
   return (
     <Suspense fallback={<Loader />}>

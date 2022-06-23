@@ -164,7 +164,7 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                <Container>
+                <Container className="banner-txt-align">
                   <h3 className="h3-responsive">Book Appointment</h3>
                   <p className="help-desc">
                     Your virtual health advisor in your preferred time zone.
@@ -187,7 +187,7 @@ const Homepage = () => {
                 <MDBMask overlay="black-strong" />
               </MDBView>
               <MDBCarouselCaption>
-                <Container>
+                <Container className="banner-txt-align">
                   <h3 className="h3-responsive">
                     Connect with our Global Wellness Experts Virtually
                   </h3>
@@ -239,7 +239,7 @@ const Homepage = () => {
                 <MDBMask overlay="black-slight" />
               </MDBView>
               <MDBCarouselCaption>
-                <Container>
+                <Container className="banner-txt-align">
                   <h3 className="h3-responsive">
                     We empower you to become a better version of yourself.
                   </h3>
@@ -255,7 +255,6 @@ const Homepage = () => {
           </MDBCarouselInner>
         </MDBCarousel>
       </MDBContainer>
-      {/* <Availability /> */}
       {/* <Container className="p-0 padding-mobile">
         <Row id="aboutus-two">
           <Col md={4} lg={4} xl={4} >
@@ -474,7 +473,7 @@ const Homepage = () => {
               </p>
             </div>
             <Row>
-              <Col sm={12} md={6} lg={3} xl={3} l>
+              <Col sm={12} md={6} lg={3} xl={3} l='true'>
                 <img src={heartIcon} alt="" />
                 <h3>REGENERATIVE MEDICINE</h3>
                 <ul>
@@ -483,7 +482,7 @@ const Homepage = () => {
                   <li>Sexual health</li>
                 </ul>
               </Col>
-              <Col sm={12} md={6} lg={3} xl={3} l>
+              <Col sm={12} md={6} lg={3} xl={3} l='true'>
                 <img src={labIcon} alt="" />
                 <h3>FUNCTIONAL MEDICINE</h3>
                 <ul>
@@ -492,7 +491,7 @@ const Homepage = () => {
                   <li>Sexual health hormones</li>
                 </ul>
               </Col>
-              <Col sm={12} md={6} lg={3} xl={3} l>
+              <Col sm={12} md={6} lg={3} xl={3} l='true'>
                 <img src={molecularIcon} alt="" />
                 <h3>MOLECULAR MEDICINE</h3>
                 <ul>
@@ -501,7 +500,7 @@ const Homepage = () => {
                   </li>
                 </ul>
               </Col>
-              <Col sm={12} md={6} lg={3} xl={3} l>
+              <Col sm={12} md={6} lg={3} xl={3} l='true'>
                 <img src={careIcon} alt="" />
                 <h3>ENERGY / BODY-MIND MEDICINE</h3>
                 <ul>
@@ -770,7 +769,7 @@ const Homepage = () => {
                     Find out how you measure with health and well-being assessment
                   </Card.Text>
                   <div className="box-card-btn">
-                    <Link to="/signin">
+                    <Link to="/signin" onClick={() => window.scrollTo(0, 0)}>
                       <button
                         variant="primary"
                         className="btn btn-outline-light assessment-btn "
@@ -791,7 +790,7 @@ const Homepage = () => {
                     Check out our available wellness specialists
                   </Card.Text>
                   <div className="box-card-btn">
-                    <Link to="/signin">
+                    <Link to="/signin" onClick={() => window.scrollTo(0, 0)}>
                       <button
                         variant="primary"
                         className="btn btn-outline-light assessment-btn"

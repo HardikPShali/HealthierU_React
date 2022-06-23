@@ -28,13 +28,13 @@ const Footer = () => {
         <Container className="p-0 padding-mobile">
           <Row className="align-items-center">
             <Col md={3} lg={2} xl={2}>
-              <Link to="/about-us" id="footer-link">
+              <HashLink to="/#about-us" id="footer-link">
                 About us
-              </Link>
-              <HashLink to="/about-us#how-it-work" id="footer-link">
+              </HashLink>
+              <HashLink to="/#how-it-work" id="footer-link">
                 How it Works
               </HashLink>
-              <HashLink to="/about-us#our-services" id="footer-link">
+              <HashLink to="/#our-service" id="footer-link">
                 Our services
               </HashLink>
               {/* <Link to="" id="footer-link">
@@ -130,14 +130,14 @@ const Footer = () => {
               </p>
             </Col>
             <Col id="last-col">
-              <p id="lang-select">
+              {/* <p id="lang-select">
                 Language
                 <select onChange={(e) => change(e)}>
                   <option value="en">English</option>
                   <option value="ar">Arabic</option>
                   <option value="enuk">English(UK)</option>
                 </select>
-              </p>
+              </p> */}
               <div id="social-icon" className="d-flex">
                 <a
                   href="https://www.facebook.com/HealthierU-109526728064645"

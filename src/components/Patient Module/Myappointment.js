@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-//import Footer from './Footer'
+// import Footer from './Footer'
 import './patient.css';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -24,9 +24,9 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import ChatIcon from '@material-ui/icons/Chat';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-import calendarSmall from '../../images/svg/calendar-small.svg';
+import calendarSmall from '../../images/svg/calender-beige.svg';
 import calendarIcon from '../../images/svg/calendar-green.svg';
-import timeSmall from '../../images/svg/time-small.svg';
+import timeSmall from '../../images/svg/time-teal.svg';
 import timeBig from '../../images/svg/time-big-icon.svg';
 import rightIcon from '../../images/svg/right-icon.svg';
 import chatButtonIcon from '../../images/svg/chat-button-icon.svg';
@@ -78,6 +78,7 @@ const app = makeStyles(() => ({
 
 const Myappointment = (props) => {
   const [myAppointment, setMyAppoitment] = useState([]);
+  const [UpcomingAppointment, setUpcomingAppointment] = useState([]);
   const [completedAppointment, setCompletedAppointment] = useState([]);
   const [cancelledAppointment, setCancelledAppointment] = useState([]);
 
@@ -98,6 +99,10 @@ const Myappointment = (props) => {
     openCancelledAndCompletedAppointmentInfo,
     setOpenCancelledAndCompletedAppointmentInfo,
   ] = useState(false);
+  const [
+    openUpcomingAppointmentInfo,
+    setOpenUpcomingAppointmentInfo,
+  ] = useState(false);
   const [moreDoctorInfo, setMoreDoctorInfo] = useState(false);
 
   const handleClickOpen = (appointmentData) => {
@@ -115,6 +120,11 @@ const Myappointment = (props) => {
   const handleAppointmentInfoOpen = (eventData) => {
     setSelectedAppointment(eventData);
     setopenAppointmentInfo(true);
+  };
+
+  const handleUpcomingAppointmentInfoOpen = (eventData) => {
+    setSelectedAppointment(eventData);
+    setOpenUpcomingAppointmentInfo(true);
   };
 
   const handleCancelledAndCompletedAppointmentInfoOpen = (eventData) => {
@@ -209,7 +219,7 @@ const Myappointment = (props) => {
     if (
       event.startTime >= new Date() &&
       event.status === 'ACCEPTED' &&
-      res[1] !== 'CONSULTATION'
+      res !== 'First Consultation'
     ) {
       backgroundColor = '#00d0cc';
       color = '#fff';
@@ -220,7 +230,7 @@ const Myappointment = (props) => {
       // var borderColor = '#696969';
       var pointerEvents = 'none';
       outline = 'none';
-    } else if (res[1] === 'CONSULTATION') {
+    } else if (res === 'First Consultation') {
       backgroundColor = '#00d0cc';
       color = '#fff';
       outline = 'none';
@@ -380,16 +390,16 @@ const Myappointment = (props) => {
 
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        // const upcomingArray = response.data.data.upcoming;
-        // console.log('upcomingArray', upcomingArray);
-        // setMyAppoitment(upcomingArray);
+        const upcomingArray = response.data.data.upcoming;
+        console.log('upcomingArray', upcomingArray);
+        setUpcomingAppointment(upcomingArray.reverse());
 
         const completedAppointmentsArray = response.data.data.completed;
         setCompletedAppointment(completedAppointmentsArray);
         // console.log('completedAppointmentsArray', completedAppointmentsArray);
 
         const cancelledAppointmentsArray = response.data.data.cancelled;
-        console.log({ cancelledAppointmentsArray });
+        // console.log({ cancelledAppointmentsArray });
         setCancelledAppointment(cancelledAppointmentsArray);
       }
     }
@@ -444,8 +454,9 @@ const Myappointment = (props) => {
           <Container>
             <Row>
               <Col>
-                <div className="bg-white p-5 rounded shadow">
+                <div className="calender_container bg-white">
                   <Calendar
+                    views={['month', 'week', 'day',]}
                     selectable={true}
                     localizer={localizer}
                     events={myAppointment}
@@ -460,21 +471,22 @@ const Myappointment = (props) => {
                     timeslots={1}
                     step={60}
                     onSelectEvent={(event) => handleAppointmentInfoOpen(event)}
+                    messages={{ previous: "Previous", next: "Next", today: "Today" }}
                   />
                 </div>
               </Col>
             </Row>
             <br />
-            <hr />
 
-            <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
+
+            <Row className="mt-3 mx-1 calender_container bg-white">
               <Col md={12}></Col>
               {/* <Col md={3}></Col> */}
               <Col md={12}>
                 <div>
-                  <h2 className="mt-3 mb-3 text-center font-weight-bold">
-                    List of Appointments
-                  </h2>
+                  <h3 className="mt-3 mb-3 text-center" style={{ color: "var(--primary)" }}>
+                    LIST OF APPOINTMENTS
+                  </h3>
 
                   <Tabs
                     defaultActiveKey="upcoming"
@@ -485,10 +497,10 @@ const Myappointment = (props) => {
                       <div className="my-appointments__card-box">
                         <div className="my-appointments__card-holder">
                           <div className="row">
-                            {myAppointment &&
-                              Array.isArray(myAppointment) &&
-                              myAppointment.length > 0 &&
-                              myAppointment.map((appointment, index) => {
+                            {UpcomingAppointment &&
+                              Array.isArray(UpcomingAppointment) &&
+                              UpcomingAppointment.length > 0 &&
+                              UpcomingAppointment.map((appointment, index) => {
                                 if (
                                   appointment.status &&
                                   new Date(appointment.endTime) >= new Date() &&
@@ -512,7 +524,7 @@ const Myappointment = (props) => {
                                         >
                                           <div className="col-md-3">
                                             {
-                                              appointment.doctor ? (
+                                              appointment.doctor.picture ? (
                                                 <img
                                                   src={appointment.doctor.picture}
                                                   alt={`${appointment.doctor.firstName}-image`}
@@ -527,7 +539,7 @@ const Myappointment = (props) => {
                                                     (appointment.doctor.lastName || "")
                                                   }
                                                   size={60}
-                                                  className="my-appointment-avatar"
+                                                  className="my-appointments-avatar"
                                                 />
                                               )
                                             }
@@ -623,7 +635,7 @@ const Myappointment = (props) => {
                                             className="img-circle ml-3 mt-3"
                                           /> */}
                                           {
-                                            appointment.doctor ? (
+                                            appointment.doctor.picture ? (
                                               <img
                                                 src={appointment.doctor.picture}
                                                 alt={`${appointment.doctor.firstName}-image`}
@@ -638,7 +650,7 @@ const Myappointment = (props) => {
                                                   (appointment.doctor.lastName || "")
                                                 }
                                                 size={60}
-                                                className="my-appointment-avatar"
+                                                className="my-appointments-avatar"
                                               />
                                             )
                                           }
@@ -744,7 +756,7 @@ const Myappointment = (props) => {
                                                   (appointment.doctor.lastName || "")
                                                 }
                                                 size={60}
-                                                className="my-appointment-avatar"
+                                                className="my-appointments-avatar"
                                               />
                                             )
                                           }
@@ -953,7 +965,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            $20
+                            {selectedAppointment.appointmentFee}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -962,7 +974,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            CREDIT CARD
+                            {selectedAppointment.paymentMethod}
                           </span>
                         </div>
                       </div>
@@ -971,7 +983,7 @@ const Myappointment = (props) => {
                     <div className="details-links">
                       <Link
                         to={{
-                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.unifiedAppointment.split("#")[1].replace("_", "-")}`,
+                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode.toLowerCase().replace(" ","-")}`,
 
 
                         }}
@@ -1183,7 +1195,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            $20
+                            {selectedAppointment.appointmentFee}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -1192,7 +1204,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            CREDIT CARD
+                            {selectedAppointment.paymentMethod}
                           </span>
                         </div>
                       </div>

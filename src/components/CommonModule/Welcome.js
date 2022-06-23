@@ -34,6 +34,7 @@ import {
     updateRolePatient,
     updateRoleDoctor,
     getUpdatedUserData,
+    getFcmTokenApi,
 } from '../../service/frontendapiservices';
 import ImageCropper from './ImageCroper';
 import DoctorDocumentUpload from "./doctordocumentupload";
@@ -41,6 +42,8 @@ import { getCurrentDoctorInfo } from "../../service/AccountService";
 import DatePicker from 'react-date-picker';
 import { useHistory } from "react-router";
 import { Button } from 'react-bootstrap';
+import { getFirebaseToken, getPermissions } from '../../util';
+import { toast } from 'react-toastify';
 // import 'react-calendar/dist/Calendar.css';
 
 //import axios from 'axios';
@@ -249,9 +252,15 @@ const Welcome = ({ currentuserInfo }) => {
         // alert(d);
         //const isoDate = d.toISOString();
         // let formattedDate = `${d.getFullYear()}/${d.getMonth()}/${d.getDate()}`
-        setstate({ ...state, dateOfBirth: e });
-        setDefaultDate(e);
-
+        const age = moment().diff(e, 'years')
+        if(age >= 18)
+        {
+            setstate({ ...state, dateOfBirth: e });
+            setDefaultDate(e);
+        }
+        else{
+            toast.success("Your Age must be 18 or above to process further.")
+        }
 
     };
     const getUpdatedCurrentUserData = async () => {
@@ -260,6 +269,7 @@ const Welcome = ({ currentuserInfo }) => {
             cookies.set("currentUser", currentUserInformation.data);
             setCurrentUserDataAfterApproval(currentUserInformation.data);
             if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted) {
+                // triggerFcmTokenHandler();
                 history.push('/patient/questionnaire/new');
             }
         }
@@ -272,7 +282,7 @@ const Welcome = ({ currentuserInfo }) => {
                 setTransparentLoading(false);
                 handleClickOpen();
             } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
-
+                // triggerFcmTokenHandler();
                 history.push('/doctor');
             }
         }
@@ -287,9 +297,11 @@ const Welcome = ({ currentuserInfo }) => {
                 setCurrentUserDataAfterApproval(currentUserInformation.data);
                 setDisplayDocumentForm(true);
                 setTransparentLoading(false);
+                // triggerFcmTokenHandler();
             }
             if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
                 getUpdatedCurrentUserData();
+                // triggerFcmTokenHandler();
             }
         }
     }
@@ -465,6 +477,7 @@ const Welcome = ({ currentuserInfo }) => {
     const [currentDoctor, setCurrentDoctor] = useState();
 
     console.log("currentUserInfo ::", currentuserInfo);
+
 
     return (
         <div>

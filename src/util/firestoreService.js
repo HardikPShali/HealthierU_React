@@ -5,15 +5,24 @@ import {
 } from '../util/configurations';
 
 // import { getMessaging } from "firebase/messaging";
-
+import React, { useState } from 'react';
 import firebase from "firebase/compat/app";
 import "firebase/compat/messaging";
 import { sendFcmTokenToServer } from '../service/firebaseservice';
 import Cookies from 'universal-cookie';
+import { toast } from "react-toastify";
+import CustomToastMessage from '../components/CommonModule/CustomToastMessage/CustomToastMessage';
+import { Howl } from 'howler';
+import soundSrc from '../images/svg/notification-chime.wav'
+import soundSrcCall from '../images/svg/call-notification-sound.wav'
+import CustomCallNotification from '../components/CommonModule/CustomToastMessage/CustomCallNotification';
 
 // import '@firebase/messaging';
 
 export const firestoreService = {}
+
+let messageListener;
+export let messaging;
 
 
 const initializeFirestore = () => {
@@ -47,11 +56,12 @@ const fcmTokenApiHandler = async (token) => {
   const data = {
     token: token,
     platform: 'web',
-    userId: userId
+    userId: userId,
+    createdAt: new Date().toISOString()
   }
 
   const response = await sendFcmTokenToServer(data)
-  console.log({ response });
+  // console.log({ response });
 }
 
 export const getFirebaseToken = async (setTokenFound) => {
@@ -60,7 +70,8 @@ export const getFirebaseToken = async (setTokenFound) => {
   // console.log(firebaseApp);
 
 
-  const messaging = firebase.messaging();
+  messaging = firebase.messaging();
+
 
   let currentToken = '';
 
@@ -70,14 +81,14 @@ export const getFirebaseToken = async (setTokenFound) => {
     });
     if (currentToken) {
       setTokenFound(true);
-      localStorage.setItem('firebaseToken', currentToken);
+      localStorage.setItem('fcmToken', currentToken);
       fcmTokenApiHandler(currentToken);
       // const messageListener = await onMessageListener()
       // console.log({ messageListener });
-      messaging.onMessage(payload => {
-        console.log({ payload });
-        // resolve(payload);
-      })
+      if (messageListener) {
+        messageListener()
+      }
+
     }
     else {
       setTokenFound(false);
@@ -90,13 +101,98 @@ export const getFirebaseToken = async (setTokenFound) => {
 }
 
 export const onMessageListener = () => {
-  initializeFirestore();
-  const messaging = firebase.messaging();
+  // removeMessageListener();
+  messageListener = messaging.onMessage(payload => {
+    // console.log({ payload });
+    // resolve(payload)
+    console.log(window.location.pathname)
 
-  return new Promise(resolve => {
-    messaging.onMessage(payload => {
-      console.log({ payload });
-      resolve(payload);
-    })
+    toastMessage(payload)
+
+  })
+
+}
+
+export const removeMessageListener = () => {
+  if (messageListener) {
+    messageListener()
+  }
+
+}
+
+export const deleteTokenHandler = async () => {
+  initializeFirestore();
+  messaging = firebase.messaging();
+
+  return messaging.deleteToken()
+}
+
+
+let sound = new Howl({
+  src: soundSrc,
+  html5: true
+});
+
+let soundCall = new Howl({
+  src: soundSrcCall,
+  html5: true,
+  loop: true
+})
+
+const toastMessage = (payload) => {
+  console.log({ payloadInToast: payload });
+  // return ({ payloadInToast: payload })
+  const topicFromPayload = payload?.data?.topic;
+
+  if (topicFromPayload === 'CHAT' && window.location.pathname.indexOf('/chat') === -1) {
+    messageToast(payload);
+  }
+
+
+  if (topicFromPayload === 'CALL') {
+    callToast(payload);
+  }
+}
+
+const messageToast = (payload) => {
+  const toastBody = payload.notification.body
+  const toastTitle = payload.notification.title
+
+  sound.play()
+  const customToast = (
+    <CustomToastMessage title={toastTitle} body={toastBody} payload={payload} />
+  )
+  toast.info(customToast, {
+    position: "top-right",
+    autoClose: 5000,
+    className: 'caller-toast'
+  })
+}
+
+const callToast = (payload) => {
+  const onCallerClose = () => {
+
+    toast.dismiss();
+    soundCall.stop()
+  }
+
+
+  const onAcceptClickHandler = (history, url) => {
+    soundCall.stop();
+    history.push(url)   // ?cId=1
+
+    if (window.location.pathname.indexOf('/chat') > -1) {
+      window.location.reload()
+    }
+  }
+
+  soundCall.play()
+  const customToast = (
+    <CustomCallNotification onAccept={onAcceptClickHandler} onClose={onCallerClose} payload={payload} />
+  )
+  toast.info(customToast, {
+    // position: "top-right",
+    autoClose: false,
+    className: 'caller-toast'
   })
 }

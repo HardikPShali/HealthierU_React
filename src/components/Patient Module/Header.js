@@ -11,6 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import NotificationMenu from '../CommonModule/NotificationMenu';
 import Cookies from 'universal-cookie';
+import NotificationMenuPatient from './NotificationsMenu/NotificationsMenuPatient';
 // import { updatePatientTimeZone } from '../../service/frontendapiservices';
 // import { toast } from 'react-toastify';
 
@@ -123,19 +124,20 @@ const Header = (props) => {
                     type="button"
                     data-toggle="dropdown"
                   >
-                    <Badge badgeContent={unReadMessageCount} color="secondary">
-                      <NotificationsIcon />
-                    </Badge>
+                    {/* <Badge badgeContent={unReadMessageCount} color="secondary"> */}
+                    <NotificationsIcon />
+                    {/* </Badge> */}
                   </IconButton>
                   <div
                     className="dropdown-menu notification-Menu"
-                    style={{ width: '200px' }}
+                    style={{ width: '350px', left: '-100px' }}
                   >
-                    <NotificationMenu
+                    {/* <NotificationMenu
                       unReadMessageList={unReadMessageList}
                       detailsList={doctorDetailsList}
                       module={'patient'}
-                    />
+                    /> */}
+                    <NotificationMenuPatient />
                   </div>
                 </div>
               )}

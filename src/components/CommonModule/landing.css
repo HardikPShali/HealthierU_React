@@ -71,7 +71,7 @@ footer .row {
 }
 
 a#footer-link {
-  display: block;
+  display: flex;
   color: #fff !important;
   text-decoration: none !important;
   font-size: 15px;
@@ -276,6 +276,7 @@ img#store-icon {
 .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 26px !important;
   height: 26px !important;
+  fill: #3e4543;
 }
 
 .MuiAppBar-root {
@@ -489,7 +490,7 @@ div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
 }
 
 input#doctor-search {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 #appointment-card {
@@ -895,7 +896,7 @@ div.card-box {
 }
 h2#signin-title {
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--primary);
   text-align: left;
   margin-left: 1rem;
@@ -1257,7 +1258,7 @@ p.card-text {
 }
 h2#signin-title {
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--primary);
 }
 #profile-form p {
@@ -1403,5 +1404,11 @@ button.btn.btn-outline-primary.sign-btn:hover {
   }
   button.continue-btn {
     margin-top: 69px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  a#copy-link {
+    font-size: 10px;
   }
 }

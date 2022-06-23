@@ -504,7 +504,16 @@ img#article-card-img {
   max-width: 100%;
   padding: 5% 9%;
 }
-
+.signUp_icon {
+  position: absolute;
+  left: 0;
+  width: 22px;
+  bottom: 3px;
+  filter: brightness(0.5);
+}
+.signup-btnWrap {
+  position: relative;
+}
 .sign-box {
   background: #fff;
   border-radius: 22px;
@@ -539,7 +548,7 @@ img#article-card-img {
 
 h2#signin-title {
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--primary);
   text-align: left;
   margin-left: 1rem;
@@ -633,7 +642,7 @@ button.btn.btn-light.sign-btn {
 }
 
 button img {
-  padding-right: 30px;
+  /* padding-right: 30px; */
 }
 
 /* Google Button */
@@ -757,6 +766,9 @@ div#demo-simple-select {
     padding: 0;
     top: 0%;
   }
+  p.text-primary-clr-p {
+    padding-bottom: 6rem !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -870,6 +882,9 @@ div#demo-simple-select {
   }
 }
 
+.banner-txt-align {
+  margin-bottom: 14rem;
+}
 /*
   Who Your Are Page
 */
@@ -1486,6 +1501,16 @@ ul.light {
   .purpose-right span {
     font-size: 2.7rem;
   }
+  .banner-txt-align {
+    margin-bottom: 8rem;
+  }
+  .signUp_icon {
+    position: initial;
+    margin-right: 0.8rem;
+  }
+  .signup-btnWrap {
+    position: initial;
+  }
 }
 /* ----------OUR EDGE-------- */
 .edge-section {
@@ -1549,6 +1574,9 @@ ul.light {
   .cornel-logo,
   .reem-logo {
     flex-grow: 0 !important;
+  }
+  .banner-txt-align {
+    margin-bottom: 4rem;
   }
 }
 
@@ -1708,7 +1736,7 @@ ul.light {
   font-size: 1.35rem;
   font-weight: 400;
   margin-top: 2rem;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 .our_spl-section ul {
   padding-left: 20px;
@@ -2286,6 +2314,18 @@ ul.light {
   } */
   .powerful_Ftr-text h1 {
     font-size: 2rem;
+  }
+  h3.h3-responsive,
+  h3.text-primary-clr {
+    font-size: 2rem;
+  }
+  p.text-primary-clr-p {
+    font-size: 1rem;
+    padding-bottom: 10rem;
+    width: 34ch;
+  }
+  p.help-desc {
+    width: 33ch;
   }
 }
 @media (min-width: 820px) and (max-width: 1024px) {

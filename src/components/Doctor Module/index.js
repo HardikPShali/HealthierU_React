@@ -10,6 +10,7 @@ import {
 } from "../../service/frontendapiservices";
 import Loader from '../Loader/Loader'
 import MyDoctor from "../Patient Module/Mydoctor";
+import { getFirebaseToken, getPermissions, onMessageListener } from "../../util";
 
 const Homepage = React.lazy(() => import("./Homepage"));
 const Profile = React.lazy(() => import("./Profile"));
@@ -56,7 +57,7 @@ const DoctorRoute = () => {
   const [trigger, setTrigger] = useState(0);
   const [headerFooterLoad, setHeaderFooterLoad] = useState(false);
   const [restartFirebaseLogin, setRestartFirebaseLogin] = useState(0);
-
+  const [tokenFound, setTokenFound] = useState(false);
   const cookies = new Cookies();
   const currentLoggedInUser = cookies.get("currentUser");
   const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
@@ -64,6 +65,7 @@ const DoctorRoute = () => {
 
   useEffect(() => {
     getCurrentDoctor();
+    fcmTokenGenerationHandler()
   }, []);
 
   const getCurrentDoctor = async () => {
@@ -76,10 +78,32 @@ const DoctorRoute = () => {
     setCurrentDoctor(currentDoctor);
   };
 
+  const fcmTokenGenerationHandler = async () => {
+    let tokenToBeGenerated;
+    const tokenFunction = async () => {
+      tokenToBeGenerated = await getFirebaseToken(setTokenFound);
+      onMessageListener();
+      if (tokenToBeGenerated) {
+        console.log({ tokenToBeGenerated });
+      }
+      return tokenToBeGenerated;
+    };
+
+    const getPermission = async () => {
+      const permission = await getPermissions();
+      if (permission === 'granted') {
+        tokenFunction();
+      }
+    };
+    getPermission();
+    // alert('token generated')
+  }
+
 
   return (
     <Suspense fallback={<Loader />}>
       {currentLoggedInUser?.profileCompleted === true && <Header unReadMessageList={unReadMessageList} patientDetailsList={patientDetailsList} trigger={trigger} currentDoctor={currentDoctor} />}
+
       <Switch>
         <Route exact path="/doctor" component={Homepage} />
         <Route exact path="/doctor/appointment" render={(props) => <Appointment timeZone={currentDoctor.doctorTimeZone} currentDoctor={currentDoctor} {...props} />} />

@@ -3,6 +3,8 @@
   height: 100%;
   background-color: #f5f5f5;
   position: relative;
+  border-radius: 18px;
+  border: 1px solid #e5e5e5;
 }
 .chat-section {
   display: flex;
@@ -41,8 +43,7 @@
 }
 .received_chat-msg-wrap {
   background: white;
-  max-width: 40%;
-  min-width: 22rem;
+  max-width: 60%;
   border-radius: 2px 18px 18px 18px;
   padding: 0.8rem;
   margin: 0.5rem;
@@ -56,6 +57,7 @@
   color: #999999;
   font-size: 0.7em;
   font-weight: 400;
+  margin-left: 15px;
 }
 .chat_detail_received {
   /* display: flex;
@@ -88,19 +90,20 @@
   background: #d2eeec;
   border-radius: 18px 2px 18px 18px;
   padding: 0.8rem;
-  max-width: 40%;
-  min-width: 22rem;
+  max-width: 60%;
   text-align: right;
   margin-left: auto;
 }
 .sent_chat-msg {
   display: flex;
   justify-content: space-between;
+  /* align-items: flex-end; */
 }
 .sent_chat-time-tick-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 15px;
 }
 .sent_chat-time {
   color: #999999;
@@ -115,7 +118,7 @@
 .send-msg-input-wrapper {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: 1rem 0 1rem 0;
   position: absolute;
   bottom: 0;
   width: 91%;
@@ -132,7 +135,7 @@
   outline: none;
   color: #666666;
   letter-spacing: 0.02em;
-  padding-left: 2rem;
+  padding-left: 1rem;
 }
 
 .send-msg-input-wrapper input:focus {
@@ -174,7 +177,7 @@ button.notes-btn {
   border: none;
   border-radius: 8px;
   color: white;
-  background: #5fccc8;
+  background: #FFC9AE;
   border-radius: 18px;
   transition: ease-in-out 0.3s all;
   margin: 0 10px;
@@ -182,4 +185,31 @@ button.notes-btn {
 button.notes-btn:hover {
   transition: ease-in-out 0.3s all;
   background: var(--primarysecond);
+}
+
+.date-divider {
+  background: #fff;
+  width: 90px;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 10px !important;
+  margin: 15px auto;
+  border-radius: 50px;
+  color: #3e4553;
+}
+
+@media screen and (max-width: 990px) {
+  .chatDetails-wrapper {
+    padding: 2rem 0 !important;
+  }
+  .send-msg-input-wrapper {
+    padding: 1rem 0 0 1rem !important;
+    width: 100% !important;
+  }
+  button.notes-btn {
+    margin: 0 0 0 10px !important;
+  }
+  .chat-msg-text {
+    font-size: .9rem !important;
+  }
 }

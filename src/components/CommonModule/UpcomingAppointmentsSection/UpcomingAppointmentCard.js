@@ -32,7 +32,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
       <div className="col-md-3">
         {/* <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" /> */}
         {
-          appointment.doctor ? (
+          appointment.doctor.picture ? (
             <img
               src={appointment.doctor.picture}
               alt={`${appointment.doctor.firstName}-image`}
@@ -47,7 +47,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
                 (appointment.doctor.lastName || "")
               }
               size={60}
-              className="my-appointment-avatar"
+              className="my-appointments-avatar"
             />
           )
         }
@@ -67,10 +67,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
               appointment[appointmentPersonKey].specialities[0].name}
 
             {appointmentPersonKey === "patient" &&
-              appointment.unifiedAppointment &&
-              appointment.unifiedAppointment.split(
-                "#"
-              )[1].replace("_", " ")}
+              appointment.appointmentMode}
           </span>
           <div className="upcoming-appointment-card__card-details--date-div">
             <div className="upcoming-appointment-card__card-time-row">

@@ -70,7 +70,7 @@ function isAppoinmentTimeUnderActiveCondition(appointmentDetailsObject, setActiv
 
   // TestendTime=
   // appointmentDetailsObject = {
-  //   "2294#FOLLOW_UP": {
+  //   "2294#Follow Up": {
   //     startTime: "2021-09-15T20:49:00Z",
   //     endTime: "2021-09-15T20:38:00Z",
   //   },

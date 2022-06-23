@@ -9,6 +9,11 @@ import Loader from './../Loader/Loader';
 import SpecialitiesSection from './SpecialitiesSection';
 import UpcomingAppointments from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments';
 import OurDoctors from './OurDoctorsSections/OurDoctors';
+import { getFirebaseToken, getPermissions, onMessageListener } from '../../util';
+import { getFcmTokenApi } from '../../service/frontendapiservices';
+import Cookies from 'universal-cookie';
+import moment from 'moment';
+
 // import { getCurrentUserInfo } from "../../service/AccountService";
 // import LocalStorageService from './../../util/LocalStorageService';
 // import Footer from './Footer'
@@ -28,11 +33,16 @@ const Homepage = ({ currentuserInfo }) => {
         }
     }, [currentuserInfo]);
 
+
+
+
     // const getCurrentuser = async () => {
     //     const currentUser = await getCurrentUserInfo();
     //     setLoading(false);
     //     setCurrentUser(currentUser)
     // }
+
+
 
     return (<>
         {loading && (
@@ -50,7 +60,7 @@ const Homepage = ({ currentuserInfo }) => {
 }
 
 
-function patientHomePage() {
+const patientHomePage = () => {
 
     return (
         <div>

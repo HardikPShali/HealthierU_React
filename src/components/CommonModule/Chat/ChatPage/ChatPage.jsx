@@ -24,6 +24,7 @@ import Notes from '../../../Doctor Module/NotesSection/Notes';
 
 const ChatPage = () => {
   const [chatList, setChatList] = useState([]);
+  const [filteredChatList, setFilteredChatList] = useState(chatList);
   const [selectedChatItem, setSelectedChatItem] = useState({});
   // const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
@@ -34,6 +35,12 @@ const ChatPage = () => {
   const [dIdState, setDIdState] = useState('');
   const [channelName, setChannelName] = useState('');
   const [agoraToken, setAgoraToken] = useState('');
+  const [paginationConfig, setPaginationConfig] = useState({
+    pageNo: 0,
+    totalItems: 1,
+    totalPages: 1,
+  });
+
   const endRef = useRef();
 
   const onConnectionChange = (e) => {
@@ -43,7 +50,7 @@ const ChatPage = () => {
   const onMessageChange = (e) => {
     console.log(e);
     // setMessages([...messages, getMessageObj(false, e[0].text)]);
-
+    reorderChatBoxOnMessageChange(e);
     if (endRef.current) {
       endRef.current.scrollIntoView({
         behavior: 'smooth',
@@ -52,6 +59,7 @@ const ChatPage = () => {
       });
     }
   };
+
   const {
     login,
     logout,
@@ -66,16 +74,18 @@ const ChatPage = () => {
 
   const [openVideoCall, setOpenVideoCall, getToken] = useAgoraVideo();
 
+  const searchParams = new URLSearchParams(location.search);
+
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
     let chatGroup = searchParams.get('chatgroup');
+    let queryChannelId = searchParams.get('channelId');
 
     if (chatGroup) {
       setPIdState(Number(chatGroup.split('_')[0].replace('P', '')));
       setDIdState(Number(chatGroup.split('_')[1].replace('D', '')));
     }
 
-    getInboxDetails();
+    getInboxDetails(queryChannelId);
   }, []);
 
   useEffect(() => {
@@ -93,7 +103,18 @@ const ChatPage = () => {
       clearData();
       setPIdState(Number(selectedChatItem.patientInfo.id));
       setDIdState(Number(selectedChatItem.doctorInfo.id));
-      getMessagesDetails();
+      setPaginationConfig({
+        pageNo: 0,
+        totalItems: 1,
+        totalPages: 1,
+      });
+      getMessagesDetails(0);
+      if (searchParams.get('openVideo') === 'true') {
+        getToken(
+          Number(selectedChatItem.patientInfo.id),
+          Number(selectedChatItem.doctorInfo.id)
+        );
+      }
     }
   }, [selectedChatItem]);
 
@@ -113,20 +134,40 @@ const ChatPage = () => {
     }
   };
 
-  const getInboxDetails = async () => {
+  const getInboxDetails = async (channelId = null) => {
     const result = await getInbox();
     setChatList(result.data.data);
+    setFilteredChatList(result.data.data);
     if (result.data.data.length) {
-      setSelectedChatItem(result.data.data[0]);
+      if (!channelId) {
+        setSelectedChatItem(result.data.data[0]);
+      } else {
+        const selectedChannel = result.data.data.find((c) => {
+          return c.id == channelId;
+        });
+        setSelectedChatItem(selectedChannel);
+      }
+      // setSelectedChatItem(result.data.data[0]);
     }
     console.log(result);
   };
 
-  const getMessagesDetails = async () => {
-    const result = await getMessages(selectedChatItem.id);
-    if (result.data.data.length) {
-      setMessages(result.data.data);
-      if (endRef.current) {
+  const getMessagesDetails = async (pageNo) => {
+    const result = await getMessages(selectedChatItem.id, pageNo, 20);
+    if (result.data.data.messages.length) {
+      setPaginationConfig({
+        pageNo: pageNo,
+        totalItems: result.data.data.totalItems,
+        totalPages: result.data.data.totalPages,
+      });
+      const reversedMessages = result.data.data.messages.reverse();
+      if (pageNo === 0) {
+        setMessages(reversedMessages);
+      } else {
+        setMessages([...reversedMessages, ...messages]);
+      }
+
+      if (endRef.current && pageNo === 0) {
         endRef.current.scrollIntoView({
           behavior: 'smooth',
           block: 'nearest',
@@ -150,10 +191,11 @@ const ChatPage = () => {
   };
 
   const sendMsg = async () => {
-    if (message) {
+    if (message && message.trim()) {
       try {
         const messageObj = getMessageObj(true, message);
         setMessages([...messages, messageObj]);
+        reorderChatBoxOnMessageChange(messageObj);
 
         await sendChannelMessage(message, channelName);
         if (endRef.current) {
@@ -187,6 +229,44 @@ const ChatPage = () => {
     getToken(pIdState, dIdState);
   };
 
+  const handleSearch = (e) => {
+    if (e.target.value) {
+      const searchedText = e.target.value.toLowerCase();
+      const filteredChatList = chatList.filter((item) => {
+        const person = item[item.userKey];
+
+        return (
+          person.firstName?.toLowerCase()?.includes(searchedText) ||
+          person.lastName?.toLowerCase()?.includes(searchedText)
+        );
+      });
+
+      setFilteredChatList(filteredChatList);
+    } else {
+      setFilteredChatList(chatList);
+    }
+  };
+
+  const reorderChatBoxOnMessageChange = (msgObj) => {
+    selectedChatItem.lastMessage = msgObj;
+
+    const selectedChatIndex = chatList.findIndex(
+      (item) => item.id === selectedChatItem.id
+    );
+    chatList.splice(selectedChatIndex, 1);
+    chatList.unshift(selectedChatItem);
+    setChatList(chatList);
+    setFilteredChatList(chatList);
+  };
+
+  const loadMoreData = () => {
+    if (paginationConfig.pageNo < paginationConfig.totalPages) {
+      // setPaginationConfig({...paginationConfig, pageNo: paginationConfig.pageNo + 1})
+      const pageNumber = paginationConfig.pageNo + 1;
+      getMessagesDetails(pageNumber);
+    }
+  };
+
   //NOTES CODE
   const [notesClick, setNotesClick] = useState(false);
 
@@ -201,15 +281,15 @@ const ChatPage = () => {
           <ChatItems
             messageDateFormat={messageDateFormat}
             onChatChange={changeChatItem}
-            chat={chatList}
+            chat={filteredChatList}
             selectedChatItem={selectedChatItem}
+            onSearch={handleSearch}
           />
         )}
         {openVideoCall && <Meeting onClose={() => setOpenVideoCall(false)} />}
       </div>
       <div className="chat-details-container">
         <ChatDetails
-          messageDateFormat={messageDateFormat}
           selectedItem={selectedChatItem}
           messages={messages}
           messageState={message}
@@ -218,6 +298,8 @@ const ChatPage = () => {
           endRef={endRef}
           onVideoClick={onVideoClick}
           onNoteClick={handleNotesClick}
+          loadMoreData={loadMoreData}
+          totalItems={paginationConfig.totalItems}
         />
         {notesClick && (
           <Notes
@@ -231,10 +313,3 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
-
-// Create a state here and a handle function for notes click
-// Pass those as props to ChatDetails
-// Notes Icon should be visible based on the state we have passed and role should be doctor
-// On click of notes icon, trigger the handle function from props
-// Handle function will update the notes state and set the notes icon to visible
-// if notes state is true show notes component under ChatDetails component

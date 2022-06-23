@@ -15,9 +15,9 @@ const UpcomingAppointments = () => {
         starttime.setHours(0, 0, 0);
         const endtime = new Date();
         endtime.setHours(23, 59, 0);
-        console.log("starttime", starttime);
-        console.log("endtime", endtime);
-        console.log("currentUserFromCookie", currentUserFromCookie.id);
+        // console.log("starttime", starttime);
+        // console.log("endtime", endtime);
+        // console.log("currentUserFromCookie", currentUserFromCookie.id);
         const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString(), doctorId = currentUserFromCookie.id).catch((err) => {
             console.log('err', err);
         });
@@ -82,7 +82,7 @@ const UpcomingAppointments = () => {
                         }
                     }
                 });
-                console.log('updateArray', updateArray);
+                 console.log('updateArray', updateArray);
                 setUpcomingAppointments(updateArray);
             }
         }
@@ -97,7 +97,7 @@ const UpcomingAppointments = () => {
     return (
         <div className="mb-5 mt-5">
             <h3 className="upcoming-appointment--main-header mb-3 mt-2">
-                Next Appointments
+                Upcoming Appointments
             </h3>
             <div className="upcoming-appointment__card-box scroller-cardlist mb-4">
                 <div className="card-holder">
