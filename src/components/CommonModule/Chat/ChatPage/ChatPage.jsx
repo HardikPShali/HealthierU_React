@@ -268,6 +268,13 @@ const ChatPage = () => {
   };
 
   //NOTES CODE
+  const [notes, setNotes] = useState({
+    chiefComplaint: '',
+    presentIllness: '',
+    vitalSigns: '',
+    physicalExam: '',
+    planAssessment: '',
+  });
   const [notesClick, setNotesClick] = useState(false);
 
   const handleNotesClick = (e) => {
@@ -305,6 +312,8 @@ const ChatPage = () => {
           <Notes
             onClose={() => setNotesClick(false)}
             selectedChatNote={selectedChatItem}
+            notes={notes}
+            setNotes={setNotes}
           />
         )}
       </div>
