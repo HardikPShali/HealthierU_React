@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 //import Footer from "./Footer";
-import { getAppointmentMode } from './../../util/appointmentModeUtil'
+import { getAppointmentMode, getAppointmentModeForAvailabilitySlotsDisplay } from './../../util/appointmentModeUtil'
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import TuneIcon from '@material-ui/icons/Tune';
@@ -508,7 +508,7 @@ const MyDoctor = (props) => {
     setAppointment({ ...appointment, appointmentMode: e.target.value });
     const user = doctor;
     console.log({ user });
-    getAvailableSlotsOfDoctors(user.id, e.target.value);
+    getAvailableSlotsOfDoctors(user.id, getAppointmentModeForAvailabilitySlotsDisplay(e.target.value));
     console.log(e.target.value);
     getInValidAppointmentsForSetNextAppointment(user.id)
     // console.log({ appointment })
@@ -1257,6 +1257,11 @@ const MyDoctor = (props) => {
     return null;
   };
 
+  //CUSTOM STYLE
+  // const [borderStyle, setBorderStyle] = useState({
+  //   border: 'none',
+  // })
+
   return (
     <div>
       {loading && <Loader />}
@@ -1581,7 +1586,29 @@ const MyDoctor = (props) => {
                         (user, index) =>
                           user &&
                           user.activated && (
-                            <GridListTile key={index} className='card-list__grid-list-tile'>
+                            <GridListTile key={index} className="card-list__grid-list-tile"
+                              onClick={async () => {
+                                setdoctor(user);
+                                setAppointment({
+                                  ...appointment,
+                                  doctorId: user.id,
+                                });
+                                setDisplay({
+                                  ...display,
+                                  doctor: 'block',
+                                  appointment: 'none',
+                                });
+                                setDisable({ ...disable, continue: true });
+                                // getAvailableSlotsOfDoctors(user.id);
+                                //const currentSelectedDate = new Date();
+                                //onDaySelect(currentSelectedDate, user.id);
+                                setAvailability([]);
+                                setAppointmentSlot([]);
+                                // setBorderStyle({ ...borderStyle, border: '1px solid black' });
+                                getInValidAppointments(user.id);
+                              }}
+                            // style={borderStyle}
+                            >
                               {!user.liked && (
                                 <FavoriteBorderIcon
                                   id="fav-icon"
@@ -2138,7 +2165,7 @@ const MyDoctor = (props) => {
                   How to?
                 </button>
               </Tooltip>
-              <div id="dorctor-list">
+              <div id="dorctor-list" className='calendar-helper'>
                 <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
                     {/* <p>Select Date</p>
@@ -2213,7 +2240,6 @@ const MyDoctor = (props) => {
                         </div>
                       )
                     }
-                    { }
 
                     {displaySlot && (
                       <>

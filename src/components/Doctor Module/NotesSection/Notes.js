@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { uploadNote } from "../../../service/frontendapiservices";
 import backIcon from '../../../images/svg/close-btn.svg';
@@ -7,20 +7,18 @@ import { ToastContainer, toast } from "react-toastify";
 
 import './Notes.css'
 
-const Notes = ({ onClose, selectedChatNote }) => {
-
-    console.log({ selectedChatNote })
+const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
     const { patientInfo, doctorInfo, latestAppointment } = selectedChatNote;
 
 
-    const [notes, setNotes] = useState({
-        chiefComplaint: '',
-        presentIllness: '',
-        vitalSigns: '',
-        physicalExam: '',
-        planAssessment: '',
-    });
+    // const [notes, setNotes] = useState({
+    //     chiefComplaint: '',
+    //     presentIllness: '',
+    //     vitalSigns: '',
+    //     physicalExam: '',
+    //     planAssessment: '',
+    // });
 
     const {
         chiefComplaint,
