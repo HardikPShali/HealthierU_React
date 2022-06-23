@@ -48,6 +48,7 @@ const UpcomingAppointments = () => {
                                 status: value.status,
                                 appointmentId: value.appointmentId,
                                 unifiedAppointment: value.unifiedAppointment,
+                                appointmentMode : value.appointmentMode,
                                 patient: value.patient
                             });
                         } else if (
@@ -77,6 +78,7 @@ const UpcomingAppointments = () => {
                                 status: value.status,
                                 appointmentId: value.appointmentId,
                                 unifiedAppointment: value.unifiedAppointment,
+                                appointmentMode : value.appointmentMode,
                                 patient: value.patient
                             });
                         }

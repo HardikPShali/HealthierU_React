@@ -165,6 +165,7 @@ const Healthassessment = (props) => {
     }, []);
 
     const showDocument = async (val) => {
+        console.log("val", val.documentUrl);
         // const res = await getDocument(val);
         setPrescriptionDocumentUrl(val.documentUrl);
     };
@@ -273,15 +274,20 @@ const Healthassessment = (props) => {
         if (patientInfo) {
             setPatient(patientInfo);
         }
-        const presecriptionDocument = await getDoctorPatientDocuments(
-            'Prescription',
-            0,
-            doctor.id,
-
-            patientInfo && patientInfo
-
-        );
-        setPresecriptionDocument(presecriptionDocument.data);
+        const data = {
+            documentType: "Prescription",
+            doctorId: doctor.id,
+            patientId: patientInfo
+        }
+        const presecriptionDocument = await getGlobalMedicalRecordsSearch(data);
+        if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
+            const res = []
+            const prepData = presecriptionDocument.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordData(res)
+        }
         // const response = await getPatientQuestionnaire(
         //     patientInfo && patientInfo.id
         // );
@@ -313,52 +319,102 @@ const Healthassessment = (props) => {
         if (response) {
             setShowLabResultUpload(false);
         }
-        const labDocument = await getDoctorPatientDocuments(
-            'Lab Result',
-            0,
-            doctor.data.id,
-            patient
-        );
+        // const labDocument = await getDoctorPatientDocuments(
+        //     'Lab Result',
+        //     0,
+        //     doctor.data.id,
+        //     patient
+        // );
+        const info = {
+            documentType: "LabResult",
+            patientId: patient
+        }
+        const labDocument = await getGlobalMedicalRecordsSearch(info);
+        if (labDocument.status === 200 || labDocument.status === 201) {
+            const res = []
+            const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordData(res)
+        }
 
-        setLabDocument(labDocument);
+        //setLabDocument(labDocument);
     };
     const clearAll = async () => {
         setMedicalRecordData([])
-        const labDocument = await getDoctorPatientDocuments(
-            'LabResult',
-            0,
-            doctor.id,
-            patient
-        );
+        // const labDocument = await getDoctorPatientDocuments(
+        //     'LabResult',
+        //     0,
+        //     doctor.id,
+        //     patient
+        // );
 
-        setLabDocument(labDocument.data);
+        // setLabDocument(labDocument.data);
+        const info = {
+            documentType: "LabResult",
+            patientId: patient
+        }
+        const labDocument = await getGlobalMedicalRecordsSearch(info);
+        if (labDocument.status === 200 || labDocument.status === 201) {
+            const res = []
+            const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordData(res)
+        }
         console.log("clearAll", labDocument);
     }
 
     const clickTabEvent = async (event) => {
-        setMedicalRecordData([])
+        //setMedicalRecordData([])
         let documents;
         if (event === "labResult") {
-            documents = await getDoctorPatientDocuments(
-                'LabResult',
-                0,
-                doctor.id,
-                patient
-            );
-            // console.log("doctor", doctor.id)
-            // console.log("patient.id", patient.id)
-            console.log("documents", documents)
-            setLabDocument(documents.data);
+            // documents = await getDoctorPatientDocuments(
+            //     'LabResult',
+            //     0,
+            //     doctor.id,
+            //     patient
+            // );
+            // setLabDocument(documents.data);
+            const info = {
+                documentType: "LabResult",
+                patientId: patient
+            }
+            const labDocument = await getGlobalMedicalRecordsSearch(info);
+            if (labDocument.status === 200 || labDocument.status === 201) {
+                const res = []
+                const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+                prepData.forEach((f) => {
+                    res.push(...f.documentsList)
+                })
+                setMedicalRecordData(res)
+            }
         }
 
         if (event === "prescription") {
-            documents = await getDoctorPatientDocuments(
-                'Prescription',
-                0,
-                doctor.id,
-                patient
-            );
-            setPresecriptionDocument(documents.data);
+            // documents = await getDoctorPatientDocuments(
+            //     'Prescription',
+            //     0,
+            //     doctor.id,
+            //     patient
+            // );
+            // setPresecriptionDocument(documents.data);
+            const data = {
+                documentType: "Prescription",
+                doctorId: doctor.id,
+                patientId: patient
+            }
+            const presecriptionDocument = await getGlobalMedicalRecordsSearch(data);
+            if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
+                const res = []
+                const prepData = presecriptionDocument.data.data.documentsList.filter(re => re.documentsList.length)
+                prepData.forEach((f) => {
+                    res.push(...f.documentsList)
+                })
+                setMedicalRecordData(res)
+            }
         }
         setPrescriptionDocumentUrl('');
         setLabDocumentUrl('');
@@ -449,7 +505,7 @@ const Healthassessment = (props) => {
         const starttime = new Date();
         const endtime = new Date();
         const data = {
-            doctorId: currentDoctor.id,
+            //doctorId: currentDoctor.id,
             patientId: patient,
             documentType: "LabResult",
             //startTime: starttime.toISOString(),
@@ -554,7 +610,7 @@ const Healthassessment = (props) => {
                         </div>
                         <br />
                         <div>
-                            {presecriptionDocument?.documentsList ? (
+                            {/* {presecriptionDocument?.documentsList ? (
                                 presecriptionDocument?.documentsList.map(
                                     (dataItem, subIndex) => {
                                         return (
@@ -592,7 +648,7 @@ const Healthassessment = (props) => {
                                 >
                                     {isSearch === false && "No Documents"}
                                 </div>
-                            )}
+                            )} */}
                             {medicalRecordData ? (
                                 medicalRecordData.map(
                                     (dataItem, subIndex) => {
@@ -607,7 +663,7 @@ const Healthassessment = (props) => {
 
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
-                                                        <PrescriptionLabCard
+                                                            <PrescriptionLabCard
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
                                                                 apid={appointmentID}
@@ -668,10 +724,12 @@ const Healthassessment = (props) => {
                         <br />
 
 
-                        {/* <div >
-                            <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
-                                width="100%" />
-                        </div> */}
+                        <div>
+                            {prescriptionDocumentUrl !== null || prescriptionDocumentUrl !== "" ?
+                                <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
+                                    width="100%" /> : <span></span>}
+                        </div>
+
                     </Tab>
                     <Tab eventKey="labResult" title="Lab Result" onSelect={clickTabEvent}>
                         <br />
@@ -688,7 +746,7 @@ const Healthassessment = (props) => {
 
                         <div>
 
-                            {labDocument?.documentsList ? (
+                            {/* {labDocument?.documentsList ? (
                                 labDocument?.documentsList.map(
                                     (dataItem, subIndex) => {
                                         return (
@@ -729,7 +787,7 @@ const Healthassessment = (props) => {
                                     {isSearch === false && "No Documents"}
                                 </div>
 
-                            )}
+                            )} */}
 
                             {medicalRecordData ? (
                                 medicalRecordData.map(
@@ -748,7 +806,7 @@ const Healthassessment = (props) => {
                                                             <PrescriptionLabCard
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Lab Result"}
-                                                                docName={dataItem.doctorName}
+                                                                docName={"Dr" + " " + doctor?.firstName + " " + (doctor?.lastName || "")}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showLabDocument(dataItem)}
@@ -800,16 +858,11 @@ const Healthassessment = (props) => {
                             </Pagination>
                         </div>
                         <br />
-
-                        {/* <div >
-
+                        <div>
                             {labDocumentUrl !== null || labDocumentUrl !== "" ?
-                                <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="100px"
-                                    width="100%" />
-                                : <span></span>
-                            }
-
-                        </div> */}
+                                <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
+                                    width="100%" /> : <span></span>}
+                        </div>
                     </Tab>
                 </Tabs>
 
