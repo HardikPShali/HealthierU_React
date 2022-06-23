@@ -983,7 +983,7 @@ const Myappointment = (props) => {
                     <div className="details-links">
                       <Link
                         to={{
-                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode.toLowerCase().replace(" ","-")}`,
+                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode.toLowerCase().replace(" ", "-")}`,
 
 
                         }}
