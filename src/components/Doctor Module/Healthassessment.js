@@ -165,6 +165,7 @@ const Healthassessment = (props) => {
     }, []);
 
     const showDocument = async (val) => {
+        console.log("val", val.documentUrl);
         // const res = await getDocument(val);
         setPrescriptionDocumentUrl(val.documentUrl);
     };
@@ -723,10 +724,12 @@ const Healthassessment = (props) => {
                         <br />
 
 
-                        {/* <div >
-                            <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
-                                width="100%" />
-                        </div> */}
+                        <div>
+                            {prescriptionDocumentUrl !== null || prescriptionDocumentUrl !== "" ?
+                                <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
+                                    width="100%" /> : <span></span>}
+                        </div>
+
                     </Tab>
                     <Tab eventKey="labResult" title="Lab Result" onSelect={clickTabEvent}>
                         <br />
@@ -855,16 +858,11 @@ const Healthassessment = (props) => {
                             </Pagination>
                         </div>
                         <br />
-
-                        {/* <div >
-
+                        <div>
                             {labDocumentUrl !== null || labDocumentUrl !== "" ?
-                                <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="100px"
-                                    width="100%" />
-                                : <span></span>
-                            }
-
-                        </div> */}
+                                <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
+                                    width="100%" /> : <span></span>}
+                        </div>
                     </Tab>
                 </Tabs>
 
