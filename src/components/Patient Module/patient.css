@@ -1350,8 +1350,7 @@ div#multiselectContainerReact div:hover {
 
 #questionnaire-view-bg {
   background-image: url(../../images/shutterstock_390236386.jpg);
-  background-size: cover;
-  background-position: center;
+  background-attachment: fixed;
 }
 
 #questionnaire-bg {
