@@ -126,6 +126,7 @@ const MyPatients = (props) => {
                                 status: value.status,
                                 appointmentId: value.appointmentId,
                                 unifiedAppointment: value.unifiedAppointment,
+                                appointmentMode: value.appointmentMode,
                                 patient: value.patient,
                             });
                         } else if (
@@ -156,6 +157,7 @@ const MyPatients = (props) => {
                                 status: value.status,
                                 appointmentId: value.appointmentId,
                                 unifiedAppointment: value.unifiedAppointment,
+                                appointmentMode: value.appointmentMode,
                                 patient: value.patient,
                             });
                         }
@@ -288,9 +290,7 @@ const MyPatients = (props) => {
                                                                                     </>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span-consult">
-                                                                                    {details.unifiedAppointment
-                                                                                        .split('#')[1]
-                                                                                        .replace('_', ' ')}
+                                                                                    {details.appointmentMode}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -389,10 +389,7 @@ const MyPatients = (props) => {
                                                                                     </>
                                                                                 </h5>
                                                                                 <span className="patient-list__common-span-consult">
-                                                                                    {details.unifiedAppointment &&
-                                                                                        details.unifiedAppointment
-                                                                                            .split('#')[1]
-                                                                                            .replace('_', ' ')}
+                                                                                    {details.appointmentMode}
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -447,10 +444,7 @@ const MyPatients = (props) => {
                                                         <div id="req-name">
                                                             <b style={{ fontSize: '16px' }}>
                                                                 APID : {SelectedPatient.id} |{' '}
-                                                                {SelectedPatient.unifiedAppointment &&
-                                                                    SelectedPatient.unifiedAppointment
-                                                                        .split('#')[1]
-                                                                        .replace('_', ' ')}
+                                                                {SelectedPatient.appointmentMode}
                                                             </b>
                                                         </div>
                                                     </Col>
