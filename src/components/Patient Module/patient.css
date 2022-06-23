@@ -4096,7 +4096,13 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   /* padding-top: 54px; */
 }
 
-.details-content img {
+.details-content__doc-info {
+  padding-bottom: 20px;
+  padding-top: 54px;
+}
+
+.details-content img,
+.details-content__doc-info img {
   width: 100px;
   height: 100px;
   border-radius: 50%;

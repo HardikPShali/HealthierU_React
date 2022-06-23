@@ -39,6 +39,7 @@ import experienceIcon from '../../images/svg/experience-yellow-icon.svg';
 import languageIcon from '../../images/svg/languages-yellow-icon.svg';
 import aboutIcon from '../../images/svg/about-icon.svg';
 import rescheduleIcon from '../../images/svg/reschedule-icon.svg';
+import defaultDoctorImage from '../../images/default_image.png';
 
 
 //import { handleAgoraAccessToken } from '../../service/agoratokenservice';
@@ -1611,9 +1612,17 @@ const Myappointment = (props) => {
               {selectedAppointment && selectedAppointment.doctor && (
                 <div className="details-container">
                   <div className="details-wrapper">
-                    <div className="details-content">
+                    <div className="details-content__doc-info">
                       {/* {console.log("selectedAPP", selectedAppointment)} */}
-                      <img src={selectedAppointment.doctor.picture} alt="" />
+                      {
+                        selectedAppointment.doctor.picture ? (
+                          <img src={selectedAppointment.doctor.picture} alt="" />
+                        ) :
+                          (
+                            <img src={defaultDoctorImage} alt="" />
+                          )
+                      }
+
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ""}
