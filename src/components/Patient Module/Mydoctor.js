@@ -1586,7 +1586,7 @@ const MyDoctor = (props) => {
                         (user, index) =>
                           user &&
                           user.activated && (
-                            <GridListTile key={index} className='card-list__grid-list-tile'
+                            <GridListTile key={index} className="card-list__grid-list-tile"
                               onClick={async () => {
                                 setdoctor(user);
                                 setAppointment({
@@ -2165,7 +2165,7 @@ const MyDoctor = (props) => {
                   How to?
                 </button>
               </Tooltip>
-              <div id="dorctor-list">
+              <div id="dorctor-list" className='calendar-helper'>
                 <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
                     {/* <p>Select Date</p>
