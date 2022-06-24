@@ -321,11 +321,9 @@ const Myappointment = (props) => {
             title:
               value.status === "AVAILABLE"
                 ? "Slot Available"
-                : `This is ${value?.patient?.firstName} have ${
-                    value.urgency ? value.urgency : "no"
-                  } urgency, comments : ${
-                    value.remarks ? value.remarks : "no comments"
-                  }`,
+                : `This is ${value?.patient?.firstName} have ${value.urgency ? value.urgency : "no"
+                } urgency, comments : ${value.remarks ? value.remarks : "no comments"
+                }`,
             remarks: value.remarks,
             status: value.status,
             doctorId: value.doctorId,
@@ -808,463 +806,14 @@ const Myappointment = (props) => {
                   <br />
                 </div>
                 <hr />
-              </Tab>
-              <Tab eventKey="setAvailability" title="Set Availability">
-                <Availability />
-              </Tab>
-              <Tab eventKey="listOfAppointments" title="List of Appointments">
+                {/* List of Appointments */}
                 <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
                   <Col md={12}>
                     <h2 className="mt-3 mb-3 text-center font-weight-bold">
                       List of Appointments
                     </h2>
                   </Col>
-                  <Col md={6} style={{ marginBottom: 20 }}>
-                    <div className="appointment-slot-list booked">
-                      <h5 className="mb-3 text-center font-weight-bold">
-                        Booked Appointments
-                      </h5>
-                      <div className="tab-view-app">
-                        <Tabs
-                          defaultActiveKey="today"
-                          id="uncontrolled-tab-example"
-                          className="record-tabs mb-3"
-                        >
-                          <Tab eventKey="today" title="Today">
-                            <div className="tab-view-app-list">
-                              {todayAppointment && (
-                                <div className="tab-view-app__list-disp">
-                                  {todayAppointment.map(
-                                    (appointment, index) => {
-                                      if (
-                                        appointment.status &&
-                                        new Date(appointment.endTime) >=
-                                          new Date() &&
-                                        appointment.status === "ACCEPTED"
-                                      ) {
-                                        if (
-                                          appointment.unifiedAppointment ===
-                                          (todayAppointment[index + 1] &&
-                                            todayAppointment[index + 1]
-                                              .unifiedAppointment)
-                                        ) {
-                                          // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(acceptedAppointment[index + 1].endTime).format("h:mm A") + " )  "}
-                                          //     clickable
-                                          //     className="consultation"
-                                          //     onClick={() => handleAppointmentInfoOpen(appointment, acceptedAppointment[index + 1].endTime)}
-                                          //     onDelete={() => handleDeleteOpen(appointment)}
-                                          //     deleteIcon={<CancelIcon />} />)
-                                          return (
-                                            <div
-                                              className="col-md-12 mb-2 mt-2 cursor-pointer"
-                                              key={index}
-                                            >
-                                              <div
-                                                className="patient-list__card"
-                                                onClick={() => {
-                                                  handleAppointmentInfoOpen(
-                                                    appointment,
-                                                    acceptedAppointment[
-                                                      index + 1
-                                                    ].endTime
-                                                  );
-                                                }}
-                                              >
-                                                <div className="row align-items-start py-1">
-                                                  <div className="col-md-2  d-flex flex-column mt-3 ml-3">
-                                                    <h5 className="patient-list__common-date">
-                                                      {console.log(
-                                                        ":::::::",
-                                                        appointment
-                                                      )}
-                                                      <b>
-                                                        {moment(
-                                                          appointment.startTime
-                                                        ).format("DD")}
-                                                      </b>
-                                                    </h5>
-                                                    <span className="patient-list__common-span">
-                                                      {moment(
-                                                        appointment.startTime
-                                                      ).format("hh:mm A")}
-                                                    </span>
-                                                  </div>
-                                                  <div className="col-md-3  ml-3 mt-2 pb-2">
-                                                    {appointment.patient
-                                                      .picture ? (
-                                                      <img
-                                                        src={
-                                                          appointment.patient
-                                                            .picture
-                                                        }
-                                                        alt="profile"
-                                                        className="patient-list__img-circle "
-                                                      />
-                                                    ) : (
-                                                      <Avatar
-                                                        round={true}
-                                                        name={
-                                                          appointment.patient
-                                                            .firstName +
-                                                          " " +
-                                                         (appointment.patient
-                                                            .lastName || "")
-                                                        }
-                                                        size={60}
-                                                        className="my-appointment-avatar"
-                                                      />
-                                                    )}
-                                                  </div>
-                                                  <div className="col-md-6  d-flex flex-column mt-3">
-                                                    <h5 className="patient-list__common-name">
-                                                      <b>
-                                                        {appointment.patient
-                                                          .firstName +
-                                                          " " +
-                                                          (appointment.patient
-                                                            .lastName || "")}
-                                                      </b>
-                                                    </h5>
-                                                    <span className="patient-list__common-span">
-                                                      {appointment.appointmentMode}
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          );
-                                        } else if (
-                                          appointment.unifiedAppointment !==
-                                            (acceptedAppointment[index + 1] &&
-                                              acceptedAppointment[index + 1]
-                                                .unifiedAppointment) &&
-                                          appointment.unifiedAppointment ===
-                                            (acceptedAppointment[index - 1] &&
-                                              acceptedAppointment[index - 1]
-                                                .unifiedAppointment)
-                                        ) {
-                                          {
-                                            /* return false; */
-                                          }
-                                        } else if (
-                                          appointment.unifiedAppointment !==
-                                            (acceptedAppointment[index + 1] &&
-                                              acceptedAppointment[index + 1]
-                                                .unifiedAppointment) &&
-                                          appointment.unifiedAppointment !==
-                                            (acceptedAppointment[index - 1] &&
-                                              acceptedAppointment[index - 1]
-                                                .unifiedAppointment)
-                                        ) {
-                                          // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(appointment.endTime).format("h:mm A") + " )  "}
-                                          //     clickable
-                                          //     className="followup"
-                                          //     onClick={() => handleAppointmentInfoOpen(appointment)}
-                                          //     onDelete={() => handleDeleteOpen(appointment)}
-                                          //     deleteIcon={<CancelIcon />} />)
-                                          return (
-                                            <div
-                                              className="col-md-12 mb-2 mt-2 cursor-pointer"
-                                              key={index}
-                                            >
-                                              <div
-                                                className="patient-list__card"
-                                                onClick={() => {
-                                                  handleAppointmentInfoOpen(
-                                                    appointment
-                                                  );
-                                                }}
-                                              >
-                                                <div className="row align-items-start py-1">
-                                                  <div className="col-md-2  d-flex flex-column mt-3 ml-3">
-                                                    <h5 className="patient-list__common-date">
-                                                      <b>
-                                                        {moment(
-                                                          appointment.startTime
-                                                        ).format("DD")}
-                                                      </b>
-                                                    </h5>
-                                                    <span className="patient-list__common-span">
-                                                      {moment(
-                                                        appointment.startTime
-                                                      ).format("hh:mm A")}
-                                                    </span>
-                                                  </div>
-                                                  <div className="col-md-3  ml-3 mt-2 pb-2">
-                                                    {appointment.patient
-                                                      .picture ? (
-                                                      <img
-                                                        src={
-                                                          appointment.patient
-                                                            .picture
-                                                        }
-                                                        alt="profile"
-                                                        className="patient-list__img-circle "
-                                                      />
-                                                    ) : (
-                                                      <Avatar
-                                                        round={true}
-                                                        name={
-                                                          appointment.patient
-                                                            .firstName +
-                                                          " " +
-                                                          (appointment.patient
-                                                            .lastName || "")
-                                                        }
-                                                        className="my-appointment-avatar"
-                                                        size={60}
-                                                      />
-                                                    )}
-                                                  </div>
-                                                  <div className="col-md-6  d-flex flex-column mt-3">
-                                                    <h5 className="patient-list__common-name">
-                                                      <b>
-                                                        {appointment.patient
-                                                          .firstName +
-                                                          " " +
-                                                          (appointment.patient
-                                                            .lastName || "")}
-                                                      </b>
-                                                    </h5>
-                                                    <span className="patient-list__common-span">
-                                                      {appointment.appointmentMode}
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          );
-                                        }
-                                      }
-                                      {
-                                        /* return appointment; */
-                                      }
-                                    }
-                                  )}
-                                </div>
-                              )}
-                            </div>
-                          </Tab>
-                          <Tab eventKey="tomorrow" title="Tomorrow">
-                            <div className="tab-view-app-list">
-                              {tomorrowAppointment && (
-                                <div className="tab-view-app__list-disp">
-                                  {tomorrowAppointment.map(
-                                    (appointment, index) => {
-                                      if (
-                                        appointment.status &&
-                                        new Date(appointment.endTime) >=
-                                          new Date() &&
-                                        appointment.status === "ACCEPTED"
-                                      ) {
-                                        if (
-                                          appointment.unifiedAppointment ===
-                                          (tomorrowAppointment[index + 1] &&
-                                            tomorrowAppointment[index + 1]
-                                              .unifiedAppointment)
-                                        ) {
-                                          // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(acceptedAppointment[index + 1].endTime).format("h:mm A") + " )  "}
-                                          //     clickable
-                                          //     className="consultation"
-                                          //     onClick={() => handleAppointmentInfoOpen(appointment, acceptedAppointment[index + 1].endTime)}
-                                          //     onDelete={() => handleDeleteOpen(appointment)}
-                                          //     deleteIcon={<CancelIcon />} />)
-                                          return (
-                                            <div
-                                              className="col-md-12 mb-2 mt-2 cursor-pointer"
-                                              key={index}
-                                            >
-                                              <div
-                                                className="patient-list__card"
-                                                onClick={() => {
-                                                  handleAppointmentInfoOpen(
-                                                    appointment,
-                                                    acceptedAppointment[
-                                                      index + 1
-                                                    ].endTime
-                                                  );
-                                                }}
-                                              >
-                                                <div className="row align-items-start py-1">
-                                                  <div className="col-md-2  d-flex flex-column mt-3 ml-3">
-                                                    <h5 className="patient-list__common-date">
-                                                      {console.log(
-                                                        ":::::::",
-                                                        appointment
-                                                      )}
-                                                      <b>
-                                                        {moment(
-                                                          appointment.startTime
-                                                        ).format("DD")}
-                                                      </b>
-                                                    </h5>
-                                                    <span className="patient-list__common-span">
-                                                      {moment(
-                                                        appointment.startTime
-                                                      ).format("hh:mm A")}
-                                                    </span>
-                                                  </div>
-                                                  <div className="col-md-3  ml-3 mt-2 pb-2">
-                                                    {appointment.patient
-                                                      .picture ? (
-                                                      <img
-                                                        src={
-                                                          appointment.patient
-                                                            .picture
-                                                        }
-                                                        alt="profile"
-                                                        className="patient-list__img-circle "
-                                                      />
-                                                    ) : (
-                                                      <Avatar
-                                                        round={true}
-                                                        name={
-                                                          appointment.patient
-                                                            .firstName +
-                                                          " " +
-                                                          (appointment.patient
-                                                            .lastName || "")
-                                                        }
-                                                        size={60}
-                                                        className="my-appointment-avatar"
-                                                      />
-                                                    )}
-                                                  </div>
-                                                  <div className="col-md-6  d-flex flex-column mt-3">
-                                                    <h5 className="patient-list__common-name">
-                                                      <b>
-                                                        {appointment.patient
-                                                          .firstName +
-                                                          " " +
-                                                          (appointment.patient
-                                                            .lastName || "")}
-                                                      </b>
-                                                    </h5>
-                                                    <span className="patient-list__common-span">
-                                                      {appointment.appointmentMode}
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          );
-                                        } else if (
-                                          appointment.unifiedAppointment !==
-                                            (acceptedAppointment[index + 1] &&
-                                              acceptedAppointment[index + 1]
-                                                .unifiedAppointment) &&
-                                          appointment.unifiedAppointment ===
-                                            (acceptedAppointment[index - 1] &&
-                                              acceptedAppointment[index - 1]
-                                                .unifiedAppointment)
-                                        ) {
-                                          {
-                                            /* return false; */
-                                          }
-                                        } else if (
-                                          appointment.unifiedAppointment !==
-                                            (acceptedAppointment[index + 1] &&
-                                              acceptedAppointment[index + 1]
-                                                .unifiedAppointment) &&
-                                          appointment.unifiedAppointment !==
-                                            (acceptedAppointment[index - 1] &&
-                                              acceptedAppointment[index - 1]
-                                                .unifiedAppointment)
-                                        ) {
-                                          // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(appointment.endTime).format("h:mm A") + " )  "}
-                                          //     clickable
-                                          //     className="followup"
-                                          //     onClick={() => handleAppointmentInfoOpen(appointment)}
-                                          //     onDelete={() => handleDeleteOpen(appointment)}
-                                          //     deleteIcon={<CancelIcon />} />)
-                                          return (
-                                            <div
-                                              className="col-md-12 mb-2 mt-2 cursor-pointer"
-                                              key={index}
-                                            >
-                                              <div
-                                                className="patient-list__card"
-                                                onClick={() => {
-                                                  handleAppointmentInfoOpen(
-                                                    appointment
-                                                  );
-                                                }}
-                                              >
-                                                <div className="row align-items-start py-1">
-                                                  <div className="col-md-2  d-flex flex-column mt-3 ml-3">
-                                                    <h5 className="patient-list__common-date">
-                                                      <b>
-                                                        {moment(
-                                                          appointment.startTime
-                                                        ).format("DD")}
-                                                      </b>
-                                                    </h5>
-                                                    <span className="patient-list__common-span">
-                                                      {moment(
-                                                        appointment.startTime
-                                                      ).format("hh:mm A")}
-                                                    </span>
-                                                  </div>
-                                                  <div className="col-md-3  ml-3 mt-2 pb-2">
-                                                    {appointment.patient
-                                                      .picture ? (
-                                                      <img
-                                                        src={
-                                                          appointment.patient
-                                                            .picture
-                                                        }
-                                                        alt="profile"
-                                                        className="patient-list__img-circle "
-                                                      />
-                                                    ) : (
-                                                      <Avatar
-                                                        round={true}
-                                                        name={
-                                                          appointment.patient
-                                                            .firstName +
-                                                          " " +
-                                                          (appointment.patient
-                                                            .lastName || "")
-                                                        }
-                                                        className="my-appointment-avatar"
-                                                        size={60}
-                                                      />
-                                                    )}
-                                                  </div>
-                                                  <div className="col-md-6  d-flex flex-column mt-3">
-                                                    <h5 className="patient-list__common-name">
-                                                      <b>
-                                                        {appointment.patient
-                                                          .firstName +
-                                                          " " +
-                                                          (appointment.patient
-                                                            .lastName || "")}
-                                                      </b>
-                                                    </h5>
-                                                    <span className="patient-list__common-span">
-                                                      {appointment.appointmentMode}
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          );
-                                        }
-                                      }
-                                      {
-                                        /* return appointment; */
-                                      }
-                                    }
-                                  )}
-                                </div>
-                              )}
-                            </div>
-                          </Tab>
-                        </Tabs>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col md={6}>
+                  <Col md={12}>
                     <div className="appointment-slot-list available">
                       <h5 className="mb-3 text-center font-weight-bold">
                         Available Slots for Appointments
@@ -1276,9 +825,9 @@ const Myappointment = (props) => {
                             if (
                               appointment.status &&
                               new Date(appointment.startTime) >=
-                                new Date(
-                                  moment(new Date()).subtract(25, "minutes")
-                                ) &&
+                              new Date(
+                                moment(new Date()).subtract(25, "minutes")
+                              ) &&
                               appointment.status === "AVAILABLE"
                             ) {
                               return (
@@ -1313,6 +862,8 @@ const Myappointment = (props) => {
                     </div>
                   </Col>
                 </Row>
+                {/* List of Appointments End */}
+                <br />
                 <Tour
                   onRequestClose={() => closeTour()}
                   startAt={0}
@@ -1325,6 +876,461 @@ const Myappointment = (props) => {
                   onAfterOpen={disableBody}
                   onBeforeClose={enableBody}
                 />
+
+              </Tab>
+              <Tab eventKey="setAvailability" title="Set Availability">
+                <Availability />
+              </Tab>
+              <Tab eventKey="bookedappointments" title="Booked Appointments">
+              <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
+                <Col md={12}>
+                  <div className="appointment-slot-list available">
+                    {/* <h5 className="mb-3 text-center font-weight-bold">
+                      Booked Appointments
+                    </h5> */}
+                    <div className="tab-view-app">
+                      <Tabs
+                        defaultActiveKey="today"
+                        id="uncontrolled-tab-example"
+                        className="record-tabs mb-3"
+                      >
+                      
+                        <Tab eventKey="today" title="Today">
+                          <div className="col-md-6">
+
+                            {todayAppointment && (
+                              <div className="tab-view-app__list-disp">
+                                {todayAppointment.map(
+                                  (appointment, index) => {
+                                    if (
+                                      appointment.status &&
+                                      new Date(appointment.endTime) >=
+                                      new Date() &&
+                                      appointment.status === "ACCEPTED"
+                                    ) {
+                                      if (
+                                        appointment.unifiedAppointment ===
+                                        (todayAppointment[index + 1] &&
+                                          todayAppointment[index + 1]
+                                            .unifiedAppointment)
+                                      ) {
+                                        // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(acceptedAppointment[index + 1].endTime).format("h:mm A") + " )  "}
+                                        //     clickable
+                                        //     className="consultation"
+                                        //     onClick={() => handleAppointmentInfoOpen(appointment, acceptedAppointment[index + 1].endTime)}
+                                        //     onDelete={() => handleDeleteOpen(appointment)}
+                                        //     deleteIcon={<CancelIcon />} />)
+                                        return (
+                                          <div
+                                            className="col-md-12 mb-2 mt-2 cursor-pointer"
+                                            key={index}
+                                          >
+                                            <div
+                                              className="patient-list__card"
+                                              onClick={() => {
+                                                handleAppointmentInfoOpen(
+                                                  appointment,
+                                                  acceptedAppointment[
+                                                    index + 1
+                                                  ].endTime
+                                                );
+                                              }}
+                                            >
+                                              <div className="row align-items-start py-1">
+                                                <div className="col-md-2  d-flex flex-column mt-3 ml-3">
+                                                  <h5 className="patient-list__common-date">
+                                                    {console.log(
+                                                      ":::::::",
+                                                      appointment
+                                                    )}
+                                                    <b>
+                                                      {moment(
+                                                        appointment.startTime
+                                                      ).format("DD")}
+                                                    </b>
+                                                  </h5>
+                                                  <span className="patient-list__common-span">
+                                                    {moment(
+                                                      appointment.startTime
+                                                    ).format("hh:mm A")}
+                                                  </span>
+                                                </div>
+                                                <div className="col-md-3  ml-3 mt-2 pb-2">
+                                                  {appointment.patient
+                                                    .picture ? (
+                                                    <img
+                                                      src={
+                                                        appointment.patient
+                                                          .picture
+                                                      }
+                                                      alt="profile"
+                                                      className="patient-list__img-circle "
+                                                    />
+                                                  ) : (
+                                                    <Avatar
+                                                      round={true}
+                                                      name={
+                                                        appointment.patient
+                                                          .firstName +
+                                                        " " +
+                                                        (appointment.patient
+                                                          .lastName || "")
+                                                      }
+                                                      size={60}
+                                                      className="my-appointment-avatar"
+                                                    />
+                                                  )}
+                                                </div>
+                                                <div className="col-md-6  d-flex flex-column mt-3">
+                                                  <h5 className="patient-list__common-name">
+                                                    <b>
+                                                      {appointment.patient
+                                                        .firstName +
+                                                        " " +
+                                                        (appointment.patient
+                                                          .lastName || "")}
+                                                    </b>
+                                                  </h5>
+                                                  <span className="patient-list__common-span">
+                                                    {appointment.appointmentMode}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        );
+                                      } else if (
+                                        appointment.unifiedAppointment !==
+                                        (acceptedAppointment[index + 1] &&
+                                          acceptedAppointment[index + 1]
+                                            .unifiedAppointment) &&
+                                        appointment.unifiedAppointment ===
+                                        (acceptedAppointment[index - 1] &&
+                                          acceptedAppointment[index - 1]
+                                            .unifiedAppointment)
+                                      ) {
+                                        {
+                                          /* return false; */
+                                        }
+                                      } else if (
+                                        appointment.unifiedAppointment !==
+                                        (acceptedAppointment[index + 1] &&
+                                          acceptedAppointment[index + 1]
+                                            .unifiedAppointment) &&
+                                        appointment.unifiedAppointment !==
+                                        (acceptedAppointment[index - 1] &&
+                                          acceptedAppointment[index - 1]
+                                            .unifiedAppointment)
+                                      ) {
+                                        // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(appointment.endTime).format("h:mm A") + " )  "}
+                                        //     clickable
+                                        //     className="followup"
+                                        //     onClick={() => handleAppointmentInfoOpen(appointment)}
+                                        //     onDelete={() => handleDeleteOpen(appointment)}
+                                        //     deleteIcon={<CancelIcon />} />)
+                                        return (
+                                          <div
+                                            className="col-md-12 mb-2 mt-2 cursor-pointer"
+                                            key={index}
+                                          >
+                                            <div
+                                              className="patient-list__card"
+                                              onClick={() => {
+                                                handleAppointmentInfoOpen(
+                                                  appointment
+                                                );
+                                              }}
+                                            >
+                                              <div className="row align-items-start py-1">
+                                                <div className="col-md-2  d-flex flex-column mt-3 ml-3">
+                                                  <h5 className="patient-list__common-date">
+                                                    <b>
+                                                      {moment(
+                                                        appointment.startTime
+                                                      ).format("DD")}
+                                                    </b>
+                                                  </h5>
+                                                  <span className="patient-list__common-span">
+                                                    {moment(
+                                                      appointment.startTime
+                                                    ).format("hh:mm A")}
+                                                  </span>
+                                                </div>
+                                                <div className="col-md-3  ml-3 mt-2 pb-2">
+                                                  {appointment.patient
+                                                    .picture ? (
+                                                    <img
+                                                      src={
+                                                        appointment.patient
+                                                          .picture
+                                                      }
+                                                      alt="profile"
+                                                      className="patient-list__img-circle "
+                                                    />
+                                                  ) : (
+                                                    <Avatar
+                                                      round={true}
+                                                      name={
+                                                        appointment.patient
+                                                          .firstName +
+                                                        " " +
+                                                        (appointment.patient
+                                                          .lastName || "")
+                                                      }
+                                                      className="my-appointment-avatar"
+                                                      size={60}
+                                                    />
+                                                  )}
+                                                </div>
+                                                <div className="col-md-6  d-flex flex-column mt-3">
+                                                  <h5 className="patient-list__common-name">
+                                                    <b>
+                                                      {appointment.patient
+                                                        .firstName +
+                                                        " " +
+                                                        (appointment.patient
+                                                          .lastName || "")}
+                                                    </b>
+                                                  </h5>
+                                                  <span className="patient-list__common-span">
+                                                    {appointment.appointmentMode}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        );
+                                      }
+                                    }
+                                    {
+                                      /* return appointment; */
+                                    }
+                                  }
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </Tab>
+                        <Tab eventKey="tomorrow" title="Tomorrow">
+                          <div className="col-md-6">
+                            {tomorrowAppointment && (
+                              <div className="tab-view-app__list-disp" style={{display: 'flex',flexDirection:'column'}}>
+                                {tomorrowAppointment.map(
+                                  (appointment, index) => {
+                                    if (
+                                      appointment.status &&
+                                      new Date(appointment.endTime) >=
+                                      new Date() &&
+                                      appointment.status === "ACCEPTED"
+                                    ) {
+                                      if (
+                                        appointment.unifiedAppointment ===
+                                        (tomorrowAppointment[index + 1] &&
+                                          tomorrowAppointment[index + 1]
+                                            .unifiedAppointment)
+                                      ) {
+                                        // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(acceptedAppointment[index + 1].endTime).format("h:mm A") + " )  "}
+                                        //     clickable
+                                        //     className="consultation"
+                                        //     onClick={() => handleAppointmentInfoOpen(appointment, acceptedAppointment[index + 1].endTime)}
+                                        //     onDelete={() => handleDeleteOpen(appointment)}
+                                        //     deleteIcon={<CancelIcon />} />)
+                                        return (
+                                          <div
+                                            className="col-md-12 mb-2 mt-2 cursor-pointer"
+                                            key={index}
+                                          >
+                                            <div
+                                              className="patient-list__card"
+                                              onClick={() => {
+                                                handleAppointmentInfoOpen(
+                                                  appointment,
+                                                  acceptedAppointment[
+                                                    index + 1
+                                                  ].endTime
+                                                );
+                                              }}
+                                            >
+                                              <div className="row align-items-start py-1">
+                                                <div className="col-md-2  d-flex flex-column mt-3 ml-3">
+                                                  <h5 className="patient-list__common-date">
+                                                    {console.log(
+                                                      ":::::::",
+                                                      appointment
+                                                    )}
+                                                    <b>
+                                                      {moment(
+                                                        appointment.startTime
+                                                      ).format("DD")}
+                                                    </b>
+                                                  </h5>
+                                                  <span className="patient-list__common-span">
+                                                    {moment(
+                                                      appointment.startTime
+                                                    ).format("hh:mm A")}
+                                                  </span>
+                                                </div>
+                                                <div className="col-md-3  ml-3 mt-2 pb-2">
+                                                  {appointment.patient
+                                                    .picture ? (
+                                                    <img
+                                                      src={
+                                                        appointment.patient
+                                                          .picture
+                                                      }
+                                                      alt="profile"
+                                                      className="patient-list__img-circle "
+                                                    />
+                                                  ) : (
+                                                    <Avatar
+                                                      round={true}
+                                                      name={
+                                                        appointment.patient
+                                                          .firstName +
+                                                        " " +
+                                                        (appointment.patient
+                                                          .lastName || "")
+                                                      }
+                                                      size={60}
+                                                      className="my-appointment-avatar"
+                                                    />
+                                                  )}
+                                                </div>
+                                                <div className="col-md-6  d-flex flex-column mt-3">
+                                                  <h5 className="patient-list__common-name">
+                                                    <b>
+                                                      {appointment.patient
+                                                        .firstName +
+                                                        " " +
+                                                        (appointment.patient
+                                                          .lastName || "")}
+                                                    </b>
+                                                  </h5>
+                                                  <span className="patient-list__common-span">
+                                                    {appointment.appointmentMode}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        );
+                                      } else if (
+                                        appointment.unifiedAppointment !==
+                                        (acceptedAppointment[index + 1] &&
+                                          acceptedAppointment[index + 1]
+                                            .unifiedAppointment) &&
+                                        appointment.unifiedAppointment ===
+                                        (acceptedAppointment[index - 1] &&
+                                          acceptedAppointment[index - 1]
+                                            .unifiedAppointment)
+                                      ) {
+                                        {
+                                          /* return false; */
+                                        }
+                                      } else if (
+                                        appointment.unifiedAppointment !==
+                                        (acceptedAppointment[index + 1] &&
+                                          acceptedAppointment[index + 1]
+                                            .unifiedAppointment) &&
+                                        appointment.unifiedAppointment !==
+                                        (acceptedAppointment[index - 1] &&
+                                          acceptedAppointment[index - 1]
+                                            .unifiedAppointment)
+                                      ) {
+                                        // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(appointment.endTime).format("h:mm A") + " )  "}
+                                        //     clickable
+                                        //     className="followup"
+                                        //     onClick={() => handleAppointmentInfoOpen(appointment)}
+                                        //     onDelete={() => handleDeleteOpen(appointment)}
+                                        //     deleteIcon={<CancelIcon />} />)
+                                        return (
+                                          <div
+                                            className="col-md-12 mb-2 mt-2 cursor-pointer"
+                                            key={index}
+                                          >
+                                            <div
+                                              className="patient-list__card"
+                                              onClick={() => {
+                                                handleAppointmentInfoOpen(
+                                                  appointment
+                                                );
+                                              }}
+                                            >
+                                              <div className="row align-items-start py-1">
+                                                <div className="col-md-2  d-flex flex-column mt-3 ml-3">
+                                                  <h5 className="patient-list__common-date">
+                                                    <b>
+                                                      {moment(
+                                                        appointment.startTime
+                                                      ).format("DD")}
+                                                    </b>
+                                                  </h5>
+                                                  <span className="patient-list__common-span">
+                                                    {moment(
+                                                      appointment.startTime
+                                                    ).format("hh:mm A")}
+                                                  </span>
+                                                </div>
+                                                <div className="col-md-3  ml-3 mt-2 pb-2">
+                                                  {appointment.patient
+                                                    .picture ? (
+                                                    <img
+                                                      src={
+                                                        appointment.patient
+                                                          .picture
+                                                      }
+                                                      alt="profile"
+                                                      className="patient-list__img-circle "
+                                                    />
+                                                  ) : (
+                                                    <Avatar
+                                                      round={true}
+                                                      name={
+                                                        appointment.patient
+                                                          .firstName +
+                                                        " " +
+                                                        (appointment.patient
+                                                          .lastName || "")
+                                                      }
+                                                      className="my-appointment-avatar"
+                                                      size={60}
+                                                    />
+                                                  )}
+                                                </div>
+                                                <div className="col-md-6  d-flex flex-column mt-3">
+                                                  <h5 className="patient-list__common-name">
+                                                    <b>
+                                                      {appointment.patient
+                                                        .firstName +
+                                                        " " +
+                                                        (appointment.patient
+                                                          .lastName || "")}
+                                                    </b>
+                                                  </h5>
+                                                  <span className="patient-list__common-span">
+                                                    {appointment.appointmentMode}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        );
+                                      }
+                                    }
+                                    {
+                                      /* return appointment; */
+                                    }
+                                  }
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </Tab>
+                      </Tabs>
+                    </div>
+                  </div>
+                </Col>
+                </Row>
               </Tab>
             </Tabs>
           </Container>
@@ -1416,7 +1422,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="details-body__common-span">
-                          {appointment.paymentMethod}
+                            {appointment.paymentMethod}
                           </span>
                         </div>
                       </div>
