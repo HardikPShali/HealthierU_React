@@ -4,7 +4,7 @@ const Questions = ({ answers }) => {
     console.log("Questions", answers);
     return (
         <div className='Questions__card-box'>
-            <h3 className='Questions--main-header'>Health Assestment Report</h3>
+            <h3 className='Questions--main-header'>Health Assessment Report</h3>
             <div className="Questions-card-holder">
                 <div className='Questions-card'>
 

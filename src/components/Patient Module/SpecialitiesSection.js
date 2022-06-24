@@ -7,6 +7,7 @@ import fertility from '../../images/svg/fertility-icon.svg'
 import mentalHealth from '../../images/svg/mental-health-icon.svg'
 
 import immunity from '../../images/svg/immunity-icon.svg'
+import { useHistory } from 'react-router'
 
 const SpecialititesData = [
     {
@@ -37,6 +38,10 @@ const SpecialititesData = [
 
 
 const SpecialitiesSection = () => {
+    const history = useHistory();
+    const specialitiesRedirectionToDoctorHandler = () => {
+        history.push('/patient/mydoctor')
+    }
     return (
         <div className='specialities'>
             <div className='container'>
@@ -44,7 +49,7 @@ const SpecialitiesSection = () => {
                 <div className='row'>
                     {SpecialititesData.map((item, index) => {
                         return (
-                            <div className='col-4 text-center' key={index}>
+                            <div className='col-4 text-center' key={index} onClick={() => specialitiesRedirectionToDoctorHandler()}>
                                 <div className='specialities-profile'>
                                     <img alt='speciality' className='speciality-icon' src={item.image} />
                                     <h6 className='speciality-name'>{item.name}</h6>

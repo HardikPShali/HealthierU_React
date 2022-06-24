@@ -66,3 +66,18 @@
   color: var(--text-secondary);
   margin: 0;
 }
+
+.doc-info__modal-header-wrapper {
+  width: 99%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.doc-info__modal-header {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  text-shadow: none;
+}
