@@ -139,7 +139,7 @@ const Availability = () => {
       toast.success("Recurring Slot Added");
       setState({ startTime: moment(), endTime: moment() })
       loadRecurSlots()
-      // history.go(0)
+      history.go(0)
     }
 
   };
@@ -177,10 +177,10 @@ const Availability = () => {
   };
 
   const convertHoursAndMinsToLocal = (hoursAndMins) => {
-    if(hoursAndMins) {
+    if (hoursAndMins) {
       const [hr, min] = hoursAndMins.split(":");
 
-  
+
       const currentDate = new Date();
       currentDate.setHours(hr)
       currentDate.setMinutes(min)
@@ -194,7 +194,7 @@ const Availability = () => {
   }
 
   const convertUTCDateToLocalDate = (date) => {
-    const dateUTC = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(),  date.getHours(), date.getMinutes(), date.getSeconds());
+    const dateUTC = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
     return new Date(dateUTC);
   }
   return (

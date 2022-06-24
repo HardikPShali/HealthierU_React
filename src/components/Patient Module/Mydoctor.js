@@ -1615,7 +1615,7 @@ const MyDoctor = (props) => {
                                   onClick={() => createLikedDoctor(user.id)}
                                 />
                               )}
-                              console.log(user.liked)
+
                               {user.liked && (
                                 <FavoriteIcon
                                   id="fav-icon"

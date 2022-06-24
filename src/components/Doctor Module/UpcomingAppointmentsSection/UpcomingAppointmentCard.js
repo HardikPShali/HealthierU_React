@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "react-avatar";
 import moment from "moment";
+import { useHistory } from "react-router";
 import calendarSmall from "../../../images/svg/calender-beige.svg";
 import timeSmall from "../../../images/svg/time-teal.svg";
 import useRole from "../../../custom-hooks/useRole";
@@ -9,17 +10,19 @@ import { ROLES } from "../../../util/configurations";
 const UpcomingAppointmentCard = ({ appointment }) => {
   const [appointmentPersonKey, setAppointmentPersonKey] = useState("");
   const [roles] = useRole();
-
+  const history = useHistory();
   useEffect(() => {
     const key = roles.some((role) => role === ROLES.ROLE_PATIENT)
       ? "doctor"
       : "patient";
     setAppointmentPersonKey(key);
   }, []);
-
+  const handleClickToAppointmentsPage = () => {
+    history.push('/doctor/my-appointments');
+  }
   return (
 
-    <div className="row align-items-start">
+    <div className="row align-items-start" style={{ cursor: 'pointer' }} onClick={handleClickToAppointmentsPage}>
       {/* {console.log('UA', appointment)} */}
       <div className="col-md-3">
         {
@@ -36,7 +39,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
                 appointment.patient.firstName
               }
               size={60}
-              className="my-appointments-avatar"
+              className="my-appointment-avatar"
             />
           )
         }
