@@ -1287,8 +1287,10 @@ button.btn.timeSlot:hover {
   line-height: initial !important;
   text-align: center !important;
   color: var(--secondary) !important;
-  background: var(--primarysecond) !important;
+  /* background: var(--primarysecond) !important; */
   border-radius: 15px;
+  background-color: #fff !important;
+  outline: 2px solid #00d0cc;
 }
 
 #card-list .sb-avatar__text {
@@ -1297,7 +1299,7 @@ button.btn.timeSlot:hover {
   line-height: initial !important;
   text-align: center !important;
   color: var(--secondary) !important;
-  background: var(--primarysecond) !important;
+  background: #fff !important;
   border-radius: 0px !important;
 }
 
@@ -1509,8 +1511,16 @@ img#profile-pic {
 .avatar-profile {
   border-radius: 50% !important;
   outline: 5px solid #00d0cc;
+  background-color: #fff !important;
 }
-
+.my-doctor-avatar>.sb-avatar__text {
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50%;
+  margin-left: 21px;
+  background-color: #fff !important;
+  outline: 1px solid #00d0cc;
+}
 .icon-tabs {
   height: 40px;
   width: 40px;

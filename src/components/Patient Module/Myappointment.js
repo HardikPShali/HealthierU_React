@@ -539,7 +539,7 @@ const Myappointment = (props) => {
                                                     (appointment.doctor.lastName || "")
                                                   }
                                                   size={60}
-                                                  className="my-appointments-avatar"
+                                                  className="my-appointment-avatar"
                                                 />
                                               )
                                             }
@@ -650,7 +650,7 @@ const Myappointment = (props) => {
                                                   (appointment.doctor.lastName || "")
                                                 }
                                                 size={60}
-                                                className="my-appointments-avatar"
+                                                className="my-appointment-avatar"
                                               />
                                             )
                                           }
@@ -756,7 +756,7 @@ const Myappointment = (props) => {
                                                   (appointment.doctor.lastName || "")
                                                 }
                                                 size={60}
-                                                className="my-appointments-avatar"
+                                                className="my-appointment-avatar"
                                               />
                                             )
                                           }
