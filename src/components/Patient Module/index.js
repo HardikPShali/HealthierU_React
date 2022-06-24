@@ -58,7 +58,7 @@ const Questionnaire = React.lazy(() => import("./QuestionnaireNew/Questionnaire"
 
 const PatientRoute = () => {
   const currentuserInfo = LocalStorageService.getCurrentUser();
-  // console.log("currentuserInfo", currentuserInfo);
+  console.log("currentuserInfo", currentuserInfo);
   const [currentPatient, setCurrentPatient] = useState({});
   const [chatGroupList, setChatGroupList] = useState({});
   const [updateChatGroupListTrigger, setUpdateChatGroupListTrigger] = useState(0);
@@ -80,7 +80,7 @@ const PatientRoute = () => {
         getCurrentPatient();
     }
 
-    if(currentuserInfo.profileCompleted == true) {
+    if (currentuserInfo.profileCompleted == true) {
       fcmTokenGenerationHandler();
     }
 
@@ -107,25 +107,25 @@ const PatientRoute = () => {
 
 
   const fcmTokenGenerationHandler = async () => {
-      let tokenToBeGenerated;
-      const tokenFunction = async () => {
-          tokenToBeGenerated = await getFirebaseToken(setTokenFound);
-          onMessageListener();
+    let tokenToBeGenerated;
+    const tokenFunction = async () => {
+      tokenToBeGenerated = await getFirebaseToken(setTokenFound);
+      onMessageListener();
 
-          if (tokenToBeGenerated) {
-              console.log({ tokenToBeGenerated });
-          }
-          return tokenToBeGenerated;
-      };
+      if (tokenToBeGenerated) {
+        console.log({ tokenToBeGenerated });
+      }
+      return tokenToBeGenerated;
+    };
 
-      const getPermission = async () => {
-          const permission = await getPermissions();
-          if (permission === 'granted') {
-              tokenFunction();
-          }
-      };
-      getPermission();
-      // alert('token generated')
+    const getPermission = async () => {
+      const permission = await getPermissions();
+      if (permission === 'granted') {
+        tokenFunction();
+      }
+    };
+    getPermission();
+    // alert('token generated')
   }
 
   // const [displayCaller, setDisplayCaller] = useState(true);

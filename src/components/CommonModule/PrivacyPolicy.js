@@ -5,7 +5,8 @@ import Header from '../Login-Module/Header';
 import Footer from '../Login-Module/Footer';
 import { Link } from 'react-router-dom';
 
-export default function PrivacyPolicy({ currentuserInfo }) {
+const PrivacyPolicy = ({ currentuserInfo }) => {
+    console.log({ currentuserInfo });
     const [serverError, setServerError] = useState(false);
 
     const { authorities = [] } = currentuserInfo || {};
@@ -253,3 +254,5 @@ export default function PrivacyPolicy({ currentuserInfo }) {
         </div>
     );
 }
+
+export default PrivacyPolicy

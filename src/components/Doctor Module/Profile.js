@@ -510,8 +510,8 @@ const Profile = ({ currentDoctor }) => {
                                                             name="firstName"
                                                             onChange={(e) => handleInputChange(e)}
                                                             value={firstName}
-                                                            validators={['required']}
-                                                            errorMessages={['This field is required']}
+                                                            validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
+                                                            errorMessages={["This field is required", "First Name cannot have any numeric values"]}
                                                             variant="filled"
                                                         />
                                                     </Col>
@@ -525,8 +525,8 @@ const Profile = ({ currentDoctor }) => {
                                                             name="lastName"
                                                             onChange={(e) => handleInputChange(e)}
                                                             value={lastName}
-                                                            validators={['required']}
-                                                            errorMessages={['This field is required']}
+                                                            validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
+                                                            errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
                                                             variant="filled"
                                                         />
                                                     </Col>
