@@ -6,7 +6,7 @@ import Header from '../Login-Module/Header';
 import Footer from '../Login-Module/Footer';
 import { Link } from 'react-router-dom';
 
-export default function PrivacyPolicy({ currentuserInfo }) {
+const TermsAndConditions = ({ currentuserInfo }) => {
     const [serverError, setServerError] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -510,3 +510,5 @@ export default function PrivacyPolicy({ currentuserInfo }) {
         </div>
     );
 }
+
+export default TermsAndConditions;

@@ -15,6 +15,7 @@ import gplusicon from "../../images/icons used/googleplus.png";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { HashLink } from "react-router-hash-link";
+import Newsletter from "../CommonModule/NewsletterSection/Newsletter";
 
 const Footer = () => {
   //   const change = (e) => {
@@ -28,7 +29,7 @@ const Footer = () => {
         <Container className="p-0 padding-mobile">
           <Row className="align-items-center tab-align">
             {/* <Col md={3} lg={2} xl={2}> */}
-              {/* <Link to="/about-us" id="footer-link">
+            {/* <Link to="/about-us" id="footer-link">
                 About us
               </Link>
               <HashLink to="/about-us#how-it-work" id="footer-link">
@@ -37,10 +38,10 @@ const Footer = () => {
               <HashLink to="/about-us#our-services" id="footer-link">
                 Our services
               </HashLink> */}
-              {/* <Link to="" id="footer-link">
+            {/* <Link to="" id="footer-link">
                               Articles
                           </Link> */}
-              {/* <a
+            {/* <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
                 target="_blank"
                 id="footer-link"
@@ -62,25 +63,8 @@ const Footer = () => {
                                   <span>128</span> Expert Doctors
                                       </b>
                           </div><br />*/}
-              <div style={{ width: "100%"}}>
-                <p>Email Newsletters</p>
-                <p style={{ fontSize: 11 }}>
-                  Stay up-to-date with the latest content and offers from
-                  HealthierU
-                </p>
-                <form >
-                  <input
-                    type="email"
-                    placeholder="Email Address"
-                    name="email"
-                    id="footer-input"
-                  />
-                  <input
-                    type="submit"
-                    value="Subscribe"
-                    className="btn submit-btn"
-                  />
-                </form>
+              <div style={{ width: "100%" }}>
+                <Newsletter />
               </div>
             </Col>
             <Col md={6} lg={4} xl={4} id="last-col">
@@ -109,22 +93,22 @@ const Footer = () => {
           <Row>
             <Col md={8}>
               <div className="terms-container">
-                <Link to="/privacy-policy" className="" id="copy-link">
+                <Link to="/doctor/privacy-policy" className="" id="copy-link">
                   Privacy and Security
                 </Link>
-                <Link to="/terms-and-conditions" className="" id="copy-link">
+                <Link to="/doctor/terms-and-conditions" className="" id="copy-link">
                   Terms and Conditions
                 </Link>
-                <Link to="/help-and-support" className="" id="copy-link">
+                <Link to="/doctor/help-and-support" className="" id="copy-link">
                   Help And Support
                 </Link>
                 <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
-                target="_blank"
-                id="copy-link"
-              >
-                Contact Us
-              </a>
+                  href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
+                  target="_blank"
+                  id="copy-link"
+                >
+                  Contact Us
+                </a>
                 {/* <Link to="/licenses" className="" id="copy-link">
                                   HealthierU Licenses
                               </Link>

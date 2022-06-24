@@ -8,7 +8,7 @@ import axios from "axios";
 import { useHistory } from 'react-router-dom';
 
 
-export default function PrivacyPolicy({ currentuserInfo }) {
+const HelpAndSupport = ({ currentuserInfo }) => {
     const history = useHistory();
 
 
@@ -189,3 +189,5 @@ export default function PrivacyPolicy({ currentuserInfo }) {
         </div>
     );
 }
+
+export default HelpAndSupport;

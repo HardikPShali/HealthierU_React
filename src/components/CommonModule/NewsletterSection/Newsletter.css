@@ -1,0 +1,7 @@
+.subscription-message {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 5px;
+  color: var(--primarysecond);
+  font-weight: 600;
+}
