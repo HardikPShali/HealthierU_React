@@ -899,7 +899,7 @@ const Myappointment = (props) => {
                           <Tab eventKey="today" title="Today">
                             <div>
 
-                              {todayAppointment && (
+                              {todayAppointment ? (
                                 <div className="tab-view-app__list-disp row">
                                   {todayAppointment.map(
                                     (appointment, index) => {
@@ -1109,13 +1109,20 @@ const Myappointment = (props) => {
                                     }
                                   )}
                                 </div>
+                              ) : (
+                                <div
+                                  className="col-12 ml-2"
+                                  style={{ textShadow: "none", color: "#3e4543" }}
+                                >
+                                  No Appointments For Today
+                                </div>
                               )}
                             </div>
                           </Tab>
                           <Tab eventKey="tomorrow" title="Tomorrow">
                             {console.log({ tomorrowAppointment })}
                             <div>
-                              {tomorrowAppointment && (
+                              {tomorrowAppointment ? (
                                 <div className="tab-view-app__list-disp row">
                                   {tomorrowAppointment.map(
                                     (appointment, index) => {
@@ -1324,6 +1331,13 @@ const Myappointment = (props) => {
                                       }
                                     }
                                   )}
+                                </div>
+                              ):(
+                                <div
+                                  className="col-12 ml-2"
+                                  style={{ textShadow: "none", color: "#3e4543" }}
+                                >
+                                  No Appointments For Tomorrow
                                 </div>
                               )}
                             </div>
