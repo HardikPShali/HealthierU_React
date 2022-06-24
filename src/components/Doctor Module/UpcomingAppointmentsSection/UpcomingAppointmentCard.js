@@ -18,7 +18,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
     setAppointmentPersonKey(key);
   }, []);
   const handleClickToAppointmentsPage = () => {
-    history.push('/doctor/my-appointments');
+    history.push(`/doctor/my-appointments?APID=${appointment.id}`);
   }
   return (
 
