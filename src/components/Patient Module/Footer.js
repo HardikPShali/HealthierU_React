@@ -28,7 +28,7 @@ const Footer = () => {
         <Container className="p-0 padding-mobile">
           <Row className="align-item-center tab-align">
             {/* <Col md={3} lg={2} xl={2}> */}
-              {/* <Link to="/about-us" id="footer-link">
+            {/* <Link to="/about-us" id="footer-link">
                 About us
               </Link>
               <HashLink to="/about-us#how-it-work" id="footer-link">
@@ -37,10 +37,10 @@ const Footer = () => {
               <HashLink to="/about-us#our-services" id="footer-link">
                 Our services
               </HashLink> */}
-              {/* <Link to="" id="footer-link">
+            {/* <Link to="" id="footer-link">
                                 Articles
                             </Link> */}
-              {/* <a
+            {/* <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
                 target="_blank"
                 id="footer-link"
@@ -109,22 +109,22 @@ const Footer = () => {
           <Row>
             <Col md={8}>
               <div className="terms-container">
-                <Link to="/privacy-policy" className="" id="copy-link">
+                <Link to="/patient/privacy-policy" className="" id="copy-link">
                   Privacy and Security
                 </Link>
-                <Link to="/terms-and-conditions" className="" id="copy-link">
+                <Link to="/patient/terms-and-conditions" className="" id="copy-link">
                   Terms and Conditions
                 </Link>
-                <Link to="/help-and-support" className="" id="copy-link">
+                <Link to="/patient/help-and-support" className="" id="copy-link">
                   Help And Support
                 </Link>
                 <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
-                target="_blank"
-                id="copy-link"
-              >
-                Contact Us
-              </a>
+                  href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
+                  target="_blank"
+                  id="copy-link"
+                >
+                  Contact Us
+                </a>
                 {/* <Link to="/licenses" className="" id="copy-link">
                                     HealthierU Licenses
                                 </Link>

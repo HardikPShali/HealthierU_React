@@ -12,7 +12,6 @@ import defaultDoctorImage from '../../../images/default_image.png';
 
 
 const OurDoctorCard = ({ doctor }) => {
-    console.log({ doctor })
 
     const [openInfoDoctor, setOpenInfoDoctor] = useState(false);
 
