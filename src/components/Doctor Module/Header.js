@@ -164,9 +164,9 @@ const Header = (props) => {
               <NavLink to="/doctor/my-patients" className="dropdown-item">
                 My Patients
               </NavLink>
-              <NavLink to="/doctor/myrecord" className="dropdown-item">
+              {/* <NavLink to="/doctor/myrecord" className="dropdown-item">
                 Patient Records
-              </NavLink>
+              </NavLink> */}
 
               <NavLink to="/doctor/chat" className="dropdown-item">
                 Chat
