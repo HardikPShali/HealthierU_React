@@ -1258,9 +1258,9 @@ const MyDoctor = (props) => {
   };
 
   //CUSTOM STYLE
-  // const [borderStyle, setBorderStyle] = useState({
-  //   border: 'none',
-  // })
+  const [borderStyle, setBorderStyle] = useState({
+    border: 'none',
+  })
 
   return (
     <div>
@@ -1586,7 +1586,7 @@ const MyDoctor = (props) => {
                         (user, index) =>
                           user &&
                           user.activated && (
-                            <GridListTile key={index} className="card-list__grid-list-tile"
+                            <GridListTile key={index} className={`card-list__grid-list-tile ${user.id === doctor.id ? 'card-border' : ''}`}
                               onClick={async () => {
                                 setdoctor(user);
                                 setAppointment({
@@ -1607,7 +1607,7 @@ const MyDoctor = (props) => {
                                 // setBorderStyle({ ...borderStyle, border: '1px solid black' });
                                 getInValidAppointments(user.id);
                               }}
-                            // style={borderStyle}
+                            // style={user.id === doctor.id ? { border: '1px solid black' } : {}}
                             >
                               {!user.liked && (
                                 <FavoriteBorderIcon
