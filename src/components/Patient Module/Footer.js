@@ -15,6 +15,7 @@ import gplusicon from "../../images/icons used/googleplus.png";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { HashLink } from "react-router-hash-link";
+import Newsletter from "../CommonModule/NewsletterSection/Newsletter";
 
 const Footer = () => {
   //   const change = (e) => {
@@ -63,24 +64,7 @@ const Footer = () => {
                                         </b>
                             </div><br />*/}
               <div style={{ width: "100%" }}>
-                <p>Email Newsletters</p>
-                <p style={{ fontSize: 11 }}>
-                  Stay up-to-date with the latest content and offers from
-                  HealthierU
-                </p>
-                <form>
-                  <input
-                    type="email"
-                    placeholder="Email Address"
-                    name="email"
-                    id="footer-input"
-                  />
-                  <input
-                    type="submit"
-                    value="Subscribe"
-                    className="btn submit-btn"
-                  />
-                </form>
+                <Newsletter />
               </div>
             </Col>
             <Col md={6} lg={6} xl={6} id="last-col">
