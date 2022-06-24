@@ -937,7 +937,7 @@ const Myappointment = (props) => {
                                                   );
                                                 }}
                                               >
-                                                <div className="row align-items-start py-1">
+                                                <div className="row align-items-start py-1 mobile-resp">
                                                   <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                     <h5 className="patient-list__common-date">
                                                       {console.log(
@@ -1042,7 +1042,7 @@ const Myappointment = (props) => {
                                                   );
                                                 }}
                                               >
-                                                <div className="row align-items-start py-1">
+                                                <div className="row align-items-start py-1 mobile-resp">
                                                   <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                     <h5 className="patient-list__common-date">
                                                       <b>
@@ -1153,7 +1153,7 @@ const Myappointment = (props) => {
                                                   );
                                                 }}
                                               >
-                                                <div className="row align-items-start py-1">
+                                                <div className="row align-items-start py-1 mobile-resp">
                                                   <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                     <h5 className="patient-list__common-date">
                                                       {console.log(
@@ -1258,7 +1258,7 @@ const Myappointment = (props) => {
                                                   );
                                                 }}
                                               >
-                                                <div className="row align-items-start py-1">
+                                                <div className="row align-items-start py-1 mobile-resp">
                                                   <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                     <h5 className="patient-list__common-date">
                                                       <b>

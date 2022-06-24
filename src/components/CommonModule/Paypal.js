@@ -133,11 +133,17 @@ const Paypal = (props) => {
             if (window.android) {
               window.android.onPaymentStatusChange(false);
             }
+            if (window.webkit) {
+              window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
+            }
           },
           onError: (err, a) => {
             console.log(err);
             if (window.android) {
               window.android.onPaymentStatusChange(false);
+            }
+            if (window.webkit) {
+              window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
             }
           },
         })
@@ -164,12 +170,16 @@ const Paypal = (props) => {
           <button
             autoFocus={false}
             onClick={() => {
-              if(window.android) {
+              if (window.android) {
                 window.android.onPaymentStatusChange(false);
-              } else {
+              }
+              else if (window.webkit) {
+                window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
+              }
+              else {
                 history.go(0)
               }
-            } }
+            }}
             className="btn btn-primary"
             id="close-btn"
           >
