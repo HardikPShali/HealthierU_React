@@ -902,11 +902,11 @@ const MyDoctor = (props) => {
     },
   ];
 
-  if (isTourOpen || isAppointmentTourOpen) {
-    document.body.style.color = '#00000080';
-  } else {
-    document.body.style.color = 'unset';
-  }
+  // if (isTourOpen || isAppointmentTourOpen) {
+  //   document.body.style.color = '#00000080';
+  // } else {
+  //   document.body.style.color = 'unset';
+  // }
 
   // Filter Box Code
 
@@ -2157,14 +2157,14 @@ const MyDoctor = (props) => {
 
               style={{ display: display.doctor }}
             >
-              <Tooltip title="Take a Booking appointment tour again." arrow>
+              {/* <Tooltip title="Take a Booking appointment tour again." arrow>
                 <button
                   onClick={() => setIsTourOpen(true)}
                   className="howToBtn"
                 >
                   How to?
                 </button>
-              </Tooltip>
+              </Tooltip> */}
               <div id="dorctor-list" className='calendar-helper'>
                 <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
@@ -3063,7 +3063,7 @@ const MyDoctor = (props) => {
           </Col>
         </Row>
 
-        <Tour
+        {/* <Tour
           onRequestClose={() => closeTour()}
           startAt={0}
           steps={tourConfig}
@@ -3075,6 +3075,7 @@ const MyDoctor = (props) => {
           onAfterOpen={disableBody}
           onBeforeClose={enableBody}
         />
+         */}
         <Tour
           onRequestClose={() => closeAppointmentTour()}
           startAt={0}

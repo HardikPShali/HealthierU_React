@@ -419,6 +419,7 @@ const Myappointment = (props) => {
             unifiedAppointment: value.unifiedAppointment,
           });
         }
+        console.log({ value })
         return value;
       });
       setTomorrowAppointment(tomoArray);
@@ -1030,7 +1031,7 @@ const Myappointment = (props) => {
                                           //     deleteIcon={<CancelIcon />} />)
                                           return (
                                             <div
-                                              className="col-md-12 mb-2 mt-2 cursor-pointer"
+                                              className="col-md-6 mb-2 mt-2 cursor-pointer"
                                               key={index}
                                             >
                                               <div
@@ -1112,6 +1113,7 @@ const Myappointment = (props) => {
                             </div>
                           </Tab>
                           <Tab eventKey="tomorrow" title="Tomorrow">
+                            {console.log({ tomorrowAppointment })}
                             <div>
                               {tomorrowAppointment && (
                                 <div className="tab-view-app__list-disp row">
@@ -1125,8 +1127,8 @@ const Myappointment = (props) => {
                                       ) {
                                         if (
                                           appointment.unifiedAppointment ===
-                                          (tomorrowAppointment[index + 1] &&
-                                            tomorrowAppointment[index + 1]
+                                          (todayAppointment[index + 1] &&
+                                            todayAppointment[index + 1]
                                               .unifiedAppointment)
                                         ) {
                                           // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(acceptedAppointment[index + 1].endTime).format("h:mm A") + " )  "}
@@ -1245,7 +1247,7 @@ const Myappointment = (props) => {
                                           //     deleteIcon={<CancelIcon />} />)
                                           return (
                                             <div
-                                              className="col-md-12 mb-2 mt-2 cursor-pointer"
+                                              className="col-md-6 mb-2 mt-2 cursor-pointer"
                                               key={index}
                                             >
                                               <div
