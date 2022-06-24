@@ -4423,7 +4423,11 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .card-border {
-  border: 1px solid black;
+  border: 0px solid black;
+  border-radius: 10px !important;
+  background: #e0e0e0;
+  box-shadow: inset -25px -235px 50px var(--primarysecond),
+    inset 25px 25px 50px var(--primarysecond);
 }
 
 .card-list__grid-list-tile:hover .card-border {
