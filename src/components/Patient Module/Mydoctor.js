@@ -902,11 +902,11 @@ const MyDoctor = (props) => {
     },
   ];
 
-  if (isTourOpen || isAppointmentTourOpen) {
-    document.body.style.color = '#00000080';
-  } else {
-    document.body.style.color = 'unset';
-  }
+  // if (isTourOpen || isAppointmentTourOpen) {
+  //   document.body.style.color = '#00000080';
+  // } else {
+  //   document.body.style.color = 'unset';
+  // }
 
   // Filter Box Code
 
@@ -1258,9 +1258,9 @@ const MyDoctor = (props) => {
   };
 
   //CUSTOM STYLE
-  // const [borderStyle, setBorderStyle] = useState({
-  //   border: 'none',
-  // })
+  const [borderStyle, setBorderStyle] = useState({
+    border: 'none',
+  })
 
   return (
     <div>
@@ -1586,7 +1586,7 @@ const MyDoctor = (props) => {
                         (user, index) =>
                           user &&
                           user.activated && (
-                            <GridListTile key={index} className="card-list__grid-list-tile"
+                            <GridListTile key={index} className={`card-list__grid-list-tile ${user.id === doctor.id ? 'card-border' : ''}`}
                               onClick={async () => {
                                 setdoctor(user);
                                 setAppointment({
@@ -1607,7 +1607,7 @@ const MyDoctor = (props) => {
                                 // setBorderStyle({ ...borderStyle, border: '1px solid black' });
                                 getInValidAppointments(user.id);
                               }}
-                            // style={borderStyle}
+                            // style={user.id === doctor.id ? { border: '1px solid black' } : {}}
                             >
                               {!user.liked && (
                                 <FavoriteBorderIcon
@@ -1615,7 +1615,7 @@ const MyDoctor = (props) => {
                                   onClick={() => createLikedDoctor(user.id)}
                                 />
                               )}
-                              console.log(user.liked)
+
                               {user.liked && (
                                 <FavoriteIcon
                                   id="fav-icon"
@@ -2157,14 +2157,14 @@ const MyDoctor = (props) => {
 
               style={{ display: display.doctor }}
             >
-              <Tooltip title="Take a Booking appointment tour again." arrow>
+              {/* <Tooltip title="Take a Booking appointment tour again." arrow>
                 <button
                   onClick={() => setIsTourOpen(true)}
                   className="howToBtn"
                 >
                   How to?
                 </button>
-              </Tooltip>
+              </Tooltip> */}
               <div id="dorctor-list" className='calendar-helper'>
                 <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
@@ -3063,7 +3063,7 @@ const MyDoctor = (props) => {
           </Col>
         </Row>
 
-        <Tour
+        {/* <Tour
           onRequestClose={() => closeTour()}
           startAt={0}
           steps={tourConfig}
@@ -3075,6 +3075,7 @@ const MyDoctor = (props) => {
           onAfterOpen={disableBody}
           onBeforeClose={enableBody}
         />
+         */}
         <Tour
           onRequestClose={() => closeAppointmentTour()}
           startAt={0}

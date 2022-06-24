@@ -100,10 +100,16 @@ const MyAppointments = (props) => {
     }
   };
   const [appointment, setAppointment] = useState([]);
+  const [apptId, setApptId] = useState(0);
   useEffect(() => {
     // getCurrentDoctor();
     getGlobalAppointments();
-  }, []);
+    // console.log("props",props);
+    getApptId()
+  }, [apptId]);
+  const getApptId = () => {
+    setApptId(props.location.search.split("=")[1])
+  }
   // const currentLoggedInUser = cookies.get('currentUser');
   // const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
 
@@ -297,6 +303,7 @@ const MyAppointments = (props) => {
       }
     }
   }
+  const [autoselectAppointment, setAutoselectAppointment] = useState({})
   const getGlobalAppointments = async (search, filter = {}) => {
     const currentDoctor = cookies.get("profileDetails");
     setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
@@ -394,11 +401,33 @@ const MyAppointments = (props) => {
           }
         });
         setAppointmentDets(updateArray);
+        updateArray.find((app) => {
+          if (apptId == app.id) {
+            const birthDate = new Date(app.patient.dateOfBirth);
+            const difference = Date.now() - birthDate.getTime();
+            const age = new Date(difference);
+            setAge(Math.abs(age.getUTCFullYear() - 1970));
+            setSelectedPatient({
+              id: app.id,
+              patientId: app.patientId,
+              doctorId: app.doctorId,
+              doctor: app.doctor,
+              startTime: new Date(app.startTime),
+              endTime: new Date(app.endTime),
+              remarks: app.remarks,
+              status: app.status,
+              appointmentMode: app.appointmentMode,
+              appointmentId: app.appointmentId,
+              unifiedAppointment: app.unifiedAppointment,
+              patient: app.patient,
+            })
+            getPaymentInfo(app)
+          }
+        })
       }
 
     }
   };
-
   const handleSearchInputChange = async (searchValue) => {
     //console.log("searchValue :::::::", searchValue);
     if (searchValue === "") {
@@ -702,20 +731,6 @@ const MyAppointments = (props) => {
                         </Link> */}
           </Col>
           <Col lg={6} md={6} id="col">
-            {dataLoading && (
-              <>
-                <div
-                  id="request-box"
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <p className="text-center">Loading ...</p>
-                </div>
-              </>
-            )}
             {!dataLoading && (
               <>
                 {SelectedPatient ? (
@@ -1101,6 +1116,7 @@ const MyAppointments = (props) => {
               </>
             )}
           </Col>
+
           {/* <Col lg={3} md={6} id="col">
                         <div id="chat-box">
                             <div id="chat-heading">Recent Messages</div>

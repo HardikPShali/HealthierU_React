@@ -419,6 +419,7 @@ const Healthassessment = (props) => {
         setPrescriptionDocumentUrl('');
         setLabDocumentUrl('');
         setCurrentPageNumber(1);
+        setCurrentTab(event);
     };
 
     //Start and End Date
@@ -553,12 +554,21 @@ const Healthassessment = (props) => {
         getGlobalLabResults(search, filter);
     };
     const handleSearchInputChange = (searchValue) => {
-        if (searchValue === '') {
-            getGlobalLabResults(searchValue)
+        if (currentTab === "prescription") {
+            getGlobalPrescriptions(searchValue);
         } else {
             getGlobalLabResults(searchValue);
+        }
+        if (searchValue != "") {
             setSearch(searchValue);
         }
+        // if (searchValue === '') {
+        //     getGlobalLabResults(searchValue);
+        // }
+        // else {
+        //     getGlobalLabResults(searchValue);
+        //     setSearch(searchValue);
+        // }
     };
 
     const handleFilterChangePrescription = (filter) => {
@@ -566,38 +576,45 @@ const Healthassessment = (props) => {
     };
     const handleSearchInputChangePrescription = (searchValue) => {
         if (searchValue === '') {
-            console.log('blank searchValue is | in SearchBarComponent', searchValue);
             getGlobalPrescriptions(searchValue)
         } else {
             getGlobalPrescriptions(searchValue);
             setSearch(searchValue);
         }
     };
-
+    const [currentTab, setCurrentTab] = useState("prescription");
     return (
         <>
             <div className="container">
-                <IconButton
+                {/* <IconButton
                     style={{ margin: '10px 0 -25px', width: '40px', height: '40px' }}
                 >
                     <Link to="/doctor/my-appointments">
                         <ArrowBackIcon />
                     </Link>
-                </IconButton>
+                </IconButton> */}
+                <div className="row mt-4">
+                    <div className="col d-flex justify-content-start">
+                        <SearchBarComponent updatedSearch={handleSearchInputChange} />
+                        {currentTab === "prescription" ? (
+                            <PrescriptionFilter updatedFilter={handleFilterChangePrescription} />
+                        ) : (
+                            <FilterComponent updatedFilter={handleFilterChange} />
+                        )}
+                    </div>
+                </div>
                 <br />
                 <br />
                 <Tabs className="justify-content-center record-tabs" defaultActiveKey="prescription" id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}>
                     <Tab eventKey="prescription" title="Prescription">
                         <br />
-
-
-                        <div className="row">
-                            <div className="col-md-10" style={{ display: 'flex' }}>
+                        {/* <div className="col-md-10" style={{ display: 'flex' }}>
                                 <SearchBarComponent updatedSearch={handleSearchInputChangePrescription} />
                                 <PrescriptionFilter updatedFilter={handleFilterChangePrescription} />
-                            </div>
-                            <div className="col-md-2 text-right">
+                            </div> */}
+                        <div className="d-flex justify-content-end">
+                            <div className="col text-right">
                                 <button
                                     type="button"
                                     className="btn btn-primary"
@@ -737,10 +754,10 @@ const Healthassessment = (props) => {
                             <div className="col-md-10">
 
                             </div>
-                            <div className="d-flex mt-2 justify-content-between">
+                            {/* <div className="d-flex mt-2 justify-content-between">
                                 <SearchBarComponent updatedSearch={handleSearchInputChange} />
                                 <FilterComponent updatedFilter={handleFilterChange} />
-                            </div>
+                            </div> */}
                         </div>
                         <br />
 

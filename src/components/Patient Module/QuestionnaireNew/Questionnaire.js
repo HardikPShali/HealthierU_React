@@ -167,10 +167,10 @@ const Questionnaire = ({ match }) => {
     console.log(questions);
     if (questions.length > 0) {
       handleAssessmentSubmit();
-      if (handleAssessmentSubmit()) {
-        setContinueClick(true);
-        // healthBehaviorOnScore(totalscore);
-      }
+
+      setContinueClick(true);
+      // healthBehaviorOnScore(totalscore);
+
       // history.push('/patient');
     } else {
       toast.error("Please fill the form!", {
