@@ -47,7 +47,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
                 (appointment.doctor.lastName || "")
               }
               size={60}
-              // className="my-appointment-avatar"
+              className="my-appointments-avatar"
             />
           )
         }

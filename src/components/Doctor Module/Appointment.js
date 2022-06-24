@@ -808,16 +808,16 @@ const Myappointment = (props) => {
                 <hr />
                 {/* List of Appointments */}
                 <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
-                  <Col md={12}>
+                  {/* <Col md={12}>
                     <h2 className="mt-3 mb-3 text-center font-weight-bold">
                       List of Appointments
                     </h2>
-                  </Col>
+                  </Col> */}
                   <Col md={12}>
                     <div className="appointment-slot-list available">
-                      <h5 className="mb-3 text-center font-weight-bold">
+                      <h2 className="mb-3 text-center font-weight-bold">
                         Available Slots for Appointments
-                      </h5>
+                      </h2>
                       {state && (
                         <div className={classes.root}>
                           {state.map((appointment, index) => {
