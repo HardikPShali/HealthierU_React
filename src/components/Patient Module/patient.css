@@ -671,7 +671,7 @@ button.continue-btn {
   outline: none !important;
   box-shadow: none !important;
   font-size: 13px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 button.continue-btn-profile {
@@ -1350,8 +1350,7 @@ div#multiselectContainerReact div:hover {
 
 #questionnaire-view-bg {
   background-image: url(../../images/shutterstock_390236386.jpg);
-  background-size: cover;
-  background-position: center;
+  background-attachment: fixed;
 }
 
 #questionnaire-bg {
@@ -4093,10 +4092,16 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .details-content {
   padding-bottom: 20px;
+  /* padding-top: 54px; */
+}
+
+.details-content__doc-info {
+  padding-bottom: 20px;
   padding-top: 54px;
 }
 
-.details-content img {
+.details-content img,
+.details-content__doc-info img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -4397,4 +4402,12 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   transform: translateY(-4px);
   /* box-shadow: 4px 4px 14px rgb(0 0 0 / 9%); */
   filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+.card-list__grid-list-tile--selected {
+  border: 2px solid black;
+}
+
+.calendar-helper {
+  padding: 30px 0 !important;
 }

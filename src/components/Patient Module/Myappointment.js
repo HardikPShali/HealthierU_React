@@ -39,6 +39,7 @@ import experienceIcon from '../../images/svg/experience-yellow-icon.svg';
 import languageIcon from '../../images/svg/languages-yellow-icon.svg';
 import aboutIcon from '../../images/svg/about-icon.svg';
 import rescheduleIcon from '../../images/svg/reschedule-icon.svg';
+import defaultDoctorImage from '../../images/default_image.png';
 
 
 //import { handleAgoraAccessToken } from '../../service/agoratokenservice';
@@ -105,6 +106,8 @@ const Myappointment = (props) => {
   ] = useState(false);
   const [moreDoctorInfo, setMoreDoctorInfo] = useState(false);
 
+  const [openApptDetailsFromCalendar, setOpenApptDetailsFromCalendar] = useState(false)
+
   const handleClickOpen = (appointmentData) => {
     const now = new Date().getTime();
     const appointmentDate = new Date(appointmentData.startTime).getTime();
@@ -122,6 +125,11 @@ const Myappointment = (props) => {
     setopenAppointmentInfo(true);
   };
 
+  const handleAppointmentInfoFromCalendarClick = (eventData) => {
+    setSelectedAppointment(eventData);
+    setOpenApptDetailsFromCalendar(true);
+  }
+
   const handleUpcomingAppointmentInfoOpen = (eventData) => {
     setSelectedAppointment(eventData);
     setOpenUpcomingAppointmentInfo(true);
@@ -135,6 +143,7 @@ const Myappointment = (props) => {
   const handleAppointmentInfoClose = () => {
     setopenAppointmentInfo(false);
     setOpenCancelledAndCompletedAppointmentInfo(false);
+    setOpenApptDetailsFromCalendar(false);
   };
 
   const [confirmVideo, setConfirmVideo] = useState(false);
@@ -470,7 +479,7 @@ const Myappointment = (props) => {
                     //max={new Date(new Date(newEndDate).setHours(21,0))}
                     timeslots={1}
                     step={60}
-                    onSelectEvent={(event) => handleAppointmentInfoOpen(event)}
+                    onSelectEvent={(event) => handleAppointmentInfoFromCalendarClick(event)}
                     messages={{ previous: "Previous", next: "Next", today: "Today" }}
                   />
                 </div>
@@ -869,6 +878,211 @@ const Myappointment = (props) => {
             </DialogActions>
           </Dialog>
 
+          {/* APPOINTMENT DETAILS FROM CALENDAR */}
+          <Dialog
+            onClose={handleAppointmentInfoClose}
+            aria-labelledby="customized-dialog-title"
+            open={openApptDetailsFromCalendar}
+          >
+            <DialogTitle
+              id="customized-dialog-title"
+              onClose={handleAppointmentInfoClose}
+              style={{ textAlign: 'center' }}
+            >
+              Appointment Details
+            </DialogTitle>
+            <DialogContent dividers>
+              {selectedAppointment && selectedAppointment.doctor && (
+                <div className="details-container">
+                  <div className="details-wrapper">
+                    <div className="details-content">
+                      {/* {console.log(selectedAppointment)} */}
+                      {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
+                      {
+                        selectedAppointment.doctor ? (
+                          <img
+                            src={selectedAppointment.doctor.picture}
+                            alt={`${selectedAppointment.doctor.firstName}-image`}
+                            className="img-circle ml-3 mt-3"
+                          />
+                        ) : (
+                          <Avatar
+                            round={true}
+                            name={
+                              selectedAppointment.doctor.firstName +
+                              ' ' +
+                              (selectedAppointment.doctor.lastName || "")
+                            }
+                            size={60}
+                            className="my-appointment-avatar"
+                          />
+                        )
+                      }
+                      <h2>
+                        {selectedAppointment.doctor.firstName}{' '}
+                        {(selectedAppointment.doctor.lastName || "")}
+                      </h2>
+                      <span>
+                        <ul
+                          style={{ fontSize: 12, display: 'block' }}
+                          className="list--tags"
+                        >
+                          {selectedAppointment.doctor &&
+                            selectedAppointment.doctor.specialities &&
+                            selectedAppointment.doctor.specialities.map(
+                              (speciality, index) => (
+                                <li key={index}>{speciality.name} </li>
+                              )
+                            )}
+                        </ul>
+                      </span>
+                    </div>
+                    <div className="details-body">
+                      <span>Appointment on</span>
+
+                      <div className="details-body__appointment">
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={calendarIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="my-patient-card__common-span">
+                            {moment(selectedAppointment.startTime).format(
+                              'DD/MM/YY'
+                            )}
+                          </span>
+                        </div>
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={timeBig}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="my-patient-card__common-span">
+                            {moment(selectedAppointment.startTime).format(
+                              'hh:mm A'
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                      <br />
+                      <span>Appointment Fee and Payment method</span>
+
+                      <div className="details-body__payment">
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={dollarIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="my-patient-card__common-span">
+                            {selectedAppointment.appointmentFee}
+                          </span>
+                        </div>
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={creditCardIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="my-patient-card__common-span">
+                            {selectedAppointment.paymentMethod}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="details-links">
+                      <br />
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItem: 'center',
+                          cursor: 'pointer',
+                        }}
+                        onClick={openMoreDoctorInfo}
+                      >
+                        <div style={{ width: '100%' }}>
+                          <img
+                            width="40"
+                            height="40"
+                            src={infoIcon}
+                            alt=""
+                            style={{ marginLeft: '5%', marginRight: '5%' }}
+                          />
+                          <span>More Info about Doctor</span>
+                        </div>
+                        <img
+                          src={rightIcon}
+                          alt="right-icon"
+                          style={{ marginRight: '35px' }}
+                        />
+                      </div>
+                      <br />
+                      <Link
+                        to={{
+                          pathname: `/patient/help-and-support`,
+                          // state: SelectedPatient.patient,
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                          <div style={{ width: '100%' }}>
+                            <img
+                              width="40"
+                              height="40"
+                              src={helpSupportIcon}
+                              // onClick='${pathname}'
+                              alt=""
+                              style={{ marginLeft: '5%', marginRight: '5%' }}
+                            />
+                            Help and Support
+                          </div>
+                          <img
+                            src={rightIcon}
+                            alt="right-icon"
+                            style={{ marginRight: '35px' }}
+                          />
+                        </div>
+                      </Link>
+                    </div>
+                    <hr />
+                  </div>
+                </div>
+              )}
+            </DialogContent>
+
+            <DialogActions
+              id="chat-buttons"
+              onClose={handleAppointmentInfoClose}
+              aria-labelledby="customized-dialog-title"
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+              }}
+            >
+              {/* <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
+              <button
+                autoFocus={false}
+                onClick={() => handleClickOpen(selectedAppointment)}
+                className="btn btn-primary"
+                id="close-btn"
+              >
+                Cancel Appointment
+              </button>
+              <button
+                autoFocus={false}
+                onClick={() => handleChat(selectedAppointment.startTime)}
+                className="btn btn-primary"
+                id="close-btn"
+              >
+                <img
+                  src={chatButtonIcon}
+                  alt="chat-button-icon"
+                  style={{ marginRight: 5 }}
+                />
+                Chat
+              </button>
+            </DialogActions>
+          </Dialog>
+
           {/* APPOINTMENT DETAILS DIALOG */}
           <Dialog
             onClose={handleAppointmentInfoClose}
@@ -983,7 +1197,7 @@ const Myappointment = (props) => {
                     <div className="details-links">
                       <Link
                         to={{
-                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode.toLowerCase().replace(" ","-")}`,
+                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode?.toLowerCase().replace(" ", "-")}`,
 
 
                         }}
@@ -1398,9 +1612,17 @@ const Myappointment = (props) => {
               {selectedAppointment && selectedAppointment.doctor && (
                 <div className="details-container">
                   <div className="details-wrapper">
-                    <div className="details-content">
+                    <div className="details-content__doc-info">
                       {/* {console.log("selectedAPP", selectedAppointment)} */}
-                      <img src={selectedAppointment.doctor.picture} alt="" />
+                      {
+                        selectedAppointment.doctor.picture ? (
+                          <img src={selectedAppointment.doctor.picture} alt="" />
+                        ) :
+                          (
+                            <img src={defaultDoctorImage} alt="" />
+                          )
+                      }
+
                       <h2>
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ""}
