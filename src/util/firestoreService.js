@@ -155,12 +155,12 @@ const toastMessage = (payload) => {
 }
 
 const messageToast = (payload) => {
-  const toastBody = payload.notification.body
-  const toastTitle = payload.notification.title
+  // const toastBody = payload.notification.body
+  // const toastTitle = payload.notification.title
 
   sound.play()
   const customToast = (
-    <CustomToastMessage title={toastTitle} body={toastBody} payload={payload} />
+    <CustomToastMessage payload={payload} />
   )
   toast.info(customToast, {
     position: "top-right",

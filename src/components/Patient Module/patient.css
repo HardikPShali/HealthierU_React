@@ -4433,3 +4433,13 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .card-list__grid-list-tile:hover .card-border {
   border: 1px solid black;
 }
+
+.my-appointments__modal-avatar > .sb-avatar__text {
+  width: 70px !important;
+  height: 70px !important;
+  margin: 7px -5px !important;
+}
+
+.my-appointments__header-names {
+  margin-top: 30px;
+}

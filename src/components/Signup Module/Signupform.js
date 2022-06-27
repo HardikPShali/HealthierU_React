@@ -35,6 +35,7 @@ import jwtDecode from "jwt-decode";
 import DialogContent from "@material-ui/core/DialogContent";
 import { activateOtp } from '../../service/AccountService';
 import Typography from "@material-ui/core/Typography";
+import { ifError } from "assert";
 
 
 const isnum = "(?=.*[0-9!@*$_])";
@@ -285,9 +286,20 @@ const Signupform = () => {
           console.log("Error Message", error.response.data.message);
           setErrorMsg({
             ...errorMsg,
-            userNameExistance: error.response.data.message,
+            userNameExistance: 'User name already used. Please try with different user name.',
           });
         }
+        if (
+          error.response &&
+          error.response.status === 500 && error.response.data.message === "Email is already in use!"
+        ) {
+          setErrorMsg({
+            ...errorMsg,
+            emailExistance: 'Email is already in use. Please try with different email.',
+          });
+        }
+
+
 
         // if (
         //   error.response &&

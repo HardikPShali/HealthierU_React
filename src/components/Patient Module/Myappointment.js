@@ -1104,7 +1104,7 @@ const Myappointment = (props) => {
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
                       {
-                        selectedAppointment.doctor ? (
+                        selectedAppointment.doctor.picture ? (
                           <img
                             src={selectedAppointment.doctor.picture}
                             alt={`${selectedAppointment.doctor.firstName}-image`}
@@ -1119,11 +1119,16 @@ const Myappointment = (props) => {
                               (selectedAppointment.doctor.lastName || "")
                             }
                             size={60}
-                            className="my-appointments-avatar"
+                            className="my-appointments__modal-avatar"
                           />
+                          // <img
+                          //   src={defaultDoctorImage}
+                          //   alt={`${selectedAppointment.doctor.firstName}-image`}
+                          //   className="img-circle ml-3 mt-3"
+                          // />
                         )
                       }
-                      <h2>
+                      <h2 className='my-appointments__header-names'>
                         {selectedAppointment.doctor.firstName}{' '}
                         {(selectedAppointment.doctor.lastName || "")}
                       </h2>

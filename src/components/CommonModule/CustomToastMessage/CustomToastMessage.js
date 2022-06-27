@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import useRole from "../../../custom-hooks/useRole";
 import './CustomCallToast.css'
 
-const CustomToastMessage = ({ title, body, payload }) => {
+const CustomToastMessage = ({ payload }) => {
   const history = useHistory();
   const role = useRole();
   const [picture, setPicture] = useState("");
@@ -15,7 +15,7 @@ const CustomToastMessage = ({ title, body, payload }) => {
   useEffect(() => {
     if (payload) {
       let profileImage =
-      getRoleName() === "doctor"
+        getRoleName() === "doctor"
           ? payload?.data?.patientPicture
           : payload?.data?.doctorPicture;
       setPicture(profileImage);
@@ -39,8 +39,8 @@ const CustomToastMessage = ({ title, body, payload }) => {
         <img src={picture} alt="profile picture" className="caller-img" />
       </div>
       <div className="caller-name msg-name">
-        <div className="name">{title}</div>
-        <div className="call-tag text-small msg-text">{body}</div>
+        <div className="name">{payload.data.title}</div>
+        <div className="call-tag text-small msg-text">{payload.data.message}</div>
       </div>
     </div>
   );
