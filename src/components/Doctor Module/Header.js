@@ -158,9 +158,9 @@ const Header = (props) => {
               <NavLink to="/doctor/appointment" className="dropdown-item">
                 My Calendar
               </NavLink>
-              <NavLink to="/doctor/my-appointments" className="dropdown-item">
+              {/* <NavLink to="/doctor/my-appointments" className="dropdown-item">
                 My Appointments
-              </NavLink>
+              </NavLink> */}
               <NavLink to="/doctor/my-patients" className="dropdown-item">
                 My Patients
               </NavLink>
