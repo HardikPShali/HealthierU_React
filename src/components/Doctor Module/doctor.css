@@ -68,12 +68,12 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar>button {
+.headerNavbar > button {
   color: #fff;
   font-size: 14px;
 }
 
-.headerNavbar>button:hover {
+.headerNavbar > button:hover {
   color: #fff;
 }
 
@@ -102,9 +102,8 @@ svg#search-icon {
 }
 
 @media (max-width: 992px) {
-
   #navbar a,
-  .headerNavbar>button {
+  .headerNavbar > button {
     padding: 10px 20px;
   }
 
@@ -121,7 +120,7 @@ svg#search-icon {
     margin: 4px 0;
   }
 
-  .MuiIconButton-root[aria-label="show 17 new notifications"] {
+  .MuiIconButton-root[aria-label='show 17 new notifications'] {
     padding: 0;
   }
 }
@@ -570,7 +569,6 @@ div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
 
 input#doctor-search {
   color: var(--text-primary);
-
 }
 
 #appointment-card {
@@ -701,12 +699,17 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
+  .MuiGridListTileBar-title {
   color: #fff;
   transition: 0.5s;
 }
@@ -763,7 +766,7 @@ div#price-box {
 }
 
 div#price-box:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 46%;
@@ -1059,6 +1062,11 @@ img#profile-pic {
   outline: 5px solid #00d0cc;
   background-color: #fff !important;
 }
+.my-appointments-avatar-doctor > .sb-avatar__text {
+  width: 70px !important;
+  height: 70px !important;
+  margin: 15px !important;
+}
 
 .profile-pic {
   width: 120px;
@@ -1088,7 +1096,6 @@ p#description {
   font-size: 14px;
   margin-top: 8px;
   color: var(--text-primary);
-
 }
 
 button.request-edit {
@@ -1290,13 +1297,13 @@ table#user-info {
   align-items: center;
 }
 
-.record-tabs>.nav-link:hover {
+.record-tabs > .nav-link:hover {
   color: #495057 !important;
   text-decoration: none;
   outline: none;
 }
 
-.record-tabs>.nav-link.active {
+.record-tabs > .nav-link.active {
   color: #fff !important;
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
@@ -1602,7 +1609,7 @@ div#req-info {
   cursor: pointer;
 }
 
-div#req-info>a {
+div#req-info > a {
   border-radius: 10px;
   text-align: justify;
   color: #3e4543;
@@ -1610,7 +1617,7 @@ div#req-info>a {
   cursor: pointer;
 }
 
-div#req-info>a:hover {
+div#req-info > a:hover {
   text-decoration: none;
   color: #00d0cc;
 }
@@ -2034,7 +2041,7 @@ div#primary-card {
 }
 
 @media (max-width: 700px) {
-  #footer .row>div {
+  #footer .row > div {
     margin-bottom: 40px;
   }
 
@@ -2055,7 +2062,7 @@ div#primary-card {
     text-align: center !important;
   }
 
-  #copyright .row>div {
+  #copyright .row > div {
     margin-bottom: 20px;
   }
 
@@ -2353,16 +2360,16 @@ div.reply .messageBody span.messageTime {
   text-transform: capitalize;
 }
 
-.list--tags>li {
+.list--tags > li {
   display: inline;
 }
 
-.list--tags>li:before {
-  content: ",\0000a0";
+.list--tags > li:before {
+  content: ',\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags>li:first-child:before {
+.list--tags > li:first-child:before {
   content: normal;
 }
 
@@ -2382,7 +2389,6 @@ div.reply .messageBody span.messageTime {
 .appointment-slot-list_h5 h5 {
   font-weight: 500;
 }
-
 
 /* width */
 
@@ -2486,7 +2492,7 @@ Health Assessment
   margin-left: 27px;
 }
 
-.modal-body>.form-group>label.col-form-label {
+.modal-body > .form-group > label.col-form-label {
   font-size: 14.5px;
 }
 
@@ -2511,7 +2517,7 @@ Health Assessment
 }
 
 .rbc-time-slot.active:after {
-  content: "Create Slot";
+  content: 'Create Slot';
   position: absolute;
   background: #00d0ce;
   color: #fff;
@@ -2625,7 +2631,7 @@ Health Assessment
 }
 
 span.followupColor:before {
-  content: "";
+  content: '';
   width: 20px;
   height: 10px;
   background: var(--primarysecond);
@@ -2641,7 +2647,7 @@ span.followupColor {
 }
 
 span.consultationColor:before {
-  content: "";
+  content: '';
   width: 20px;
   height: 10px;
   background: var(--primary);
@@ -2657,7 +2663,7 @@ span.consultationColor {
 }
 
 span.availableColor:before {
-  content: "";
+  content: '';
   width: 20px;
   height: 10px;
   background: #4f80e2;
@@ -3114,7 +3120,7 @@ button.reset-btn {
 
 .patient-list__common-name {
   text-shadow: none;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 400 !important;
   margin-bottom: 2px;
   text-transform: capitalize;
@@ -3211,14 +3217,14 @@ button.reset-btn {
   padding: 0 15px;
 }
 
-.my-appointment-avatar>.sb-avatar__text {
+.my-appointment-avatar > .sb-avatar__text {
   width: 60px !important;
   height: 60px !important;
   background-color: #fff !important;
   outline: 1px solid #00d0cc;
 }
 
-.my-patient-avatar>.sb-avatar__text {
+.my-patient-avatar > .sb-avatar__text {
   width: 100px !important;
   height: 100px !important;
   border-radius: 50%;
@@ -3340,16 +3346,16 @@ button.reset-btn {
   text-align: left;
 }
 
-.details-links>a,
-.details-links>div {
+.details-links > a,
+.details-links > div {
   border-radius: 10px;
   text-align: justify;
   color: #3e4543;
   font-weight: 600;
 }
 
-.details-links>a:hover,
-.details-links>div:hover {
+.details-links > a:hover,
+.details-links > div:hover {
   text-decoration: none;
   transform: translateY(-2px);
   color: #00d0cc;
@@ -3393,7 +3399,7 @@ button.reset-btn {
   width: 100%;
 }
 
-.my-patient-modal__avatar>.sb-avatar__text {
+.my-patient-modal__avatar > .sb-avatar__text {
   width: 120px !important;
   height: 120px !important;
   margin-top: -50px;
@@ -3600,24 +3606,24 @@ label.day-wrapper:hover {
 }
 
 /* On mouse-over, add a grey background color */
-.day-wrapper :hover input~.checkmark {
+.day-wrapper :hover input ~ .checkmark {
   /* background-color: #ccc; */
 }
 
 /* When the checkbox is checked, add a blue background */
-.day-wrapper input:checked~.checkmark {
+.day-wrapper input:checked ~ .checkmark {
   /* background-color: #2196F3; */
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .day-wrapper .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
 
 /* Show the checkmark when checked */
-.day-wrapper input:checked~.checkmark:after {
+.day-wrapper input:checked ~ .checkmark:after {
   display: block;
 }
 
@@ -3689,7 +3695,7 @@ label.day-wrapper:hover {
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 23px;
   width: 24px;
   left: 0px;
@@ -3698,15 +3704,15 @@ label.day-wrapper:hover {
   transition: 0.4s;
 }
 
-input:checked+.slider {
+input:checked + .slider {
   background-color: var(--primary);
 }
 
-input:focus+.slider {
+input:focus + .slider {
   box-shadow: 0 0 1px var(--primary);
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -3758,4 +3764,10 @@ input:checked+.slider:before {
 
 .notification-Menu::-webkit-scrollbar-thumb:hover {
   background: #375eaa;
+}
+
+@media screen and (min-width: 425px) {
+  .mobile-resp {
+    text-align: center;
+  }
 }

@@ -1512,7 +1512,7 @@ img#profile-pic {
   outline: 5px solid #00d0cc;
   background-color: #fff !important;
 }
-.my-doctor-avatar>.sb-avatar__text {
+.my-doctor-avatar > .sb-avatar__text {
   width: 100px !important;
   height: 100px !important;
   border-radius: 50%;
@@ -4406,8 +4406,8 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .card-list__grid-list-tile:hover {
   cursor: pointer;
-  border: none;
-  background: none;
+  /* border: none;
+  background: none; */
   transition: all 0.2s ease-in;
   transform: translateY(-4px);
   /* box-shadow: 4px 4px 14px rgb(0 0 0 / 9%); */
@@ -4420,4 +4420,16 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .calendar-helper {
   padding: 30px 0 !important;
+}
+
+.card-border {
+  border: 0px solid black;
+  border-radius: 10px !important;
+  background: #e0e0e0;
+  box-shadow: inset -25px -235px 50px var(--primarysecond),
+    inset 25px 25px 50px var(--primarysecond);
+}
+
+.card-list__grid-list-tile:hover .card-border {
+  border: 1px solid black;
 }

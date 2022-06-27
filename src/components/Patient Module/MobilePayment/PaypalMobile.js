@@ -51,14 +51,22 @@ const PaypalMobile = (props) => {
     let rateParams = searchParams.get('r');
     let halfRateParams = searchParams.get('hR');
 
+    let os = searchParams.get('os');
+
     const bookAppointment = async (orderData) => {
         alert('Book Appointment accessed')
         console.log('Book Appointment accessed')
 
         // window.android.onPaymentStatusChange(true);
         orderData.slotId = appointmentIdParams;
+
         const data = JSON.stringify(orderData);
-        window.android.sendOrderData(data);
+        if (os === 'ios') {
+            window.webkit.messageHandlers.sendOrderData.postMessage(data);
+        }
+        else {
+            window.android.sendOrderData(data);
+        }
 
         // if (JSBridge) {
         //     sendDataToAndroid(orderData);

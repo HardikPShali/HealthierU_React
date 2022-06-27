@@ -227,6 +227,9 @@ const MyPatients = (props) => {
                                                                     className="col-md-12 mb-2 mt-2 cursor-pointer"
                                                                     key={index}
                                                                 >
+                                                                    <h6 style={{ color: '#3e4543', textShadow: 'none', marginLeft: '12px' }}>
+                                                                        {moment.utc(details.startTime).format("MMM")}
+                                                                    </h6>
                                                                     <div
                                                                         className="patient-list__card-completed"
                                                                         onClick={async () => {
@@ -327,6 +330,9 @@ const MyPatients = (props) => {
                                                                     className="col-md-12 mb-2 mt-2 cursor-pointer"
                                                                     key={index}
                                                                 >
+                                                                    <h6 style={{ color: '#3e4543', textShadow: 'none', marginLeft: '12px' }}>
+                                                                        {moment.utc(details.startTime).format("MMM")}
+                                                                    </h6>
                                                                     <div
                                                                         className="patient-list__card-completed"
                                                                         onClick={async () => {
