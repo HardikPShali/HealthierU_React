@@ -759,7 +759,7 @@ const MyAppointments = (props) => {
                           </Col>
                         </Row>
                         <Row style={{ alignItems: "center" }}>
-                          <Col xs={4}>
+                          <Col xs={3}>
                             {SelectedPatient &&
                               SelectedPatient.patient &&
                               (SelectedPatient.patient.picture ? (
@@ -793,7 +793,7 @@ const MyAppointments = (props) => {
                                                     >
                                                         <DateRangeOutlinedIcon />
                                                     </Col> */}
-                          <Col xs={8} style={{ textAlign: "center" }}>
+                          <Col xs={9} style={{ textAlign: "center" }}>
                             <b>
                               <p className="pclass">Upcoming Appointment</p>
                             </b>
@@ -874,7 +874,7 @@ const MyAppointments = (props) => {
                               {age} Years Old
                             </div>
                           </Col>
-                          <Col xs={4} style={{ textAlign: "center" }}>
+                          <Col xs={4}>
                             <div id="req-name">
                               <b className="pclass1">Fee & Payment Method</b>
                               <br />
@@ -889,7 +889,6 @@ const MyAppointments = (props) => {
                           <Col
                             xs={4}
                             className="patient-video-button"
-                            style={{ textAlign: "center" }}
                           >
                             <IconButton>
                               <Link
