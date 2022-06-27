@@ -24,7 +24,7 @@ const ChatDetails = ({
   onNoteClick,
   loadMoreData
 }) => {
-  const [enableVideo, setEnableVideo] = useState(false);
+  const [enableVideo, setEnableVideo] = useState(true);
   const [enableChat, setEnableChat] = useState(false);
   const [roles] = useRole();
 
@@ -64,9 +64,9 @@ const ChatDetails = ({
   }, [selectedItem]);
 
   const handleVideo = () => {
-    if (!enableVideo) return;
-    
-    if(roles.some((role) => role === ROLES.ROLE_DOCTOR)) {
+    // if (!enableVideo) return;
+
+    if (roles.some((role) => role === ROLES.ROLE_DOCTOR)) {
       callUser();
     }
 
