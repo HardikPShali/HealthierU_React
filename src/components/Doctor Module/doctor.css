@@ -1062,6 +1062,11 @@ img#profile-pic {
   outline: 5px solid #00d0cc;
   background-color: #fff !important;
 }
+.my-appointments-avatar-doctor > .sb-avatar__text {
+  width: 70px !important;
+  height: 70px !important;
+  margin: 15px !important;
+}
 
 .profile-pic {
   width: 120px;
