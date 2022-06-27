@@ -7,7 +7,7 @@ import useRole from '../../../custom-hooks/useRole'
 import { getRoles } from '@testing-library/react'
 
 
-const CustomCallNotification = ({ onAccept,  onClose, payload }) => {
+const CustomCallNotification = ({ onAccept, onClose, payload }) => {
 
     const history = useHistory();
     const role = useRole();
@@ -16,14 +16,14 @@ const CustomCallNotification = ({ onAccept,  onClose, payload }) => {
 
     useEffect(() => {
         if (payload) {
-          let profileImage =
-          getRoleName() === "doctor"
-              ? payload?.data?.patientPicture
-              : payload?.data?.doctorPicture;
-          setPicture(profileImage);
+            let profileImage =
+                getRoleName() === "doctor"
+                    ? payload?.data?.patientPicture
+                    : payload?.data?.doctorPicture;
+            setPicture(profileImage);
         }
-      }, [payload]);
-    
+    }, [payload]);
+
 
 
     const onDeclineClickHandler = () => {
@@ -41,7 +41,7 @@ const CustomCallNotification = ({ onAccept,  onClose, payload }) => {
     return (
         <div className='call-notification-bar'>
             <div className="caller-img-container">
-                <img src={picture} alt="profile picture" class="caller-img"/>
+                <img src={picture} alt="profile picture" className="caller-img" />
             </div>
             <div className='caller-name'>
                 <div className='name'>{callerName}</div>

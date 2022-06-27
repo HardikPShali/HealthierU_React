@@ -79,8 +79,9 @@ const ForgetPassword = () => {
                 handleClickOpen();
             }
         }).catch(err => {
-            if (err.response.status === 400) {
-                setErrMsg("Email address not registered.");
+            console.log({ err })
+            if (err.response.data.message === "Email address not registered" && err.response.data.status === false) {
+                setErrMsg("Email address not registered. Please provide a registered email address.");
             }
         })
         // }
@@ -95,38 +96,38 @@ const ForgetPassword = () => {
             )}
             <Header />
             <div id="signin-bg">
-            <Container>
-                <Row>
-                    <Col md={7}></Col>
-                    <Col md={5}>
-                        <h2 id="signin-title">
-                            Forget Your Password
-                        </h2>
-                        <div className="sign-box">
-                            <label style={{ fontSize: 12, color: '#ff9393' }} className="left">{captchaError}</label>
-                            <ValidatorForm onSubmit={e => handleEmailVerification(e)}>
-                                <p>Please enter your email address<sup>*</sup></p>
-                                <TextValidator id="standard-basic" type="text" name="email"
-                                    onChange={e => handleInputChange(e)}
-                                    value={email}
-                                    validators={['required', 'isEmail']}
-                                    errorMessages={['This field is required', 'Please provide valid email']}
-                                    variant="filled" />
-                                <label style={{ fontSize: 12, color: '#ff9393' }} className="left">{errMsg}</label>
-                                <br />
-                                {/* <ReCAPTCHA
+                <Container>
+                    <Row>
+                        <Col md={7}></Col>
+                        <Col md={5}>
+                            <h2 id="signin-title">
+                                Forget Your Password
+                            </h2>
+                            <div className="sign-box">
+                                <label style={{ fontSize: 12, color: '#ff9393' }} className="left">{captchaError}</label>
+                                <ValidatorForm onSubmit={e => handleEmailVerification(e)}>
+                                    <p>Please enter your email address<sup>*</sup></p>
+                                    <TextValidator id="standard-basic" type="text" name="email"
+                                        onChange={e => handleInputChange(e)}
+                                        value={email}
+                                        validators={['required', 'isEmail']}
+                                        errorMessages={['This field is required', 'Please provide valid email']}
+                                        variant="filled" />
+                                    <label style={{ fontSize: 12, color: '#ff9393' }} className="left">{errMsg}</label>
+                                    <br />
+                                    {/* <ReCAPTCHA
                                     sitekey={CAPTCHA_SITE_KEY}
                                     onChange={handleRecaptchaChange}
                                 /> */}
 
-                                <input className="btn btn-primary sign-btn" type="submit" value="Submit" />
-                            </ValidatorForm>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+                                    <input className="btn btn-primary sign-btn" type="submit" value="Submit" />
+                                </ValidatorForm>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
-           
+
             <Footer />
 
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>

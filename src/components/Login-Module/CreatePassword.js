@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "./landing.css";
 import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -21,12 +21,13 @@ import qs from "qs";
 const isnum = /\d/;
 const islow = "(?=.*[a-z])";
 const isup = "(?=.*[A-Z])";
-// const history = useHistory();
+
 
 const CreatePassword = () => {
-  //let history = useHistory();
+  const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const [otpBox, setOtpBox] = useState(new Array(4).fill(""));
+  const [errorMessage, setErrorMessage] = useState("");
 
   //const [loading, setLoading] = useState(true);
 
@@ -102,6 +103,14 @@ const CreatePassword = () => {
       if (response.status === 200 || response.status === 201) {
         handleClickOpen();
       }
+    }).catch(error => {
+      console.log(error);
+      if (error.response.data.message === 'No user was found for this reset key') {
+        setErrorMessage('Incorrect OTP entered. Please try again');
+        setTimeout(() => {
+          history.go(0);
+        }, 3000)
+      }
     });
   };
 
@@ -173,6 +182,7 @@ const CreatePassword = () => {
                 <button
                   className="otp-verify"
                   onClick={() => handleOTPSubmit()}
+                  disabled={otpBox.join("") === "" ? true : false}
                 >
                   Verify
                 </button>
@@ -190,7 +200,6 @@ const CreatePassword = () => {
               <h2 id="signin-title">Create Password</h2>
               <div className="sign-box">
                 <ValidatorForm
-                  onError={(errors) => console.log(errors)}
                   onSubmit={(e) => handleCreatePassword(e)}
                 >
                   <p>
@@ -268,6 +277,7 @@ const CreatePassword = () => {
                       ),
                     }}
                   />
+                  <label style={{ fontSize: 12, color: '#ff9393' }} className="left">{errorMessage}</label>
 
                   <div className="signup-text left pass-validation">
                     <input type="radio" required checked={minchar} />
@@ -282,6 +292,7 @@ const CreatePassword = () => {
                     <input type="radio" required checked={num} />
                     <span>At least 1 number OR 1 special character</span>
                   </div>
+
 
                   <input
                     className="btn btn-primary sign-btn"
