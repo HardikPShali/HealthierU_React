@@ -24,6 +24,7 @@ const UpcomingAppointments = () => {
                 //console.log("response.data ::: ", response.data)
                 const upcomingAppointments = response.data.data;
                 const reversedAppointments = upcomingAppointments.reverse();
+                console.log("upcomingAppointments",upcomingAppointments);
                 const updateArray = [];
                 reversedAppointments.map((value, index) => {
                     if (value.status === 'ACCEPTED') {
