@@ -750,7 +750,7 @@ const Myappointment = (props) => {
                                             className="img-circle ml-3 mt-3"
                                           /> */}
                                           {
-                                            appointment.doctor ? (
+                                            appointment.doctor.picture ? (
                                               <img
                                                 src={appointment.doctor.picture}
                                                 alt={`${appointment.doctor.firstName}-image`}
@@ -899,7 +899,7 @@ const Myappointment = (props) => {
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
                       {
-                        selectedAppointment.doctor ? (
+                        selectedAppointment.doctor.picture ? (
                           <img
                             src={selectedAppointment.doctor.picture}
                             alt={`${selectedAppointment.doctor.firstName}-image`}
@@ -974,7 +974,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.appointmentFee}
+                            {selectedAppointment.appointmentFee ? (selectedAppointment.appointmentFee) : (<span>-</span>)}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -983,7 +983,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.paymentMethod}
+                            {selectedAppointment.paymentMethod ? (selectedAppointment.paymentMethod) : (<span>-</span>)}
                           </span>
                         </div>
                       </div>
@@ -1184,7 +1184,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.appointmentFee}
+                            {selectedAppointment.appointmentFee ? (selectedAppointment.appointmentFee) : (<span>-</span>)}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -1193,7 +1193,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.paymentMethod}
+                            {selectedAppointment.paymentMethod ? (selectedAppointment.paymentMethod) : (<span>-</span>)}
                           </span>
                         </div>
                       </div>
@@ -1339,7 +1339,7 @@ const Myappointment = (props) => {
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
                       {
-                        selectedAppointment.doctor ? (
+                        selectedAppointment.doctor.picture ? (
                           <img
                             src={selectedAppointment.doctor.picture}
                             alt={`${selectedAppointment.doctor.firstName}-image`}
@@ -1414,7 +1414,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.appointmentFee}
+                            {selectedAppointment.appointmentFee ? (selectedAppointment.appointmentFee) : (<span>-</span>)}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -1423,7 +1423,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.paymentMethod}
+                            {selectedAppointment.paymentMethod ? (selectedAppointment.paymentMethod) : (<span>-</span>)}
                           </span>
                         </div>
                       </div>
