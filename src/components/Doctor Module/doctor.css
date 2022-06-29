@@ -1308,8 +1308,21 @@ table#user-info {
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
 }
-
+.submitClass{
+  /* top: 50px; */
+  text-align: center;
+  /* position: relative;
+  margin: 15px; */
+}
 .general-tab {
+  background-color: #fff;
+  color: #00d0cc;
+  padding: 20px;
+  border-radius: 20px;
+  height: 400px;
+  overflow-x: scroll;
+}
+.general-medical-tab {
   background-color: #fff;
   color: #00d0cc;
   padding: 20px;

@@ -523,7 +523,7 @@ const MyPatients = (props) => {
                                                                     SelectedPatient.patient &&
                                                                     SelectedPatient.patient.firstName +
                                                                     ' ' +
-                                                                    SelectedPatient.patient.lastName}
+                                                                    (SelectedPatient.patient.lastName || "")}
                                                             </b>
                                                             <br />
                                                             {age} Years Old

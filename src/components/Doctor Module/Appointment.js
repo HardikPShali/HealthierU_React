@@ -586,13 +586,12 @@ const Myappointment = (props) => {
     }
   };
   const history = useHistory()
-  const handleMyAppointmentOpen = (appId) => {
-    console.log("appId",appId);
-    if (appointmentDets.appointmentMode === "Follow Up") {
-      history.push(`/doctor/my-appointments?APID=${appId}`);
+  const handleMyAppointmentOpen = (app) => {
+    if (app.appointmentMode === "Follow Up") {
+      history.push(`/doctor/my-appointments?APID=${app.id}`);
     }
     else {
-      history.push(`/doctor/my-appointments?APID=${appId}`);
+      history.push(`/doctor/my-appointments?APID=${app.id}`);
     }
 
   }
@@ -1029,7 +1028,7 @@ const Myappointment = (props) => {
                                               <div
                                                 className="patient-list__card"
                                                 onClick={() => {
-                                                  handleMyAppointmentOpen(appointment.id)
+                                                  handleMyAppointmentOpen(appointment)
                                                 }}
                                               >
                                                 <div className="row align-items-start py-1 mobile-resp">
@@ -1132,7 +1131,7 @@ const Myappointment = (props) => {
                                               <div
                                                 className="patient-list__card"
                                                 onClick={() => {
-                                                  handleMyAppointmentOpen(appointment.id)
+                                                  handleMyAppointmentOpen(appointment)
                                                 }}
                                               >
                                                 <div className="row align-items-start py-1 mobile-resp">
@@ -1245,7 +1244,7 @@ const Myappointment = (props) => {
                                               <div
                                                 className="patient-list__card"
                                                 onClick={() => {
-                                                  handleMyAppointmentOpen(appointment.id)
+                                                  handleMyAppointmentOpen(appointment)
                                                 }}
                                               >
                                                 <div className="row align-items-start py-1 mobile-resp">
@@ -1348,7 +1347,7 @@ const Myappointment = (props) => {
                                               <div
                                                 className="patient-list__card"
                                                 onClick={() => {
-                                                  handleMyAppointmentOpen(appointment.id)
+                                                  handleMyAppointmentOpen(appointment)
                                                 }}
                                               >
                                                 <div className="row align-items-start py-1 mobile-resp">
@@ -1455,7 +1454,7 @@ const Myappointment = (props) => {
                                               <div
                                                 className="patient-list__card"
                                                 onClick={() => {
-                                                  handleMyAppointmentOpen(appointment.id)
+                                                  handleMyAppointmentOpen(appointment)
                                                 }}
                                               >
                                                 <div className="row align-items-start py-1 mobile-resp">
@@ -1552,7 +1551,7 @@ const Myappointment = (props) => {
                                               <div
                                                 className="patient-list__card"
                                                 onClick={() => {
-                                                  handleMyAppointmentOpen(appointment.id)
+                                                  handleMyAppointmentOpen(appointment)
                                                 }}
                                               >
                                                 <div className="row align-items-start py-1 mobile-resp">
