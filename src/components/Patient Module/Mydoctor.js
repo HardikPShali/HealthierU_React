@@ -728,11 +728,17 @@ const MyDoctor = (props) => {
                 status: 'ACCEPTED',
                 remarks: remarks,
                 appointmentMode: appointment.appointmentMode,
+                appointmentFee: (appointment.appointmentMode === 'First Consultation' ||
+                  appointment.appointmentMode === ''
+                  ? doctor && doctor.rate
+                  : appointment.appointmentMode === 'Follow Up'
+                    ? doctor && doctor.halfRate
+                    : ''),
+                currency: "USD",
                 id: slotData.slot1.id,
                 urgency: urgency,
                 unifiedAppointment:
                   tempSlotConsultationId + '#' + getAppointmentMode(appointment.appointmentMode),
-
               },
               {
                 doctorId: appointment.doctorId,
@@ -767,40 +773,61 @@ const MyDoctor = (props) => {
       });
     }
 
-    const bookAppointmentApiHeader = {
-      method: 'put',
-      mode: 'no-cors',
-      data: JSON.stringify(finalAppointmentDataArray),
-      url: `/api/v2/appointments/bulk`,
-      headers: {
-        Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-    };
+    const newPaymentData = {
+      appointmentDTO: finalAppointmentDataArray[0],
+      paymentsAppointmentsDTO: orderData
+    }
 
-    const storePaypalTransitionInfo = {
+    // const bookAppointmentApiHeader = {
+    //   method: 'put',
+    //   mode: 'no-cors',
+    //   data: JSON.stringify(finalAppointmentDataArray),
+    //   url: `/api/v2/appointments/bulk`,
+    //   headers: {
+    //     Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-Origin': '*',
+    //   },
+    // };
+
+    // const storePaypalTransitionInfo = {
+    //   method: 'post',
+    //   mode: 'no-cors',
+    //   data: JSON.stringify(orderData),
+    //   url: `/api/paypal/transaction-info`,
+    //   headers: {
+    //     Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-Origin': '*',
+    //   },
+    // };
+
+    const newPaymentApi = {
       method: 'post',
       mode: 'no-cors',
-      data: JSON.stringify(orderData),
-      url: `/api/paypal/transaction-info`,
+      data: newPaymentData,
+      url: `/api/v2/appointments/payment/bulk`,
       headers: {
         Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
-    };
+    }
 
-    console.log({ bookAppointmentApiHeader });
-    console.log({ storePaypalTransitionInfo });
+    // console.log({ bookAppointmentApiHeader });
+    // console.log({ storePaypalTransitionInfo });
+    console.log({ newPaymentApi });
 
-    const bookingResponse = await axios(bookAppointmentApiHeader);
-    const storePaypalInfo = await axios(storePaypalTransitionInfo);
+    // const bookingResponse = await axios(bookAppointmentApiHeader);
+    // const storePaypalInfo = await axios(storePaypalTransitionInfo);
+    const newPaymentResponse = await axios(newPaymentApi);
 
-    if (bookingResponse.status === 200 || bookingResponse.status === 201) {
+    if (newPaymentResponse.status === 200 || newPaymentResponse.status === 201) {
+      console.log({ newPaymentResponse });
       props.history.push('/patient/myappointment');
     }
   };
+
   const [display, setDisplay] = useState({
     doctor: 'block',
     appointment: 'none',
