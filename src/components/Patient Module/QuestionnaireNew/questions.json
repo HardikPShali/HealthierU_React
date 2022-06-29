@@ -82,11 +82,16 @@
       "Kidney disease",
       "Rheumatological disease",
       "Psychological condition",
-      "Allergies"
+      "Allergies",
+      "Peripheral arterial disease",
+      "Gastrointestinal",
+      "Kidney disease/Urinary tract disease",
+      "Gynaecological disease",
+      "Sexual dysfunction"
     ],
     "type": "checkbox",
     "answers": [],
-    "mapScore": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "mapScore": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     "score": 0
   },
   {
@@ -101,10 +106,17 @@
   {
     "questionId": 8,
     "questionTitle": "What do you smoke?",
-    "choices": ["Cigars", "Cigarettes", "Pipe", "Shisha/Hookah", "Vape"],
+    "choices": [
+      "Cigars",
+      "Cigarettes",
+      "E-cigarettes",
+      "Pipe",
+      "Shisha/Hookah",
+      "Vape"
+    ],
     "type": "checkbox",
     "answers": [],
-    "mapScore": [0, 0, 0, 0, 0],
+    "mapScore": [0, 0, 0, 0, 0, 0],
     "score": 0,
     "condition": {
       "questionId": 7,

@@ -1119,7 +1119,7 @@ const Myappointment = (props) => {
                               (selectedAppointment.doctor.lastName || "")
                             }
                             size={60}
-                            className="my-appointments-avatar"
+                            className="my-appointments__modal-avatar"
                           />
                           // <img
                           //   src={defaultDoctorImage}
