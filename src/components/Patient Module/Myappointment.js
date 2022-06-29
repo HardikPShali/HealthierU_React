@@ -914,11 +914,11 @@ const Myappointment = (props) => {
                               (selectedAppointment.doctor.lastName || "")
                             }
                             size={60}
-                            className="my-appointments-avatar"
+                            className="my-appointments__modal-avatar"
                           />
                         )
                       }
-                      <h2>
+                      <h2 className='my-appointments__header-names'>
                         {selectedAppointment.doctor.firstName}{' '}
                         {(selectedAppointment.doctor.lastName || "")}
                       </h2>
@@ -997,7 +997,7 @@ const Myappointment = (props) => {
                           alignItem: 'center',
                           cursor: 'pointer',
                         }}
-                        onClick={openMoreDoctorInfo}
+                        onClick={() => openMoreDoctorInfo()}
                       >
                         <div style={{ width: '100%' }}>
                           <img
@@ -1232,7 +1232,7 @@ const Myappointment = (props) => {
                           alignItem: 'center',
                           cursor: 'pointer',
                         }}
-                        onClick={openMoreDoctorInfo}
+                        onClick={() => openMoreDoctorInfo()}
                       >
                         <div style={{ width: '100%' }}>
                           <img
@@ -1354,11 +1354,11 @@ const Myappointment = (props) => {
                               (selectedAppointment.doctor.lastName || "")
                             }
                             size={60}
-                            className="my-appointments-avatar"
+                            className="my-appointments__modal-avatar"
                           />
                         )
                       }
-                      <h2>
+                      <h2 className='my-appointments__header-names'>
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ""}
                       </h2>
@@ -1436,13 +1436,13 @@ const Myappointment = (props) => {
                           alignItem: 'center',
                           cursor: 'pointer',
                         }}
+                        onClick={() => openMoreDoctorInfo()}
                       >
                         <div style={{ width: '100%' }}>
                           <img
                             width="40"
                             height="40"
                             src={infoIcon}
-                            onClick={openMoreDoctorInfo}
                             alt=""
                             style={{ marginLeft: '5%', marginRight: '5%' }}
                           />
@@ -1628,7 +1628,7 @@ const Myappointment = (props) => {
                           )
                       }
 
-                      <h2>
+                      <h2 className='my-appointments__header-names'>
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ""}
                       </h2>

@@ -46,7 +46,7 @@ const NotificationMenuPatient = () => {
                 {notificationsData.length > 0 ? (
                     <div>
                         {notificationsData.map((notification, index) => {
-                            if (notification.type === 'RESCHEDULE' && notification.data.appointmentDetails) {
+                            if (notification.type === 'APPT_RESCHEDULE_BY_PATIENT' && notification.data.appointmentDetails) {
                                 return (
                                     <div key={index}>
                                         <RescheduleNotification
@@ -66,7 +66,7 @@ const NotificationMenuPatient = () => {
                             //         </div>
                             //     );
                             // }
-                            if (notification.type === 'CANCELLED_BY_DOCTOR') {
+                            if (notification.type === 'APPT_CANCELLED_BY_DOCTOR') {
                                 return (
                                     <div key={index}>
                                         <CancelledByDoctorNotifications
@@ -76,7 +76,7 @@ const NotificationMenuPatient = () => {
                                     </div>
                                 );
                             }
-                            if (notification.type === 'ACCEPTED') {
+                            if (notification.type === 'APPT_ACCEPTED') {
                                 return (
                                     <div key={index}>
                                         <AcceptedAppointmentsNotification
@@ -86,7 +86,7 @@ const NotificationMenuPatient = () => {
                                     </div>
                                 );
                             }
-                            if (notification.type === 'NEXT APPOINTMENT') {
+                            if (notification.type === 'SET_NEXT_APPOINTMENT_BY_DR') {
                                 return (
                                     <div key={index}>
                                         <NextAppointmentNotifications
