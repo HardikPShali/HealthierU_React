@@ -3238,6 +3238,15 @@ button.reset-btn {
 }
 
 /* MY PATIENTS PAGE */
+.diagnosis-description {
+  max-height: 190px;
+  overflow-y: scroll;
+}
+
+.diagnosis-description::-webkit-scrollbar {
+  display: none;
+}
+
 .consultation-history-display,
 .diagnosis-desc__p-tag {
   margin-top: -15px;
@@ -3249,6 +3258,7 @@ button.reset-btn {
 
 .diagnosis-desc__p-tag {
   font-size: 12px !important;
+  word-break: break-word;
 }
 
 .symptoms-description,
