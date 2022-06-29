@@ -1620,8 +1620,15 @@ table#user-info {
   color: #00d0cc;
   padding: 30px;
   border-radius: 20px;
+  height: 380px;
+  overflow-x: scroll;
 }
-
+.general-medical-tab {
+  background-color: #fff;
+  color: #00d0cc;
+  padding: 20px;
+  border-radius: 20px;
+}
 /*
 * Profile Pic
 */

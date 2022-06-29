@@ -125,7 +125,7 @@ const Welcome = ({ currentuserInfo }) => {
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
         firstName: (currentuserInfo && currentuserInfo.firstName) || "",
-        lastName: (currentuserInfo && currentuserInfo.lastName) || "",
+        // lastName: (currentuserInfo && currentuserInfo.lastName) || "",
         dateOfBirth: "",
         phone: "",
         countryId: "",
@@ -193,7 +193,7 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications, countryName, licenseNumber, referencePhoneNumber, certifyingBody } = state;
+    const { userId, firstName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications, countryName, licenseNumber, referencePhoneNumber, certifyingBody } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
@@ -253,12 +253,11 @@ const Welcome = ({ currentuserInfo }) => {
         //const isoDate = d.toISOString();
         // let formattedDate = `${d.getFullYear()}/${d.getMonth()}/${d.getDate()}`
         const age = moment().diff(e, 'years')
-        if(age >= 18)
-        {
+        if (age >= 18) {
             setstate({ ...state, dateOfBirth: e });
             setDefaultDate(e);
         }
-        else{
+        else {
             toast.success("Your Age must be 18 or above to process further.")
         }
 
@@ -332,7 +331,7 @@ const Welcome = ({ currentuserInfo }) => {
         const patientPayload = {
             userId: userId,
             firstName: firstName,
-            lastName: lastName,
+            // lastName: lastName,
             phone: phone,
             countryId: countryId,
             dateOfBirth: dateOfBirth,
@@ -507,17 +506,18 @@ const Welcome = ({ currentuserInfo }) => {
                                         }
                                     </Row>
                                     <Row>
-                                        <Col md={6}>
-                                            <p>First Name<sup>*</sup></p>
+                                        <Col md={12}>
+                                            <p>Full Name<sup>*</sup></p>
                                             <TextValidator id="standard-basic" type="text" name="firstName"
                                                 onChange={e => handleInputChange(e)}
                                                 value={firstName}
                                                 validators={['required']}
                                                 errorMessages={['This field is required']}
                                                 variant="filled"
-                                                disabled />
+                                                disabled
+                                                 />
                                         </Col>
-                                        <Col md={6}>
+                                        {/* <Col md={6}>
                                             <p>Last Name<sup>*</sup></p>
                                             <TextValidator id="standard-basic" type="text" name="lastName"
                                                 onChange={e => handleInputChange(e)}
@@ -527,7 +527,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 variant="filled"
                                                 disabled
                                             />
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                     <br />
                                     <Row>
@@ -693,8 +693,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="text" name="height"
                                                     onChange={e => handleInputChange(e)}
                                                     value={height}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
+                                                    validators={[
+                                                        "required",
+                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                    ]}
+                                                    errorMessages={['This field is required',
+                                                        "Please Enter Valid Height"]}
                                                     variant="filled"
                                                     placeholder='Height' />
                                             </Col>
@@ -703,8 +707,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="text" name="weight"
                                                     onChange={e => handleInputChange(e)}
                                                     value={weight}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
+                                                    validators={[
+                                                        "required",
+                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                    ]}
+                                                    errorMessages={['This field is required',
+                                                        "Please Enter Valid Weight"]}
                                                     variant="filled"
                                                     placeholder='Weight' />
                                             </Col>
@@ -716,8 +724,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="text" name="highbp"
                                                     onChange={e => handleInputChange(e)}
                                                     value={highbp}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
+                                                    validators={[
+                                                        "required",
+                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                    ]}
+                                                    errorMessages={['This field is required',
+                                                        "Please Enter Valid High BP Rate"]}
                                                     variant="filled"
                                                     placeholder='High BP' />
                                             </Col>
@@ -726,8 +738,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="text" name="lowbp"
                                                     onChange={e => handleInputChange(e)}
                                                     value={lowbp}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
+                                                    validators={[
+                                                        "required",
+                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                    ]}
+                                                    errorMessages={['This field is required',
+                                                        "Please Enter Valid Low BP Rate"]}
                                                     variant="filled"
                                                     placeholder='Low BP' />
                                             </Col>
@@ -829,10 +845,15 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="text" name="affiliation"
                                                     onChange={e => handleInputChange(e)}
                                                     value={affiliation}
-                                                    validators={['required']}
-                                                    errorMessages={['This field is required']}
+                                                    validators={[
+                                                        "required",
+                                                        "matchRegexp:(/^[a-zA-Z]+$/)",
+                                                    ]}
+                                                    errorMessages={['This field is required',
+                                                        "Please Enter Valid Affiliation"]}
                                                     variant="filled"
                                                     placeholder='Affiliation' />
+
 
                                             </Col>
                                         </Row>
@@ -914,8 +935,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                             <TextValidator id="standard-basic" type="text" name="educationalQualification"
                                                                 onChange={(e) => handleEducationDetailsInputChange(e, i)}
                                                                 value={x.educationalQualification}
-                                                                validators={['required']}
-                                                                errorMessages={['This field is required']}
+                                                                validators={[
+                                                                    "required",
+                                                                    "matchRegexp:(/^[a-zA-Z]+$/)",
+                                                                ]}
+                                                                errorMessages={['This field is required',
+                                                                    "Please Enter Valid Education"]}
                                                                 variant="filled"
                                                                 placeholder='Education' />
 
@@ -926,8 +951,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                             <TextValidator id="standard-basic" type="text" name="institution"
                                                                 onChange={(e) => handleEducationDetailsInputChange(e, i)}
                                                                 value={x.institution}
-                                                                validators={['required']}
-                                                                errorMessages={['This field is required']}
+                                                                validators={[
+                                                                    "required",
+                                                                    "matchRegexp:(/^[a-zA-Z]+$/)",
+                                                                ]}
+                                                                errorMessages={['This field is required',
+                                                                    "Please Enter Valid Institution"]}
                                                                 variant="filled"
                                                                 placeholder='Institution' />
 

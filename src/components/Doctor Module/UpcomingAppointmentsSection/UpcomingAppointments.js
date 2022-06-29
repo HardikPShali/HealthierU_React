@@ -12,7 +12,7 @@ const UpcomingAppointments = () => {
     const currentUserFromCookie = cookie.get('profileDetails');
     const getUpcomingAppointments = async (startTime, endTime, doctorId) => {
         const starttime = new Date();
-        starttime.setHours(0, 0, 0);
+        // starttime.setHours(0, 0, 0);
         const endtime = new Date();
         endtime.setHours(23, 59, 0);
         // console.log("starttime", starttime);

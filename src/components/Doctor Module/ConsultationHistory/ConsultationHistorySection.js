@@ -25,29 +25,35 @@ const ConsulatationHistorySection = (props) => {
         <div className='conhistory__card-box'>
             <h3 className='conhistory--main-header'>Consultation History</h3>
             <div className="conhistory-card-holder">
-
                 <div className='conhistory-card'>
-                    {notesData && notesData.map(
-                        (q, index) => {
+                    {notesData ?
+                        notesData.map(
+                            (q, index) => {
+                                return (
+                                    <div key={index}>
+                                        <ConsultationHistoryCard
+                                            chief_complaint={q.chiefComplaint}
+                                            present_illness={q.presentIllness}
+                                            vital_signs={q.vitalSigns}
+                                            physical_exam={q.physicalExam}
+                                            plan_assessment={q.planAssessment}
+                                        />
+                                    </div>
+                                )
 
-                            return (
-                                <div key={index}>
-                                    <ConsultationHistoryCard
-                                        chief_complaint={q.chiefComplaint}
-                                        present_illness={q.presentIllness}
-                                        vital_signs={q.vitalSigns}
-                                        physical_exam={q.physicalExam}
-                                        plan_assessment={q.planAssessment}
-                                    />
-                                </div>
-                            )
-
-                        }
-                    )}
+                            }
+                        )
+                        :
+                        <div
+                            className="col-12 ml-2"
+                            style={{ textShadow: 'none', color: '#3e4543' }}
+                        >
+                            <b>No Consultation Found</b>
+                        </div>
+                    }
                 </div>
-
             </div>
-        </div>
+        </div >
     )
 }
 

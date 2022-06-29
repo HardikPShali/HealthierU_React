@@ -311,7 +311,7 @@ const Profile = () => {
                                             className="record-tabs mb-3"
                                         >
                                             <Tab eventKey="general" title="General">
-                                                <div className="general-tab">
+                                                <div className="general-tab scroller-cardlist">
                                                     <div className="d-flex flex-column">
                                                         <ProfileRow
                                                             icon={callIcon}
@@ -359,7 +359,7 @@ const Profile = () => {
                                             </Tab> */}
 
                                             <Tab eventKey="medical" title="Medical">
-                                                <div className="general-tab">
+                                                <div className="general-tab scroller-cardlist">
                                                     <div className="d-flex flex-column">
                                                         <ProfileRow
                                                             icon={bloodGroupIcon}
@@ -435,7 +435,7 @@ const Profile = () => {
                                         className="record-tabs mb-3"
                                     >
                                         <Tab eventKey="general" title="General">
-                                            <div className="general-tab">
+                                            <div className="general-medical-tab">
                                                 <Row>
                                                     <Col md={6}>
                                                         <p>
@@ -650,7 +650,7 @@ const Profile = () => {
                                         </Tab> */}
 
                                         <Tab eventKey="education" title="Medical">
-                                            <div className="general-tab">
+                                            <div className="general-medical-tab">
                                                 <Row>
                                                     <Col md={6}>
                                                         <p>Weight (in Kg)</p>
