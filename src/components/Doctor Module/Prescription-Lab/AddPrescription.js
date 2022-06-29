@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 // import Dropdown from 'react-bootstrap/Dropdown';
 import FormControl from '@material-ui/core/FormControl';
-// import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import '../doctor.css';
 // import DatePicker from 'react-date-picker';
 import Pagination from 'react-bootstrap/Pagination';
@@ -94,20 +94,13 @@ const AddPrescription = (props) => {
 
             });
         }
-        if (e.target.name === 'numberOfDays' && 'dose' && 'duration' && 'interval' && 'medicineName') {
-            setIsSave(true);
-        }
-        // if (prescriptionList.every(x => x != '' & x > 0)) {
+        // if (e.target.name === 'numberOfDays' && 'dose' && 'duration' && 'interval' && 'medicineName') {
         //     setIsSave(true);
         // }
-
-
         const { name, value } = e.target;
         const list = [...prescriptionList];
         list[index][name] = value;
         setprescriptionList(list);
-
-        console.log("prescriptionList", prescriptionList);
     }
 
 
@@ -120,7 +113,6 @@ const AddPrescription = (props) => {
     };
     // handle click event of the Add button
     const handleAddClick = () => {
-        // setDate(0);
         setprescriptionList([...prescriptionList, {
             // name: '',
             medicineName: '',
@@ -131,9 +123,6 @@ const AddPrescription = (props) => {
             interval: '',
             // prescriptionDocument: null,
         }]);
-        setIsSave(false);
-        console.log("prescriptionList", prescriptionList);
-        // setShowPrescriptionUpload(true);
     };
     const handleUploadPrescriptionClosed = () => setShowPrescriptionUpload(false);
     const [editDocument, setEditDocument] = useState(false);
@@ -162,7 +151,7 @@ const AddPrescription = (props) => {
 
     useEffect(() => {
         loadData();
-    }, [patient]);
+    }, [patient], [isSave]);
 
 
 
@@ -177,75 +166,92 @@ const AddPrescription = (props) => {
     const { DurationStartDate, DurationEndDate } = date;
     const [errorMsg, setErrorMsg] = useState('');
 
-    const handlePrescriptionSubmission = async (event) => {
-        event.preventDefault();
-        // setprescriptionList(null)
-        // setIsSave(false)
-        // setIsSaveModal(false)
-        // const reverseMedicalInfo = prescriptionList.reverse();
-        const updateArray = [];
-        const docArray = [];
-        // reverseMedicalInfo.map((value) => {
-        //     updateArray.push({
-        //         medicineName: value.medicineName,
-        //         dose: value.dose,
-        //         duration: value.duration,
-        //         numberOfDays: value.numberOfDays,
-        //         interval: value.interval,
-        //     })
-        // })
-        // {prescriptionList.map((value) => {
-        //     updateArray.push({
-        //         medicineName: value.medicineName,
-        //         dose: value.dose,
-        //         duration: value.duration,
-        //         numberOfDays: value.numberOfDays,
-        //         interval: value.interval,
-        //     })
-        // })}
-        // {prescriptionResult.map((value) => {
-        //     docArray.push({
-        //         description: value.description,
-        //         prescriptionDocument: value.prescriptionDocument
-        //     })
-        // })}
+    const handlePrescriptionSubmission = async (e) => {
+        e.preventDefault();
+        let medicineData;
+        let doseData;
+        let durationData;
+        let noOfDaysData;
+        let intervalData;
 
-        // let lastDoc = prescriptionList.slice(-1);
-        // console.log("lastDoc", lastDoc)
-        var medicalInfo = prescriptionList.map(function (a) { return a; });
-        console.log("medicalInfo", JSON.stringify(medicalInfo))
-        const medicalDocumentInfo = {
-            documentType: "Prescription",
-            patientId: patient,
-            doctorId: doctor?.id,
-            decription: prescriptionResult?.decription
-        };
-        setErrorMsg('');
-        const formData = new FormData();
-        medicalInfo.map((a) => {
-            if (a.medicineName != '') {
-                formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
-                    type: "application/json"
-                }))
+        prescriptionList.forEach((p) => {
+            medicineData = p.medicineName
+            doseData = p.medicineName
+            durationData = p.medicineName
+            noOfDaysData = p.medicineName
+            intervalData = p.interval
+        })
+
+        if (medicineData === '' || doseData === '' || durationData === '' || noOfDaysData === '' || intervalData === '') {
+            toast.error("All Fields are Required!")
+        }
+        else {
+            var medicalInfo = prescriptionList.map(function (a) { return a; });
+            const medicalDocumentInfo = {
+                documentType: "Prescription",
+                patientId: patient,
+                doctorId: doctor?.id,
+                decription: prescriptionResult?.decription
+            };
+            setErrorMsg('');
+            const formData = new FormData();
+            medicalInfo.map((a) => {
+                if (a.medicineName != '') {
+                    formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
+                        type: "application/json"
+                    }))
+                }
+            })
+            formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+                type: "application/json"
+            }));
+            {
+                prescriptionResult.prescriptionDocument &&
+                    formData.append("file", (prescriptionResult?.prescriptionDocument))
+            }
+            const response = await postDocumentAddPrescriptionLabResult(
+                formData
+            ).catch((err) => {
+                // if (err.response.status === 500 || err.response.status === 504) {
+                //     toast.error("Please Fill Up the Prescription Details!")
+                // }
+            });
+            if (response) {
+                toast.success("Document successfully Uploaded.");
+                const patientInfo = params.patientID;
+                const apID = params.apid;
+                window.scrollTo(0, 0)
+                history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}` })
+            }
+        }
+        if (prescriptionResult.prescriptionDocument) {
+            //Only Document
+            const formData = new FormData();
+            const medicalDocumentInfo = {
+                documentType: "Prescription",
+                patientId: patient,
+                doctorId: doctor?.id,
+                decription: prescriptionResult?.decription
+            };
+            formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+                type: "application/json"
+            }));
+            {
+                prescriptionResult.prescriptionDocument &&
+                    formData.append("file", (prescriptionResult?.prescriptionDocument))
             }
 
-
-        })
-        formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
-            type: "application/json"
-        }));
-        console.log("medicalDocumentInfo", JSON.stringify(medicalDocumentInfo))
-
-        {
-            prescriptionResult.prescriptionDocument &&
-                formData.append("file", (prescriptionResult?.prescriptionDocument))
-        }
-        const response = await postDocumentAddPrescriptionLabResult(formData);
-        if (response) {
-            toast.success("Document successfully Uploaded.");
-            const patientInfo = params.patientID;
-            const apID = params.apid;       
-            setTimeout(() => props.history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}`}), 500);
+            const response = await postDocumentAddPrescriptionLabResult(
+                formData
+            ).catch((err) => {
+            });
+            if (response) {
+                toast.success("Document successfully Uploaded.");
+                const patientInfo = params.patientID;
+                const apID = params.apid;
+                window.scrollTo(0, 0)
+                history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}` })
+            }
         }
     };
     const handlePrescriptionChange = (e) => {
@@ -282,12 +288,11 @@ const AddPrescription = (props) => {
             <div className="prescription-lab__card-box">
                 <div className="card-holder">
                     <div className='row'>
-
                         {prescriptionList.map((x, i) => {
                             return (
                                 <div className="col-md-4 mb-2 mt-2 cursor-pointer">
-                                    <div className="prescription-lab-card">
-                                        <form>
+                                    <ValidatorForm>
+                                        <div className="prescription-lab-card">
                                             <div>
                                                 <input
                                                     hidden={true}
@@ -301,8 +306,7 @@ const AddPrescription = (props) => {
                                                         Medicine
                                                     </label>
                                                     <div className="col-sm-9">
-                                                        <input
-                                                            type="text"
+                                                        <TextValidator type="text"
                                                             id="medicineName"
                                                             name="medicineName"
                                                             className="form-control"
@@ -311,7 +315,7 @@ const AddPrescription = (props) => {
                                                             placeholder="Medicine Name"
                                                             required
                                                             variant="filled"
-                                                        ></input>
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="form-group row">
@@ -319,27 +323,7 @@ const AddPrescription = (props) => {
                                                         Duration
                                                     </label>
                                                     <div className="col-sm-9">
-                                                        {/* <TextField
-                                                            type="date"
-                                                            onChange={(e) =>
-                                                                setDate({
-                                                                    ...date,
-                                                                    // duration : e.target.value,
-                                                                    DurationStartDate:
-                                                                        e.target.value === '' ? '' : new Date(e.target.value),
-                                                                })
-                                                            }
-                                                            className="filterDate"
-                                                            inputProps={{
-                                                                min: moment(new Date()).format('YYYY-MM-DD'),
-                                                            }}
-                                                            value={moment(new Date(DurationStartDate)).format(
-                                                                'YYYY-MM-DD'
-                                                            )}
-                                                            variant="filled"
-                                                            onKeyDown={(e) => e.preventDefault()}
-                                                        /> */}
-                                                        <input
+                                                        <TextValidator
                                                             type="text"
                                                             id="duration"
                                                             name="duration"
@@ -349,37 +333,16 @@ const AddPrescription = (props) => {
                                                             placeholder="Duration"
                                                             required
                                                             variant="filled"
-                                                        ></input>
+                                                        />
                                                     </div>
                                                     <br />
-                                                    {/* <div style={{ marginTop: '10px', marginLeft: '102px' }} className="col-sm-9">
-                                                        <TextField
-                                                            type="date"
-                                                            onChange={(e) =>
-                                                                setDate({
-                                                                    ...date,
-                                                                    DurationEndDate:
-                                                                        e.target.value === '' ? '' : new Date(e.target.value),
-                                                                })
-                                                            }
-                                                            className="filterDate"
-                                                            inputProps={{
-                                                                min: moment(new Date(DurationStartDate)).format(
-                                                                    'YYYY-MM-DD'
-                                                                ),
-                                                            }}
-                                                            value={moment(new Date(DurationEndDate)).format('YYYY-MM-DD')}
-                                                            variant="filled"
-                                                            onKeyDown={(e) => e.preventDefault()}
-                                                        />
-                                                    </div> */}
                                                 </div>
                                                 <div className="form-group row">
                                                     <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Dose
                                                     </label>
                                                     <div className="col-sm-9">
-                                                        <input
+                                                        <TextValidator
                                                             type="text"
                                                             id="dose"
                                                             name="dose"
@@ -387,9 +350,9 @@ const AddPrescription = (props) => {
                                                             onChange={(e) => handleInputChange(e, i)}
                                                             value={x.dose}
                                                             placeholder="Dose"
-                                                            variant="filled"
                                                             required
-                                                        ></input>
+                                                            variant="filled"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="form-group row">
@@ -397,63 +360,37 @@ const AddPrescription = (props) => {
                                                         Days
                                                     </label>
                                                     <div className="col-sm-9">
-                                                        <input
+                                                        <TextValidator
                                                             type="number"
                                                             id="numberOfDays"
                                                             name="numberOfDays"
                                                             className="form-control"
                                                             onChange={(e) => handleInputChange(e, i)}
                                                             value={x.numberOfDays}
-                                                            required
-                                                            inputProps={{
-                                                                min: 1,
-                                                                // max: 65
-                                                            }}
                                                             placeholder="Number Of Days"
-                                                        ></input>
+                                                            required
+                                                            variant="filled"
+                                                        />
                                                     </div>
                                                 </div>
-
-                                                {/* <div className="form-group row">
-                                                    <label htmlFor="topic" className="col-sm-3 prescription-lab-card__common-name">
-                                                        Quantity
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        <input
-                                                            type="text"
-                                                            id="quantity"
-                                                            name="quantity"
-                                                            className="form-control"
-                                                            onChange={(e) => handleInputChange(e, i)}
-                                                            value={x.quantity}
-                                                            placeholder="Quantity"
-                                                            variant="filled"
-                                                            required
-                                                        ></input>
-                                                    </div>
-                                                </div> */}
-
-
-
                                                 <div className="form-group row">
                                                     <label htmlFor="topic" style={{ paddingTop: '10px' }} className="col-sm-3 prescription-lab-card__common-name">
                                                         Interval
                                                     </label>
                                                     <div className="col-sm-9">
-                                                        {/* <FormControl>
+                                                        <FormControl>
                                                             <Select
-                                                                style={{ width: '280px' }}
                                                                 id="demo-controlled-open-select"
                                                                 variant="filled"
                                                                 name="interval"
                                                                 value={x.interval}
-                                                                inputProps={{ required: true }}
-                                                                placeholder="interval"
-                                                                required
                                                                 onChange={(e) => handleInputChange(e, i)}
+                                                                displayEmpty
+                                                                required
+                                                                style={{ textShadow: 'none' }}
                                                             >
                                                                 <MenuItem value="">
-                                                                    <em>Select</em>
+                                                                    <em>Select Interval</em>
                                                                 </MenuItem>
                                                                 <MenuItem value="0-0-1">
                                                                     <em>0-0-1</em>
@@ -471,108 +408,9 @@ const AddPrescription = (props) => {
                                                                     <em>1-1-1</em>
                                                                 </MenuItem>
                                                             </Select>
-                                                        </FormControl> */}
-                                                        <select
-                                                            name="interval"
-                                                            value={x.interval}
-                                                            onChange={(e) => handleInputChange(e, i)}
-                                                            required
-                                                            className="browser-default custom-select">
-                                                            <option>Select Interval</option>
-                                                            <option value="0-0-1">0-0-1</option>
-                                                            <option value="1-0-0">1-0-0</option>
-                                                            <option value="0-1-0">0-1-0</option>
-                                                            <option value="1-0-1">1-0-1</option>
-                                                            <option value="1-1-1">1-1-1</option>
-
-                                                        </select>
+                                                        </FormControl>
                                                     </div>
                                                 </div>
-
-                                                {/* {showPrescriptionUpload == false ?
-                                                    <div className="form-group row">
-                                                        <label
-                                                            htmlFor="prescriptionDocument"
-                                                            className="col-sm-3 prescription-lab-card__common-name"
-                                                        >
-                                                            Document
-                                                        </label>
-                                                        <div className="col-sm-9">
-                                                            {errorMsg && (
-                                                                <label
-                                                                    style={{ fontSize: 12, color: '#ff9393', margin: '5px 0' }}
-                                                                    className="left"
-                                                                >
-                                                                    {errorMsg}
-                                                                </label>
-                                                            )}
-                                                            {!prescriptionList?.id && (
-                                                                <div>
-                                                                    <input
-                                                                        type="file"
-                                                                        style={{ padding: '3px' }}
-                                                                        id="prescriptionDocument"
-                                                                        name="prescriptionDocument"
-                                                                        className="form-control"
-                                                                        onChange={(e) => handleInputChange(e, i)}
-                                                                        placeholder="Document"
-                                                                        accept="application/pdf"
-                                                                        required={prescriptionList?.id ? false : true}
-                                                                    ></input>
-                                                                    <input hidden={true} id="doctorId" name="doctorId"
-                                                                        value={doctor?.id} />
-                                                                    <input hidden={true} id="patientId" name="patientId"
-                                                                        value={patient?.id} />
-                                                                </div>
-                                                            )}
-                                                            {prescriptionList?.id && !editDocument && (
-                                                                <div style={{ display: 'inline-flex', alignItems: 'center' }}>
-                                                                    <IconButton onClick={() => setEditDocument(true)}>
-                                                                        <CancelIcon style={{ color: 'red' }} />
-                                                                    </IconButton>
-                                                                    <input
-                                                                        type="file"
-                                                                        id="prescriptionDocument"
-                                                                        name="prescriptionDocument"
-                                                                        className="form-control"
-                                                                        onChange={(e) => handleInputChange(e, i)}
-                                                                        placeholder="Document"
-                                                                        accept="application/pdf"
-                                                                        required={prescriptionList?.id ? false : true}
-                                                                    ></input>
-                                                                </div>
-                                                            )}
-                                                            {prescriptionList?.id && editDocument && (
-                                                                <>
-                                                                    <button
-                                                                        type="button"
-                                                                        className="btn btn-primary mr-2"
-                                                                        onClick={() => setEditDocument(false)}
-                                                                    >
-                                                                        Edit
-                                                                    </button>
-                                                                    <a
-                                                                        href={prescriptionList?.documentUrl}
-                                                                        download
-                                                                        className="btn btn-primary"
-                                                                    >
-                                                                        Download
-                                                                    </a>
-                                                                </>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                    :
-                                                    <div
-                                                        className="col-12 ml-2"
-                                                        style={{ textShadow: 'none', color: 'black' }}
-                                                    >
-                                                        Document Already Uploaded.....
-                                                    </div>
-
-
-                                                } */}
-
                                                 <div className="btn-box">
                                                     {prescriptionList.length !== 1 && (
                                                         <Button
@@ -583,25 +421,15 @@ const AddPrescription = (props) => {
                                                             Remove
                                                         </Button>
                                                     )}
-
                                                     {prescriptionList.length - 1 === i && (
-
-
                                                         <Button
                                                             className="medicineButton"
                                                             variant="primary"
-                                                            // style={{ marginTop: '7%' }}
                                                             onClick={handleAddClick}
-                                                            disabled={
-                                                                isSave == false
-                                                            }
                                                         >
                                                             Add Medicine
                                                         </Button>
-
-
                                                     )}
-
                                                 </div>
                                                 <h3 className="prescription-lab--main-header mb-3 mt-2">
                                                     OR
@@ -613,38 +441,32 @@ const AddPrescription = (props) => {
                                                 >
                                                     Upload Image/Document
                                                 </Button>
+                                                <br />
+
                                             </div>
-
-
-
-
-
                                             <br />
                                             <div className="container">
                                                 <div className="row"></div>
                                             </div>
+                                        </div>
 
-
-
-                                        </form>
-                                    </div>
+                                    </ValidatorForm>
                                 </div>
+
                             );
                         })
                         }
-
-
                     </div>
-                    <Button style={{ marginLeft: '48%' }}
-                        variant="primary"
-                        type="submit"
-                        onClick={(e) => handlePrescriptionSubmission(e)}
-                        disabled={
-                            isSave == false
-                        }
-                    >
-                        Save
-                    </Button>
+                    <div className='submitClass'>
+                        <Button
+                            onClick={(e) => handlePrescriptionSubmission(e)}
+                            type='submit'
+                            variant="primary"
+                        >
+                            Save
+                        </Button>
+                    </div>
+
                     <Modal show={showPrescriptionUpload} onHide={handleUploadPrescriptionClosed}>
                         <form onSubmit={(e) => handlePrescriptionSubmission(e)}>
                             <Modal.Header closeButton>

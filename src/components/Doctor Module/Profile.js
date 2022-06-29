@@ -365,7 +365,7 @@ const Profile = ({ currentDoctor }) => {
                                             className="record-tabs mb-3"
                                         >
                                             <Tab eventKey="general" title="General">
-                                                <div className="general-tab">
+                                                <div className="general-tab scroller-cardlist">
                                                     <div className="d-flex flex-column">
                                                         <ProfileRow
                                                             icon={callIcon}
@@ -407,7 +407,7 @@ const Profile = ({ currentDoctor }) => {
                                             </Tab>
 
                                             <Tab eventKey="education" title="Education">
-                                                <div className="general-tab">
+                                                <div className="general-tab scroller-cardlist">
                                                     <div className="d-flex flex-column">
                                                         <ProfileRow
                                                             icon={educationIcon}
@@ -498,7 +498,7 @@ const Profile = ({ currentDoctor }) => {
                                         className="record-tabs mb-3"
                                     >
                                         <Tab eventKey="general" title="General">
-                                            <div className="general-tab">
+                                            <div className="general-medical-tab">
                                                 <Row>
                                                     <Col md={6}>
                                                         <p>
@@ -646,7 +646,7 @@ const Profile = ({ currentDoctor }) => {
                                         </Tab>
 
                                         <Tab eventKey="education" title="Education">
-                                            <div className="general-tab">
+                                            <div className="general-medical-tab">
                                                 {currentDoctorData?.educationalQualifications.map((x, i) => {
                                                     return (
                                                         <div key={i}>

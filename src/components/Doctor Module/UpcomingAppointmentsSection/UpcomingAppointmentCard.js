@@ -21,8 +21,8 @@ const UpcomingAppointmentCard = ({ appointment }) => {
     if (appointment.appointmentMode === "Follow Up") {
       history.push(`/doctor/my-appointments?APID=${appointment.id}`);
     }
-    else{
-      history.push(`/doctor/my-appointments?APID=${appointment.id + 1}`);
+    else {
+      history.push(`/doctor/my-appointments?APID=${appointment.id - 1}`);
     }
 
   }

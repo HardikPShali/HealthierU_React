@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Header from "../Login-Module/Header";
 import Footer from "../Login-Module/Footer";
 import "../Login-Module/landing.css";
+import { toast } from 'react-toastify';
 import { Container, Row, Col } from "react-bootstrap";
 import {
   Link,
@@ -421,7 +422,12 @@ const Signupform = () => {
     });
     if (res) {
       console.log(res);
-      handleClickOpen();
+      toast.success("Account Activated Successfully!. Please Log In.")
+      history.push("/signin")
+      // handleClickOpen();
+    }
+    else {
+      toast.error("Invalid OTP.Please Enter Correct OTP and try again!")
     }
   };
 
@@ -461,7 +467,7 @@ const Signupform = () => {
                 }}
               >
                 <p>
-                  First Name<sup>*</sup>
+                  Full Name<sup>*</sup>
                 </p>
                 <TextValidator
                   id="standard-basic"
@@ -490,6 +496,7 @@ const Signupform = () => {
                   variant="filled"
                 />
                 <br />
+                {/* <br />
                 <p>
                   Last Name<sup>*</sup>
                 </p>
@@ -519,7 +526,7 @@ const Signupform = () => {
                   ]}
                   variant="filled"
                 />
-                <br />
+                <br /> */}
                 <p>
                   Email<sup>*</sup>
                 </p>
@@ -612,7 +619,7 @@ const Signupform = () => {
                         "This field is required",
                         "Include at least 1 lower case",
                         "Include at least 1 upper case",
-                        "At least 1 number Or 1 special character",
+                        "The password must contain at least 1 number or special character",
                         "Minimum of 8 characters",
                         "Password should not exceed 30 characters",
                       ]}
