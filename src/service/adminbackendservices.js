@@ -386,7 +386,7 @@ export const updateWorkout = async (data) => {
         "video_link": data.get('video_link'),
         "workoutCategoryId": data.get('workoutCategoryId'),
         "published": data.get('published'),
-      
+
     }
     var config = {
         method: methodType,
@@ -797,7 +797,7 @@ export const addServiceCategory = async (data) => {
     else if (formId !== "") {
         method = "put";
         newData = {
-            'id': parseInt(data.get("id")),            
+            'id': parseInt(data.get("id")),
             'title': data.get("title"),
             'description': data.get("description")
         };
@@ -844,7 +844,7 @@ export const deleteServiceCategory = async (id) => {
 
 export const saveDefaultPrescription = async (data) => {
     const formData = new FormData();
-    formData.append('defaultPrescription',data);
+    formData.append('defaultPrescription', data);
     const config = {
         method: "post",
         url: '/api/medical-prescription-upload',
@@ -862,6 +862,23 @@ export const saveDefaultPrescription = async (data) => {
     });
     return response;
 
+}
+
+export const getNewsletterEmailApi = async () => {
+    var payload = {
+        method: 'get',
+        url: `/api/v2/newsletter/email`,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
 }
 
 // https://dev.healthieru.ae/api/medical-documents/155

@@ -1,0 +1,11 @@
+.newsletter-email-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px auto;
+
+  &__table {
+    width: 60%;
+    text-align: center;
+  }
+}
