@@ -59,10 +59,20 @@ const NotificationMenuDoctor = (props) => {
                 {notificationsData.length > 0 ? (
                     <div>
                         {notificationsData.map((notification, index) => {
-                            if (notification.type === 'RESCHEDULE') {
+                            // if (notification.type === 'RESCHEDULE') {
+                            //     return (
+                            //         <div key={index}>
+                            //             <RescheduleAppointment notification={notification} index={index} />
+                            //         </div>
+                            //     );
+                            // }
+                            if (notification.type === 'APPT_RESCHEDULE_BY_PATIENT' && notification.data.appointmentDetails) {
                                 return (
                                     <div key={index}>
-                                        <RescheduleAppointment notification={notification} index={index} />
+                                        <RescheduleAppointment
+                                            notification={notification}
+                                            index={index}
+                                        />
                                     </div>
                                 );
                             }
