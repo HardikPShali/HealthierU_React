@@ -79,19 +79,18 @@
       "Diabetes",
       "Thyroid disease",
       "Neurological disease",
-      "Kidney disease",
+      "Kidney disease/Urinary tract disease",
       "Rheumatological disease",
       "Psychological condition",
       "Allergies",
       "Peripheral arterial disease",
       "Gastrointestinal",
-      "Kidney disease/Urinary tract disease",
       "Gynaecological disease",
       "Sexual dysfunction"
     ],
     "type": "checkbox",
     "answers": [],
-    "mapScore": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "mapScore": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     "score": 0
   },
   {
