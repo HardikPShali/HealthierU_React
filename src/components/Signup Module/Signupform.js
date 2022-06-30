@@ -496,7 +496,6 @@ const Signupform = () => {
                   variant="filled"
                 />
                 <br />
-                {/* <br />
                 <p>
                   Last Name<sup>*</sup>
                 </p>
@@ -526,7 +525,7 @@ const Signupform = () => {
                   ]}
                   variant="filled"
                 />
-                <br /> */}
+                <br />
                 <p>
                   Email<sup>*</sup>
                 </p>

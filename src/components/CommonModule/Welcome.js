@@ -125,7 +125,7 @@ const Welcome = ({ currentuserInfo }) => {
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
         firstName: (currentuserInfo && currentuserInfo.firstName) || "",
-        // lastName: (currentuserInfo && currentuserInfo.lastName) || "",
+        lastName: (currentuserInfo && currentuserInfo.lastName) || "",
         dateOfBirth: "",
         phone: "",
         countryId: "",
@@ -193,7 +193,7 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications, countryName, licenseNumber, referencePhoneNumber, certifyingBody } = state;
+    const { userId, firstName, lastName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications, countryName, licenseNumber, referencePhoneNumber, certifyingBody } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
@@ -331,7 +331,7 @@ const Welcome = ({ currentuserInfo }) => {
         const patientPayload = {
             userId: userId,
             firstName: firstName,
-            // lastName: lastName,
+            lastName: lastName,
             phone: phone,
             countryId: countryId,
             dateOfBirth: dateOfBirth,
@@ -506,7 +506,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         }
                                     </Row>
                                     <Row>
-                                        <Col md={12}>
+                                        <Col md={6}>
                                             <p>Full Name<sup>*</sup></p>
                                             <TextValidator id="standard-basic" type="text" name="firstName"
                                                 onChange={e => handleInputChange(e)}
@@ -517,7 +517,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 disabled
                                             />
                                         </Col>
-                                        {/* <Col md={6}>
+                                        <Col md={6}>
                                             <p>Last Name<sup>*</sup></p>
                                             <TextValidator id="standard-basic" type="text" name="lastName"
                                                 onChange={e => handleInputChange(e)}
@@ -527,7 +527,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 variant="filled"
                                                 disabled
                                             />
-                                        </Col> */}
+                                        </Col>
                                     </Row>
                                     <br />
                                     <Row>
@@ -846,7 +846,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={affiliation}
                                                     validators={[
                                                         "required",
-                                                        "matchRegexp:(^[a-zA-Z ]*$)",
+                                                        // "matchRegexp:/^[a-zA-Z ]*$/",
                                                     ]}
                                                     errorMessages={['This field is required',
                                                         // "Please Enter Valid Affiliation"
