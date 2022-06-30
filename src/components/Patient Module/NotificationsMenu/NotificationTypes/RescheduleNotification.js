@@ -5,9 +5,10 @@ import rightIcon from '../../../../images/svg/right-icon.svg';
 import moment from 'moment'
 
 const RescheduleNotification = ({ notification, key }) => {
+    // console.log("notification", notification)
     return (
         <div>
-            {/* {console.log("notification",notification)} */}
+
             <NavLink
                 to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id}/${notification.data.appointmentDetails.appointmentMode.toLowerCase().replace(" ", "-")}`}
                 className="d-flex flex-column text-dark navlink-hover"
@@ -22,15 +23,15 @@ const RescheduleNotification = ({ notification, key }) => {
                                     alt="profile"
                                     src={notification.data.appointmentDetails.doctor.picture}
                                     style={{
-                                        height: 40,
-                                        width: 40,
+                                        height: 50,
+                                        width: 50,
                                         borderRadius: '50%',
                                     }}
                                 />
                             ) : (
                                 <Avatar
                                     round={true}
-                                    name={notification.data.appointmentDetails.doctor.firstName}
+                                    name={notification.data.appointmentDetails.doctor?.firstName}
                                     size={60}
                                     className="notifications-avatar"
                                 />
@@ -39,7 +40,7 @@ const RescheduleNotification = ({ notification, key }) => {
                         <div className="notif-section__message">
                             <div className="message-notif">
                                 <span>
-                                    Dr. {notification.data.appointmentDetails.doctor.firstName}{' '}
+                                    Dr. {notification.data.appointmentDetails.doctor?.firstName}{' '}
                                     has requested to reschedule the appointment booked for{' '}
                                     {moment(
                                         notification.data.appointmentDetails.startTime

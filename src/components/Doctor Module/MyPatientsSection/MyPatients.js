@@ -575,7 +575,7 @@ const MyPatients = (props) => {
                                                             className="col-12 ml-2"
                                                             style={{ textShadow: 'none', color: '#3e4543' }}
                                                         >
-                                                            <b>No Consultation Found</b>
+                                                            <b>No Consultation History Found</b>
                                                         </div>
                                                     }
                                                 </div>

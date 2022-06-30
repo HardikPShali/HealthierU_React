@@ -16,8 +16,8 @@ const CancelledByDoctorNotifications = ({ notification, index }) => {
                                 notification.data.appointmentDetails?.doctor.picture
                             }
                             style={{
-                                height: 40,
-                                width: 40,
+                                height: 50,
+                                width: 50,
                                 borderRadius: '50%',
                             }}
                         />
@@ -34,7 +34,7 @@ const CancelledByDoctorNotifications = ({ notification, index }) => {
                 </div>
                 <div className="notif-section__message">
                     <div className="message-notif">
-                        <span>Your appointment is cancelled for {moment(notification.data.appointmentDetails.startTime).format('DD-MM-YYYY hh:mm')}</span>
+                        <span>{notification.data.message} {moment(notification.data.appointmentDetails.startTime).format('DD-MM-YYYY hh:mm')}</span>
                         {/* <span>TIME</span> */}
                     </div>
                 </div>

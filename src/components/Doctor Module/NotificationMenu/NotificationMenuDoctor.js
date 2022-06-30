@@ -66,21 +66,21 @@ const NotificationMenuDoctor = (props) => {
                                     </div>
                                 );
                             }
-                            if (notification.type === 'STRING') {
-                                return (
-                                    <div key={index}>
-                                        <StringNotifications notification={notification} index={index} />
-                                    </div>
-                                );
-                            }
-                            if (notification.type === 'CANCELLED_BY_PATIENT') {
+                            // if (notification.type === 'STRING') {
+                            //     return (
+                            //         <div key={index}>
+                            //             <StringNotifications notification={notification} index={index} />
+                            //         </div>
+                            //     );
+                            // }
+                            if (notification.type === 'APPT_CANCELLED_BY_PATIENT') {
                                 return (
                                     <div key={index}>
                                         <CancelledByPatient notification={notification} index={index} />
                                     </div>
                                 );
                             }
-                            if (notification.type === 'ACCEPTED') {
+                            if (notification.type === 'APPT_ACCEPTED') {
                                 return (
                                     <div key={index}>
                                         <AcceptedAppointment notification={notification} index={index} />

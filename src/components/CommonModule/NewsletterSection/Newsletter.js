@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './Newsletter.css'
 import validator from 'validator';
+import { postNewsletterEmailApi } from '../../../service/frontendapiservices';
 
 const Newsletter = () => {
 
@@ -13,9 +14,16 @@ const Newsletter = () => {
         setEmailError(false);
     }
 
-    const newsletterSubmithandler = () => {
+    const postNewsletterEmail = async (email) => {
+        await postNewsletterEmailApi(email).catch(error => {
+            console.log(error);
+        });
+    }
+
+    const newsletterSubmitHandler = () => {
         console.log(email);
         if (validator.isEmail(email)) {
+            postNewsletterEmail(email);
             setEmailSubmit(true);
             setEmail('');
         }
@@ -52,7 +60,7 @@ const Newsletter = () => {
                 <input
                     defaultValue="Subscribe"
                     className="btn submit-btn"
-                    onClick={() => newsletterSubmithandler()}
+                    onClick={() => newsletterSubmitHandler()}
                 />
                 {
                     emailSubmit && (

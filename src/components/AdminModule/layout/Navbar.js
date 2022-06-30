@@ -174,6 +174,13 @@ const Navbar = (props) => {
           </Link>
         </List>
       </Collapse>
+      <Divider variant="middle" />
+      <Link to="/admin/newsletter-emails" style={{ textDecoration: "none" }}>
+        <ListItem button className={props.pageTitle === "newsletter" ? "active" : ""}>
+          <ListItemText primary={"Newsletter Emails"} />
+        </ListItem>
+      </Link>
+      <Divider variant="middle" />
     </List>
   </>)
 
