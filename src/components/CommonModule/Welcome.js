@@ -849,7 +849,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                         "matchRegexp:(^[a-zA-Z ]*$)",
                                                     ]}
                                                     errorMessages={['This field is required',
-                                                        "Please Enter Valid Affiliation"]}
+                                                        // "Please Enter Valid Affiliation"
+                                                    ]}
                                                     variant="filled"
                                                     placeholder='Affiliation' />
 
@@ -939,7 +940,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                                     "matchRegexp:(^[a-zA-Z ]*$)",
                                                                 ]}
                                                                 errorMessages={['This field is required',
-                                                                    "Please Enter Valid Education"]}
+                                                                    // "Please Enter Valid Education"
+                                                                ]}
                                                                 variant="filled"
                                                                 placeholder='Education' />
 
@@ -955,10 +957,10 @@ const Welcome = ({ currentuserInfo }) => {
                                                                     "matchRegexp:(^[a-zA-Z ]*$)",
                                                                 ]}
                                                                 errorMessages={['This field is required',
-                                                                    "Please Enter Valid Institution"]}
+                                                                    // "Please Enter Valid Institution"
+                                                                ]}
                                                                 variant="filled"
                                                                 placeholder='Institution' />
-
                                                         </Col>
 
                                                     </Row>

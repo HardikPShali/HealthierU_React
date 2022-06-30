@@ -176,12 +176,12 @@ const MyDoctor = (props) => {
           }
         });
       setFilterData(doctorArray);
-      setdoctor(doctorArray.length > 0 && doctorArray[0]);
+      // setdoctor(doctorArray.length > 0 && doctorArray[0]);
       setLikedOffset(likedOffset + 1);
       //const currentSelectedDate = new Date();
       //onDaySelect(currentSelectedDate, res.data.length > 0 && res.data[0].doctorId);
-      const docId = doctorArray.length > 0 && doctorArray[0].id;
-      getInValidAppointments(docId);
+      // const docId = doctorArray.length > 0 && doctorArray[0].id;
+      // getInValidAppointments(docId);
       setTransparentLoading(false);
     }
   };
@@ -457,12 +457,12 @@ const MyDoctor = (props) => {
     if (searchValue === '') {
       setSearchText('');
       setFilterData(users);
-      setdoctor(users[0]);
+      // setdoctor(users[0]);
       //const currentSelectedDate = new Date();
       //onDaySelect(currentSelectedDate, users[0] && users[0].id);
       setAvailability([]);
       setAppointmentSlot([]);
-      getInValidAppointments(users[0].id);
+      // getInValidAppointments(users[0].id);
       setOffset(1);
       setDisplay({ ...display, suggestion: 'none' });
     } else {
@@ -478,10 +478,10 @@ const MyDoctor = (props) => {
       const res = await getSearchData(searchText, 0, doctorListLimit);
       if (res.status === 200 && res.data?.doctors.length > 0) {
         setFilterData(res.data.doctors);
-        setdoctor(res.data.doctors[0]);
+        // setdoctor(res.data.doctors[0]);
         setAvailability([]);
         setAppointmentSlot([]);
-        getInValidAppointments(res.data.doctors[0].id);
+        // getInValidAppointments(res.data.doctors[0].id);
         setTransparentLoading(false);
       } else if (res.status === 204) {
         setFilterData([]);
@@ -963,7 +963,7 @@ const MyDoctor = (props) => {
       selectedSpeciality: [],
       selectedLanguage: [],
     });
-    setdoctor(users[0]);
+    // setdoctor(users[0]);
     setTransparentLoading(false);
   };
 
@@ -1114,18 +1114,18 @@ const MyDoctor = (props) => {
           result.data.doctors.length > 0
         ) {
           setOffset(1);
-          setdoctor(result.data.doctors[0]);
+          // setdoctor(result.data.doctors[0]);
           //const currentSelectedDate = new Date();
           //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
           setAvailability([]);
           setAppointmentSlot([]);
-          const docId = result.data.doctors[0]?.id;
-          setAppointment({
-            ...appointment,
-            patientId: currentPatient.id,
-            doctorId: docId,
-          });
-          getInValidAppointments(docId);
+          // const docId = result.data.doctors[0]?.id;
+          // setAppointment({
+          //   ...appointment,
+          //   patientId: currentPatient.id,
+          //   doctorId: docId,
+          // });
+          // getInValidAppointments(docId);
           setFilterData(result.data.doctors);
           setTransparentLoading(false);
         } else {

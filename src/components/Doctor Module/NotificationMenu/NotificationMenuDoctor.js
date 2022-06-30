@@ -59,28 +59,38 @@ const NotificationMenuDoctor = (props) => {
                 {notificationsData.length > 0 ? (
                     <div>
                         {notificationsData.map((notification, index) => {
-                            if (notification.type === 'RESCHEDULE') {
+                            // if (notification.type === 'RESCHEDULE') {
+                            //     return (
+                            //         <div key={index}>
+                            //             <RescheduleAppointment notification={notification} index={index} />
+                            //         </div>
+                            //     );
+                            // }
+                            if (notification.type === 'APPT_RESCHEDULE_BY_PATIENT' && notification.data.appointmentDetails) {
                                 return (
                                     <div key={index}>
-                                        <RescheduleAppointment notification={notification} index={index} />
+                                        <RescheduleAppointment
+                                            notification={notification}
+                                            index={index}
+                                        />
                                     </div>
                                 );
                             }
-                            if (notification.type === 'STRING') {
-                                return (
-                                    <div key={index}>
-                                        <StringNotifications notification={notification} index={index} />
-                                    </div>
-                                );
-                            }
-                            if (notification.type === 'CANCELLED_BY_PATIENT') {
+                            // if (notification.type === 'STRING') {
+                            //     return (
+                            //         <div key={index}>
+                            //             <StringNotifications notification={notification} index={index} />
+                            //         </div>
+                            //     );
+                            // }
+                            if (notification.type === 'APPT_CANCELLED_BY_PATIENT') {
                                 return (
                                     <div key={index}>
                                         <CancelledByPatient notification={notification} index={index} />
                                     </div>
                                 );
                             }
-                            if (notification.type === 'ACCEPTED') {
+                            if (notification.type === 'APPT_ACCEPTED') {
                                 return (
                                     <div key={index}>
                                         <AcceptedAppointment notification={notification} index={index} />

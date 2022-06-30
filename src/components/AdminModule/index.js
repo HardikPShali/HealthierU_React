@@ -1,4 +1,4 @@
-import {Switch, Route} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import React from "react";
 import Loadable from 'react-loadable';
 //import Cookies from 'universal-cookie';
@@ -17,8 +17,8 @@ const AddUser = Loadable({
     loading: () => <div></div>
 });
 //const Users = Loadable({
- //   loader: () => import('./user-management/user'),
- //   loading: () => <div></div>
+//   loader: () => import('./user-management/user'),
+//   loading: () => <div></div>
 //});
 const EditUser = Loadable({
     loader: () => import('./user-management/edituser'),
@@ -146,43 +146,49 @@ const ServiceCategory = Loadable({
     loading: () => <div></div>
 });
 
+const NewsletterEmailsComponent = Loadable({
+    loader: () => import('./Newsletter/NewsletterEmails'),
+    loading: () => <div></div>
+})
+
 function PageNotFound() {
-    return <h1 style={{textAlign: "center", marginTop: 40}}>Page not found</h1>;
+    return <h1 style={{ textAlign: "center", marginTop: 40 }}>Page not found</h1>;
 
 }
 
 const AdminRoutes = () => {
     return (<><Switch>
-        <Route exact path="/admin" component={Home}/>
-        <Route exact path="/admin/doctorlist" component={DoctorList}/>
-        <Route exact path="/admin/patientlist" component={PatientList}/>
-        <Route exact path="/admin/user-management/users/add" component={AddUser}/>
-        <Route exact path="/admin/user-management/document" component={AdminDocument}/>
-        <Route exact path="/admin/article/home" component={HomeArticle}/>
-        <Route exact path="/admin/article/add" component={AddArticle}/>     
-        <Route exact path="/admin/article/edit/:id" component={EditArticle}/>        
-        <Route exact path="/admin/questionnaire/home" component={HomeQuestionnaire}/>
-        <Route exact path="/admin/questionnaire/add" component={AddQuestionnaire}/>
-        <Route exact path="/admin/questionnaire/edit/:id" component={EditQuestionnaire}/>
-        <Route exact path="/admin/shop/home" component={HomeShop}/>
-        <Route exact path="/admin/shop/add" component={AddShop}/>
-        <Route exact path="/admin/shop/edit/:id" component={EditShop}/>
-        <Route exact path="/admin/shop/editsubcategory/:id" component={EditSubCategory}/>
-        <Route exact path="/admin/patient/chat" component={PatientChatNew}/>
+        <Route exact path="/admin" component={Home} />
+        <Route exact path="/admin/doctorlist" component={DoctorList} />
+        <Route exact path="/admin/patientlist" component={PatientList} />
+        <Route exact path="/admin/user-management/users/add" component={AddUser} />
+        <Route exact path="/admin/user-management/document" component={AdminDocument} />
+        <Route exact path="/admin/article/home" component={HomeArticle} />
+        <Route exact path="/admin/article/add" component={AddArticle} />
+        <Route exact path="/admin/article/edit/:id" component={EditArticle} />
+        <Route exact path="/admin/questionnaire/home" component={HomeQuestionnaire} />
+        <Route exact path="/admin/questionnaire/add" component={AddQuestionnaire} />
+        <Route exact path="/admin/questionnaire/edit/:id" component={EditQuestionnaire} />
+        <Route exact path="/admin/shop/home" component={HomeShop} />
+        <Route exact path="/admin/shop/add" component={AddShop} />
+        <Route exact path="/admin/shop/edit/:id" component={EditShop} />
+        <Route exact path="/admin/shop/editsubcategory/:id" component={EditSubCategory} />
+        <Route exact path="/admin/patient/chat" component={PatientChatNew} />
         {/*<Route exact path="/admin/user-management/users/:id" component={Users}/>*/}
-        <Route exact path="/admin/user-management/edit/:selectedId" component={EditUser}/>
-        <Route exact path="/admin/addservice-provider" component={ServiceProvider}/>
-        <Route exact path="/admin/search" component={GlobalSearch}/>
-        <Route exact path="/admin/workout/home" component={WorkoutHome}/>
-        <Route exact path="/admin/workout/add" component={AddWorkout}/>
-        <Route exact path="/admin/workout/edit/:id" component={EditWorkout}/>
-        <Route exact path="/admin/serviceprovider/home" component={ServiceProvidersHome}/>
-        <Route exact path="/admin/serviceprovider/add" component={AddServiceProvider}/>
-        <Route exact path="/admin/serviceprovider/edit/:id" component={EditServiceProvider}/>
-        <Route exact path="/admin/serviceprovider/servicecategory" component={ServiceCategory}/>
-        <Route exact path="/admin/changepassword" component={ChangeAccountPassword}/>
-        <Route exact path="/admin/logout" component={Logout}/>
-        <Route component={PageNotFound}/>
+        <Route exact path="/admin/user-management/edit/:selectedId" component={EditUser} />
+        <Route exact path="/admin/addservice-provider" component={ServiceProvider} />
+        <Route exact path="/admin/search" component={GlobalSearch} />
+        <Route exact path="/admin/workout/home" component={WorkoutHome} />
+        <Route exact path="/admin/workout/add" component={AddWorkout} />
+        <Route exact path="/admin/workout/edit/:id" component={EditWorkout} />
+        <Route exact path="/admin/serviceprovider/home" component={ServiceProvidersHome} />
+        <Route exact path="/admin/serviceprovider/add" component={AddServiceProvider} />
+        <Route exact path="/admin/serviceprovider/edit/:id" component={EditServiceProvider} />
+        <Route exact path="/admin/serviceprovider/servicecategory" component={ServiceCategory} />
+        <Route exact path="/admin/changepassword" component={ChangeAccountPassword} />
+        <Route exact path="/admin/newsletter-emails" component={NewsletterEmailsComponent} />
+        <Route exact path="/admin/logout" component={Logout} />
+        <Route component={PageNotFound} />
     </Switch></>)
 }
 

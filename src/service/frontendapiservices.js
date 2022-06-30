@@ -1262,3 +1262,22 @@ export const getCallUserApi = async (channelId) => {
   });
   return response;
 }
+
+export const postNewsletterEmailApi = async (email) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    url: `/api/v2/newsletter/email?email=${email}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
