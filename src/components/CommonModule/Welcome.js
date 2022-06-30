@@ -515,7 +515,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 errorMessages={['This field is required']}
                                                 variant="filled"
                                                 disabled
-                                                 />
+                                            />
                                         </Col>
                                         {/* <Col md={6}>
                                             <p>Last Name<sup>*</sup></p>
@@ -847,10 +847,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={affiliation}
                                                     validators={[
                                                         "required",
-                                                        "matchRegexp:(/^[a-zA-Z]+$/)",
+                                                        // "matchRegexp:(/^[a-zA-Z]+$/)",
                                                     ]}
                                                     errorMessages={['This field is required',
-                                                        "Please Enter Valid Affiliation"]}
+                                                        // "Please Enter Valid Affiliation"
+                                                    ]}
                                                     variant="filled"
                                                     placeholder='Affiliation' />
 
@@ -937,10 +938,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 value={x.educationalQualification}
                                                                 validators={[
                                                                     "required",
-                                                                    "matchRegexp:(/^[a-zA-Z]+$/)",
+                                                                    // "matchRegexp:(/^[a-zA-Z]+$/)",
                                                                 ]}
                                                                 errorMessages={['This field is required',
-                                                                    "Please Enter Valid Education"]}
+                                                                    // "Please Enter Valid Education"
+                                                                ]}
                                                                 variant="filled"
                                                                 placeholder='Education' />
 
@@ -953,13 +955,13 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 value={x.institution}
                                                                 validators={[
                                                                     "required",
-                                                                    "matchRegexp:(/^[a-zA-Z]+$/)",
+                                                                    // "matchRegexp:(/^[a-zA-Z]+$/)",
                                                                 ]}
                                                                 errorMessages={['This field is required',
-                                                                    "Please Enter Valid Institution"]}
+                                                                    // "Please Enter Valid Institution"
+                                                                ]}
                                                                 variant="filled"
                                                                 placeholder='Institution' />
-
                                                         </Col>
 
                                                     </Row>
