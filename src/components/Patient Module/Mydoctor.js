@@ -706,6 +706,10 @@ const MyDoctor = (props) => {
     setDisable({ ...disable, continue: false });
   };
 
+  // STATE FOR MODAL
+  // const [paymentErrorModal, setPaymentErrorModal] = useState(false);
+  // let handlePaymentErrorModal;
+
   const bookappointment = async (orderData) => {
     setLoading(true);
     let tempSlotConsultationId = '';
@@ -775,35 +779,11 @@ const MyDoctor = (props) => {
     }
 
     const newPaymentData = {
-      appointmentDTO: finalAppointmentDataArray[0],
+      appointmentDTO: finalAppointmentDataArray,
       paymentsAppointmentsDTO: orderData
     }
 
     console.log({ newPaymentData });
-
-    // const bookAppointmentApiHeader = {
-    //   method: 'put',
-    //   mode: 'no-cors',
-    //   data: JSON.stringify(finalAppointmentDataArray),
-    //   url: `/api/v2/appointments/bulk`,
-    //   headers: {
-    //     Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
-    //     'Content-Type': 'application/json',
-    //     'Access-Control-Allow-Origin': '*',
-    //   },
-    // };
-
-    // const storePaypalTransitionInfo = {
-    //   method: 'post',
-    //   mode: 'no-cors',
-    //   data: JSON.stringify(orderData),
-    //   url: `/api/paypal/transaction-info`,
-    //   headers: {
-    //     Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
-    //     'Content-Type': 'application/json',
-    //     'Access-Control-Allow-Origin': '*',
-    //   },
-    // };
 
     const newPaymentApi = {
       method: 'post',
@@ -817,20 +797,39 @@ const MyDoctor = (props) => {
       },
     }
 
-    // console.log({ bookAppointmentApiHeader });
-    // console.log({ storePaypalTransitionInfo });
     console.log({ newPaymentApi });
 
-    // const bookingResponse = await axios(bookAppointmentApiHeader);
-    // const storePaypalInfo = await axios(storePaypalTransitionInfo);
-    const newPaymentResponse = await axios(newPaymentApi);
-    console.log({ newPaymentResponse });
+    try {
+      // await api call
+      const newPaymentResponse = await axios(newPaymentApi);
+      console.log({ newPaymentResponse });
 
-    if (newPaymentResponse.status === 200 || newPaymentResponse.status === 201) {
-
-      props.history.push('/patient/myappointment');
+      //success logic
+      if (newPaymentResponse.status === 200 || newPaymentResponse.status === 201) {
+        props.history.push('/patient/myappointment');
+      }
     }
+    catch (err) {
+      //error logic
+      console.log({ err });
+      const errorMessage = err.response.data.message;
+      const errorStatus = err.response.status;
+
+      if (errorStatus === 500 && errorMessage === 'Transaction id is not valid') {
+        setLoading(false);
+        // FOR MODAL
+        // setPaymentErrorModal(true);
+
+        // FOR TOAST
+        toast.error('Payment failed. Please try again.');
+
+      }
+    }
+
   };
+
+
+
 
   const [display, setDisplay] = useState({
     doctor: 'block',
@@ -3089,6 +3088,30 @@ const MyDoctor = (props) => {
                 </Link>
               </DialogActions>
             </Dialog>
+
+
+            {/* PAYMENT FAILED MODAL */}
+            {/* <Dialog
+              onClose={() => setPaymentErrorModal(false)}
+              aria-labelledby="customized-dialog-title"
+              open={paymentErrorModal}
+            >
+              <DialogTitle id="customized-dialog-title" onClose={() => setPaymentErrorModal(false)}>
+                Payment failed. Please try again.
+              </DialogTitle>
+              <DialogActions>
+                <div className='text-center w-100'>
+                  <button
+                    onClick={() => setPaymentErrorModal(false)}
+                    className="btn btn-primary sign-btn"
+                    id="close-btn"
+                  >
+                    Ok
+                  </button>
+                </div>
+
+              </DialogActions>
+            </Dialog> */}
           </Col>
         </Row>
 
