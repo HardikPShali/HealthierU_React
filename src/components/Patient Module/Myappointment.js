@@ -126,7 +126,11 @@ const Myappointment = (props) => {
   };
 
   const handleAppointmentInfoFromCalendarClick = (eventData) => {
-    setSelectedAppointment(eventData);
+    UpcomingAppointment.forEach((u) => {
+      if (eventData.id === u.id) {
+        setSelectedAppointment(u);
+      }
+    })
     setOpenApptDetailsFromCalendar(true);
   }
 

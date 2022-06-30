@@ -39,7 +39,7 @@ import Typography from "@material-ui/core/Typography";
 import { ifError } from "assert";
 
 
-const isnum = "(?=.*[0-9!@*$_])";
+const isnum = "(?=.*[0-9]|.*[~`!@#$%^&*()--+={}\[\]|\\:;\"\'<>,.?/_₹])";
 const islow = "(?=.*[a-z])";
 const isup = "(?=.*[A-Z])";
 // const history = useHistory();
@@ -178,7 +178,7 @@ const Signupform = () => {
   };
 
   const emailValidator = new RegExp(
-    "^[a-zA-Z0-9_.]+@([a-zA-Z0-9]+[.]+[a-zA-Z]{2,})$"
+    "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
   );
 
   const usernameValidator = new RegExp("^[_.@A-Za-z0-9-]*$");
@@ -611,7 +611,7 @@ const Signupform = () => {
                         "required",
                         "matchRegexp:(?=.*[a-z])",
                         "matchRegexp:(?=.*[A-Z])",
-                        "matchRegexp:(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;\"\'<>,.?/_₹])",
+                        "matchRegexp:(?=.*[0-9].*|.*[~`!@#$%^&*()--+={}\[\]|\\:;\"\'<>,.?/_₹])",
                         "minStringLength:8",
                         "maxStringLength:30",
                       ]}
@@ -619,7 +619,7 @@ const Signupform = () => {
                         "This field is required",
                         "Include at least 1 lower case",
                         "Include at least 1 upper case",
-                        "The password must contain at least 1 number or special character",
+                        "Include at least 1 number or 1 special character",
                         "Minimum of 8 characters",
                         "Password should not exceed 30 characters",
                       ]}
@@ -654,7 +654,7 @@ const Signupform = () => {
                       <span>Include at least 1 lower case</span>
                       <br />
                       <input type="radio" required checked={num} />
-                      <span>At least 1 number OR 1 special character</span>
+                      <span>Include at least 1 number OR 1 special character</span>
                     </div>
                   </>
                 )}
