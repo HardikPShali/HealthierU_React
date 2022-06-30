@@ -18,13 +18,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
     setAppointmentPersonKey(key);
   }, []);
   const handleClickToAppointmentsPage = () => {
-    if (appointment.appointmentMode === "Follow Up") {
-      history.push(`/doctor/my-appointments?APID=${appointment.id}`);
-    }
-    else {
-      history.push(`/doctor/my-appointments?APID=${appointment.id - 1}`);
-    }
-
+    history.push(`/doctor/my-appointments?APID=${appointment.id}`);
   }
   return (
 
