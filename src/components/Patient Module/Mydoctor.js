@@ -713,6 +713,7 @@ const MyDoctor = (props) => {
     if (appointment.appointmentMode === 'First Consultation') {
       combinedSlots &&
         combinedSlots.map((slotData) => {
+          console.log({ slotData })
           if (combinedSlotId === slotData.slotId) {
             tempSlotConsultationId =
               slotData.slot1.id + '-' + slotData.slot2.id;
@@ -778,6 +779,8 @@ const MyDoctor = (props) => {
       paymentsAppointmentsDTO: orderData
     }
 
+    console.log({ newPaymentData });
+
     // const bookAppointmentApiHeader = {
     //   method: 'put',
     //   mode: 'no-cors',
@@ -821,9 +824,10 @@ const MyDoctor = (props) => {
     // const bookingResponse = await axios(bookAppointmentApiHeader);
     // const storePaypalInfo = await axios(storePaypalTransitionInfo);
     const newPaymentResponse = await axios(newPaymentApi);
+    console.log({ newPaymentResponse });
 
     if (newPaymentResponse.status === 200 || newPaymentResponse.status === 201) {
-      console.log({ newPaymentResponse });
+
       props.history.push('/patient/myappointment');
     }
   };
@@ -3028,13 +3032,11 @@ const MyDoctor = (props) => {
 
                       {!disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
+                          {console.log({ appointmentId: appointment.id })}
                           <Paypal
-                            // appointment={appointment}
                             appointmentId={appointment.id}
                             appointmentMode={appointment.appointmentMode}
                             bookappointment={bookappointment}
-                            // currentPatient={props.currentPatient}
-                            // doctor={doctor}
                             firstName={props.currentPatient.firstName}
                             lastName={props.currentPatient.lastName}
                             email={props.currentPatient.email}
