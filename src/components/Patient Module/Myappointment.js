@@ -125,8 +125,24 @@ const Myappointment = (props) => {
     setopenAppointmentInfo(true);
   };
 
-  const handleAppointmentInfoFromCalendarClick = (eventData) => {
-    setSelectedAppointment(eventData);
+  const handleAppointmentInfoFromCalendarClick = async (eventData) => {
+    const response = await getAppointmentsTablistByStatus(eventData.patientId).catch(
+      (err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          setLoading(false);
+        }
+      }
+    );
+    if (response.status === 200 || response.status === 201) {
+      if (response && response.data) {
+        const upcomingArray = response.data.data.upcoming;
+        upcomingArray.forEach((u) => {
+          if (eventData.id === u.id) {
+            setSelectedAppointment(u);
+          }
+        })
+      }
+    }
     setOpenApptDetailsFromCalendar(true);
   }
 

@@ -939,7 +939,7 @@ export const getAppointmentsForHomepage = async (
   var payload = {
     method: "get",
     mode: "no-cors",
-    url: `/api/v2/appointments/doctor/?startTime=${startTime}&endTime=${endTime}&doctorId=${doctorId}`,
+    url: `/api/v2/appointments/doctor/mobile?startTime=${startTime}&endTime=${endTime}&doctorId=${doctorId}`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
