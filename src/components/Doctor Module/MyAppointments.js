@@ -778,7 +778,7 @@ const MyAppointments = (props) => {
                                     " " +
                                     (SelectedPatient.patient.lastName || "")
                                   }
-                                  size="140"
+                                  size="113"
                                   className="my-patient-avatar"
                                 />
                               ))}
