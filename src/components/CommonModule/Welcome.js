@@ -537,7 +537,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 inputProps={{
                                                     name: 'phone',
                                                     required: true,
-                                                    maxLength: 16,
+                                                    maxLength: 20,
                                                     minLength: 12
                                                 }}
                                                 country={'us'}
@@ -849,7 +849,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                         // "matchRegexp:/^[a-zA-Z ]*$/",
                                                     ]}
                                                     errorMessages={['This field is required',
-                                                         "Please Enter Valid Affiliation"
+                                                        "Please Enter Valid Affiliation"
                                                     ]}
                                                     variant="filled"
                                                     placeholder='Affiliation' />
@@ -957,7 +957,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                     "matchRegexp:(^[a-zA-Z ]*$)",
                                                                 ]}
                                                                 errorMessages={['This field is required',
-                                                                 "Please Enter Valid Institution"
+                                                                    "Please Enter Valid Institution"
                                                                 ]}
                                                                 variant="filled"
                                                                 placeholder='Institution' />
