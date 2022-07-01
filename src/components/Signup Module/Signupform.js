@@ -623,6 +623,7 @@ const Signupform = () => {
                         "Password should not exceed 30 characters",
                       ]}
                       variant="filled"
+                      autoComplete="new-password"
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
