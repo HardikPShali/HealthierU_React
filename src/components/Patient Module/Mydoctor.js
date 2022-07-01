@@ -706,6 +706,10 @@ const MyDoctor = (props) => {
     setDisable({ ...disable, continue: false });
   };
 
+  // STATE FOR MODAL
+  // const [paymentErrorModal, setPaymentErrorModal] = useState(false);
+  // let handlePaymentErrorModal;
+
   const bookappointment = async (orderData) => {
     setLoading(true);
     let tempSlotConsultationId = '';
@@ -713,6 +717,7 @@ const MyDoctor = (props) => {
     if (appointment.appointmentMode === 'First Consultation') {
       combinedSlots &&
         combinedSlots.map((slotData) => {
+          console.log({ slotData })
           if (combinedSlotId === slotData.slotId) {
             tempSlotConsultationId =
               slotData.slot1.id + '-' + slotData.slot2.id;
@@ -728,11 +733,17 @@ const MyDoctor = (props) => {
                 status: 'ACCEPTED',
                 remarks: remarks,
                 appointmentMode: appointment.appointmentMode,
+                appointmentFee: (appointment.appointmentMode === 'First Consultation' ||
+                  appointment.appointmentMode === ''
+                  ? doctor && doctor.rate
+                  : appointment.appointmentMode === 'Follow Up'
+                    ? doctor && doctor.halfRate
+                    : ''),
+                currency: "USD",
                 id: slotData.slot1.id,
                 urgency: urgency,
                 unifiedAppointment:
                   tempSlotConsultationId + '#' + getAppointmentMode(appointment.appointmentMode),
-
               },
               {
                 doctorId: appointment.doctorId,
@@ -767,40 +778,59 @@ const MyDoctor = (props) => {
       });
     }
 
-    const bookAppointmentApiHeader = {
-      method: 'put',
-      mode: 'no-cors',
-      data: JSON.stringify(finalAppointmentDataArray),
-      url: `/api/v2/appointments/bulk`,
-      headers: {
-        Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-    };
+    const newPaymentData = {
+      appointmentDTO: finalAppointmentDataArray,
+      paymentsAppointmentsDTO: orderData
+    }
 
-    const storePaypalTransitionInfo = {
+    console.log({ newPaymentData });
+
+    const newPaymentApi = {
       method: 'post',
       mode: 'no-cors',
-      data: JSON.stringify(orderData),
-      url: `/api/paypal/transaction-info`,
+      data: newPaymentData,
+      url: `/api/v2/appointments/payment/bulk`,
       headers: {
         Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
-    };
-
-    console.log({ bookAppointmentApiHeader });
-    console.log({ storePaypalTransitionInfo });
-
-    const bookingResponse = await axios(bookAppointmentApiHeader);
-    const storePaypalInfo = await axios(storePaypalTransitionInfo);
-
-    if (bookingResponse.status === 200 || bookingResponse.status === 201) {
-      props.history.push('/patient/myappointment');
     }
+
+    console.log({ newPaymentApi });
+
+    try {
+      // await api call
+      const newPaymentResponse = await axios(newPaymentApi);
+      console.log({ newPaymentResponse });
+
+      //success logic
+      if (newPaymentResponse.status === 200 || newPaymentResponse.status === 201) {
+        props.history.push('/patient/myappointment');
+      }
+    }
+    catch (err) {
+      //error logic
+      console.log({ err });
+      const errorMessage = err.response.data.message;
+      const errorStatus = err.response.status;
+
+      if (errorStatus === 500 && errorMessage === 'Transaction id is not valid') {
+        setLoading(false);
+        // FOR MODAL
+        // setPaymentErrorModal(true);
+
+        // FOR TOAST
+        toast.error('Payment failed. Please try again.');
+
+      }
+    }
+
   };
+
+
+
+
   const [display, setDisplay] = useState({
     doctor: 'block',
     appointment: 'none',
@@ -3001,13 +3031,11 @@ const MyDoctor = (props) => {
 
                       {!disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
+                          {console.log({ appointmentId: appointment.id })}
                           <Paypal
-                            // appointment={appointment}
                             appointmentId={appointment.id}
                             appointmentMode={appointment.appointmentMode}
                             bookappointment={bookappointment}
-                            // currentPatient={props.currentPatient}
-                            // doctor={doctor}
                             firstName={props.currentPatient.firstName}
                             lastName={props.currentPatient.lastName}
                             email={props.currentPatient.email}
@@ -3060,6 +3088,30 @@ const MyDoctor = (props) => {
                 </Link>
               </DialogActions>
             </Dialog>
+
+
+            {/* PAYMENT FAILED MODAL */}
+            {/* <Dialog
+              onClose={() => setPaymentErrorModal(false)}
+              aria-labelledby="customized-dialog-title"
+              open={paymentErrorModal}
+            >
+              <DialogTitle id="customized-dialog-title" onClose={() => setPaymentErrorModal(false)}>
+                Payment failed. Please try again.
+              </DialogTitle>
+              <DialogActions>
+                <div className='text-center w-100'>
+                  <button
+                    onClick={() => setPaymentErrorModal(false)}
+                    className="btn btn-primary sign-btn"
+                    id="close-btn"
+                  >
+                    Ok
+                  </button>
+                </div>
+
+              </DialogActions>
+            </Dialog> */}
           </Col>
         </Row>
 
