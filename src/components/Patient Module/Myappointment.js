@@ -672,9 +672,7 @@ const Myappointment = (props) => {
                                         <div className="col-md-9">
                                           <div className="my-appointments-card__card-details">
                                             <h5 className="my-appointments-card__doctor-name">
-                                              {appointment.doctor.firstName +
-                                                ' ' +
-                                                (appointment.doctor.lastName || "")}
+                                              {appointment.doctor.firstName}
                                             </h5>
                                             <span className="my-appointments-card__specality">
                                               {appointment.doctor &&

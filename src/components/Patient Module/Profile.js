@@ -193,7 +193,9 @@ const Profile = () => {
         setTransparentLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
-        bodyFormData.append("profileData", JSON.stringify(currentPatient));
+        const reqData = { ...currentPatient };
+        reqData.lastName = '';
+        bodyFormData.append("profileData", JSON.stringify(reqData));
         bodyFormData.append("profilePicture", profilePicture);
         const response = await updatePatientData(bodyFormData);
 
@@ -224,7 +226,7 @@ const Profile = () => {
     const maxDate = {
         max: moment(newDate).format("YYYY-MM-DD"),
         min: moment(now)
-            .subtract(100, "years")
+            .subtract(400, "years")
             .format("YYYY-MM-DD"),
     };
 
@@ -437,7 +439,7 @@ const Profile = () => {
                                         <Tab eventKey="general" title="General">
                                             <div className="general-medical-tab">
                                                 <Row>
-                                                    <Col md={6}>
+                                                    <Col md={12}>
                                                         <p>
                                                             First Name<sup>*</sup>
                                                         </p>
@@ -453,18 +455,19 @@ const Profile = () => {
                                                         />
                                                     </Col>
                                                     <Col md={6}>
-                                                        <p>
+                                                        {/* <p>
                                                             Last Name<sup>*</sup>
-                                                        </p>
+                                                        </p> */}
                                                         <TextValidator
                                                             id="standard-basic"
                                                             type="text"
                                                             name="lastName"
                                                             onChange={(e) => handleInputChange(e)}
                                                             value={lastName}
-                                                            validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                                            errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
+                                                            // validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
+                                                            // errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
                                                             variant="filled"
+                                                            style={{ display: 'none' }}
                                                         />
                                                     </Col>
                                                 </Row>
