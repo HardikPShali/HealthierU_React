@@ -173,55 +173,56 @@ const AddPrescription = (props) => {
         let durationData;
         let noOfDaysData;
         let intervalData;
-
-        prescriptionList.forEach((p) => {
-            medicineData = p.medicineName
-            doseData = p.medicineName
-            durationData = p.medicineName
-            noOfDaysData = p.medicineName
-            intervalData = p.interval
-        })
-
-        if (medicineData === '' || doseData === '' || durationData === '' || noOfDaysData === '' || intervalData === '') {
-            toast.error("All Fields are Required!")
-        }
-        else {
-            var medicalInfo = prescriptionList.map(function (a) { return a; });
-            const medicalDocumentInfo = {
-                documentType: "Prescription",
-                patientId: patient,
-                doctorId: doctor?.id,
-                decription: prescriptionResult?.decription
-            };
-            setErrorMsg('');
-            const formData = new FormData();
-            medicalInfo.map((a) => {
-                if (a.medicineName != '') {
-                    formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
-                        type: "application/json"
-                    }))
-                }
+        if (prescriptionList) {
+            prescriptionList.forEach((p) => {
+                medicineData = p.medicineName
+                doseData = p.dose
+                durationData = p.duration
+                noOfDaysData = p.numberOfDays
+                intervalData = p.interval
             })
-            formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
-                type: "application/json"
-            }));
-            {
-                prescriptionResult.prescriptionDocument &&
-                    formData.append("file", (prescriptionResult?.prescriptionDocument))
+
+            if (medicineData === '' || doseData === '' || durationData === '' || noOfDaysData === '' || intervalData === '') {
+                { !prescriptionResult.prescriptionDocument && toast.error("All Fields are Required!") }
             }
-            const response = await postDocumentAddPrescriptionLabResult(
-                formData
-            ).catch((err) => {
-                // if (err.response.status === 500 || err.response.status === 504) {
-                //     toast.error("Please Fill Up the Prescription Details!")
-                // }
-            });
-            if (response) {
-                toast.success("Document successfully Uploaded.");
-                const patientInfo = params.patientID;
-                const apID = params.apid;
-                window.scrollTo(0, 0)
-                history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}` })
+            else {
+                var medicalInfo = prescriptionList.map(function (a) { return a; });
+                const medicalDocumentInfo = {
+                    documentType: "Prescription",
+                    patientId: patient,
+                    doctorId: doctor?.id,
+                    decription: prescriptionResult?.decription
+                };
+                setErrorMsg('');
+                const formData = new FormData();
+                medicalInfo.map((a) => {
+                    if (a.medicineName != '') {
+                        formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
+                            type: "application/json"
+                        }))
+                    }
+                })
+                formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+                    type: "application/json"
+                }));
+                {
+                    prescriptionResult.prescriptionDocument &&
+                        formData.append("file", (prescriptionResult?.prescriptionDocument))
+                }
+                const response = await postDocumentAddPrescriptionLabResult(
+                    formData
+                ).catch((err) => {
+                    // if (err.response.status === 500 || err.response.status === 504) {
+                    //     toast.error("Please Fill Up the Prescription Details!")
+                    // }
+                });
+                if (response) {
+                    toast.success("Document successfully Uploaded.");
+                    const patientInfo = params.patientID;
+                    const apID = params.apid;
+                    window.scrollTo(0, 0)
+                    history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}` })
+                }
             }
         }
         if (prescriptionResult.prescriptionDocument) {

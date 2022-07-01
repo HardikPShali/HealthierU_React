@@ -278,6 +278,7 @@ const Myappointment = (props) => {
       doctorId: docId.id,
       status: null,
     };
+
     const dataForSelectedDay = {
       startTime: new Date(newStartDate).toISOString(),
       endTime: new Date(newEndDate).toISOString(),
@@ -296,6 +297,7 @@ const Myappointment = (props) => {
         setTransparentLoading(false);
       }
     });
+    console.log("resToday", resToday);
     const resTomorrow = await getDoctorAppointment(TomorrowData).catch(
       (err) => {
         if (err.response.status === 500 || err.response.status === 504) {
@@ -304,9 +306,6 @@ const Myappointment = (props) => {
         }
       }
     );
-    console.log("res", res);
-    console.log("resTomorrow", resTomorrow);
-
     if (res && res.data) {
       //setLoading(false);
       const updateArray = [];
@@ -392,6 +391,7 @@ const Myappointment = (props) => {
         return value;
       });
       setTodayAppointment(todayArray);
+      console.log("todayArray", todayArray);
       setTimeout(() => setLoading(false), 1000);
       setTimeout(() => setTransparentLoading(false), 1000);
       const tourState = cookies.get("appointmentTour");
@@ -406,7 +406,10 @@ const Myappointment = (props) => {
       resTomorrow.data.reverse();
       //console.log("res.data : ", res.data);
       resTomorrow.data.map((value, index) => {
-        if (value.status === "ACCEPTED") {
+        if (
+          value.status === "ACCEPTED" &&
+          new Date(value.endTime) >= new Date()
+        ) {
           tomoArray.push({
             id: value.id,
             startTime: new Date(value.startTime),
@@ -420,7 +423,6 @@ const Myappointment = (props) => {
             unifiedAppointment: value.unifiedAppointment,
           });
         }
-        console.log({ value })
         return value;
       });
       setTomorrowAppointment(tomoArray);
@@ -497,7 +499,6 @@ const Myappointment = (props) => {
       slotStartTime = slots[0];
       slotEndTime = new Date(moment(slots[0]).add(30, "minutes"));
     }
-    console.log("slots ::", slotStartTime, slotEndTime);
     const slotTime = moment(new Date()).subtract(25, "minutes");
     if (new Date(slots[0]) >= new Date(slotTime)) {
       var duplicateFlag = 0;
@@ -1034,10 +1035,7 @@ const Myappointment = (props) => {
                                                 <div className="row align-items-start py-1 mobile-resp">
                                                   <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                     <h5 className="patient-list__common-date">
-                                                      {console.log(
-                                                        ":::::::",
-                                                        appointment
-                                                      )}
+
                                                       <b>
                                                         {moment(
                                                           appointment.startTime
@@ -1212,8 +1210,8 @@ const Myappointment = (props) => {
                             </div>
                           </Tab>
                           <Tab eventKey="tomorrow" title="Tomorrow">
-                            {console.log({ tomorrowAppointment })}
                             <div>
+
                               {tomorrowAppointment ? (
                                 <div className="tab-view-app__list-disp row">
                                   {tomorrowAppointment.map(
@@ -1226,8 +1224,8 @@ const Myappointment = (props) => {
                                       ) {
                                         if (
                                           appointment.unifiedAppointment ===
-                                          (todayAppointment[index + 1] &&
-                                            todayAppointment[index + 1]
+                                          (tomorrowAppointment[index + 1] &&
+                                            tomorrowAppointment[index + 1]
                                               .unifiedAppointment)
                                         ) {
                                           // return (<Chip key={index} label={moment(appointment.startTime).format("MMM, DD YYYY") + "  ( " + moment(appointment.startTime).format("h:mm A") + " - " + moment(acceptedAppointment[index + 1].endTime).format("h:mm A") + " )  "}
@@ -1250,10 +1248,7 @@ const Myappointment = (props) => {
                                                 <div className="row align-items-start py-1 mobile-resp">
                                                   <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                     <h5 className="patient-list__common-date">
-                                                      {console.log(
-                                                        ":::::::",
-                                                        appointment
-                                                      )}
+
                                                       <b>
                                                         {moment(
                                                           appointment.startTime
@@ -1460,10 +1455,7 @@ const Myappointment = (props) => {
                                                 <div className="row align-items-start py-1 mobile-resp">
                                                   <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                     <h5 className="patient-list__common-date">
-                                                      {console.log(
-                                                        ":::::::",
-                                                        appointment
-                                                      )}
+
                                                       <b>
                                                         {moment(
                                                           appointment.startTime
@@ -1571,7 +1563,7 @@ const Myappointment = (props) => {
                                                   </div>
                                                   <div className="col-md-3  ml-3 mt-2 pb-2">
                                                     {appointment.patient
-                                                      .picture ? (
+                                                      ?.picture ? (
                                                       <img
                                                         src={
                                                           appointment.patient
@@ -1585,10 +1577,10 @@ const Myappointment = (props) => {
                                                         round={true}
                                                         name={
                                                           appointment.patient
-                                                            .firstName +
+                                                            ?.firstName +
                                                           " " +
                                                           (appointment.patient
-                                                            .lastName || "")
+                                                            ?.lastName || "")
                                                         }
                                                         className="my-appointment-avatar"
                                                         size={60}
@@ -1599,14 +1591,14 @@ const Myappointment = (props) => {
                                                     <h5 className="patient-list__common-name">
                                                       <b>
                                                         {appointment.patient
-                                                          .firstName +
+                                                          ?.firstName +
                                                           " " +
                                                           (appointment.patient
-                                                            .lastName || "")}
+                                                            ?.lastName || "")}
                                                       </b>
                                                     </h5>
                                                     <span className="patient-list__common-span">
-                                                      {appointment.appointmentMode}
+                                                      {appointment?.appointmentMode}
                                                     </span>
                                                   </div>
                                                 </div>
