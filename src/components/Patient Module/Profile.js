@@ -193,7 +193,9 @@ const Profile = () => {
         setTransparentLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
-        bodyFormData.append("profileData", JSON.stringify(currentPatient));
+        const reqData = { ...currentPatient };
+        reqData.lastName = '';
+        bodyFormData.append("profileData", JSON.stringify(reqData));
         bodyFormData.append("profilePicture", profilePicture);
         const response = await updatePatientData(bodyFormData);
 
@@ -224,7 +226,7 @@ const Profile = () => {
     const maxDate = {
         max: moment(newDate).format("YYYY-MM-DD"),
         min: moment(now)
-            .subtract(100, "years")
+            .subtract(400, "years")
             .format("YYYY-MM-DD"),
     };
 
@@ -439,7 +441,7 @@ const Profile = () => {
                                                 <Row>
                                                     <Col md={12}>
                                                         <p>
-                                                            Name<sup>*</sup>
+                                                            First Name<sup>*</sup>
                                                         </p>
                                                         <TextValidator
                                                             id="standard-basic"
@@ -452,21 +454,22 @@ const Profile = () => {
                                                             variant="filled"
                                                         />
                                                     </Col>
-                                                    {/* <Col md={6}>
-                                                        <p>
+                                                    <Col md={6}>
+                                                        {/* <p>
                                                             Last Name<sup>*</sup>
-                                                        </p>
+                                                        </p> */}
                                                         <TextValidator
                                                             id="standard-basic"
                                                             type="text"
                                                             name="lastName"
                                                             onChange={(e) => handleInputChange(e)}
                                                             value={lastName}
-                                                            validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                                            errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
+                                                            // validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
+                                                            // errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
                                                             variant="filled"
+                                                            style={{ display: 'none' }}
                                                         />
-                                                    </Col> */}
+                                                    </Col>
                                                 </Row>
                                                 <br />
                                                 <Row>

@@ -111,7 +111,7 @@ const Signupform = () => {
 
   const {
     firstName,
-    lastName,
+    lastName = '',
     email,
     login,
     // imageUrl,
@@ -495,38 +495,38 @@ const Signupform = () => {
                   ]}
                   variant="filled"
                 />
-                <br />
-                {/* <br />
-                <p>
+                {/* <br /> */}
+                {/* <p>
                   Last Name<sup>*</sup>
-                </p>
+                </p> */}
                 <TextValidator
                   id="standard-basic"
                   type="text"
                   name="lastName"
+                  style={{ display: 'none' }}
                   onChange={(e) => handleInputchange(e)}
                   onBlur={() => handleBlurChange("lastName")}
-                  value={lastName}
+                  value={lastName ? lastName : ""}
                   disabled={
                     googleAccessToken && googleAccessToken ? true : false
                   }
-                  validators={[
-                    "required",
-                    "maxStringLength:50",
-                    "isValidName",
-                    "isHavingSpace",
-                    "matchRegexp:^[a-zA-Z ]+$",
-                  ]}
-                  errorMessages={[
-                    "This field is required",
-                    "Last name should not exceed 50 characters.",
-                    "Please provide a valid last name.",
-                    "Please do not use whitespace in front Last Name",
-                    "Last Name cannot have any numeric values"
-                  ]}
+                  // validators={[
+                  //   "required",
+                  //   "maxStringLength:50",
+                  //   "isValidName",
+                  //   "isHavingSpace",
+                  //   "matchRegexp:^[a-zA-Z ]+$",
+                  // ]}
+                  // errorMessages={[
+                  //   "This field is required",
+                  //   "Last name should not exceed 50 characters.",
+                  //   "Please provide a valid last name.",
+                  //   "Please do not use whitespace in front Last Name",
+                  //   "Last Name cannot have any numeric values"
+                  // ]}
                   variant="filled"
                 />
-                <br /> */}
+                <br />
                 <p>
                   Email<sup>*</sup>
                 </p>
@@ -624,6 +624,7 @@ const Signupform = () => {
                         "Password should not exceed 30 characters",
                       ]}
                       variant="filled"
+                      autoComplete="new-password"
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">

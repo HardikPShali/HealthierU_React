@@ -125,7 +125,7 @@ const Welcome = ({ currentuserInfo }) => {
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
         firstName: (currentuserInfo && currentuserInfo.firstName) || "",
-        // lastName: (currentuserInfo && currentuserInfo.lastName) || "",
+        lastName: (currentuserInfo && currentuserInfo.lastName) || "",
         dateOfBirth: "",
         phone: "",
         countryId: "",
@@ -193,7 +193,7 @@ const Welcome = ({ currentuserInfo }) => {
         }
     }
 
-    const { userId, firstName, phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications, countryName, licenseNumber, referencePhoneNumber, certifyingBody } = state;
+    const { userId, firstName, lastName = '', phone, countryId, dateOfBirth, maritalstatus, gender, height, weight, highbp, lowbp, allergies, email, specialities, languages, modeodemployement, address, affiliation, certificates, awards, experience, license, refphone, certifyingbody, rate, halfRate, bio, modeOfEmployment, educationalQualifications, countryName, licenseNumber, referencePhoneNumber, certifyingBody } = state;
 
 
     const handleSpecialities = (selectedList, selectedItem) => {
@@ -331,7 +331,7 @@ const Welcome = ({ currentuserInfo }) => {
         const patientPayload = {
             userId: userId,
             firstName: firstName,
-            // lastName: lastName,
+            lastName: "",
             phone: phone,
             countryId: countryId,
             dateOfBirth: dateOfBirth,
@@ -517,17 +517,18 @@ const Welcome = ({ currentuserInfo }) => {
                                                 disabled
                                             />
                                         </Col>
-                                        {/* <Col md={6}>
-                                            <p>Last Name<sup>*</sup></p>
+                                        <Col md={6}>
+                                            {/* <p>Last Name<sup>*</sup></p> */}
                                             <TextValidator id="standard-basic" type="text" name="lastName"
                                                 onChange={e => handleInputChange(e)}
-                                                value={lastName}
-                                                validators={['required']}
-                                                errorMessages={['This field is required']}
+                                                value={lastName ? lastName : ''}
+                                                // validators={['required']}
+                                                // errorMessages={['This field is required']}
                                                 variant="filled"
                                                 disabled
+                                                style={{ display: 'none' }}
                                             />
-                                        </Col> */}
+                                        </Col>
                                     </Row>
                                     <br />
                                     <Row>
@@ -537,7 +538,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 inputProps={{
                                                     name: 'phone',
                                                     required: true,
-                                                    maxLength: 16,
+                                                    maxLength: 20,
                                                     minLength: 12
                                                 }}
                                                 country={'us'}
@@ -846,10 +847,10 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={affiliation}
                                                     validators={[
                                                         "required",
-                                                        "matchRegexp:(^[a-zA-Z ]*$)",
+                                                        // "matchRegexp:/^[a-zA-Z ]*$/",
                                                     ]}
                                                     errorMessages={['This field is required',
-                                                         "Please Enter Valid Affiliation"
+                                                        "Please Enter Valid Affiliation"
                                                     ]}
                                                     variant="filled"
                                                     placeholder='Affiliation' />
@@ -957,7 +958,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                     "matchRegexp:(^[a-zA-Z ]*$)",
                                                                 ]}
                                                                 errorMessages={['This field is required',
-                                                                 "Please Enter Valid Institution"
+                                                                    "Please Enter Valid Institution"
                                                                 ]}
                                                                 variant="filled"
                                                                 placeholder='Institution' />

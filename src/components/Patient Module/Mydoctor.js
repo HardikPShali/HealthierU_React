@@ -815,14 +815,22 @@ const MyDoctor = (props) => {
       const errorMessage = err.response.data.message;
       const errorStatus = err.response.status;
 
-      if (errorStatus === 500 && errorMessage === 'Transaction id is not valid') {
+      if (errorStatus === 500 && errorMessage) {
         setLoading(false);
         // FOR MODAL
         // setPaymentErrorModal(true);
 
         // FOR TOAST
-        toast.error('Payment failed. Please try again.');
+        toast.error(`${errorMessage}. Please try again.`);
 
+      }
+      else {
+        setLoading(false);
+        // FOR MODAL
+        // setPaymentErrorModal(true);
+
+        // FOR TOAST
+        toast.error(`Payment failed. Please try again.`);
       }
     }
 
@@ -1641,6 +1649,7 @@ const MyDoctor = (props) => {
                             >
                               {!user.liked && (
                                 <FavoriteBorderIcon
+                                  style={{ color: "#f6ceb4" }}
                                   id="fav-icon"
                                   onClick={() => createLikedDoctor(user.id)}
                                 />
@@ -1648,6 +1657,7 @@ const MyDoctor = (props) => {
 
                               {user.liked && (
                                 <FavoriteIcon
+                                  style={{ color: "#00d0cc" }}
                                   id="fav-icon"
                                   onClick={() =>
                                     createUnlikedDoctor(user.likeId)
@@ -1665,7 +1675,7 @@ const MyDoctor = (props) => {
                                 style={{ cursor: 'pointer' }}
                                 title={
                                   <span>
-                                    Dr. {user.firstName} {user.lastName}
+                                    Dr. {user.firstName}
                                   </span>
                                 }
                                 subtitle={
@@ -1757,7 +1767,7 @@ const MyDoctor = (props) => {
                             <img src={doctor.picture} alt="" />
                           ) : (
                             <Avatar
-                              name={doctor.firstName + ' ' + doctor.lastName}
+                              name={doctor.firstName + ' ' + (doctor.lastName || "")}
                             />
                           )}
                         </div>
@@ -1767,7 +1777,7 @@ const MyDoctor = (props) => {
                       <Col xs={12} id="doc-details">
                         <div>
                           <p className="doc-name">
-                            {doctor.firstName} {doctor.lastName}
+                            {doctor.firstName}
                           </p>
                           <ul
                             style={{
@@ -1984,7 +1994,7 @@ const MyDoctor = (props) => {
                       <Col xs={12} id="doc-details">
                         <div>
                           <p className="doc-name">
-                            {doctor.firstName} {doctor.lastName}
+                            {doctor.firstName}
                           </p>
                           <ul
                             style={{
@@ -2652,7 +2662,7 @@ const MyDoctor = (props) => {
                   <Col xs={12} id="doc-details">
                     <div>
                       <p className="doc-name">
-                        {doctor.firstName} {doctor.lastName}
+                        {doctor.firstName}
                       </p>
                       <ul
                         style={{
@@ -2801,7 +2811,7 @@ const MyDoctor = (props) => {
                     <Col xs={12} id="doc-details">
                       <div>
                         <p className="doc-name">
-                          {doctor.firstName} {doctor.lastName}
+                          {doctor.firstName}
                         </p>
                         <ul
                           style={{

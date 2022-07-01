@@ -203,18 +203,17 @@ const Myappointment = (props) => {
   // }
 
   //Chat
-  const handleChat = () => {  //appointmentStartTime
-    // const AppointmnetBeforeSixyMinutes = new Date(
-    //   appointmentStartTime.getTime() - 7200000
-    // );
-    // // const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 4200000);
-    // if (new Date().getTime() >= AppointmnetBeforeSixyMinutes.getTime()) {
-    //   handleConfirmChat();
-    // } else {
-    //   handleAlertChat();
-    // }
+  const handleChat = (appointmentStartTime) => {  //appointmentStartTime
+    const newDateTime = new Date(appointmentStartTime);
+    const AppointmnetBeforeSixyMinutes = newDateTime.getTime() - 7200000;
+    // const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 4200000);
+    if (new Date().getTime() >= AppointmnetBeforeSixyMinutes) {
+      handleConfirmChat();
+    } else {
+      handleAlertChat();
+    }
 
-    history.push(`/patient/chat`);
+    // handleConfirmChat();
     // const AppointmentBeforeTwoHours = new Date(appointmentStartTime.getTime() - 2 * 60000);
     // if (new Date().toISOString() <= AppointmentBeforeTwoHours.toISOString())
     // {
@@ -673,9 +672,7 @@ const Myappointment = (props) => {
                                         <div className="col-md-9">
                                           <div className="my-appointments-card__card-details">
                                             <h5 className="my-appointments-card__doctor-name">
-                                              {appointment.doctor.firstName +
-                                                ' ' +
-                                                (appointment.doctor.lastName || "")}
+                                              {appointment.doctor.firstName}
                                             </h5>
                                             <span className="my-appointments-card__specality">
                                               {appointment.doctor &&

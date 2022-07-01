@@ -1308,7 +1308,7 @@ table#user-info {
   background-color: #00d0ce !important;
   border-color: #00d0ce !important;
 }
-.submitClass{
+.submitClass {
   /* top: 50px; */
   text-align: center;
   /* position: relative;
@@ -3577,6 +3577,11 @@ button.reset-btn {
 .selected-day-wrap:hover {
   background: #f5f5f599;
   transition: 0.3s all;
+}
+
+.selected-days {
+  word-break: break-all;
+  width: 77%;
 }
 
 label.day-wrapper {
