@@ -10,17 +10,13 @@ const ProfileImage = ({ currentPatient, onEdit }) => {
       ) : (
         <Avatar
           className="avatar-profile"
-          name={
-            currentPatient &&
-            currentPatient.firstName + ' ' + currentPatient.lastName
-          }
+          name={currentPatient && currentPatient.firstName}
           style={{ height: '150px', width: '138px' }}
         />
       )}
       <div className="d-flex flex-column mt-4">
         <div className="profile-name">
-          {currentPatient &&
-            currentPatient.firstName + ' ' + currentPatient.lastName}
+          {currentPatient && currentPatient.firstName}
         </div>
         <p id="description">{currentPatient.email}</p>
         <div className="mt-1">
