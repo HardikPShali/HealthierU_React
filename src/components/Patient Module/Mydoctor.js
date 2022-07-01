@@ -1641,6 +1641,7 @@ const MyDoctor = (props) => {
                             >
                               {!user.liked && (
                                 <FavoriteBorderIcon
+                                  style={{ color: "#f6ceb4" }}
                                   id="fav-icon"
                                   onClick={() => createLikedDoctor(user.id)}
                                 />
@@ -1648,6 +1649,7 @@ const MyDoctor = (props) => {
 
                               {user.liked && (
                                 <FavoriteIcon
+                                  style={{ color: "#00d0cc" }}
                                   id="fav-icon"
                                   onClick={() =>
                                     createUnlikedDoctor(user.likeId)

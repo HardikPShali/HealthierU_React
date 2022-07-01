@@ -500,7 +500,7 @@ const Profile = ({ currentDoctor }) => {
                                         <Tab eventKey="general" title="General">
                                             <div className="general-medical-tab">
                                                 <Row>
-                                                    <Col md={12}>
+                                                    <Col md={6}>
                                                         <p>
                                                             First Name<sup>*</sup>
                                                         </p>
@@ -515,7 +515,7 @@ const Profile = ({ currentDoctor }) => {
                                                             variant="filled"
                                                         />
                                                     </Col>
-                                                    {/* <Col md={6}>
+                                                    <Col md={6}>
                                                         <p>
                                                             Last Name<sup>*</sup>
                                                         </p>
@@ -529,7 +529,7 @@ const Profile = ({ currentDoctor }) => {
                                                             errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
                                                             variant="filled"
                                                         />
-                                                    </Col> */}
+                                                    </Col>
                                                 </Row>
                                                 <br />
                                                 <Row>

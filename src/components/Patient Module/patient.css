@@ -1299,7 +1299,7 @@ button.btn.timeSlot:hover {
   line-height: initial !important;
   text-align: center !important;
   color: var(--secondary) !important;
-  background: #fff !important;
+  background: #f8f8f8 !important;
   border-radius: 0px !important;
 }
 

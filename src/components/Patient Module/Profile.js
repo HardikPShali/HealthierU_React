@@ -437,9 +437,9 @@ const Profile = () => {
                                         <Tab eventKey="general" title="General">
                                             <div className="general-medical-tab">
                                                 <Row>
-                                                    <Col md={12}>
+                                                    <Col md={6}>
                                                         <p>
-                                                            Name<sup>*</sup>
+                                                            First Name<sup>*</sup>
                                                         </p>
                                                         <TextValidator
                                                             id="standard-basic"
@@ -452,7 +452,7 @@ const Profile = () => {
                                                             variant="filled"
                                                         />
                                                     </Col>
-                                                    {/* <Col md={6}>
+                                                    <Col md={6}>
                                                         <p>
                                                             Last Name<sup>*</sup>
                                                         </p>
@@ -466,7 +466,7 @@ const Profile = () => {
                                                             errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
                                                             variant="filled"
                                                         />
-                                                    </Col> */}
+                                                    </Col>
                                                 </Row>
                                                 <br />
                                                 <Row>
