@@ -68,7 +68,7 @@ const PaypalMobile = (props) => {
             firstnameParams,
             lastnameParams,
             emailParams,
-            appointmentIdParams,
+            // appointmentIdParams, Not needed
             appointmentModeParams,
             rateParams,
             halfRateParams,

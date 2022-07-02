@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 //import Footer from "./Footer";
-import { getAppointmentMode, getAppointmentModeForAvailabilitySlotsDisplay } from './../../util/appointmentModeUtil'
+import {
+  getAppointmentMode,
+  getAppointmentModeForAvailabilitySlotsDisplay,
+} from './../../util/appointmentModeUtil';
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import TuneIcon from '@material-ui/icons/Tune';
@@ -508,9 +511,12 @@ const MyDoctor = (props) => {
     setAppointment({ ...appointment, appointmentMode: e.target.value });
     const user = doctor;
     console.log({ user });
-    getAvailableSlotsOfDoctors(user.id, getAppointmentModeForAvailabilitySlotsDisplay(e.target.value));
+    getAvailableSlotsOfDoctors(
+      user.id,
+      getAppointmentModeForAvailabilitySlotsDisplay(e.target.value)
+    );
     console.log(e.target.value);
-    getInValidAppointmentsForSetNextAppointment(user.id)
+    getInValidAppointmentsForSetNextAppointment(user.id);
     // console.log({ appointment })
     if (Availability && Availability.length > 0) {
       if (e.target.value === 'First Consultation') {
@@ -656,8 +662,7 @@ const MyDoctor = (props) => {
 
         setTransparentLoading(false);
       }
-      console.log("DisabledDates", { disabledDates });
-
+      console.log('DisabledDates', { disabledDates });
     }
   };
   const getInValidAppointments = async (doctorId) => {
@@ -684,7 +689,6 @@ const MyDoctor = (props) => {
         setTransparentLoading(false);
       }
       // console.log("DisabledDates", { disabledDates });
-
     }
   };
 
@@ -713,75 +717,35 @@ const MyDoctor = (props) => {
   const bookappointment = async (orderData) => {
     setLoading(true);
     let tempSlotConsultationId = '';
-    const finalAppointmentDataArray = [];
+    let finalAppointmentDataArray = {};
     if (appointment.appointmentMode === 'First Consultation') {
       combinedSlots &&
         combinedSlots.map((slotData) => {
-          console.log({ slotData })
+          console.log({ slotData });
           if (combinedSlotId === slotData.slotId) {
             tempSlotConsultationId =
               slotData.slot1.id + '-' + slotData.slot2.id;
-            !orderData.appointmentId &&
-              (orderData.appointmentId = tempSlotConsultationId);
-            finalAppointmentDataArray.push(
-              {
-                doctorId: appointment.doctorId,
-                endTime: slotData.slot1.endTime,
-                startTime: slotData.slot1.startTime,
-                type: 'DR',
-                patientId: appointment.patientId,
-                status: 'ACCEPTED',
-                remarks: remarks,
-                appointmentMode: appointment.appointmentMode,
-                appointmentFee: (appointment.appointmentMode === 'First Consultation' ||
-                  appointment.appointmentMode === ''
-                  ? doctor && doctor.rate
-                  : appointment.appointmentMode === 'Follow Up'
-                    ? doctor && doctor.halfRate
-                    : ''),
-                currency: "USD",
-                id: slotData.slot1.id,
-                urgency: urgency,
-                unifiedAppointment:
-                  tempSlotConsultationId + '#' + getAppointmentMode(appointment.appointmentMode),
-              },
-              {
-                doctorId: appointment.doctorId,
-                endTime: slotData.slot2.endTime,
-                startTime: slotData.slot2.startTime,
-                type: 'DR',
-                patientId: appointment.patientId,
-                status: 'ACCEPTED',
-                remarks: remarks,
-                appointmentMode: appointment.appointmentMode,
-                id: slotData.slot2.id,
-                urgency: urgency,
-                unifiedAppointment:
-                  tempSlotConsultationId + '#' + getAppointmentMode(appointment.appointmentMode),
-              }
-            );
+            // !orderData.appointmentId &&
+            //   (orderData.appointmentId = tempSlotConsultationId);
+            finalAppointmentDataArray = {
+              id: slotData.slot1.id,
+              type: 'FIRST_CONSULTATION',
+              paymentsAppointmentsDTO: orderData,
+            };
           }
         });
     } else if (appointment.appointmentMode === 'Follow Up') {
-      finalAppointmentDataArray.push({
-        doctorId: appointment.doctorId,
-        endTime: appointment.endTime,
-        startTime: appointment.startTime,
-        type: 'DR',
-        patientId: appointment.patientId,
-        status: 'ACCEPTED',
-        remarks: remarks,
-        appointmentMode: appointment.appointmentMode,
+      finalAppointmentDataArray = {
         id: appointment.id,
-        urgency: urgency,
-        unifiedAppointment: appointment.id + '#' + getAppointmentMode(appointment.appointmentMode), //unifiedAppointment: "2145#Follow Up"
-      });
+        type: 'FOLLOW_UP',
+        paymentsAppointmentsDTO: orderData,
+      };
     }
 
     const newPaymentData = {
-      appointmentDTO: finalAppointmentDataArray,
-      paymentsAppointmentsDTO: orderData
-    }
+      ...finalAppointmentDataArray,
+      // paymentsAppointmentsDTO: orderData,
+    };
 
     console.log({ newPaymentData });
 
@@ -795,7 +759,7 @@ const MyDoctor = (props) => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
-    }
+    };
 
     console.log({ newPaymentApi });
 
@@ -805,11 +769,13 @@ const MyDoctor = (props) => {
       console.log({ newPaymentResponse });
 
       //success logic
-      if (newPaymentResponse.status === 200 || newPaymentResponse.status === 201) {
+      if (
+        newPaymentResponse.status === 200 ||
+        newPaymentResponse.status === 201
+      ) {
         props.history.push('/patient/myappointment');
       }
-    }
-    catch (err) {
+    } catch (err) {
       //error logic
       console.log({ err });
       const errorMessage = err.response.data.message;
@@ -822,9 +788,7 @@ const MyDoctor = (props) => {
 
         // FOR TOAST
         toast.error(`${errorMessage}. Please try again.`);
-
-      }
-      else {
+      } else {
         setLoading(false);
         // FOR MODAL
         // setPaymentErrorModal(true);
@@ -833,11 +797,7 @@ const MyDoctor = (props) => {
         toast.error(`Payment failed. Please try again.`);
       }
     }
-
   };
-
-
-
 
   const [display, setDisplay] = useState({
     doctor: 'block',
@@ -1266,13 +1226,13 @@ const MyDoctor = (props) => {
       }
     });
     if (res) {
-      toast.success("Next Appointment is Set Successfully.");
-      props.history.push({ pathname: `/doctor/my-appointments` })
+      toast.success('Next Appointment is Set Successfully.');
+      props.history.push({ pathname: `/doctor/my-appointments` });
     }
   };
 
   // AVAILABLE SLOTS OF A DOCTOR
-  const [enableDates, setEnableDates] = useState([])
+  const [enableDates, setEnableDates] = useState([]);
   const getAvailableSlotsOfDoctors = async (id, type) => {
     if (id) {
       const response = await getAvailableSlotsForMyDoctors(
@@ -1282,44 +1242,27 @@ const MyDoctor = (props) => {
 
       setAvailableSlotsDisplay(response.data);
 
-      console.log({ response: response.data })
-
       const enableDatesFromRes = response.data.data?.map((n) => {
         return new Date(n.instantDate);
-      })
+      });
 
       setEnableDates(enableDatesFromRes);
-      console.log({ enableDatesFromRes })
-
-      // {
-      //   availableSlotsDisplay.data &&
-      //     availableSlotsDisplay.data.length > 0 &&
-      //     availableSlotsDisplay.data.map(
-      //       (slot) => (
-      //         setEnableDates(prev => { return [...prev, (new Date(slot.instantDate))] })
-      //       ))
-      // }
-
-      // console.log("enableDates", { enableDates })
     }
     return null;
   };
-  // console.log({ enableDates })
 
-  const disabledCalendarDates = (date => {
-    return enableDates && !enableDates.some(
-      enabledDate => {
-        const eD = (
+  const disabledCalendarDates = (date) => {
+    return (
+      enableDates &&
+      !enableDates.some((enabledDate) => {
+        const eD =
           date.getFullYear() === enabledDate.getFullYear() &&
           date.getMonth() === enabledDate.getMonth() &&
-          date.getDate() === enabledDate.getDate()
-        )
-        console.log({ date: date, enabledDate: enabledDate, ed: eD });
+          date.getDate() === enabledDate.getDate();
         return eD;
-      }
-    )
-
-  })
+      })
+    );
+  };
 
   return (
     <div>
@@ -1639,13 +1582,15 @@ const MyDoctor = (props) => {
                         key="Subheader"
                         cols={2}
                         style={{ height: 'auto' }}
-
                       ></GridListTile>
                       {filterData.map(
                         (user, index) =>
                           user &&
                           user.activated && (
-                            <GridListTile key={index} className={`card-list__grid-list-tile ${user.id === doctor.id ? 'card-border' : ''}`}
+                            <GridListTile
+                              key={index}
+                              className={`card-list__grid-list-tile ${user.id === doctor.id ? 'card-border' : ''
+                                }`}
                               onClick={async () => {
                                 setdoctor(user);
                                 setAppointment({
@@ -1670,7 +1615,7 @@ const MyDoctor = (props) => {
                             >
                               {!user.liked && (
                                 <FavoriteBorderIcon
-                                  style={{ color: "#f6ceb4" }}
+                                  style={{ color: '#f6ceb4' }}
                                   id="fav-icon"
                                   onClick={() => createLikedDoctor(user.id)}
                                 />
@@ -1678,7 +1623,7 @@ const MyDoctor = (props) => {
 
                               {user.liked && (
                                 <FavoriteIcon
-                                  style={{ color: "#00d0cc" }}
+                                  style={{ color: '#00d0cc' }}
                                   id="fav-icon"
                                   onClick={() =>
                                     createUnlikedDoctor(user.likeId)
@@ -1694,11 +1639,7 @@ const MyDoctor = (props) => {
                               )}
                               <GridListTileBar
                                 style={{ cursor: 'pointer' }}
-                                title={
-                                  <span>
-                                    Dr. {user.firstName}
-                                  </span>
-                                }
+                                title={<span>Dr. {user.firstName}</span>}
                                 subtitle={
                                   <ul className="list--tags">
                                     {user.specialities &&
@@ -1788,7 +1729,9 @@ const MyDoctor = (props) => {
                             <img src={doctor.picture} alt="" />
                           ) : (
                             <Avatar
-                              name={doctor.firstName + ' ' + (doctor.lastName || "")}
+                              name={
+                                doctor.firstName + ' ' + (doctor.lastName || '')
+                              }
                             />
                           )}
                         </div>
@@ -1797,9 +1740,7 @@ const MyDoctor = (props) => {
                     <Row>
                       <Col xs={12} id="doc-details">
                         <div>
-                          <p className="doc-name">
-                            {doctor.firstName}
-                          </p>
+                          <p className="doc-name">{doctor.firstName}</p>
                           <ul
                             style={{
                               fontSize: 12,
@@ -2014,9 +1955,7 @@ const MyDoctor = (props) => {
                     <Row>
                       <Col xs={12} id="doc-details">
                         <div>
-                          <p className="doc-name">
-                            {doctor.firstName}
-                          </p>
+                          <p className="doc-name">{doctor.firstName}</p>
                           <ul
                             style={{
                               fontSize: 12,
@@ -2212,12 +2151,7 @@ const MyDoctor = (props) => {
             </Col>
           )}
           {!profilepID.activated ? (
-            <Col
-              md={6}
-              lg={4}
-
-              style={{ display: display.doctor }}
-            >
+            <Col md={6} lg={4} style={{ display: display.doctor }}>
               {/* <Tooltip title="Take a Booking appointment tour again." arrow>
                 <button
                   onClick={() => setIsTourOpen(true)}
@@ -2226,7 +2160,7 @@ const MyDoctor = (props) => {
                   How to?
                 </button>
               </Tooltip> */}
-              <div id="dorctor-list" className='calendar-helper'>
+              <div id="dorctor-list" className="calendar-helper">
                 <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
                     {/* <p>Select Date</p>
@@ -2240,60 +2174,57 @@ const MyDoctor = (props) => {
                                     />
                                     <br />
                                     <br /> */}
-                    {
-                      doctor && doctor.activated ? (
-                        displayCalendar && (
-                          <>
-                            <div className="appointment-type">
-                              {console.log({ currentDate })}
-                              <p>Appointment Type</p>
-                              <FormControl>
-                                <Select
-                                  id="demo-controlled-open-select"
-                                  variant="outlined"
-                                  name="appointmentType"
-                                  value={appointment.appointmentMode}
-                                  displayEmpty
-                                  onChange={(e) => handleAppoitnmentType(e)}
-                                >
-                                  <MenuItem value="">
-                                    <em>Select</em>
-                                  </MenuItem>
-                                  <MenuItem value="First Consultation">
-                                    Consultation(1 Hr)
-                                  </MenuItem>
-                                  <MenuItem value="Follow Up">
-                                    Follow up(30 Mins)
-                                  </MenuItem>
-                                </Select>
-                              </FormControl>
-                            </div>
-                            <Calendar
-                              onChange={(e) =>
-                                onDaySelect(new Date(e), doctor && doctor.id)
-                              }
-                              value={currentDate}
-                              minDate={new Date()} //to disable past days
-                              maxDate={
-                                new Date(
-                                  new Date().setDate(new Date().getDate() + 180)
-                                )
-                              } // next 3week condition
-                              // Temporarily commented to enable calendar click functionality for appointment.
-                              tileDisabled={
-                                ({ activeStartDate, date, view }) =>
-                                  disabledCalendarDates(date)
-                              }
-                            // } // greyout dates
-                            />
-                          </>
-                        )
-                      ) : (
-                        <div className="no-result">
-                          <center>Select a Doctor to view Calendar ...</center>
-                        </div>
+                    {doctor && doctor.activated ? (
+                      displayCalendar && (
+                        <>
+                          <div className="appointment-type">
+                            {console.log({ currentDate })}
+                            <p>Appointment Type</p>
+                            <FormControl>
+                              <Select
+                                id="demo-controlled-open-select"
+                                variant="outlined"
+                                name="appointmentType"
+                                value={appointment.appointmentMode}
+                                displayEmpty
+                                onChange={(e) => handleAppoitnmentType(e)}
+                              >
+                                <MenuItem value="">
+                                  <em>Select</em>
+                                </MenuItem>
+                                <MenuItem value="First Consultation">
+                                  Consultation(1 Hr)
+                                </MenuItem>
+                                <MenuItem value="Follow Up">
+                                  Follow up(30 Mins)
+                                </MenuItem>
+                              </Select>
+                            </FormControl>
+                          </div>
+                          <Calendar
+                            onChange={(e) =>
+                              onDaySelect(new Date(e), doctor && doctor.id)
+                            }
+                            value={currentDate}
+                            minDate={new Date()} //to disable past days
+                            maxDate={
+                              new Date(
+                                new Date().setDate(new Date().getDate() + 180)
+                              )
+                            } // next 3week condition
+                            // Temporarily commented to enable calendar click functionality for appointment.
+                            tileDisabled={({ activeStartDate, date, view }) =>
+                              disabledCalendarDates(date)
+                            }
+                          // } // greyout dates
+                          />
+                        </>
                       )
-                    }
+                    ) : (
+                      <div className="no-result">
+                        <center>Select a Doctor to view Calendar ...</center>
+                      </div>
+                    )}
 
                     {displaySlot && (
                       <>
@@ -2399,7 +2330,6 @@ const MyDoctor = (props) => {
                     {slotError}
                   </label>
                 </div>
-
               </div>
             </Col>
           ) : (
@@ -2667,9 +2597,7 @@ const MyDoctor = (props) => {
                   </Col>
                   <Col xs={12} id="doc-details">
                     <div>
-                      <p className="doc-name">
-                        {doctor.firstName}
-                      </p>
+                      <p className="doc-name">{doctor.firstName}</p>
                       <ul
                         style={{
                           fontSize: 12,
@@ -2816,9 +2744,7 @@ const MyDoctor = (props) => {
                     </Col>
                     <Col xs={12} id="doc-details">
                       <div>
-                        <p className="doc-name">
-                          {doctor.firstName}
-                        </p>
+                        <p className="doc-name">{doctor.firstName}</p>
                         <ul
                           style={{
                             fontSize: 12,
@@ -3049,7 +2975,7 @@ const MyDoctor = (props) => {
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           {console.log({ appointmentId: appointment.id })}
                           <Paypal
-                            appointmentId={appointment.id}
+                            // appointmentId={appointment.id}
                             appointmentMode={appointment.appointmentMode}
                             bookappointment={bookappointment}
                             firstName={props.currentPatient.firstName}
@@ -3104,7 +3030,6 @@ const MyDoctor = (props) => {
                 </Link>
               </DialogActions>
             </Dialog>
-
 
             {/* PAYMENT FAILED MODAL */}
             {/* <Dialog
@@ -3163,4 +3088,3 @@ const MyDoctor = (props) => {
 };
 
 export default MyDoctor;
-
