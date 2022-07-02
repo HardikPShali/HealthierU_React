@@ -60,27 +60,59 @@ const PaypalMobile = (props) => {
         // window.android.onPaymentStatusChange(true);
         orderData.slotId = appointmentIdParams;
 
-        const data = JSON.stringify(orderData);
+        // const data = JSON.stringify(orderData);
 
         //object for query params
+        const orderObject = {
+            userIdParams,
+            firstnameParams,
+            lastnameParams,
+            emailParams,
+            appointmentIdParams,
+            appointmentModeParams,
+            rateParams,
+            halfRateParams,
+        }
         //Book appt api
+        const newPaymentData = {
+            appointmentDTO: orderObject,
+            paymentsAppointmentsDTO: orderData
+        }
+
+        const newPaymentApi = {
+            method: 'post',
+            mode: 'no-cors',
+            data: newPaymentData,
+            url: `/api/v2/appointments/payment/bulk`,
+            headers: {
+                Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+        }
+
         // Boolean for success
         //on success, send true in postmessage & sendorderData
 
-        if (os === 'ios') {
-            window.webkit.messageHandlers.sendOrderData.postMessage(data);
+        try {
+            const response = await axios(newPaymentApi);
+            console.log({ response })
+            if (os === 'ios') {
+                window.webkit.messageHandlers.sendOrderData.postMessage(true);
+            }
+            else {
+                window.android.sendOrderData(true);
+            }
         }
-        else {
-            window.android.sendOrderData(data);
+        catch (error) {
+            console.log({ error })
+            if (os === 'ios') {
+                window.webkit.messageHandlers.sendOrderData.postMessage(false);
+            }
+            else {
+                window.android.sendOrderData(false);
+            }
         }
-
-        // if (JSBridge) {
-        //     sendDataToAndroid(orderData);
-        // }
-        // else {
-        //     alert('JSBridge Not Found')
-        // }
-
     };
 
     return (

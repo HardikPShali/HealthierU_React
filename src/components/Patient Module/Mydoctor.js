@@ -1321,11 +1321,6 @@ const MyDoctor = (props) => {
 
   })
 
-  //CUSTOM STYLE
-  const [borderStyle, setBorderStyle] = useState({
-    border: 'none',
-  })
-
   return (
     <div>
       {loading && <Loader />}
