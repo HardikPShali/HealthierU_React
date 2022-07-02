@@ -26,7 +26,7 @@ const ConsulatationHistorySection = (props) => {
             <h3 className='conhistory--main-header'>Consultation History</h3>
             <div className="conhistory-card-holder">
                 <div className='conhistory-card'>
-                    {notesData ?
+                    {notesData.length > 0 ?
                         notesData.map(
                             (q, index) => {
                                 return (

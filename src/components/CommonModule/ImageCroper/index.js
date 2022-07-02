@@ -92,15 +92,17 @@ const ImageCropper = (props) => {
         <>
 
             <div className="small-12 medium-2 large-2 columns m-auto">
+            <label>
                 <div className="circle upload-button" style={{ cursor: 'pointer' }}>
                     {/* <!-- User Profile Image --> */}
                     <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
                 </div>
 
-                <label className="p-image">
+                <span className="p-image">
                     <AddAPhotoIcon className="upload-button" />
                     <input className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
                         variant="filled" />
+                </span>
                 </label>
             </div>
 
