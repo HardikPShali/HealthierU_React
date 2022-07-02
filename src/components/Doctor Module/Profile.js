@@ -273,7 +273,9 @@ const Profile = ({ currentDoctor }) => {
         setLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
-        bodyFormData.append('profileData', JSON.stringify(currentDoctorData));
+        const reqBody = { ...currentDoctorData };
+        reqBody.lastName = '';
+        bodyFormData.append('profileData', JSON.stringify(reqBody));
         bodyFormData.append('profilePicture', profilePicture);
         const response = await updateDoctorData(bodyFormData);
         console.log("handleDetails", response);
@@ -326,7 +328,7 @@ const Profile = ({ currentDoctor }) => {
                                     <Avatar
                                         className="avatar-profile"
                                         name={
-                                            currentDoctor.firstName + ' ' + currentDoctor.lastName
+                                            currentDoctor.firstName
                                         }
                                         size={145}
                                         style={{
@@ -337,7 +339,7 @@ const Profile = ({ currentDoctor }) => {
                                 )}
                                 <br />
                                 <div id="name">
-                                    {currentDoctor.firstName + ' ' + currentDoctor.lastName}
+                                    {currentDoctor.firstName}
                                 </div>
                                 <p id="description">{currentDoctor.email}</p>
                                 <br />
@@ -497,9 +499,9 @@ const Profile = ({ currentDoctor }) => {
                                         <Tab eventKey="general" title="General">
                                             <div className="general-medical-tab">
                                                 <Row>
-                                                    <Col md={6}>
+                                                    <Col md={12}>
                                                         <p>
-                                                            First Name<sup>*</sup>
+                                                            Name<sup>*</sup>
                                                         </p>
                                                         <TextValidator
                                                             id="standard-basic"
@@ -513,18 +515,19 @@ const Profile = ({ currentDoctor }) => {
                                                         />
                                                     </Col>
                                                     <Col md={6}>
-                                                        <p>
+                                                        {/* <p>
                                                             Last Name<sup>*</sup>
-                                                        </p>
+                                                        </p> */}
                                                         <TextValidator
                                                             id="standard-basic"
                                                             type="text"
                                                             name="lastName"
                                                             onChange={(e) => handleInputChange(e)}
                                                             value={lastName}
-                                                            validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                                            errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
+                                                            // validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
+                                                            // errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
                                                             variant="filled"
+                                                            style={{ display: 'none' }}
                                                         />
                                                     </Col>
                                                 </Row>
