@@ -61,6 +61,12 @@ const PaypalMobile = (props) => {
         orderData.slotId = appointmentIdParams;
 
         const data = JSON.stringify(orderData);
+
+        //object for query params
+        //Book appt api
+        // Boolean for success
+        //on success, send true in postmessage & sendorderData
+
         if (os === 'ios') {
             window.webkit.messageHandlers.sendOrderData.postMessage(data);
         }

@@ -59,18 +59,18 @@ import './patient.css';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Tour from 'reactour';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import Tooltip from '@material-ui/core/Tooltip';
+// import Tooltip from '@material-ui/core/Tooltip';
 import Slider from '@material-ui/core/Slider';
 import { Multiselect } from 'multiselect-react-dropdown';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { searchFilterForDoctor } from '../../service/searchfilter';
-import { firestoreService } from '../../util';
+// import { firestoreService } from '../../util';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { doctorListLimit } from '../../util/configurations';
-import { Button, Modal } from 'react-bootstrap';
-import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
-import PaypalMobile from './MobilePayment/PaypalMobile';
+// import { Button, Modal } from 'react-bootstrap';
+// import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
+// import PaypalMobile from './MobilePayment/PaypalMobile';
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
 
@@ -191,7 +191,7 @@ const MyDoctor = (props) => {
       setFilterData(users);
       setdoctor(users[0]);
       const docId = users[0].id;
-      getInValidAppointments(docId);
+      // getInValidAppointments(docId);
       setLikedOffset(0);
       setDisplay({ ...display, like: 'none', unlike: 'block' });
     }
@@ -227,7 +227,7 @@ const MyDoctor = (props) => {
           patientId: patientId,
           doctorId: docId,
         });
-        getInValidAppointments(docId);
+        // getInValidAppointments(docId);
         setFilterData(result.data.doctors);
         //setTimeout(() => searchNutritionDoctor(), 3000);
         setTimeout(() => setLoading(false), 1000);
@@ -272,7 +272,7 @@ const MyDoctor = (props) => {
             patientId: patientId,
             doctorId: docId,
           });
-          getInValidAppointments(docId);
+          // getInValidAppointments(docId);
           history.replace({ state: null });
         }
         setTransparentLoading(false);
@@ -289,7 +289,7 @@ const MyDoctor = (props) => {
       //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
       const docId = doctorInfo.id?.id;
       setAppointment({ ...appointment, patientId: patientId, doctorId: docId });
-      getInValidAppointments(docId);
+      // getInValidAppointments(docId);
       setFilterData(doctorInfo);
       //setTimeout(() => searchNutritionDoctor(), 3000);
       setTimeout(() => setLoading(false), 1000);
@@ -334,7 +334,7 @@ const MyDoctor = (props) => {
           patientId: patientId,
           doctorId: docId,
         });
-        getInValidAppointments(docId);
+        // getInValidAppointments(docId);
         history.replace({ state: null });
       }
       setTransparentLoading(false);
@@ -638,13 +638,13 @@ const MyDoctor = (props) => {
     const inValidAppointmentFilter = {
       startTime: new Date(new Date().setHours(0, 0, 0)).toISOString(),
       endTime: new Date(
-        new Date().setDate(new Date().getDate() + 22)
+        new Date().setDate(new Date().getDate() + 31)
       ).toISOString(),
       doctorId: doctorId,
     };
     // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
     const response = await getInvalidDates(inValidAppointmentFilter);
-    // //console.log(response.status);
+    console.log({ response });
     if (response.status === 200 || response.status === 201) {
       const datesArray = [];
       response.data.map((inValidDates) => {
@@ -665,13 +665,13 @@ const MyDoctor = (props) => {
     const inValidAppointmentFilter = {
       startTime: new Date(new Date().setHours(0, 0, 0)).toISOString(),
       endTime: new Date(
-        new Date().setDate(new Date().getDate() + 22)
+        new Date().setDate(new Date().getDate() + 31)
       ).toISOString(),
       doctorId: doctorId,
     };
     // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
     const response = await getInvalidDates(inValidAppointmentFilter);
-    // //console.log(response.status);
+    console.log({ response });
     if (response.status === 200 || response.status === 201) {
       const datesArray = [];
       response.data.map((inValidDates) => {
@@ -1279,8 +1279,18 @@ const MyDoctor = (props) => {
         id,
         type
       ).catch((err) => console.log({ err }));
-      console.log({ response })
+
       setAvailableSlotsDisplay(response.data);
+
+      console.log({ response: response.data })
+
+      const enableDatesFromRes = response.data.data?.map((n) => {
+        return new Date(n.instantDate);
+      })
+
+      setEnableDates(enableDatesFromRes);
+      console.log({ enableDatesFromRes })
+
       // {
       //   availableSlotsDisplay.data &&
       //     availableSlotsDisplay.data.length > 0 &&
@@ -1294,6 +1304,22 @@ const MyDoctor = (props) => {
     }
     return null;
   };
+  // console.log({ enableDates })
+
+  const disabledCalendarDates = (date => {
+    return enableDates && !enableDates.some(
+      enabledDate => {
+        const eD = (
+          date.getFullYear() === enabledDate.getFullYear() &&
+          date.getMonth() === enabledDate.getMonth() &&
+          date.getDate() === enabledDate.getDate()
+        )
+        console.log({ date: date, enabledDate: enabledDate, ed: eD });
+        return eD;
+      }
+    )
+
+  })
 
   //CUSTOM STYLE
   const [borderStyle, setBorderStyle] = useState({
@@ -1643,7 +1669,7 @@ const MyDoctor = (props) => {
                                 setAvailability([]);
                                 setAppointmentSlot([]);
                                 // setBorderStyle({ ...borderStyle, border: '1px solid black' });
-                                getInValidAppointments(user.id);
+                                // getInValidAppointments(user.id);
                               }}
                             // style={user.id === doctor.id ? { border: '1px solid black' } : {}}
                             >
@@ -1705,7 +1731,7 @@ const MyDoctor = (props) => {
                                   //onDaySelect(currentSelectedDate, user.id);
                                   setAvailability([]);
                                   setAppointmentSlot([]);
-                                  getInValidAppointments(user.id);
+                                  // getInValidAppointments(user.id);
                                 }}
                               />
                             </GridListTile>
@@ -2224,6 +2250,7 @@ const MyDoctor = (props) => {
                         displayCalendar && (
                           <>
                             <div className="appointment-type">
+                              {console.log({ currentDate })}
                               <p>Appointment Type</p>
                               <FormControl>
                                 <Select
@@ -2260,15 +2287,7 @@ const MyDoctor = (props) => {
                               // Temporarily commented to enable calendar click functionality for appointment.
                               tileDisabled={
                                 ({ activeStartDate, date, view }) =>
-                                  // activeStartDate.getDate() === date.getDate() &&
-                                  disabledDates &&
-                                  disabledDates.some(
-                                    (disabledDate) =>
-                                      date.getFullYear() ===
-                                      disabledDate.getFullYear() &&
-                                      date.getMonth() === disabledDate.getMonth() &&
-                                      date.getDate() === disabledDate.getDate()
-                                  )
+                                  disabledCalendarDates(date)
                               }
                             // } // greyout dates
                             />
@@ -2417,6 +2436,7 @@ const MyDoctor = (props) => {
                     {displayCalendar && (
                       <>
                         <div className="appointment-type">
+                          {console.log({ currentDate })}
                           <p>Appointment Type</p>
                           <FormControl>
                             <Select
@@ -2452,16 +2472,7 @@ const MyDoctor = (props) => {
                           } // next 3week condition
                           // Temporarily commented to enable calendar click functionality for appointment.
                           tileDisabled={({ activeStartDate, date, view }) =>
-                            //activeStartDate.getDate() === date.getDate() &&
-                            disabledDates &&
-                            disabledDates.some(
-                              (disabledDate) =>
-                                // console.log("date.getFullYear() === disabledDate.getFullYear() ::::1:::", disabledDate)
-                                date.getFullYear() ===
-                                disabledDate.getFullYear() &&
-                                date.getMonth() === disabledDate.getMonth() &&
-                                date.getDate() === disabledDate.getDate()
-                            )
+                            disabledCalendarDates(date)
                           } // greyout dates
                         />
                       </>
