@@ -24,6 +24,7 @@ const ImageCropper = (props) => {
     const [show, setModel] = useState(false);
     const [uploadImageUrlBase64, setUploadImageUrlBase64] = useState(null);
     const [preview, setPreview] = useState()
+    const uniqueId = parseInt(Date.now() + Math.random());
 
     const onSaveImageCrop = (imageCrop) => {
         setModel(false)
@@ -87,12 +88,14 @@ const ImageCropper = (props) => {
         }
     }, [croppedAreaPixels, rotation])
 
+    
+
     return (
 
         <>
 
             <div className="small-12 medium-2 large-2 columns m-auto">
-            <label>
+            <label for={uniqueId}>
                 <div className="circle upload-button" style={{ cursor: 'pointer' }}>
                     {/* <!-- User Profile Image --> */}
                     <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
@@ -100,7 +103,7 @@ const ImageCropper = (props) => {
 
                 <span className="p-image">
                     <AddAPhotoIcon className="upload-button" />
-                    <input className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
+                    <input id={uniqueId} className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
                         variant="filled" />
                 </span>
                 </label>

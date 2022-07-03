@@ -2,6 +2,7 @@ import React from 'react';
 //import ReactDOM from 'react-dom'
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
+import UnprotectedRoutes from '../components/CommonModule/RoutesComponent/UnprotectedRoutes';
 // import PaypalMobile from '../components/Patient Module/MobilePayment/PaypalMobile';
 
 const Homepage = Loadable({
@@ -78,22 +79,22 @@ const PaypalMob = Loadable({
 
 const MainRoute = () => (
     <Switch>
-        <Route exact path="/" component={Homepage} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/signupform" component={Signupform} />
-        <Route exact path="/healthbehaviour" component={Healthbehaviour} />
-        <Route exact path="/signin" component={Signin} />
-        <Route exact path="/forgetpassword" component={ForgetPassword} />
-        <Route exact path="/createpassword" component={CreatePassword} />
-        <Route exact path="/about-us" component={AboutUs} />
-        <Route exact path="/article/:id" component={ViewArticle} />
-        <Route exact path="/privacy-policy" component={PrivacyPolicyPage} />
-        <Route exact path="/terms-and-conditions" component={TermsAndConditionsPage} />
-        <Route exact path="/help-and-support" component={HelpAndSupportPage} />
-        <Route exact path="/licenses" component={LicensesPage} />
-        <Route exact path="/partners" component={PartnersPage} />
-        <Route exact path="/select-role" component={SelectRolePage} />
-        <Route exact path='/mobile-payment' component={(props) => <PaypalMob {...props} />} />
+        <UnprotectedRoutes exact path="/" component={Homepage} />
+        <UnprotectedRoutes exact path="/signup" component={Signup} />
+        <UnprotectedRoutes exact path="/signupform" component={Signupform} />
+        <UnprotectedRoutes exact path="/healthbehaviour" component={Healthbehaviour} />
+        <UnprotectedRoutes exact path="/signin" component={Signin} />
+        <UnprotectedRoutes exact path="/forgetpassword" component={ForgetPassword} />
+        <UnprotectedRoutes exact path="/createpassword" component={CreatePassword} />
+        <UnprotectedRoutes exact path="/about-us" component={AboutUs} />
+        <UnprotectedRoutes exact path="/article/:id" component={ViewArticle} />
+        <UnprotectedRoutes exact path="/privacy-policy" component={PrivacyPolicyPage} />
+        <UnprotectedRoutes exact path="/terms-and-conditions" component={TermsAndConditionsPage} />
+        <UnprotectedRoutes exact path="/help-and-support" component={HelpAndSupportPage} />
+        <UnprotectedRoutes exact path="/licenses" component={LicensesPage} />
+        <UnprotectedRoutes exact path="/partners" component={PartnersPage} />
+        <UnprotectedRoutes exact path="/select-role" component={SelectRolePage} />
+        <UnprotectedRoutes exact path='/mobile-payment' component={(props) => <PaypalMob {...props} />} />
         <Redirect to='/signin' />
     </Switch>
 );

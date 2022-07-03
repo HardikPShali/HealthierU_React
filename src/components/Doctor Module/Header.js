@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Navbar, Container } from 'react-bootstrap'; //NavDropdown, Row, Col, Nav
-import { Link, NavLink } from 'react-router-dom';
-import logo from '../../images/logo/logo-with-quote.png';
-import './doctor.css';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Cookies from 'universal-cookie';
-import profileicon from '../../images/Icons/profile.svg';
-import { getDoctorByUserId } from '../../service/frontendapiservices';
-import { updateDoctorTimeZone } from '../../service/frontendapiservices';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { Navbar, Container } from "react-bootstrap"; //NavDropdown, Row, Col, Nav
+import { Link, NavLink } from "react-router-dom";
+import logo from "../../images/logo/logo-with-quote.png";
+import "./doctor.css";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import IconButton from "@material-ui/core/IconButton";
+import Badge from "@material-ui/core/Badge";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Cookies from "universal-cookie";
+import profileicon from "../../images/Icons/profile.svg";
+import { getDoctorByUserId } from "../../service/frontendapiservices";
+import { updateDoctorTimeZone } from "../../service/frontendapiservices";
+import { toast } from "react-toastify";
 // import NotificationMenu from '../CommonModule/NotificationMenu';
-import momentTz from 'moment-timezone';
-import NotificationMenuDoctor from './NotificationMenu/NotificationMenuDoctor';
+import momentTz from "moment-timezone";
+import NotificationMenuDoctor from "./NotificationMenu/NotificationMenuDoctor";
 // import TimezoneSelect from "react-timezone-select";
 // import Dialog from "@material-ui/core/Dialog";
 // import DialogContent from "@material-ui/core/DialogContent";
@@ -199,7 +199,7 @@ const Header = (props) => {
               </IconButton>
               <div
                 className="dropdown-menu notification-Menu"
-                style={{ width: '350px', left: '-160px' }}
+                style={{ width: "350px", left: "-160px" }}
               >
                 {/* <NotificationMenu
                   unReadMessageList={unReadMessageList}
@@ -245,25 +245,27 @@ const Header = (props) => {
               horizontal: "center",
             }}
           >
-            <Link to="/doctor/profile" style={{ textDecoration: "none" }}>
-              <MenuItem>Profile</MenuItem>
-            </Link>
-            <Link
-              to="/doctor/changepassword"
-              style={{ textDecoration: "none" }}
-            >
-              <MenuItem>Change Password</MenuItem>
-            </Link>
-            {/* <Link
+            <div onClick={handleClose}>
+              <Link to="/doctor/profile" style={{ textDecoration: "none" }}>
+                <MenuItem>Profile</MenuItem>
+              </Link>
+              <Link
+                to="/doctor/changepassword"
+                style={{ textDecoration: "none" }}
+              >
+                <MenuItem>Change Password</MenuItem>
+              </Link>
+              {/* <Link
               to="#"
               style={{ textDecoration: "none" }}
               onClick={() => handleClickOpen()}
             >
               <MenuItem>Update Timezone</MenuItem>
             </Link> */}
-            <Link to="/doctor/logout" style={{ textDecoration: "none" }}>
-              <MenuItem>Logout</MenuItem>
-            </Link>
+              <Link to="/doctor/logout" style={{ textDecoration: "none" }}>
+                <MenuItem>Logout</MenuItem>
+              </Link>
+            </div>
           </Menu>
         </div>
       </Container>
