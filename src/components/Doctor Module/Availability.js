@@ -107,7 +107,7 @@ const Availability = () => {
   }, [])
   const addDaySlot = async () => {
     setCount(count + 1);
-    console.log(tempDays);
+    console.log("tempDays", tempDays);
     const newTimes = { ...times };
     newTimes.days = tempDays;
     const docId = cookies.get('profileDetails')
@@ -125,13 +125,16 @@ const Availability = () => {
 
       return t;
     })
+    function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+    }
+    const unique = tempDays.filter(onlyUnique);
     const data = {
       doctorId: docId.id,
-      days: tempDays.join(),
+      days: unique.join(),
       timeSlotsList: utcTimes,
       toggle: true
     }
-
     const dataForRecurSlot = []
     dataForRecurSlot.push(data)
     const res = await addRecurringSLot(dataForRecurSlot);

@@ -19,7 +19,8 @@ import FilterComponent from "../CommonModule/SearchAndFilter/FilterComponent";
 import {
   getGlobalAppointmentsSearch,
   rescheduleAppointmentDoctor,
-  getAppointmentsTablistByStatus
+  getAppointmentsTablistByStatus,
+  getPaymentInfoForDoctor
 } from "../../service/frontendapiservices";
 import rightIcon from "../../images/svg/right-icon.svg";
 import calendar from "../../images/icons used/Component 12.svg";
@@ -285,21 +286,17 @@ const MyAppointments = (props) => {
   const [appointmentDets, setAppointmentDets] = useState([]);
 
   const getPaymentInfo = async (data) => {
-    const response = await getAppointmentsTablistByStatus(data.patient.id).catch(
+    const response = await getPaymentInfoForDoctor(data.id).catch(
       (err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
         }
       }
     );
+    
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        const array = response.data.data.upcoming;
-        array.map((a) => {
-          if (data.id === a.id) {
-            setAppointment(...array, a)
-          }
-        })
+        setAppointment(response.data.data)
       }
     }
   }

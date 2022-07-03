@@ -1185,6 +1185,24 @@ export const getAppointmentsTablistByStatus = async (patientId) => {
   });
   return response;
 };
+export const getPaymentInfoForDoctor = async (appId) => {
+  var payload = {
+    method: "get",
+    mode: "no-cors",
+    url: `/api/v2/appointments/${appId}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
 
 export const getAvailableSlotsForMyDoctors = async (doctorId, type) => {
   var payload = {

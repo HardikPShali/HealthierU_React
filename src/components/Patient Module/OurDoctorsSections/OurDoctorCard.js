@@ -32,13 +32,13 @@ const OurDoctorCard = ({ doctor }) => {
                         <img
                             src={doctor.picture}
                             alt="profile"
-                            className='doctor__image'
+                            className='img-fluid doctor__image'
                         />
                     ) : (
                         <img
                             src={defaultImage}
                             alt="profile"
-                            className='doctor__image'
+                            className='img-fluid doctor__image'
                         />
                     )}
                 </div>
