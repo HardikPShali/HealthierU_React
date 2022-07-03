@@ -28,7 +28,7 @@ import {
   deleteAvailableAppointment,
   deleteBookedAppointment,
   getDoctorAppointment,
-  getAppointmentsTablistByStatus,
+  getPaymentInfoForDoctor,
   getGlobalAppointmentsSearch
   // getDoctorByUserId
 } from "../../service/frontendapiservices";
@@ -165,7 +165,7 @@ const Myappointment = (props) => {
       setSelectedAppointment(eventData);
       setopenAppointmentInfo(true);
     }
-    const response = await getAppointmentsTablistByStatus(eventData.patient.id).catch(
+    const response = await getPaymentInfoForDoctor(eventData.id).catch(
       (err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
@@ -174,12 +174,8 @@ const Myappointment = (props) => {
     );
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        const array = response.data.data.upcoming;
-        array.map((a) => {
-          if (eventData.id === a.id) {
-            setAppointment(...array, a)
-          }
-        })
+        console.log("response.data",response.data);
+        setAppointment(response.data.data)
       }
     }
   };
@@ -639,7 +635,7 @@ const Myappointment = (props) => {
   };
   const [appointment, setAppointment] = useState([]);
   const getPaymentInfo = async (data) => {
-    const response = await getAppointmentsTablistByStatus(data.patient.id).catch(
+    const response = await getPaymentInfoForDoctor(data.id).catch(
       (err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
@@ -648,12 +644,8 @@ const Myappointment = (props) => {
     );
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        const array = response.data.data.upcoming;
-        array.map((a) => {
-          if (data.id === a.id) {
-            setAppointment(...array, a)
-          }
-        })
+        console.log("response.data",response.data);
+        setAppointment(response.data.data)
       }
     }
   }
@@ -999,7 +991,7 @@ const Myappointment = (props) => {
                           <Tab eventKey="today" title="Today">
                             <div>
 
-                              {todayAppointment ? (
+                              {todayAppointment.length > 0 ? (
                                 <div className="tab-view-app__list-disp row">
                                   {todayAppointment.map(
                                     (appointment, index) => {
@@ -1202,7 +1194,7 @@ const Myappointment = (props) => {
                               ) : (
                                 <div
                                   className="col-12 ml-2"
-                                  style={{ textShadow: "none", color: "#3e4543" }}
+                                  style={{ textShadow: "none", color: "#3e4543", textAlign: 'center', marginTop: '15%' }}
                                 >
                                   No Appointments For Today
                                 </div>
@@ -1212,7 +1204,7 @@ const Myappointment = (props) => {
                           <Tab eventKey="tomorrow" title="Tomorrow">
                             <div>
 
-                              {tomorrowAppointment ? (
+                              {tomorrowAppointment.length > 0 ? (
                                 <div className="tab-view-app__list-disp row">
                                   {tomorrowAppointment.map(
                                     (appointment, index) => {
@@ -1415,7 +1407,7 @@ const Myappointment = (props) => {
                               ) : (
                                 <div
                                   className="col-12 ml-2"
-                                  style={{ textShadow: "none", color: "#3e4543" }}
+                                  style={{ textShadow: "none", color: "#3e4543", textAlign: 'center', marginTop: '15%' }}
                                 >
                                   No Appointments For Tomorrow
                                 </div>
@@ -1425,7 +1417,7 @@ const Myappointment = (props) => {
                           {/* upcoming tab */}
                           <Tab eventKey="upcoming" title="Upcoming">
                             <div>
-                              {appointmentDets ? (
+                              {appointmentDets.length > 0 ? (
                                 <div className="tab-view-app__list-disp row">
                                   {appointmentDets.map(
                                     (appointment, index) => {
@@ -1616,7 +1608,7 @@ const Myappointment = (props) => {
                               ) : (
                                 <div
                                   className="col-12 ml-2"
-                                  style={{ textShadow: "none", color: "#3e4543" }}
+                                  style={{ textShadow: "none", color: "#3e4543", textAlign: 'center', marginTop: '15%' }}
                                 >
                                   No Upcoming Appointments
                                 </div>

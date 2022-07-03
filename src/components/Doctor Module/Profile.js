@@ -487,11 +487,8 @@ const Profile = ({ currentDoctor }) => {
 
                             <div id="editProfile-col">
                                 <ValidatorForm onSubmit={handleDetails}>
-                                    <Row style={{ justifyContent: 'center' }}>
-                                        <ImageCropper
-                                            setProfilePicture={setProfilePicture}
-                                            imageUrl={currentDoctor.picture}
-                                        />
+                                    <Row style={{ justifyContent: 'center', flexDirection: "column" }} >
+                                        <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} />
                                     </Row>
 
                                     <Tabs

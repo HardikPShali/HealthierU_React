@@ -847,7 +847,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={affiliation}
                                                     validators={[
                                                         "required",
-                                                        // "matchRegexp:/^[a-zA-Z ]*$/",
+                                                        "matchRegexp:/^[a-zA-Z ]*$/",
                                                     ]}
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid Affiliation"
