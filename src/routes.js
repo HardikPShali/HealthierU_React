@@ -10,6 +10,7 @@ import Cookies from 'universal-cookie';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UnprotectedRoutes from "./components/CommonModule/RoutesComponent/UnprotectedRoutes";
+import ProtectedRoutes from "./components/CommonModule/RoutesComponent/ProtectedRoutes";
 
 
 const ForgetPassword = Loadable({
@@ -111,6 +112,7 @@ const Routes = () => {
   // const [currentUser, setCurrentUser] = useState(false);
   // const [authorities, setAuthorities] = useState([]);
   const cookies = new Cookies();
+
   //const [currentUser, setUser] = useState({});
 
   // useEffect(() => {
@@ -173,19 +175,20 @@ const Routes = () => {
         <UnprotectedRoutes exact path="/licenses" component={LicensesPage} />
         <UnprotectedRoutes exact path="/partners" component={PartnersPage} />
         <UnprotectedRoutes exact path="/select-role" component={SelectRolePage} />
-        <UnprotectedRoutes exact path='/mobile-payment' component={(props) => <PaypalMob {...props} />} />
-           {authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER") && (<>
-            <Route path="/admin" component={AdminRoutes} />
+        <Route exact path='/mobile-payment' component={(props) => <PaypalMob {...props} />} />
+           {/* {authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER") && (<> */}
+            <ProtectedRoutes path="/admin" role="ROLE_ADMIN" component={AdminRoutes} />
             {/* <Route exact path="(/|/signin)" component={Logout} /> */}
-          </>)}
-          {authorities.some((user) => user === "ROLE_PATIENT") && (<>
-            <Route path="/patient" component={PatientRoute} />
+          {/* </>)} */}
+          {/* {authorities.some((user) => user === "ROLE_PATIENT") && (<> */}
+            <ProtectedRoutes path="/patient" role="ROLE_PATIENT" component={PatientRoute} />
             {/* <Route exact path="(/|/signin)" component={Logout} /> */}
-          </>)}
-          {authorities.some((user) => user === "ROLE_DOCTOR") && (<>
-            <Route path="/doctor" component={DoctorRoute} />
+          {/* </>)} */}
+          {/* {authorities.some((user) => user === "ROLE_DOCTOR") && (<> */}
+            <ProtectedRoutes path="/doctor" role="ROLE_DOCTOR" component={DoctorRoute} />
             {/* <Route exact path="(/|/signin)" component={Logout} /> */}
-          </>)}
+          {/* </>)} */}
+          <Redirect to="/signin" />
         </Switch>
         <ToastContainer />
       </div>

@@ -210,7 +210,7 @@ const Signin = () => {
 
     if (authorities.some((user) => user === "ROLE_PATIENT")) {
       history.push("/patient");
-      history.go(0);
+      // history.go(0);
     }
     if (authorities.some((user) => user === "ROLE_DOCTOR")) {
       history.push("/doctor");
