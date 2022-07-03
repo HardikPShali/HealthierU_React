@@ -205,7 +205,7 @@ const Signin = () => {
       authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER")
     ) {
       history.push("/admin");
-      history.go(0);
+      // history.go(0);
     }
 
     if (authorities.some((user) => user === "ROLE_PATIENT")) {
@@ -214,7 +214,7 @@ const Signin = () => {
     }
     if (authorities.some((user) => user === "ROLE_DOCTOR")) {
       history.push("/doctor");
-      history.go(0);
+      // history.go(0);
     }
   };
   // }
