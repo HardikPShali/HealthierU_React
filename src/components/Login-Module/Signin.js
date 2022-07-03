@@ -382,7 +382,8 @@ const Signin = () => {
                         type="submit"
                         value="Sign In"
                       />
-                      <br />
+                     
+                    </ValidatorForm>
                       <div className="w-100 mt-3">
                         <GoogleSignInButton
                           id="google-btn"
@@ -391,7 +392,6 @@ const Signin = () => {
                           responseError={(e) => console.log(e)}
                         />
                       </div>
-                    </ValidatorForm>
                   </>
                 )}
                 {otpDisplay && (
