@@ -89,29 +89,29 @@ const Signin = () => {
   }, []);
 
   //User won't land on the sign in page only even when user has not sign out from the application | HEAL-55 & HEAL-10
-  useEffect(() => {
-    if (
-      cookies.get("currentUser")?.id !== "" &&
-      cookies.get("currentUser")?.authorities[0] === "ROLE_PATIENT"
-    ) {
-      history.push("/patient");
-      history.go(0);
-    }
-    if (
-      cookies.get("currentUser")?.id !== "" &&
-      cookies.get("currentUser")?.authorities[0] === "ROLE_DOCTOR"
-    ) {
-      history.push("/doctor");
-      history.go(0);
-    }
-    if (
-      cookies.get("currentUser")?.id !== "" &&
-      cookies.get("currentUser")?.authorities[0] === "ROLE_ADMIN"
-    ) {
-      history.push("/admin");
-      history.go(0);
-    }
-  }, [cookies.get("currentUser")]);
+  // useEffect(() => {
+  //   if (
+  //     cookies.get("currentUser")?.id !== "" &&
+  //     cookies.get("currentUser")?.authorities[0] === "ROLE_PATIENT"
+  //   ) {
+  //     history.push("/patient");
+  //     history.go(0);
+  //   }
+  //   if (
+  //     cookies.get("currentUser")?.id !== "" &&
+  //     cookies.get("currentUser")?.authorities[0] === "ROLE_DOCTOR"
+  //   ) {
+  //     history.push("/doctor");
+  //     history.go(0);
+  //   }
+  //   if (
+  //     cookies.get("currentUser")?.id !== "" &&
+  //     cookies.get("currentUser")?.authorities[0] === "ROLE_ADMIN"
+  //   ) {
+  //     history.push("/admin");
+  //     history.go(0);
+  //   }
+  // }, [cookies.get("currentUser")]);
 
   const responseGoogle = async (response) => {
     setLoader(true);
