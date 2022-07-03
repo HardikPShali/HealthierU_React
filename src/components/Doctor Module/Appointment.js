@@ -255,7 +255,7 @@ const Myappointment = (props) => {
     //returns the tomorrow date
     let tomoEndTime = new Date();
     tomoEndTime.setDate(today.getDate() + 1);
-    tomoEndTime.setHours(23, 59, 0);
+    tomoEndTime.setHours(23, 59, 59);
     //  Today
     const starttime = new Date();
     starttime.setHours(0, 0, 0);
@@ -293,7 +293,6 @@ const Myappointment = (props) => {
         setTransparentLoading(false);
       }
     });
-    console.log("resToday", resToday);
     const resTomorrow = await getDoctorAppointment(TomorrowData).catch(
       (err) => {
         if (err.response.status === 500 || err.response.status === 504) {
@@ -421,6 +420,7 @@ const Myappointment = (props) => {
         }
         return value;
       });
+      console.log("tomoArray",tomoArray);
       setTomorrowAppointment(tomoArray);
       setTimeout(() => setLoading(false), 1000);
       setTimeout(() => setTransparentLoading(false), 1000);
@@ -657,6 +657,7 @@ const Myappointment = (props) => {
     const currentDoctor = cookies.get("profileDetails");
     const starttime = new Date();
     starttime.setDate(new Date().getDate() + 2)
+    starttime.setHours(0,0,0)
     const data = {
       doctorId: currentDoctor.id,
       status: "ACCEPTED",
@@ -1203,8 +1204,7 @@ const Myappointment = (props) => {
                           </Tab>
                           <Tab eventKey="tomorrow" title="Tomorrow">
                             <div>
-
-                              {tomorrowAppointment.length > 0 ? (
+                            {tomorrowAppointment.length > 0 ? (
                                 <div className="tab-view-app__list-disp row">
                                   {tomorrowAppointment.map(
                                     (appointment, index) => {
