@@ -11,6 +11,11 @@ import TransparentLoader from '../../Loader/transparentloader';
 //     JSBridge.init();
 // }
 
+window.setPToken = (token) => {
+    console.log('setBearerToken', token);
+    window.ptoken = token;
+}
+
 const PaypalMobile = () => {
     const location = useLocation();
     const [loading, setLoading] = useState(false);
@@ -31,6 +36,8 @@ const PaypalMobile = () => {
     let halfRateParams = searchParams.get('hR');
 
     let os = searchParams.get('os');
+
+
 
     const bookAppointment = async (orderData) => {
         setLoading(true);
@@ -73,7 +80,7 @@ const PaypalMobile = () => {
             data: newPaymentData,
             url: `/api/v2/appointments/payment/bulk`,
             headers: {
-                Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+                Authorization: window.ptoken,
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             },
@@ -89,6 +96,8 @@ const PaypalMobile = () => {
                 window.android.sendOrderData(data);
             }
         };
+
+
 
         try {
             const response = await axios(newPaymentApi);
