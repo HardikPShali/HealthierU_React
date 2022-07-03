@@ -1,18 +1,19 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useLocation } from 'react-router';
 import LocalStorageService from '../../../util/LocalStorageService';
 import Paypal from '../../CommonModule/Paypal';
+import TransparentLoader from '../../Loader/transparentloader';
 
 // const JSBridge = window.JSBridge;
 // if (JSBridge) {
 //     JSBridge.init();
 // }
 
-
 const PaypalMobile = () => {
     const location = useLocation();
+    const [loading, setLoading] = useState(false);
 
     // const sendDataToAndroid = (content) => {
     //     // JSBridge.sendOrderData(content);
@@ -32,8 +33,7 @@ const PaypalMobile = () => {
     let os = searchParams.get('os');
 
     const bookAppointment = async (orderData) => {
-        alert('Book Appointment accessed')
-        console.log('Book Appointment accessed')
+        setLoading(true);
 
         // window.android.onPaymentStatusChange(true);
         orderData.slotId = appointmentIdParams;
@@ -56,7 +56,7 @@ const PaypalMobile = () => {
             id: appointmentIdParams,
             type: appointmentModeParams,
             paymentsAppointmentsDTO: orderData,
-        }
+        };
         //Book appt api
         // const newPaymentData = {
         //     appointmentDTO: orderObject,
@@ -64,8 +64,8 @@ const PaypalMobile = () => {
         // }
 
         const newPaymentData = {
-            ...orderObject
-        }
+            ...orderObject,
+        };
 
         const newPaymentApi = {
             method: 'post',
@@ -77,7 +77,7 @@ const PaypalMobile = () => {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             },
-        }
+        };
 
         // Boolean for success
         //on success, send true in postmessage & sendorderData
@@ -85,32 +85,33 @@ const PaypalMobile = () => {
         const successEventOnPayment = (data) => {
             if (os === 'ios') {
                 window.webkit.messageHandlers.sendOrderData.postMessage(data);
-            }
-            else {
+            } else {
                 window.android.sendOrderData(data);
             }
-        }
+        };
 
         try {
             const response = await axios(newPaymentApi);
             console.log({ response });
-            successEventOnPayment(true);
-        }
-        catch (error) {
+            if (response.status === 200 || response.status === 201) {
+                successEventOnPayment(true);
+                setLoading(false);
+            }
+        } catch (error) {
             successEventOnPayment(false);
+            setLoading(false);
         }
     };
 
     return (
         <div className="container">
+            {loading && (<TransparentLoader />)}
             <Container>
                 <Row>
-                    <Col md={12}>
-                        {/* <h3>Reached Paypal Mobile Payment</h3> */}
-                    </Col>
+                    <Col md={12}>{/* <h3>Reached Paypal Mobile Payment</h3> */}</Col>
                 </Row>
                 <Row>
-                    <Col md={12} className='mt-4 text-center'>
+                    <Col md={12} className="mt-4 text-center">
                         <Paypal
                             // appointmentId={appointmentIdParams}
                             appointmentMode={appointmentModeParams}
@@ -125,7 +126,6 @@ const PaypalMobile = () => {
                     </Col>
                 </Row>
             </Container>
-
         </div>
     );
 };
