@@ -10,7 +10,7 @@ const RescheduleNotification = ({ notification, key }) => {
         <div>
 
             <NavLink
-                to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id}/${notification.data.appointmentDetails.appointmentMode.toLowerCase().replace(" ", "-")}`}
+                to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id}/${notification.data.appointmentDetails.appointmentMode.toLowerCase().replace(" ", "-")}/${notification.data.appointmentDetails.unifiedAppointment}`}
                 className="d-flex flex-column text-dark navlink-hover"
                 key={key}
                 style={{ marginLeft: 0, marginTop: -16, fontWeight: 400 }}

@@ -666,7 +666,7 @@ const Healthassessment = (props) => {
                                     {isSearch === false && "No Documents"}
                                 </div>
                             )} */}
-                            {medicalRecordData ? (
+                            {medicalRecordData.length > 0 ? (
                                 medicalRecordData.map(
                                     (dataItem, subIndex) => {
                                         return (
@@ -806,7 +806,7 @@ const Healthassessment = (props) => {
 
                             )} */}
 
-                            {medicalRecordData ? (
+                            {medicalRecordData.length > 0 ? (
                                 medicalRecordData.map(
                                     (dataItem, subIndex) => {
                                         return (
