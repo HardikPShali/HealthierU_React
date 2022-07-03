@@ -4,7 +4,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useLocation } from 'react-router';
 import LocalStorageService from '../../../util/LocalStorageService';
 import Paypal from '../../CommonModule/Paypal';
-import PaypalCheckoutButton from '../PaypalCheckout/PaypalCheckoutButton';
 
 // const JSBridge = window.JSBridge;
 // if (JSBridge) {
@@ -12,32 +11,11 @@ import PaypalCheckoutButton from '../PaypalCheckout/PaypalCheckoutButton';
 // }
 
 
-const PaypalMobile = (props) => {
-    // const { bookappointment, doctor, appointment } = props;
+const PaypalMobile = () => {
     const location = useLocation();
 
-    const sendDataToAndroid = (content) => {
-        // JSBridge.sendOrderData(content);
-    }
-
-    // const appointmentService = async (id) => {
-    //     var payload = {
-    //         method: 'get',
-    //         mode: 'no-cors',
-    //         url: `/api/v2/appointments/${id}`,
-    //         headers: {
-    //             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-    //             'Content-Type': 'application/json',
-    //             'Access-Control-Allow-Origin': '*'
-    //         }
-    //     };
-    //     const response = await axios(payload);
-    //     return response;
-    // }
-
-    // const getAppointmentResopnse = async (id) => {
-    //     const response = await appointmentService(id);
-    //     console.log({ response })
+    // const sendDataToAndroid = (content) => {
+    //     // JSBridge.sendOrderData(content);
     // }
 
     const searchParams = new URLSearchParams(location.search);
@@ -60,21 +38,67 @@ const PaypalMobile = (props) => {
         // window.android.onPaymentStatusChange(true);
         orderData.slotId = appointmentIdParams;
 
-        const data = JSON.stringify(orderData);
-        if (os === 'ios') {
-            window.webkit.messageHandlers.sendOrderData.postMessage(data);
+        // const data = JSON.stringify(orderData);
+
+        //object for query params
+        // const orderObject = {
+        //     userIdParams,
+        //     firstnameParams,
+        //     lastnameParams,
+        //     emailParams,
+        //     // appointmentIdParams, Not needed
+        //     appointmentModeParams,
+        //     rateParams,
+        //     halfRateParams,
+        // }
+
+        const orderObject = {
+            id: appointmentIdParams,
+            type: appointmentModeParams,
+            paymentsAppointmentsDTO: orderData,
         }
-        else {
-            window.android.sendOrderData(data);
+        //Book appt api
+        // const newPaymentData = {
+        //     appointmentDTO: orderObject,
+        //     paymentsAppointmentsDTO: orderData
+        // }
+
+        const newPaymentData = {
+            ...orderObject
         }
 
-        // if (JSBridge) {
-        //     sendDataToAndroid(orderData);
-        // }
-        // else {
-        //     alert('JSBridge Not Found')
-        // }
+        const newPaymentApi = {
+            method: 'post',
+            mode: 'no-cors',
+            data: newPaymentData,
+            url: `/api/v2/appointments/payment/bulk`,
+            headers: {
+                Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+        }
 
+        // Boolean for success
+        //on success, send true in postmessage & sendorderData
+
+        const successEventOnPayment = (data) => {
+            if (os === 'ios') {
+                window.webkit.messageHandlers.sendOrderData.postMessage(data);
+            }
+            else {
+                window.android.sendOrderData(data);
+            }
+        }
+
+        try {
+            const response = await axios(newPaymentApi);
+            console.log({ response });
+            successEventOnPayment(true);
+        }
+        catch (error) {
+            successEventOnPayment(false);
+        }
     };
 
     return (
@@ -88,7 +112,7 @@ const PaypalMobile = (props) => {
                 <Row>
                     <Col md={12} className='mt-4 text-center'>
                         <Paypal
-                            appointmentId={appointmentIdParams}
+                            // appointmentId={appointmentIdParams}
                             appointmentMode={appointmentModeParams}
                             bookappointment={bookAppointment}
                             firstName={firstnameParams}

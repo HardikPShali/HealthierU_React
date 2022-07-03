@@ -7,8 +7,7 @@ import { useHistory } from 'react-router';
 import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 
 const Paypal = (props) => {
-  const { bookappointment, email, firstName, lastName, rate, halfRate, userId, appointmentId, appointmentMode } = props;
-  console.log({ appointmentId })
+  const { bookappointment, email, firstName, lastName, rate, halfRate, userId, appointmentMode } = props;
   // const { appointmentMode, id: appointmentId } = appointment;
   // const {
   //   // address,
@@ -111,7 +110,7 @@ const Paypal = (props) => {
               },
             } = order;
             const orderData = {
-              appointmentId,
+              // appointmentId,
               appointmentMode,
               intent,
               payerId,
