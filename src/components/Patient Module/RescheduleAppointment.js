@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 //import Footer from "./Footer";
-import {
-  getAppointmentMode,
-} from './../../util/appointmentModeUtil';
-import { useParams } from 'react-router';
+import { getAppointmentMode } from './../../util/appointmentModeUtil';
+import { useLocation, useParams } from 'react-router';
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import TuneIcon from '@material-ui/icons/Tune';
@@ -64,17 +62,13 @@ import './patient.css';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Tour from 'reactour';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import Tooltip from '@material-ui/core/Tooltip';
 import Slider from '@material-ui/core/Slider';
 import { Multiselect } from 'multiselect-react-dropdown';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { searchFilterForDoctor } from '../../service/searchfilter';
-import { firestoreService } from '../../util';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { doctorListLimit } from '../../util/configurations';
-import { Button, Modal } from 'react-bootstrap';
-import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 import { getAppointmentModeForAvailabilitySlotsDisplay } from '../../util/appointmentModeUtil';
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
@@ -105,13 +99,6 @@ const RescheduleAppointment = (props) => {
     name: [],
   });
   const { name } = specialityArray;
-  // //console.log("speciality :::", name)
-
-  // const [diseasesList, setDiseasesList] = useState({g
-  //     diseasesOptions: [{ name: "Diabetes" }]
-  // });
-
-  // const { diseasesOptions } = diseasesList
 
   const [appointment, setAppointment] = useState({
     type: 'DR',
@@ -205,6 +192,9 @@ const RescheduleAppointment = (props) => {
   const [offset, setOffset] = useState(0);
   const [likedOffset, setLikedOffset] = useState(0);
 
+  let doctorIdForReschedule = sessionStorage.getItem('doctorId');
+  console.log({ doctorIdForReschedule });
+
   const loadUsers = async (patientId) => {
     if (!profilepID.activated) {
       const result = await getDoctorListByPatientId(
@@ -223,7 +213,14 @@ const RescheduleAppointment = (props) => {
       ) {
         setOffset(1);
         setUser(result.data.doctors);
-        setdoctor(result.data.doctors[0]);
+        const selectedDoctorForReschedule = result.data.doctors.map((value) => {
+          if (value.id == doctorIdForReschedule) {
+            console.log({ value: value });
+            setdoctor(value);
+          }
+        });
+        console.log('result', result.data.doctors);
+        // setdoctor(selectedDoctorForReschedule);
         //const currentSelectedDate = new Date();
         //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
         const docId = result.data.doctors[0]?.id;
@@ -451,6 +448,9 @@ const RescheduleAppointment = (props) => {
     loadSpeciality();
     loadCountry();
     loadLanguage();
+    return(()=>{
+      sessionStorage.clear();
+    })
   }, []);
 
   useEffect(() => {
@@ -691,12 +691,12 @@ const RescheduleAppointment = (props) => {
   let params = useParams();
   const [oldAppointmentID, setOldAppointmentID] = useState(0);
   useEffect(() => {
-    console.log("oldAppointmentID", oldAppointmentID);
+    console.log('oldAppointmentID', oldAppointmentID);
   }, [oldAppointmentID]);
   const bookappointment = async (orderData) => {
     setLoading(true);
     let oldAppID = 0;
-    oldAppID = params.id
+    oldAppID = params.id;
     setOldAppointmentID(params.id);
     let tempSlotConsultationId = '';
     const finalAppointmentDataArray = [];
@@ -710,77 +710,27 @@ const RescheduleAppointment = (props) => {
             //     (orderData.appointmentId = tempSlotConsultationId);
             finalAppointmentDataArray.push({
               doctorId: appointment.doctorId,
-              //endTime: slotData.slot1.endTime,
-              //startTime: slotData.slot1.startTime,
-              //type: 'DR',
               patientId: appointment.patientId,
-              //status: 'ACCEPTED',
-              // remarks: remarks,
-              // appointmentMode: appointment.appointmentMode,
               id: slotData.slot1.id,
-              // urgency: urgency,
-              unifiedAppointment: params.unifiedAppt + '#' + getAppointmentMode(appointment.appointmentMode)
-              //     tempSlotConsultationId + '#' + appointment.appointmentMode,
+              unifiedAppointment:
+                params.unifiedAppt +
+                '#' +
+                getAppointmentMode(appointment.appointmentMode),
             });
-            // finalAppointmentDataArray.push(
-            //     {
-            //         doctorId: appointment.doctorId,
-            //         endTime: slotData.slot1.endTime,
-            //         // endTime: slotData.slot2.endTime,
-            //         startTime: slotData.slot1.startTime,
-            //         type: 'DR',
-            //         patientId: appointment.patientId,
-            //         status: 'ACCEPTED',
-            //         remarks: remarks,
-            //         appointmentMode: appointment.appointmentMode,
-            //         id: slotData.slot1.id,
-            //         urgency: urgency,
-            //         unifiedAppointment:
-            //             tempSlotConsultationId + '#' + appointment.appointmentMode,
-            //     },
-            //     {
-            //         doctorId: appointment.doctorId,
-            //         endTime: slotData.slot2.endTime,
-            //         startTime: slotData.slot2.startTime,
-            //         type: 'DR',
-            //         patientId: appointment.patientId,
-            //         status: 'ACCEPTED',
-            //         remarks: remarks,
-            //         appointmentMode: appointment.appointmentMode,
-            //         id: slotData.slot2.id,
-            //         urgency: urgency,
-            //         unifiedAppointment:
-            //             tempSlotConsultationId + '#' + appointment.appointmentMode,
-            //     }
-            // );
           }
         });
     } else if (appointment.appointmentMode === 'Follow Up') {
       finalAppointmentDataArray.push({
         doctorId: appointment.doctorId,
-        // endTime: appointment.endTime,
-        //startTime: appointment.startTime,
-        //type: 'DR',
         patientId: appointment.patientId,
-        //status: 'ACCEPTED',
-        //remarks: remarks,
-        //appointmentMode: appointment.appointmentMode,
         id: appointment.id,
-        //urgency: urgency,
-        unifiedAppointment: params.unifiedAppt + '#' + getAppointmentMode(appointment.appointmentMode), //unifiedAppointment: "2145#Follow Up"
+        unifiedAppointment:
+          params.unifiedAppt +
+          '#' +
+          getAppointmentMode(appointment.appointmentMode), //unifiedAppointment: "2145#Follow Up"
       });
     }
-    // const bookAppointmentApiHeader = {
-    //     method: 'put',
-    //     mode: 'no-cors',
-    //     data: JSON.stringify(finalAppointmentDataArray),
-    //     url: `/api/v2/appointments/bulk`,
-    //     headers: {
-    //         Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
-    //         'Content-Type': 'application/json',
-    //         'Access-Control-Allow-Origin': '*',
-    //     },
-    // };
+
     let rescheduleData = [];
     {
       finalAppointmentDataArray.map((f) => {
@@ -788,14 +738,16 @@ const RescheduleAppointment = (props) => {
       });
     }
     const getOldAppointmentMode = (appMode) => {
-      if (appMode === 'First Consultation') return "FIRST_CONSULTATION";
-      return "FOLLOW_UP";
-  }
+      if (appMode === 'First Consultation') return 'FIRST_CONSULTATION';
+      return 'FOLLOW_UP';
+    };
     const rescheduleAppointmentApiHeader = {
       method: 'put',
       mode: 'no-cors',
       data: rescheduleData,
-      url: `/api/v2/appointment/patient/reschedule/confirm?type=${getOldAppointmentMode(appointment.appointmentMode)}`,
+      url: `/api/v2/appointment/patient/reschedule/confirm?type=${getOldAppointmentMode(
+        appointment.appointmentMode
+      )}`,
       headers: {
         Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
         'Content-Type': 'application/json',
@@ -803,28 +755,25 @@ const RescheduleAppointment = (props) => {
       },
     };
 
-    // const storePaypalTransitionInfo = {
-    //     method: 'post',
-    //     mode: 'no-cors',
-    //     data: JSON.stringify(orderData),
-    //     url: `/api/paypal/transaction-info`,
-    //     headers: {
-    //         Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
-    //         'Content-Type': 'application/json',
-    //         'Access-Control-Allow-Origin': '*',
-    //     },
-    // };
-
-    //const bookingResponse = await axios(bookAppointmentApiHeader);
-    //const storePaypalInfo = await axios(storePaypalTransitionInfo);
-
-    const rescheduleResponse = await axios(rescheduleAppointmentApiHeader);
-    if (
-      rescheduleResponse.status === 200 ||
-      rescheduleResponse.status === 201
-    ) {
-      toast.success(rescheduleResponse.message);
-      props.history.push('/patient/myappointment');
+    try {
+      const rescheduleResponse = await axios(rescheduleAppointmentApiHeader);
+      if (
+        rescheduleResponse.status === 200 ||
+        rescheduleResponse.status === 201
+      ) {
+        toast.success(rescheduleResponse.message);
+        props.history.push('/patient/myappointment');
+      }
+    } catch (err) {
+      const errorStatus = err.response.status;
+      if (errorStatus === 500) {
+        setLoading(false);
+        toast.error('You have already rescheduled this apopointment.');
+        
+        setTimeout(() => {
+          props.history.push('/patient');
+        }, 5000);
+      }
     }
   };
   const [display, setDisplay] = useState({
@@ -1186,41 +1135,6 @@ const RescheduleAppointment = (props) => {
     app.push(appointment);
     console.log('app', app);
     const data = [];
-    // const data2 = [];
-    // doctorId: appointment.doctorId,
-    //     endTime: appointment.endTime,
-    //     startTime: appointment.startTime,
-    //     type: "DR",
-    //     patientId: appointment.patientId,
-    //     status: "ACCEPTED",
-    //     remarks: remarks,
-    //     appointmentMode: appointment.appointmentMode,
-    //     id: appointment.id,
-    //     urgency: urgency,
-    //     unifiedAppointment: appointment.id + "#" + appointment.appointmentMode,
-    // {
-    //   stateData.map((n) => {
-    //     {
-    //       data1.push({
-    //         id: n.id,
-    //         type: "DR",
-    //         status: "PENDING",
-    //         doctorId: n.doctorId,
-    //         patientId: n.patientId,
-    //         unifiedAppointment: n.id + "#" + "Follow Up",
-    //         appointmentMode: "Follow Up",
-    //         remarks: null,
-    //         urgency: null,
-    //         patient: null,
-    //         patientName: null,
-    //         timeZone: null,
-    //         appointmentBookedTime: null,
-    //         appointmentExpireTime: null
-    //       })
-    //     };
-    //   })
-    // }
-    // console.log("data1", data1);
     {
       app.map((a) => {
         data.push({
@@ -1304,431 +1218,423 @@ const RescheduleAppointment = (props) => {
       <Container className="my-doctor">
         <Row>
           {!profilepID.activated && (
-            <Col md={6} lg={4} style={{ display: display.doctor }}>
-              <div id="dorctor-list">
-                <div className="Togglebar">
-                  <div id="toggle-icons">
-                    <IconButton
-                      onClick={() => toggleFilterBox()}
-                      style={{
-                        backgroundColor: `${specialityFilter.length > 0 ||
-                          languageFilter.length > 0 ||
-                          genderFilter ||
-                          feesFilter[0] > 0 ||
-                          feesFilter[1] < 1000 ||
-                          docStartTime ||
-                          countryFilter
-                          ? '#F6CEB4'
-                          : ''
-                          }`,
-                        color: `${specialityFilter.length > 0 ||
-                          languageFilter.length > 0 ||
-                          genderFilter ||
-                          feesFilter[0] > 0 ||
-                          feesFilter[1] < 1000 ||
-                          docStartTime ||
-                          countryFilter
-                          ? '#00d0cc'
-                          : ''
-                          }`,
-                      }}
-                    >
-                      <TuneIcon />
-                    </IconButton>
-                    <IconButton
-                      style={{ display: display.unlike }}
-                      onClick={() => getAllLikedDoctors()}
-                    >
-                      <FavoriteBorderIcon />
-                    </IconButton>
-                    <IconButton
-                      style={{ display: display.like }}
-                      onClick={() => allDoctorData()}
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                  </div>
-                  <SearchBar
-                    type="text"
-                    value={searchText}
-                    id="doctor-search"
-                    autoComplete="off"
-                    onChange={(value) => handleSearchInputChange(value)}
-                    onCancelSearch={() => handleSearchInputChange('')}
-                    onRequestSearch={() => handleSearchData(false)}
-                    cancelOnEscape={true}
-                    onKeyDown={(e) =>
-                      e.keyCode === 13 ? handleSearchData(true) : ''
-                    }
-                  />
-                  <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                  />
-                  {searchText !== '' && (
-                    <IconButton
-                      onClick={() => handleSearchData(true)}
-                      className="searchForwardIcon"
-                    >
-                      <ArrowForwardIcon />
-                    </IconButton>
-                  )}
-                  {/* <Link to="/patient/search"><div className="suggestion-text" style={{ display: display.suggestion }}><SearchIcon /> Did'nt find doctor, Do global search</div></Link> */}
-                  {/* Filter box start */}
-                  {filter && (
-                    <div className="filter-box" ref={ref}>
-                      <ValidatorForm
-                        onSubmit={() => handleFilter()}
-                        onError={(error) => console.log(error)}
-                      >
-                        <div className="filter-body">
-                          <div className="row m-0">
-                            <div className="col-md-12 col-xs-12">
-                              <FormControl>
-                                <div className="filter-multiselect">
-                                  <Multiselect
-                                    options={specialityOptions}
-                                    onSelect={handleSpecialities}
-                                    onRemove={removeSpecialities}
-                                    selectedValues={selectedSpeciality}
-                                    placeholder="Select Specialities"
-                                    displayValue="name"
-                                  />
-                                </div>
-                              </FormControl>
-                              <FormControl>
-                                <div className="filter-multiselect">
-                                  <Multiselect
-                                    options={languageOptions}
-                                    onSelect={handleLanguages}
-                                    onRemove={removeLanguages}
-                                    selectedValues={selectedLanguage}
-                                    placeholder="Select Language"
-                                    displayValue="name"
-                                  />
-                                </div>
-                              </FormControl>
-                              <FormControl>
-                                <Select
-                                  id="demo-controlled-open-select"
-                                  variant="filled"
-                                  name="genderFilter"
-                                  value={genderFilter}
-                                  displayEmpty
-                                  onChange={(e) =>
-                                    setFilterValues({
-                                      ...filterValues,
-                                      genderFilter: e.target.value,
-                                    })
-                                  }
-                                >
-                                  <MenuItem value="">
-                                    <em>Gender</em>
-                                  </MenuItem>
-                                  <MenuItem value="MALE">Male</MenuItem>
-                                  <MenuItem value="FEMALE">Female</MenuItem>
-                                </Select>
-                              </FormControl>
-                              <br />
-                              <hr />
-                              <p>Availability:</p>
-                              <div className="row">
-                                <div className="col-md-6 col-xs-6 pr-1">
-                                  <TextField
-                                    type="date"
-                                    onChange={(e) =>
-                                      setFilterValues({
-                                        ...filterValues,
-                                        docStartTime:
-                                          e.target.value === ''
-                                            ? ''
-                                            : new Date(e.target.value),
-                                      })
-                                    }
-                                    className="filterDate"
-                                    inputProps={{
-                                      min: moment(new Date()).format(
-                                        'YYYY-MM-DD'
-                                      ),
-                                    }}
-                                    value={moment(
-                                      new Date(docStartTime)
-                                    ).format('YYYY-MM-DD')}
-                                    variant="filled"
-                                    onKeyDown={(e) => e.preventDefault()}
-                                  />
-                                </div>
-                                <div className="col-md-6 col-xs-6 pl-1">
-                                  <TextField
-                                    type="date"
-                                    onChange={(e) =>
-                                      setFilterValues({
-                                        ...filterValues,
-                                        docEndTime:
-                                          e.target.value === ''
-                                            ? ''
-                                            : new Date(e.target.value),
-                                      })
-                                    }
-                                    className="filterDate"
-                                    inputProps={{
-                                      min: moment(
-                                        new Date(docStartTime)
-                                      ).format('YYYY-MM-DD'),
-                                    }}
-                                    value={moment(new Date(docEndTime)).format(
-                                      'YYYY-MM-DD'
-                                    )}
-                                    variant="filled"
-                                    disabled={endtimeChecked ? false : true}
-                                    onKeyDown={(e) => e.preventDefault()}
-                                  />
-                                </div>
-                                <div className="col-md-12 col-xs-12">
-                                  <FormControlLabel
-                                    control={
-                                      <Checkbox
-                                        color="primary"
-                                        checked={endtimeChecked}
-                                        disabled={docStartTime ? false : true}
-                                        onChange={(e) =>
-                                          handleCheckbox(e.target.checked)
-                                        }
-                                        name="checkedA"
-                                      />
-                                    }
-                                    label="Include EndTime."
-                                  />
-                                </div>
-                              </div>
-                              <hr />
-                              <FormControl>
-                                <Select
-                                  id="demo-controlled-open-select"
-                                  variant="filled"
-                                  name="countryFilter"
-                                  value={countryFilter}
-                                  displayEmpty
-                                  onChange={(e) =>
-                                    setFilterValues({
-                                      ...filterValues,
-                                      countryFilter: e.target.value,
-                                    })
-                                  }
-                                >
-                                  <MenuItem value="">
-                                    <em>Nationality</em>
-                                  </MenuItem>
-                                  {countryList &&
-                                    countryList.map((option, index) => (
-                                      <MenuItem value={option.id} key={index}>
-                                        {option.name}
-                                      </MenuItem>
-                                    ))}
-                                </Select>
-                              </FormControl>
-                              <hr />
-                              <p>Consultation fees: </p>
-                              <div className="row">
-                                <div className="col-md-12 col-xs-12">
-                                  <Slider
-                                    value={feesFilter}
-                                    onChange={(e, val) =>
-                                      setFilterValues({
-                                        ...filterValues,
-                                        feesFilter: val,
-                                      })
-                                    }
-                                    min={0}
-                                    step={25}
-                                    max={1000}
-                                    valueLabelDisplay="auto"
-                                    aria-labelledby="range-slider"
-                                  />
-                                  <br />
-                                  <b>
-                                    Min: {feesFilter[0]} - Max: {feesFilter[1]}
-                                  </b>
-                                </div>
-                              </div>
-                              <hr />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="filter-action">
-                          <div className="row m-0">
-                            <div className="col-md-6 col-6">
-                              <button
-                                type="button"
-                                onClick={() => clearFilter()}
-                                className="btn btn-primary reset-btn"
-                              >
-                                Clear All
-                              </button>
-                            </div>
-                            <div className="col-md-6 col-6">
-                              <button
-                                type="submit"
-                                className="btn btn-primary apply-btn"
-                              >
-                                Apply
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </ValidatorForm>
-                    </div>
-                  )}
-                  {/* Filter box end */}
-                </div>
-                <br />
-                <div>
-                  <Link to="/patient/myappointment" id="menuLinks">
-                    <div id="card" className="card">
-                      <div className="card-body">
-                        My Appointments{' '}
-                        <span id="arrowright">{rightArrow}</span>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-                <br />
-                <div id="card-list" className="scroller-cardlist">
-                  {filterData &&
-                    filterData.length > 0 &&
-                    filterData[0] !== null ? (
-                    <GridList cellHeight={220}>
-                      <GridListTile
-                        key="Subheader"
-                        cols={2}
-                        style={{ height: 'auto' }}
-                      ></GridListTile>
-                      {filterData.map(
-                        (user, index) =>
-                          user &&
-                          user.activated && (
-                            <GridListTile
-                              key={index}
-                              className={`card-list__grid-list-tile ${user.id === doctor.id ? 'card-border' : ''
-                                }`}
-                            >
-                              {!user.liked && (
-                                <FavoriteBorderIcon
-                                  style={{ color: '#f6ceb4' }}
-                                  id="fav-icon"
-                                  onClick={() => createLikedDoctor(user.id)}
-                                />
-                              )}
-                              console.log(user.liked)
-                              {user.liked && (
-                                <FavoriteIcon
-                                  style={{ color: '#00d0cc' }}
-                                  id="fav-icon"
-                                  onClick={() =>
-                                    createUnlikedDoctor(user.likeId)
-                                  }
-                                />
-                              )}
-                              {user.picture ? (
-                                <img src={user.picture} alt="" />
-                              ) : (
-                                <Avatar
-                                  name={user.firstName + ' ' + user.lastName}
-                                />
-                              )}
-                              <GridListTileBar
-                                style={{ cursor: 'pointer' }}
-                                title={
-                                  <span>
-                                    Dr. {user.firstName} {user.lastName}
-                                  </span>
-                                }
-                                subtitle={
-                                  <ul className="list--tags">
-                                    {user.specialities &&
-                                      user.specialities.map(
-                                        (speciality, index) => (
-                                          <li key={index}>{speciality.name}</li>
-                                        )
-                                      )}
-                                  </ul>
-                                }
-                                onClick={async () => {
-                                  setdoctor(user);
-                                  setAppointment({
-                                    ...appointment,
-                                    doctorId: user.id,
-                                  });
-                                  setDisplay({
-                                    ...display,
-                                    doctor: 'block',
-                                    appointment: 'none',
-                                  });
-                                  setDisable({ ...disable, continue: true });
-                                  // getAvailableSlotsOfDoctors(user.id);
-                                  //const currentSelectedDate = new Date();
-                                  //onDaySelect(currentSelectedDate, user.id);
-                                  setAvailability([]);
-                                  setAppointmentSlot([]);
-                                  getInValidAppointments(user.id);
-                                }}
-                              />
-                            </GridListTile>
-                          )
-                      )}
-                    </GridList>
-                  ) : (
-                    <div>
-                      <center>No Doctor Found ...</center>
-                    </div>
-                  )}
-                  {filterData && filterData.length > doctorListLimit - 1 && (
-                    <>
-                      <div
-                        className="text-center"
-                        style={{ display: display.unlike }}
-                      >
-                        <button
-                          className="btn btn-outline-secondary"
-                          onClick={loadMore}
-                        >
-                          Load More
-                        </button>
-                      </div>
-                      <div
-                        className="text-center"
-                        style={{ display: display.like }}
-                      >
-                        <button
-                          className="btn btn-outline-secondary"
-                          onClick={loadMoreLike}
-                        >
-                          Load More
-                        </button>
-                      </div>
-                    </>
-                  )}
-                  {/* {searchText && filterData && (<>
-                                    <div className="text-center" style={{ display: display.unlike }}>
-                                        <button className="btn btn-outline-secondary" onClick={loadMore}>Load More</button>
-                                    </div>
-                                    <div className="text-center" style={{ display: display.like }}>
-                                        <button className="btn btn-outline-secondary" onClick={loadMoreLike}>Load More</button>
-                                    </div>
-                                </>)} */}
-                </div>
-              </div>
-            </Col>
+            // <Col md={6} lg={4} style={{ display: display.doctor }}>
+            //   <div id="dorctor-list">
+            //     <div className="Togglebar">
+            //       <div id="toggle-icons">
+            //         <IconButton
+            //           onClick={() => toggleFilterBox()}
+            //           style={{
+            //             backgroundColor: `${specialityFilter.length > 0 ||
+            //               languageFilter.length > 0 ||
+            //               genderFilter ||
+            //               feesFilter[0] > 0 ||
+            //               feesFilter[1] < 1000 ||
+            //               docStartTime ||
+            //               countryFilter
+            //               ? '#F6CEB4'
+            //               : ''
+            //               }`,
+            //             color: `${specialityFilter.length > 0 ||
+            //               languageFilter.length > 0 ||
+            //               genderFilter ||
+            //               feesFilter[0] > 0 ||
+            //               feesFilter[1] < 1000 ||
+            //               docStartTime ||
+            //               countryFilter
+            //               ? '#00d0cc'
+            //               : ''
+            //               }`,
+            //           }}
+            //         >
+            //           <TuneIcon />
+            //         </IconButton>
+            //         <IconButton
+            //           style={{ display: display.unlike }}
+            //           onClick={() => getAllLikedDoctors()}
+            //         >
+            //           <FavoriteBorderIcon />
+            //         </IconButton>
+            //         <IconButton
+            //           style={{ display: display.like }}
+            //           onClick={() => allDoctorData()}
+            //         >
+            //           <FavoriteIcon />
+            //         </IconButton>
+            //       </div>
+            //       <SearchBar
+            //         type="text"
+            //         value={searchText}
+            //         id="doctor-search"
+            //         autoComplete="off"
+            //         onChange={(value) => handleSearchInputChange(value)}
+            //         onCancelSearch={() => handleSearchInputChange('')}
+            //         onRequestSearch={() => handleSearchData(false)}
+            //         cancelOnEscape={true}
+            //         onKeyDown={(e) =>
+            //           e.keyCode === 13 ? handleSearchData(true) : ''
+            //         }
+            //       />
+            //       <ToastContainer
+            //         position="top-right"
+            //         autoClose={5000}
+            //         hideProgressBar
+            //         newestOnTop={false}
+            //         closeOnClick
+            //         rtl={false}
+            //         pauseOnFocusLoss
+            //         draggable
+            //         pauseOnHover
+            //       />
+            //       {searchText !== '' && (
+            //         <IconButton
+            //           onClick={() => handleSearchData(true)}
+            //           className="searchForwardIcon"
+            //         >
+            //           <ArrowForwardIcon />
+            //         </IconButton>
+            //       )}
+            //       {/* <Link to="/patient/search"><div className="suggestion-text" style={{ display: display.suggestion }}><SearchIcon /> Did'nt find doctor, Do global search</div></Link> */}
+            //       {/* Filter box start */}
+            //       {filter && (
+            //         <div className="filter-box" ref={ref}>
+            //           <ValidatorForm
+            //             onSubmit={() => handleFilter()}
+            //             onError={(error) => console.log(error)}
+            //           >
+            //             <div className="filter-body">
+            //               <div className="row m-0">
+            //                 <div className="col-md-12 col-xs-12">
+            //                   <FormControl>
+            //                     <div className="filter-multiselect">
+            //                       <Multiselect
+            //                         options={specialityOptions}
+            //                         onSelect={handleSpecialities}
+            //                         onRemove={removeSpecialities}
+            //                         selectedValues={selectedSpeciality}
+            //                         placeholder="Select Specialities"
+            //                         displayValue="name"
+            //                       />
+            //                     </div>
+            //                   </FormControl>
+            //                   <FormControl>
+            //                     <div className="filter-multiselect">
+            //                       <Multiselect
+            //                         options={languageOptions}
+            //                         onSelect={handleLanguages}
+            //                         onRemove={removeLanguages}
+            //                         selectedValues={selectedLanguage}
+            //                         placeholder="Select Language"
+            //                         displayValue="name"
+            //                       />
+            //                     </div>
+            //                   </FormControl>
+            //                   <FormControl>
+            //                     <Select
+            //                       id="demo-controlled-open-select"
+            //                       variant="filled"
+            //                       name="genderFilter"
+            //                       value={genderFilter}
+            //                       displayEmpty
+            //                       onChange={(e) =>
+            //                         setFilterValues({
+            //                           ...filterValues,
+            //                           genderFilter: e.target.value,
+            //                         })
+            //                       }
+            //                     >
+            //                       <MenuItem value="">
+            //                         <em>Gender</em>
+            //                       </MenuItem>
+            //                       <MenuItem value="MALE">Male</MenuItem>
+            //                       <MenuItem value="FEMALE">Female</MenuItem>
+            //                     </Select>
+            //                   </FormControl>
+            //                   <br />
+            //                   <hr />
+            //                   <p>Availability:</p>
+            //                   <div className="row">
+            //                     <div className="col-md-6 col-xs-6 pr-1">
+            //                       <TextField
+            //                         type="date"
+            //                         onChange={(e) =>
+            //                           setFilterValues({
+            //                             ...filterValues,
+            //                             docStartTime:
+            //                               e.target.value === ''
+            //                                 ? ''
+            //                                 : new Date(e.target.value),
+            //                           })
+            //                         }
+            //                         className="filterDate"
+            //                         inputProps={{
+            //                           min: moment(new Date()).format(
+            //                             'YYYY-MM-DD'
+            //                           ),
+            //                         }}
+            //                         value={moment(
+            //                           new Date(docStartTime)
+            //                         ).format('YYYY-MM-DD')}
+            //                         variant="filled"
+            //                         onKeyDown={(e) => e.preventDefault()}
+            //                       />
+            //                     </div>
+            //                     <div className="col-md-6 col-xs-6 pl-1">
+            //                       <TextField
+            //                         type="date"
+            //                         onChange={(e) =>
+            //                           setFilterValues({
+            //                             ...filterValues,
+            //                             docEndTime:
+            //                               e.target.value === ''
+            //                                 ? ''
+            //                                 : new Date(e.target.value),
+            //                           })
+            //                         }
+            //                         className="filterDate"
+            //                         inputProps={{
+            //                           min: moment(
+            //                             new Date(docStartTime)
+            //                           ).format('YYYY-MM-DD'),
+            //                         }}
+            //                         value={moment(new Date(docEndTime)).format(
+            //                           'YYYY-MM-DD'
+            //                         )}
+            //                         variant="filled"
+            //                         disabled={endtimeChecked ? false : true}
+            //                         onKeyDown={(e) => e.preventDefault()}
+            //                       />
+            //                     </div>
+            //                     <div className="col-md-12 col-xs-12">
+            //                       <FormControlLabel
+            //                         control={
+            //                           <Checkbox
+            //                             color="primary"
+            //                             checked={endtimeChecked}
+            //                             disabled={docStartTime ? false : true}
+            //                             onChange={(e) =>
+            //                               handleCheckbox(e.target.checked)
+            //                             }
+            //                             name="checkedA"
+            //                           />
+            //                         }
+            //                         label="Include EndTime."
+            //                       />
+            //                     </div>
+            //                   </div>
+            //                   <hr />
+            //                   <FormControl>
+            //                     <Select
+            //                       id="demo-controlled-open-select"
+            //                       variant="filled"
+            //                       name="countryFilter"
+            //                       value={countryFilter}
+            //                       displayEmpty
+            //                       onChange={(e) =>
+            //                         setFilterValues({
+            //                           ...filterValues,
+            //                           countryFilter: e.target.value,
+            //                         })
+            //                       }
+            //                     >
+            //                       <MenuItem value="">
+            //                         <em>Nationality</em>
+            //                       </MenuItem>
+            //                       {countryList &&
+            //                         countryList.map((option, index) => (
+            //                           <MenuItem value={option.id} key={index}>
+            //                             {option.name}
+            //                           </MenuItem>
+            //                         ))}
+            //                     </Select>
+            //                   </FormControl>
+            //                   <hr />
+            //                   <p>Consultation fees: </p>
+            //                   <div className="row">
+            //                     <div className="col-md-12 col-xs-12">
+            //                       <Slider
+            //                         value={feesFilter}
+            //                         onChange={(e, val) =>
+            //                           setFilterValues({
+            //                             ...filterValues,
+            //                             feesFilter: val,
+            //                           })
+            //                         }
+            //                         min={0}
+            //                         step={25}
+            //                         max={1000}
+            //                         valueLabelDisplay="auto"
+            //                         aria-labelledby="range-slider"
+            //                       />
+            //                       <br />
+            //                       <b>
+            //                         Min: {feesFilter[0]} - Max: {feesFilter[1]}
+            //                       </b>
+            //                     </div>
+            //                   </div>
+            //                   <hr />
+            //                 </div>
+            //               </div>
+            //             </div>
+            //             <div className="filter-action">
+            //               <div className="row m-0">
+            //                 <div className="col-md-6 col-6">
+            //                   <button
+            //                     type="button"
+            //                     onClick={() => clearFilter()}
+            //                     className="btn btn-primary reset-btn"
+            //                   >
+            //                     Clear All
+            //                   </button>
+            //                 </div>
+            //                 <div className="col-md-6 col-6">
+            //                   <button
+            //                     type="submit"
+            //                     className="btn btn-primary apply-btn"
+            //                   >
+            //                     Apply
+            //                   </button>
+            //                 </div>
+            //               </div>
+            //             </div>
+            //           </ValidatorForm>
+            //         </div>
+            //       )}
+            //       {/* Filter box end */}
+            //     </div>
+            //     <br />
+            //     <div>
+            //       <Link to="/patient/myappointment" id="menuLinks">
+            //         <div id="card" className="card">
+            //           <div className="card-body">
+            //             My Appointments{' '}
+            //             <span id="arrowright">{rightArrow}</span>
+            //           </div>
+            //         </div>
+            //       </Link>
+            //     </div>
+            //     <br />
+            //     <div id="card-list" className="scroller-cardlist">
+            //       {filterData &&
+            //         filterData.length > 0 &&
+            //         filterData[0] !== null ? (
+            //         <GridList cellHeight={220}>
+            //           <GridListTile
+            //             key="Subheader"
+            //             cols={2}
+            //             style={{ height: 'auto' }}
+            //           ></GridListTile>
+            //           {filterData.map(
+            //             (user, index) =>
+            //               user &&
+            //               user.activated && (
+            //                 <GridListTile
+            //                   key={index}
+            //                   className={`card-list__grid-list-tile ${user.id === doctor.id ? 'card-border' : ''
+            //                     }`}
+            //                 >
+            //                   {!user.liked && (
+            //                     <FavoriteBorderIcon
+            //                       style={{ color: '#f6ceb4' }}
+            //                       id="fav-icon"
+            //                       onClick={() => createLikedDoctor(user.id)}
+            //                     />
+            //                   )}
+            //                   {user.liked && (
+            //                     <FavoriteIcon
+            //                       style={{ color: '#00d0cc' }}
+            //                       id="fav-icon"
+            //                       onClick={() =>
+            //                         createUnlikedDoctor(user.likeId)
+            //                       }
+            //                     />
+            //                   )}
+            //                   {user.picture ? (
+            //                     <img src={user.picture} alt="" />
+            //                   ) : (
+            //                     <Avatar
+            //                       name={user.firstName + ' ' + user.lastName}
+            //                     />
+            //                   )}
+            //                   <GridListTileBar
+            //                     style={{ cursor: 'pointer' }}
+            //                     title={
+            //                       <span>
+            //                         Dr. {user.firstName} {user.lastName}
+            //                       </span>
+            //                     }
+            //                     subtitle={
+            //                       <ul className="list--tags">
+            //                         {user.specialities &&
+            //                           user.specialities.map(
+            //                             (speciality, index) => (
+            //                               <li key={index}>{speciality.name}</li>
+            //                             )
+            //                           )}
+            //                       </ul>
+            //                     }
+            //                     onClick={async () => {
+            //                       setdoctor(user);
+            //                       setAppointment({
+            //                         ...appointment,
+            //                         doctorId: user.id,
+            //                       });
+            //                       setDisplay({
+            //                         ...display,
+            //                         doctor: 'block',
+            //                         appointment: 'none',
+            //                       });
+            //                       setDisable({ ...disable, continue: true });
+            //                       // getAvailableSlotsOfDoctors(user.id);
+            //                       //const currentSelectedDate = new Date();
+            //                       //onDaySelect(currentSelectedDate, user.id);
+            //                       setAvailability([]);
+            //                       setAppointmentSlot([]);
+            //                       getInValidAppointments(user.id);
+            //                     }}
+            //                   />
+            //                 </GridListTile>
+            //               )
+            //           )}
+            //         </GridList>
+            //       ) : (
+            //         <div>
+            //           <center>No Doctor Found ...</center>
+            //         </div>
+            //       )}
+            //       {filterData && filterData.length > doctorListLimit - 1 && (
+            //         <>
+            //           <div
+            //             className="text-center"
+            //             style={{ display: display.unlike }}
+            //           >
+            //             <button
+            //               className="btn btn-outline-secondary"
+            //               onClick={loadMore}
+            //             >
+            //               Load More
+            //             </button>
+            //           </div>
+            //           <div
+            //             className="text-center"
+            //             style={{ display: display.like }}
+            //           >
+            //             <button
+            //               className="btn btn-outline-secondary"
+            //               onClick={loadMoreLike}
+            //             >
+            //               Load More
+            //             </button>
+            //           </div>
+            //         </>
+            //       )}
+            //     </div>
+            //   </div>
+            // </Col>
+            <></>
           )}
           {!profilepID.activated ? (
-            <Col md={6} lg={4} style={{ display: display.doctor }}>
+            <Col md={6} lg={8} style={{ display: display.doctor }}>
               <div id="dorctor-list" className="doctor-list-new">
                 {doctor && doctor.activated ? (
                   <>
@@ -1914,22 +1820,22 @@ const RescheduleAppointment = (props) => {
                               $
                               {appointment.appointmentMode ===
                                 'First Consultation' ||
-                                appointment.appointmentMode === ''
+                              appointment.appointmentMode === ''
                                 ? doctor.rate
                                 : appointment.appointmentMode === 'Follow Up'
-                                  ? doctor.halfRate
-                                  : ''}
+                                ? doctor.halfRate
+                                : ''}
                             </span>
                             <br />
                             <span>
                               USD /{' '}
                               {appointment.appointmentMode ===
                                 'First Consultation' ||
-                                appointment.appointmentMode === ''
+                              appointment.appointmentMode === ''
                                 ? 'First Consultation'
                                 : appointment.appointmentMode === 'Follow Up'
-                                  ? 'Follow up'
-                                  : ''}
+                                ? 'Follow up'
+                                : ''}
                             </span>
                           </div>
                         </div>
@@ -1948,140 +1854,6 @@ const RescheduleAppointment = (props) => {
             <Col md={6} lg={8} style={{ display: display.doctor }}>
               <div id="dorctor-list" className="doctor-list-new ml-1">
                 {doctor && doctor.activated ? (
-                  // <>
-                  //   <Row id="doc-row">
-                  //     <Col xs={4}>
-                  //       <div className="doc-img">
-                  //         {doctor.picture ? (
-                  //           <img src={doctor.picture} alt="" />
-                  //         ) : (
-                  //           <Avatar
-                  //             name={doctor.firstName + ' ' + doctor.lastName}
-                  //           />
-                  //         )}
-                  //       </div>
-                  //     </Col>
-                  //     <Col xs={8} id="doc-details">
-                  //       <div>
-                  //         <b className="doc-name">
-                  //           {doctor.firstName} {doctor.lastName}
-                  //         </b>
-                  //         <br />
-                  //         <ul
-                  //           style={{ fontSize: 12, display: 'block' }}
-                  //           className="list--tags"
-                  //         >
-                  //           {doctor &&
-                  //             doctor.specialities &&
-                  //             doctor.specialities.map((speciality, index) => (
-                  //               <li key={index}>{speciality.name} </li>
-                  //             ))}
-                  //         </ul>
-                  //         <span>
-                  //           Country Of Residence: <b>{doctor.countryName}</b>
-                  //         </span>
-                  //         <br />
-                  //       </div>
-                  //     </Col>
-                  //   </Row>
-                  //   <br />
-                  //   <div className="mr-4 ml-4">
-                  //     <div className="row">
-                  //       <div className="col-4">
-                  //         <span style={{ fontSize: 12 }}>Education</span>
-                  //         <br />
-                  //         <b>
-                  //           {doctor &&
-                  //             doctor.educationalQualifications &&
-                  //             doctor.educationalQualifications.map(
-                  //               (x, index) => (
-                  //                 <li key={index}>
-                  //                   {x.educationalQualification}{' '}
-                  //                 </li>
-                  //               )
-                  //             )}
-                  //         </b>
-                  //       </div>
-                  //       <div className="col-4">
-                  //         <span style={{ fontSize: 12 }}>Institution</span>
-                  //         <br />
-                  //         <b>
-                  //           {doctor &&
-                  //             doctor.educationalQualifications &&
-                  //             doctor.educationalQualifications.map(
-                  //               (x, index) => (
-                  //                 <li key={index}>{x.institution} </li>
-                  //               )
-                  //             )}
-                  //         </b>
-                  //       </div>
-                  //       <div className="col-4">
-                  //         <span style={{ fontSize: 12 }}>Languange</span>
-                  //         <br />
-                  //         <b>
-                  //           {doctor &&
-                  //             doctor.languages &&
-                  //             doctor.languages.map((lang, index) => (
-                  //               <span key={index}>{lang.name} </span>
-                  //             ))}
-                  //         </b>
-                  //       </div>
-                  //     </div>
-                  //     <hr style={{ borderColor: 'black' }} />
-                  //     {/* <h5>About</h5> */}
-                  //     <p style={{ fontSize: 12 }}>
-                  //       {/* <span><b>Bio : </b></span><br/> */}
-                  //       <span>{doctor.bio}</span>
-                  //       <br />
-                  //       <br />
-                  //       <span>
-                  //         <b>Awards : </b>
-                  //       </span>
-                  //       <br />
-                  //       <span>{doctor.awards}</span>
-                  //       <br />
-                  //       <span>
-                  //         <b>Certificates : </b>
-                  //       </span>
-                  //       <br />
-                  //       <span>{doctor.certificates}</span>
-                  //       <br />
-                  //       <span>
-                  //         <b>Experience : </b>
-                  //       </span>
-                  //       <br />
-                  //       <span>{doctor.experience} yrs</span>
-                  //     </p>
-                  //     <br />
-                  //     <div className="mx-0">
-                  //       <div className="row">
-                  //         <div className="col-12">
-                  //           <span className="price">
-                  //             $
-                  //             {appointment.appointmentMode ===
-                  //               'First Consultation' ||
-                  //               appointment.appointmentMode === ''
-                  //               ? doctor.rate
-                  //               : appointment.appointmentMode === 'Follow Up'
-                  //                 ? doctor.halfRate
-                  //                 : ''}
-                  //           </span>
-                  //           <br />
-                  //           <span>
-                  //             USD /{' '}
-                  //             {appointment.appointmentMode ===
-                  //               'First Consultation' ||
-                  //               appointment.appointmentMode === ''
-                  //               ? 'Consultation'
-                  //               : appointment.appointmentMode === 'Follow Up'
-                  //                 ? 'Follow up'
-                  //                 : ''}
-                  //           </span>
-                  //         </div>
-                  //       </div>
-                  //     </div>
-                  //   </div>
-                  // </>
                   <>
                     <Row id="doc-row">
                       <Col xs={12}>
@@ -2217,10 +1989,8 @@ const RescheduleAppointment = (props) => {
                       </div>
                     </div>
                     <hr />
-                    {/* <h5>About</h5> */}
                     <div className="ml-4">
                       <p style={{ fontSize: 12 }}>
-                        {/* <span><b>Bio : </b></span><br/> */}
                         <span>{doctor.bio}</span>
                         <br />
 
@@ -2261,22 +2031,22 @@ const RescheduleAppointment = (props) => {
                               $
                               {appointment.appointmentMode ===
                                 'First Consultation' ||
-                                appointment.appointmentMode === ''
+                              appointment.appointmentMode === ''
                                 ? doctor.rate
                                 : appointment.appointmentMode === 'Follow Up'
-                                  ? doctor.halfRate
-                                  : ''}
+                                ? doctor.halfRate
+                                : ''}
                             </span>
                             <br />
                             <span>
                               USD /{' '}
                               {appointment.appointmentMode ===
                                 'First Consultation' ||
-                                appointment.appointmentMode === ''
+                              appointment.appointmentMode === ''
                                 ? 'First Consultation'
                                 : appointment.appointmentMode === 'Follow Up'
-                                  ? 'Follow up'
-                                  : ''}
+                                ? 'Follow up'
+                                : ''}
                             </span>
                           </div>
                         </div>
@@ -2299,28 +2069,17 @@ const RescheduleAppointment = (props) => {
               className="p-0"
               style={{ display: display.doctor }}
             >
-              <Tooltip title="Take a Booking appointment tour again." arrow>
+              {/* <Tooltip title="Take a Booking appointment tour again." arrow>
                 <button
                   onClick={() => setIsTourOpen(true)}
                   className="howToBtn"
                 >
                   How to?
                 </button>
-              </Tooltip>
+              </Tooltip> */}
               <div id="dorctor-list">
                 <div style={{ height: 470 }} id="calendar-list">
                   <div className="dateGroup">
-                    {/* <p>Select Date</p>
-                                    <TextField
-                                        type="date"
-                                        onChange={(e) => onDaySelect(new Date(e.target.value), doctor && doctor.id)}
-                                        className="appointmentDate"
-                                        inputProps={{ min: moment(new Date()).format("YYYY-MM-DD") }}
-                                        value={moment(currentDate).format("YYYY-MM-DD")}
-                                        variant="filled"
-                                    />
-                                    <br />
-                                    <br /> */}
                     {displayCalendar && (
                       <>
                         <div className="appointment-type">
@@ -2346,12 +2105,6 @@ const RescheduleAppointment = (props) => {
                                   Consultation(1 Hr)
                                 </MenuItem>
                               )}
-                              {/* <MenuItem value="First Consultation">
-                                                                Consultation(1 Hr)
-                                                            </MenuItem>
-                                                            <MenuItem value="Follow Up">
-                                                                Follow up(30 Mins)
-                                                            </MenuItem> */}
                             </Select>
                           </FormControl>
                         </div>
@@ -2428,7 +2181,7 @@ const RescheduleAppointment = (props) => {
                             ))
                           ) : appointmentSlot.length === 0 &&
                             appointment.appointmentMode ===
-                            'First Consultation' ? (
+                              'First Consultation' ? (
                             <div
                               style={{ textAlign: 'center', marginTop: '50%' }}
                             >
@@ -2601,7 +2354,7 @@ const RescheduleAppointment = (props) => {
                           ))
                         ) : appointmentSlot.length === 0 &&
                           appointment.appointmentMode ===
-                          'First Consultation' ? (
+                            'First Consultation' ? (
                           <div
                             style={{ textAlign: 'center', marginTop: '50%' }}
                           >
@@ -2840,21 +2593,21 @@ const RescheduleAppointment = (props) => {
                           $
                           {appointment.appointmentMode ===
                             'First Consultation' ||
-                            appointment.appointmentMode === ''
+                          appointment.appointmentMode === ''
                             ? doctor && doctor.rate
                             : appointment.appointmentMode === 'Follow Up'
-                              ? doctor && doctor.halfRate
-                              : ''}
+                            ? doctor && doctor.halfRate
+                            : ''}
                         </span>
                         <span>
                           USD /{' '}
                           {appointment.appointmentMode ===
                             'First Consultation' ||
-                            appointment.appointmentMode === ''
+                          appointment.appointmentMode === ''
                             ? 'First Consultation'
                             : appointment.appointmentMode === 'Follow Up'
-                              ? 'Follow Up'
-                              : ''}
+                            ? 'Follow Up'
+                            : ''}
                         </span>
                       </div>
                     </div>
@@ -2990,22 +2743,22 @@ const RescheduleAppointment = (props) => {
                             $
                             {appointment.appointmentMode ===
                               'First Consultation' ||
-                              appointment.appointmentMode === ''
+                            appointment.appointmentMode === ''
                               ? doctor && doctor.rate
                               : appointment.appointmentMode === 'Follow Up'
-                                ? doctor && doctor.halfRate
-                                : ''}
+                              ? doctor && doctor.halfRate
+                              : ''}
                           </span>
                           <br />
                           <span>
                             USD /{' '}
                             {appointment.appointmentMode ===
                               'First Consultation' ||
-                              appointment.appointmentMode === ''
+                            appointment.appointmentMode === ''
                               ? 'First Consultation'
                               : appointment.appointmentMode === 'Follow Up'
-                                ? 'Follow Up'
-                                : ''}
+                              ? 'Follow Up'
+                              : ''}
                           </span>
                         </div>
                       </div>
@@ -3025,21 +2778,21 @@ const RescheduleAppointment = (props) => {
                   <span className="price">
                     $
                     {appointment.appointmentMode === 'First Consultation' ||
-                      appointment.appointmentMode === ''
+                    appointment.appointmentMode === ''
                       ? doctor && doctor.rate
                       : appointment.appointmentMode === 'Follow Up'
-                        ? doctor && doctor.halfRate
-                        : ''}
+                      ? doctor && doctor.halfRate
+                      : ''}
                   </span>
                   <br />
                   <span>
                     USD /{' '}
                     {appointment.appointmentMode === 'First Consultation' ||
-                      appointment.appointmentMode === ''
+                    appointment.appointmentMode === ''
                       ? 'First Consultation'
                       : appointment.appointmentMode === 'Follow Up'
-                        ? 'Follow Up'
-                        : ''}
+                      ? 'Follow Up'
+                      : ''}
                   </span>
                   <br />
                   <span style={{ fontSize: 12 }}>
@@ -3085,44 +2838,12 @@ const RescheduleAppointment = (props) => {
                           <button
                             className="btn btn-primary"
                             style={{ width: '100%' }}
-                            // onClick={() => {
-                            //   setDisable({ ...disable, payment: false });
-                            // }}
                             onClick={(e) => bookappointment()}
                           >
                             Reschedule Now
                           </button>
-                          {/* <button  className="btn btn-primary"
-                          style={{ width: "100%" }} onClick={handleShowmodal}>
-                          Click to Pay
-                        </button> */}
                         </Col>
                       )}
-
-                      {/* <Modal  show={show} onHide={handleClosemodal}>
-                      <Modal.Header closeButton>
-                        <Modal.Title>Payment</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                      <button
-                          className="btn btn-primary"
-                          style={{ width: "40%" }}
-                          onClick={() => {
-                            setDisable({ ...disable, payment: false })
-                            
-                           
-                            }}
-                         
-                        >
-                         Proceed Now
-                        </button>
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClosemodal}>
-                          Close
-                        </Button>
-                      </Modal.Footer>
-                    </Modal> */}
 
                       {!disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
@@ -3180,7 +2901,7 @@ const RescheduleAppointment = (props) => {
           </Col>
         </Row>
 
-        <Tour
+        {/* <Tour
           onRequestClose={() => closeTour()}
           startAt={0}
           steps={tourConfig}
@@ -3191,7 +2912,7 @@ const RescheduleAppointment = (props) => {
           //accentColor={accentColor}
           onAfterOpen={disableBody}
           onBeforeClose={enableBody}
-        />
+        /> */}
         <Tour
           onRequestClose={() => closeAppointmentTour()}
           startAt={0}
