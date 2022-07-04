@@ -271,37 +271,6 @@ const Profile = () => {
                                     setToggleProfile({ ...toggleProfile, editProfile: true });
                                 }}
                             />
-                            {/* <div id="profile-col-1">
-                {currentPatient && currentPatient.picture ? (
-                  <img src={currentPatient.picture} alt="" id="profile-pic" />
-                ) : (
-                  <Avatar
-                    className="avatar-profile"
-                    name={
-                      currentPatient &&
-                      currentPatient.firstName + " " + currentPatient.lastName
-                    }
-                    style={{ height: "150px", width: "138px" }}
-                  />
-                )}
-                <br />
-                <div id="name">
-                  {currentPatient &&
-                    currentPatient.firstName + " " + currentPatient.lastName}
-                </div>
-                <p id="description">{currentPatient.email}</p>
-                <br />
-                <div className="col-md-12 text-center mt-3">
-                  <button
-                    className="btn btn-primary request-edit"
-                    onClick={() => {
-                      setToggleProfile({ ...toggleProfile, editProfile: true });
-                    }}
-                  >
-                    Edit
-                  </button>
-                </div>
-              </div> */}
                         </Col>
                         <Col md={9}>
                             <Row>
@@ -664,8 +633,9 @@ const Profile = () => {
                                                             onChange={(e) => handleInputChange(e)}
                                                             value={weight}
                                                             inputProps={{
-                                                                min: 5,
-                                                                max: 999,
+                                                                min: 5.0,
+                                                                max: 999.0,
+                                                                step: 0.1,
                                                             }}
                                                             variant="filled"
                                                         />
@@ -681,6 +651,7 @@ const Profile = () => {
                                                             inputProps={{
                                                                 min: 30,
                                                                 max: 250,
+                                                                step: 0.1,
                                                             }}
                                                             variant="filled"
                                                         />
@@ -700,6 +671,7 @@ const Profile = () => {
                                                             inputProps={{
                                                                 min: 50,
                                                                 max: 300,
+                                                                step: 0.1,
                                                             }}
                                                             variant="filled"
                                                         />
@@ -715,6 +687,7 @@ const Profile = () => {
                                                             inputProps={{
                                                                 min: 50,
                                                                 max: 200,
+                                                                step: 0.1,
                                                             }}
                                                             variant="filled"
                                                         />
