@@ -8,7 +8,7 @@ const RescheduleNotification = ({ notification, key }) => {
     console.log('RescheduleNotification', notification);
 
     const setDoctorIdInSession = (doctorId) => {
-        console.log({ doctorId });
+        // console.log({ doctorId });
         sessionStorage.setItem('doctorId', doctorId);
     }
 

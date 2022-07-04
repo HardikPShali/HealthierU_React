@@ -460,6 +460,10 @@ const Myappointment = (props) => {
 
   const { currentPatient, doctorDetailsList } = props;
 
+  const setDoctorIdInSession = (doctorId) => {
+    sessionStorage.setItem('doctorId', doctorId);
+  }
+
   // console.log("myAppointment ::::::::", myAppointment);
   return (
     <div>
@@ -1223,7 +1227,7 @@ const Myappointment = (props) => {
                       </div>
                     </div>
                     <hr />
-                    <div className="details-links">
+                    <div className="details-links" onClick={() => setDoctorIdInSession(selectedAppointment.doctor.id)}>
                       {console.log({ selectedAppointment })}
                       <Link
                         to={{
@@ -1231,7 +1235,7 @@ const Myappointment = (props) => {
                             }/${selectedAppointment.appointmentMode
                               ?.toLowerCase()
                               .replace(' ', '-')}/${selectedAppointment.unifiedAppointment
-                            }?id=${selectedAppointment.doctor.id}`,
+                            }`,
                         }}
                       >
                         <div style={{ display: 'flex', alignItem: 'center' }}>
