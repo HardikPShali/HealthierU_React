@@ -263,6 +263,11 @@ img#store-icon {
   font-weight: 700;
 }
 
+.content-static{
+  padding-bottom: 66px;
+  padding-top: 60px;
+}
+
 .content {
   padding-bottom: 66px;
   padding-top: 125px;

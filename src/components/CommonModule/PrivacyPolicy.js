@@ -48,7 +48,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
             <Row>
               <Col md={2}></Col>
               <Col md={8}>
-                <div className="content" id="profile-form">
+                <div className="content-static" id="profile-form">
                   <div className="signin-box">
                     <center>
                       <h3>
@@ -709,7 +709,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
                               your Personal Information and safeguard our
                               privacy. If you have any questions relating to our
                               Policy or if you would like to enforce any of your
-                              rights, you can contact us at info@healthieru.ae
+                              rights, you can contact us at {" "}<a href='mailto:info@healthieru.ae'>info@healthieru.ae</a>
                               <br />
                             </p>
                             <br />
