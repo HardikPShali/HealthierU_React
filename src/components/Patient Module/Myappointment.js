@@ -41,7 +41,6 @@ import aboutIcon from '../../images/svg/about-icon.svg';
 import rescheduleIcon from '../../images/svg/reschedule-icon.svg';
 import defaultDoctorImage from '../../images/default_image.png';
 
-
 //import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 import {
   deleteAppointment,
@@ -87,7 +86,7 @@ const Myappointment = (props) => {
   const localizer = momentLocalizer(moment);
   // const [currentPatient, setCurrentPatient] = useState({}); // no longer required delete future ady-delete
   const timeZone = momentTz.tz.guess();
-  let history = useHistory()
+  let history = useHistory();
   // state for selectAppointment for delete operation
   const [selectedAppointment, setSelectedAppointment] = useState();
   //console.log("selectedAppointment  ::", selectedAppointment)
@@ -106,7 +105,10 @@ const Myappointment = (props) => {
   ] = useState(false);
   const [moreDoctorInfo, setMoreDoctorInfo] = useState(false);
 
-  const [openApptDetailsFromCalendar, setOpenApptDetailsFromCalendar] = useState(false)
+  const [
+    openApptDetailsFromCalendar,
+    setOpenApptDetailsFromCalendar,
+  ] = useState(false);
 
   const handleClickOpen = (appointmentData) => {
     const now = new Date().getTime();
@@ -130,9 +132,9 @@ const Myappointment = (props) => {
       if (eventData.id === u.id) {
         setSelectedAppointment(u);
       }
-    })
+    });
     setOpenApptDetailsFromCalendar(true);
-  }
+  };
 
   const handleUpcomingAppointmentInfoOpen = (eventData) => {
     setSelectedAppointment(eventData);
@@ -203,7 +205,8 @@ const Myappointment = (props) => {
   // }
 
   //Chat
-  const handleChat = (appointmentStartTime) => {  //appointmentStartTime
+  const handleChat = (appointmentStartTime) => {
+    //appointmentStartTime
     const newDateTime = new Date(appointmentStartTime);
     const AppointmnetBeforeSixyMinutes = newDateTime.getTime() - 7200000;
     // const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 4200000);
@@ -443,8 +446,8 @@ const Myappointment = (props) => {
     if (res?.status === 200 || res?.status === 201) {
       getMyAppointmentList(currentPatient.id);
       handleClose();
-      toast.success("Appointment Cancelled");
-      history.go(0)
+      toast.success('Appointment Cancelled');
+      history.go(0);
     }
     //})
   };
@@ -470,7 +473,7 @@ const Myappointment = (props) => {
               <Col>
                 <div className="calender_container bg-white">
                   <Calendar
-                    views={['month', 'week', 'day',]}
+                    views={['month', 'week', 'day']}
                     selectable={true}
                     localizer={localizer}
                     events={myAppointment}
@@ -484,21 +487,29 @@ const Myappointment = (props) => {
                     //max={new Date(new Date(newEndDate).setHours(21,0))}
                     timeslots={1}
                     step={60}
-                    onSelectEvent={(event) => handleAppointmentInfoFromCalendarClick(event)}
-                    messages={{ previous: "Previous", next: "Next", today: "Today" }}
+                    onSelectEvent={(event) =>
+                      handleAppointmentInfoFromCalendarClick(event)
+                    }
+                    messages={{
+                      previous: 'Previous',
+                      next: 'Next',
+                      today: 'Today',
+                    }}
                   />
                 </div>
               </Col>
             </Row>
             <br />
 
-
             <Row className="mt-3 mx-1 calender_container bg-white">
               <Col md={12}></Col>
               {/* <Col md={3}></Col> */}
               <Col md={12}>
                 <div>
-                  <h3 className="mt-3 mb-3 text-center" style={{ color: "var(--primary)" }}>
+                  <h3
+                    className="mt-3 mb-3 text-center"
+                    style={{ color: 'var(--primary)' }}
+                  >
                     LIST OF APPOINTMENTS
                   </h3>
 
@@ -537,34 +548,33 @@ const Myappointment = (props) => {
                                           }
                                         >
                                           <div className="col-md-3">
-                                            {
-                                              appointment.doctor.picture ? (
-                                                <img
-                                                  src={appointment.doctor.picture}
-                                                  alt={`${appointment.doctor.firstName}-image`}
-                                                  className="img-circle ml-3 mt-3"
-                                                />
-                                              ) : (
-                                                <Avatar
-                                                  round={true}
-                                                  name={
-                                                    appointment.doctor.firstName +
-                                                    ' ' +
-                                                    (appointment.doctor.lastName || "")
-                                                  }
-                                                  size={60}
-                                                  className="my-appointments-avatar"
-                                                />
-                                              )
-                                            }
-
+                                            {appointment.doctor.picture ? (
+                                              <img
+                                                src={appointment.doctor.picture}
+                                                alt={`${appointment.doctor.firstName}-image`}
+                                                className="img-circle ml-3 mt-3"
+                                              />
+                                            ) : (
+                                              <Avatar
+                                                round={true}
+                                                name={
+                                                  appointment.doctor.firstName +
+                                                  ' ' +
+                                                  (appointment.doctor
+                                                    .lastName || '')
+                                                }
+                                                size={60}
+                                                className="my-appointments-avatar"
+                                              />
+                                            )}
                                           </div>
                                           <div className="col-md-9">
                                             <div className="my-appointments-card__card-details">
                                               <h5 className="my-appointments-card__doctor-name">
                                                 {appointment.doctor.firstName +
                                                   ' ' +
-                                                  (appointment.doctor.lastName || "")}
+                                                  (appointment.doctor
+                                                    .lastName || '')}
                                               </h5>
                                               <span className="my-appointments-card__specality">
                                                 {appointment.doctor &&
@@ -605,7 +615,7 @@ const Myappointment = (props) => {
                                   style={{
                                     textAlign: 'center',
                                     textShadow: 'none',
-                                    color: '#f6ceb4'
+                                    color: '#f6ceb4',
                                   }}
                                 >
                                   No Upcoming Appointments
@@ -648,26 +658,25 @@ const Myappointment = (props) => {
                                             alt={`${appointment.doctor.firstName}-image`}
                                             className="img-circle ml-3 mt-3"
                                           /> */}
-                                          {
-                                            appointment.doctor.picture ? (
-                                              <img
-                                                src={appointment.doctor.picture}
-                                                alt={`${appointment.doctor.firstName}-image`}
-                                                className="img-circle ml-3 mt-3"
-                                              />
-                                            ) : (
-                                              <Avatar
-                                                round={true}
-                                                name={
-                                                  appointment.doctor.firstName +
-                                                  ' ' +
-                                                  (appointment.doctor.lastName || "")
-                                                }
-                                                size={60}
-                                                className="my-appointments-avatar"
-                                              />
-                                            )
-                                          }
+                                          {appointment.doctor.picture ? (
+                                            <img
+                                              src={appointment.doctor.picture}
+                                              alt={`${appointment.doctor.firstName}-image`}
+                                              className="img-circle ml-3 mt-3"
+                                            />
+                                          ) : (
+                                            <Avatar
+                                              round={true}
+                                              name={
+                                                appointment.doctor.firstName +
+                                                ' ' +
+                                                (appointment.doctor.lastName ||
+                                                  '')
+                                              }
+                                              size={60}
+                                              className="my-appointments-avatar"
+                                            />
+                                          )}
                                         </div>
                                         <div className="col-md-9">
                                           <div className="my-appointments-card__card-details">
@@ -752,33 +761,33 @@ const Myappointment = (props) => {
                                             alt={`${appointment.doctor.firstName}-image`}
                                             className="img-circle ml-3 mt-3"
                                           /> */}
-                                          {
-                                            appointment.doctor.picture ? (
-                                              <img
-                                                src={appointment.doctor.picture}
-                                                alt={`${appointment.doctor.firstName}-image`}
-                                                className="img-circle ml-3 mt-3"
-                                              />
-                                            ) : (
-                                              <Avatar
-                                                round={true}
-                                                name={
-                                                  appointment.doctor.firstName +
-                                                  ' ' +
-                                                  (appointment.doctor.lastName || "")
-                                                }
-                                                size={60}
-                                                className="my-appointments-avatar"
-                                              />
-                                            )
-                                          }
+                                          {appointment.doctor.picture ? (
+                                            <img
+                                              src={appointment.doctor.picture}
+                                              alt={`${appointment.doctor.firstName}-image`}
+                                              className="img-circle ml-3 mt-3"
+                                            />
+                                          ) : (
+                                            <Avatar
+                                              round={true}
+                                              name={
+                                                appointment.doctor.firstName +
+                                                ' ' +
+                                                (appointment.doctor.lastName ||
+                                                  '')
+                                              }
+                                              size={60}
+                                              className="my-appointments-avatar"
+                                            />
+                                          )}
                                         </div>
                                         <div className="col-md-9">
                                           <div className="my-appointments-card__card-details">
                                             <h5 className="my-appointments-card__doctor-name">
                                               {appointment.doctor.firstName +
                                                 ' ' +
-                                                (appointment.doctor.lastName || "")}
+                                                (appointment.doctor.lastName ||
+                                                  '')}
                                             </h5>
                                             <span className="my-appointments-card__specality">
                                               {appointment.doctor &&
@@ -901,29 +910,27 @@ const Myappointment = (props) => {
                     <div className="details-content">
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
-                      {
-                        selectedAppointment.doctor.picture ? (
-                          <img
-                            src={selectedAppointment.doctor.picture}
-                            alt={`${selectedAppointment.doctor.firstName}-image`}
-                            className="img-circle ml-3 mt-3"
-                          />
-                        ) : (
-                          <Avatar
-                            round={true}
-                            name={
-                              selectedAppointment.doctor.firstName +
-                              ' ' +
-                              (selectedAppointment.doctor.lastName || "")
-                            }
-                            size={60}
-                            className="my-appointments__modal-avatar"
-                          />
-                        )
-                      }
-                      <h2 className='my-appointments__header-names'>
+                      {selectedAppointment.doctor.picture ? (
+                        <img
+                          src={selectedAppointment.doctor.picture}
+                          alt={`${selectedAppointment.doctor.firstName}-image`}
+                          className="img-circle ml-3 mt-3"
+                        />
+                      ) : (
+                        <Avatar
+                          round={true}
+                          name={
+                            selectedAppointment.doctor.firstName +
+                            ' ' +
+                            (selectedAppointment.doctor.lastName || '')
+                          }
+                          size={60}
+                          className="my-appointments__modal-avatar"
+                        />
+                      )}
+                      <h2 className="my-appointments__header-names">
                         {selectedAppointment.doctor.firstName}{' '}
-                        {(selectedAppointment.doctor.lastName || "")}
+                        {selectedAppointment.doctor.lastName || ''}
                       </h2>
                       <span>
                         <ul
@@ -977,7 +984,11 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.appointmentFee ? (selectedAppointment.appointmentFee) : (<span>-</span>)}
+                            {selectedAppointment.appointmentFee ? (
+                              selectedAppointment.appointmentFee
+                            ) : (
+                              <span>-</span>
+                            )}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -986,7 +997,11 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.paymentMethod ? (selectedAppointment.paymentMethod) : (<span>-</span>)}
+                            {selectedAppointment.paymentMethod ? (
+                              selectedAppointment.paymentMethod
+                            ) : (
+                              <span>-</span>
+                            )}
                           </span>
                         </div>
                       </div>
@@ -1106,34 +1121,32 @@ const Myappointment = (props) => {
                     <div className="details-content">
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
-                      {
-                        selectedAppointment.doctor.picture ? (
-                          <img
-                            src={selectedAppointment.doctor.picture}
-                            alt={`${selectedAppointment.doctor.firstName}-image`}
-                            className="img-circle ml-3 mt-3"
-                          />
-                        ) : (
-                          <Avatar
-                            round={true}
-                            name={
-                              selectedAppointment.doctor.firstName +
-                              ' ' +
-                              (selectedAppointment.doctor.lastName || "")
-                            }
-                            size={60}
-                            className="my-appointments__modal-avatar"
-                          />
-                          // <img
-                          //   src={defaultDoctorImage}
-                          //   alt={`${selectedAppointment.doctor.firstName}-image`}
-                          //   className="img-circle ml-3 mt-3"
-                          // />
-                        )
-                      }
-                      <h2 className='my-appointments__header-names'>
+                      {selectedAppointment.doctor.picture ? (
+                        <img
+                          src={selectedAppointment.doctor.picture}
+                          alt={`${selectedAppointment.doctor.firstName}-image`}
+                          className="img-circle ml-3 mt-3"
+                        />
+                      ) : (
+                        <Avatar
+                          round={true}
+                          name={
+                            selectedAppointment.doctor.firstName +
+                            ' ' +
+                            (selectedAppointment.doctor.lastName || '')
+                          }
+                          size={60}
+                          className="my-appointments__modal-avatar"
+                        />
+                        // <img
+                        //   src={defaultDoctorImage}
+                        //   alt={`${selectedAppointment.doctor.firstName}-image`}
+                        //   className="img-circle ml-3 mt-3"
+                        // />
+                      )}
+                      <h2 className="my-appointments__header-names">
                         {selectedAppointment.doctor.firstName}{' '}
-                        {(selectedAppointment.doctor.lastName || "")}
+                        {selectedAppointment.doctor.lastName || ''}
                       </h2>
                       <span>
                         <ul
@@ -1187,7 +1200,11 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.appointmentFee ? (selectedAppointment.appointmentFee) : (<span>-</span>)}
+                            {selectedAppointment.appointmentFee ? (
+                              selectedAppointment.appointmentFee
+                            ) : (
+                              <span>-</span>
+                            )}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -1196,18 +1213,25 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.paymentMethod ? (selectedAppointment.paymentMethod) : (<span>-</span>)}
+                            {selectedAppointment.paymentMethod ? (
+                              selectedAppointment.paymentMethod
+                            ) : (
+                              <span>-</span>
+                            )}
                           </span>
                         </div>
                       </div>
                     </div>
                     <hr />
                     <div className="details-links">
+                      {console.log({ selectedAppointment })}
                       <Link
                         to={{
-                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode?.toLowerCase().replace(" ", "-")}`,
-
-
+                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id
+                            }/${selectedAppointment.appointmentMode
+                              ?.toLowerCase()
+                              .replace(' ', '-')}/${selectedAppointment.unifiedAppointment
+                            }?id=${selectedAppointment.doctor.id}`,
                         }}
                       >
                         <div style={{ display: 'flex', alignItem: 'center' }}>
@@ -1341,29 +1365,27 @@ const Myappointment = (props) => {
                     <div className="details-content">
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
-                      {
-                        selectedAppointment.doctor.picture ? (
-                          <img
-                            src={selectedAppointment.doctor.picture}
-                            alt={`${selectedAppointment.doctor.firstName}-image`}
-                            className="img-circle ml-3 mt-3"
-                          />
-                        ) : (
-                          <Avatar
-                            round={true}
-                            name={
-                              selectedAppointment.doctor.firstName +
-                              ' ' +
-                              (selectedAppointment.doctor.lastName || "")
-                            }
-                            size={60}
-                            className="my-appointments__modal-avatar"
-                          />
-                        )
-                      }
-                      <h2 className='my-appointments__header-names'>
+                      {selectedAppointment.doctor.picture ? (
+                        <img
+                          src={selectedAppointment.doctor.picture}
+                          alt={`${selectedAppointment.doctor.firstName}-image`}
+                          className="img-circle ml-3 mt-3"
+                        />
+                      ) : (
+                        <Avatar
+                          round={true}
+                          name={
+                            selectedAppointment.doctor.firstName +
+                            ' ' +
+                            (selectedAppointment.doctor.lastName || '')
+                          }
+                          size={60}
+                          className="my-appointments__modal-avatar"
+                        />
+                      )}
+                      <h2 className="my-appointments__header-names">
                         {selectedAppointment.doctor.firstName}{' '}
-                        {selectedAppointment.doctor.lastName || ""}
+                        {selectedAppointment.doctor.lastName || ''}
                       </h2>
                       <span>
                         <ul
@@ -1417,7 +1439,11 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.appointmentFee ? (selectedAppointment.appointmentFee) : (<span>-</span>)}
+                            {selectedAppointment.appointmentFee ? (
+                              selectedAppointment.appointmentFee
+                            ) : (
+                              <span>-</span>
+                            )}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -1426,7 +1452,11 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="my-patient-card__common-span">
-                            {selectedAppointment.paymentMethod ? (selectedAppointment.paymentMethod) : (<span>-</span>)}
+                            {selectedAppointment.paymentMethod ? (
+                              selectedAppointment.paymentMethod
+                            ) : (
+                              <span>-</span>
+                            )}
                           </span>
                         </div>
                       </div>
@@ -1526,7 +1556,6 @@ const Myappointment = (props) => {
             </DialogActions>
           </Dialog>
 
-
           <Dialog
             onClose={confirmChatClose}
             aria-labelledby="customized-dialog-title"
@@ -1604,7 +1633,6 @@ const Myappointment = (props) => {
             </DialogActions>
           </Dialog>
 
-
           <Dialog
             onClose={closeMoreDoctorInfo}
             aria-labelledby="customized-dialog-title"
@@ -1622,18 +1650,15 @@ const Myappointment = (props) => {
                   <div className="details-wrapper">
                     <div className="details-content__doc-info">
                       {/* {console.log("selectedAPP", selectedAppointment)} */}
-                      {
-                        selectedAppointment.doctor.picture ? (
-                          <img src={selectedAppointment.doctor.picture} alt="" />
-                        ) :
-                          (
-                            <img src={defaultDoctorImage} alt="" />
-                          )
-                      }
+                      {selectedAppointment.doctor.picture ? (
+                        <img src={selectedAppointment.doctor.picture} alt="" />
+                      ) : (
+                        <img src={defaultDoctorImage} alt="" />
+                      )}
 
-                      <h2 className='my-appointments__header-names'>
+                      <h2 className="my-appointments__header-names">
                         {selectedAppointment.doctor.firstName}{' '}
-                        {selectedAppointment.doctor.lastName || ""}
+                        {selectedAppointment.doctor.lastName || ''}
                       </h2>
                       <span>
                         <ul
@@ -1686,7 +1711,6 @@ const Myappointment = (props) => {
                             </div>
                           </div>
                         </div>
-
                       </div>
 
                       <div className="details-body__payment">
