@@ -2,15 +2,24 @@ import React from 'react';
 import Avatar from 'react-avatar';
 import { NavLink } from 'react-router-dom';
 import rightIcon from '../../../../images/svg/right-icon.svg';
-import moment from 'moment'
+import moment from 'moment';
 
 const RescheduleNotification = ({ notification, key }) => {
-    // console.log("notification", notification)
-    return (
-        <div>
+    console.log('RescheduleNotification', notification);
 
+    const setDoctorIdInSession = (doctorId) => {
+        // console.log({ doctorId });
+        sessionStorage.setItem('doctorId', doctorId);
+    }
+
+    return (
+        <div onClick={() => setDoctorIdInSession(notification.data.appointmentDetails.doctor.id)}>
             <NavLink
-                to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id}/${notification.data.appointmentDetails.appointmentMode.toLowerCase().replace(" ", "-")}/${notification.data.appointmentDetails.unifiedAppointment}`}
+                to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id
+                    }/${notification.data.appointmentDetails.appointmentMode
+                        .toLowerCase()
+                        .replace(' ', '-')}/${notification.data.appointmentDetails.unifiedAppointment
+                    }`}
                 className="d-flex flex-column text-dark navlink-hover"
                 key={key}
                 style={{ marginLeft: 0, marginTop: -16, fontWeight: 400 }}
@@ -44,7 +53,8 @@ const RescheduleNotification = ({ notification, key }) => {
                                     has requested to reschedule the appointment booked for{' '}
                                     {moment(
                                         notification.data.appointmentDetails.startTime
-                                    ).format('DD-MM-YYYY hh:mm')}{' '}. Click here to reschedule
+                                    ).format('DD-MM-YYYY hh:mm')}{' '}
+                                    . Click here to reschedule
                                 </span>
                                 {/* <span>TIME</span> */}
                             </div>
@@ -58,9 +68,7 @@ const RescheduleNotification = ({ notification, key }) => {
                             />
                         </div>
                     </div>
-
                 </div>
-
             </NavLink>
             <hr />
         </div>
