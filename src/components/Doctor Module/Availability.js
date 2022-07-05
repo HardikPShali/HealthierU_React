@@ -316,7 +316,7 @@ const Availability = () => {
                     onChange={(e) => dayHandler(e, dayIndex)}
                     value={dayValue.day}
                   />
-                  <span class="checkmark"></span>
+                  <span className="checkmark"></span>
                 </label>
               ))}
 
@@ -333,26 +333,26 @@ const Availability = () => {
           <h5 className="mb-3" style={{ color: 'var(--primary)' }}>
             Select Time with Day Slots
           </h5>
-          {allTimeSlot.map((eachTimes) => (
-            <div className="selected-day-wrap">
+          {allTimeSlot.map((eachTimes, index) => (
+            <div className="selected-day-wrap" key={index}>
               <div className="selected-days">
                 <h5>{eachTimes.days.toString()}</h5>
-                {eachTimes.timeSlotsList.map((timeDtls) => (
-                  <span className="mr-3">
+                {eachTimes.timeSlotsList.map((timeDtls, index) => (
+                  <span className="mr-3" key={index}>
                     {convertHoursAndMinsToLocal(timeDtls.startTime)} to{' '}
                     {convertHoursAndMinsToLocal(timeDtls.endTime)}
                   </span>
                 ))}
               </div>
               <div className="selected-days-toggle">
-                <label class="switch">
+                <label className="switch">
                   <input
                     checked={eachTimes.toggle}
                     id="toggleSlots"
                     type="checkbox"
                     onChange={(e) => handleToggle(e, eachTimes)}
                   />
-                  <span class="slider round"></span>
+                  <span className="slider round"></span>
                 </label>
               </div>
             </div>
