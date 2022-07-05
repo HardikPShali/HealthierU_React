@@ -108,6 +108,16 @@ const Homepage = Loadable({
   loading: () => <div></div>
 });
 
+const AboutUsMobile = Loadable({
+    loader: () => import('./components/CommonModule/MobilePages/AboutUsMobile'),
+    loading: () => <div></div>
+});
+
+const HelpUsMobile = Loadable({
+  loader: () => import('./components/CommonModule/MobilePages/HelpAndSupportMobile'),
+  loading: () => <div></div>
+});
+
 const Routes = () => {
   // const [currentUser, setCurrentUser] = useState(false);
   // const [authorities, setAuthorities] = useState([]);
@@ -176,6 +186,8 @@ const Routes = () => {
         <UnprotectedRoutes exact path="/partners" component={PartnersPage} />
         <UnprotectedRoutes exact path="/select-role" component={SelectRolePage} />
         <Route exact path='/mobile-payment' component={(props) => <PaypalMob {...props} />} />
+        <UnprotectedRoutes exact path='/about-mobile' component={() => <AboutUsMobile />} />
+        <UnprotectedRoutes exact path='/help-us-mobile' component={() => <HelpUsMobile />} />
            {/* {authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER") && (<> */}
             <ProtectedRoutes path="/admin" role="ROLE_ADMIN" component={AdminRoutes} />
             {/* <Route exact path="(/|/signin)" component={Logout} /> */}
