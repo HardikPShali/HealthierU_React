@@ -142,7 +142,6 @@ const Header = (props) => {
             {currentUser.picture ? (
               <img
                 id="profilePicId"
-                width="35"
                 src={currentUser.picture}
                 alt=""
                 onClick={handleClick}

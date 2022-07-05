@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import ChatItemStyle from "./ChatItem.css";
-import patientprof from "../../../../images/patientprof.png"
+import default_image from "../../../../images/default_image.jpg"
 
 const ChatItem = ({item, onChatChange, messageDateFormat, selectedChatItem}) => {
 
@@ -13,7 +13,7 @@ const ChatItem = ({item, onChatChange, messageDateFormat, selectedChatItem}) => 
       <div className="chat_item">
         <div className="chat_item-left">
           <div className="chat_item-profile">
-            <img src={item[item.userKey]?.picture || patientprof} alt="" />
+            <img src={item[item.userKey]?.picture || default_image} alt="" />
           </div>
           <div className="chat_item-text-wrap">
             <div className="chat_item-name">{item[item.userKey]?.firstName} { item[item.userKey]?.lastName}</div>
