@@ -161,13 +161,22 @@ const Availability = () => {
     } else {
       console.log({ data: data.days });
       const res = await addRecurringSLot(dataForRecurSlot);
-      if (res) {
-        toast.success('Recurring Slot Added');
+      console.log({ res });
+
+      const afterSuccessOrFailEvent = async () => {
         setState({ startTime: moment(), endTime: moment() });
         loadRecurSlots();
         setTimeout(() => {
           history.go(0);
         }, 5000);
+      }
+
+      if (res.data.status === false) {
+        toast.error(res.data.message);
+        afterSuccessOrFailEvent();
+      } else {
+        toast.success('Recurring Slot Added');
+        afterSuccessOrFailEvent();
       }
     }
   };
