@@ -110,6 +110,8 @@ const EditUser = (props) => {
     height: '',
     langKey: '',
     authorities: [],
+    modeOfEmployment: '',
+    affiliation: ''
   });
   const cookies = new Cookies();
 
@@ -181,7 +183,9 @@ const EditUser = (props) => {
     highBp,
     weight,
     height,
-    educationalQualifications
+    educationalQualifications,
+    modeOfEmployment,
+    affiliation
   } = user;
   //const onInputChange = e => {
   //setUser({ ...user, [e.target.name]: e.target.value });
@@ -828,7 +832,7 @@ const EditUser = (props) => {
                   </Col>
                 </Row>
                 <br />
-                <Row>
+                {/* <Row>
                   <Col md={6}>
                     <p>Other Certifications (optional)</p>
                     <TextValidator
@@ -861,7 +865,38 @@ const EditUser = (props) => {
                     />
                     <br />
                   </Col>
+                </Row> */}
+                <Row>
+                  <Col md={6}>
+                    <p>Mode of Employment</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="text"
+                      name="education"
+                      onChange={(e) => handleInputChange(e)}
+                      value={modeOfEmployment ? modeOfEmployment : ''}
+                      variant="filled"
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <p>Affiliation</p>
+                    <TextValidator
+                      id="standard-basic"
+                      type="text"
+                      name="affiliation"
+                      onChange={(e) => handleInputChange(e)}
+                      inputProps={{
+                        min: 0,
+                        max: 80,
+                        step: 0.1,
+                      }}
+                      value={affiliation ? affiliation : ''}
+                      variant="filled"
+                    />
+                  </Col>
+
                 </Row>
+                <br />
                 <DoctorDocumentUpload currentDoctor={user} isDoctor={false} />
               </>
             )}

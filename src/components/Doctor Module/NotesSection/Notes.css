@@ -12,4 +12,12 @@
   padding: 30px 30px;
   border-radius: 10px;
   box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
+  top: 180px;
+  left: -120px;
+}
+
+@media (max-width: 768px) {
+  .notes-column {
+    left: -50px;
+  }
 }
