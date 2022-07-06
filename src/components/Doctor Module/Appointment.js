@@ -847,7 +847,7 @@ const Myappointment = (props) => {
               className="record-tabs mb-3"
               onSelect={handleTabSelection}
             >
-              <Tab eventKey="availabilityPerDate" title="Availability Per Date">
+              <Tab eventKey="availabilityPerDate" title="Set Availability Per Date">
                 <Row>
                   <Col>
                     {/* <Tooltip
@@ -982,10 +982,10 @@ const Myappointment = (props) => {
                 />
 
               </Tab>
-              <Tab eventKey="setAvailability" title="Set Availability">
+              <Tab eventKey="setAvailability" title="Set Recurring Availability">
                 <Availability />
               </Tab>
-              <Tab eventKey="bookedappointments" title="Booked Appointments">
+              <Tab eventKey="bookedappointments" title="View Booked Appointments">
                 <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
                   <Col md={12}>
                     <div className="appointment-slot-list available">
