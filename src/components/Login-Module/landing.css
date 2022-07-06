@@ -1561,8 +1561,11 @@ ul.light {
   justify-content: center;
 }
 .edge-image img {
-  width: 17rem;
+  width: 15rem;
   transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: #e0e0e0;
+  box-shadow: 12px 12px 24px #727272, -12px -12px 24px #fbfbfb;
+  border-radius: 33px;
 }
 .edge-image:hover img {
   transform: translateY(10px);

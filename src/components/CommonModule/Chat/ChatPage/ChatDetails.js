@@ -41,13 +41,14 @@ const ChatDetails = ({
       const videoEnableTime = appointmentStartTime
         .clone()
         .subtract(5, "minutes");
+
       const chatEndCondition = appointmentEndTime.clone().add(3, "days");
 
       const chatCondition = currentTime.clone().subtract(2, "days");
       const videoCondition = currentTime.clone().subtract(5, "minuts");
 
       if (
-        currentTime.isSameOrAfter(appointmentStartTime) &&
+        currentTime.isSameOrAfter(videoEnableTime) &&
         currentTime.isBefore(appointmentEndTime)
       ) {
         setEnableVideo(true);

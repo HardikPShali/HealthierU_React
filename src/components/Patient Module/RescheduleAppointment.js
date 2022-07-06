@@ -52,6 +52,7 @@ import {
   getAvailableSlotsForMyDoctors,
   rescheduleAppointmentPatient,
   getAvailableSlots,
+  getNonPaginatedDoctorListByPatientId,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -68,7 +69,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { searchFilterForDoctor } from '../../service/searchfilter';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { doctorListLimit } from '../../util/configurations';
+import { doctorListLimit, doctorListLimitNonPaginated } from '../../util/configurations';
 import { getAppointmentModeForAvailabilitySlotsDisplay } from '../../util/appointmentModeUtil';
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
@@ -173,7 +174,7 @@ const RescheduleAppointment = (props) => {
       //const currentSelectedDate = new Date();
       //onDaySelect(currentSelectedDate, res.data.length > 0 && res.data[0].doctorId);
       const docId = doctorArray.length > 0 && doctorArray[0].id;
-      getInValidAppointments(docId);
+      //getInValidAppointments(docId);
       setTransparentLoading(false);
     }
   };
@@ -183,7 +184,7 @@ const RescheduleAppointment = (props) => {
       setFilterData(users);
       setdoctor(users[0]);
       const docId = users[0].id;
-      getInValidAppointments(docId);
+      //getInValidAppointments(docId);
       setLikedOffset(0);
       setDisplay({ ...display, like: 'none', unlike: 'block' });
     }
@@ -197,9 +198,9 @@ const RescheduleAppointment = (props) => {
 
   const loadUsers = async (patientId) => {
     if (!profilepID.activated) {
-      const result = await getDoctorListByPatientId(
+      const result = await getNonPaginatedDoctorListByPatientId(
         patientId,
-        doctorListLimit
+        doctorListLimitNonPaginated
       ).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
@@ -214,7 +215,7 @@ const RescheduleAppointment = (props) => {
         setOffset(1);
         setUser(result.data.doctors);
         const selectedDoctorForReschedule = result.data.doctors.map((value) => {
-          if (value.id == doctorIdForReschedule) {
+          if (value.id == 112) {
             console.log({ value: value });
             setdoctor(value);
           }
@@ -229,7 +230,7 @@ const RescheduleAppointment = (props) => {
           patientId: patientId,
           doctorId: docId,
         });
-        getInValidAppointments(docId);
+        //getInValidAppointments(docId);
         setFilterData(result.data.doctors);
         //setTimeout(() => searchNutritionDoctor(), 3000);
         setTimeout(() => setLoading(false), 1000);
@@ -274,15 +275,16 @@ const RescheduleAppointment = (props) => {
             patientId: patientId,
             doctorId: docId,
           });
-          getInValidAppointments(docId);
+          //getInValidAppointments(docId);
           history.replace({ state: null });
         }
         setTransparentLoading(false);
       } else {
         setTimeout(() => setLoading(false), 1000);
       }
+      // loadMore();
     } else {
-      setOffset(1);
+      setOffset(10);
       const doctorInfo = profilepID;
       console.log('doctorInfo', doctorInfo);
       setUser(doctorInfo.id);
@@ -291,7 +293,7 @@ const RescheduleAppointment = (props) => {
       //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
       const docId = doctorInfo.id?.id;
       setAppointment({ ...appointment, patientId: patientId, doctorId: docId });
-      getInValidAppointments(docId);
+      //getInValidAppointments(docId);
       setFilterData(doctorInfo);
       //setTimeout(() => searchNutritionDoctor(), 3000);
       setTimeout(() => setLoading(false), 1000);
@@ -336,10 +338,12 @@ const RescheduleAppointment = (props) => {
           patientId: patientId,
           doctorId: docId,
         });
-        getInValidAppointments(docId);
+        //getInValidAppointments(docId);
         history.replace({ state: null });
       }
       setTransparentLoading(false);
+      // loadMore();
+
       // } else {
       //   setTimeout(() => setLoading(false), 1000);
       // }
@@ -349,7 +353,7 @@ const RescheduleAppointment = (props) => {
   const loadMore = async () => {
     if (searchText) {
       setTransparentLoading(true);
-      const res = await getSearchData(searchText, offset, doctorListLimit);
+      const res = await getSearchData(searchText, offset=9, doctorListLimitNonPaginated);
       if (
         res.status === 200 &&
         res.data?.doctors &&
@@ -368,10 +372,10 @@ const RescheduleAppointment = (props) => {
         setTransparentLoading(false);
       }
     } else {
-      const result = await getMoreDoctors(
+      let result = await getMoreDoctors(
         currentPatient,
-        doctorListLimit,
-        offset
+        doctorListLimitNonPaginated,
+        offset=9
       );
       if (result && result.data) {
         // var existingUsersList = [];
@@ -470,7 +474,7 @@ const RescheduleAppointment = (props) => {
       //onDaySelect(currentSelectedDate, users[0] && users[0].id);
       setAvailability([]);
       setAppointmentSlot([]);
-      getInValidAppointments(users[0].id);
+      //getInValidAppointments(users[0].id);
       setOffset(1);
       setDisplay({ ...display, suggestion: 'none' });
     } else {
@@ -483,13 +487,13 @@ const RescheduleAppointment = (props) => {
   const handleSearchData = async (showToast = false) => {
     if (searchText !== '') {
       setTransparentLoading(true);
-      const res = await getSearchData(searchText, 0, doctorListLimit);
+      const res = await getSearchData(searchText, 0, doctorListLimitNonPaginated);
       if (res.status === 200 && res.data?.doctors.length > 0) {
         setFilterData(res.data.doctors);
         setdoctor(res.data.doctors[0]);
         setAvailability([]);
         setAppointmentSlot([]);
-        getInValidAppointments(res.data.doctors[0].id);
+        //getInValidAppointments(res.data.doctors[0].id);
         setTransparentLoading(false);
       } else if (res.status === 204) {
         setFilterData([]);
@@ -531,7 +535,7 @@ const RescheduleAppointment = (props) => {
           document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
           setDisplaySlot(true);
-          getInValidAppointments(user.id);
+          //getInValidAppointments(user.id);
           getAvailableSlotsOfDoctors(user.id, e.target.value);
         } else {
           setAppointmentSlot([]);
@@ -544,7 +548,7 @@ const RescheduleAppointment = (props) => {
         document.querySelector('#calendar-list').scrollTo(0, 500);
         setDisplayCalendar(false);
         setDisplaySlot(true);
-        getInValidAppointments(user.id);
+        //getInValidAppointments(user.id);
         getAvailableSlotsOfDoctors(user.id, e.target.value);
       } else if (e.target.value === '') {
         setAppointmentSlot([]);
@@ -1100,7 +1104,7 @@ const RescheduleAppointment = (props) => {
             patientId: currentPatient.id,
             doctorId: docId,
           });
-          getInValidAppointments(docId);
+          //getInValidAppointments(docId);
           setFilterData(result.data.doctors);
           setTransparentLoading(false);
         } else {
@@ -1590,7 +1594,7 @@ const RescheduleAppointment = (props) => {
             //                       //onDaySelect(currentSelectedDate, user.id);
             //                       setAvailability([]);
             //                       setAppointmentSlot([]);
-            //                       getInValidAppointments(user.id);
+            //                       //getInValidAppointments(user.id);
             //                     }}
             //                   />
             //                 </GridListTile>
@@ -1602,7 +1606,7 @@ const RescheduleAppointment = (props) => {
             //           <center>No Doctor Found ...</center>
             //         </div>
             //       )}
-            //       {filterData && filterData.length > doctorListLimit - 1 && (
+            //       {filterData && filterData.length > doctorListLimitNonPaginated - 1 && (
             //         <>
             //           <div
             //             className="text-center"
