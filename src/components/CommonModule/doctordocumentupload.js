@@ -116,6 +116,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
 
     const handleUpload = async (e, data) => {
         setLoading(true);
+        document.getElementById("uploadBtn").disabled = true;
         const info = {
             doctorId: currentDoctor.data.id,
             doctor_email: currentDoctor.data.email,
@@ -301,7 +302,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                             inputProps={{
                                 name: 'referencePhoneNumber',
                                 required: true,
-                                maxLength: 16,
+                                maxLength: 20,
                                 minLength: 12
                             }}
                             country={'us'}
@@ -445,6 +446,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                         <button
                             className="btn btn-primary text-light"
                             type="button"
+                            id = "uploadBtn"
                             onClick={(e) => handleUpload(e)}
                         >
                             Upload

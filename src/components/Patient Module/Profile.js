@@ -204,7 +204,7 @@ const Profile = () => {
             // setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture + '?' + Math.random() } });
             // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
             // setTransparentLoading(false);
-
+            cookies.set('profileDetails', response.data);
             history.go(0);
             // eslint-disable-next-line no-restricted-globals
             // window.location.reload();
