@@ -174,7 +174,7 @@ const Myappointment = (props) => {
     );
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        console.log("response.data",response.data);
+        console.log("response.data", response.data);
         setAppointment(response.data.data)
       }
     }
@@ -420,7 +420,7 @@ const Myappointment = (props) => {
         }
         return value;
       });
-      console.log("tomoArray",tomoArray);
+      console.log("tomoArray", tomoArray);
       setTomorrowAppointment(tomoArray);
       setTimeout(() => setLoading(false), 1000);
       setTimeout(() => setTransparentLoading(false), 1000);
@@ -644,7 +644,7 @@ const Myappointment = (props) => {
     );
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        console.log("response.data",response.data);
+        console.log("response.data", response.data);
         setAppointment(response.data.data)
       }
     }
@@ -657,7 +657,7 @@ const Myappointment = (props) => {
     const currentDoctor = cookies.get("profileDetails");
     const starttime = new Date();
     starttime.setDate(new Date().getDate() + 2)
-    starttime.setHours(0,0,0)
+    starttime.setHours(0, 0, 0)
     const data = {
       doctorId: currentDoctor.id,
       status: "ACCEPTED",
@@ -838,7 +838,7 @@ const Myappointment = (props) => {
               className="record-tabs mb-3"
               onSelect={handleTabSelection}
             >
-              <Tab eventKey="availabilityPerDate" title="Availability Per Date">
+              <Tab eventKey="availabilityPerDate" title="Set Availability Per Date">
                 <Row>
                   <Col>
                     {/* <Tooltip
@@ -972,10 +972,10 @@ const Myappointment = (props) => {
                 />
 
               </Tab>
-              <Tab eventKey="setAvailability" title="Set Availability">
+              <Tab eventKey="setAvailability" title="Set Recurring Availability">
                 <Availability />
               </Tab>
-              <Tab eventKey="bookedappointments" title="Booked Appointments">
+              <Tab eventKey="bookedappointments" title="View Booked Appointments">
                 <Row className="mt-3 mx-1 bg-white p-5 rounded shadow">
                   <Col md={12}>
                     <div className="appointment-slot-list available">
@@ -1204,7 +1204,7 @@ const Myappointment = (props) => {
                           </Tab>
                           <Tab eventKey="tomorrow" title="Tomorrow">
                             <div>
-                            {tomorrowAppointment.length > 0 ? (
+                              {tomorrowAppointment.length > 0 ? (
                                 <div className="tab-view-app__list-disp row">
                                   {tomorrowAppointment.map(
                                     (appointment, index) => {
