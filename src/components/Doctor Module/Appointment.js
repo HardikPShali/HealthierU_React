@@ -47,6 +47,7 @@ import dollarIcon from "../../images/svg/dollar-icon.svg";
 import creditCardIcon from "../../images/svg/credit-card-icon.svg";
 import chatButtonIcon from "../../images/svg/chat-button-icon.svg";
 import callButtonIcon from "../../images/svg/video-call-icon.svg";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -174,7 +175,7 @@ const Myappointment = (props) => {
     );
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        console.log("response.data",response.data);
+        console.log("response.data", response.data);
         setAppointment(response.data.data)
       }
     }
@@ -420,7 +421,7 @@ const Myappointment = (props) => {
         }
         return value;
       });
-      console.log("tomoArray",tomoArray);
+      console.log("tomoArray", tomoArray);
       setTomorrowAppointment(tomoArray);
       setTimeout(() => setLoading(false), 1000);
       setTimeout(() => setTransparentLoading(false), 1000);
@@ -484,8 +485,12 @@ const Myappointment = (props) => {
   // }
 
   // https://dev.healthieru.ae/doctor/chat?chatgroup=P83_D84
-
+  const [currentView, setCurrentView] = useState("")
+  const handleMonthView = (targetDate, currentViewName, configuredViewNames) => {
+    setCurrentView(currentViewName)
+  }
   const handleSelect = async ({ slots }) => {
+    console.log("currentView", currentView);
     let slotStartTime;
     let slotEndTime;
     if (slots.length === 2) {
@@ -524,36 +529,40 @@ const Myappointment = (props) => {
       }
       if (duplicateFlag === 0) {
         setTransparentLoading(true);
-        const payload = {
-          doctorId: currentDoctor.id,
-          type: "DR",
-          status: "AVAILABLE",
-          remarks: null,
-          startTime: new Date(slotStartTime).toISOString(),
-          endTime: new Date(slotEndTime).toISOString(),
-          timeZone: timeZone,
-        };
-        const res = await createAppointment(payload).catch((err) => {
-          if (err.response?.status === 400) {
-            setTransparentLoading(false);
-            setWarningMsg({
-              ...warningMsg,
-              message: "You cannot create the slots twice for the same time!",
-            });
-            handleClickOpen();
+        if (currentView === "week" || currentView === "day") {
+          const payload = {
+            doctorId: currentDoctor.id,
+            type: "DR",
+            status: "AVAILABLE",
+            remarks: null,
+            startTime: new Date(slotStartTime).toISOString(),
+            endTime: new Date(slotEndTime).toISOString(),
+            timeZone: timeZone,
+          };
+          const res = await createAppointment(payload).catch((err) => {
+            if (err.response?.status === 400) {
+              setTransparentLoading(false);
+              setWarningMsg({
+                ...warningMsg,
+                message: "You cannot create the slots twice for the same time!",
+              });
+              handleClickOpen();
+            }
+            if (err.response?.status === 500 || err.response.status === 504) {
+              setTransparentLoading(false);
+            }
+          });
+          if (res && (res.status === 200 || res.status === 201)) {
+            duplicateFlag = 0;
+            loadAppointment(currentDoctor.id);
           }
-          if (err.response?.status === 500 || err.response.status === 504) {
-            setTransparentLoading(false);
-          }
-        });
-        ////console.log(res);
-        if (res && (res.status === 200 || res.status === 201)) {
-          //setLoading(true);
-          duplicateFlag = 0;
-          loadAppointment(currentDoctor.id);
         }
-        //})
-      } else if (duplicateFlag === 1) {
+        else {
+          setTransparentLoading(false);
+          toast.error("You cannot make slot in month view")
+        }
+      }
+      else if (duplicateFlag === 1) {
         handleClickOpen();
       }
     }
@@ -644,7 +653,7 @@ const Myappointment = (props) => {
     );
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        console.log("response.data",response.data);
+        console.log("response.data", response.data);
         setAppointment(response.data.data)
       }
     }
@@ -657,7 +666,7 @@ const Myappointment = (props) => {
     const currentDoctor = cookies.get("profileDetails");
     const starttime = new Date();
     starttime.setDate(new Date().getDate() + 2)
-    starttime.setHours(0,0,0)
+    starttime.setHours(0, 0, 0)
     const data = {
       doctorId: currentDoctor.id,
       status: "ACCEPTED",
@@ -868,6 +877,7 @@ const Myappointment = (props) => {
                         localizer={localizer}
                         events={state}
                         defaultView={Views.WEEK}
+                        getDrilldownView={(targetDate, currentViewName, configuredViewNames) => handleMonthView(targetDate, currentViewName, configuredViewNames)}
                         startAccessor="startTime"
                         endAccessor="endTime"
                         titleAccessor="title"
@@ -1204,7 +1214,7 @@ const Myappointment = (props) => {
                           </Tab>
                           <Tab eventKey="tomorrow" title="Tomorrow">
                             <div>
-                            {tomorrowAppointment.length > 0 ? (
+                              {tomorrowAppointment.length > 0 ? (
                                 <div className="tab-view-app__list-disp row">
                                   {tomorrowAppointment.map(
                                     (appointment, index) => {
