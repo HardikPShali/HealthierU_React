@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"; //useState
 import AgoraRTC from "agora-rtc-sdk";
-import "bulma";
+// import "bulma";
 import $ from "jquery";
 import * as Cookies from "js-cookie";
 import UniversalCookies from 'universal-cookie';

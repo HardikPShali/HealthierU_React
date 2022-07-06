@@ -57,6 +57,8 @@ import step9 from "../../images/step9.PNG";
 import step10 from "../../images/step10.PNG";
 import step11 from "../../images/step11.PNG";
 import step13 from "../../images/step13.png";
+import phone from "../../images/phone.png";
+
 
 import features from "../../images/our-features.png";
 import betterFuture from "../../images/better-future.png";
@@ -411,20 +413,10 @@ const Homepage = () => {
               </Col>
               <Col className="edge-image" sm={12} md={12} lg={6} xl={6}>
                 {/* <img className="mr-4" src={Edge1} alt=""></img> */}
-                <img src={step3} alt=""></img>
+                <img src={phone} alt=""></img>
               </Col>
-              <div className="our_partners">
-                <h4>Our Partner</h4>
-                <div className="our_partners-logo">
-                  <div className="cornel-logo">
-                    <img src={CornelMedicine} alt="" />
-                  </div>
-                  {/* <div className="our_partners-vr-line"></div> */}
-                  {/* <div className="reem-logo">
-                    <img src={ReemHospital} alt="" />
-                  </div> */}
-                </div>
-              </div>
+              
+              {/* WIELCORNELL REMOVED */}
             </Row>
           </Container>
         </div>
@@ -812,3 +804,17 @@ const Homepage = () => {
 };
 
 export default Homepage;
+
+
+{/* <div className="our_partners">
+                <h4>Our Partner</h4>
+                <div className="our_partners-logo">
+                  <div className="cornel-logo">
+                    <img src={CornelMedicine} alt="" />
+                  </div>
+                  {/* <div className="our_partners-vr-line"></div> */}
+                  {/* <div className="reem-logo">
+                    <img src={ReemHospital} alt="" />
+                  </div> 
+                </div>
+              </div> */}
