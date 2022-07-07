@@ -78,7 +78,7 @@ const Signupform = () => {
   const [user, setUser] = useState({
     firstName:
       googleProfileData && googleProfileData.given_name
-        ? googleProfileData.given_name
+        ? googleProfileData.given_name + " " + googleProfileData.family_name
         : "",
     lastName:
       googleProfileData && googleProfileData.family_name

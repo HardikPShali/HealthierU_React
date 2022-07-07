@@ -412,12 +412,12 @@ const Myappointment = (props) => {
         setUpcomingAppointment(upcomingArray.reverse());
 
         const completedAppointmentsArray = response.data.data.completed;
-        setCompletedAppointment(completedAppointmentsArray);
+        setCompletedAppointment(completedAppointmentsArray.reverse());
         // console.log('completedAppointmentsArray', completedAppointmentsArray);
 
         const cancelledAppointmentsArray = response.data.data.cancelled;
         // console.log({ cancelledAppointmentsArray });
-        setCancelledAppointment(cancelledAppointmentsArray);
+        setCancelledAppointment(cancelledAppointmentsArray.reverse());
       }
     }
   };
