@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "./landing.css";
 import { Container, Row, Col } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -17,6 +17,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import qs from "qs";
+import { getCreatePasswordOtpApi } from "../../service/frontendapiservices";
 
 const isnum = /\d/;
 const islow = "(?=.*[a-z])";
@@ -27,7 +28,15 @@ const CreatePassword = () => {
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const [otpBox, setOtpBox] = useState(new Array(4).fill(""));
+  const [otpValidation, setOtpValidation] = useState('');
   const [errorMessage, setErrorMessage] = useState("");
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  const email = searchParams.get("email");
+
+  console.log({ email })
 
   //const [loading, setLoading] = useState(true);
 
@@ -137,8 +146,31 @@ const CreatePassword = () => {
     }
   };
 
-  const handleOTPSubmit = () => {
-    setDisplay({ ...display, otpPage: "none", createPasswordPage: "block" });
+  const handleOTPSubmit = async () => {
+    const data = {
+      email: email,
+      key: otpBox.join("")
+    }
+    const response = await getCreatePasswordOtpApi(data);
+    console.log({ response });
+
+
+    if (response.data.message === 'Otp mismatch') {
+      setOtpValidation('Incorrect OTP entered. Please try again');
+      setOtpBox(new Array(4).fill(""));
+    }
+    else if (response.data.message === 'Otp verified') {
+      setOtpValidation('');
+      setDisplay({
+        otpPage: "none",
+        createPasswordPage: "block",
+      });
+    }
+    else {
+      alert('error');
+    }
+
+    // setDisplay({ ...display, otpPage: "none", createPasswordPage: "block" });
   };
 
   return (
@@ -150,24 +182,31 @@ const CreatePassword = () => {
           <Col md={5}>
             <div className="sign-box text-center">
               <h2 id="signin-title">OTP Verification</h2>
-              <p style={{ fontSize: "14px" }}>OTP has been sent to "email"</p>
+              <p style={{ fontSize: "14px" }}>OTP has been sent to <strong>{email}</strong></p>
 
-              <div className="otp-box-div">
-                {otpBox.map((data, index) => {
-                  return (
-                    <input
-                      type="text"
-                      className="otp-field"
-                      name="otp"
-                      maxLength="1"
-                      key={index}
-                      value={data}
-                      onChange={(e) => handleChange(e.target, index)}
-                      onFocus={(e) => e.target.select()}
-                    />
-                  );
-                })}
+              <div>
+                <div className="otp-box-div">
+                  {otpBox.map((data, index) => {
+                    return (
+                      <input
+                        type="text"
+                        className="otp-field"
+                        name="otp"
+                        maxLength="1"
+                        key={index}
+                        value={data}
+                        onChange={(e) => handleChange(e.target, index)}
+                        onFocus={(e) => e.target.select()}
+                      />
+                    );
+                  })}
+
+                </div>
+                {
+                  otpValidation && <p style={{ color: "red" }}>{otpValidation}</p>
+                }
               </div>
+
 
               <div>
                 <button
@@ -192,8 +231,8 @@ const CreatePassword = () => {
         </Row>
       </Container>
 
-      <div id="signin-bg">
-        <Container style={{ display: display.createPasswordPage }}>
+      <div id="signin-bg" style={{ display: display.createPasswordPage }}>
+        <Container>
           <Row>
             <Col md={7}></Col>
             <Col md={5}>

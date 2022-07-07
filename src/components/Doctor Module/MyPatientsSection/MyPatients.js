@@ -536,33 +536,33 @@ const MyPatients = (props) => {
                                                     {notesData ?
                                                         <div className="diagnosis-description">
                                                             <Row>
-                                                                <Col md={6}>
+                                                                <Col md={4}>
                                                                     <p><b>Chief Complaint</b></p>
                                                                     <p className='diagnosis-desc__p-tag'>
                                                                         {notesData.chiefComplaint}
                                                                     </p>
                                                                 </Col>
-                                                                <Col md={6}>
+                                                                <Col md={4}>
                                                                     <p><b>Present Illness</b></p>
                                                                     <p className='diagnosis-desc__p-tag'>
                                                                         {notesData.presentIllness}
                                                                     </p>
                                                                 </Col>
-                                                            </Row>
-                                                            <Row>
                                                                 <Col md={4}>
                                                                     <p><b>Vital Signs</b></p>
                                                                     <p className='diagnosis-desc__p-tag'>
                                                                         {notesData.vitalSigns}
                                                                     </p>
                                                                 </Col>
+                                                            </Row>
+                                                            <Row>
                                                                 <Col md={4}>
                                                                     <p><b>Physical Exam</b></p>
                                                                     <p className='diagnosis-desc__p-tag'>
                                                                         {notesData.physicalExam}
                                                                     </p>
                                                                 </Col>
-                                                                <Col md={4}>
+                                                                <Col md={6}>
                                                                     <p><b>Plan Assessment</b></p>
                                                                     <p className='diagnosis-desc__p-tag'>
                                                                         {notesData.planAssessment}
