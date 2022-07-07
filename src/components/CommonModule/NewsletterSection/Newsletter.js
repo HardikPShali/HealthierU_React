@@ -17,7 +17,7 @@ const Newsletter = () => {
   const postNewsletterEmail = async (email) => {
     try {
       const response = await postNewsletterEmailApi(email);
-      console.log({response});
+      console.log({ response });
 
       if (
         response.data.message === 'Email Added' ||
@@ -72,28 +72,28 @@ const Newsletter = () => {
           id="footer-input"
           value={email}
           onChange={(e) => newsletterEmailInputHandler(e)}
-          autoComplete="off"
         />
         <input
           defaultValue="Subscribe"
+          type='submit'
           className="btn submit-btn"
           onClick={() => newsletterSubmitHandler()}
         />
         {emailSubmit && (
           <span className="subscription-message">
-            
+
             Thanks for subscribing to our newsletter
           </span>
         )}
         {emailError && (
           <span className="subscription-message">
-            
+
             Please enter a valid email address
           </span>
         )}
         {authorisedError && (
           <span className="subscription-message">
-            
+
             Please sign in to subscribe to newletters
           </span>
         )}

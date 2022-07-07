@@ -42,7 +42,7 @@ import { getCurrentDoctorInfo } from "../../service/AccountService";
 import DatePicker from 'react-date-picker';
 import { useHistory } from "react-router";
 import { Button } from 'react-bootstrap';
-import { getFirebaseToken, getPermissions } from '../../util';
+import { deleteTokenHandler, getFirebaseToken, getPermissions } from '../../util';
 import { toast } from 'react-toastify';
 // import 'react-calendar/dist/Calendar.css';
 
@@ -124,7 +124,7 @@ const Welcome = ({ currentuserInfo }) => {
     const [educationList, setEducationList] = useState([{ institution: '', educationalQualification: '' }]);
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
-        firstName: (currentuserInfo && currentuserInfo.firstName) || "",
+        firstName: (currentuserInfo && currentuserInfo.firstName + " " + currentuserInfo.lastName) || "",
         lastName: (currentuserInfo && currentuserInfo.lastName) || "",
         dateOfBirth: "",
         phone: "",
@@ -477,6 +477,21 @@ const Welcome = ({ currentuserInfo }) => {
 
     console.log("currentUserInfo ::", currentuserInfo);
 
+    const logoutLogic = () => {
+        cookies.remove("refresh_token", { path: '/' });
+        cookies.remove("currentUser", { path: '/' });
+        cookies.remove("access_token", { path: '/' });
+        cookies.remove("GOOGLE_ACCESS_TOKEN", { path: '/' });
+        cookies.remove("GOOGLE_PROFILE_DATA", { path: '/' });
+        cookies.remove("authorities", { path: '/' });
+        cookies.remove("userProfileCompleted", { path: '/' });
+        cookies.remove("profileDetails", { path: '/' });
+        deleteTokenHandler().then(() => {
+            localStorage.clear();
+            history.push("/signin");
+            history.go(0);
+        });
+    }
 
     return (
         <div>
@@ -778,7 +793,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                                         <Row>
                                             <Col md={6}>
-                                                <p>Years Of experience<sup>*</sup></p>
+                                                <p>Years of experience<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="number" name="experience"
                                                     onChange={e => handleInputChange(e)}
                                                     value={experience}
@@ -789,10 +804,10 @@ const Welcome = ({ currentuserInfo }) => {
                                                         max: 65
                                                     }}
                                                     variant="filled"
-                                                    placeholder='Years of Experience' />
+                                                    placeholder='Years of experience' />
                                             </Col>
                                             <Col md={6}>
-                                                <p>Mode Of Employeement<sup>*</sup></p>
+                                                <p>Mode of Employment<sup>*</sup></p>
                                                 <FormControl>
                                                     <Select
                                                         id="demo-controlled-open-select"
@@ -1059,16 +1074,24 @@ const Welcome = ({ currentuserInfo }) => {
                         {currentUserDataAfterApproval && Object.keys(currentUserDataAfterApproval).length > 0
                             && currentUserDataAfterApproval.authorities.some((user) => user === "ROLE_DOCTOR")
                             && currentUserDataAfterApproval.profileCompleted && !currentUserDataAfterApproval.approved &&
-                            (<Link to="/doctor/logout"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                Ok
-                            </button></Link>
+                            (
+                                <div onClick={() => logoutLogic()}>
+                                    <Link to="/doctor/logout"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
+                                        Ok
+                                    </button></Link>
+                                </div>
+
                             )}
                         {currentUserDataAfterApproval && Object.keys(currentUserDataAfterApproval).length > 0
                             && currentUserDataAfterApproval.authorities.some((user) => user === "ROLE_DOCTOR")
                             && currentUserDataAfterApproval.profileCompleted && currentUserDataAfterApproval.approved &&
-                            (<Link to="/doctor"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                Ok
-                            </button></Link>
+                            (
+                                <div onClick={() => logoutLogic()}>
+                                    <Link to="/doctor"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
+                                        Ok
+                                    </button></Link>
+                                </div>
+
                             )}
                     </>
 
