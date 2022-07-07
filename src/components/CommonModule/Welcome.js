@@ -486,11 +486,11 @@ const Welcome = ({ currentuserInfo }) => {
         cookies.remove("authorities", { path: '/' });
         cookies.remove("userProfileCompleted", { path: '/' });
         cookies.remove("profileDetails", { path: '/' });
-        deleteTokenHandler().then(() => {
-            localStorage.clear();
-            history.push("/signin");
-            history.go(0);
-        });
+        // deleteTokenHandler().then(() => {
+        //     localStorage.clear();
+        //     history.push("/signin");
+        //     history.go(0);
+        // });
     }
 
     return (
