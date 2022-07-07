@@ -778,7 +778,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                                         <Row>
                                             <Col md={6}>
-                                                <p>Years Of experience<sup>*</sup></p>
+                                                <p>Years of experience<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="number" name="experience"
                                                     onChange={e => handleInputChange(e)}
                                                     value={experience}
@@ -789,10 +789,10 @@ const Welcome = ({ currentuserInfo }) => {
                                                         max: 65
                                                     }}
                                                     variant="filled"
-                                                    placeholder='Years of Experience' />
+                                                    placeholder='Years of experience' />
                                             </Col>
                                             <Col md={6}>
-                                                <p>Mode Of Employeement<sup>*</sup></p>
+                                                <p>Mode of Employment<sup>*</sup></p>
                                                 <FormControl>
                                                     <Select
                                                         id="demo-controlled-open-select"
