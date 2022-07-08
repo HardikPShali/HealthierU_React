@@ -13,8 +13,6 @@
   display: inline-grid;
 } */
 
-
-
 .prescription-lab--main-header {
   margin-left: 5px;
   color: var(--text-primary);
@@ -62,17 +60,19 @@
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border-left: 12px solid var(--primary);
-
 }
 
 .prescription-lab-card__img-wrapper {
   padding: 20px;
   text-align: center;
-  background: #F9F9F9;
+  background: #f9f9f9;
   border-radius: 8px;
 }
 
 .img-circle {
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -90,7 +90,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 22px;
-  color: #3E4543;
+  color: #3e4543;
   margin-bottom: 2px;
   text-transform: capitalize;
 }
@@ -102,21 +102,21 @@
   font-weight: 200;
   font-size: 1.1rem;
   line-height: 22px;
-  color: #3E4543;
+  color: #3e4543;
   margin-bottom: 2px;
   text-transform: capitalize;
 }
 
 .prescription-lab-card__common-date {
   text-shadow: none;
-    font-family: var(--font-primary);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 22px;
-    color: #3E4543;
-    margin-bottom: 2px;
-    text-transform: capitalize;
+  font-family: var(--font-primary);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 22px;
+  color: #3e4543;
+  margin-bottom: 2px;
+  text-transform: capitalize;
 }
 
 .prescription-lab-card__common-date1 {
@@ -126,7 +126,7 @@
   font-weight: 400;
   font-size: 1.1rem;
   line-height: 22px;
-  color: #3E4543;
+  color: #3e4543;
   margin-bottom: 2px;
   text-transform: capitalize;
 }
@@ -170,9 +170,10 @@
   margin-top: 15px;
 }
 
-.prescription-lab-card-card__card-time-row {}
+.prescription-lab-card-card__card-time-row {
+}
 
-.prescription-lab-card__card-time-row>img {
+.prescription-lab-card__card-time-row > img {
   width: 28px;
   height: 28px;
   margin-right: 4px;
@@ -184,7 +185,6 @@
   border-radius: 50%;
   border: none;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
 }
 .prescription-lab-card__download:hover {
   transform: translateY(-2px);
@@ -201,7 +201,7 @@
 
   /* Style */
 
-  background: #5FCCC8;
+  background: #5fccc8;
 }
 
 .img-download1 {
@@ -213,12 +213,11 @@
 
   /* Style */
 
-  background: #5FCCC8;
+  background: #5fccc8;
 }
 
 @media screen and (max-width: 768px) {
   .prescription-lab-card__download {
     position: initial;
-
   }
 }
