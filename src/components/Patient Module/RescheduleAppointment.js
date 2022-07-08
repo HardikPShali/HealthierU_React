@@ -353,7 +353,7 @@ const RescheduleAppointment = (props) => {
   const loadMore = async () => {
     if (searchText) {
       setTransparentLoading(true);
-      const res = await getSearchData(searchText, offset = 9, doctorListLimitNonPaginated);
+      const res = await getSearchData(searchText, offset, doctorListLimitNonPaginated);
       if (
         res.status === 200 &&
         res.data?.doctors &&
@@ -375,7 +375,7 @@ const RescheduleAppointment = (props) => {
       let result = await getMoreDoctors(
         currentPatient,
         doctorListLimitNonPaginated,
-        offset = 9
+        offset
       );
       if (result && result.data) {
         // var existingUsersList = [];
