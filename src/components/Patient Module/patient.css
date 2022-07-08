@@ -1504,6 +1504,9 @@ div#profile-col-2 {
 img#profile-pic {
   height: 140px;
   width: 140px;
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
   border-radius: 50%;
   outline: 5px solid var(--primary);
 }
