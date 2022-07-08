@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap'; //Container
 // import Cookies from 'universal-cookie';
 // import Avatar from 'react-avatar';
+// import deleteIcon from "../../../../images/icons used/delete_icon_40 pxl.svg";
 import PhoneInput from 'react-phone-input-2';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -19,7 +20,8 @@ import {
     getDoctorDocumentUrl,
     updateDoctorDocumentStatus,
     deleteDoctorDocument,
-    updateDoctorDocument
+    updateDoctorDocument,
+    getDoctorDocumentUrlForAdmin
 } from "../../service/frontendapiservices";
 import TransparentLoader from "../Loader/transparentloader";
 import GetApp from '@material-ui/icons/GetApp';
@@ -31,12 +33,14 @@ import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { pdfjs } from 'react-pdf';
 import "./pdf-viewer.css";
 import { useHistory } from "react-router";
+import Cookies from 'universal-cookie';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
+const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDocumentUpdateFile }) => {
 
     const [documentData, setDocumentData] = useState([])
-    const [documentName, setDocumentName] = useState("");
+    const [currentdocumentData, setCurrentDocumentData] = useState([])
+    const [documentName, setDocumentName] = useState();
     const [documentFile, setDocumentFile] = useState();
     const [loading, setLoading] = useState(true);
     const [selectedDocument, setSelectedDocument] = useState();
@@ -46,6 +50,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
     const [errorMsg, setErrorMsg] = useState("");
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
+    const [updateInfo, setUpdateInfo] = useState()
     const history = useHistory();
     const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages);
@@ -56,12 +61,13 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
             loadDoctorDocument(currentDoctor);
         }
     }, [currentDoctor]);
-
     const loadDoctorDocument = async (doc) => {
         const doctorId = doc.id;
         const res = await getDoctorDocument(doctorId);
         if (res && res.status === 200) {
             setDocumentData(res.data.documentsDocumentsList);
+            setCurrentDocumentData(res.data.documentsDocumentsList[0])
+            setDocumentinfo(res.data.documentsDocumentsList[0])
             setLoading(false);
         }
         else if (res && res.status === 204) {
@@ -100,8 +106,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        if (file && file.size > 1000000) {
-            setDocumentError("Document must be less than 1mb");
+        if (file && file.size > 10000000) {
+            setDocumentError("Document must be less than 10mb");
             document.getElementById("uploadForm").reset();
         }
         else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
@@ -111,20 +117,23 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
         else {
             setDocumentError("");
             setDocumentFile(e.target.files[0]);
+            setDocumentUpdateFile(e.target.files[0])
         }
     }
 
     const handleUpload = async (e, data) => {
         setLoading(true);
         document.getElementById("uploadBtn").disabled = true;
+        // document.getElementById("uploadlicence").disabled = true;
+        // document.getElementById("uploadrefphone").disabled = true;
+        // document.getElementById("uploadcerty").disabled = true;
         const info = {
-            doctorId: currentDoctor.data.id,
-            doctor_email: currentDoctor.data.email,
+            doctorId: currentDoctor.id,
+            doctor_email: currentDoctor.email,
             documentName: documentName,
             licenseNumber: licenseNumber,
             referencePhoneNumber: referencePhoneNumber,
             certifyingBody: certifyingBody
-
         }
         const files = documentFile;
         const res = await uploadDoctorDocument(files, info).catch(err => {
@@ -138,6 +147,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
             setDocumentData(existingDoc);
             setUploadOpen(false);
             setLoading(false)
+            history.go(0)
         }
     }
 
@@ -152,6 +162,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                 documentKey: selectedDocument.documentKey,
                 documentName: selectedDocument.documentName,
                 documentType: selectedDocument.documentType,
+                licenseNumber: state.licenseNumber,
+                referencePhoneNumber: state.referencePhoneNumber,
+                certifyingBody: state.certifyingBody,
                 documentStatus: "UNAPPROVED"
             }
         }
@@ -162,9 +175,13 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                 doctor_email: selectedDocument.doctor_email,
                 documentKey: selectedDocument.documentKey,
                 documentName: selectedDocument.documentName,
-                documentType: selectedDocument.documentType
+                documentType: selectedDocument.documentType,
+                licenseNumber: state.licenseNumber,
+                referencePhoneNumber: state.referencePhoneNumber,
+                certifyingBody: state.certifyingBody,
             }
         }
+        console.log("Info", info);
         const files = documentFile;
         const res = await updateDoctorDocument(files, info).catch(err => {
             setErrorMsg("Something Went Wrong!");
@@ -178,9 +195,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
     const showDocument = async (data) => {
         setLoading(true);
         setSelectedDocument(data);
-        const res = await getDoctorDocumentUrl(data);
+        const res = await getDoctorDocumentUrlForAdmin(data);
         if (res && res.status === 200) {
-            setSelectedDocumentUrl(res.data);
+            setSelectedDocumentUrl(res.data.documentsDocumentsList[0].document);
             setViewDocument(true);
             setLoading(false);
         }
@@ -201,6 +218,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
             documentKey: doc.documentKey,
             documentName: doc.documentName,
             documentType: doc.documentType,
+            licenseNumber: state.licenseNumber,
+            referencePhoneNumber: state.referencePhoneNumber,
+            certifyingBody: state.certifyingBody,
             documentStatus: "APPROVED"
         }
 
@@ -219,6 +239,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
             documentKey: doc.documentKey,
             documentName: doc.documentName,
             documentType: doc.documentType,
+            licenseNumber: state.licenseNumber,
+            referencePhoneNumber: state.referencePhoneNumber,
+            certifyingBody: state.certifyingBody,
             documentStatus: "UNAPPROVED"
         }
 
@@ -230,11 +253,11 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
 
     const downloadDocument = async (data) => {
         setLoading(true);
-        const res = await getDoctorDocumentUrl(data);
+        const res = await getDoctorDocumentUrlForAdmin(data);
         if (res && res.status === 200) {
             const link = document.createElement("a");
-            link.href = res.data;
-            link.download = `${data.documentName}.${data.documentType}`;
+            link.href = res.data.documentsDocumentsList[0].document;
+            link.download = `${res.data.documentsDocumentsList[0].documentName}.${res.data.documentsDocumentsList[0].documentType}`;
             document.body.appendChild(link);
             link.click();
             setLoading(false);
@@ -250,19 +273,30 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
     }
     //Tell-Us-More-About-You Page
     const [state, setstate] = useState({
-        licenseNumber: "",
-        referencePhoneNumber: "",
-        certifyingBody: ""
+        licenseNumber: (currentdocumentData && currentdocumentData.licenseNumber) || "",
+        referencePhoneNumber: (currentdocumentData && currentdocumentData.referencePhoneNumber) || "",
+        certifyingBody: (currentdocumentData && currentdocumentData.certifyingBody) || ""
     });
-    const { licenseNumber, referencePhoneNumber, certifyingBody } = state;
+    useEffect(() => {
+        setstate({
+            licenseNumber: currentdocumentData.licenseNumber,
+            referencePhoneNumber: currentdocumentData.referencePhoneNumber,
+            certifyingBody: currentdocumentData.certifyingBody
+        })
+    }, [currentdocumentData]);
     const [phoneError, setPhoneError] = useState();
     const handleInputChange = (e) => {
         e.preventDefault()
         setstate({ ...state, [e.target.name]: e.target.value });
+        setDocumentinfo({ ...state, [e.target.name]: e.target.value })
+
     };
     const handlePhone = (e) => {
         setstate({ ...state, referencePhoneNumber: e });
+        setDocumentinfo({ ...state, referencePhoneNumber: e })
     };
+    const { id, licenseNumber, referencePhoneNumber, certifyingBody } = state;
+
     return (
         <>
             {/* {loading && (
@@ -272,23 +306,25 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                 <Row>
                     <Col md={6}>
                         <p>License Number<sup>*</sup></p>
-                        <TextValidator id="standard-basic" type="text" name="licenseNumber"
+                        <TextValidator id="uploadlicence" type="text" name="licenseNumber"
                             onChange={(e) => handleInputChange(e)}
                             value={licenseNumber}
                             validators={['required']}
                             errorMessages={['This field is required']}
                             variant="filled"
+                            required
                             placeholder='License Number' />
 
                     </Col>
                     <Col md={6}>
                         <p>Certifying Body<sup>*</sup></p>
-                        <TextValidator id="standard-basic" type="text" name="certifyingBody"
+                        <TextValidator id="uploadcerty" type="text" name="certifyingBody"
                             onChange={(e) => handleInputChange(e)}
                             value={certifyingBody}
                             validators={['required']}
                             errorMessages={['This field is required']}
                             variant="filled"
+                            required
                             placeholder='Certifying Body' />
 
                     </Col>
@@ -299,6 +335,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                     <Col md={12}>
                         <p>Reference Phone Number<sup>*</sup></p>
                         <PhoneInput
+                            id="uploadrefphone"
                             inputProps={{
                                 name: 'referencePhoneNumber',
                                 required: true,
@@ -330,7 +367,39 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                     </button>
                 </Col>
             </Row>
-            {/* {isDoctor && (<br />)}
+            <br />
+            {/* <div>
+              <Pagination size="sm" style={{ float: "right" }}>
+                {documentData?.totalPages ? (
+                  Array.from(
+                    Array(documentData.totalPages),
+                    (e, i) => {
+                      return (
+                        <Pagination.Item
+                          key={i + 1}
+                          active={i + 1 === currentPageNumber ? true : false}
+                          onClick={(e) => clickPagination(i + 1)}
+                        >
+                          {i + 1}
+                        </Pagination.Item>
+                      );
+                    }
+                  )
+                ) : (
+                  <span></span>
+                )}
+              </Pagination>
+            </div> */}
+            {/* <div className="row">
+              <embed
+                src={document}
+                type="application/pdf"
+                frameBorder="0"
+                height="400px"
+                width="100%"
+              />
+            </div> */}
+            {isDoctor && (<br />)}
             <div className="doc-table-scroll">
                 <table className="table table-bordered table-striped table-hover doc-table">
                     <thead>
@@ -389,7 +458,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                         )}
                     </tbody>
                 </table>
-            </div> */}
+            </div>
 
             <Dialog aria-labelledby="customized-dialog-title" open={uploadOpen}>
                 <DialogTitle id="customized-dialog-title">
@@ -428,6 +497,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                                     inputProps={{
                                         required: true
                                     }}
+                                    value={documentName}
                                     onChange={(e) => handleDocnameChange(e)}
                                 />
                             </Col>
@@ -446,7 +516,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor }) => {
                         <button
                             className="btn btn-primary text-light"
                             type="button"
-                            id = "uploadBtn"
+                            id="uploadBtn"
                             onClick={(e) => handleUpload(e)}
                         >
                             Upload

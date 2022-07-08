@@ -30,8 +30,8 @@ const EditArticle = () => {
             console.log(e.target.files)
             setImageError("");
             const file = e.target.files[0];
-            if (file && file.size > 1000000) {
-                setImageError("Document must be less than 1mb");
+            if (file && file.size > 10000000) {
+                setImageError("Document must be less than 10mb");
                 setArticle({ ...article, picture: "" });
             }
             else {

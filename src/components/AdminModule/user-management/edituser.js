@@ -42,8 +42,12 @@ import {
   updateRolePatient,
   // updateUserData
 } from '../../../service/adminbackendservices';
+import {
+  updateDoctorDocumentNew
+} from '../../../service/frontendapiservices'
 import DoctorDocumentUpload from '../../CommonModule/doctordocumentupload';
 import { Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 $(document).ready(function () {
   $('.upload-button').on('click', function () {
@@ -111,16 +115,19 @@ const EditUser = (props) => {
     langKey: '',
     authorities: [],
     modeOfEmployment: '',
-    affiliation: ''
+    affiliation: '',
+    licenseNumber: '',
+    referencePhoneNumber: '',
+    certifyingBody: ''
   });
   const cookies = new Cookies();
-
+  const [documentInfo, setDocumentinfo] = useState({})
+  const [documentUpdateFile, setDocumentUpdateFile] = useState()
   useEffect(() => {
     getCurrentUser();
     loadOptions();
     loadSpeciality();
     loadLanguage();
-
   }, []);
   // const userState = props.location.state;
   const currentUserAuthorities = cookies.get('authorities');
@@ -185,12 +192,17 @@ const EditUser = (props) => {
     height,
     educationalQualifications,
     modeOfEmployment,
-    affiliation
+    affiliation,
+    licenseNumber,
+    referencePhoneNumber,
+    certifyingBody
   } = user;
   //const onInputChange = e => {
   //setUser({ ...user, [e.target.name]: e.target.value });
   // };
-
+  const handleRefPhone = (e) => {
+    setUser({ ...user, referencePhoneNumber: e });
+  };
   const handleSpecialities = (selectedList, selectedItem) => {
     // e.preventDefault()
     specialities.push({ id: selectedItem.id });
@@ -302,7 +314,6 @@ const EditUser = (props) => {
       }
     }
     if (currentUserAuthorities === 'ROLE_DOCTOR') {
-
       bodyFormData.append('profileData', JSON.stringify(user));
       bodyFormData.append('profilePicture', profilePicture);
       const response = await updateRoleDoctor(bodyFormData).catch((err) => {
@@ -310,17 +321,30 @@ const EditUser = (props) => {
           setTransparentLoading(false);
         }
       });
-      if (response.status === 200 || response.status === 201) {
+      const info = {
+        doctorId: user.id,
+        //doctor_email: user.email,
+        // documentName: documentName,
+        licenseNumber: documentInfo.licenseNumber,
+        referencePhoneNumber: documentInfo.referencePhoneNumber,
+        certifyingBody: documentInfo.certifyingBody
+      }
+
+      const res = await updateDoctorDocumentNew(info).catch(err => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          setTransparentLoading(false);
+        }
+      });
+      if (response.status === 200 || response.status === 201 && res.status === 200) {
         // user.login = userState.login;
         // user.langKey = userState.langKey;
         // user.authorities = userState.authorities;
         // const userResponse = await updateUserData(user);
         // if (userResponse) {
         //window.location.assign("/admin");
-
         history.go(0);
-        //}
       }
+      //}
     }
   };
 
@@ -394,8 +418,8 @@ const EditUser = (props) => {
               Edit {firstName} {lastName}
             </h2>
             <Row>
-              <Col md={6}>
-                <p>First Name</p>
+              <Col md={12}>
+                <p>Full Name</p>
                 <TextValidator
                   id="standard-basic"
                   type="text"
@@ -405,7 +429,7 @@ const EditUser = (props) => {
                   variant="filled"
                 />
               </Col>
-              <Col md={6}>
+              {/* <Col md={6}>
                 <p>Last Name</p>
                 <TextValidator
                   id="standard-basic"
@@ -415,7 +439,7 @@ const EditUser = (props) => {
                   value={lastName ? lastName : ''}
                   variant="filled"
                 />
-              </Col>
+              </Col> */}
             </Row>
             <br />
             <Row>
@@ -801,20 +825,18 @@ const EditUser = (props) => {
                     />
                   </Col> */}
                   <Col md={6}>
-                    <p>Years Of experience</p>
-                    <TextValidator
-                      id="standard-basic"
-                      type="number"
-                      name="experience"
-                      onChange={(e) => handleInputChange(e)}
+                    <p>Years of experience</p>
+                    <TextValidator id="standard-basic" type="number" name="experience"
+                      onChange={e => handleInputChange(e)}
+                      value={experience ? experience : ''}
+                      validators={['required']}
+                      errorMessages={['This field is required']}
                       inputProps={{
                         min: 0,
-                        max: 80,
-                        step: 0.1,
+                        max: 65
                       }}
-                      value={experience ? experience : ''}
                       variant="filled"
-                    />
+                      placeholder='Years of experience' />
                   </Col>
                   <Col md={6}>
                     <p>Specialization</p>
@@ -869,14 +891,22 @@ const EditUser = (props) => {
                 <Row>
                   <Col md={6}>
                     <p>Mode of Employment</p>
-                    <TextValidator
-                      id="standard-basic"
-                      type="text"
-                      name="education"
-                      onChange={(e) => handleInputChange(e)}
-                      value={modeOfEmployment ? modeOfEmployment : ''}
-                      variant="filled"
-                    />
+                    <FormControl>
+                      <Select
+                        id="demo-controlled-open-select"
+                        variant="filled"
+                        name="modeOfEmployment"
+                        value={modeOfEmployment ? modeOfEmployment : ''}
+                        displayEmpty
+                        inputProps={{ required: true }}
+                        onChange={e => handleInputChange(e)}
+                      >
+                        <MenuItem value=""><em>Select</em></MenuItem>
+                        <MenuItem value="Self - Employed">Self - Employed</MenuItem>
+                        <MenuItem value="Employed">Employed</MenuItem>
+
+                      </Select>
+                    </FormControl>
                   </Col>
                   <Col md={6}>
                     <p>Affiliation</p>
@@ -894,10 +924,55 @@ const EditUser = (props) => {
                       variant="filled"
                     />
                   </Col>
+                </Row>
+                <br />
+                {/* <Row>
+                  <Col md={6}>
+                    <p>License Number<sup>*</sup></p>
+                    <TextValidator id="standard-basic" type="text" name="licenseNumber"
+                      onChange={(e) => handleInputChange(e)}
+                      value={licenseNumber}
+                      validators={['required']}
+                      errorMessages={['This field is required']}
+                      variant="filled"
+                      placeholder='License Number' />
+
+                  </Col>
+                  <Col md={6}>
+                    <p>Certifying Body<sup>*</sup></p>
+                    <TextValidator id="standard-basic" type="text" name="certifyingBody"
+                      onChange={(e) => handleInputChange(e)}
+                      value={certifyingBody}
+                      validators={['required']}
+                      errorMessages={['This field is required']}
+                      variant="filled"
+                      placeholder='Certifying Body' />
+
+                  </Col>
 
                 </Row>
                 <br />
-                <DoctorDocumentUpload currentDoctor={user} isDoctor={false} />
+                <Row>
+                  <Col md={12}>
+                    <p>Reference Phone Number<sup>*</sup></p>
+                    <PhoneInput
+                      inputProps={{
+                        name: 'referencePhoneNumber',
+                        required: true,
+                        maxLength: 20,
+                        minLength: 12
+                      }}
+                      country={'us'}
+                      value={referencePhoneNumber}
+                      onChange={e => handleRefPhone(e)}
+                      variant="filled"
+                      required
+                    />
+                  </Col>
+                </Row>
+                <br /> */}
+                <br />
+                <DoctorDocumentUpload currentDoctor={user} isDoctor={false} setDocumentinfo={setDocumentinfo} setDocumentUpdateFile={setDocumentUpdateFile} />
               </>
             )}
             <div className="text-center">

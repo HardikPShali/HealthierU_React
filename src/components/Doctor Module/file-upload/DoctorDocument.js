@@ -97,14 +97,14 @@ const DoctorDocument = (props) => {
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
             // console.log("fileSize ::", fileSize)
-            const maxSize = 1000000;
+            const maxSize = 10000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg("")
                 setLabResult({ ...labResult, labResultDocument: e.target.value });
             }
             else {
                 document.getElementById("labResultDocument").value = "";
-                setErrorMsg("Please upload PDF file with size less than 1mb.")
+                setErrorMsg("Please upload PDF file with size less than 10mb.")
             }
         }
         else {
@@ -116,14 +116,14 @@ const DoctorDocument = (props) => {
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
             // console.log("fileSize ::", fileSize)
-            const maxSize = 1000000;
+            const maxSize = 10000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg("")
                 setPrescriptionResult({ ...prescriptionResult, prescriptionDocument: e.target.value });
             }
             else {
                 document.getElementById("prescriptionDocument").value = "";
-                setErrorMsg("Please upload PDF file with size less than 1mb.")
+                setErrorMsg("Please upload PDF file with size less than 10mb.")
             }
         }
         else {
