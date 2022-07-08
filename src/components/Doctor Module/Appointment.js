@@ -681,7 +681,6 @@ const Myappointment = (props) => {
       if (responseTwo && responseTwo.data) {
         setLoading(false);
         const appointmentDetails = responseTwo.data.data;
-        // console.log('appointmentDetails', appointmentDetails);
         const reversedAppointments = appointmentDetails.reverse();
         const updateArray = [];
         reversedAppointments.map((value, index) => {

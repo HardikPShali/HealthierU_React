@@ -84,7 +84,8 @@ const Welcome = ({ currentuserInfo }) => {
     const handleClose = () => {
         setOpen(false);
     };
-
+    const [documentInfo, setDocumentinfo] = useState({})
+    const [documentUpdateFile, setDocumentUpdateFile] = useState()
     const [options, Setoption] = useState({
         countryList: []
     });
@@ -114,10 +115,11 @@ const Welcome = ({ currentuserInfo }) => {
             async function currentUserData() {
                 const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
                 if (res) {
-                    setCurrentDoctor(res);
+                    setCurrentDoctor(res.data);
                     setDisplayDocumentForm(true);
                 }
             }
+
             currentUserData();
         }
     }, [])
@@ -240,7 +242,7 @@ const Welcome = ({ currentuserInfo }) => {
         setstate({ ...state, phone: e });
     };
     const handleRefPhone = (e) => {
-        setstate({ ...state, refphone: e });
+        setstate({ ...state, referencePhoneNumber: e });
     };
     const handleCountry = (e) => {
         setstate({ ...state, countryId: e.target.value });
@@ -374,7 +376,10 @@ const Welcome = ({ currentuserInfo }) => {
             // email: (currentuserInfo && currentuserInfo.email) || "",
             // address: address,
             languages: languages,
-            doctorTimeZone: currentTimeZone
+            doctorTimeZone: currentTimeZone,
+            licenseNumber: licenseNumber,
+            referencePhoneNumber: referencePhoneNumber,
+            certifyingBody: certifyingBody
         };
 
         var bodyFormData = new FormData();
@@ -939,6 +944,51 @@ const Welcome = ({ currentuserInfo }) => {
                                         </Row>
                                         <br />
                                         <br /> */}
+                                        {/* <Row>
+                                            <Col md={6}>
+                                                <p>License Number<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="licenseNumber"
+                                                    onChange={(e) => handleInputChange(e)}
+                                                    value={licenseNumber}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled"
+                                                    placeholder='License Number' />
+
+                                            </Col>
+                                            <Col md={6}>
+                                                <p>Certifying Body<sup>*</sup></p>
+                                                <TextValidator id="standard-basic" type="text" name="certifyingBody"
+                                                    onChange={(e) => handleInputChange(e)}
+                                                    value={certifyingBody}
+                                                    validators={['required']}
+                                                    errorMessages={['This field is required']}
+                                                    variant="filled"
+                                                    placeholder='Certifying Body' />
+
+                                            </Col>
+
+                                        </Row>
+                                        <br />
+                                        <Row>
+                                            <Col md={12}>
+                                                <p>Reference Phone Number<sup>*</sup></p>
+                                                <PhoneInput
+                                                    inputProps={{
+                                                        name: 'referencePhoneNumber',
+                                                        required: true,
+                                                        maxLength: 20,
+                                                        minLength: 12
+                                                    }}
+                                                    country={'us'}
+                                                    value={referencePhoneNumber}
+                                                    onChange={e => handleRefPhone(e)}
+                                                    variant="filled"
+                                                    required
+                                                />
+                                                {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
+                                            </Col>
+                                        </Row> */}
                                         <br />
                                         {educationList.map((x, i) => {
                                             return (
@@ -1030,7 +1080,8 @@ const Welcome = ({ currentuserInfo }) => {
                             )}
                             {displaydocumentForm && (<>
 
-                                <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} />
+                                <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor}  setDocumentinfo={setDocumentinfo}
+                                                            setDocumentUpdateFile={setDocumentUpdateFile} />
                                 <br />
                                 <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>
                             </>)}
