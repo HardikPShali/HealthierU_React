@@ -1355,3 +1355,22 @@ export const postNewsletterEmailApi = async (email) => {
   });
   return response;
 };
+
+export const getCreatePasswordOtpApi = async (data) => {
+  var payload = {
+    method: 'post',
+    mode: 'no-cors',
+    data: data,
+    url: `/api/mobile/account/reset-password/verify`,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}

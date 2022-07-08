@@ -1860,11 +1860,19 @@ const MyDoctor = (props) => {
                       </div>
                     </div>
                     <hr />
-                    {/* <h5>About</h5> */}
+
                     <div className="ml-4">
-                      <p style={{ fontSize: 12 }}>
-                        {/* <span><b>Bio : </b></span><br/> */}
-                        <span>{doctor.bio}</span>
+                      {
+                        doctor.bio && <p style={{ fontSize: 16, margin: "0 auto" }}>About</p>
+                      }
+
+
+                      <p style={{ fontSize: 12, textAlign: 'justify' }}>
+
+                        {
+                          doctor.bio && <span>{doctor.bio}</span>
+                        }
+
                         <br />
 
                         {doctor.awards && (

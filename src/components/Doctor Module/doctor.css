@@ -3256,6 +3256,10 @@ button.reset-btn {
   overflow-y: scroll;
 }
 
+.diagnosis-description:hover {
+  cursor: default;
+}
+
 .diagnosis-description::-webkit-scrollbar {
   display: none;
 }
@@ -3270,7 +3274,7 @@ button.reset-btn {
 }
 
 .diagnosis-desc__p-tag {
-  font-size: 12px !important;
+  font-size: 15px !important;
   word-break: break-word;
 }
 

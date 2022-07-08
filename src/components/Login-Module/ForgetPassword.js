@@ -29,7 +29,7 @@ const ForgetPassword = () => {
     };
     const handleClose = () => {
         setOpen(false);
-        history.push("/createpassword");
+        history.push("/createpassword?email=" + user.email);
     };
     const [user, setUser] = useState({
         email: "",

@@ -715,9 +715,9 @@ const Meeting = (props) => {
               {/* <span className="ag-btn shareScreenBtn" title="Share Screen">
                     <i className="ag-icon icon-screen-share"></i>
                   </span> */}
-              <span className="ag-btn displayModeBtn" title="Switch Display Mode">
+              {/* <span className="ag-btn displayModeBtn" title="Switch Display Mode">
                 <i className="ag-icon icon-switch-layout"></i>
-              </span>
+              </span> */}
               {/* <!-- <span class="ag-btn ctrlBtn" title="Control">
             <i class="ag-icon icon-ctrl"></i>
           </span> -->

@@ -28,6 +28,7 @@ import genderIcon from '../../../src/images/svg/gender-icon.svg';
 import educationIcon from '../../../src/images/svg/education-icon.svg';
 import experienceIcon from '../../../src/images/svg/experience-icon.svg';
 import specialityIcon from '../../../src/images/svg/speciality-icon.svg';
+import aboutIcon from '../../../src/images/svg/about-icon.svg';
 import {
     getCountryList,
     getLanguageList,
@@ -45,6 +46,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ImageCropper from '../CommonModule/ImageCroper';
 import ProfileRow from '../CommonModule/Profile/ProfileRow/ProfileRow';
 import Cookies from "universal-cookie";
+import { MDBInput } from "mdbreact";
 
 // import Cookies from 'universal-cookie';
 // import CreateIcon from '@material-ui/icons/Create';
@@ -97,6 +99,7 @@ const Profile = ({ currentDoctor }) => {
         educationalQualifications,
         experience,
         specialities,
+        bio
     } = currentDoctorData ? currentDoctorData : currentDoctor;
 
 
@@ -421,6 +424,15 @@ const Profile = ({ currentDoctor }) => {
                                                                 )
                                                             }
                                                         />
+                                                        {
+                                                            currentDoctor && currentDoctor.bio && (
+                                                                <ProfileRow
+                                                                    icon={aboutIcon}
+                                                                    title="About Me"
+                                                                    value={currentDoctor.bio}
+                                                                />
+                                                            )
+                                                        }
                                                     </div>
                                                 </div>
                                             </Tab>
@@ -545,6 +557,35 @@ const Profile = ({ currentDoctor }) => {
                                                             // errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
                                                             variant="filled"
                                                             style={{ display: 'none' }}
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                                <br />
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <p>
+                                                            About
+                                                        </p>
+                                                        {/* <textarea
+                                                            id="standard-basic"
+                                                            type="text"
+                                                            name="bio"
+                                                            onChange={(e) => handleInputChange(e)}
+                                                            value={bio}
+
+                                                            variant="filled"
+                                                            rowsMax={4}
+                                                            cols={50}
+                                                        ></textarea> */}
+
+                                                        <MDBInput type="textarea" rows="5"
+                                                            id="standard-basic"
+                                                            name="bio"
+                                                            onChange={(e) => handleInputChange(e)}
+                                                            value={bio}
+                                                            style={{
+                                                                background: '#e8e8e8',
+                                                            }}
                                                         />
                                                     </Col>
                                                 </Row>

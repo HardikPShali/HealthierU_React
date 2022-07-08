@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Avatar from 'react-avatar';
 import moment from 'moment';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,6 +11,7 @@ import LocalStorageService from '../../../../util/LocalStorageService';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import rightIcon from '../../../../images/svg/right-icon.svg';
+import { getAppointmentMode } from '../../../../util/appointmentModeUtil';
 
 
 const NextAppointmentNotifications = ({ notification, index }) => {
@@ -23,7 +24,6 @@ const NextAppointmentNotifications = ({ notification, index }) => {
     const firstName = currentPatient.firstName;
     const lastName = currentPatient.lastName;
     const email = currentPatient.email;
-    const doctorId = notification.data.appointmentDetails.doctorId;
     const rate = notification.data.appointmentDetails.doctor.rate;
     const halfRate = notification.data.appointmentDetails.doctor.halfRate;
     const appointmentId = notification.data.appointmentDetails.id;
@@ -33,41 +33,22 @@ const NextAppointmentNotifications = ({ notification, index }) => {
         setClickModal(true);
     };
 
+
+
     const setNextAppointmentHandler = async (orderData) => {
-        const setNextAppointmentDataArray = [];
-        setNextAppointmentDataArray.push({
-            doctorId: doctorId,
-            endTime: notification.data.appointmentDetails.endTime,
-            startTime: notification.data.appointmentDetails.startTime,
-            type: 'DR',
-            patientId: notification.data.appointmentDetails.patientId,
-            status: 'ACCEPTED',
-            remarks: notification.data.appointmentDetails.remarks,
-            appointmentMode: appointmentMode,
+        let setNextAppointmentDataArray = {};
+        setNextAppointmentDataArray = {
             id: appointmentId,
-            urgency: notification.data.appointmentDetails.urgency,
-            unifiedAppointment:
-                notification.data.appointmentDetails.unifiedAppointment,
-        });
+            type: getAppointmentMode(appointmentMode),
+            paymentsAppointmentsDTO: orderData,
+        };
         console.log({ setNextAppointmentDataArray });
 
-        const bookAppointmentApiHeader = {
-            method: 'put',
-            mode: 'no-cors',
-            data: JSON.stringify(setNextAppointmentDataArray),
-            url: `/api/v2/appointments/bulk`,
-            headers: {
-                Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
-        };
-
-        const storePaypalTransitionInfo = {
+        const setNextApptApi = {
             method: 'post',
             mode: 'no-cors',
-            data: JSON.stringify(orderData),
-            url: `/api/paypal/transaction-info`,
+            data: setNextAppointmentDataArray,
+            url: `/api/v2/appointments/payment/bulk`,
             headers: {
                 Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
                 'Content-Type': 'application/json',
@@ -75,17 +56,40 @@ const NextAppointmentNotifications = ({ notification, index }) => {
             },
         };
 
-        console.log({ bookAppointmentApiHeader });
-        console.log({ storePaypalTransitionInfo });
+        try {
+            // await api call
+            const newPaymentResponse = await axios(setNextApptApi);
+            console.log({ newPaymentResponse });
 
-        const bookingResponse = await axios(bookAppointmentApiHeader);
-        const storePaypalInfo = await axios(storePaypalTransitionInfo);
+            //success logic
+            if (
+                newPaymentResponse.status === 200 ||
+                newPaymentResponse.status === 201
+            ) {
+                //   props.history.push('/patient/myappointment');
+                toast.success('Appointment has been set successfully');
+            }
+        } catch (err) {
+            //error logic
+            console.log({ err });
+            const errorMessage = err.response.data.message;
+            const errorStatus = err.response.status;
 
-        if (bookingResponse.status === 200 || bookingResponse.status === 201) {
-            // alert('Payment Successful');
-            setClickModal(false);
-            toast.success("Payment Successful");
-            // setPaymentConfirmed(true);
+            if (errorStatus === 500 && errorMessage) {
+                //   setLoading(false);
+                // FOR MODAL
+                // setPaymentErrorModal(true);
+
+                // FOR TOAST
+                toast.error(`${errorMessage}. Please try again.`);
+            } else {
+                //   setLoading(false);
+                // FOR MODAL
+                // setPaymentErrorModal(true);
+
+                // FOR TOAST
+                toast.error(`Payment failed. Please try again.`);
+            }
         }
     };
 
@@ -170,7 +174,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                 <DialogActions>
                     <Col md={12}>
                         <Paypal
-                            appointmentId={appointmentId}
+                            // appointmentId={appointmentId}
                             appointmentMode={appointmentMode}
                             bookappointment={setNextAppointmentHandler}
                             firstName={firstName}
