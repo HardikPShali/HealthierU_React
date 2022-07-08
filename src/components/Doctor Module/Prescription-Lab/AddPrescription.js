@@ -74,7 +74,7 @@ const AddPrescription = (props) => {
         if (e.target.type === 'file') {
             const fileSize = e.target.files[0].size;
             console.log('fileSize ::', fileSize);
-            const maxSize = 1000000;
+            const maxSize = 10000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg('');
                 setprescriptionList({
@@ -85,7 +85,7 @@ const AddPrescription = (props) => {
                 // setShowPrescriptionUpload(true);
             } else {
                 document.getElementById('prescriptionDocument').value = '';
-                setErrorMsg('Please upload PDF file with size less than 1mb.');
+                setErrorMsg('Please upload PDF file with size less than 10mb.');
             }
         } else {
             setprescriptionList({
@@ -259,7 +259,7 @@ const AddPrescription = (props) => {
         if (e.target.type === 'file') {
             const fileSize = e.target.files[0].size;
             console.log('fileSize ::', fileSize);
-            const maxSize = 1000000;
+            const maxSize = 10000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg('');
                 setPrescriptionResult({
@@ -269,7 +269,7 @@ const AddPrescription = (props) => {
                 setIsSaveModal(true);
             } else {
                 document.getElementById('prescriptionDocument').value = '';
-                setErrorMsg('Please upload PDF file with size less than 1mb.');
+                setErrorMsg('Please upload PDF file with size less than 10mb.');
             }
         } else {
             setPrescriptionResult({

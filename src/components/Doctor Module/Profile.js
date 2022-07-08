@@ -14,6 +14,7 @@ import {
     uploadDoctorDocument,
     getDoctorDocument,
     updateDoctorData,
+    updateDoctorDocumentNew
 } from '../../service/frontendapiservices';
 import TransparentLoader from '../Loader/transparentloader';
 import DoctorDocumentUpload from '../CommonModule/doctordocumentupload';
@@ -148,20 +149,23 @@ const Profile = ({ currentDoctor }) => {
             setTimeout(() => setLoading(false), 1000);
         }
     };
-
+    const [documentInfo, setDocumentinfo] = useState({})
+    const [documentUpdateFile, setDocumentUpdateFile] = useState()
+    const [currentdocumentData, setCurrentDocumentData] = useState([])
     //LOAD DOCUMENT LIST
     const loadDoctorDocument = async () => {
         const doctorId = currentDoctor.id;
         const res = await getDoctorDocument(doctorId);
         if (res && res.status === 200) {
             setDocumentData(res.data.documentsDocumentsList);
+            setCurrentDocumentData(res.data.documentsDocumentsList[0])
             setLoading(false);
         } else if (res && res.status === 204) {
             setDocumentData([]);
             setLoading(false);
         }
     };
-
+    const { licenseNumber, referencePhoneNumber, certifyingBody } = currentdocumentData ? currentdocumentData : documentData;
     useEffect(() => {
         loadDoctorDocument();
         loadOptions();
@@ -281,8 +285,21 @@ const Profile = ({ currentDoctor }) => {
         bodyFormData.append('profileData', JSON.stringify(reqBody));
         bodyFormData.append('profilePicture', profilePicture);
         const response = await updateDoctorData(bodyFormData);
-        console.log("handleDetails", response);
-        if (response.status === 200 || response.status === 201) {
+        const user = cookies.get("profileDetails");
+        const info = {
+            doctorId: user.id,
+            //doctor_email: user.email,
+            // documentName: documentName,
+            licenseNumber: documentInfo.licenseNumber,
+            referencePhoneNumber: documentInfo.referencePhoneNumber,
+            certifyingBody: documentInfo.certifyingBody
+        }
+        const res = await updateDoctorDocumentNew(info).catch(err => {
+            if (err.response.status === 500 || err.response.status === 504) {
+                setLoading(false);
+            }
+        });
+        if (response.status === 200 || response.status === 201 && res.status === 200) {
             cookies.set('profileDetails', response.data.data);
             // setCurrentDoctorData({ currentDoctorData: currentDoctorData });
             history.go(0);
@@ -681,6 +698,17 @@ const Profile = ({ currentDoctor }) => {
                                                                 />
                                                             </div>
                                                         </FormControl>
+                                                    </Col>
+                                                </Row>
+                                                <br />
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <DoctorDocumentUpload
+                                                            currentDoctor={currentDoctor}
+                                                            isDoctor={true}
+                                                            setDocumentinfo={setDocumentinfo}
+                                                            setDocumentUpdateFile={setDocumentUpdateFile}
+                                                        />
                                                     </Col>
                                                 </Row>
                                             </div>

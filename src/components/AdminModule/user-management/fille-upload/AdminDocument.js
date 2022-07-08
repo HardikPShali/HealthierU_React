@@ -110,7 +110,7 @@ const AdminDocument = (props) => {
     if (e.target.type === "file") {
       const fileSize = e.target.files[0].size;
       console.log("fileSize ::", fileSize);
-      const maxSize = 1000000;
+      const maxSize = 10000000;
       if (e.target.files[0].size <= maxSize) {
         setErrorMsg("");
         setLabResult({
@@ -119,7 +119,7 @@ const AdminDocument = (props) => {
         });
       } else {
         document.getElementById("labResultDocument").value = "";
-        setErrorMsg("Please upload PDF file with size less than 1mb.");
+        setErrorMsg("Please upload PDF file with size less than 10mb.");
       }
     } else {
       setLabResult({ ...labResult, [e.target.name]: e.target.value });
@@ -130,7 +130,7 @@ const AdminDocument = (props) => {
     if (e.target.type === "file") {
       const fileSize = e.target.files[0].size;
       console.log("fileSize ::", fileSize);
-      const maxSize = 1000000;
+      const maxSize = 10000000;
       if (e.target.files[0].size <= maxSize) {
         setErrorMsg("");
         setPrescriptionResult({
@@ -139,7 +139,7 @@ const AdminDocument = (props) => {
         });
       } else {
         document.getElementById("prescriptionDocument").value = "";
-        setErrorMsg("Please upload PDF file with size less than 1mb.");
+        setErrorMsg("Please upload PDF file with size less than 10mb.");
       }
     } else {
       setPrescriptionResult({
@@ -217,8 +217,8 @@ const AdminDocument = (props) => {
   };
   const handleDefaultPrescription = (e) => {
     const file = e.target.files[0];
-    if (file && file.size > 1000000) {
-      setErrorMsg("Document must be less than 1mb");
+    if (file && file.size > 10000000) {
+      setErrorMsg("Document must be less than 10mb");
       document.getElementById("uploadForm").reset();
     } else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
       setErrorMsg("Document must be PNG, JPG, JPEG or PDF");
@@ -492,14 +492,14 @@ const AdminDocument = (props) => {
                               {dataItem?.patient
                                 ? dataItem?.patient?.firstName +
                                 " " +
-                                dataItem?.patient?.lastName
+                                (dataItem?.patient?.lastName || "")
                                 : ""}
                             </td>
                             <td width="150">
                               {dataItem?.doctor
                                 ? dataItem?.doctor?.firstName +
                                 " " +
-                                dataItem?.doctor?.lastName
+                                (dataItem?.patient?.lastName || "")
                                 : ""}
                             </td>
                           </tr>
@@ -645,14 +645,14 @@ const AdminDocument = (props) => {
                             {dataItem?.patient
                               ? dataItem?.patient?.firstName +
                               " " +
-                              dataItem?.patient?.lastName
+                              (dataItem?.patient?.lastName || "")
                               : ""}
                           </td>
                           <td width="150">
                             {dataItem?.doctor
                               ? dataItem?.doctor?.firstName +
                               " " +
-                              dataItem?.doctor?.lastName
+                              (dataItem?.patient?.lastName || "")
                               : ""}
                           </td>
                         </tr>
@@ -852,7 +852,7 @@ const AdminDocument = (props) => {
                     <span>
                       Doctor Name:{" "}
                       <b>
-                        {doctor?.firstName + " " + doctor?.lastName}
+                        {doctor?.firstName + " " + (doctor?.lastName || "")}
                         <input
                           hidden={true}
                           id="doctorId"
@@ -890,7 +890,7 @@ const AdminDocument = (props) => {
                     <span>
                       Patient Name:{" "}
                       <b>
-                        {patient?.firstName + " " + patient?.lastName}
+                        {patient?.firstName + " " + (patient?.lastName || "")}
                         <input
                           hidden={true}
                           id="patientId"
@@ -1072,7 +1072,7 @@ const AdminDocument = (props) => {
                     <span>
                       Doctor Name:{" "}
                       <b>
-                        {doctor?.firstName + " " + doctor?.lastName}
+                        {doctor?.firstName + " " + (doctor?.lastName || "")}
                         <input
                           hidden={true}
                           id="doctorId"
@@ -1110,7 +1110,7 @@ const AdminDocument = (props) => {
                     <span>
                       Patient Name:{" "}
                       <b>
-                        {patient?.firstName + " " + patient?.lastName}
+                        {patient?.firstName + " " + (patient?.lastName | "")}
                         <input
                           hidden={true}
                           id="patientId"
@@ -1186,7 +1186,7 @@ const AdminDocument = (props) => {
                     <span>
                       Doctor Name:{" "}
                       <b>
-                        {doctor?.firstName + " " + doctor?.lastName}
+                        {doctor?.firstName + " " + (doctor?.lastName || "")}
                         <input
                           hidden={true}
                           id="doctorId"
@@ -1224,7 +1224,7 @@ const AdminDocument = (props) => {
                     <span>
                       Patient Name:{" "}
                       <b>
-                        {patient?.firstName + " " + patient?.lastName}
+                        {patient?.firstName + " " + (patient?.lastName || "")}
                         <input
                           hidden={true}
                           id="patientId"

@@ -111,13 +111,13 @@ const PatientDocument = (props) => {
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
             console.log("fileSize ::", fileSize);
-            const maxSize = 1000000;
+            const maxSize = 10000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg("");
                 setLabResult({ ...labResult, labResultDocument: e.target.files[0] });
             } else {
                 document.getElementById("labResultDocument").value = "";
-                setErrorMsg("Please upload PDF file with size less than 1mb.");
+                setErrorMsg("Please upload PDF file with size less than 10mb.");
             }
         } else {
             setLabResult({ ...labResult, [e.target.name]: e.target.value });
@@ -128,7 +128,7 @@ const PatientDocument = (props) => {
         if (e.target.type === "file") {
             const fileSize = e.target.files[0].size;
             console.log("fileSize ::", fileSize);
-            const maxSize = 1000000;
+            const maxSize = 10000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg("");
                 setPrescriptionResult({
@@ -137,7 +137,7 @@ const PatientDocument = (props) => {
                 });
             } else {
                 document.getElementById("prescriptionDocument").value = "";
-                setErrorMsg("Please upload PDF file with size less than 1mb.");
+                setErrorMsg("Please upload PDF file with size less than 10mb.");
             }
         } else {
             setPrescriptionResult({
@@ -265,6 +265,11 @@ const PatientDocument = (props) => {
     const showDocument = async (val) => {
         // const res = await getDocument(val);
         setPrescriptionDocumentUrl(val.documentUrl);
+        const link = document.createElement("a");
+            link.href = val.documentUrl;
+            link.download = `${val.description}.${val.documentType}`;
+            document.body.appendChild(link);
+            link.click();
     };
 
     const showLabDocument = async (val) => {
@@ -692,13 +697,9 @@ const PatientDocument = (props) => {
                             </Pagination>
                         </div>
                         <div>
-                            <embed
-                                src={prescriptionDocumentUrl}
-                                type="application/pdf"
-                                frameBorder="0"
-                                height="100px"
-                                width="100%"
-                            />
+                            {prescriptionDocumentUrl !== null || prescriptionDocumentUrl !== "" ?
+                                <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
+                                    width="100%" /> : <span></span>}
                         </div>
                     </Tab>
                     <Tab eventKey="labResult" title="Lab Result" onSelect={clickTabEvent}>
@@ -820,19 +821,10 @@ const PatientDocument = (props) => {
                             </Pagination>
                         </div>
                         <br />
-
                         <div>
-                            {labDocumentUrl !== null || labDocumentUrl !== "" ? (
-                                <embed
-                                    src={labDocumentUrl}
-                                    type="application/pdf"
-                                    frameBorder="0"
-                                    height="400px"
-                                    width="100%"
-                                />
-                            ) : (
-                                <span></span>
-                            )}
+                            {labDocumentUrl !== null || labDocumentUrl !== "" ?
+                                <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
+                                    width="100%" /> : <span></span>}
                         </div>
                     </Tab>
                 </Tabs>
