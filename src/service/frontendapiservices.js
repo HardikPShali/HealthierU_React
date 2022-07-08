@@ -789,7 +789,27 @@ export const uploadDoctorDocument = async (files, info) => {
   });
   return response;
 };
-
+export const updateDoctorDocumentNew = async (data) => {
+  // var newData = new FormData();
+  // newData.append("doctorDocumentDTO", JSON.stringify(info));
+  var payload = {
+    method: "put",
+    mode: "no-cors",
+    data: data,
+    url: `/api/mobile/doctor-documents/edit`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
 export const updateDoctorDocument = async (files, info) => {
   var newData = new FormData();
   newData.append(`doctorDocumentFile`, files);
@@ -855,7 +875,24 @@ export const getDoctorDocumentUrl = async (data) => {
   });
   return response;
 };
-
+export const getDoctorDocumentUrlForAdmin = async (data) => {
+  var payload = {
+    method: "get",
+    mode: "no-cors",
+    url: `/api/doctor-documents?doctorId.equals=${data.doctorId}&id.equals=${data.id}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
 export const updateDoctorDocumentStatus = async (data) => {
   var newData = new FormData();
   newData.append("doctorDocumentInfo", JSON.stringify(data));

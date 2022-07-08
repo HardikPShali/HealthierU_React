@@ -103,13 +103,13 @@ const Healthassessment = (props) => {
     const handleLabResultChange = (e) => {
         if (e.target.type === 'file') {
             const fileSize = e.target.files[0].size;
-            const maxSize = 1000000;
+            const maxSize = 10000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg('');
                 setLabResult({ ...labResult, labResultDocument: e.target.value });
             } else {
                 document.getElementById('labResultDocument').value = '';
-                setErrorMsg('Please upload PDF file with size less than 1mb.');
+                setErrorMsg('Please upload PDF file with size less than 10mb.');
             }
         } else {
             setLabResult({ ...labResult, [e.target.name]: e.target.value });
@@ -119,7 +119,7 @@ const Healthassessment = (props) => {
     const handlePrescriptionChange = (e) => {
         if (e.target.type === 'file') {
             const fileSize = e.target.files[0].size;
-            const maxSize = 1000000;
+            const maxSize = 10000000;
             if (e.target.files[0].size <= maxSize) {
                 setErrorMsg('');
                 setPrescriptionResult({
@@ -128,7 +128,7 @@ const Healthassessment = (props) => {
                 });
             } else {
                 document.getElementById('prescriptionDocument').value = '';
-                setErrorMsg('Please upload PDF file with size less than 1mb.');
+                setErrorMsg('Please upload PDF file with size less than 10mb.');
             }
         } else {
             setPrescriptionResult({
@@ -165,15 +165,19 @@ const Healthassessment = (props) => {
     }, []);
 
     const showDocument = async (val) => {
-        console.log("val", val.documentUrl);
+        console.log("val", val);
         // const res = await getDocument(val);
         setPrescriptionDocumentUrl(val.documentUrl);
+        const link = document.createElement("a");
+            link.href = val.documentUrl;
+            link.download = `${val.description}.${val.documentType}`;
+            document.body.appendChild(link);
+            link.click();
     };
 
     const clickPagination = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
         setPresecriptionDocument(null);
-        setMedicalRecordData(null)
         const prescriptionDocument = await getDoctorPatientDocuments(
             'Prescription',
             pageNumber - 1,
@@ -187,6 +191,7 @@ const Healthassessment = (props) => {
             pageNo: pageNumber - 1
         }
         const response = await getGlobalMedicalRecordsSearch(data)
+        console.log("clickPagination", response.data.data.documentsList``);
         setMedicalRecordData(response.data.data.documentsList)
         setPresecriptionDocument(prescriptionDocument.data);
 
@@ -277,7 +282,9 @@ const Healthassessment = (props) => {
         const data = {
             documentType: "Prescription",
             doctorId: doctor.id,
-            patientId: patientInfo
+            patientId: patientInfo,
+            pageSize: 100,
+            pageNo: 0
         }
         const presecriptionDocument = await getGlobalMedicalRecordsSearch(data);
         if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
@@ -327,7 +334,9 @@ const Healthassessment = (props) => {
         // );
         const info = {
             documentType: "LabResult",
-            patientId: patient
+            patientId: patient,
+            pageSize: 100,
+            pageNo: 0
         }
         const labDocument = await getGlobalMedicalRecordsSearch(info);
         if (labDocument.status === 200 || labDocument.status === 201) {
@@ -404,7 +413,9 @@ const Healthassessment = (props) => {
             const data = {
                 documentType: "Prescription",
                 doctorId: doctor.id,
-                patientId: patient
+                patientId: patient,
+                pageSize: 100,
+                pageNo: 0
             }
             const presecriptionDocument = await getGlobalMedicalRecordsSearch(data);
             if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
@@ -461,8 +472,8 @@ const Healthassessment = (props) => {
             //endTime: endtime.toISOString(),
             doctorName: search,
             //resultType: search,
-            //page: 0,
-            //size: 0,
+            pageSize: 100,
+            pageNo: 0
             //labName: search,
             //id: "null"
         };
@@ -513,8 +524,8 @@ const Healthassessment = (props) => {
             //endTime: endtime.toISOString(),
             //doctorName: search,
             //resultType: search,
-            //page: 0,
-            //size: 0,
+            pageSize: 100,
+            pageNo: 0,
             labName: search,
             //id: "null"
         };
@@ -710,8 +721,8 @@ const Healthassessment = (props) => {
                         <br />
                         <div> <Pagination size="sm" style={{ float: 'right' }}>
                             {
-                                presecriptionDocument?.totalPages ?
-                                    Array.from(Array(presecriptionDocument.totalPages), (e, i) => {
+                                medicalRecordData?.totalPages ?
+                                    Array.from(Array(medicalRecordData.totalPages), (e, i) => {
                                         return <Pagination.Item key={i + 1}
                                             active={i + 1 === currentPageNumber ? true : false}
                                             onClick={e => clickPagination(i + 1)}>
@@ -722,25 +733,8 @@ const Healthassessment = (props) => {
 
                             }
                         </Pagination>
-                            <Pagination size="sm" style={{ float: 'right' }}>
-                                {
-                                    medicalRecordData?.totalPages ?
-                                        Array.from(Array(medicalRecordData.totalPages), (e, i) => {
-                                            return <Pagination.Item key={i + 1}
-                                                active={i + 1 === currentPageNumber ? true : false}
-                                                onClick={e => clickPagination(i + 1)}>
-                                                {i + 1}
-                                            </Pagination.Item>
-                                        })
-                                        : <span></span>
 
-                                }
-                            </Pagination>
                         </div>
-                        <br />
-                        <br />
-
-
                         <div>
                             {prescriptionDocumentUrl !== null || prescriptionDocumentUrl !== "" ?
                                 <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
@@ -849,18 +843,6 @@ const Healthassessment = (props) => {
                         </div>
                         <div>
                             <br />
-                            <Pagination size="sm" style={{ float: 'right' }}>
-                                {
-                                    labDocument?.totalPages ?
-                                        Array.from(Array(labDocument.totalPages), (e, i) => {
-                                            return <Pagination.Item key={i + 1} active={i + 1 === currentPageNumber}
-                                                onClick={e => clickPaginationForLab(i + 1)}>
-                                                {i + 1}
-                                            </Pagination.Item>
-                                        }) : <span></span>
-
-                                }
-                            </Pagination>
                             <Pagination size="sm" style={{ float: 'right' }}>
                                 {
                                     medicalRecordData?.totalPages ?
