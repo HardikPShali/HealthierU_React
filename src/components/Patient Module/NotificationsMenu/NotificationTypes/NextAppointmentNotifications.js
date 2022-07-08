@@ -29,11 +29,24 @@ const NextAppointmentNotifications = ({ notification, index }) => {
     const appointmentId = notification.data.appointmentDetails.id;
     const appointmentMode = notification.data.appointmentDetails.appointmentMode;
 
+    const paymentStatus = notification.data.appointmentDetails.paymentStatus;
+
     const onClickPayNowModalHandler = () => {
         setClickModal(true);
     };
 
+    const onPaymentStatusTrueHandler = () => {
+        toast.error('Payment already done.');
+    }
 
+    const onClickHandler = () => {
+        if (paymentStatus === true) {
+            onClickPayNowModalHandler();
+        }
+        else {
+            onPaymentStatusTrueHandler();
+        }
+    }
 
     const setNextAppointmentHandler = async (orderData) => {
         let setNextAppointmentDataArray = {};
@@ -86,7 +99,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                 //   setLoading(false);
                 // FOR MODAL
                 // setPaymentErrorModal(true);
-
+                setClickModal(false);
                 // FOR TOAST
                 toast.error(`Payment failed. Please try again.`);
             }
@@ -99,7 +112,9 @@ const NextAppointmentNotifications = ({ notification, index }) => {
 
     return (
         <div key={index} className='set-next-appt' >
-            <div className="notif-section" onClick={() => onClickPayNowModalHandler()}>
+            <div className="notif-section" onClick={() => {
+                onClickHandler();
+            }}>
                 <div className="profile-img col-md-3">
                     {notification.data.appointmentDetails?.doctor?.picture ? (
                         <img

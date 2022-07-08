@@ -32,6 +32,8 @@ const NotificationMenuDoctor = (props) => {
             limit
         ).catch((err) => console.log({ err }));
 
+        console.log({ response });
+
         if (response.status === 200) {
             const notifications = response.data.data.notifications;
             console.log({ notifications });

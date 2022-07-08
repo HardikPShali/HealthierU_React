@@ -13,7 +13,6 @@
   font-weight: 500;
   text-shadow: none;
   font-size: 1.2rem;
-
 }
 .no-appointments {
   color: #3e4543;
@@ -38,7 +37,7 @@
 }
 
 .upcoming-appointment-card:hover {
-  transition: all .2s;
+  transition: all 0.2s;
   border-left: 6px solid var(--primary);
 }
 
@@ -48,6 +47,9 @@
 }
 
 .img-circle {
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
   border-radius: 50%;
   width: 70px;
   height: 70px;
