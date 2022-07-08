@@ -1504,6 +1504,9 @@ div#profile-col-2 {
 img#profile-pic {
   height: 140px;
   width: 140px;
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
   border-radius: 50%;
   outline: 5px solid var(--primary);
 }
@@ -1515,6 +1518,9 @@ img#profile-pic {
 .my-doctor-avatar > .sb-avatar__text {
   width: 100px !important;
   height: 100px !important;
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
   border-radius: 50%;
   margin-left: 21px;
   background-color: #fff !important;
@@ -3984,9 +3990,13 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .img-circle {
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
   border-radius: 50%;
   width: 70px;
   height: 70px;
+  outline: 2px solid #00d0cc;
 }
 
 .my-appointments-card__card-details {
