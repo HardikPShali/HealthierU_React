@@ -259,7 +259,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             link.href = res.data.documentsDocumentsList[0].document;
             link.download = `${res.data.documentsDocumentsList[0].documentName}.${res.data.documentsDocumentsList[0].documentType}`;
             document.body.appendChild(link);
-            link.click();
+            //link.click();
+            window.open(link, '_blank', 'noopener,noreferrer');
             setLoading(false);
         }
     }

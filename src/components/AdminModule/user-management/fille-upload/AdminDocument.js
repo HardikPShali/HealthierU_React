@@ -779,6 +779,7 @@ const AdminDocument = (props) => {
                   )}
                   {!prescriptionResult?.id && (
                     <input
+                      style={{ padding: '3px' }}
                       type="file"
                       id="prescriptionDocument"
                       name="prescriptionDocument"
@@ -797,6 +798,7 @@ const AdminDocument = (props) => {
                         <CancelIcon style={{ color: "red" }} />
                       </IconButton>
                       <input
+                        style={{ padding: '3px' }}
                         type="file"
                         id="prescriptionDocument"
                         name="prescriptionDocument"
@@ -1000,6 +1002,7 @@ const AdminDocument = (props) => {
                   )}
                   {!labResult?.id && (
                     <input
+                      style={{ padding: '3px' }}
                       type="file"
                       id="labResultDocument"
                       name="labResultDocument"
@@ -1018,6 +1021,7 @@ const AdminDocument = (props) => {
                         <CancelIcon style={{ color: "red" }} />
                       </IconButton>
                       <input
+                        style={{ padding: '3px' }}
                         type="file"
                         id="labResultDocument"
                         name="labResultDocument"
@@ -1259,6 +1263,7 @@ const AdminDocument = (props) => {
                     </label>
                   )}
                   <input
+                    style={{ padding: '3px' }}
                     type="file"
                     id="prescriptionDocument"
                     name="prescriptionDocument"
