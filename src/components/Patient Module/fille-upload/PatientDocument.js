@@ -270,12 +270,19 @@ const PatientDocument = (props) => {
         link.href = val.documentUrl;
         link.download = `${val.description}.${val.documentType}`;
         document.body.appendChild(link);
-        link.click();
+        //link.click();
+        window.open(link, '_blank', 'noopener,noreferrer');
     };
 
     const showLabDocument = async (val) => {
         // const res = await getDocument(val);
         setLabDocumentUrl(val.documentUrl);
+        const link = document.createElement("a");
+        link.href = val.documentUrl;
+        link.download = `${val.description}.${val.documentType}`;
+        document.body.appendChild(link);
+        //link.click();
+        window.open(link, '_blank', 'noopener,noreferrer');
     };
 
     // const handlePrescriptionUploadShow = () => {
