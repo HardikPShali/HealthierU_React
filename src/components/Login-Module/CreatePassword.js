@@ -166,8 +166,13 @@ const CreatePassword = () => {
         createPasswordPage: "block",
       });
     }
+    else if (response.data.message === 'Your account has been blocked. Please try again after some time' && response.data.status === false) {
+      setOtpValidation(response.data.message);
+      setOtpBox(new Array(4).fill(""));
+    }
     else {
-      alert('error');
+      setOtpValidation('Something went wrong. Please try again.');
+      setOtpBox(new Array(4).fill(""));
     }
 
     // setDisplay({ ...display, otpPage: "none", createPasswordPage: "block" });

@@ -1,11 +1,8 @@
 import "./patient-document.css";
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Tab, Tabs } from "react-bootstrap";
-import editIcon from "../../../images/Icons/edit icon_40 pxl.svg";
 import Pagination from "react-bootstrap/Pagination";
-import { formatDate } from "../../questionnaire/QuestionnaireService";
 import { toast } from "react-toastify";
-import { Form } from "react-bootstrap";
 import PrescriptionLabCard from "../../Doctor Module/Prescription-Lab/PrescriptionLabCard";
 import PatientPrescriptionCard from "../../Doctor Module/Prescription-Lab/PatientPrescriptionCard";
 import "../../Doctor Module/Prescription-Lab/PrescriptionLab.css";
@@ -15,9 +12,9 @@ import {
 } from "../../../service/AccountService";
 import {
     validateEmail,
-    getDocument,
+    // getDocument,
     postDocument,
-    postLabDocument,
+    // postLabDocument,
     getDoctorDetail,
     getPatientDocuments,
     getDocumentById,
@@ -27,9 +24,6 @@ import {
 } from "../../../service/DocumentService";
 import "../../Doctor Module/doctor.css";
 import moment from "moment";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import VisibilityIcon from "@material-ui/icons/Visibility";
 import TransparentLoader from "../../Loader/transparentloader";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { IconButton } from "@material-ui/core";
@@ -43,6 +37,13 @@ import PrescriptionFilter from "../../Doctor Module/SearchAndFilter/Prescription
 import FilterComponent from "../../Doctor Module/SearchAndFilter/FilterComponent";
 // import documentViewImage from '../../../images/icons used/document icon@2x.png';
 // import Footer from '../Footer';
+// import editIcon from "../../../images/Icons/edit icon_40 pxl.svg";
+// import { formatDate } from "../../questionnaire/QuestionnaireService";
+// import { Form } from "react-bootstrap";
+// import Select from "@material-ui/core/Select";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import VisibilityIcon from "@material-ui/icons/Visibility";
+
 
 const PatientDocument = (props) => {
     useEffect(() => {

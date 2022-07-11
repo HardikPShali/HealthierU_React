@@ -75,8 +75,15 @@ const ForgetPassword = () => {
             }
         };
         axios(payload).then(response => {
-            if (response.status === 200 || response.status === 201) {
+            console.log({ response });
+            if (response.data.message === 'your account block for some time' && response.data.status === false) {
+                setErrMsg('Your account is blocked. Please try again after some time.')
+            }
+            else if (response.data.message === 'reset OTP send to email' && response.data.status === true) {
                 handleClickOpen();
+            }
+            else {
+                setErrMsg('Something went wrong. Please try again.')
             }
         }).catch(err => {
             console.log({ err })
