@@ -279,6 +279,7 @@ const Welcome = ({ currentuserInfo }) => {
             const currentUserInformation = await getUpdatedUserData();
             cookies.set("currentUser", currentUserInformation.data);
             cookies.remove("userProfileCompleted");
+            setCurrentUserDataAfterApproval(currentUserInformation.data);
             if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
                 setTransparentLoading(false);
                 handleClickOpen();

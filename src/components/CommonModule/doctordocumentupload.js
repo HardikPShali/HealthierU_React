@@ -608,7 +608,16 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                         <div className="row">
                             <div className="pdf-viewer">
                                 <Document
-                                    file={selectedDocumentUrl}
+                                    file={{
+                                        url: selectedDocumentUrl,
+                                        // data: null,
+                                        // range
+                                        httpHeaders: {
+                                            'Access-Control-Allow-Origin': '*',
+                                            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+                                        },
+                                        withCredentials: false
+                                    }}
                                     onLoadSuccess={onDocumentLoadSuccess}
                                     renderMode="svg"
                                 >
