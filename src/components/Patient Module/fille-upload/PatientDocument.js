@@ -1,4 +1,4 @@
-// import "./patient-document.css";
+import "./patient-document.css";
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Tab, Tabs } from "react-bootstrap";
 import Pagination from "react-bootstrap/Pagination";
