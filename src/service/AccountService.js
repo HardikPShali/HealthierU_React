@@ -83,7 +83,7 @@ export const getCurrentDoctorInfo = async (userId, username) => {
         }
     };
     const currentDoctorInformation = await axios(doctorInfoApiCall);
-  
+
     return currentDoctorInformation.data
 
 }
@@ -166,11 +166,12 @@ export const verifyOtp = async (otp) => {
     return response;
 }
 
-export const activateOtp = async (otp) => {
+export const activateOtp = async (data) => {
     var payload = {
-        method: 'get',
+        method: 'post',
         mode: 'no-cors',
-        url: `/api/mobile/activate?key=${otp}`,
+        data: data,
+        url: `/api/mobile/activate`,
         headers: {
             // 'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'

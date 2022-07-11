@@ -390,6 +390,8 @@ const Signupform = () => {
     if (element.nextSibling) {
       element.nextSibling.focus();
     }
+
+    setOtpUser({ ...otpUser, otp: otpBox.join(''), msg: '' });
   };
 
   //LOGIC FOR OTP SUBMIT
@@ -412,22 +414,49 @@ const Signupform = () => {
 
   const handleOTPSubmit = async () => {
     const otp = otpBox.join('');
-    const res = await activateOtp(otp).catch((err) => {
+
+    const data = {
+      email: user.email,
+      key: otp,
+    }
+    const res = await activateOtp(data).catch((err) => {
       if (err.response && err.response.status === 406) {
         setOtpUser({
           ...otpUser,
           msg: "Invalid OTP. Please generate new OTP and try again!",
         });
+        setOtpBox(new Array(4).fill(''));
       }
     });
-    if (res) {
-      console.log(res);
+
+    if (res.data.message === 'Your account has been blocked. Please try after some time.' && res.data.status === false) {
+      setOtpUser({
+        ...otpUser,
+        msg: res.data.message,
+      });
+      setOtpBox(new Array(4).fill(''));
+      setTimeout(() => {
+        history.push('/signin');
+      }, 3000);
+    }
+    else if (res.data.message === 'Otp mismatch' && res.data.status === false) {
+      setOtpUser({
+        ...otpUser,
+        msg: "Invalid OTP. Please generate new OTP and try again!",
+      });
+      setOtpBox(new Array(4).fill(''));
+    }
+    else if (res.data.message === 'account activated' && res.data.status === true) {
+      setOtpBox(new Array(4).fill(''));
       toast.success("Account Activated Successfully!. Please Log In.")
       history.push("/signin")
-      // handleClickOpen();
     }
     else {
-      toast.error("Invalid OTP.Please Enter Correct OTP and try again!")
+      setOtpUser({
+        ...otpUser,
+        msg: "Something went wrong. Please try again!",
+      });
+      setOtpBox(new Array(4).fill(''));
     }
   };
 
@@ -715,6 +744,11 @@ const Signupform = () => {
                   );
                 })}
               </div>
+              {
+                otpUser && (
+                  <span style={{ color: 'red', fontSize: '14px' }}>{otpUser.msg}</span>
+                )
+              }
 
               <div>
                 <button
