@@ -405,7 +405,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                 <table className="table table-bordered table-striped table-hover doc-table">
                     <thead>
                         <tr>
-                            {/* <th>Document Name</th> */}
+                            <th>Document Name</th>
                             <th>Document Type</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -414,7 +414,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                     <tbody>
                         {documentData && documentData.length > 0 ? documentData.map((doc, index) => (
                             <tr key={index}>
-                                {/* <td>{doc.documentName}</td> */}
+                                <td>{doc.documentName}</td>
                                 <td>{doc.documentType}</td>
                                 <td>
                                     {doc.documentStatus === "APPROVAL_PENDING" ? "Approval Pending"
@@ -610,7 +610,6 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                 <Document
                                     file={selectedDocumentUrl}
                                     onLoadSuccess={onDocumentLoadSuccess}
-                                    renderMode="svg"
                                 >
                                     <Page pageNumber={pageNumber} />
                                 </Document>
