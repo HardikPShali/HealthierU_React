@@ -766,11 +766,14 @@ const Myappointment = (props) => {
                                             className="img-circle ml-3 mt-3"
                                           /> */}
                                           {appointment.doctor.picture ? (
+
                                             <img
                                               src={appointment.doctor.picture}
                                               alt={`${appointment.doctor.firstName}-image`}
                                               className="img-circle ml-3 mt-3"
                                             />
+
+
                                           ) : (
                                             <Avatar
                                               round={true}
