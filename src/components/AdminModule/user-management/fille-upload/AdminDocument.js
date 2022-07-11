@@ -7,6 +7,7 @@ import editIcon from "../../../../images/icons used/edit icon_40 pxl.svg";
 import deleteIcon from "../../../../images/icons used/delete_icon_40 pxl.svg";
 import Navbar from "../../layout/Navbar";
 import "mdbreact/dist/css/mdb.css";
+import moment from 'moment';
 import { formatDate } from "../../../questionnaire/QuestionnaireService";
 import {
   validateEmail,
@@ -310,7 +311,7 @@ const AdminDocument = (props) => {
     }
 
     if (event === "prescription") {
-      documents =  await getDocuments("Prescription", 0);
+      documents = await getDocuments("Prescription", 0);
       setPresecriptionDocument(documents);
       setLoading(false);
     }
@@ -496,7 +497,7 @@ const AdminDocument = (props) => {
                             </td>
                             <td width="150">{dataItem.name}</td>
                             <td width="150">
-                              {formatDate(dataItem.docUploadTime)}
+                              {moment.utc(dataItem.docUploadTime).format("YYYY-MM-DD HH:mm:ss")}
                             </td>
                             <td width="250">{dataItem.decription}</td>
                             <td width="150">{dataItem.duration}</td>
@@ -650,7 +651,7 @@ const AdminDocument = (props) => {
                           <td width="150">{dataItem.name}</td>
                           <td width="150">{dataItem.labName}</td>
                           <td width="150">
-                            {formatDate(dataItem.docUploadTime)}
+                            {moment.utc(dataItem.docUploadTime).format("YYYY-MM-DD HH:mm:ss")}
                           </td>
                           <td width="250">{dataItem.description}</td>
                           <td width="150">
