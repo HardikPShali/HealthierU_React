@@ -1510,7 +1510,7 @@ const Myappointment = (props) => {
                           state: selectedAppointment?.patient,
                         }}
                       >
-                        <div style={{ display: "flex", alignItem: "center" }}>
+                        <div className="firefox-helper" style={{ display: "flex", alignItem: "center"}}>
                           <div style={{ width: "100%" }}>
                             <img
                               width="40"
@@ -1529,7 +1529,6 @@ const Myappointment = (props) => {
                           />
                         </div>
                       </Link>
-                      <br />
                       <Link
                         to={{
                           pathname: `/doctor/medicalrecord/${selectedAppointment?.patient?.id}/${selectedAppointment?.id}`,

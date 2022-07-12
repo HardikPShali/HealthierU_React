@@ -7,7 +7,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import SearchBar from "material-ui-search-bar";
+import SearchBar from 'material-ui-search-bar';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -17,47 +17,60 @@ import Avatar from 'react-avatar';
 import Loader from './../Loader/Loader';
 import { commonUtilFunction } from '../../util';
 import Cookies from 'universal-cookie';
-import { getDoctorBySearch, getPatientBySearch } from './../../service/globalsearchservice';
+import {
+    getDoctorBySearch,
+    getPatientBySearch,
+} from './../../service/globalsearchservice';
 import {
     getDoctorList,
-    getPatientList
+    getPatientList,
 } from '../../service/adminbackendservices';
+import { doctorListLimitNonPaginated } from '../../util/configurations';
 // import LocalStorageService from './../../util/LocalStorageService';
 // import axios from 'axios';
 
 const GlobalSearch = () => {
-
     const cookies = new Cookies();
 
     const [users, setUser] = useState([]);
-    const [searchText, setSearchText] = useState("");
+    const [searchText, setSearchText] = useState('');
     const [filterData, setFilterData] = useState(users);
-    const [filterText, setFilterText] = useState("doctor");
+    const [filterText, setFilterText] = useState('doctor');
 
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadDoctors();
+        return () => {
+            setLoading(false);
+            setSearchText('');
+        }
     }, []);
 
     const loadDoctors = async () => {
-        const result = await getDoctorList().catch(err => {
-            if (err.response.status === 500 || err.response.status === 504) {
-                setLoading(false);
+        const result = await getDoctorList(doctorListLimitNonPaginated).catch(
+            (err) => {
+                if (err.response.status === 500 || err.response.status === 504) {
+                    setLoading(false);
+                }
             }
-        });
+        );
+        console.log({ result });
+
         if (result && result.data) {
             setUser(result.data);
-            setFilterData(result.data);
+            setFilterData(result.data.doctors);
             setTimeout(() => setLoading(false), 1000);
         }
     };
     const loadPatients = async () => {
-        const result = await getPatientList().catch(err => {
-            if (err.response.status === 500 || err.response.status === 504) {
-                setLoading(false);
+        const result = await getPatientList(doctorListLimitNonPaginated).catch(
+            (err) => {
+                if (err.response.status === 500 || err.response.status === 504) {
+                    setLoading(false);
+                }
             }
-        });
+        );
         if (result && result.data) {
             setUser(result.data);
             setFilterData(result.data);
@@ -66,52 +79,54 @@ const GlobalSearch = () => {
     };
 
     const handleSearch = (value) => {
-        if (value === "") {
-            setFilterData(users);
-        }
-        else {
+        if (value === '') {
+            setFilterData(users?.doctors);
+        } else {
             setSearchText(value);
             searchData(value);
         }
-    }
+    };
 
     const searchData = async (value) => {
+        console.log({ value })
         const lowercasedValue = value.toLowerCase().trim();
-        if (filterText === "" || filterText === "doctor") {
+        console.log({ filterText })
+        if (filterText === '' || filterText === 'doctor') {
             const searchResult = await getDoctorBySearch(lowercasedValue);
-            //console.log("searchResult  :::: ", searchResult)
+            console.log("searchResult  :::: ", searchResult)
             setFilterData(searchResult);
-        }
-        else if (filterText === "patient") {
+        } else if (filterText === 'patient') {
             const searchResult = await getPatientBySearch(lowercasedValue);
-            //console.log("searchResult  :::: ", searchResult)
+            console.log("searchResult  :::: ", searchResult)
             setFilterData(searchResult);
         }
-    }
+    };
 
     const handleFilterClick = (e) => {
         //console.log("value ::::", e.target.value)
         setFilterData([]);
-        if (e.target.value === "patient") {
+        if (e.target.value === 'patient') {
             loadPatients();
-        } else if (e.target.value === "doctor" || e.target.value === "") {
+        } else if (e.target.value === 'doctor' || e.target.value === '') {
             loadDoctors();
         }
         setFilterText(e.target.value);
         console.log(filterData);
-    }
+    };
 
     const setCookies = (authority) => {
-        return (authority === "ROLE_DOCTOR" ? cookies.set("authorities", "ROLE_DOCTOR")
-            : authority === "ROLE_PATIENT" ? cookies.set("authorities", "ROLE_PATIENT")
-                : authority === "ROLE_ADMIN" ? cookies.set("authorities", "ROLE_ADMIN") : 'ROLE_USER')
-    }
+        return authority === 'ROLE_DOCTOR'
+            ? cookies.set('authorities', 'ROLE_DOCTOR')
+            : authority === 'ROLE_PATIENT'
+                ? cookies.set('authorities', 'ROLE_PATIENT')
+                : authority === 'ROLE_ADMIN'
+                    ? cookies.set('authorities', 'ROLE_ADMIN')
+                    : 'ROLE_USER';
+    };
 
     return (
         <div>
-            {loading && (
-                <Loader />
-            )}
+            {loading && <Loader />}
             <Navbar />
             <br />
             <Container>
@@ -127,83 +142,124 @@ const GlobalSearch = () => {
                                         onChange={(e) => handleFilterClick(e)}
                                         displayEmpty={true}
                                     >
-                                        <MenuItem value="doctor">Search by Doctor</MenuItem>
-                                        <MenuItem value="patient">Search by Patient</MenuItem>
+                                        <MenuItem value="doctor">Search Doctor</MenuItem>
+                                        <MenuItem value="patient">Search Patient</MenuItem>
                                     </Select>
                                 </FormControl>
-                                <SearchBar type="text" value={searchText} id="admin-search" style={{ width: '100% !important' }} onChange={(value) => handleSearch(value)} onCancelSearch={() => handleSearch("")} />
+                                <SearchBar
+                                    type="text"
+                                    value={searchText}
+                                    id="admin-search"
+                                    style={{ width: '100% !important', color: '#000' }}
+                                    onChange={(value) => handleSearch(value)}
+                                    onCancelSearch={() => handleSearch('')}
+                                />
                             </div>
                             <br />
                             <br />
 
-                            {filterText === "doctor" && (
+                            {filterText === 'doctor' && (
                                 <div id="global-list">
                                     <GridList cellHeight={220}>
-                                        {filterData.doctors && filterData.doctors.map((user, index) => (
-                                            <GridListTile key={index}>
-                                                {user.picture ? (<img src={user.picture} alt="" />)
-                                                    : (<Avatar name={user.firstName + " " + user.lastName} />)}
-                                                <Link className="btn btn-info text-left"
-                                                    to={`/admin/user-management/edit/${user.userId}`}
-                                                    onClick={() => setCookies("ROLE_DOCTOR")}>
-                                                    <GridListTileBar
-                                                        title={<span>Dr. {user.firstName} {user.lastName}</span>}
-                                                        subtitle={<ul className="list--tags">{user.specialities &&
-                                                            user.specialities.map((speciality, index) => (
-                                                                <li key={index}>{speciality.name}</li>
-                                                            ))}
-                                                        </ul>}
-                                                    />
-                                                </Link>
-                                            </GridListTile>
-
-                                        ))}
-                                        {filterData === "" && (
-                                            <center><b>No Result Found</b></center>
+                                        {filterData &&
+                                            filterData.map((user, index) => (
+                                                <GridListTile key={index}>
+                                                    {user.picture ? (
+                                                        <img src={user.picture} alt="" />
+                                                    ) : (
+                                                        <Avatar
+                                                            name={user.firstName + ' ' + user.lastName}
+                                                        />
+                                                    )}
+                                                    <Link
+                                                        className="text-left"
+                                                        to={`/admin/user-management/edit/${user.userId}`}
+                                                        onClick={() => setCookies('ROLE_DOCTOR')}
+                                                    >
+                                                        <GridListTileBar
+                                                            title={
+                                                                <span>
+                                                                    Dr. {user.firstName} {user.lastName}
+                                                                </span>
+                                                            }
+                                                            subtitle={
+                                                                <ul className="list--tags">
+                                                                    {user.specialities &&
+                                                                        user.specialities.map(
+                                                                            (speciality, index) => (
+                                                                                <li key={index}>{speciality.name}</li>
+                                                                            )
+                                                                        )}
+                                                                </ul>
+                                                            }
+                                                        />
+                                                    </Link>
+                                                </GridListTile>
+                                            ))}
+                                        {filterData === '' && (
+                                            <center>
+                                                <b>No Result Found</b>
+                                            </center>
                                         )}
-
                                     </GridList>
                                 </div>
                             )}
-                            {filterText === "patient" && (
+                            {filterText === 'patient' && (
                                 <div id="global-list">
-                                    {
-                                            console.log("FilterData", filterData)
-                                        }
+                                    {console.log('FilterData', filterData)}
                                     <GridList cellHeight={220}>
-                                        {filterData && filterData.map((user, index) => (
-                                            <GridListTile key={index}>
-                                                {user.picture ? (<img src={user.picture} alt="" />)
-                                                    : (<Avatar name={user.firstName + " " + user.lastName} />)}
-                                                <Link className="btn btn-info text-left"
-                                                    to={`/admin/user-management/edit/${user.userId}`}
-                                                    onClick={() => setCookies("ROLE_PATIENT")}>
-                                                    <GridListTileBar
-                                                        title={<span>{user.firstName} {user.lastName}</span>}
-                                                        subtitle={<><p className="mb-1">Age: {commonUtilFunction.calculate_age(user.dateOfBirth)} yrs</p>
-                                                            <p className="mb-1">{user.email}</p></>}
-                                                    />
-                                                </Link>
-                                            </GridListTile>
-
-                                        ))}
-                                        {
-                                            console.log("FilterData", filterData)
-                                        }
-                                        {filterData === "" && (
-                                            <center><b>No Result Found</b></center>
+                                        {filterData &&
+                                            filterData.map((user, index) => (
+                                                <GridListTile key={index}>
+                                                    {user.picture ? (
+                                                        <img src={user.picture} alt="" />
+                                                    ) : (
+                                                        <Avatar
+                                                            name={user.firstName + ' ' + user.lastName}
+                                                        />
+                                                    )}
+                                                    <Link
+                                                        className="btn btn-info text-left"
+                                                        to={`/admin/user-management/edit/${user.userId}`}
+                                                        onClick={() => setCookies('ROLE_PATIENT')}
+                                                    >
+                                                        <GridListTileBar
+                                                            title={
+                                                                <span>
+                                                                    {user.firstName} {user.lastName}
+                                                                </span>
+                                                            }
+                                                            subtitle={
+                                                                <>
+                                                                    <p className="mb-1">
+                                                                        Age:{' '}
+                                                                        {commonUtilFunction.calculate_age(
+                                                                            user.dateOfBirth
+                                                                        )}{' '}
+                                                                        yrs
+                                                                    </p>
+                                                                    <p className="mb-1">{user.email}</p>
+                                                                </>
+                                                            }
+                                                        />
+                                                    </Link>
+                                                </GridListTile>
+                                            ))}
+                                        {console.log('FilterData', filterData)}
+                                        {filterData === '' && (
+                                            <center>
+                                                <b>No Result Found</b>
+                                            </center>
                                         )}
-
                                     </GridList>
                                 </div>
                             )}
-
                         </div>
                     </Col>
                 </Row>
             </Container>
-        </div >
-    )
-}
+        </div>
+    );
+};
 
 export default GlobalSearch;
