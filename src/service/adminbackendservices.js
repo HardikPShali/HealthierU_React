@@ -256,10 +256,10 @@ export const updateRoleDoctor = async (bodyFormData) => {
     return response;
 }
 
-export const getDoctorList = async () => {
+export const getDoctorList = async (limit) => {
     var payload = {
         method: 'get',
-        url: `/api/admin/doctors`,
+        url: `/api/admin/doctors?&size=${limit}&sort=id,desc`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
@@ -273,10 +273,10 @@ export const getDoctorList = async () => {
     return response;
 }
 
-export const getPatientList = async () => {
+export const getPatientList = async (limit) => {
     var payload = {
         method: 'get',
-        url: `/api/admin/patients`,
+        url: `/api/admin/patients?&size=${limit}&sort=id,desc`,
         headers: {
             'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
             'Content-Type': 'application/json'
