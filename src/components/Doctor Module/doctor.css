@@ -3368,7 +3368,6 @@ button.reset-btn {
   width: 30px;
   margin-right: 10px;
 }
-
 .details-links {
   display: flex;
   flex-direction: column;
@@ -3805,4 +3804,8 @@ input:checked + .slider:before {
   .mobile-resp {
     text-align: center;
   }
+}
+.firefox-helper {
+  margin-bottom: 5%;
+  -webkit-margin-bottom: 5%;
 }
