@@ -184,46 +184,40 @@ const Healthassessment = (props) => {
 
     const clickPagination = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
-        setPresecriptionDocument(null);
-        const prescriptionDocument = await getDoctorPatientDocuments(
-            'Prescription',
-            pageNumber - 1,
-            doctor.id,
-            patient
-        );
-        const data = {
-            documentType: 'Prescription',
-            doctorId: doctor.id,
-            patientId: patient,
-            pageNo: pageNumber - 1
+        let page = pageNumber - 1;
+        let size = 3;
+        let data;
+        if (searchandFilterData) {
+            data = searchandFilterData
         }
-        const response = await getGlobalMedicalRecordsSearch(data)
-        console.log("clickPagination", response.data.data.documentsList``);
-        setMedicalRecordData(response.data.data.documentsList)
-        setPresecriptionDocument(prescriptionDocument.data);
+        else {
+            data = {
+                documentType: 'Prescription',
+                doctorId: doctor.id,
+                patientId: patient,
+            }
+        }
+        const response = await getGlobalMedicalRecordsSearch(page, size, data)
+        setMedicalRecordData(response.data.data)
 
     };
     const clickPaginationForLab = async (pageNumber) => {
         setCurrentPageNumber(pageNumber);
-        setPresecriptionDocument(null);
-        setMedicalRecordData(null)
-        const documents = await getDoctorPatientDocuments(
-            'LabResult',
-            pageNumber - 1,
-            doctor.id,
-            patient
-        );
-
-        setLabDocument(documents.data);
-        const data = {
-            documentType: 'LabResult',
-            doctorId: doctor.id,
-            patientId: patient,
-            pageNo: pageNumber - 1
+        //setMedicalRecordLabData(null)
+        let page = pageNumber - 1;
+        let size = 3;
+        let data;
+        if (searchandFilterData) {
+            data = searchandFilterData
         }
-        const response = await getGlobalMedicalRecordsSearch(data)
-        setMedicalRecordData(response.data.data.documentsList)
-
+        else {
+            data = {
+                documentType: 'LabResult',
+                patientId: patient,
+            }
+        }
+        const response = await getGlobalMedicalRecordsSearch(page, size, data)
+        setMedicalRecordLabData(response.data.data)
     };
 
     const handleEditModal = async (item) => {
@@ -265,6 +259,7 @@ const Healthassessment = (props) => {
     const [editDocument, setEditDocument] = useState(false);
     const [appointmentID, setAppointmentID] = useState(0);
     const cookies = new Cookies();
+    const [lenghtofData, setLenghtofData] = useState(0);
     const loadDocuments = async () => {
         // GET request using fetch with async/await
         const currentUser = await getCurrentUserInfo();
@@ -286,21 +281,23 @@ const Healthassessment = (props) => {
         if (patientInfo) {
             setPatient(patientInfo);
         }
+        let page = "0";
+        let size = "3";
         const data = {
             documentType: "Prescription",
             doctorId: doctor.id,
             patientId: patientInfo,
-            pageSize: 100,
-            pageNo: 0
         }
-        const presecriptionDocument = await getGlobalMedicalRecordsSearch(data);
+        const presecriptionDocument = await getGlobalMedicalRecordsSearch(page, size, data);
         if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
             const res = []
             const prepData = presecriptionDocument.data.data.documentsList.filter(re => re.documentsList.length)
             prepData.forEach((f) => {
                 res.push(...f.documentsList)
             })
-            setMedicalRecordData(res)
+            setLenghtofData(presecriptionDocument.data.data.documentsList[0].documentsList.length)
+            console.log("presecriptionDocument", presecriptionDocument.data.data.documentsList[0].documentsList.length);
+            setMedicalRecordData(presecriptionDocument.data.data)
         }
         // const response = await getPatientQuestionnaire(
         //     patientInfo && patientInfo.id
@@ -359,6 +356,7 @@ const Healthassessment = (props) => {
     };
     const clearAll = async () => {
         setMedicalRecordData([])
+        setMedicalRecordLabData([])
         // const labDocument = await getDoctorPatientDocuments(
         //     'LabResult',
         //     0,
@@ -378,7 +376,7 @@ const Healthassessment = (props) => {
             prepData.forEach((f) => {
                 res.push(...f.documentsList)
             })
-            setMedicalRecordData(res)
+            setMedicalRecordData(labDocument.data.data)
         }
         console.log("clearAll", labDocument);
     }
@@ -394,18 +392,20 @@ const Healthassessment = (props) => {
             //     patient
             // );
             // setLabDocument(documents.data);
+            let page = 0;
+            let size = 3;
             const info = {
                 documentType: "LabResult",
                 patientId: patient
             }
-            const labDocument = await getGlobalMedicalRecordsSearch(info);
+            const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
             if (labDocument.status === 200 || labDocument.status === 201) {
                 const res = []
                 const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
                 prepData.forEach((f) => {
                     res.push(...f.documentsList)
                 })
-                setMedicalRecordData(res)
+                setMedicalRecordLabData(labDocument.data.data)
             }
         }
 
@@ -417,21 +417,21 @@ const Healthassessment = (props) => {
             //     patient
             // );
             // setPresecriptionDocument(documents.data);
+            let page = 0;
+            let size = 3;
             const data = {
                 documentType: "Prescription",
                 doctorId: doctor.id,
                 patientId: patient,
-                pageSize: 100,
-                pageNo: 0
             }
-            const presecriptionDocument = await getGlobalMedicalRecordsSearch(data);
+            const presecriptionDocument = await getGlobalMedicalRecordsSearch(page, size, data);
             if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
                 const res = []
                 const prepData = presecriptionDocument.data.data.documentsList.filter(re => re.documentsList.length)
                 prepData.forEach((f) => {
                     res.push(...f.documentsList)
                 })
-                setMedicalRecordData(res)
+                setMedicalRecordData(presecriptionDocument.data.data)
             }
         }
         setPrescriptionDocumentUrl('');
@@ -462,6 +462,8 @@ const Healthassessment = (props) => {
     //Search
     const [search, setSearch] = useState('');
     const [medicalRecordData, setMedicalRecordData] = useState([]);
+    const [medicalRecordLabData, setMedicalRecordLabData] = useState([]);
+    const [searchandFilterData, setSearchandFilterData] = useState();
     const [currentDoctor, setCurrentDoctor] = useState("");
     const [loading, setLoading] = useState(true);
     const [isSearch, setIsSearch] = useState(false);
@@ -479,12 +481,11 @@ const Healthassessment = (props) => {
             //endTime: endtime.toISOString(),
             doctorName: search,
             //resultType: search,
-            pageSize: 100,
-            pageNo: 0
             //labName: search,
             //id: "null"
         };
-
+        let page = 0;
+        let size = 3;
         if (filter.startTime && filter.startTime !== '') {
             data.startTime = filter.startTime;
         }
@@ -496,7 +497,8 @@ const Healthassessment = (props) => {
         if (filter.resultType && filter.resultType !== '') {
             data.resultType = filter.resultType;
         }
-        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
+        setSearchandFilterData(data)
+        const responseTwo = await getGlobalMedicalRecordsSearch(page, size, data).catch((err) => {
             if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
                 setLoading(false);
             }
@@ -504,6 +506,8 @@ const Healthassessment = (props) => {
 
         if (responseTwo.status === 200 || responseTwo.status === 201) {
             const res = []
+            console.log("prepData", responseTwo);
+
             const prepData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
             prepData.forEach((f) => {
                 res.push(...f.documentsList)
@@ -511,7 +515,7 @@ const Healthassessment = (props) => {
             if (res.length > 0) {
                 setIsSearch(true)
             }
-            setMedicalRecordData(res)
+            setMedicalRecordData(responseTwo.data.data)
             setCurrentPageNumber(1);
         }
     };
@@ -531,11 +535,11 @@ const Healthassessment = (props) => {
             //endTime: endtime.toISOString(),
             //doctorName: search,
             //resultType: search,
-            pageSize: 100,
-            pageNo: 0,
             labName: search,
             //id: "null"
         };
+        let page = 0;
+        let size = 3;
         if (filter.startTime && filter.startTime !== '') {
             data.startTime = filter.startTime;
         }
@@ -550,7 +554,8 @@ const Healthassessment = (props) => {
         if (filter.startTime && filter.endTime && filter.resultType === '') {
             clearAll()
         }
-        const responseTwo = await getGlobalMedicalRecordsSearch(data).catch((err) => {
+        setSearchandFilterData(data)
+        const responseTwo = await getGlobalMedicalRecordsSearch(page, size, data).catch((err) => {
             if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
                 setLoading(false);
             }
@@ -564,7 +569,7 @@ const Healthassessment = (props) => {
             if (res.length > 0) {
                 setIsSearch(true)
             }
-            setMedicalRecordData(res)
+            setMedicalRecordLabData(responseTwo.data.data)
             setCurrentPageNumber(1);
         }
     };
@@ -627,10 +632,6 @@ const Healthassessment = (props) => {
                     onSelect={clickTabEvent}>
                     <Tab eventKey="prescription" title="Prescription">
                         <br />
-                        {/* <div className="col-md-10" style={{ display: 'flex' }}>
-                                <SearchBarComponent updatedSearch={handleSearchInputChangePrescription} />
-                                <PrescriptionFilter updatedFilter={handleFilterChangePrescription} />
-                            </div> */}
                         <div className="d-flex justify-content-end">
                             <div className="col text-right">
                                 <button
@@ -645,47 +646,8 @@ const Healthassessment = (props) => {
                         </div>
                         <br />
                         <div>
-                            {/* {presecriptionDocument?.documentsList ? (
-                                presecriptionDocument?.documentsList.map(
-                                    (dataItem, subIndex) => {
-                                        return (
-
-                                            <div className="prescription-lab__card-box" >
-                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
-                                                </h3>
-                                                <div className="card-holder">
-                                                    <div className="row">
-
-                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
-
-                                                            <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.documentUrl)}
-                                                                name={"Prescription"}
-                                                                apid={appointmentID}
-                                                                date={dataItem.docUploadTime}
-                                                                time={dataItem.docUploadTime}
-                                                                download={(e) => showDocument(dataItem)}
-                                                            />
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    }
-                                )
-                            ) : (
-                                <div
-                                    className="col-12 ml-2"
-                                    style={{ textShadow: 'none', color: '#3e4543' }}
-                                >
-                                    {isSearch === false && "No Documents"}
-                                </div>
-                            )} */}
-                            {medicalRecordData.length > 0 ? (
-                                medicalRecordData.map(
+                            {medicalRecordData.totalItems > 0 ? (
+                                medicalRecordData.documentsList[0].documentsList.map(
                                     (dataItem, subIndex) => {
                                         return (
 
@@ -728,7 +690,7 @@ const Healthassessment = (props) => {
                         <br />
                         <div> <Pagination size="sm" style={{ float: 'right' }}>
                             {
-                                medicalRecordData?.totalPages ?
+                                medicalRecordData.totalPages ?
                                     Array.from(Array(medicalRecordData.totalPages), (e, i) => {
                                         return <Pagination.Item key={i + 1}
                                             active={i + 1 === currentPageNumber ? true : false}
@@ -742,76 +704,26 @@ const Healthassessment = (props) => {
                         </Pagination>
 
                         </div>
-                        <div>
+                        <br />
+                        {/* <div>
                             {prescriptionDocumentUrl !== null || prescriptionDocumentUrl !== "" ?
                                 <embed src={prescriptionDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
                                     width="100%" /> : <span></span>}
-                        </div>
+                        </div> */}
 
                     </Tab>
                     <Tab eventKey="labResult" title="Lab Result" onSelect={clickTabEvent}>
                         <br />
                         <div className="row">
                             <div className="col-md-10">
-
                             </div>
-                            {/* <div className="d-flex mt-2 justify-content-between">
-                                <SearchBarComponent updatedSearch={handleSearchInputChange} />
-                                <FilterComponent updatedFilter={handleFilterChange} />
-                            </div> */}
                         </div>
                         <br />
-
                         <div>
-
-                            {/* {labDocument?.documentsList ? (
-                                labDocument?.documentsList.map(
+                            {medicalRecordLabData.totalItems > 0 ? (
+                                medicalRecordLabData.documentsList[0].documentsList.map(
                                     (dataItem, subIndex) => {
                                         return (
-
-                                            <div className="prescription-lab__card-box">
-                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
-                                                </h3>
-                                                <div className="card-holder">
-                                                    <div className="row">
-
-                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
-
-                                                            <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.documentUrl)}
-                                                                name={"Lab Result"}
-                                                                //apid={dataItem.id}
-                                                                docName={dataItem.doctorName}
-                                                                date={dataItem.docUploadTime}
-                                                                time={dataItem.docUploadTime}
-                                                                download={(e) => showLabDocument(dataItem)}
-                                                            />
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    }
-                                )
-                            ) : (
-
-                                <div
-                                    className="col-12 ml-2"
-                                    style={{ textShadow: 'none', color: '#3e4543' }}
-                                >
-                                    {isSearch === false && "No Documents"}
-                                </div>
-
-                            )} */}
-
-                            {medicalRecordData.length > 0 ? (
-                                medicalRecordData.map(
-                                    (dataItem, subIndex) => {
-                                        return (
-
                                             <div className="prescription-lab__card-box">
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
                                                     {moment.utc(dataItem.docUploadTime).format("MMM")}
@@ -830,15 +742,12 @@ const Healthassessment = (props) => {
                                                                 download={(e) => showLabDocument(dataItem)}
                                                             />
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                             </div>
                                         );
                                     }
                                 )) : (
-
                                 <div
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
@@ -852,8 +761,8 @@ const Healthassessment = (props) => {
                             <br />
                             <Pagination size="sm" style={{ float: 'right' }}>
                                 {
-                                    medicalRecordData?.totalPages ?
-                                        Array.from(Array(medicalRecordData.totalPages), (e, i) => {
+                                    medicalRecordLabData?.totalPages ?
+                                        Array.from(Array(medicalRecordLabData.totalPages), (e, i) => {
                                             return <Pagination.Item key={i + 1} active={i + 1 === currentPageNumber}
                                                 onClick={e => clickPaginationForLab(i + 1)}>
                                                 {i + 1}
@@ -863,19 +772,16 @@ const Healthassessment = (props) => {
                                 }
                             </Pagination>
                         </div>
-                        <br />
-                        <div>
+                        {/* <br /> */}
+                        {/* <div>
                             {labDocumentUrl !== null || labDocumentUrl !== "" ?
                                 <embed src={labDocumentUrl} type="application/pdf" frameBorder="0" height="400px"
                                     width="100%" /> : <span></span>}
-                        </div>
+                        </div> */}
                     </Tab>
                 </Tabs>
-
                 <br />
                 <br />
-
-
             </div>
         </>
     );
