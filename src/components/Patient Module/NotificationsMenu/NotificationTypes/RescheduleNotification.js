@@ -5,7 +5,6 @@ import rightIcon from '../../../../images/svg/right-icon.svg';
 import moment from 'moment';
 
 const RescheduleNotification = ({ notification, key }) => {
-    console.log('RescheduleNotification', notification);
 
     const setDoctorIdInSession = (doctorId) => {
         // console.log({ doctorId });
