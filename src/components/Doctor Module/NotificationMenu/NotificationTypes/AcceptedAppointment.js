@@ -1,7 +1,7 @@
-import React from 'react'
-import Avatar from 'react-avatar'
+import React from 'react';
+import Avatar from 'react-avatar';
 import rightIcon from '../../../../images/svg/right-icon.svg';
-import moment from 'moment'
+import moment from 'moment';
 
 const AcceptedAppointment = ({ notification, index }) => {
     return (
@@ -11,9 +11,7 @@ const AcceptedAppointment = ({ notification, index }) => {
                     {notification.data.appointmentDetails?.patient?.picture ? (
                         <img
                             alt="profile"
-                            src={
-                                notification.data.appointmentDetails?.patient.picture
-                            }
+                            src={notification.data.appointmentDetails?.patient.picture}
                             style={{
                                 height: 40,
                                 width: 40,
@@ -23,9 +21,7 @@ const AcceptedAppointment = ({ notification, index }) => {
                     ) : (
                         <Avatar
                             round={true}
-                            name={
-                                notification.data.appointmentDetails?.patient.firstName
-                            }
+                            name={notification.data.appointmentDetails?.patient.firstName}
                             size={60}
                             className="notifications-avatar"
                         />
@@ -33,8 +29,13 @@ const AcceptedAppointment = ({ notification, index }) => {
                 </div>
                 <div className="notif-section__message">
                     <div className="message-notif">
-                        <span>Your appointment is confirmed for {moment(notification.data.appointmentDetails.startTime).format('DD-MM-YYYY hh:mm')}</span>
-                        {/* <span>TIME</span> */}
+                        <span>
+                            {notification.data.message}
+                            {moment(notification.data.appointmentDetails.startTime).format(
+                                'DD-MM-YYYY hh:mm'
+                            )}{' '}
+                            with {notification.data.appointmentDetails.patient?.firstName}
+                        </span>
                     </div>
                 </div>
                 <div className="notif-section__arrow">
@@ -48,7 +49,7 @@ const AcceptedAppointment = ({ notification, index }) => {
             </div>
             <hr />
         </div>
-    )
-}
+    );
+};
 
-export default AcceptedAppointment
+export default AcceptedAppointment;
