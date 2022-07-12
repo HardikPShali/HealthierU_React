@@ -7,6 +7,7 @@ import editIcon from "../../../../images/icons used/edit icon_40 pxl.svg";
 import deleteIcon from "../../../../images/icons used/delete_icon_40 pxl.svg";
 import Navbar from "../../layout/Navbar";
 import "mdbreact/dist/css/mdb.css";
+import moment from 'moment';
 import { formatDate } from "../../../questionnaire/QuestionnaireService";
 import {
   validateEmail,
@@ -168,8 +169,8 @@ const AdminDocument = (props) => {
   const loadDocuments = async () => {
     setLoading(true);
     // GET request using fetch with async/await
-    const presecriptionDocument = await getMedicalDocuments();
-    setPresecriptionDocument(presecriptionDocument.data);
+    const presecriptionDocument = await getDocuments("Prescription", 0);
+    setPresecriptionDocument(presecriptionDocument);
     setLoading(false);
   };
 
@@ -191,7 +192,7 @@ const AdminDocument = (props) => {
       setErrorMsg("");
     }
     const labDocument = await getMedicalDocuments("Lab", 0);
-    setLabDocument(labDocument);
+    setLabDocument(labDocument.data);
   };
 
   const handlePrescriptionSubmission = async (event) => {
@@ -266,12 +267,24 @@ const AdminDocument = (props) => {
     // const res = await getDocument(val);
     // console.log("res ::", res);
     setPrescriptionDocumentUrl(val.documentUrl);
+    const link = document.createElement("a");
+    link.href = val.documentUrl;
+    link.download = `${val.description}.${val.documentType}`;
+    document.body.appendChild(link);
+    //link.click();
+    window.open(link, '_blank', 'noopener,noreferrer');
   };
 
   const showLabDocument = async (val) => {
     // const res = await getDocument(val);
     // console.log(val)
     setLabDocumentUrl(val.documentUrl);
+    const link = document.createElement("a");
+    link.href = val.documentUrl;
+    link.download = `${val.description}.${val.documentType}`;
+    document.body.appendChild(link);
+    //link.click();
+    window.open(link, '_blank', 'noopener,noreferrer');
   };
 
   const handlePrescriptionUploadShow = () => {
@@ -292,14 +305,14 @@ const AdminDocument = (props) => {
     setLoading(true);
     let documents;
     if (event === "labResult") {
-      documents = await getDocuments("Lab", 0);
+      documents = await getDocuments("LabResult", 0);
       setLabDocument(documents);
       setLoading(false);
     }
 
     if (event === "prescription") {
-      documents = await getMedicalDocuments();
-      setPresecriptionDocument(documents.data);
+      documents = await getDocuments("Prescription", 0);
+      setPresecriptionDocument(documents);
       setLoading(false);
     }
     setPrescriptionDocumentUrl("");
@@ -320,7 +333,7 @@ const AdminDocument = (props) => {
   const clickPaginationForLab = async (pageNumber) => {
     setCurrentPageNumber(pageNumber);
 
-    const documents = await getDocuments("Lab", pageNumber - 1);
+    const documents = await getDocuments("LabResult", pageNumber - 1);
     setLabDocument(documents);
   };
 
@@ -484,7 +497,7 @@ const AdminDocument = (props) => {
                             </td>
                             <td width="150">{dataItem.name}</td>
                             <td width="150">
-                              {formatDate(dataItem.docUploadTime)}
+                              {moment.utc(dataItem.docUploadTime).format("YYYY-MM-DD HH:mm:ss")}
                             </td>
                             <td width="250">{dataItem.decription}</td>
                             <td width="150">{dataItem.duration}</td>
@@ -638,9 +651,9 @@ const AdminDocument = (props) => {
                           <td width="150">{dataItem.name}</td>
                           <td width="150">{dataItem.labName}</td>
                           <td width="150">
-                            {formatDate(dataItem.docUploadTime)}
+                            {moment.utc(dataItem.docUploadTime).format("YYYY-MM-DD HH:mm:ss")}
                           </td>
-                          <td width="250">{dataItem.decription}</td>
+                          <td width="250">{dataItem.description}</td>
                           <td width="150">
                             {dataItem?.patient
                               ? dataItem?.patient?.firstName +
@@ -821,6 +834,7 @@ const AdminDocument = (props) => {
                       </button>
                       <a
                         href={prescriptionResult?.documentUrl}
+                        target="_blank"
                         download
                         className="btn btn-primary"
                       >

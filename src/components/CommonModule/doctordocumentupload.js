@@ -28,9 +28,9 @@ import GetApp from '@material-ui/icons/GetApp';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 // import { getCurrentUserInfo } from '../../service/AccountService';
-import { Document, Page } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import { pdfjs } from 'react-pdf';
+// import { pdfjs } from 'react-pdf';
 import "./pdf-viewer.css";
 import { useHistory } from "react-router";
 import Cookies from 'universal-cookie';
@@ -486,7 +486,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             </Col>
                         </Row>
                         <br />
-                        <Row className="align-items-center">
+                        {/* <Row className="align-items-center">
                             <Col md={4}>
                                 <b>Document Name:</b>
                             </Col>
@@ -502,7 +502,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                     onChange={(e) => handleDocnameChange(e)}
                                 />
                             </Col>
-                        </Row>
+                        </Row> */}
                         {errorMsg && (<span style={{ color: "red", fontSize: "11px" }}>{errorMsg}</span>)}
                         <br />
                     </DialogContent>
@@ -554,7 +554,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             </Col>
                         </Row>
                         <br />
-                        <Row className="align-items-center">
+                        {/* <Row className="align-items-center">
                             <Col md={4}>
                                 <b>Document Name:</b>
                             </Col>
@@ -570,7 +570,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                     onChange={(e) => handleUpdateDocnameChange(e)}
                                 />
                             </Col>
-                        </Row>
+                        </Row> */}
 
                         {errorMsg && (<span style={{ color: "red", fontSize: "11px" }}>{errorMsg}</span>)}
                         <br />
@@ -610,7 +610,6 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                 <Document
                                     file={selectedDocumentUrl}
                                     onLoadSuccess={onDocumentLoadSuccess}
-                                    renderMode="svg"
                                 >
                                     <Page pageNumber={pageNumber} />
                                 </Document>
