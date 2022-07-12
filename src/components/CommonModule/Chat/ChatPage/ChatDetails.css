@@ -40,6 +40,7 @@
   font-size: 1.01rem;
   color: #3e4543;
   text-align: left;
+  word-break: break-all;
 }
 .received_chat-msg-wrap {
   background: white;
@@ -177,7 +178,7 @@ button.notes-btn {
   border: none;
   border-radius: 8px;
   color: white;
-  background: #FFC9AE;
+  background: #ffc9ae;
   border-radius: 18px;
   transition: ease-in-out 0.3s all;
   margin: 0 10px;
@@ -210,6 +211,6 @@ button.notes-btn:hover {
     margin: 0 0 0 10px !important;
   }
   .chat-msg-text {
-    font-size: .9rem !important;
+    font-size: 0.9rem !important;
   }
 }

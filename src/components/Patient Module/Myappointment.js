@@ -409,7 +409,7 @@ const Myappointment = (props) => {
       if (response && response.data) {
         const upcomingArray = response.data.data.upcoming;
         console.log('upcomingArray', upcomingArray);
-        setUpcomingAppointment(upcomingArray.reverse());
+        setUpcomingAppointment(upcomingArray);
 
         const completedAppointmentsArray = response.data.data.completed;
         setCompletedAppointment(completedAppointmentsArray.reverse());
