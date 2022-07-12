@@ -50,6 +50,7 @@ import {
 import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';
 import { Style } from '@material-ui/icons';
+import { getInbox } from '../../service/chatService';
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
@@ -205,6 +206,23 @@ const Myappointment = (props) => {
   // }
 
   //Chat
+  let queryChannelId;
+
+  const chatClickHandler = async (channelId = null) => {
+    const result = await getInbox();
+    const docId = selectedAppointment.doctorId;
+    // console.log({ docId })
+    // console.log({ result });
+    const inbox = result.data.data.filter((item) => {
+      return item.doctorInfo.id === docId;
+    })
+    // console.log({ inbox })
+    queryChannelId = inbox[0].id;
+    // console.log({ queryChannelId })
+    history.push(`/patient/chat?channelId=${queryChannelId}`);
+  };
+
+
   const handleChat = (appointmentStartTime) => {
     //appointmentStartTime
     const newDateTime = new Date(appointmentStartTime);
@@ -1573,21 +1591,15 @@ const Myappointment = (props) => {
               </DialogTitle>
             }
             <DialogActions>
-              <Link
-                to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`}
-                title="Chat"
-              >
+              <div onClick={() => chatClickHandler()}>
                 <button
-                  autoFocus
-                  //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})}
                   className="btn btn-primary"
                   id="close-btn"
                 >
                   Yes
                 </button>
-              </Link>
+              </div>
               <button
-                autoFocus
                 onClick={confirmChatClose}
                 className="btn btn-primary"
                 id="close-btn"
