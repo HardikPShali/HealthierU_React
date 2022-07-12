@@ -1026,11 +1026,11 @@ export const getAppointmentsBySearch = async (patientName) => {
   });
   return response;
 };
-export const getGlobalMedicalRecordsSearch = async (data) => {
+export const getGlobalMedicalRecordsSearch = async (page,size,data) => {
   var payload = {
     method: 'post',
     mode: 'no-cors',
-    url: `/api/v2/medical-documents/filter`,
+    url: `/api/v2/medical-documents/filter?page=${page}&size=${size}`,
     data: data,
     headers: {
       'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
