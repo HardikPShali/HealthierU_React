@@ -6,6 +6,7 @@ import Footer from '../Login-Module/Footer';
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const HelpAndSupport = ({ currentuserInfo }) => {
@@ -52,7 +53,13 @@ const HelpAndSupport = ({ currentuserInfo }) => {
             .then((response) => {
                 // //console.log(response.status);
                 if (response.status === 200 || response.status === 201) {
-                    alert("Message sent successfully");
+                    toast.success("Message sent successfully");
+                    setContactDetails({
+                        senderName: "",
+                        senderMail: "",
+                        subject: "",
+                        message: "",
+                    })
                 }
             })
             .catch((error) => {
