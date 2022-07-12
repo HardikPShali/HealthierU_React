@@ -30,14 +30,12 @@ const RescheduleAppointment = ({ notification, index }) => {
                 <div className="notif-section__message">
                     <div className="message-notif">
                         <span>
-                            {notification.data.message}
+                            You have an appointment rescheduled on{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
                                 'DD-MM-YYYY hh:mm'
                             )}{' '}
                             with{' '}
-
                             {notification.data.appointmentDetails.patient?.firstName}
-
                         </span>
                     </div>
                 </div>
