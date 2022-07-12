@@ -137,7 +137,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         }
         const files = documentFile;
         const res = await uploadDoctorDocument(files, info).catch(err => {
-            setErrorMsg("Something Went Wrong!");
+            // setErrorMsg("Something Went Wrong!");
+            toast.error("Something went wrong. Please try again!")
             setLoading(false);
         });
         if (res && res.status === 201) {
