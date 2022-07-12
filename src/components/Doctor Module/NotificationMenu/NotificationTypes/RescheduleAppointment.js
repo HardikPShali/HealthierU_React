@@ -1,6 +1,7 @@
-import React from 'react'
-import Avatar from 'react-avatar'
+import React from 'react';
+import Avatar from 'react-avatar';
 import rightIcon from '../../../../images/svg/right-icon.svg';
+import moment from 'moment';
 
 const RescheduleAppointment = ({ notification, index }) => {
     return (
@@ -10,9 +11,7 @@ const RescheduleAppointment = ({ notification, index }) => {
                     {notification.data.appointmentDetails.patient?.picture ? (
                         <img
                             alt="profile"
-                            src={
-                                notification.data.appointmentDetails.patient.picture
-                            }
+                            src={notification.data.appointmentDetails.patient.picture}
                             style={{
                                 height: 40,
                                 width: 40,
@@ -22,11 +21,7 @@ const RescheduleAppointment = ({ notification, index }) => {
                     ) : (
                         <Avatar
                             round={true}
-                            name={
-                                notification.data.appointmentDetails.patient +
-                                ' ' +
-                                (notification.data.appointmentDetails.patient || '')
-                            }
+                            name={notification.data.appointmentDetails.patient?.firstName}
                             size={60}
                             className="notifications-avatar"
                         />
@@ -34,8 +29,16 @@ const RescheduleAppointment = ({ notification, index }) => {
                 </div>
                 <div className="notif-section__message">
                     <div className="message-notif">
-                        <span>{notification.data.message}</span>
-                        {/* <span>TIME</span> */}
+                        <span>
+                            {notification.data.message}
+                            {moment(notification.data.appointmentDetails.startTime).format(
+                                'DD-MM-YYYY hh:mm'
+                            )}{' '}
+                            with{' '}
+
+                            {notification.data.appointmentDetails.patient?.firstName}
+
+                        </span>
                     </div>
                 </div>
                 <div className="notif-section__arrow">
@@ -49,7 +52,7 @@ const RescheduleAppointment = ({ notification, index }) => {
             </div>
             <hr />
         </div>
-    )
-}
+    );
+};
 
-export default RescheduleAppointment
+export default RescheduleAppointment;
