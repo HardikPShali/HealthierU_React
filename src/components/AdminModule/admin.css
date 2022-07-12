@@ -54,7 +54,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 .MuiFormGroup-root {
@@ -229,7 +229,7 @@ select#coutry-select {
   inline-size: 0%; */
 }
 .file-upload::before {
-  content: "";
+  content: '';
   visibility: visible;
   font-size: 2rem;
   font-weight: bold;
@@ -240,7 +240,6 @@ select#coutry-select {
   left: 2%;
 }
 .p-image {
-  
   position: relative;
   bottom: 70px;
   left: 48px;
@@ -359,7 +358,7 @@ div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
 }
 
 input#admin-search {
-  color: #fff;
+  color: #000;
 }
 
 .global-Togglebar .MuiInput-underline:before {
@@ -464,7 +463,7 @@ div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
 }
 
 .list--tags > li:before {
-  content: ",\0000a0"; /* Non-breaking space */
+  content: ',\0000a0'; /* Non-breaking space */
 }
 .list--tags > li:first-child:before {
   content: normal;
@@ -561,13 +560,13 @@ sup {
   text-decoration: underline;
 }
 
-#service .nav-tabs{
+#service .nav-tabs {
   border-bottom: 0px !important;
 }
 #service .nav-tabs .nav-link {
   border-radius: 20px;
   width: 33.33% !important;
-  background-color:#e2e2e2 !important;
+  background-color: #e2e2e2 !important;
   color: #017bff;
   font-weight: bold;
   display: flex;
@@ -575,7 +574,7 @@ sup {
   align-items: center;
 }
 
-#service .nav-tabs .nav-link.active{
+#service .nav-tabs .nav-link.active {
   background-color: #017bff !important;
   color: #ffffff;
 }

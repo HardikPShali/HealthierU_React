@@ -131,7 +131,7 @@ const GlobalSearch = () => {
                                         <MenuItem value="patient">Search by Patient</MenuItem>
                                     </Select>
                                 </FormControl>
-                                <SearchBar type="text" value={searchText} id="admin-search" style={{ width: '100% !important' }} onChange={(value) => handleSearch(value)} onCancelSearch={() => handleSearch("")} />
+                                <SearchBar type="text" value={searchText} id="admin-search" style={{ width: '100% !important', color: '#000' }} onChange={(value) => handleSearch(value)} onCancelSearch={() => handleSearch("")} />
                             </div>
                             <br />
                             <br />
@@ -143,7 +143,7 @@ const GlobalSearch = () => {
                                             <GridListTile key={index}>
                                                 {user.picture ? (<img src={user.picture} alt="" />)
                                                     : (<Avatar name={user.firstName + " " + user.lastName} />)}
-                                                <Link className="btn btn-info text-left"
+                                                <Link className="text-left"
                                                     to={`/admin/user-management/edit/${user.userId}`}
                                                     onClick={() => setCookies("ROLE_DOCTOR")}>
                                                     <GridListTileBar
@@ -168,8 +168,8 @@ const GlobalSearch = () => {
                             {filterText === "patient" && (
                                 <div id="global-list">
                                     {
-                                            console.log("FilterData", filterData)
-                                        }
+                                        console.log("FilterData", filterData)
+                                    }
                                     <GridList cellHeight={220}>
                                         {filterData && filterData.map((user, index) => (
                                             <GridListTile key={index}>
