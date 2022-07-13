@@ -39,14 +39,14 @@ export const LOCALFIRESTORECONFIG = {
     // messagingSenderId: "478300887103",
     // appId: "1:478300887103:web:042d796cf0101d451dc08a",
     // measurementId: "G-FK4MVR5HB0"
-    apiKey: "AIzaSyAqFn4kqi4cPxYOBwDT5CqRMiPPCqV60u8",
-    authDomain: "healthyu-app.firebaseapp.com",
-    databaseURL: "https://healthyu-app.firebaseio.com",
-    projectId: "healthyu-app",
-    storageBucket: "healthyu-app.appspot.com",
-    messagingSenderId: "497531508979",
-    appId: "1:497531508979:web:0364ed9baeb95a54173f86",
-    measurementId: "G-9TC3WY9D1B"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 export const PRODFIRESTORECONFIG = {
@@ -57,22 +57,22 @@ export const PRODFIRESTORECONFIG = {
     // messagingSenderId: "407644997080",
     // appId: "1:407644997080:web:400404278530670006dead",
     // measurementId: "G-GWQS2XZBH6"
-    apiKey: "AIzaSyAqFn4kqi4cPxYOBwDT5CqRMiPPCqV60u8",
-    authDomain: "healthyu-app.firebaseapp.com",
-    databaseURL: "https://healthyu-app.firebaseio.com",
-    projectId: "healthyu-app",
-    storageBucket: "healthyu-app.appspot.com",
-    messagingSenderId: "497531508979",
-    appId: "1:497531508979:web:0364ed9baeb95a54173f86",
-    measurementId: "G-9TC3WY9D1B"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 // Firebase server key for push notification on prod
 
-export const SERVER_KEY_PROD = "AAAAb1z0WD8:APA91bHSs_DG86lE9CW05SmrduzubRiCbECsk3LKzfa0W3bji3NaF6AKb_hJM9U_JPKkO1HQqZvxLYflWIP3m1BF3nIPm_HCOcKLekqnuXkX1_hFdvTdy2gt2ygvC9zNHLDzvWzvQEnR";
+export const SERVER_KEY_PROD = process.env.REACT_APP_FIREBASE_SERVER_KEY_PROD;
 
 // For Prod Env
-export const FIREBASESENDERID = "478300887103";
+export const FIREBASESENDERID = process.env.REACT_APP_FIREBASE_SENDER_ID_PROD;
 
 // Agora config for video call starts
 export const RESOLUTION_ARR = {
