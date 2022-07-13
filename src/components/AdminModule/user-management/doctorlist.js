@@ -121,19 +121,19 @@ const DoctorList = () => {
 
   const handleSearchData = async () => {
     if (searchText !== '') {
-      setTransparentLoading(true);
+      // setTransparentLoading(true);
       setCurrentPageNumber(0);
       const res = await getSearchData(searchText, 0, doctorListLimit);
       if (res.status === 200 && res.data?.doctors.length > 0) {
         setFilterData(res.data.doctors);
         setTotalPages(res.data.totalPages);
         setTotalRecords(res.data.totalItems);
-        setTransparentLoading(false);
+        // setTransparentLoading(false);
       } else if (res.status === 204) {
         setFilterData([]);
         setTotalPages(1);
         setTotalRecords(0);
-        setTransparentLoading(false);
+        // setTransparentLoading(false);
       }
     }
   };
@@ -255,7 +255,7 @@ const DoctorList = () => {
                   type="text"
                   value={searchText}
                   id="doctor-search"
-                  onChange={(value) => handleSearchInputChange(value)}
+                  onChange={(value) => { handleSearchInputChange(value); handleSearchData(); }}
                   onCancelSearch={() => handleSearchInputChange('')}
                   onRequestSearch={() => handleSearchData()}
                   cancelOnEscape={true}
@@ -264,14 +264,14 @@ const DoctorList = () => {
                   }
                 />
                 {console.log('searchText', searchText)}
-                {searchText !== '' && (
+                {/* {searchText !== '' && (
                   <IconButton
                     onClick={() => handleSearchData()}
                     className="searchForwardIcon"
                   >
                     <ArrowForwardIcon />
                   </IconButton>
-                )}
+                )} */}
                 {/*<SearchBar type="text" value={searchText} onChange={(value) => handleSearch(value)} onCancelSearch={() => handleSearch('')} />
                 <Link to="/admin/search"><div className="suggestion-text" style={{ display: display.suggestion }}><SearchIcon /> Did'nt find doctor, Do global search</div></Link>*/}
               </div>
