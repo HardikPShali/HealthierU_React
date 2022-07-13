@@ -185,7 +185,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         console.log("Info", info);
         const files = documentFile;
         const res = await updateDoctorDocument(files, info).catch(err => {
-            setErrorMsg("Something Went Wrong!");
+            toast.error("Something went wrong. Please try again!")
             setLoading(false);
         });
         if (res && res.status === 200) {
@@ -473,7 +473,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                 <b>Choose Document:</b>
                             </Col>
                             <Col md={8}>
-                                <TextValidator
+                                <input
                                     id="docFile"
                                     variant="filled"
                                     name="doctorDocumentFile"
@@ -481,6 +481,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                     inputProps={{
                                         required: true,
                                     }}
+                                    multiple
                                     onChange={(e) => handleFileChange(e)}
                                 />
                                 {documentError && (<span style={{ color: "red", fontSize: "11px" }}>{documentError}</span>)}
@@ -540,7 +541,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                 <b>Choose Document:</b>
                             </Col>
                             <Col md={8}>
-                                <TextValidator
+                                <input
                                     id="docFile"
                                     variant="filled"
                                     name="doctorDocumentFile"
@@ -548,7 +549,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                     inputProps={{
                                         required: true,
                                     }}
+                                    multiple
                                     onChange={(e) => handleFileChange(e)}
+                                    
                                 />
                                 {/* {console.log("docFile::", documentFile && documentFile.name)} */}
                                 {documentError && (<span style={{ color: "red", fontSize: "11px" }}>{documentError}</span>)}

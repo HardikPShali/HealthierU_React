@@ -1374,3 +1374,20 @@ export const getCreatePasswordOtpApi = async (data) => {
   });
   return response;
 }
+export const getHealthAssessmentPdf = async (patientId) => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/assessment/download?patientId=${patientId}`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
