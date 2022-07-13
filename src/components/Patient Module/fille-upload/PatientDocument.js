@@ -613,7 +613,7 @@ const PatientDocument = (props) => {
                                 presecriptionDocument.documentsList[0].documentsList.map(
                                     (dataItem, subIndex) => {
                                         return (
-                                            <div className="prescription-lab__card-box">
+                                            <div className="prescription-lab__card-box" key={subIndex}>
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
                                                     {moment.utc(dataItem.docUploadTime).format("MMM")}
                                                 </h3>

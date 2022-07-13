@@ -909,7 +909,7 @@ img.card-img-top {
   font-weight: 400;
   color: #fff;
 }
-#patient-card button.assessment-btn {
+#patient-card button.health-assessment-btn {
   /* position: absolute;
   bottom: 20%;
   right: 5%;
@@ -3441,7 +3441,7 @@ input.appointmentDate {
 
 @media (max-width: 992px) {
   .notification-Navbar {
-    padding-left: 20px;
+    padding-left: 25px;
   }
 }
 
@@ -4459,4 +4459,9 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .my-appointments__header-names {
   margin-top: 30px;
+}
+
+/* My-Doctors Calendar Navigation Month-view color */
+.react-calendar__navigation__label__labelText--from {
+  color: #fff;
 }

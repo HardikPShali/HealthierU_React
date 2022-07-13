@@ -12,6 +12,7 @@ import useRole from "../../../../custom-hooks/useRole";
 import { ROLES } from "../../../../util/configurations";
 import ChatIcon from "../../../../images/svg/notes-outline-icon.svg";
 import { getCallUserApi } from "../../../../service/frontendapiservices";
+import { toast } from "react-toastify";
 
 const ChatDetails = ({
   selectedItem,
@@ -74,9 +75,30 @@ const ChatDetails = ({
     onVideoClick();
   };
 
+  const checkIfEmailInString = (text) => {
+    const re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+    return re.test(text);
+  }
+
+  const checkIfPhoneInString = (text) => {
+    const re = /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{6,15}\b/m;
+    return re.test(text);
+  }
+
   const handleSend = () => {
     if (!enableChat) return;
-    onSend();
+
+    // Email & ph. no. check in the message
+    const emailCheck = checkIfEmailInString(messageState);
+    const phoneCheck = checkIfPhoneInString(messageState);
+
+    if (emailCheck === true || phoneCheck === true) {
+      toast.error("Oops, you can't send a phone number or email address here");
+      return;
+    }
+    else {
+      onSend();
+    }
   };
 
   const handleNoteToggle = () => {

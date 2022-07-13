@@ -50,6 +50,7 @@ import {
 import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';
 import { Style } from '@material-ui/icons';
+import { getInbox } from '../../service/chatService';
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
@@ -205,27 +206,47 @@ const Myappointment = (props) => {
   // }
 
   //Chat
-  const handleChat = (appointmentStartTime) => {
-    //appointmentStartTime
-    const newDateTime = new Date(appointmentStartTime);
-    const AppointmnetBeforeSixyMinutes = newDateTime.getTime() - 7200000;
-    // const AppointmnetAfter70Minutes = new Date(appointmentStartTime.getTime() + 4200000);
-    if (new Date().getTime() >= AppointmnetBeforeSixyMinutes) {
+  let queryChannelId;
+
+  const chatClickHandler = async (channelId = null) => {
+    const result = await getInbox();
+    const docId = selectedAppointment.doctorId;
+    // console.log({ docId })
+    // console.log({ result });
+    const inbox = result.data.data.filter((item) => {
+      return item.doctorInfo.id === docId;
+    })
+    // console.log({ inbox })
+    queryChannelId = inbox[0].id;
+    // console.log({ queryChannelId })
+    history.push(`/patient/chat?channelId=${queryChannelId}`);
+  };
+
+
+  const handleChat = (selectedAppointment) => {
+
+    const currentTime = moment(new Date());
+
+    const appointmentStartTime = moment(new Date(selectedAppointment.startTime));
+
+    const appointmentEndTime = moment(new Date(selectedAppointment.endTime));
+
+    const chatEnableTime = appointmentStartTime.clone().subtract(2, "days")
+
+    const chatDisableTime = appointmentEndTime.clone().add(3, "days")
+
+    if (
+      currentTime.isSameOrAfter(chatEnableTime) &&
+      currentTime.isBefore(chatDisableTime)
+    ) {
+      console.log("CHAT ENABLED");
       handleConfirmChat();
-    } else {
+    }
+    else {
+      console.log("CHAT DISABLED");
       handleAlertChat();
     }
 
-    // handleConfirmChat();
-    // const AppointmentBeforeTwoHours = new Date(appointmentStartTime.getTime() - 2 * 60000);
-    // if (new Date().toISOString() <= AppointmentBeforeTwoHours.toISOString())
-    // {
-    //     handleConfirmChat();
-    // }
-    // else
-    // {
-    //     handleAlertChat();
-    // }
   };
 
   const eventStyleGetter = (event) => {
@@ -881,14 +902,12 @@ const Myappointment = (props) => {
             </DialogContent>
             <DialogActions>
               <button
-                autoFocus
                 onClick={() => handleDelete(selectedAppointment)}
                 className="btn btn-primary"
               >
                 Ok
               </button>
               <button
-                autoFocus
                 onClick={handleClose}
                 className="btn btn-secondary"
               >
@@ -1085,7 +1104,6 @@ const Myappointment = (props) => {
             >
               {/* <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
               <button
-                autoFocus={false}
                 onClick={() => handleClickOpen(selectedAppointment)}
                 className="btn btn-primary"
                 id="close-btn"
@@ -1093,8 +1111,7 @@ const Myappointment = (props) => {
                 Cancel Appointment
               </button>
               <button
-                autoFocus={false}
-                onClick={() => handleChat(selectedAppointment.startTime)}
+                onClick={() => handleChat(selectedAppointment)}
                 className="btn btn-primary"
                 id="close-btn"
               >
@@ -1325,7 +1342,6 @@ const Myappointment = (props) => {
             >
               {/* <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
               <button
-                autoFocus={false}
                 onClick={() => handleClickOpen(selectedAppointment)}
                 className="btn btn-primary"
                 id="close-btn"
@@ -1333,8 +1349,7 @@ const Myappointment = (props) => {
                 Cancel Appointment
               </button>
               <button
-                autoFocus={false}
-                onClick={() => handleChat(selectedAppointment.startTime)}
+                onClick={() => handleChat(selectedAppointment)}
                 className="btn btn-primary"
                 id="close-btn"
               >
@@ -1535,8 +1550,7 @@ const Myappointment = (props) => {
             >
               {/* <Link to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctor?.id}`} title="Chat"> */}
               <button
-                autoFocus={false}
-                onClick={() => handleChat(selectedAppointment.startTime)}
+                onClick={() => handleChat(selectedAppointment)}
                 className="btn btn-primary"
                 id="close-btn"
               >
@@ -1549,7 +1563,6 @@ const Myappointment = (props) => {
               </button>
               {/* </Link>  */}
               <button
-                autoFocus={false}
                 onClick={handleAppointmentInfoClose}
                 className="btn btn-primary"
                 id="close-btn"
@@ -1573,21 +1586,15 @@ const Myappointment = (props) => {
               </DialogTitle>
             }
             <DialogActions>
-              <Link
-                to={`/patient/chat?chatgroup=P${props.currentPatient.id}_D${selectedAppointment?.doctorId}&openVideoCall=true`}
-                title="Chat"
-              >
+              <div onClick={() => chatClickHandler()}>
                 <button
-                  autoFocus
-                  //onClick={() => handleAgoraAccessToken({name:`${selectedAppointment.doctorId}` + `${selectedAppointment.patientId}` + `${selectedAppointment.id}`, id: selectedAppointment.id})}
                   className="btn btn-primary"
                   id="close-btn"
                 >
                   Yes
                 </button>
-              </Link>
+              </div>
               <button
-                autoFocus
                 onClick={confirmChatClose}
                 className="btn btn-primary"
                 id="close-btn"
@@ -1607,7 +1614,6 @@ const Myappointment = (props) => {
             </DialogTitle>
             <DialogActions>
               <button
-                autoFocus
                 onClick={alertVideoClose}
                 className="btn btn-primary"
                 id="close-btn"
@@ -1622,11 +1628,10 @@ const Myappointment = (props) => {
             open={alertChat}
           >
             <DialogTitle id="customized-dialog-title" onClose={alertChatClose}>
-              Chat is possible only 2 Hours before the Appointment Time
+              Chat can only be initiated 2 days before appointment and upto 3 days after the appointment.
             </DialogTitle>
             <DialogActions>
               <button
-                autoFocus
                 onClick={alertChatClose}
                 className="btn btn-primary"
                 id="close-btn"
@@ -1761,7 +1766,6 @@ const Myappointment = (props) => {
             </DialogContent>
             <DialogActions>
               <button
-                autoFocus={false}
                 onClick={closeMoreDoctorInfo}
                 className="btn btn-primary"
                 id="close-btn"
