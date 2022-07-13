@@ -4,7 +4,7 @@ import callAccept from '../../../images/svg/call-accept-icon.svg'
 import callDecline from '../../../images/svg/cancel-cross.svg'
 import { useHistory } from 'react-router'
 import useRole from '../../../custom-hooks/useRole'
-import { getRoles } from '@testing-library/react'
+import defaultImage from '../../../images/default_image.png'
 
 
 const CustomCallNotification = ({ onAccept, onClose, payload }) => {
@@ -41,7 +41,14 @@ const CustomCallNotification = ({ onAccept, onClose, payload }) => {
     return (
         <div className='call-notification-bar'>
             <div className="caller-img-container">
-                <img src={picture} alt="profile picture" className="caller-img" />
+                {
+                    picture ? (
+                        <img src={picture} alt="profile picture" className="caller-img" />
+
+                    ) : (
+                        <img src={defaultImage} alt="profile picture" className="caller-img" />
+                    )
+                }
             </div>
             <div className='caller-name'>
                 <div className='name'>{callerName}</div>

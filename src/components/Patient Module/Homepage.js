@@ -74,7 +74,7 @@ const patientHomePage = () => {
                                 <div className="patient-card_how-healthy-wrap">
                                     <h3 style={{ marginLeft: 15 }} className="mb-3">How healthy are you?</h3>
                                     <Link to="/patient/questionnaire/existing" style={{ marginRight: 20 }}>
-                                        <button className="btn btn-primary assessment-btn">
+                                        <button type='button' className="btn btn-primary btn-block health-assessment-btn">
                                             Take Assessment
                                         </button>
                                     </Link>

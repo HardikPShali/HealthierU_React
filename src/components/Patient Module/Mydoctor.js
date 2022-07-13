@@ -2214,6 +2214,8 @@ const MyDoctor = (props) => {
                               onDaySelect(new Date(e), doctor && doctor.id)
                             }
                             value={currentDate}
+                            // maxDetail="month"
+                            minDetail="month"
                             minDate={new Date()} //to disable past days
                             maxDate={
                               new Date(
@@ -2397,6 +2399,8 @@ const MyDoctor = (props) => {
                             onDaySelect(new Date(e), doctor && doctor.id)
                           }
                           value={currentDate}
+                          // maxDetail="month"
+                          minDetail="month"
                           minDate={new Date()} //to disable past days
                           maxDate={
                             new Date(
