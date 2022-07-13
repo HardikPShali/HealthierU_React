@@ -81,7 +81,7 @@ const ChatDetails = ({
   }
 
   const checkIfPhoneInString = (text) => {
-    const re = /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{3,15}\b/m;
+    const re = /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{6,15}\b/m;
     return re.test(text);
   }
 
@@ -97,7 +97,9 @@ const ChatDetails = ({
       return;
     }
     else {
-      onSend();
+      toast.success("wheeeee");
+
+      // onSend();
     }
   };
 
