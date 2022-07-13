@@ -21,7 +21,7 @@ const OurDoctors = () => {
 
     return (
         <div>
-            <h3 className="our-doctors--main-header mb-3 mt-2">Recently Viewed</h3>
+            <h3 className="our-doctors--main-header mb-3 mt-2">Our Doctors</h3>
             <div className="our-doctor__card-box scroller-cardlist">
                 <div className="card-holder">
                     <div className="our-doctor-card">
