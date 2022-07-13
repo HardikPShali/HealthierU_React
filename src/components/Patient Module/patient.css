@@ -4460,3 +4460,8 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .my-appointments__header-names {
   margin-top: 30px;
 }
+
+/* My-Doctors Calendar Navigation Month-view color */
+.react-calendar__navigation__label__labelText--from {
+  color: #fff;
+}
