@@ -97,9 +97,7 @@ const ChatDetails = ({
       return;
     }
     else {
-      toast.success("wheeeee");
-
-      // onSend();
+      onSend();
     }
   };
 
