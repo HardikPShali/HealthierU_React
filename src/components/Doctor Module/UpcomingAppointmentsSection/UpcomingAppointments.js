@@ -84,7 +84,6 @@ const UpcomingAppointments = () => {
                         }
                     }
                 });
-                 console.log('updateArray', updateArray);
                 setUpcomingAppointments(updateArray);
             }
         }

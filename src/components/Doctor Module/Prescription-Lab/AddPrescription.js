@@ -167,6 +167,7 @@ const AddPrescription = (props) => {
     const [errorMsg, setErrorMsg] = useState('');
 
     const handlePrescriptionSubmission = async (e) => {
+        setIsSaveModal(false)
         e.preventDefault();
         let medicineData;
         let doseData;

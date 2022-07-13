@@ -1,13 +1,24 @@
 import React from 'react'
 import './Questions.css'
+import {
+    getHealthAssessmentPdf
+} from '../../../service/frontendapiservices'
+import { useParams } from 'react-router';
 const Questions = ({ answers }) => {
-    console.log("Questions", answers);
+    const { id } = useParams();
+    const showReport = async () => {
+        const url = await getHealthAssessmentPdf(id)
+        const link = document.createElement("a");
+        link.href = url.data.data;
+        link.download = `${url.data.data.message}.$-PDF`;
+        document.body.appendChild(link);
+        window.open(link, '_blank', 'noopener,noreferrer');
+    };
     return (
         <div className='Questions__card-box'>
             <h3 className='Questions--main-header'>Health Assessment Report</h3>
             <div className="Questions-card-holder">
                 <div className='Questions-card'>
-
                     <div className='row' >
                         <div className='col-md-12'>
                             {
@@ -20,7 +31,6 @@ const Questions = ({ answers }) => {
                                                     <h6 className='Questions-card__question-answer' key={index}>{answer}</h6>
                                                 ))
                                             }
-
                                         </div>
                                     ))
                                 ) : (
@@ -41,9 +51,16 @@ const Questions = ({ answers }) => {
                                     </div>
                                 )
                             }
+                            <button
+                                className="btn btn-primary view-btn"
+                                onClick={() =>
+                                    showReport()
+                                }
+                            >
+                                Download
+                            </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
