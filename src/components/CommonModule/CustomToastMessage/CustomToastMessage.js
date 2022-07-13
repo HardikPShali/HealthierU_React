@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import useRole from "../../../custom-hooks/useRole";
 import './CustomCallToast.css'
+import defaultImage from '../../../images/default_image.png'
 
 const CustomToastMessage = ({ payload }) => {
   const history = useHistory();
@@ -36,7 +37,14 @@ const CustomToastMessage = ({ payload }) => {
       className="call-notification-bar justify-content-start"
     >
       <div className="caller-img-container">
-        <img src={picture} alt="profile picture" className="caller-img" />
+        {
+          picture ? (
+            <img src={picture} alt="profile picture" className="caller-img" />
+
+          ) : (
+            <img src={defaultImage} alt="profile picture" className="caller-img" />
+          )
+        }
       </div>
       <div className="caller-name msg-name">
         <div className="name">{payload.data.title}</div>
