@@ -36,8 +36,9 @@ const Newsletter = () => {
     }
   };
 
-  const newsletterSubmitHandler = () => {
+  const newsletterSubmitHandler = (e) => {
     console.log(email);
+    e.preventDefault();
     if (validator.isEmail(email)) {
       postNewsletterEmail(email);
       setEmail('');
@@ -78,7 +79,7 @@ const Newsletter = () => {
           value='Subscribe'
           type='submit'
           className="btn submit-btn"
-          onClick={() => newsletterSubmitHandler()}
+          onClick={(e) => newsletterSubmitHandler(e)}
         />
         {emailSubmit && (
           <span className="subscription-message">
