@@ -86,10 +86,10 @@ const Header = (props) => {
                     My Records
                   </NavLink>
                   <NavLink
-                    to="/patient/questionnaire/existing"
+                    to="/patient/health-assessment"
                     className="dropdown-item"
                   >
-                    Health Assessment
+                    Health Assessment Report
                   </NavLink>
                   <NavLink to="/patient/chat" className="dropdown-item">
                     Chat
