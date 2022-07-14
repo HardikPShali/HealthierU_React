@@ -29,24 +29,9 @@ const NextAppointmentNotifications = ({ notification, index }) => {
     const appointmentId = notification.data.appointmentDetails.id;
     const appointmentMode = notification.data.appointmentDetails.appointmentMode;
 
-    const paymentStatus = notification.data.appointmentDetails.paymentStatus;
-
     const onClickPayNowModalHandler = () => {
         setClickModal(true);
     };
-
-    const onPaymentStatusTrueHandler = () => {
-        toast.error('Payment already done.');
-    }
-
-    const onClickHandler = () => {
-        if (paymentStatus === true) {
-            onClickPayNowModalHandler();
-        }
-        else {
-            onPaymentStatusTrueHandler();
-        }
-    }
 
     const setNextAppointmentHandler = async (orderData) => {
         let setNextAppointmentDataArray = {};
@@ -80,6 +65,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                 newPaymentResponse.status === 201
             ) {
                 //   props.history.push('/patient/myappointment');
+                setClickModal(false);
                 toast.success('Appointment has been set successfully');
             }
         } catch (err) {
@@ -94,13 +80,14 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                 // setPaymentErrorModal(true);
 
                 // FOR TOAST
+                setClickModal(false);
                 toast.error(`${errorMessage}. Please try again.`);
             } else {
                 //   setLoading(false);
                 // FOR MODAL
                 // setPaymentErrorModal(true);
-                setClickModal(false);
                 // FOR TOAST
+                setClickModal(false);
                 toast.error(`Payment failed. Please try again.`);
             }
         }
@@ -113,7 +100,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
     return (
         <div key={index} className='set-next-appt' >
             <div className="notif-section" onClick={() => {
-                onClickHandler();
+                onClickPayNowModalHandler();
             }}>
                 <div className="profile-img col-md-3">
                     {notification.data.appointmentDetails?.doctor?.picture ? (

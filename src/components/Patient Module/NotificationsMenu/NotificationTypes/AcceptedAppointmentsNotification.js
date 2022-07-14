@@ -30,8 +30,8 @@ const AcceptedAppointmentsNotification = ({ notification, index }) => {
         <div className="notif-section__message">
           <div className="message-notif">
             <span>
-              Your appointment has been confirmed with {' '}
-              {notification.data.appointmentDetails?.doctor.firstName} on {' '}
+              Your appointment has been booked with {' '}
+              {notification.data.appointmentDetails?.doctor.firstName} for time {' '}
               {moment(notification.data.appointmentDetails.startTime).format(
                 'DD-MM-YYYY hh:mm'
               )}
