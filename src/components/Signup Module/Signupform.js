@@ -442,7 +442,7 @@ const Signupform = () => {
     else if (res.data.message === 'Otp mismatch' && res.data.status === false) {
       setOtpUser({
         ...otpUser,
-        msg: "Invalid OTP. Please generate new OTP and try again!",
+        msg: "Invalid OTP. Please enter the correct OTP.",
       });
       setOtpBox(new Array(4).fill(''));
     }

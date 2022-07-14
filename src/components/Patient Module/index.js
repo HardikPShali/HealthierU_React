@@ -50,6 +50,7 @@ const LicensesPage = React.lazy(() => import("../CommonModule/Licenses"));
 const PartnersPage = React.lazy(() => import("../CommonModule/Partners"));
 
 const Questionnaire = React.lazy(() => import("./QuestionnaireNew/Questionnaire"));
+const HealthAssessmentReportPatient = React.lazy(() => import("./HealthAssessmentReport/HealthAssessmentReportPatient"));
 
 // const Explore = Loadable({
 //   loader: () => import("./explore"),
@@ -144,6 +145,7 @@ const PatientRoute = () => {
         <Route exact path="/patient/profile" component={Profile} />
         <Route exact path="/patient/myappointment" render={(props) => <Myappointment currentPatient={currentPatient} doctorDetailsList={doctorDetailsList} {...props} />} />
         <Route exact path="/patient/questionnaire/:new" component={Questionnaire} />
+        <Route exact path="/patient/health-assessment" component={HealthAssessmentReportPatient} />
         {/* <Route exact path="/patient/questionnaire/edit" component={QuestionnaireEdit} /> */}
         {/* <Route exact path="/patient/explore" component={Explore} /> */}
         <Route

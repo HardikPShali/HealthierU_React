@@ -1,7 +1,7 @@
-import React from 'react'
-import Avatar from 'react-avatar'
+import React from 'react';
+import Avatar from 'react-avatar';
 import rightIcon from '../../../../images/svg/right-icon.svg';
-import moment from 'moment'
+import moment from 'moment';
 
 const AcceptedAppointmentsNotification = ({ notification, index }) => {
   return (
@@ -11,9 +11,7 @@ const AcceptedAppointmentsNotification = ({ notification, index }) => {
           {notification.data.appointmentDetails?.doctor?.picture ? (
             <img
               alt="profile"
-              src={
-                notification.data.appointmentDetails?.doctor.picture
-              }
+              src={notification.data.appointmentDetails?.doctor.picture}
               style={{
                 height: 40,
                 width: 40,
@@ -23,9 +21,7 @@ const AcceptedAppointmentsNotification = ({ notification, index }) => {
           ) : (
             <Avatar
               round={true}
-              name={
-                notification.data.appointmentDetails?.doctor.firstName
-              }
+              name={notification.data.appointmentDetails?.doctor.firstName}
               size={60}
               className="notifications-avatar"
             />
@@ -33,7 +29,13 @@ const AcceptedAppointmentsNotification = ({ notification, index }) => {
         </div>
         <div className="notif-section__message">
           <div className="message-notif">
-            <span>{notification.data.message} {moment(notification.data.appointmentDetails.startTime).format('DD-MM-YYYY hh:mm')}</span>
+            <span>
+              Your appointment has been booked with {' '}
+              {notification.data.appointmentDetails?.doctor.firstName} for time {' '}
+              {moment(notification.data.appointmentDetails.startTime).format(
+                'DD-MM-YYYY hh:mm'
+              )}
+            </span>
             {/* <span>TIME</span> */}
           </div>
         </div>
@@ -48,7 +50,7 @@ const AcceptedAppointmentsNotification = ({ notification, index }) => {
       </div>
       <hr />
     </div>
-  )
-}
+  );
+};
 
-export default AcceptedAppointmentsNotification
+export default AcceptedAppointmentsNotification;

@@ -105,20 +105,31 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
     }
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file && file.size > 10000000) {
-            setDocumentError("Document must be less than 10mb");
-            document.getElementById("uploadForm").reset();
+        const file = e.target.files;
+        for (let i = 0; i < file.length; i++) {
+            if (file[i] && file[i].size > 10000000) {
+                setDocumentError("Document must be less than 10mb");
+                document.getElementById("uploadForm").reset();
+            }
+            if (!file[i].name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
+                setDocumentError("Document must be PNG, JPG, JPEG or PDF");
+                document.getElementById("uploadForm").reset();
+            }
+            else {
+                setDocumentError("");
+                setDocumentFile(e.target.files);
+                setDocumentUpdateFile(e.target.files)
+            }
         }
-        else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
-            setDocumentError("Document must be PNG, JPG, JPEG or PDF");
-            document.getElementById("uploadForm").reset();
-        }
-        else {
-            setDocumentError("");
-            setDocumentFile(e.target.files[0]);
-            setDocumentUpdateFile(e.target.files[0])
-        }
+        // else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
+        //     setDocumentError("Document must be PNG, JPG, JPEG or PDF");
+        //     document.getElementById("uploadForm").reset();
+        // }
+        // else {
+        //     setDocumentError("");
+        //     setDocumentFile(e.target.files);
+        //     setDocumentUpdateFile(e.target.files)
+        // }
     }
 
     const handleUpload = async (e, data) => {
@@ -130,16 +141,15 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         const info = {
             doctorId: currentDoctor.id,
             doctor_email: currentDoctor.email,
-            documentName: documentName,
+            //documentName: documentName,
             licenseNumber: licenseNumber,
             referencePhoneNumber: referencePhoneNumber,
             certifyingBody: certifyingBody
         }
-        const files = documentFile;
-        const res = await uploadDoctorDocument(files, info).catch(err => {
-            // setErrorMsg("Something Went Wrong!");
-            toast.error("Something went wrong. Please try again!")
-            setLoading(false);
+        const res = await uploadDoctorDocument(documentFile, info).catch(err => {
+        //setErrorMsg("Something Went Wrong!");
+        toast.error("Something went wrong. Please try again!")
+        setLoading(false);
         });
         if (res && res.status === 201) {
             toast.success("Document successfully Uploaded.");
@@ -551,7 +561,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                     }}
                                     multiple
                                     onChange={(e) => handleFileChange(e)}
-                                    
+
                                 />
                                 {/* {console.log("docFile::", documentFile && documentFile.name)} */}
                                 {documentError && (<span style={{ color: "red", fontSize: "11px" }}>{documentError}</span>)}
