@@ -763,14 +763,17 @@ export const getSearchData = (queryText, offset, limit) => {
 };
 export const uploadDoctorDocument = async (files, info) => {
   var newData = new FormData();
-  newData.append(`doctorDocumentFile`, files);
+  for (let i = 0; i < files.length; i++) {
+    newData.append(`doctorDocumentFile`, files[i])
+  }
+  // newData.append(`doctorDocumentFile`, files);
   newData.append(
     "doctorDocumentInfo",
     new Blob([JSON.stringify(info)], {
       type: "application/json",
     })
   );
-  console.log("info", info);
+  console.log("doctorDocumentInfo", info);
   var payload = {
     method: "post",
     mode: "no-cors",
@@ -1026,7 +1029,7 @@ export const getAppointmentsBySearch = async (patientName) => {
   });
   return response;
 };
-export const getGlobalMedicalRecordsSearch = async (page,size,data) => {
+export const getGlobalMedicalRecordsSearch = async (page, size, data) => {
   var payload = {
     method: 'post',
     mode: 'no-cors',
