@@ -75,6 +75,7 @@ const Newsletter = () => {
         />
         <input
           defaultValue="Subscribe"
+          value='Subscribe'
           type='submit'
           className="btn submit-btn"
           onClick={() => newsletterSubmitHandler()}
@@ -94,7 +95,7 @@ const Newsletter = () => {
         {authorisedError && (
           <span className="subscription-message">
 
-            Please sign in to subscribe to newletters
+            Please sign in to subscribe to our newletters
           </span>
         )}
       </form>
