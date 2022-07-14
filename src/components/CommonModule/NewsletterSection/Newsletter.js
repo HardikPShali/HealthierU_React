@@ -75,7 +75,6 @@ const Newsletter = () => {
           onChange={(e) => newsletterEmailInputHandler(e)}
         />
         <input
-          defaultValue="Subscribe"
           value='Subscribe'
           type='submit'
           className="btn submit-btn"
