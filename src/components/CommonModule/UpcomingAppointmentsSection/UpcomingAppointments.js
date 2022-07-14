@@ -18,13 +18,11 @@ const UpcomingAppointments = () => {
         const response = await getUpcomingAppointmentsForHomepage().catch((err) => {
             console.log('err', err);
         });
-        // console.log('UA response', response);
-        if (response.status === 200 || response.status === 201) {
+        if (response?.status === 200 || response?.status === 201) {
             if (response && response.data) {
                 //console.log("response.data ::: ", response.data)
                 const upcomingAppointments = response.data.data;
                 const reversedAppointments = upcomingAppointments.reverse();
-                console.log("upcomingAppointments",upcomingAppointments);
                 const updateArray = [];
                 reversedAppointments.map((value, index) => {
                     if (value.status === 'ACCEPTED') {
