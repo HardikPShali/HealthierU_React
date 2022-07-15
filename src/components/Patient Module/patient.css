@@ -708,9 +708,9 @@ span.MuiBottomNavigationAction-wrapper {
 }
 
 .doc-img img {
-  border-radius: 50%;
-  height: 150px;
-  width: 150px;
+  border-radius: 50% !important;
+  height: 130px !important;
+  width: 130px !important;
 }
 
 p.doc-name {

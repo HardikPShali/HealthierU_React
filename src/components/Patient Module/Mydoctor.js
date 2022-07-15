@@ -1847,7 +1847,7 @@ const MyDoctor = (props) => {
 
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Languange</span>
+                          <span style={{ fontSize: 12 }}>Language</span>
                           <br />
                           <b>
                             {doctor &&
@@ -1863,7 +1863,7 @@ const MyDoctor = (props) => {
 
                     <div className="ml-4">
                       {
-                        doctor.bio && <p style={{ fontSize: 16, margin: "0 auto" }}>About</p>
+                        doctor.bio && <p style={{ fontSize: 12, margin: "0 auto" }}>About</p>
                       }
 
 
@@ -2070,7 +2070,7 @@ const MyDoctor = (props) => {
 
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Languange</span>
+                          <span style={{ fontSize: 12 }}>Language</span>
                           <br />
                           <b>
                             {doctor &&
@@ -2673,7 +2673,7 @@ const MyDoctor = (props) => {
 
                   <div className="row">
                     <div className="col-12">
-                      <span style={{ fontSize: 12 }}>Languange</span>
+                      <span style={{ fontSize: 12 }}>Language</span>
                       <br />
                       <b>
                         {doctor &&
@@ -2820,7 +2820,7 @@ const MyDoctor = (props) => {
 
                     <div className="row">
                       <div className="col-12">
-                        <span style={{ fontSize: 12 }}>Languange</span>
+                        <span style={{ fontSize: 12 }}>Language</span>
                         <br />
                         <b>
                           {doctor &&
