@@ -3809,3 +3809,8 @@ input:checked + .slider:before {
   margin-bottom: 5%;
   -webkit-margin-bottom: 5%;
 }
+
+.profile-menu > .MuiMenu-paper {
+  top: 80px !important;
+  left: 1300px !important;
+}
