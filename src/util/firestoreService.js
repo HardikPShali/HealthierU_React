@@ -16,6 +16,7 @@ import { Howl } from 'howler';
 import soundSrc from '../images/svg/notification-chime.wav'
 import soundSrcCall from '../images/svg/call-notification-sound.wav'
 import CustomCallNotification from '../components/CommonModule/CustomToastMessage/CustomCallNotification';
+import CustomCallRejectNotification from '../components/CommonModule/CustomToastMessage/CustomCallRejectNotification';
 
 // import '@firebase/messaging';
 
@@ -152,6 +153,10 @@ const toastMessage = (payload) => {
   if (topicFromPayload === 'CALL') {
     callToast(payload);
   }
+
+  if (topicFromPayload === 'REJECT') {
+    callRejectToast(payload);
+  }
 }
 
 const messageToast = (payload) => {
@@ -193,6 +198,21 @@ const callToast = (payload) => {
   toast.info(customToast, {
     // position: "top-right",
     autoClose: false,
+    className: 'caller-toast'
+  })
+}
+
+const callRejectToast = (payload) => {
+  // const toastBody = payload.notification.body
+  // const toastTitle = payload.notification.title
+
+  sound.play()
+  const customToast = (
+    <CustomCallRejectNotification payload={payload} />
+  )
+  toast.info(customToast, {
+    position: "top-right",
+    autoClose: 5000,
     className: 'caller-toast'
   })
 }

@@ -839,7 +839,7 @@ export const updateDoctorDocument = async (files, info) => {
 
 // http://localhost:8081/api/doctor-documents?doctorId.equals=5&page=0&size=10&sort=id%2Cdesc
 
-export const getDoctorDocument = async (doctorId,page) => {
+export const getDoctorDocument = async (doctorId, page) => {
   var payload = {
     method: "get",
     mode: "no-cors",
@@ -1382,6 +1382,24 @@ export const getHealthAssessmentPdf = async (patientId) => {
     method: 'get',
     mode: 'no-cors',
     url: `/api/v2/assessment/download?patientId=${patientId}`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
+
+export const callRejectApi = async (channelId) => {
+  var payload = {
+    method: 'post',
+    mode: 'no-cors',
+    url: `/api/v2/reject-call-user/${channelId}`,
     headers: {
       'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
       'Content-Type': 'application/json'
