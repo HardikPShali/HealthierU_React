@@ -275,8 +275,7 @@ const Myappointment = (props) => {
         resTomorrow.data.reverse();
         resTomorrow.data.map((value, index) => {
           if (
-            value.status === "ACCEPTED" &&
-            new Date(value.endTime) >= new Date()
+            value.status === "ACCEPTED"
           ) {
             tomoArray.push({
               id: value.id,
@@ -322,8 +321,7 @@ const Myappointment = (props) => {
         resToday.data.reverse();
         resToday.data.map((value, index) => {
           if (
-            value.status === "ACCEPTED" &&
-            new Date(value.endTime) >= new Date()
+            value.status === "ACCEPTED"
           ) {
             todayArray.push({
               id: value.id,
@@ -370,8 +368,7 @@ const Myappointment = (props) => {
         resupcoming.data.reverse();
         resupcoming.data.map((value, index) => {
           if (
-            value.status === "ACCEPTED" &&
-            new Date(value.endTime) >= new Date()
+            value.status === "ACCEPTED"
           ) {
             upcomingArray.push({
               id: value.id,
@@ -430,14 +427,14 @@ const Myappointment = (props) => {
       startTime: new Date(starttime).toISOString(),
       endTime: new Date(endtime).toISOString(),
       doctorId: docId.id,
-      status: null,
+      status: "ACCEPTED",
     };
 
     const dataForSelectedDay = {
       startTime: new Date(newStartDate).toISOString(),
       endTime: new Date(newEndDate).toISOString(),
       doctorId: docId.id,
-      status: null,
+      status: "ACCEPTED",
     };
     const res = await getDoctorAppointment(dataForSelectedDay).catch((err) => {
       if (err.response.status === 500 || err.response.status === 504) {
@@ -1116,8 +1113,6 @@ const Myappointment = (props) => {
                                     (appointment, index) => {
                                       if (
                                         appointment.status &&
-                                        new Date(appointment.endTime) >=
-                                        new Date() &&
                                         appointment.status === "ACCEPTED"
                                       ) {
                                         return (
@@ -1213,8 +1208,6 @@ const Myappointment = (props) => {
                                     (appointment, index) => {
                                       if (
                                         appointment.status &&
-                                        new Date(appointment.endTime) >=
-                                        new Date() &&
                                         appointment.status === "ACCEPTED"
                                       ) {
                                         return (
@@ -1312,8 +1305,6 @@ const Myappointment = (props) => {
 
                                       if (
                                         appointment.status &&
-                                        new Date(appointment.endTime) >=
-                                        new Date() &&
                                         appointment.status === "ACCEPTED"
                                       ) {
                                         return (
@@ -1510,7 +1501,7 @@ const Myappointment = (props) => {
                           state: selectedAppointment?.patient,
                         }}
                       >
-                        <div className="firefox-helper" style={{ display: "flex", alignItem: "center"}}>
+                        <div className="firefox-helper" style={{ display: "flex", alignItem: "center" }}>
                           <div style={{ width: "100%" }}>
                             <img
                               width="40"

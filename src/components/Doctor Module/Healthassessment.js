@@ -653,7 +653,7 @@ const Healthassessment = (props) => {
 
                                             <div className="prescription-lab__card-box">
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                    {moment(dataItem.docUploadTime).format("MMM")}
                                                 </h3>
                                                 <div className="card-holder">
                                                     <div className="row">
@@ -664,8 +664,8 @@ const Healthassessment = (props) => {
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
                                                                 apid={appointmentID}
-                                                                date={dataItem.docUploadTime}
-                                                                time={dataItem.docUploadTime}
+                                                                date={moment(dataItem.docUploadTime)}
+                                                                time={moment(dataItem.docUploadTime)}
                                                                 download={(e) => showDocument(dataItem)}
                                                             />
                                                         </div>
@@ -726,7 +726,7 @@ const Healthassessment = (props) => {
                                         return (
                                             <div className="prescription-lab__card-box">
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                    {moment(dataItem.docUploadTime).format("MMM")}
                                                 </h3>
                                                 <div className="card-holder">
                                                     <div className="row">
