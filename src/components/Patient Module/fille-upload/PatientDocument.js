@@ -222,7 +222,7 @@ const PatientDocument = (props) => {
                     setErrorMsg("Please upload the document in PDF format.");
                 } else if (err.response.status === 500) {
                     setLoading(false);
-                    setErrorMsg("Please upload the document with size less than 1mb.");
+                    setErrorMsg("Please upload the document with size less than 10mb.");
                 }
             }
         );
@@ -256,7 +256,7 @@ const PatientDocument = (props) => {
                 setErrorMsg("Please upload the document in PDF format.");
             } else if (err.response.status === 500) {
                 setLoading(false);
-                setErrorMsg("Please upload the document with size less than 1mb.");
+                setErrorMsg("Please upload the document with size less than 10mb.");
             }
         });
         if (response) {
