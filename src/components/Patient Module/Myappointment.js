@@ -1000,7 +1000,7 @@ const Myappointment = (props) => {
                           </span>
                         </div>
                       </div>
-                      <br />
+                      {/* <br />
                       <span>Appointment Fee and Payment method</span>
 
                       <div className="details-body__payment">
@@ -1030,7 +1030,7 @@ const Myappointment = (props) => {
                             )}
                           </span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <hr />
                     <div className="details-links">
@@ -1214,7 +1214,7 @@ const Myappointment = (props) => {
                           </span>
                         </div>
                       </div>
-                      <br />
+                      {/* <br />
                       <span>Appointment Fee and Payment method</span>
 
                       <div className="details-body__payment">
@@ -1244,7 +1244,7 @@ const Myappointment = (props) => {
                             )}
                           </span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <hr />
                     <div className="details-links" onClick={() => setDoctorIdInSession(selectedAppointment.doctor.id)}>
@@ -1447,7 +1447,7 @@ const Myappointment = (props) => {
                           </span>
                         </div>
                       </div>
-                      <br />
+                      {/* <br />
                       <span>Appointment Fee and Payment method</span>
 
                       <div className="details-body__payment">
@@ -1477,7 +1477,7 @@ const Myappointment = (props) => {
                             )}
                           </span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <hr />
                     <div className="details-links">
