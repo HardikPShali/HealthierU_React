@@ -37,7 +37,6 @@ const Newsletter = () => {
   };
 
   const newsletterSubmitHandler = (e) => {
-    console.log(email);
     e.preventDefault();
     if (validator.isEmail(email)) {
       postNewsletterEmail(email);

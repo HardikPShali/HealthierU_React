@@ -266,7 +266,7 @@ const Signin = () => {
     //if (captchaVerify) {
     setLoader(true);
     const accountCheckResponse = await accountActivationCheckBeforeTokenGeneration(username).catch(err => console.log({ err }))
-    console.log({ accountCheckResponse })
+    // console.log({ accountCheckResponse })
 
     if (accountCheckResponse.data.status === true) {
       handleSigninHandler();
