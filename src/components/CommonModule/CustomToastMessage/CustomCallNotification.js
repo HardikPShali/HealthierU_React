@@ -5,6 +5,7 @@ import callDecline from '../../../images/svg/cancel-cross.svg'
 import { useHistory } from 'react-router'
 import useRole from '../../../custom-hooks/useRole'
 import defaultImage from '../../../images/default_image.png'
+import { callRejectApi } from '../../../service/frontendapiservices'
 
 
 const CustomCallNotification = ({ onAccept, onClose, payload }) => {
@@ -24,9 +25,14 @@ const CustomCallNotification = ({ onAccept, onClose, payload }) => {
         }
     }, [payload]);
 
+    const callRejectHandler = async (channelId) => {
+        const rejectCallApiResponse = await callRejectApi(channelId).catch(err => console.log({ err }));
+        console.log({ rejectCallApiResponse });
+    }
 
 
-    const onDeclineClickHandler = () => {
+    const onDeclineClickHandler = async () => {
+        callRejectHandler(payload.data.channelId)
         onClose(true);
     }
 
