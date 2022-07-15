@@ -615,7 +615,7 @@ const PatientDocument = (props) => {
                                         return (
                                             <div className="prescription-lab__card-box" key={subIndex}>
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                    {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                    {moment(dataItem.docUploadTime).format("MMM")}
                                                 </h3>
                                                 <div className="card-holder">
                                                     <div className="row">
@@ -706,7 +706,7 @@ const PatientDocument = (props) => {
                                     return (
                                         <div className="prescription-lab__card-box">
                                             <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                {moment.utc(dataItem.docUploadTime).format("MMM")}
+                                                {moment(dataItem.docUploadTime).format("MMM")}
                                             </h3>
                                             <div className="card-holder">
                                                 <div className="row">
