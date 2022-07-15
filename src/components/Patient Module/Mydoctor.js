@@ -477,7 +477,7 @@ const MyDoctor = (props) => {
 
   const handleSearchData = async (showToast = false) => {
     if (searchText !== '') {
-      setTransparentLoading(true);
+      // setTransparentLoading(true);
       const res = await getSearchData(searchText, 0, doctorListLimit);
       if (res.status === 200 && res.data?.doctors.length > 0) {
         setFilterData(res.data.doctors);
@@ -485,16 +485,16 @@ const MyDoctor = (props) => {
         setAvailability([]);
         setAppointmentSlot([]);
         // getInValidAppointments(res.data.doctors[0].id);
-        setTransparentLoading(false);
+        // setTransparentLoading(false);
       } else if (res.status === 204) {
         setFilterData([]);
         setdoctor('');
-        setTransparentLoading(false);
+        // setTransparentLoading(false);
       }
     }
-    if (showToast) {
-      handleToast();
-    }
+    // if (showToast) {
+    //   handleToast();
+    // }
   };
 
   const handleInputChange = (e) => {
@@ -1326,7 +1326,7 @@ const MyDoctor = (props) => {
                     value={searchText}
                     id="doctor-search"
                     autoComplete="off"
-                    onChange={(value) => handleSearchInputChange(value)}
+                    onChange={(value) => { handleSearchInputChange(value); handleSearchData(true) }}
                     onCancelSearch={() => handleSearchInputChange('')}
                     onRequestSearch={() => handleSearchData(false)}
                     cancelOnEscape={true}
@@ -1345,14 +1345,14 @@ const MyDoctor = (props) => {
                     draggable
                     pauseOnHover
                   />
-                  {searchText !== '' && (
+                  {/* {searchText !== '' && (
                     <IconButton
                       onClick={() => handleSearchData(true)}
                       className="searchForwardIcon"
                     >
                       <ArrowForwardIcon />
                     </IconButton>
-                  )}
+                  )} */}
                   {/* <Link to="/patient/search"><div className="suggestion-text" style={{ display: display.suggestion }}><SearchIcon /> Did'nt find doctor, Do global search</div></Link> */}
                   {/* Filter box start */}
                   {filter && (
