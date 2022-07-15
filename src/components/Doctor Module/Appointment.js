@@ -338,7 +338,6 @@ const Myappointment = (props) => {
           }
           return value;
         });
-        console.log("1", todayArray);
         setTodayAppointment(todayArray);
         setTimeout(() => setLoading(false), 1000);
         setTimeout(() => setTransparentLoading(false), 1000);
@@ -427,14 +426,14 @@ const Myappointment = (props) => {
       startTime: new Date(starttime).toISOString(),
       endTime: new Date(endtime).toISOString(),
       doctorId: docId.id,
-      status: "ACCEPTED",
+      status: null,
     };
 
     const dataForSelectedDay = {
       startTime: new Date(newStartDate).toISOString(),
       endTime: new Date(newEndDate).toISOString(),
       doctorId: docId.id,
-      status: "ACCEPTED",
+      status: null,
     };
     const res = await getDoctorAppointment(dataForSelectedDay).catch((err) => {
       if (err.response.status === 500 || err.response.status === 504) {
@@ -514,8 +513,7 @@ const Myappointment = (props) => {
       //console.log("res.data : ", res.data);
       resToday.data.map((value, index) => {
         if (
-          value.status === "ACCEPTED" &&
-          new Date(value.endTime) >= new Date()
+          value.status === "ACCEPTED"
         ) {
           todayArray.push({
             id: value.id,
@@ -1501,7 +1499,7 @@ const Myappointment = (props) => {
                           state: selectedAppointment?.patient,
                         }}
                       >
-                        <div className="firefox-helper" style={{ display: "flex", alignItem: "center" }}>
+                        <div className="firefox-helper" style={{ display: "flex", alignItem: "center"}}>
                           <div style={{ width: "100%" }}>
                             <img
                               width="40"
