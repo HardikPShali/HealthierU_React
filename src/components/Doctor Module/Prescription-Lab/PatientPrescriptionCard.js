@@ -14,8 +14,8 @@ const PatientPrescriptionCard = (props) => {
         <div className="row align-items-start">
 
             <div className='col-md-3'>
-                <h5 className='prescription-lab-card__common-date1'> <b>{moment.utc(props.date).format("DD")}</b></h5>
-                <span className='prescription-lab-card__common-span1'>{moment.utc(props.time).format("HH:mm A")}</span>
+                <h5 className='prescription-lab-card__common-date1'> <b>{moment(props.date).format("DD")}</b></h5>
+                <span className='prescription-lab-card__common-span1'>{moment(props.time).format("HH:mm A")}</span>
 
             </div>
             <div className='col-md-3'>

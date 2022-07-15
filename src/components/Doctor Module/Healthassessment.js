@@ -664,8 +664,8 @@ const Healthassessment = (props) => {
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Prescription"}
                                                                 apid={appointmentID}
-                                                                date={moment(dataItem.docUploadTime)}
-                                                                time={moment(dataItem.docUploadTime)}
+                                                                date={dataItem.docUploadTime}
+                                                                time={dataItem.docUploadTime}
                                                                 download={(e) => showDocument(dataItem)}
                                                             />
                                                         </div>
