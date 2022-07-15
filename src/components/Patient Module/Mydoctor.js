@@ -2910,7 +2910,7 @@ const MyDoctor = (props) => {
 
                 {/* <span id="promo-code">Have a promo code?</span><br /><br /> */}
                 <div id="payment-form" style={{ marginLeft: '15px' }}>
-                  <Row>
+                  {/* <Row>
                     <Col
                       md={12}
                       style={{ display: 'flex', alignItems: 'flex-end' }}
@@ -2921,9 +2921,9 @@ const MyDoctor = (props) => {
                         <br />
                       </p>
                     </Col>
-                  </Row>
+                  </Row> */}
 
-                  <Row>
+                  {/* <Row>
                     <Col
                       md={12}
                       style={{ display: 'flex', alignItems: 'flex-end' }}
@@ -2934,7 +2934,7 @@ const MyDoctor = (props) => {
                       </p>
                     </Col>
                   </Row>
-                  <br />
+                  <br /> */}
                   {!profilepID.activated ? (
                     <Row>
                       {/* <Col md={1}></Col> */}
