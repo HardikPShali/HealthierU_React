@@ -25,7 +25,7 @@ const NotificationMenuPatient = () => {
 
         ).catch((err) => console.log({ err }));
 
-        if (response.status === 200) {
+        if (response?.status === 200) {
             const notifications = response.data.data.notifications;
             setNotificationsData(notifications);
         }

@@ -185,3 +185,24 @@ export const activateOtp = async (data) => {
     });
     return response;
 }
+
+
+export const accountActivationCheckBeforeTokenGeneration = async (data) => {
+    var payload = {
+        method: 'post',
+        mode: 'no-cors',
+        data: data,
+        url: `/api/mobile/account/activation/check?email=${data}`,
+        headers: {
+            // 'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}

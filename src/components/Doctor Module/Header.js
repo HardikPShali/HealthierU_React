@@ -244,6 +244,7 @@ const Header = (props) => {
               vertical: "top",
               horizontal: "center",
             }}
+            className="profile-menu"
           >
             <div onClick={handleClose}>
               <Link to="/doctor/profile" style={{ textDecoration: "none" }}>
