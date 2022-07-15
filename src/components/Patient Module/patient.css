@@ -4191,14 +4191,20 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   color: #00d0cc;
 }
 
+.doctor-info-icon-title {
+  display: flex;
+  align-items: center;
+}
+
 .doctor-info-value {
   color: var(--text-primary);
   font-weight: normal;
   text-align: left;
+  margin-left: 60px;
 }
 
 .doctor-info-title {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-primary);
 }
 
