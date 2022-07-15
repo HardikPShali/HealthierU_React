@@ -32,6 +32,7 @@ import {
   activateUser,
   sendOtpEmail,
   verifyOtp,
+  accountActivationCheckBeforeTokenGeneration,
 } from "../../service/AccountService";
 // import { openStdin } from "process";
 import gmailIcon from "../../images/icons used/gmailIcon.png";
@@ -44,6 +45,7 @@ import { useHistory } from "react-router-dom";
 import { withRouter, BrowserRouter } from "react-router";
 
 import GoogleSignInButton from "../CommonModule/GoogleAuth/GoogleSignInButton/GoogleSignInButton";
+import { toast } from 'react-toastify';
 import { getFirebaseToken, getPermissions } from "../../util";
 import { getFcmTokenApi } from "../../service/frontendapiservices";
 
@@ -229,9 +231,19 @@ const Signin = () => {
     setActivateError(false);
   };
 
-  const handleLogin = async (e) => {
-    //if (captchaVerify) {
-    setLoader(true);
+  const emailValidator = new RegExp(
+    "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"
+  );
+  ValidatorForm.addValidationRule("isValidEmail", (value) => {
+    if (!emailValidator.test(value)) {
+      return false;
+    } else if (emailValidator.test(value)) {
+      return true;
+    }
+  });
+
+  const handleSigninHandler = async () => {
+    // SIGNIN LOGIC
     const response = await handleSignin(username, password).catch((err) => {
       if (err.response && err.response.status === 400) {
         setUser({
@@ -248,6 +260,29 @@ const Signin = () => {
       LocalStorageService.setToken(response.data);
       getCurrentUserData();
     }
+  }
+
+  const handleLogin = async (e) => {
+    //if (captchaVerify) {
+    setLoader(true);
+    const accountCheckResponse = await accountActivationCheckBeforeTokenGeneration(username).catch(err => console.log({ err }))
+    // console.log({ accountCheckResponse })
+
+    if (accountCheckResponse.data.status === true) {
+      handleSigninHandler();
+    }
+    else if (accountCheckResponse.data.data.registerAgain === true) {
+      setLoader(false);
+      toast.error('OTP is not activated. Please register again with a valid OTP.');
+    }
+    else if (accountCheckResponse.data.data.profileComplete === true && accountCheckResponse.data.data.approved === false) {
+      handleSigninHandler();
+    }
+    else {
+      setLoader(false);
+      toast.error('Something went wrong. Please try again.');
+    }
+
     // } else {
     //   setUser({
     //     ...user,
@@ -326,16 +361,24 @@ const Signin = () => {
                         {msg}
                       </label>
                       <p>
-                        Username / Email<sup>*</sup>
+                        Email<sup>*</sup>
                       </p>
                       <TextValidator
                         id="standard-basic"
-                        type="text"
+                        type="email"
                         name="username"
                         onChange={(e) => handleInputChange(e)}
                         value={username}
-                        validators={["required"]}
-                        errorMessages={["This field is required"]}
+                        validators={[
+                          // "isValidEmail",
+                          "required",
+                          "maxStringLength:50",
+                        ]}
+                        errorMessages={[
+                          // "Please enter a valid email",
+                          "This field is required",
+                          "Email should not exceed 50 characters",
+                        ]}
                         variant="filled"
                       />
                       <br />
@@ -382,16 +425,16 @@ const Signin = () => {
                         type="submit"
                         value="Sign In"
                       />
-                     
+
                     </ValidatorForm>
-                      <div className="w-100 mt-3">
-                        <GoogleSignInButton
-                          id="google-btn"
-                          width={googleBtnWidth}
-                          responseCallBack={responseGoogle}
-                          responseError={(e) => console.log(e)}
-                        />
-                      </div>
+                    <div className="w-100 mt-3">
+                      <GoogleSignInButton
+                        id="google-btn"
+                        width={googleBtnWidth}
+                        responseCallBack={responseGoogle}
+                        responseError={(e) => console.log(e)}
+                      />
+                    </div>
                   </>
                 )}
                 {otpDisplay && (

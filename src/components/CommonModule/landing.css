@@ -110,7 +110,7 @@ b#right-border {
 
 input.btn.submit-btn {
   padding: 10px 20px;
-  background-color: var(--primarysecond);
+  background-color: var(--primarysecond) !important;
   color: #fff;
   border-radius: 22px;
   width: 30%;
@@ -263,7 +263,7 @@ img#store-icon {
   font-weight: 700;
 }
 
-.content-static{
+.content-static {
   padding-bottom: 66px;
   padding-top: 60px;
 }

@@ -181,7 +181,7 @@ b#right-border {
 
 input.btn.submit-btn {
   padding: 10px 20px;
-  background-color: var(--primarysecond);
+  background-color: var(--primarysecond) !important;
   color: #fff;
   border-radius: 22px;
   width: 30%;
@@ -3808,4 +3808,9 @@ input:checked + .slider:before {
 .firefox-helper {
   margin-bottom: 5%;
   -webkit-margin-bottom: 5%;
+}
+
+.profile-menu > .MuiMenu-paper {
+  top: 80px !important;
+  left: 1300px !important;
 }

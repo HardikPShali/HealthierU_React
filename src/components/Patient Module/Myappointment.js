@@ -1000,7 +1000,7 @@ const Myappointment = (props) => {
                           </span>
                         </div>
                       </div>
-                      <br />
+                      {/* <br />
                       <span>Appointment Fee and Payment method</span>
 
                       <div className="details-body__payment">
@@ -1030,7 +1030,7 @@ const Myappointment = (props) => {
                             )}
                           </span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <hr />
                     <div className="details-links">
@@ -1214,7 +1214,7 @@ const Myappointment = (props) => {
                           </span>
                         </div>
                       </div>
-                      <br />
+                      {/* <br />
                       <span>Appointment Fee and Payment method</span>
 
                       <div className="details-body__payment">
@@ -1244,7 +1244,7 @@ const Myappointment = (props) => {
                             )}
                           </span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <hr />
                     <div className="details-links" onClick={() => setDoctorIdInSession(selectedAppointment.doctor.id)}>
@@ -1447,7 +1447,7 @@ const Myappointment = (props) => {
                           </span>
                         </div>
                       </div>
-                      <br />
+                      {/* <br />
                       <span>Appointment Fee and Payment method</span>
 
                       <div className="details-body__payment">
@@ -1477,7 +1477,7 @@ const Myappointment = (props) => {
                             )}
                           </span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <hr />
                     <div className="details-links">
@@ -1686,75 +1686,87 @@ const Myappointment = (props) => {
                     <div className="details-body">
                       <span>About</span>
                       <div className="details-body__payment">
-                        <div className="d-flex align-items-center mb-3">
-                          <img
-                            src={educationIcon}
-                            alt="icons"
-                            className="doctor-info-icon"
-                          />
-                          <div className="d-flex flex-column align-items-start">
+                        <div className="d-flex align-items-start flex-column mb-3">
+                          <div className='doctor-info-icon-title'>
+                            <img
+                              src={educationIcon}
+                              alt="icons"
+                              className="doctor-info-icon"
+                            />
                             <div className="doctor-info-title">Education</div>
-                            <div className="doctor-info-value">
-                              {selectedAppointment.doctor &&
-                                selectedAppointment.doctor.specialities &&
-                                selectedAppointment.doctor.specialities.map(
-                                  (speciality, index) => (
-                                    <li key={index}>{speciality.name} </li>
-                                  )
-                                )}
-                            </div>
+
                           </div>
+
+                          {/* <div className="d-flex flex-column align-items-start"> */}
+                          <div className="doctor-info-value">
+                            {selectedAppointment.doctor &&
+                              selectedAppointment.doctor.specialities &&
+                              selectedAppointment.doctor.specialities.map(
+                                (speciality, index) => (
+                                  <li key={index}>{speciality.name} </li>
+                                )
+                              )}
+                          </div>
+                          {/* </div> */}
                         </div>
 
-                        <div className="d-flex align-items-center mb-3">
-                          <img
-                            src={experienceIcon}
-                            alt="icons"
-                            className="doctor-info-icon"
-                          />
-                          <div className="d-flex flex-column align-items-start">
+                        <div className="d-flex align-items-start flex-column mb-3">
+                          <div className='doctor-info-icon-title'>
+                            <img
+                              src={experienceIcon}
+                              alt="icons"
+                              className="doctor-info-icon"
+                            />
                             <div className="doctor-info-title">Experience</div>
-                            <div className="doctor-info-value">
-                              {selectedAppointment.doctor.experience}
-                            </div>
+
                           </div>
+
+                          {/* <div className="d-flex flex-column align-items-start"> */}
+                          <div className="doctor-info-value">
+                            {selectedAppointment.doctor.experience}
+                          </div>
+                          {/* </div> */}
                         </div>
                       </div>
 
                       <div className="details-body__payment">
-                        <div className="d-flex align-items-center mb-3">
-                          <img
-                            src={languageIcon}
-                            alt="icons"
-                            className="doctor-info-icon"
-                          />
-                          <div className="d-flex flex-column align-items-start">
+                        <div className="d-flex align-items-start flex-column mb-3">
+                          <div className='doctor-info-icon-title'>
+                            <img
+                              src={languageIcon}
+                              alt="icons"
+                              className="doctor-info-icon"
+                            />
                             <div className="doctor-info-title">Languages</div>
-                            <div className="doctor-info-value">
-                              {selectedAppointment.doctor &&
-                                selectedAppointment.doctor.languages &&
-                                selectedAppointment.doctor.languages.map(
-                                  (language, index) => (
-                                    <li key={index}>{language.name} </li>
-                                  )
-                                )}
-                            </div>
+
+                          </div>
+
+                          <div className="doctor-info-value">
+                            {selectedAppointment.doctor &&
+                              selectedAppointment.doctor.languages &&
+                              selectedAppointment.doctor.languages.map(
+                                (language, index) => (
+                                  <li key={index}>{language.name} </li>
+                                )
+                              )}
                           </div>
                         </div>
                       </div>
 
                       <div className="details-body__payment">
-                        <div className="d-flex align-items-center mb-3">
-                          <img
-                            src={aboutIcon}
-                            alt="icons"
-                            className="doctor-info-icon"
-                          />
-                          <div className="d-flex flex-column align-items-start">
+                        <div className="d-flex align-items-start flex-column mb-3">
+                          <div className='doctor-info-icon-title'>
+                            <img
+                              src={aboutIcon}
+                              alt="icons"
+                              className="doctor-info-icon"
+                            />
                             <div className="doctor-info-title">About</div>
-                            <div className="doctor-info-value">
-                              {selectedAppointment.doctor.bio}
-                            </div>
+
+                          </div>
+
+                          <div className="doctor-info-value">
+                            {selectedAppointment.doctor.bio}
                           </div>
                         </div>
                       </div>
