@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap'; //Container
+import Pagination from 'react-bootstrap/Pagination';
 // import Cookies from 'universal-cookie';
 // import Avatar from 'react-avatar';
 // import deleteIcon from "../../../../images/icons used/delete_icon_40 pxl.svg";
@@ -55,16 +56,18 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
     const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages);
     }
-
+    const [page, setPage] = useState(0)
     useEffect(() => {
         if (currentDoctor?.id) {
             loadDoctorDocument(currentDoctor);
         }
-    }, [currentDoctor]);
+    }, [currentDoctor], [page]);
+
     const loadDoctorDocument = async (doc) => {
         const doctorId = doc.id;
-        const res = await getDoctorDocument(doctorId);
+        const res = await getDoctorDocument(doctorId, 0);
         if (res && res.status === 200) {
+            setPage(res.data)
             setDocumentData(res.data.documentsDocumentsList);
             setCurrentDocumentData(res.data.documentsDocumentsList[0])
             setDocumentinfo(res.data.documentsDocumentsList[0])
@@ -134,10 +137,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
 
     const handleUpload = async (e, data) => {
         setLoading(true);
-        document.getElementById("uploadBtn").disabled = true;
-        // document.getElementById("uploadlicence").disabled = true;
-        // document.getElementById("uploadrefphone").disabled = true;
-        // document.getElementById("uploadcerty").disabled = true;
+        //document.getElementById("uploadBtn").disabled = true;
         const info = {
             doctorId: currentDoctor.id,
             doctor_email: currentDoctor.email,
@@ -147,9 +147,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             certifyingBody: certifyingBody
         }
         const res = await uploadDoctorDocument(documentFile, info).catch(err => {
-        //setErrorMsg("Something Went Wrong!");
-        toast.error("Something went wrong. Please try again!")
-        setLoading(false);
+            //setErrorMsg("Something Went Wrong!");
+            toast.error("Something went wrong. Please try again!")
+            setLoading(false);
         });
         if (res && res.status === 201) {
             toast.success("Document successfully Uploaded.");
@@ -158,7 +158,18 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             setDocumentData(existingDoc);
             setUploadOpen(false);
             setLoading(false)
-            history.go(0)
+            const res1 = await getDoctorDocument(currentDoctor.id, 0);
+            if (res1 && res1.status === 200) {
+                setPage(res1.data)
+                setDocumentData(res1.data.documentsDocumentsList);
+                setCurrentDocumentData(res1.data.documentsDocumentsList[0])
+                setDocumentinfo(res1.data.documentsDocumentsList[0])
+                setLoading(false);
+            }
+            else if (res1 && res1.status === 204) {
+                setDocumentData([]);
+                setLoading(false);
+            }
         }
     }
 
@@ -308,12 +319,27 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         setDocumentinfo({ ...state, referencePhoneNumber: e })
     };
     const { id, licenseNumber, referencePhoneNumber, certifyingBody } = state;
-
+    const [currentPageNumber, setCurrentPageNumber] = useState(1);
+    const clickPagination = async (pageNumber) => {
+        setCurrentPageNumber(pageNumber);
+        let page = pageNumber - 1;
+        const res = await getDoctorDocument(currentDoctor.id, page);
+        if (res && res.status === 200) {
+            setDocumentData(res.data.documentsDocumentsList);
+            setCurrentDocumentData(res.data.documentsDocumentsList[0])
+            setDocumentinfo(res.data.documentsDocumentsList[0])
+            setLoading(false);
+        }
+        else if (res && res.status === 204) {
+            setDocumentData([]);
+            setLoading(false);
+        }
+    };
     return (
         <>
-            {/* {loading && (
+            {loading && (
                 <TransparentLoader />
-            )} */}
+            )}
             <ValidatorForm onSubmit={handleUpload} onError={(err) => console.log(err)}>
                 <Row>
                     <Col md={6}>
@@ -367,7 +393,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             <br /><br />
             <Row style={{ alignItems: "center" }}>
                 <Col md={6} className="col-xs-6" style={{ textAlign: "left" }}>
-                    <span style={{ fontSize: "15px" }}>Total Documents: {documentData?.length}</span>
+                    <span style={{ fontSize: "15px" }}>Total Documents: {page?.totalItems}</span>
                 </Col>
                 <Col md={6} className="col-xs-6" style={{ textAlign: "right" }}>
                     <button
@@ -470,6 +496,22 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                         )}
                     </tbody>
                 </table>
+                <div> <Pagination size="sm" style={{ float: 'right' }}>
+                    {
+                        page.totalPages ?
+                            Array.from(Array(page.totalPages), (e, i) => {
+                                return <Pagination.Item key={i + 1}
+                                    active={i + 1 === currentPageNumber ? true : false}
+                                    onClick={e => clickPagination(i + 1)}>
+                                    {i + 1}
+                                </Pagination.Item>
+                            })
+                            : <span></span>
+
+                    }
+                </Pagination>
+                    <br />
+                </div>
             </div>
 
             <Dialog aria-labelledby="customized-dialog-title" open={uploadOpen}>

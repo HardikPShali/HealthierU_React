@@ -839,11 +839,11 @@ export const updateDoctorDocument = async (files, info) => {
 
 // http://localhost:8081/api/doctor-documents?doctorId.equals=5&page=0&size=10&sort=id%2Cdesc
 
-export const getDoctorDocument = async (doctorId) => {
+export const getDoctorDocument = async (doctorId,page) => {
   var payload = {
     method: "get",
     mode: "no-cors",
-    url: `/api/doctor-documents?doctorId.equals=${doctorId}&page=0&size=10&sort=id%2Cdesc`,
+    url: `/api/doctor-documents?doctorId.equals=${doctorId}&page=${page}&size=5&sort=id%2Cdesc`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
