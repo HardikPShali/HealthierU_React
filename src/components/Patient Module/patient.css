@@ -4334,10 +4334,10 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .doc-img div {
-  height: 140px !important;
+  height: 120px !important;
   justify-content: center;
   border-radius: 50%;
-  width: 140px !important;
+  width: 120px !important;
 }
 
 @media screen and (max-width: 990px) {
