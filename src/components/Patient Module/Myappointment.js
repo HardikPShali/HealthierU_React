@@ -281,7 +281,7 @@ const Myappointment = (props) => {
       height: '25px',
       padding: '0px 7px',
       fontSize: '12.5px',
-      marginLeft: '4.5px',
+      marginLeft: '1.5px',
       outline: outline,
     };
     return {
