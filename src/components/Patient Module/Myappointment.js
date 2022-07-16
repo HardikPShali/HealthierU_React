@@ -281,7 +281,7 @@ const Myappointment = (props) => {
       height: '25px',
       padding: '0px 7px',
       fontSize: '12.5px',
-      marginLeft: '4.5px',
+      marginLeft: '1.5px',
       outline: outline,
     };
     return {
@@ -1045,18 +1045,18 @@ const Myappointment = (props) => {
                       >
                         <div style={{ width: '100%' }}>
                           <img
-                            width="40"
-                            height="40"
+                            width="30"
+                            height="30"
                             src={infoIcon}
                             alt=""
-                            style={{ marginLeft: '5%', marginRight: '5%' }}
+                            style={{ marginLeft: 15, marginRight: 15 }}
                           />
                           <span>More Info about Doctor</span>
                         </div>
                         <img
                           src={rightIcon}
                           alt="right-icon"
-                          style={{ marginRight: '35px' }}
+                          style={{ marginLeft: 16, marginRight: 16 }}
                         />
                       </div>
                       <br />
@@ -1069,19 +1069,19 @@ const Myappointment = (props) => {
                         <div style={{ display: 'flex', alignItem: 'center' }}>
                           <div style={{ width: '100%' }}>
                             <img
-                              width="40"
-                              height="40"
+                              width="30"
+                              height="30"
                               src={helpSupportIcon}
                               // onClick='${pathname}'
                               alt=""
-                              style={{ marginLeft: '5%', marginRight: '5%' }}
+                              style={{ marginLeft: 15, marginRight: 15 }}
                             />
                             Help and Support
                           </div>
                           <img
                             src={rightIcon}
                             alt="right-icon"
-                            style={{ marginRight: '35px' }}
+                            style={{ marginLeft: 16, marginRight: 16 }}
                           />
                         </div>
                       </Link>
@@ -1257,18 +1257,18 @@ const Myappointment = (props) => {
                         <div style={{ display: 'flex', alignItem: 'center' }}>
                           <div style={{ width: '100%' }}>
                             <img
-                              width="40"
-                              height="40"
+                              width="30"
+                              height="30"
                               src={rescheduleIcon}
                               alt=""
-                              style={{ marginLeft: '5%', marginRight: '5%' }}
+                              style={{ marginLeft: 15, marginRight: 15 }}
                             />
                             Reschedule Appointment
                           </div>
                           <img
                             src={rightIcon}
                             alt="right-icon"
-                            style={{ marginRight: '35px' }}
+                            style={{ marginLeft: 16, marginRight: 16 }}
                           />
                         </div>
                       </Link>
@@ -1283,18 +1283,18 @@ const Myappointment = (props) => {
                       >
                         <div style={{ width: '100%' }}>
                           <img
-                            width="40"
-                            height="40"
+                            width="30"
+                            height="30"
                             src={infoIcon}
                             alt=""
-                            style={{ marginLeft: '5%', marginRight: '5%' }}
+                            style={{ marginLeft: 15, marginRight: 15 }}
                           />
                           <span>More Info about Doctor</span>
                         </div>
                         <img
                           src={rightIcon}
                           alt="right-icon"
-                          style={{ marginRight: '35px' }}
+                          style={{ marginLeft: 16, marginRight: 16 }}
                         />
                       </div>
                       <br />
@@ -1307,19 +1307,19 @@ const Myappointment = (props) => {
                         <div style={{ display: 'flex', alignItem: 'center' }}>
                           <div style={{ width: '100%' }}>
                             <img
-                              width="40"
-                              height="40"
+                              width="30"
+                              height="30"
                               src={helpSupportIcon}
                               // onClick='${pathname}'
                               alt=""
-                              style={{ marginLeft: '5%', marginRight: '5%' }}
+                              style={{ marginLeft: 15, marginRight: 15 }}
                             />
                             Help and Support
                           </div>
                           <img
                             src={rightIcon}
                             alt="right-icon"
-                            style={{ marginRight: '35px' }}
+                            style={{ marginLeft: 16, marginRight: 16 }}
                           />
                         </div>
                       </Link>
@@ -1491,18 +1491,18 @@ const Myappointment = (props) => {
                       >
                         <div style={{ width: '100%' }}>
                           <img
-                            width="40"
-                            height="40"
+                            width="30"
+                            height="30"
                             src={infoIcon}
                             alt=""
-                            style={{ marginLeft: '5%', marginRight: '5%' }}
+                            style={{ marginLeft: 15, marginRight: 15 }}
                           />
                           <span>More Info about Doctor</span>
                         </div>
                         <img
                           src={rightIcon}
                           alt="right-icon"
-                          style={{ marginRight: '35px' }}
+                          style={{ marginLeft: 16, marginRight: 16 }}
                         />
                       </div>
                       <br />
@@ -1515,19 +1515,19 @@ const Myappointment = (props) => {
                         <div style={{ display: 'flex', alignItem: 'center' }}>
                           <div style={{ width: '100%' }}>
                             <img
-                              width="40"
-                              height="40"
+                              width="30"
+                              height="30"
                               src={helpSupportIcon}
                               // onClick='${pathname}'
                               alt=""
-                              style={{ marginLeft: '5%', marginRight: '5%' }}
+                              style={{ marginLeft: 15, marginRight: 15 }}
                             />
                             Help and Support
                           </div>
                           <img
                             src={rightIcon}
                             alt="right-icon"
-                            style={{ marginRight: '35px' }}
+                            style={{ marginLeft: 16, marginRight: 16 }}
                           />
                         </div>
                       </Link>
