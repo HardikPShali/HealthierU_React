@@ -435,7 +435,7 @@ const Profile = ({ currentDoctor }) => {
                                                             )
                                                         }
                                                         <ProfileRow
-                                                            icon={educationIcon}
+                                                            icon={experienceIcon}
                                                             title="License Number"
                                                             value={licenseNumber}
                                                         />
