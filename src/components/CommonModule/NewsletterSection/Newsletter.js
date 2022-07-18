@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import './Newsletter.css';
 import validator from 'validator';
 import { postNewsletterEmailApi } from '../../../service/frontendapiservices';
+import TransparentLoader from "../../Loader/transparentloader";
+
 
 const Newsletter = () => {
   const [email, setEmail] = useState('');
   const [emailSubmit, setEmailSubmit] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [authorisedError, setAuthorisedError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   const newsletterEmailInputHandler = (event) => {
     setEmail(event.target.value);
@@ -15,6 +19,7 @@ const Newsletter = () => {
   };
 
   const postNewsletterEmail = async (email) => {
+    setLoading(true);
     try {
       const response = await postNewsletterEmailApi(email);
       // console.log({ response });
@@ -23,6 +28,7 @@ const Newsletter = () => {
         response.data.message === 'Email Added' ||
         response.data.status === 'true'
       ) {
+        setLoading(false);
         setEmailSubmit(true);
       }
     } catch (err) {
@@ -30,6 +36,7 @@ const Newsletter = () => {
         err,
       });
       if (err.response.data.error === 'invalid_token') {
+        setLoading(false);
         setAuthorisedError(true);
         setEmailSubmit(false);
       }
@@ -42,6 +49,7 @@ const Newsletter = () => {
       postNewsletterEmail(email);
       setEmail('');
     } else {
+      setLoading(false);
       setEmailError(true);
     }
   };
@@ -55,7 +63,8 @@ const Newsletter = () => {
   }, [emailSubmit]);
 
   return (
-    <>
+    <div>
+      {loading && <TransparentLoader />}
       <p> Email Newsletters </p>
       <p
         style={{
@@ -98,7 +107,7 @@ const Newsletter = () => {
           </span>
         )}
       </form>
-    </>
+    </div>
   );
 };
 
