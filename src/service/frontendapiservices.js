@@ -1412,3 +1412,21 @@ export const callRejectApi = async (channelId) => {
   });
   return response;
 }
+export const deleteReccurSlot = async (recurId,doctorId) => {
+  var payload = {
+    method: "delete",
+    mode: "no-cors",
+    url: `/api/v2/deleteBy?recurId=${recurId}&doctorId=${doctorId}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};

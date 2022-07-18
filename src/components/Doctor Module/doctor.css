@@ -3814,3 +3814,13 @@ input:checked + .slider:before {
   top: 80px !important;
   left: 1300px !important;
 }
+.close-btn-delete img {
+  width: 11px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-left: 1rem;
+}
+
+.close-btn-delete img:hover {
+  transform: rotatez(88deg);
+}

@@ -171,7 +171,6 @@ const Healthassessment = (props) => {
     }, []);
 
     const showDocument = async (val) => {
-        console.log("val", val);
         // const res = await getDocument(val);
         setPrescriptionDocumentUrl(val.documentUrl);
         const link = document.createElement("a");
@@ -296,7 +295,6 @@ const Healthassessment = (props) => {
                 res.push(...f.documentsList)
             })
             setLenghtofData(presecriptionDocument.data.data.documentsList[0].documentsList.length)
-            console.log("presecriptionDocument", presecriptionDocument.data.data.documentsList[0].documentsList.length);
             setMedicalRecordData(presecriptionDocument.data.data)
         }
         // const response = await getPatientQuestionnaire(
@@ -378,7 +376,6 @@ const Healthassessment = (props) => {
             })
             setMedicalRecordData(labDocument.data.data)
         }
-        console.log("clearAll", labDocument);
     }
 
     const clickTabEvent = async (event) => {
@@ -506,8 +503,6 @@ const Healthassessment = (props) => {
 
         if (responseTwo.status === 200 || responseTwo.status === 201) {
             const res = []
-            console.log("prepData", responseTwo);
-
             const prepData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
             prepData.forEach((f) => {
                 res.push(...f.documentsList)
@@ -524,7 +519,6 @@ const Healthassessment = (props) => {
         const currentDoctor = cookies.get('profileDetails');
         setCurrentDoctor({ ...currentDoctor, doctorId: currentDoctor.id });
         setLabDocument({ documentsList: null })
-        console.log("labDocument", labDocument);
         const starttime = new Date();
         const endtime = new Date();
         const data = {
@@ -735,8 +729,9 @@ const Healthassessment = (props) => {
 
                                                             <PrescriptionLabCard
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
-                                                                name={"Lab Result"}
-                                                                docName={"Dr" + " " + doctor?.firstName + " " + (doctor?.lastName || "")}
+                                                                name={dataItem.name}
+                                                                labname={dataItem.labName}
+                                                                //docName={"Dr" + " " + doctor?.firstName + " " + (doctor?.lastName || "")}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showLabDocument(dataItem)}

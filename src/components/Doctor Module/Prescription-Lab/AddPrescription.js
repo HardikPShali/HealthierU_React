@@ -169,6 +169,7 @@ const AddPrescription = (props) => {
     const handlePrescriptionSubmission = async (e) => {
         setIsSaveModal(false)
         e.preventDefault();
+        document.getElementById('prescriptionSave').disabled = true;
         let medicineData;
         let doseData;
         let durationData;
@@ -464,6 +465,7 @@ const AddPrescription = (props) => {
                             onClick={(e) => handlePrescriptionSubmission(e)}
                             type='submit'
                             variant="primary"
+                            id="prescriptionSave"
                         >
                             Save
                         </Button>
