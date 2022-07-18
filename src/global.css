@@ -12,7 +12,6 @@
 * {
   font-family: var(--font-primary);
   scroll-behavior: smooth;
-
 }
 
 body {
@@ -46,22 +45,22 @@ body {
 }
 
 .btn {
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
 .btn-secondary {
-  background-color: var(--primarysecond);
+  background-color: #f6ceb4;
   border-radius: 22px;
-  border-color: var(--primarysecond);
+  border-color: #f6ceb4;
   padding: 0.575rem 1.4rem;
 }
 
 .btn-secondary:hover {
-  background-color: var(--primarysecond);
-  border-color: var(--primarysecond);
+  background-color: #f6ceb4;
+  border-color: #f6ceb4;
 }

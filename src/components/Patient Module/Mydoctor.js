@@ -2054,7 +2054,7 @@ const MyDoctor = (props) => {
                       {
                         doctor.bio && <b><p style={{ fontSize: 14, margin: "0 auto" }}>About</p></b>
                       }
-                      <p style={{ fontSize: 12 }}>
+                      <p style={{ fontSize: 14 }}>
 
                         {
                           doctor.bio && <span>{doctor.bio}</span>
