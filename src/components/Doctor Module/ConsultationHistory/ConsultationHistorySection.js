@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import ConsultationHistoryCard from './ConsultationHistoryCard'
-import './ConsultationHistory.css'
-import dummyConsultationHistory from './dummyConsulatationHistory.json'
 import { consultationHistory } from '../../../service/frontendapiservices'
 import { useEffect } from 'react'
 import Cookies from "universal-cookie";
 import { useParams } from "react-router-dom"
-const ConsulatationHistorySection = (props) => {
+import { CardHolder, ConsultationHistoryCardBox, ConsultationHistoryCardView, MainHeader } from './ConsultationHistory.styles.jsx'
+import { Col } from 'react-bootstrap'
+
+const ConsulatationHistorySection = () => {
     const cookies = new Cookies();
     let params = useParams()
     const profilepID = cookies.get("profileDetails");
@@ -16,22 +17,24 @@ const ConsulatationHistorySection = (props) => {
     const getNotesData = async () => {
         const res = await consultationHistory(params.id, profilepID.id);
         setNotesData(res.data.data)
+
     }
     useEffect(() => {
         getNotesData();
     }, []);
 
     return (
-        <div className='conhistory__card-box'>
-            <h3 className='conhistory--main-header'>Consultation History</h3>
-            <div className="conhistory-card-holder">
-                <div className='conhistory-card'>
+        <ConsultationHistoryCardBox>
+            <MainHeader>Consultation History</MainHeader>
+            <CardHolder>
+                <ConsultationHistoryCardView>
                     {notesData.length > 0 ?
                         notesData.map(
                             (q, index) => {
                                 return (
                                     <div key={index}>
                                         <ConsultationHistoryCard
+                                            appointmentDetails={q.appointment}
                                             chief_complaint={q.chiefComplaint}
                                             present_illness={q.presentIllness}
                                             vital_signs={q.vitalSigns}
@@ -44,16 +47,17 @@ const ConsulatationHistorySection = (props) => {
                             }
                         )
                         :
-                        <div
-                            className="col-12 ml-2"
+                        <Col
+                            md={12}
+                            className="ml-2"
                             style={{ textShadow: 'none', color: '#3e4543' }}
                         >
                             <b>No Consultation Found</b>
-                        </div>
+                        </Col>
                     }
-                </div>
-            </div>
-        </div >
+                </ConsultationHistoryCardView>
+            </CardHolder>
+        </ConsultationHistoryCardBox>
     )
 }
 
