@@ -40,7 +40,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
             type: getAppointmentMode(appointmentMode),
             paymentsAppointmentsDTO: orderData,
         };
-        console.log({ setNextAppointmentDataArray });
+        // console.log({ setNextAppointmentDataArray });
 
         const setNextApptApi = {
             method: 'post',
@@ -57,7 +57,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
         try {
             // await api call
             const newPaymentResponse = await axios(setNextApptApi);
-            console.log({ newPaymentResponse });
+            // console.log({ newPaymentResponse });
 
             //success logic
             if (
@@ -70,7 +70,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
             }
         } catch (err) {
             //error logic
-            console.log({ err });
+            // console.log({ err });
             const errorMessage = err.response.data.message;
             const errorStatus = err.response.status;
 
