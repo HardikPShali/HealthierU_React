@@ -170,9 +170,9 @@ const Availability = () => {
       const afterSuccessOrFailEvent = async () => {
         setState({ startTime: moment(), endTime: moment() });
         loadRecurSlots();
-        setTimeout(() => {
-          history.go(0);
-        }, 5000);
+        // setTimeout(() => {
+        //   history.go(0);
+        // }, 5000);
       }
 
       if (res.data.status === false) {
@@ -394,7 +394,7 @@ const Availability = () => {
                     <span className="slider round"></span>
                   </label>
                 </div>
-                <div className="close-btn-delete">
+                <div className="close-btn-delete" style={{ marginBottom: '4%' }}>
                   <img
                     src={closeBtn}
                     alt="close button"
