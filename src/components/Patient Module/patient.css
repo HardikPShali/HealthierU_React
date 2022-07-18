@@ -4486,3 +4486,8 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .rbc-time-header-content {
   margin-right: -1px;
 }
+
+.firefox-helper {
+  margin-bottom: 5%;
+  -webkit-margin-bottom: 5%;
+}
