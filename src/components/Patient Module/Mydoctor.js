@@ -510,7 +510,7 @@ const MyDoctor = (props) => {
     setSelectedSlotId('0');
     setAppointment({ ...appointment, appointmentMode: e.target.value });
     const user = doctor;
-    console.log({ user });
+    // console.log({ user });
     getAvailableSlotsOfDoctors(
       user.id,
       getAppointmentModeForAvailabilitySlotsDisplay(e.target.value)
@@ -523,7 +523,7 @@ const MyDoctor = (props) => {
         const consultationSlots = createConsultationSlots(Availability);
         if (consultationSlots && consultationSlots.length > 0) {
           setAppointmentSlot(consultationSlots);
-          console.log({ consultationSlots });
+          // console.log({ consultationSlots });
           document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
           setDisplaySlot(true);
@@ -535,7 +535,7 @@ const MyDoctor = (props) => {
         }
       } else if (e.target.value === 'Follow Up') {
         setAppointmentSlot(Availability);
-        console.log({ Availability });
+        // console.log({ Availability });
         document.querySelector('#calendar-list').scrollTo(0, 500);
         setDisplayCalendar(false);
         setDisplaySlot(true);
@@ -650,7 +650,7 @@ const MyDoctor = (props) => {
     };
     // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
     const response = await getInvalidDates(inValidAppointmentFilter);
-    console.log({ response });
+    // console.log({ response });
     if (response.status === 200 || response.status === 201) {
       const datesArray = [];
       response.data.map((inValidDates) => {
@@ -676,7 +676,7 @@ const MyDoctor = (props) => {
     };
     // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
     const response = await getInvalidDates(inValidAppointmentFilter);
-    console.log({ response });
+    // console.log({ response });
     if (response.status === 200 || response.status === 201) {
       const datesArray = [];
       response.data.map((inValidDates) => {
@@ -721,7 +721,7 @@ const MyDoctor = (props) => {
     if (appointment.appointmentMode === 'First Consultation') {
       combinedSlots &&
         combinedSlots.map((slotData) => {
-          console.log({ slotData });
+          // console.log({ slotData });
           if (combinedSlotId === slotData.slotId) {
             tempSlotConsultationId =
               slotData.slot1.id + '-' + slotData.slot2.id;
@@ -747,7 +747,7 @@ const MyDoctor = (props) => {
       // paymentsAppointmentsDTO: orderData,
     };
 
-    console.log({ newPaymentData });
+    // console.log({ newPaymentData });
 
     const newPaymentApi = {
       method: 'post',
@@ -761,12 +761,12 @@ const MyDoctor = (props) => {
       },
     };
 
-    console.log({ newPaymentApi });
+    // console.log({ newPaymentApi });
 
     try {
       // await api call
       const newPaymentResponse = await axios(newPaymentApi);
-      console.log({ newPaymentResponse });
+      // console.log({ newPaymentResponse });
 
       //success logic
       if (
@@ -777,7 +777,7 @@ const MyDoctor = (props) => {
       }
     } catch (err) {
       //error logic
-      console.log({ err });
+      // console.log({ err });
       const errorMessage = err.response.data.message;
       const errorStatus = err.response.status;
 
@@ -2152,7 +2152,7 @@ const MyDoctor = (props) => {
                       displayCalendar && (
                         <>
                           <div className="appointment-type">
-                            {console.log({ currentDate })}
+                            {/* {console.log({ currentDate })} */}
                             <p>Appointment Type</p>
                             <FormControl>
                               <Select
@@ -2337,7 +2337,7 @@ const MyDoctor = (props) => {
                     {displayCalendar && (
                       <>
                         <div className="appointment-type">
-                          {console.log({ currentDate })}
+                          {/* {console.log({ currentDate })} */}
                           <p>Appointment Type</p>
                           <FormControl>
                             <Select
@@ -2914,7 +2914,7 @@ const MyDoctor = (props) => {
 
                       {!disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
-                          {console.log({ appointmentId: appointment.id })}
+                          {/* {console.log({ appointmentId: appointment.id })} */}
                           <Paypal
                             // appointmentId={appointment.id}
                             appointmentMode={appointment.appointmentMode}

@@ -6,7 +6,7 @@ const PaypalCheckoutButton = (props) => {
     // const { appointmentMode, id: appointmentId } = appointment;
 
     const { bookappointment, email, firstName, lastName, rate, halfRate, userId, appointmentId, appointmentMode } = props;
-    console.log({ appointmentId })
+    // console.log({ appointmentId })
     // const {
     //     // address,
     //     email,

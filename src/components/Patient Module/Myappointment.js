@@ -1248,7 +1248,7 @@ const Myappointment = (props) => {
                     </div>
                     <hr />
                     <div className="details-links" onClick={() => setDoctorIdInSession(selectedAppointment.doctor.id)}>
-                      {console.log({ selectedAppointment })}
+                      {/* {console.log({ selectedAppointment })} */}
                       <Link
                         to={{
                           pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode?.toLowerCase().replace(" ", "-")}/${selectedAppointment.unifiedAppointment}`,

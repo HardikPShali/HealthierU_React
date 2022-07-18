@@ -17,7 +17,7 @@ const Newsletter = () => {
   const postNewsletterEmail = async (email) => {
     try {
       const response = await postNewsletterEmailApi(email);
-      console.log({ response });
+      // console.log({ response });
 
       if (
         response.data.message === 'Email Added' ||
