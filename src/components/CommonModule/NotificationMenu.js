@@ -233,7 +233,7 @@ const NotificationMenu = (props) => {
 
     if (response.status === 200) {
       const notifications = response.data.data.notifications;
-      console.log({ notifications });
+      // console.log({ notifications });
       setNotificationsData(notifications);
     }
   };

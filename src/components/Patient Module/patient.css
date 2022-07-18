@@ -4291,24 +4291,23 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 /* SCROLL-BAR CSS FOR SLOT DISPLAY */
 
-.slot-display {
-  scrollbar-color: #00d0cc white; /* thumb and track color */
+.slot-display::-webkit-scrollbar {
+  scrollbar-color: #00d0cc white !important; /* thumb and track color */
   scrollbar-width: thin !important;
   -moz-appearance: none !important;
   border-radius: 2px;
+  width: 5px;
 }
-.slot-display::-webkit-scrollbar {
-  width: 7px;
-  -moz-appearance: none !important;
+.slot-display::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 15px #fff;
+  border-radius: 10px;
 }
-.slot-display::-webkit-scrollbar {
-  background: white;
-  -moz-appearance: none !important;
+.slot-display::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
 }
-.slot-display::-webkit-scrollbar {
-  background: #00d0cc;
-  border-right: 1px solid white;
-  -moz-appearance: none !important;
+.slot-display::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
 
 /* SCROLL FOR AVAILABILITY SLOT DISPLAY */

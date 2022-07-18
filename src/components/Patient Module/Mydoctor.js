@@ -1158,41 +1158,7 @@ const MyDoctor = (props) => {
     app.push(appointment);
     console.log('app', app);
     const data = [];
-    // const data2 = [];
-    // doctorId: appointment.doctorId,
-    //     endTime: appointment.endTime,
-    //     startTime: appointment.startTime,
-    //     type: "DR",
-    //     patientId: appointment.patientId,
-    //     status: "ACCEPTED",
-    //     remarks: remarks,
-    //     appointmentMode: appointment.appointmentMode,
-    //     id: appointment.id,
-    //     urgency: urgency,
-    //     unifiedAppointment: appointment.id + "#" + appointment.appointmentMode,
-    // {
-    //   stateData.map((n) => {
-    //     {
-    //       data1.push({
-    //         id: n.id,
-    //         type: "DR",
-    //         status: "PENDING",
-    //         doctorId: n.doctorId,
-    //         patientId: n.patientId,
-    //         unifiedAppointment: n.id + "#" + "Follow Up",
-    //         appointmentMode: "Follow Up",
-    //         remarks: null,
-    //         urgency: null,
-    //         patient: null,
-    //         patientName: null,
-    //         timeZone: null,
-    //         appointmentBookedTime: null,
-    //         appointmentExpireTime: null
-    //       })
-    //     };
-    //   })
-    // }
-    // console.log("data1", data1);
+
     {
       app.map((a) => {
         data.push({
@@ -2435,64 +2401,55 @@ const MyDoctor = (props) => {
                           Available Slots For{' '}
                           {moment(currentDate).format('DD, MMM YYYY')}
                         </p>
-                        {appointmentSlot && appointmentSlot.length > 0 ? (
-                          appointmentSlot.map((current, i) => (
-                            <div className="inputGroup" key={i}>
-                              <input
-                                id={`selectedId${i}`}
-                                name="selectedId"
-                                className="choseSlotInput"
-                                type="radio"
-                                value={current.id}
-                                onChange={() =>
-                                  onAvailabilitySelected(current, i)
-                                }
-                                checked={
-                                  selectedSlotId &&
-                                  parseInt(selectedSlotId) === current.id
-                                }
-                              />
-                              <label
-                                htmlFor={`selectedId${i}`}
-                                className="choseSlotLable"
-                              >
-                                <b>
-                                  {moment(current.startTime).format('hh:mm A')}{' '}
-                                  - {moment(current.endTime).format('hh:mm A')}{' '}
-                                </b>
-                              </label>
+                        <div className='slot-display'>
+                          {appointmentSlot && appointmentSlot.length > 0 ? (
+                            appointmentSlot.map((current, i) => (
+                              <div className="inputGroup" key={i}>
+                                <input
+                                  id={`selectedId${i}`}
+                                  name="selectedId"
+                                  className="choseSlotInput"
+                                  type="radio"
+                                  value={current.id}
+                                  onChange={() =>
+                                    onAvailabilitySelected(current, i)
+                                  }
+                                  checked={
+                                    selectedSlotId &&
+                                    parseInt(selectedSlotId) === current.id
+                                  }
+                                />
+                                <label
+                                  htmlFor={`selectedId${i}`}
+                                  className="choseSlotLable"
+                                >
+                                  <b>
+                                    {moment(current.startTime).format('hh:mm A')}{' '}
+                                    - {moment(current.endTime).format('hh:mm A')}{' '}
+                                  </b>
+                                </label>
+                              </div>
+                            ))
+                          ) : appointmentSlot.length === 0 &&
+                            appointment.appointmentMode ===
+                            'First Consultation' ? (
+                            <div
+                              style={{ textAlign: 'center', marginTop: '50%' }}
+                            >
+                              No slots available for consultation.
                             </div>
-                          ))
-                        ) : appointmentSlot.length === 0 &&
-                          appointment.appointmentMode ===
-                          'First Consultation' ? (
-                          <div
-                            style={{ textAlign: 'center', marginTop: '50%' }}
-                          >
-                            No slots available for consultation.
-                          </div>
-                        ) : (
-                          <div
-                            style={{ textAlign: 'center', marginTop: '50%' }}
-                          >
-                            No slots available.
-                          </div>
-                        )}
+                          ) : (
+                            <div
+                              style={{ textAlign: 'center', marginTop: '50%' }}
+                            >
+                              No slots available.
+                            </div>
+                          )}
+                        </div>
+
                       </>
                     )}
                   </div>
-                  {/* <br />
-                                <Row style={{ margin: '0px' }}>
-                                    {Availability && Availability.map((avail, index) => (
-                                        new Date(availappoi.startTime) >= new Date() && (
-                                            <Col xs={6} className="text-center" style={{ padding: '0px' }} key={index}>
-                                                <button className="btn timeSlot" onClick={() => onAvailabilitySelected(avail.startTime, avail.endTime, index)}>
-                                                    {moment(new Date(avail.startTime)).format("h:mm A")} - {moment(new Date(avail.endTime)).format("h:mm A")}
-                                                </button>
-                                            </Col>
-                                        )
-                                    ))}
-                                </Row> */}
                   <label
                     style={{
                       fontSize: 12,
@@ -2507,12 +2464,12 @@ const MyDoctor = (props) => {
                 </div>
                 <button
                   className="btn btn-primary continue-btn"
-                  onClick={async () => {
-                    checkSlot();
+                  onClick={() => {
+                    setNextAppointment()
                   }}
                   disabled={disable.continue}
                 >
-                  Continue
+                  Book Slot
                 </button>
               </div>
             </Col>
@@ -2951,37 +2908,9 @@ const MyDoctor = (props) => {
                           >
                             Pay Now
                           </button>
-                          {/* <button  className="btn btn-primary"
-                          style={{ width: "100%" }} onClick={handleShowmodal}>
-                          Click to Pay
-                        </button> */}
+
                         </Col>
                       )}
-
-                      {/* <Modal  show={show} onHide={handleClosemodal}>
-                      <Modal.Header closeButton>
-                        <Modal.Title>Payment</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                      <button
-                          className="btn btn-primary"
-                          style={{ width: "40%" }}
-                          onClick={() => {
-                            setDisable({ ...disable, payment: false })
-                            
-                           
-                            }}
-                         
-                        >
-                         Proceed Now
-                        </button>
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClosemodal}>
-                          Close
-                        </Button>
-                      </Modal.Footer>
-                    </Modal> */}
 
                       {!disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
@@ -2999,24 +2928,23 @@ const MyDoctor = (props) => {
                           />
                         </Col>
                       )}
-                      {/* 1, Create component called mobile payment and add a route to this mobile payment
-                      2. Add Paypal component inside mobile payment */}
                     </Row>
                   ) : (
-                    <Row>
-                      <Col md={12} style={{ paddingLeft: 0 }}>
-                        <button
-                          className="btn btn-primary"
-                          style={{ width: '100%' }}
-                          onClick={(e) => {
-                            // setDisable({ ...disable, payment: false })
-                            setNextAppointment();
-                          }}
-                        >
-                          Book Slot
-                        </button>
-                      </Col>
-                    </Row>
+                    // <Row>
+                    //   <Col md={12} style={{ paddingLeft: 0 }}>
+                    //     <button
+                    //       className="btn btn-primary"
+                    //       style={{ width: '100%' }}
+                    //       onClick={(e) => {
+                    //         // setDisable({ ...disable, payment: false })
+                    //         setNextAppointment();
+                    //       }}
+                    //     >
+                    //       Book Slot
+                    //     </button>
+                    //   </Col>
+                    // </Row>
+                    <></>
                   )}
                 </div>
               </div>

@@ -55,7 +55,7 @@ const GlobalSearch = () => {
                 }
             }
         );
-        console.log({ result });
+        // console.log({ result });
 
         if (result && result.data) {
             setUser(result.data);
@@ -88,9 +88,9 @@ const GlobalSearch = () => {
     };
 
     const searchData = async (value) => {
-        console.log({ value })
+        // console.log({ value })
         const lowercasedValue = value.toLowerCase().trim();
-        console.log({ filterText })
+        // console.log({ filterText })
         if (filterText === '' || filterText === 'doctor') {
             const searchResult = await getDoctorBySearch(lowercasedValue);
             console.log("searchResult  :::: ", searchResult)
