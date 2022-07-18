@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
 import SearchBar from "material-ui-search-bar";
-import IconButton from "@material-ui/core/IconButton";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { getAppointmentsBySearch } from '../../../service/frontendapiservices';
-
 
 const SearchBarComponent = ({ updatedSearch }) => {
 

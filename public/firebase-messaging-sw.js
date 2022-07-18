@@ -34,7 +34,7 @@ const messaging = firebase.messaging();
 // });
 
 messaging.onBackgroundMessage((payload) => {
-  console.log({ payload });
+  // console.log({ payload });
 
   const notificationTitle = payload.data.title;
   const notificationOptions = {

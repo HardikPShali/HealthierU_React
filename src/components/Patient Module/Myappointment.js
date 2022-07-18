@@ -940,7 +940,7 @@ const Myappointment = (props) => {
                         <img
                           src={selectedAppointment.doctor.picture}
                           alt={`${selectedAppointment.doctor.firstName}-image`}
-                          className="img-circle ml-3 mt-3"
+                          className="img-circle mt-3"
                         />
                       ) : (
                         <Avatar
@@ -1034,32 +1034,32 @@ const Myappointment = (props) => {
                     </div>
                     <hr />
                     <div className="details-links">
-                      <br />
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItem: 'center',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => openMoreDoctorInfo()}
-                      >
-                        <div style={{ width: '100%' }}>
+                      <div className='firefox-helper'>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItem: 'center',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => openMoreDoctorInfo()}
+                        >
+                          <div style={{ width: '100%' }}>
+                            <img
+                              width="30"
+                              height="30"
+                              src={infoIcon}
+                              alt=""
+                              style={{ marginLeft: 15, marginRight: 15 }}
+                            />
+                            <span>More Info about Doctor</span>
+                          </div>
                           <img
-                            width="30"
-                            height="30"
-                            src={infoIcon}
-                            alt=""
-                            style={{ marginLeft: 15, marginRight: 15 }}
+                            src={rightIcon}
+                            alt="right-icon"
+                            style={{ marginLeft: 16, marginRight: 16 }}
                           />
-                          <span>More Info about Doctor</span>
                         </div>
-                        <img
-                          src={rightIcon}
-                          alt="right-icon"
-                          style={{ marginLeft: 16, marginRight: 16 }}
-                        />
                       </div>
-                      <br />
                       <Link
                         to={{
                           pathname: `/patient/help-and-support`,
@@ -1149,7 +1149,7 @@ const Myappointment = (props) => {
                         <img
                           src={selectedAppointment.doctor.picture}
                           alt={`${selectedAppointment.doctor.firstName}-image`}
-                          className="img-circle ml-3 mt-3"
+                          className="img-circle mt-3"
                         />
                       ) : (
                         <Avatar
@@ -1248,22 +1248,51 @@ const Myappointment = (props) => {
                     </div>
                     <hr />
                     <div className="details-links" onClick={() => setDoctorIdInSession(selectedAppointment.doctor.id)}>
-                      {console.log({ selectedAppointment })}
+                      {/* {console.log({ selectedAppointment })} */}
                       <Link
                         to={{
                           pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode?.toLowerCase().replace(" ", "-")}/${selectedAppointment.unifiedAppointment}`,
                         }}
                       >
-                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                        <div className='firefox-helper'>
+                          <div style={{ display: 'flex', alignItem: 'center' }}>
+                            <div style={{ width: '100%' }}>
+                              <img
+                                width="30"
+                                height="30"
+                                src={rescheduleIcon}
+                                alt=""
+                                style={{ marginLeft: 15, marginRight: 15 }}
+                              />
+                              Reschedule Appointment
+                            </div>
+                            <img
+                              src={rightIcon}
+                              alt="right-icon"
+                              style={{ marginLeft: 16, marginRight: 16 }}
+                            />
+                          </div>
+                        </div>
+                      </Link>
+                      <div className='firefox-helper'>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItem: 'center',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => openMoreDoctorInfo()}
+                        >
+
                           <div style={{ width: '100%' }}>
                             <img
                               width="30"
                               height="30"
-                              src={rescheduleIcon}
+                              src={infoIcon}
                               alt=""
                               style={{ marginLeft: 15, marginRight: 15 }}
                             />
-                            Reschedule Appointment
+                            <span>More Info about Doctor</span>
                           </div>
                           <img
                             src={rightIcon}
@@ -1271,33 +1300,7 @@ const Myappointment = (props) => {
                             style={{ marginLeft: 16, marginRight: 16 }}
                           />
                         </div>
-                      </Link>
-                      <br />
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItem: 'center',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => openMoreDoctorInfo()}
-                      >
-                        <div style={{ width: '100%' }}>
-                          <img
-                            width="30"
-                            height="30"
-                            src={infoIcon}
-                            alt=""
-                            style={{ marginLeft: 15, marginRight: 15 }}
-                          />
-                          <span>More Info about Doctor</span>
-                        </div>
-                        <img
-                          src={rightIcon}
-                          alt="right-icon"
-                          style={{ marginLeft: 16, marginRight: 16 }}
-                        />
                       </div>
-                      <br />
                       <Link
                         to={{
                           pathname: `/patient/help-and-support`,
@@ -1387,7 +1390,7 @@ const Myappointment = (props) => {
                         <img
                           src={selectedAppointment.doctor.picture}
                           alt={`${selectedAppointment.doctor.firstName}-image`}
-                          className="img-circle ml-3 mt-3"
+                          className="img-circle mt-3"
                         />
                       ) : (
                         <Avatar
@@ -1481,31 +1484,32 @@ const Myappointment = (props) => {
                     </div>
                     <hr />
                     <div className="details-links">
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItem: 'center',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => openMoreDoctorInfo()}
-                      >
-                        <div style={{ width: '100%' }}>
+                      <div className='firefox-helper'>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItem: 'center',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => openMoreDoctorInfo()}
+                        >
+                          <div style={{ width: '100%' }}>
+                            <img
+                              width="30"
+                              height="30"
+                              src={infoIcon}
+                              alt=""
+                              style={{ marginLeft: 15, marginRight: 15 }}
+                            />
+                            <span>More Info about Doctor</span>
+                          </div>
                           <img
-                            width="30"
-                            height="30"
-                            src={infoIcon}
-                            alt=""
-                            style={{ marginLeft: 15, marginRight: 15 }}
+                            src={rightIcon}
+                            alt="right-icon"
+                            style={{ marginLeft: 16, marginRight: 16 }}
                           />
-                          <span>More Info about Doctor</span>
                         </div>
-                        <img
-                          src={rightIcon}
-                          alt="right-icon"
-                          style={{ marginLeft: 16, marginRight: 16 }}
-                        />
                       </div>
-                      <br />
                       <Link
                         to={{
                           pathname: `/patient/help-and-support`,

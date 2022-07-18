@@ -16,7 +16,12 @@ const Logout = () => {
     cookies.remove("authorities", { path: '/' });
     cookies.remove("userProfileCompleted", { path: '/' });
     cookies.remove("profileDetails", { path: '/' });
+
     deleteTokenHandler().then(() => {
+      localStorage.clear();
+      history.push("/");
+      history.go(0);
+    }).catch(err => {
       localStorage.clear();
       history.push("/");
       history.go(0);

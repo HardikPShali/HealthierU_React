@@ -159,13 +159,13 @@ const Availability = () => {
     };
     const dataForRecurSlot = [];
     dataForRecurSlot.push(data);
-    console.log({ dataForRecurSlot });
+    // console.log({ dataForRecurSlot });
     if (data.days.length === 0) {
       toast.error('Please select at least one day before adding time slots.');
     } else {
-      console.log({ data: data.days });
+      // console.log({ data: data.days });
       const res = await addRecurringSLot(dataForRecurSlot);
-      console.log({ res });
+      // console.log({ res });
 
       const afterSuccessOrFailEvent = async () => {
         setState({ startTime: moment(), endTime: moment() });

@@ -194,7 +194,7 @@ const RescheduleAppointment = (props) => {
   const [likedOffset, setLikedOffset] = useState(0);
 
   let doctorIdForReschedule = sessionStorage.getItem('doctorId');
-  console.log({ doctorIdForReschedule });
+  // console.log({ doctorIdForReschedule });
 
   const loadUsers = async (patientId) => {
     if (!profilepID.activated) {
@@ -216,7 +216,7 @@ const RescheduleAppointment = (props) => {
         setUser(result.data.doctors);
         const selectedDoctorForReschedule = result.data.doctors.map((value) => {
           if (value.id == doctorIdForReschedule) {
-            console.log({ value: value });
+            // console.log({ value: value });
             setdoctor(value);
           }
         });
@@ -519,7 +519,7 @@ const RescheduleAppointment = (props) => {
     setSelectedSlotId('0');
     setAppointment({ ...appointment, appointmentMode: e.target.value });
     const user = doctor;
-    console.log({ user });
+    // console.log({ user });
     getAvailableSlotsOfDoctors(
       user.id,
       getAppointmentModeForAvailabilitySlotsDisplay(e.target.value)
@@ -531,7 +531,7 @@ const RescheduleAppointment = (props) => {
         const consultationSlots = createConsultationSlots(Availability);
         if (consultationSlots && consultationSlots.length > 0) {
           setAppointmentSlot(consultationSlots);
-          console.log({ consultationSlots });
+          // console.log({ consultationSlots });
           document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
           setDisplaySlot(true);
@@ -544,7 +544,7 @@ const RescheduleAppointment = (props) => {
         }
       } else if (e.target.value === 'Follow Up') {
         setAppointmentSlot(Availability);
-        console.log({ Availability });
+        // console.log({ Availability });
         document.querySelector('#calendar-list').scrollTo(0, 500);
         setDisplayCalendar(false);
         setDisplaySlot(true);
@@ -596,7 +596,7 @@ const RescheduleAppointment = (props) => {
     setSlotError('');
     setCurrentDate(slectedDate);
     const dataForSelectedDay = {
-      startTime: new Date(slectedDate.setHours(0, 0, 0)).toISOString(),
+      startTime: new Date().toISOString(),
       endTime: new Date(slectedDate.setHours(23, 59, 59)).toISOString(),
       status: 'AVAILABLE',
       doctorId: doctorId,
@@ -1210,7 +1210,7 @@ const RescheduleAppointment = (props) => {
           date.getFullYear() === enabledDate.getFullYear() &&
           date.getMonth() === enabledDate.getMonth() &&
           date.getDate() === enabledDate.getDate();
-        console.log({ date: date, enabledDate: enabledDate, ed: eD });
+        // console.log({ date: date, enabledDate: enabledDate, ed: eD });
         return eD;
       })
     );

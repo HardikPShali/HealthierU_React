@@ -124,21 +124,21 @@ const ChatDetails = ({
     return false;
   };
 
-  console.log({ selectedItem });
+  // console.log({ selectedItem });
 
 
 
   let channelId = selectedItem.id;
-  console.log({ channelId: channelId });
+  // console.log({ channelId: channelId });
 
 
   //CALL-TOPIC CODE
   const callUser = async () => {
     // console.log({ selectedItem });
     // const channelId = selectedItem.id;
-    console.log({ channelId });
+    // console.log({ channelId });
     const response = await getCallUserApi(channelId).catch(err => console.log({ err }))
-    console.log({ response })
+    // console.log({ response })
   };
 
   // useEffect(() => {

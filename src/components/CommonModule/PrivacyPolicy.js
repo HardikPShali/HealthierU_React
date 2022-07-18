@@ -6,7 +6,7 @@ import Footer from '../Login-Module/Footer';
 import { Link } from 'react-router-dom';
 
 const PrivacyPolicy = ({ currentuserInfo }) => {
-  console.log({ currentuserInfo });
+  // console.log({ currentuserInfo });
   const [serverError, setServerError] = useState(false);
 
   const { authorities = [] } = currentuserInfo || {};
@@ -36,7 +36,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
       {!serverError && (
         <>
           {authorities.length > 0 &&
-          authorities.some((user) => user === 'ROLE_PATIENT') ? (
+            authorities.some((user) => user === 'ROLE_PATIENT') ? (
             <></>
           ) : authorities.length > 0 &&
             authorities.some((user) => user === 'ROLE_DOCTOR') ? (
@@ -723,7 +723,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
             </Row>
           </Container>
           {authorities.length > 0 &&
-          authorities.some((user) => user === 'ROLE_PATIENT') ? (
+            authorities.some((user) => user === 'ROLE_PATIENT') ? (
             <></>
           ) : authorities.length > 0 &&
             authorities.some((user) => user === 'ROLE_DOCTOR') ? (
