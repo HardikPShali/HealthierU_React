@@ -1709,7 +1709,7 @@ const MyDoctor = (props) => {
                           <p className="doc-name">{doctor.firstName}</p>
                           <ul
                             style={{
-                              fontSize: 12,
+                              fontSize: 14,
                               display: 'block',
                               textAlign: 'center',
                             }}
@@ -1723,9 +1723,9 @@ const MyDoctor = (props) => {
                           </ul>
                           <p
                             style={{
-                              fontSize: 12,
+                              fontSize: 14,
                               textAlign: 'center',
-                              fontWeight: '600',
+                              fontWeight: '400',
                             }}
                           >
                             {doctor.experience} years of experience
@@ -1773,55 +1773,55 @@ const MyDoctor = (props) => {
                     <div className="mr-4 ml-4">
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>
-                            Country Of Residence: <b>{doctor.countryName}</b>
+                          <span style={{ fontSize: 14 }}>
+                            <b>Country Of Residence:</b> {doctor.countryName}
                           </span>
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Education</span>
+                          <b><span style={{ fontSize: 14 }}>Education</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map(
-                                (x, index) => (
-                                  <li key={index}>
-                                    {x.educationalQualification}{' '}
-                                  </li>
-                                )
-                              )}
-                          </b>
+
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map(
+                              (x, index) => (
+                                <li key={index} className='list-font'>
+                                  {x.educationalQualification}{' '}
+                                </li>
+                              )
+                            )}
+
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Institution</span>
+                          <b><span style={{ fontSize: 14 }}>Institution</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map(
-                                (x, index) => (
-                                  <li key={index}>{x.institution} </li>
-                                )
-                              )}
-                          </b>
+
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map(
+                              (x, index) => (
+                                <li className='list-font' key={index}>{x.institution} </li>
+                              )
+                            )}
+
                         </div>
                       </div>
 
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Language</span>
+                          <b><span style={{ fontSize: 14 }}>Language</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.languages &&
-                              doctor.languages.map((lang, index) => (
-                                <li key={index}>{lang.name} </li>
-                              ))}
-                          </b>
+
+                          {doctor &&
+                            doctor.languages &&
+                            doctor.languages.map((lang, index) => (
+                              <li key={index} className='list-font'>{lang.name} </li>
+                            ))}
+
                         </div>
                       </div>
                     </div>
@@ -1829,11 +1829,11 @@ const MyDoctor = (props) => {
 
                     <div className="ml-4">
                       {
-                        doctor.bio && <p style={{ fontSize: 12, margin: "0 auto" }}>About</p>
+                        doctor.bio && <b><p style={{ fontSize: 14, margin: "0 auto" }}>About</p></b>
                       }
 
 
-                      <p style={{ fontSize: 12, textAlign: 'justify' }}>
+                      <p style={{ fontSize: 14, textAlign: 'justify' }}>
 
                         {
                           doctor.bio && <span>{doctor.bio}</span>
@@ -1932,7 +1932,7 @@ const MyDoctor = (props) => {
                           <p className="doc-name">{doctor.firstName}</p>
                           <ul
                             style={{
-                              fontSize: 12,
+                              fontSize: 14,
                               display: 'block',
                               textAlign: 'center',
                             }}
@@ -1946,9 +1946,9 @@ const MyDoctor = (props) => {
                           </ul>
                           <p
                             style={{
-                              fontSize: 12,
+                              fontSize: 14,
                               textAlign: 'center',
-                              fontWeight: '600',
+                              fontWeight: '400',
                             }}
                           >
                             {doctor.experience} years of experience
@@ -1996,64 +1996,69 @@ const MyDoctor = (props) => {
                     <div className="mr-4 ml-4">
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>
-                            Country Of Residence: <b>{doctor.countryName}</b>
+                          <span style={{ fontSize: 14 }}>
+                            <b>Country Of Residence:</b>{doctor.countryName}
                           </span>
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Education</span>
+                          <b><span style={{ fontSize: 14 }}>Education</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map(
-                                (x, index) => (
-                                  <li key={index}>
-                                    {x.educationalQualification}{' '}
-                                  </li>
-                                )
-                              )}
-                          </b>
+
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map(
+                              (x, index) => (
+                                <li key={index} className='list-font'>
+                                  {x.educationalQualification}{' '}
+                                </li>
+                              )
+                            )}
+
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Institution</span>
+                          <b><span style={{ fontSize: 14 }}>Institution</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map(
-                                (x, index) => (
-                                  <li key={index}>{x.institution} </li>
-                                )
-                              )}
-                          </b>
+
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map(
+                              (x, index) => (
+                                <li key={index} className='list-font'>{x.institution} </li>
+                              )
+                            )}
+
                         </div>
                       </div>
 
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Language</span>
+                          <b><span style={{ fontSize: 14 }}>Language</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.languages &&
-                              doctor.languages.map((lang, index) => (
-                                <li key={index}>{lang.name} </li>
-                              ))}
-                          </b>
+
+                          {doctor &&
+                            doctor.languages &&
+                            doctor.languages.map((lang, index) => (
+                              <li key={index}>{lang.name} </li>
+                            ))}
+
                         </div>
                       </div>
                     </div>
                     <hr />
                     {/* <h5>About</h5> */}
                     <div className="ml-4">
+                      {
+                        doctor.bio && <b><p style={{ fontSize: 14, margin: "0 auto" }}>About</p></b>
+                      }
                       <p style={{ fontSize: 12 }}>
-                        {/* <span><b>Bio : </b></span><br/> */}
-                        <span>{doctor.bio}</span>
+
+                        {
+                          doctor.bio && <span>{doctor.bio}</span>
+                        }
                         <br />
 
                         {doctor.awards && (

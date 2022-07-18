@@ -4490,3 +4490,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   margin-bottom: 5%;
   -webkit-margin-bottom: 5%;
 }
+
+.list-font{
+  font-size: 14px;
+}
