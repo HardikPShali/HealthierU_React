@@ -72,7 +72,7 @@ const Signin = () => {
   const [user, setUser] = useState({
     msg: "",
     loggedIn: false,
-    username: "",
+    email: "",
     password: "",
     otp: "",
   });
@@ -147,7 +147,7 @@ const Signin = () => {
     }
   };
 
-  const { username, password, msg, otp } = user;
+  const { email, password, msg, otp } = user;
   const handleInputChange = (e) => {
     e.preventDefault();
     setUser({ ...user, [e.target.name]: e.target.value, msg: "" });
@@ -244,7 +244,7 @@ const Signin = () => {
 
   const handleSigninHandler = async () => {
     // SIGNIN LOGIC
-    const response = await handleSignin(username, password).catch((err) => {
+    const response = await handleSignin(email, password).catch((err) => {
       if (err.response && err.response.status === 400) {
         setUser({
           ...user,
@@ -265,7 +265,7 @@ const Signin = () => {
   const handleLogin = async (e) => {
     //if (captchaVerify) {
     setLoader(true);
-    const accountCheckResponse = await accountActivationCheckBeforeTokenGeneration(username).catch(err => console.log({ err }))
+    const accountCheckResponse = await accountActivationCheckBeforeTokenGeneration(email).catch(err => console.log({ err }))
     // console.log({ accountCheckResponse })
 
     if (accountCheckResponse.data.status === true) {
@@ -366,9 +366,9 @@ const Signin = () => {
                       <TextValidator
                         id="standard-basic"
                         type="email"
-                        name="username"
+                        name="email"
                         onChange={(e) => handleInputChange(e)}
-                        value={username}
+                        value={email}
                         validators={[
                           // "isValidEmail",
                           "required",

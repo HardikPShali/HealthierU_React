@@ -599,10 +599,10 @@ const Home = () => {
             className="btn btn-info"
             onClick={() => history.go(0)}
           >
-          ok
-        </button>
-      </DialogActions>
-    </Dialog>
+            ok
+          </button>
+        </DialogActions>
+      </Dialog>
     </div >
   );
 };
