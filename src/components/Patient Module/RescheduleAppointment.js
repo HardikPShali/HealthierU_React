@@ -596,7 +596,7 @@ const RescheduleAppointment = (props) => {
     setSlotError('');
     setCurrentDate(slectedDate);
     const dataForSelectedDay = {
-      startTime: new Date(slectedDate.setHours(0, 0, 0)).toISOString(),
+      startTime: new Date().toISOString(),
       endTime: new Date(slectedDate.setHours(23, 59, 59)).toISOString(),
       status: 'AVAILABLE',
       doctorId: doctorId,
