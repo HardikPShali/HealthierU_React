@@ -60,9 +60,6 @@ import { MDBInput } from "mdbreact";
 const Profile = ({ currentDoctor }) => {
     const history = useHistory();
     const cookies = new Cookies();
-
-    console.log("currentDoctor Props", currentDoctor);
-
     const [documentData, setDocumentData] = useState([]);
     const [documentName, setDocumentName] = useState('');
     const [documentFile, setDocumentFile] = useState([]);
@@ -152,22 +149,26 @@ const Profile = ({ currentDoctor }) => {
     const [documentInfo, setDocumentinfo] = useState({})
     const [documentUpdateFile, setDocumentUpdateFile] = useState()
     const [currentdocumentData, setCurrentDocumentData] = useState([])
+    const [licenseNumber, setLicenseNumber] = useState()
+    const [certifyingBody, setCertifyingBody] = useState()
+    const [referencePhoneNumber, setReferencePhoneNumber] = useState()
     //LOAD DOCUMENT LIST
     const loadDoctorDocument = async () => {
         const doctorId = currentDoctor.id;
         const res = await getDoctorDocument(doctorId);
         if (res && res.status === 200) {
-            setDocumentData(res.data.documentsDocumentsList);
-            setCurrentDocumentData(res.data.documentsDocumentsList[0])
+            setLicenseNumber(res.data.documentsDocumentsList[0].licenseNumber);
+            setCertifyingBody(res.data.documentsDocumentsList[0].certifyingBody);
+            setReferencePhoneNumber(res.data.documentsDocumentsList[0].referencePhoneNumber);
             setLoading(false);
         } else if (res && res.status === 204) {
-            setDocumentData([]);
+            // setDoctorDocumentData([]);
             setLoading(false);
         }
     };
-    const { licenseNumber, referencePhoneNumber, certifyingBody } = currentdocumentData ? currentdocumentData : documentData;
+    // const { licenseNumber, referencePhoneNumber, certifyingBody } = currentdocumentData ? currentdocumentData : documentData;
     useEffect(() => {
-        loadDoctorDocument();
+        loadDoctorDocument()
         loadOptions();
         loadLanguage();
         loadSpeciality();
@@ -433,6 +434,21 @@ const Profile = ({ currentDoctor }) => {
                                                                 />
                                                             )
                                                         }
+                                                        <ProfileRow
+                                                            icon={educationIcon}
+                                                            title="License Number"
+                                                            value={licenseNumber}
+                                                        />
+                                                        <ProfileRow
+                                                            icon={experienceIcon}
+                                                            title="Certifying Body"
+                                                            value={certifyingBody}
+                                                        />
+                                                        <ProfileRow
+                                                            icon={callIcon}
+                                                            title="Reference Phone Number"
+                                                            value={referencePhoneNumber}
+                                                        />
                                                     </div>
                                                 </div>
                                             </Tab>

@@ -188,6 +188,7 @@ const PatientDocument = (props) => {
         const presecriptionDocument = await getGlobalMedicalRecordsSearch(page, size, data);
         if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
             setPresecriptionDocument(presecriptionDocument.data.data)
+            console.log("presecriptionDocument",presecriptionDocument.data.data);
         }
         setLoading(false);
     };
@@ -322,7 +323,7 @@ const PatientDocument = (props) => {
             let page = 0;
             let size = 3;
             const info = {
-                documentType: "LabResult",
+                documentType: "Prescription",
                 patientId: patient.id
             }
             const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
@@ -716,9 +717,10 @@ const PatientDocument = (props) => {
                                                     >
                                                         <PrescriptionLabCard
                                                             filetype={getFileExtension(dataItem.documentUrl)}
-                                                            name={"Lab Result"}
+                                                            name={dataItem.name}
+                                                            labname={dataItem.labName}
                                                             //apid={dataItem.id}
-                                                            docName={dataItem.labName}
+                                                            //docName={dataItem.labName}
                                                             date={dataItem.docUploadTime}
                                                             time={dataItem.docUploadTime}
                                                             download={(e) => showLabDocument(dataItem)}
