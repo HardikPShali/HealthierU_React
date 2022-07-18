@@ -2,12 +2,17 @@ import React, { Component, useEffect, useState } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
 import { toast } from 'react-toastify';
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
 import TimeRange from 'react-time-range';
 import moment from 'moment';
 import {
   addRecurringSLot,
   getRecurringSLots,
   toggleRecurSlots,
+  deleteReccurSlot
 } from '../../service/frontendapiservices';
 import closeBtn from '../../images/svg/close-btn.svg';
 
@@ -102,7 +107,6 @@ const Availability = () => {
     };
     const response = await getRecurringSLots(dataForGetSlots);
     if (response) {
-      // console.log("response", response);
       setAllTimeSlot(response.data.data);
     }
   };
@@ -201,8 +205,8 @@ const Availability = () => {
       }
     }
   };
-  const handleCloseSlot = () => {
-    history.go(0);
+  const handleCloseSlot = (timeData) => {
+    setTimes({ ...times, time: [], days: [] })
   };
   const clearTick = () => {
     const clearAllDays = allDays.map((eachDay) => {
@@ -238,18 +242,44 @@ const Availability = () => {
     );
     return new Date(dateUTC);
   };
+  //Delete Slot
+  const [openRecurDelete, setOpenRecurDelete] = useState(false);
+  const [selectedRecurSlot, setSelectedRecurSlot] = useState();
+  const handleRecurDeleteOpen = (eachTimes) => {
+    setSelectedRecurSlot(eachTimes);
+    setOpenRecurDelete(true);
+  };
+  const handleRecurDeleteClose = () => {
+    setOpenRecurDelete(false);
+  };
+  const handleDeleteReccurSlot = async (eachTimes) => {
+    handleRecurDeleteClose();
+    const docId = cookies.get('profileDetails');
+    const res = await deleteReccurSlot(eachTimes.recurId, docId.id).catch(
+      (err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          toast.error(`Something went wrong.Please try agin!`);
+        }
+      }
+    );
+    if (res) {
+      toast.success(`Slots Deleted`);
+      loadRecurSlots()
+    }
+  };
   return (
-    <Container>
-      {/* <div className="slot-time available-btn">
+    <>
+      <Container>
+        {/* <div className="slot-time available-btn">
         <h3 style={{color: "var(--primary)"}}>Set Availability</h3>
       </div> */}
 
-      <Row className="time-slot-container">
-        <Col sm={12} md={6} lg={6} xSl={6}>
-          <div className="slot-time-wrap">
-            <div className="start-time-wrap">
-              <h5>Set Time</h5>
-              {/* <TimeRangePicker
+        <Row className="time-slot-container">
+          <Col sm={12} md={6} lg={6} xSl={6}>
+            <div className="slot-time-wrap">
+              <div className="start-time-wrap">
+                <h5>Set Time</h5>
+                {/* <TimeRangePicker
                 className=" mt-1 mb-3"
                 amPmAriaLabel="Select AM/PM"
                 disableClock="true"
@@ -261,115 +291,153 @@ const Availability = () => {
                 use24Hours="true"
                 onChange={handleValue}
               /> */}
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                }}
-              >
-                <TimeRange
-                  onChange={(e) => handleTime(e)}
-                  startMoment={state.startTime}
-                  endMoment={state.endTime}
-                  use24Hours="true"
-                />
-                <div className="available-btn">
-                  <button
-                    disabled={isDisabled === true}
-                    onClick={saveTimeHandler}
-                  >
-                    Set Time
-                  </button>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                  }}
+                >
+                  <TimeRange
+                    onChange={(e) => handleTime(e)}
+                    startMoment={state.startTime}
+                    endMoment={state.endTime}
+                    use24Hours="true"
+                  />
+                  <div className="available-btn">
+                    <button
+                      disabled={isDisabled === true}
+                      onClick={saveTimeHandler}
+                    >
+                      Set Time
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          {times.time.length ? (
-            <div className="times-container">
-              <h5>Select Time Slots</h5>
-              <div className="selected-time-container">
-                {times.time.map((timeData, timeIndex) => (
-                  <div className="selected_time">
-                    <div className="select-time-wrap">
-                      <div className="select-time-font">
-                        <h6 className="select-time-font">
-                          {timeData.startTime}
-                        </h6>
-                        <h6 className="select-time-font pl-2 pr-2">to</h6>
-                        <h6 className="select-time-font">{timeData.endTime}</h6>
+            {times.time.length ? (
+              <div className="times-container">
+                <h5>Select Time Slots</h5>
+                <div className="selected-time-container">
+                  {times.time.map((timeData, timeIndex) => (
+                    <div className="selected_time">
+                      <div className="select-time-wrap">
+                        <div className="select-time-font">
+                          <h6 className="select-time-font">
+                            {timeData.startTime}
+                          </h6>
+                          <h6 className="select-time-font pl-2 pr-2">to</h6>
+                          <h6 className="select-time-font">{timeData.endTime}</h6>
+                        </div>
+                      </div>
+                      <div className="close-btn-select">
+                        <img
+                          src={closeBtn}
+                          alt="close button"
+                          onClick={() => handleCloseSlot(timeData)}
+                        />
                       </div>
                     </div>
-                    <div className="close-btn-select">
-                      <img
-                        src={closeBtn}
-                        alt="close button"
-                        onClick={handleCloseSlot}
-                      />
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ) : (
-            <></>
-          )}
-          {times.time.length ? (
-            <div className="days-wrapper">
-              {allDays.map((dayValue, dayIndex) => (
-                <label className="day-wrapper">
-                  {dayValue.day}
-                  <input
-                    type="checkbox"
-                    checked={dayValue.checked}
-                    onChange={(e) => dayHandler(e, dayIndex)}
-                    value={dayValue.day}
-                  />
-                  <span className="checkmark"></span>
-                </label>
-              ))}
+            ) : (
+              <></>
+            )}
+            {times.time.length ? (
+              <div className="days-wrapper">
+                {allDays.map((dayValue, dayIndex) => (
+                  <label className="day-wrapper">
+                    {dayValue.day}
+                    <input
+                      type="checkbox"
+                      checked={dayValue.checked}
+                      onChange={(e) => dayHandler(e, dayIndex)}
+                      value={dayValue.day}
+                    />
+                    <span className="checkmark"></span>
+                  </label>
+                ))}
 
-              <div className="available-btn">
-                <button onClick={addDaySlot}>Add Time Slots</button>
+                <div className="available-btn">
+                  <button onClick={addDaySlot}>Add Time Slots</button>
+                </div>
               </div>
-            </div>
-          ) : (
-            <></>
-          )}
-        </Col>
-        <Col sm={12} md={6} lg={6} xl={6}>
-          {/* {allTimeSlot.length ? (<div className="selected-day-container"> */}
-          <h5 className="mb-3" style={{ color: 'var(--primary)' }}>
-            Select Time with Day Slots
-          </h5>
-          {allTimeSlot.map((eachTimes, index) => (
-            <div className="selected-day-wrap" key={index}>
-              <div className="selected-days">
-                <h5>{eachTimes.days.toString()}</h5>
-                {eachTimes.timeSlotsList.map((timeDtls, index) => (
-                  <span className="mr-3" key={index}>
-                    {convertHoursAndMinsToLocal(timeDtls.startTime)} to{' '}
-                    {convertHoursAndMinsToLocal(timeDtls.endTime)}
-                  </span>
-                ))}
-              </div>
-              <div className="selected-days-toggle">
-                <label className="switch">
-                  <input
-                    checked={eachTimes.toggle}
-                    id="toggleSlots"
-                    type="checkbox"
-                    onChange={(e) => handleToggle(e, eachTimes)}
+            ) : (
+              <></>
+            )}
+          </Col>
+          <Col sm={12} md={6} lg={6} xl={6}>
+            {/* {allTimeSlot.length ? (<div className="selected-day-container"> */}
+            <h5 className="mb-3" style={{ color: 'var(--primary)' }}>
+              Select Time with Day Slots
+            </h5>
+            {allTimeSlot.map((eachTimes, index) => (
+              <div className="selected-day-wrap" key={index}>
+                <div className="selected-days">
+                  <h5>{eachTimes.days.toString()}</h5>
+                  {eachTimes.timeSlotsList.map((timeDtls, index) => (
+                    <span className="mr-3" key={index}>
+                      {convertHoursAndMinsToLocal(timeDtls.startTime)} to{' '}
+                      {convertHoursAndMinsToLocal(timeDtls.endTime)}
+                    </span>
+                  ))}
+                </div>
+                <div className="selected-days-toggle">
+                  <label className="switch">
+                    <input
+                      checked={eachTimes.toggle}
+                      id="toggleSlots"
+                      type="checkbox"
+                      onChange={(e) => handleToggle(e, eachTimes)}
+                    />
+                    <span className="slider round"></span>
+                  </label>
+                </div>
+                <div className="close-btn-delete">
+                  <img
+                    src={closeBtn}
+                    alt="close button"
+                    onClick={() => handleRecurDeleteOpen(eachTimes)}
                   />
-                  <span className="slider round"></span>
-                </label>
+                </div>
               </div>
-            </div>
-          ))}
-          {/* </div>) : <></>} */}
-        </Col>
-      </Row>
-    </Container>
+            ))}
+            {/* </div>) : <></>} */}
+          </Col>
+        </Row>
+      </Container>
+      <Dialog
+        onClose={handleRecurDeleteClose}
+        aria-labelledby="customized-dialog-title"
+        open={openRecurDelete}
+      >
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={handleRecurDeleteClose}
+        >
+          Are you sure you want to remove this slot ?
+        </DialogTitle>
+        <DialogActions>
+          <button
+            autoFocus
+            onClick={() => handleDeleteReccurSlot(selectedRecurSlot)}
+            className="btn btn-primary"
+            id="close-btn"
+          >
+            Ok
+          </button>
+          <button
+            autoFocus
+            onClick={handleRecurDeleteClose}
+            className="btn btn-secondary"
+            id="close-btn"
+          >
+            Close
+          </button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

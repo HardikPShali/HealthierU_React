@@ -69,6 +69,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         if (res && res.status === 200) {
             setPage(res.data)
             setDocumentData(res.data.documentsDocumentsList);
+            console.log("loadDoctorDocument",res.data.documentsDocumentsList);
             setCurrentDocumentData(res.data.documentsDocumentsList[0])
             setDocumentinfo(res.data.documentsDocumentsList[0])
             setLoading(false);
