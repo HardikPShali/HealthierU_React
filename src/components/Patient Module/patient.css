@@ -4506,3 +4506,10 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   color: #000;
   margin-left: 5px;
 }
+
+.safari-helper {
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
