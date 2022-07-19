@@ -982,7 +982,7 @@ const Myappointment = (props) => {
                             src={calendarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'DD/MM/YY'
                             )}
@@ -993,7 +993,7 @@ const Myappointment = (props) => {
                             src={timeBig}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'hh:mm A'
                             )}
@@ -1009,7 +1009,7 @@ const Myappointment = (props) => {
                             src={dollarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.appointmentFee ? (
                               selectedAppointment.appointmentFee
                             ) : (
@@ -1022,7 +1022,7 @@ const Myappointment = (props) => {
                             src={creditCardIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.paymentMethod ? (
                               selectedAppointment.paymentMethod
                             ) : (
@@ -1196,7 +1196,7 @@ const Myappointment = (props) => {
                             src={calendarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'DD/MM/YY'
                             )}
@@ -1207,7 +1207,7 @@ const Myappointment = (props) => {
                             src={timeBig}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'hh:mm A'
                             )}
@@ -1223,7 +1223,7 @@ const Myappointment = (props) => {
                             src={dollarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.appointmentFee ? (
                               selectedAppointment.appointmentFee
                             ) : (
@@ -1236,7 +1236,7 @@ const Myappointment = (props) => {
                             src={creditCardIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.paymentMethod ? (
                               selectedAppointment.paymentMethod
                             ) : (
@@ -1435,7 +1435,7 @@ const Myappointment = (props) => {
                             src={calendarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'DD/MM/YY'
                             )}
@@ -1446,7 +1446,7 @@ const Myappointment = (props) => {
                             src={timeBig}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'hh:mm A'
                             )}
@@ -1462,7 +1462,7 @@ const Myappointment = (props) => {
                             src={dollarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.appointmentFee ? (
                               selectedAppointment.appointmentFee
                             ) : (
@@ -1475,7 +1475,7 @@ const Myappointment = (props) => {
                             src={creditCardIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.paymentMethod ? (
                               selectedAppointment.paymentMethod
                             ) : (

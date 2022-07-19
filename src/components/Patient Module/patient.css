@@ -4498,3 +4498,11 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .font-helper {
   font-size: 16px !important;
 }
+
+.my-patient__common-span {
+  font-size: 14px;
+  text-decoration: none;
+  text-shadow: none;
+  color: #000;
+  margin-left: 5px;
+}
