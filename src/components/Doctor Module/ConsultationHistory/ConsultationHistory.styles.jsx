@@ -1,5 +1,7 @@
+import styled from 'styled-components';
+
 /* UPCOMING APPOINTMENTS SECTION */
-.conhistory__card-box {
+export const ConsultationHistoryCardBox = styled.div`
   height: 100%;
   border-radius: 22px;
   padding: 1.25rem;
@@ -8,20 +10,21 @@
   font-size: 20px !important;
   text-shadow: 0px 0px 15px #000;
   overflow: auto;
-}
-.conhistory--main-header {
+`;
+
+export const MainHeader = styled.h3`
   margin-left: 5px;
   color: #344767;
   font-weight: 700;
   text-shadow: none;
-}
+`;
 
-.conhistory-card-holder {
+export const CardHolder = styled.div`
   width: 100%;
   margin-top: 20px;
-}
+`;
 
-.conhistory-card {
+export const ConsultationHistoryCardView = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -32,25 +35,9 @@
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 22px;
   filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
-}
+`;
 
-.conhistory-card__img-wrapper {
-  padding: 20px;
-  text-align: center;
-}
-
-.img-circle {
-  -webkit-border-radius: 50%;
-  -khtml-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  box-shadow: 2px 6px 20px -4px rgb(0 0 0 / 74%);
-  -webkit-box-shadow: 2px 6px 20px -4px rgb(0 0 0 / 20%);
-}
-
-.conhistory-card__card-details {
+export const CardDetails = styled.div`
   padding: 20px;
   margin: 10px;
   color: #3e4543;
@@ -65,32 +52,28 @@
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 10px;
   filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
-}
+`;
 
-.conhistory-card__doctor-name {
-  text-shadow: none;
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.conhistory-card__common-span {
-  font-size: 14px;
+export const CardAppointmentStartTime = styled.h3`
+  font-size: 20px;
   text-decoration: none;
   text-shadow: none;
-  font-weight: 400;
-  color: #999999;
-}
-.conhistory-data {
+  font-weight: 600;
+  text-align: left;
+  padding-bottom: 20px;
+`;
+
+export const CardDetailsHeading = styled.h4`
+  font-size: 16px;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: 600;
+`;
+
+export const CardDetailsContent = styled.p`
   font-size: 14px;
   text-decoration: none;
   text-shadow: none;
   font-weight: 400;
   color: #444444;
-}
-
-.conhistory-card__card-details--date-div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-right: 50px;
-}
+`;

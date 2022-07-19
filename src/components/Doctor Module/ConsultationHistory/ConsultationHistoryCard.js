@@ -1,32 +1,56 @@
-import React from 'react'
-const ConsulatationHistoryCard = (props) => {
-    console.log({props})
+import React from 'react';
+import moment from 'moment';
+import { Row, Col } from 'react-bootstrap';
+import {
+    CardAppointmentStartTime,
+    CardDetails,
+    CardDetailsContent,
+    CardDetailsHeading,
+} from './ConsultationHistory.styles';
+
+const ConsulatationHistoryCard = ({
+    appointmentDetails,
+    chief_complaint,
+    present_illness,
+    vital_signs,
+    physical_exam,
+    plan_assessment,
+}) => {
+    const appointmentStartTime = moment(appointmentDetails.startTime).format('DD MMMM YYYY');
+
     return (
-        <div className='row'>
-            <div className='col-md-12'>
-                <div className='conhistory-card__card-details'>
-                    {/* <h6 className='conhistory-card__doctor-name'>{props.date}</h6> */}
+        <Row>
+            <Col md={12}>
+                <CardDetails>
+                    <CardAppointmentStartTime>{appointmentStartTime}</CardAppointmentStartTime>
+                    <Row>
+                        <Col md={4}>
+                            <CardDetailsHeading>Chief Complaint</CardDetailsHeading>
+                            <CardDetailsContent>{chief_complaint}</CardDetailsContent>
+                        </Col>
+                        <Col md={4}>
+                            <CardDetailsHeading>Present Illness</CardDetailsHeading>
+                            <CardDetailsContent>{present_illness}</CardDetailsContent>
+                        </Col>
+                        <Col md={4}>
+                            <CardDetailsHeading>Vital Signs</CardDetailsHeading>
+                            <CardDetailsContent>{vital_signs}</CardDetailsContent>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={4}>
+                            <CardDetailsHeading>Physical Exam</CardDetailsHeading>
+                            <CardDetailsContent>{physical_exam}</CardDetailsContent>
+                        </Col>
+                        <Col md={6}>
+                            <CardDetailsHeading>Plan Assessment</CardDetailsHeading>
+                            <CardDetailsContent>{plan_assessment}</CardDetailsContent>
+                        </Col>
+                    </Row>
+                </CardDetails>
+            </Col>
+        </Row>
+    );
+};
 
-                    {/* <h6 className='conhistory-card__common-span'>Chief Complaint:</h6> */}
-                    {/* <ul>
-                        {props.Chief_Complaint && props.Chief_Complaint.map((item, index) => (
-                            <li className='conhistory-data' key={index}>{item}</li>
-                        ))}
-                    </ul> */}
-                    <h6 className='conhistory-card__common-span'>Chief Complaint:</h6>
-                    <p className='conhistory-data'>{props.chief_complaint}</p>
-                    <h6 className='conhistory-card__common-span'>Present Illness:</h6>
-                    <p className='conhistory-data'>{props.present_illness}</p>
-                    <h6 className='conhistory-card__common-span'>Vital Signs:</h6>
-                    <p className='conhistory-data'>{props.vital_signs}</p>
-                    <h6 className='conhistory-card__common-span'>Physical Exam:</h6>
-                    <p className='conhistory-data'>{props.physical_exam}</p>
-                    <h6 className='conhistory-card__common-span'>Plan Assessment:</h6>
-                    <p className='conhistory-data'>{props.plan_assessment}</p>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-export default ConsulatationHistoryCard
+export default ConsulatationHistoryCard;

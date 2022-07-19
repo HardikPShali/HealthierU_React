@@ -194,7 +194,7 @@ const RescheduleAppointment = (props) => {
   const [likedOffset, setLikedOffset] = useState(0);
 
   let doctorIdForReschedule = sessionStorage.getItem('doctorId');
-  console.log({ doctorIdForReschedule });
+  // console.log({ doctorIdForReschedule });
 
   const loadUsers = async (patientId) => {
     if (!profilepID.activated) {
@@ -216,7 +216,7 @@ const RescheduleAppointment = (props) => {
         setUser(result.data.doctors);
         const selectedDoctorForReschedule = result.data.doctors.map((value) => {
           if (value.id == doctorIdForReschedule) {
-            console.log({ value: value });
+            // console.log({ value: value });
             setdoctor(value);
           }
         });
@@ -519,7 +519,7 @@ const RescheduleAppointment = (props) => {
     setSelectedSlotId('0');
     setAppointment({ ...appointment, appointmentMode: e.target.value });
     const user = doctor;
-    console.log({ user });
+    // console.log({ user });
     getAvailableSlotsOfDoctors(
       user.id,
       getAppointmentModeForAvailabilitySlotsDisplay(e.target.value)
@@ -531,7 +531,7 @@ const RescheduleAppointment = (props) => {
         const consultationSlots = createConsultationSlots(Availability);
         if (consultationSlots && consultationSlots.length > 0) {
           setAppointmentSlot(consultationSlots);
-          console.log({ consultationSlots });
+          // console.log({ consultationSlots });
           document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
           setDisplaySlot(true);
@@ -544,7 +544,7 @@ const RescheduleAppointment = (props) => {
         }
       } else if (e.target.value === 'Follow Up') {
         setAppointmentSlot(Availability);
-        console.log({ Availability });
+        // console.log({ Availability });
         document.querySelector('#calendar-list').scrollTo(0, 500);
         setDisplayCalendar(false);
         setDisplaySlot(true);
@@ -596,7 +596,7 @@ const RescheduleAppointment = (props) => {
     setSlotError('');
     setCurrentDate(slectedDate);
     const dataForSelectedDay = {
-      startTime: new Date(slectedDate.setHours(0, 0, 0)).toISOString(),
+      startTime: new Date().toISOString(),
       endTime: new Date(slectedDate.setHours(23, 59, 59)).toISOString(),
       status: 'AVAILABLE',
       doctorId: doctorId,
@@ -1210,7 +1210,7 @@ const RescheduleAppointment = (props) => {
           date.getFullYear() === enabledDate.getFullYear() &&
           date.getMonth() === enabledDate.getMonth() &&
           date.getDate() === enabledDate.getDate();
-        console.log({ date: date, enabledDate: enabledDate, ed: eD });
+        // console.log({ date: date, enabledDate: enabledDate, ed: eD });
         return eD;
       })
     );
@@ -1663,7 +1663,7 @@ const RescheduleAppointment = (props) => {
                           </p>
                           <ul
                             style={{
-                              fontSize: 12,
+                              fontSize: 14,
                               display: 'block',
                               textAlign: 'center',
                             }}
@@ -1677,9 +1677,9 @@ const RescheduleAppointment = (props) => {
                           </ul>
                           <p
                             style={{
-                              fontSize: 12,
+                              fontSize: 14,
                               textAlign: 'center',
-                              fontWeight: '600',
+                              fontWeight: '400',
                             }}
                           >
                             {doctor.experience} years of experience
@@ -1727,64 +1727,68 @@ const RescheduleAppointment = (props) => {
                     <div className="mr-4 ml-4">
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>
-                            Country Of Residence: <b>{doctor.countryName}</b>
+                          <span style={{ fontSize: 14 }}>
+                            <b>Country Of Residence</b>: {doctor.countryName}
                           </span>
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Education</span>
+                          <b><span style={{ fontSize: 14 }}>Education</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map(
-                                (x, index) => (
-                                  <li key={index}>
-                                    {x.educationalQualification}{' '}
-                                  </li>
-                                )
-                              )}
-                          </b>
+
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map(
+                              (x, index) => (
+                                <li key={index} className='list-font'>
+                                  {x.educationalQualification}{' '}
+                                </li>
+                              )
+                            )}
+
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Institution</span>
+                          <b><span style={{ fontSize: 14 }}>Institution</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map(
-                                (x, index) => (
-                                  <li key={index}>{x.institution} </li>
-                                )
-                              )}
-                          </b>
+
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map(
+                              (x, index) => (
+                                <li key={index} className='list-font'>{x.institution} </li>
+                              )
+                            )}
+
                         </div>
                       </div>
 
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Languange</span>
+                          <b><span style={{ fontSize: 14 }}>Languange</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.languages &&
-                              doctor.languages.map((lang, index) => (
-                                <li key={index}>{lang.name} </li>
-                              ))}
-                          </b>
+
+                          {doctor &&
+                            doctor.languages &&
+                            doctor.languages.map((lang, index) => (
+                              <li key={index} className='list-font'>{lang.name} </li>
+                            ))}
+
                         </div>
                       </div>
                     </div>
                     <hr />
                     {/* <h5>About</h5> */}
                     <div className="ml-4">
-                      <p style={{ fontSize: 12 }}>
-                        {/* <span><b>Bio : </b></span><br/> */}
-                        <span>{doctor.bio}</span>
+                      {
+                        doctor.bio && <b><p style={{ fontSize: 14, margin: "0 auto" }}>About</p></b>
+                      }
+                      <p style={{ fontSize: 14 }}>
+                        {
+                          doctor.bio && <span>{doctor.bio}</span>
+                        }
                         <br />
 
                         {doctor.awards && (
@@ -1880,7 +1884,7 @@ const RescheduleAppointment = (props) => {
                           </p>
                           <ul
                             style={{
-                              fontSize: 12,
+                              fontSize: 14,
                               display: 'block',
                               textAlign: 'center',
                             }}
@@ -1894,9 +1898,9 @@ const RescheduleAppointment = (props) => {
                           </ul>
                           <p
                             style={{
-                              fontSize: 12,
+                              fontSize: 14,
                               textAlign: 'center',
-                              fontWeight: '600',
+                              fontWeight: '400',
                             }}
                           >
                             {doctor.experience} years of experience
@@ -1940,62 +1944,67 @@ const RescheduleAppointment = (props) => {
                     <div className="mr-4 ml-4">
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>
-                            Country Of Residence: <b>{doctor.countryName}</b>
+                          <span style={{ fontSize: 14 }}>
+                            <b>Country Of Residence</b>: {doctor.countryName}
                           </span>
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Education</span>
+                          <b><span style={{ fontSize: 14 }}>Education</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map(
-                                (x, index) => (
-                                  <li key={index}>
-                                    {x.educationalQualification}{' '}
-                                  </li>
-                                )
-                              )}
-                          </b>
+
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map(
+                              (x, index) => (
+                                <li key={index} className='list-font'>
+                                  {x.educationalQualification}{' '}
+                                </li>
+                              )
+                            )}
+
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Institution</span>
+                          <b><span style={{ fontSize: 14 }}>Institution</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.educationalQualifications &&
-                              doctor.educationalQualifications.map(
-                                (x, index) => (
-                                  <li key={index}>{x.institution} </li>
-                                )
-                              )}
-                          </b>
+
+                          {doctor &&
+                            doctor.educationalQualifications &&
+                            doctor.educationalQualifications.map(
+                              (x, index) => (
+                                <li key={index} className='list-font'>{x.institution} </li>
+                              )
+                            )}
+
                         </div>
                       </div>
 
                       <div className="row">
                         <div className="col-12">
-                          <span style={{ fontSize: 12 }}>Languange</span>
+                          <b><span style={{ fontSize: 14 }}>Languange</span></b>
                           <br />
-                          <b>
-                            {doctor &&
-                              doctor.languages &&
-                              doctor.languages.map((lang, index) => (
-                                <li key={index}>{lang.name} </li>
-                              ))}
-                          </b>
+
+                          {doctor &&
+                            doctor.languages &&
+                            doctor.languages.map((lang, index) => (
+                              <li key={index} className='list-font'>{lang.name} </li>
+                            ))}
+
                         </div>
                       </div>
                     </div>
                     <hr />
                     <div className="ml-4">
-                      <p style={{ fontSize: 12 }}>
-                        <span>{doctor.bio}</span>
+                      {
+                        doctor.bio && <b><p style={{ fontSize: 14, margin: "0 auto" }}>About</p></b>
+                      }
+                      <p style={{ fontSize: 14 }}>
+                        {
+                          doctor.bio && <span>{doctor.bio}</span>
+                        }
                         <br />
 
                         {doctor.awards && (

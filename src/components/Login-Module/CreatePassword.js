@@ -36,7 +36,7 @@ const CreatePassword = () => {
 
   const email = searchParams.get("email");
 
-  console.log({ email })
+  // console.log({ email })
 
   //const [loading, setLoading] = useState(true);
 
@@ -152,7 +152,7 @@ const CreatePassword = () => {
       key: otpBox.join("")
     }
     const response = await getCreatePasswordOtpApi(data);
-    console.log({ response });
+    // console.log({ response });
 
 
     if (response.data.message === 'Otp mismatch') {

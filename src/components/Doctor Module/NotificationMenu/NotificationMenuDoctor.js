@@ -32,17 +32,17 @@ const NotificationMenuDoctor = (props) => {
             limit
         ).catch((err) => console.log({ err }));
 
-        console.log({ response });
+        // console.log({ response });
 
         if (response.status === 200) {
             const notifications = response.data.data.notifications;
-            console.log({ notifications });
+            // console.log({ notifications });
             setNotificationsData(notifications);
         }
     };
 
     const fcmToken = localStorage.getItem('fcmToken');
-    console.log({ fcmToken })
+    // console.log({ fcmToken })
 
     useEffect(() => {
         getPushNotifications();

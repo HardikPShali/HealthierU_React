@@ -75,7 +75,7 @@ const ForgetPassword = () => {
             }
         };
         axios(payload).then(response => {
-            console.log({ response });
+            // console.log({ response });
             if (response.data.message === 'your account block for some time' && response.data.status === false) {
                 setErrMsg('Your account is blocked. Please try again after some time.')
             }
@@ -86,7 +86,7 @@ const ForgetPassword = () => {
                 setErrMsg('Something went wrong. Please try again.')
             }
         }).catch(err => {
-            console.log({ err })
+            // console.log({ err })
             if (err.response.data.message === "Email address not registered" && err.response.data.status === false) {
                 setErrMsg("Email address not registered. Please provide a registered email address.");
             }

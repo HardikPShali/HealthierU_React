@@ -84,7 +84,7 @@ const DoctorRoute = () => {
       tokenToBeGenerated = await getFirebaseToken(setTokenFound);
       onMessageListener();
       if (tokenToBeGenerated) {
-        console.log({ tokenToBeGenerated });
+        // console.log({ tokenToBeGenerated });
       }
       return tokenToBeGenerated;
     };
