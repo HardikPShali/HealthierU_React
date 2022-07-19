@@ -266,7 +266,7 @@ const Signin = () => {
     //if (captchaVerify) {
     setLoader(true);
     const accountCheckResponse = await accountActivationCheckBeforeTokenGeneration(email).catch(err => console.log({ err }))
-    // console.log({ accountCheckResponse })
+    console.log({ accountCheckResponse })
 
     if (accountCheckResponse.data.status === true) {
       handleSigninHandler();
@@ -277,6 +277,13 @@ const Signin = () => {
     }
     else if (accountCheckResponse.data.data.profileComplete === true && accountCheckResponse.data.data.approved === false) {
       handleSigninHandler();
+    }
+    else if (accountCheckResponse.data.data.unrgistered === true) {
+      setLoader(false);
+      setUser({
+        ...user,
+        msg: "Invalid email and password combination. Please try again",
+      })
     }
     else {
       setLoader(false);
