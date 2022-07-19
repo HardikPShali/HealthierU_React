@@ -188,7 +188,7 @@ const PatientDocument = (props) => {
         const presecriptionDocument = await getGlobalMedicalRecordsSearch(page, size, data);
         if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
             setPresecriptionDocument(presecriptionDocument.data.data)
-            console.log("presecriptionDocument",presecriptionDocument.data.data);
+            console.log("presecriptionDocument", presecriptionDocument.data.data);
         }
         setLoading(false);
     };
@@ -909,7 +909,7 @@ const PatientDocument = (props) => {
                                         <span>
                                             Doctor Name:{" "}
                                             <b>
-                                                {doctor?.firstName + " " + doctor?.lastName}
+                                                {doctor?.firstName + " " + (doctor?.lastName || "")}
                                                 <input
                                                     hidden={true}
                                                     id="doctorId"
@@ -945,7 +945,7 @@ const PatientDocument = (props) => {
                                         <span>
                                             Patient Name:{" "}
                                             <b>
-                                                {patient?.firstName + " " + patient?.lastName}
+                                                {patient?.firstName + " " + (patient?.lastName || "")}
                                                 <input
                                                     hidden={true}
                                                     id="patientId"
