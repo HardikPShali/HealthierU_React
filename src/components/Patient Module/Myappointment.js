@@ -1251,7 +1251,10 @@ const Myappointment = (props) => {
                       {/* {console.log({ selectedAppointment })} */}
                       <Link
                         to={{
-                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode?.toLowerCase().replace(" ", "-")}/${selectedAppointment.unifiedAppointment}`,
+                          pathname: `/patient/reschedule-appointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode
+                            .toLowerCase()
+                            .replace(' ', '-')}/${selectedAppointment.unifiedAppointment
+                            }`,
                         }}
                       >
                         <div className='firefox-helper'>
