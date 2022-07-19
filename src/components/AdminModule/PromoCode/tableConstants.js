@@ -32,3 +32,18 @@ export const PROMOCODE_LISTING_TABLE_HEADERS = [
         key: "startTime",
     }
 ];
+
+export const PROMOCODE_USER_TABLE_HEADERS = [
+    {
+        label: "Sr. No.",
+        key: "id",
+    },
+    {
+        label: "Patient Name",
+        key: "patientName",
+    },
+    {
+        label: "Patient Id",
+        key: "patientId",
+    },
+]

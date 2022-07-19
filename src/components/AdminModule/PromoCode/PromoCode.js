@@ -1,13 +1,15 @@
 import React from 'react'
 import { Tab, Tabs } from 'react-bootstrap'
 import Navbar from '../layout/Navbar'
-import { LISTING_DATA } from './demodata'
+import { LISTING_DATA, USER_DATA } from './demodata'
 import './PromoCode.styles.css'
 import PromocodeListing from './PromocodeListing'
+import PromocodeUsers from './PromocodeUsers'
 
 const PromoCode = () => {
 
-    const promoCodeListingData = LISTING_DATA
+    const promoCodeListingData = LISTING_DATA;
+    const promocodeUsersData = USER_DATA;
 
     return (
         <div>
@@ -27,7 +29,7 @@ const PromoCode = () => {
                             </Tab>
 
                             <Tab eventKey="users" title="Manage Users">
-                                <h3>Manage Users</h3>
+                                <PromocodeUsers data={promocodeUsersData} />
                             </Tab>
                         </Tabs>
                     </div>
