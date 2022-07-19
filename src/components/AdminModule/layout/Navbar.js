@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 //import NavDropdown from 'react-bootstrap/NavDropdown';
 import '../admin.css';
 import profileicon from '../../../images/Icons/profile.svg';
@@ -43,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
-    backgroundColor: "#4F80E2",
-    minHeight: "unset !important"
+    backgroundColor: '#4F80E2',
+    minHeight: 'unset !important',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -55,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   title: {
-    color: "#fff !important",
-    textDecoration: "none !important"
+    color: '#fff !important',
+    textDecoration: 'none !important',
   },
   drawerPaper: {
     width: drawerWidth,
@@ -68,8 +68,8 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'space-between',
-    backgroundColor: "#4F80E2",
-    color: "#fff"
+    backgroundColor: '#4F80E2',
+    color: '#fff',
   },
   nested: {
     paddingLeft: theme.spacing(4),
@@ -96,40 +96,76 @@ const Navbar = (props) => {
     setAnchorEl(null);
   };
 
-  const style = { display: "block" }
+  const style = { display: 'block' };
 
-  const drawer = (<>
-    <div className={classes.drawerHeader}>
-      <img
-        src={logo}
-        id="icon"
-        alt="HealthierU Logo"
-        style={{ width: "70%", paddingLeft: "10px" }}
-      />
-    </div>
-    <Divider />
-    <List>
-      <Link to="/admin" style={{ textDecoration: "none" }}>
-        <ListItem button className={props.pageTitle === "home" ? "active" : props.pageTitle === "doctorList" ? "active" : props.pageTitle === "patientList" ? "active" : ""}>
-          <ListItemText primary={"User Management"} />
-          {props.pageTitle === "home" ? <ExpandLess /> : props.pageTitle === "doctorList" ? <ExpandLess /> : props.pageTitle === "patientList" ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-      </Link>
-      <Collapse in={props.pageTitle === "home" || props.pageTitle === "doctorList" || props.pageTitle === "patientList"} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <Link to="/admin/doctorlist" style={{ textDecoration: "none" }}>
-            <ListItem button className={props.pageTitle === "doctorList" ? "active" : ""} style={{ paddingLeft: "32px" }}>
-              <ListItemText primary={"Doctor List"} />
-            </ListItem>
-          </Link>
-          <Link to="/admin/patientlist" style={{ textDecoration: "none" }}>
-            <ListItem button className={props.pageTitle === "patientList" ? "active" : ""} style={{ paddingLeft: "32px" }}>
-              <ListItemText primary={"Patient List"} />
-            </ListItem>
-          </Link>
-        </List>
-      </Collapse>
-      {/* <Divider variant="middle" />
+  const drawer = (
+    <>
+      <div className={classes.drawerHeader}>
+        <img
+          src={logo}
+          id="icon"
+          alt="HealthierU Logo"
+          style={{ width: '70%', paddingLeft: '10px' }}
+        />
+      </div>
+      <Divider />
+      <List>
+        <Link to="/admin" style={{ textDecoration: 'none' }}>
+          <ListItem
+            button
+            className={
+              props.pageTitle === 'home'
+                ? 'active'
+                : props.pageTitle === 'doctorList'
+                  ? 'active'
+                  : props.pageTitle === 'patientList'
+                    ? 'active'
+                    : ''
+            }
+          >
+            <ListItemText primary={'User Management'} />
+            {props.pageTitle === 'home' ? (
+              <ExpandLess />
+            ) : props.pageTitle === 'doctorList' ? (
+              <ExpandLess />
+            ) : props.pageTitle === 'patientList' ? (
+              <ExpandLess />
+            ) : (
+              <ExpandMore />
+            )}
+          </ListItem>
+        </Link>
+        <Collapse
+          in={
+            props.pageTitle === 'home' ||
+            props.pageTitle === 'doctorList' ||
+            props.pageTitle === 'patientList'
+          }
+          timeout="auto"
+          unmountOnExit
+        >
+          <List component="div" disablePadding>
+            <Link to="/admin/doctorlist" style={{ textDecoration: 'none' }}>
+              <ListItem
+                button
+                className={props.pageTitle === 'doctorList' ? 'active' : ''}
+                style={{ paddingLeft: '32px' }}
+              >
+                <ListItemText primary={'Doctor List'} />
+              </ListItem>
+            </Link>
+            <Link to="/admin/patientlist" style={{ textDecoration: 'none' }}>
+              <ListItem
+                button
+                className={props.pageTitle === 'patientList' ? 'active' : ''}
+                style={{ paddingLeft: '32px' }}
+              >
+                <ListItemText primary={'Patient List'} />
+              </ListItem>
+            </Link>
+          </List>
+        </Collapse>
+        {/* <Divider variant="middle" />
       <Link to="/admin/shop/home" style={{ textDecoration: "none" }}>
         <ListItem button className={props.pageTitle === "shop" ? "active" : ""}>
           <ListItemText primary={"Shop Management"} />
@@ -147,44 +183,80 @@ const Navbar = (props) => {
           <ListItemText primary={"Workout Management"} />
         </ListItem>
       </Link> */}
-      <Divider variant="middle" />
-      <Link to="/admin/user-management/document" style={{ textDecoration: "none" }}>
-        <ListItem button className={props.pageTitle === "document" ? "active" : ""}>
-          <ListItemText primary={"Admin Document"} />
-        </ListItem>
-      </Link>
-      <Divider variant="middle" />
-      {/* <Link to="/admin/questionnaire/home" style={{ textDecoration: "none" }}>
+        <Divider variant="middle" />
+        <Link
+          to="/admin/user-management/document"
+          style={{ textDecoration: 'none' }}
+        >
+          <ListItem
+            button
+            className={props.pageTitle === 'document' ? 'active' : ''}
+          >
+            <ListItemText primary={'Admin Document'} />
+          </ListItem>
+        </Link>
+        <Divider variant="middle" />
+        {/* <Link to="/admin/questionnaire/home" style={{ textDecoration: "none" }}>
         <ListItem button className={props.pageTitle === "questionnaire" ? "active" : ""}>
           <ListItemText primary={"Questionnaire Management"} />
         </ListItem>
       </Link>
       <Divider variant="middle" /> */}
-      <Link to="/admin/serviceprovider/home" style={{ textDecoration: "none" }}>
-        <ListItem button className={props.pageTitle === "serviceprovider" || props.pageTitle === "category" ? "active" : ""}>
-          <ListItemText primary={"Service Provider Management"} />
-        </ListItem>
-      </Link>
-      <Collapse in={props.pageTitle === "serviceprovider" || props.pageTitle === "category"} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <Link to="/admin/serviceprovider/servicecategory" style={{ textDecoration: "none" }}>
-            <ListItem button className={props.pageTitle === "category" ? "active" : ""} style={{ paddingLeft: "32px" }}>
-              <ListItemText primary={"Service Category"} />
-            </ListItem>
-          </Link>
-        </List>
-      </Collapse>
-      <Divider variant="middle" />
-      <Link to="/admin/newsletter-emails" style={{ textDecoration: "none" }}>
-        <ListItem button className={props.pageTitle === "newsletter" ? "active" : ""}>
-          <ListItemText primary={"Newsletter Emails"} />
-        </ListItem>
-      </Link>
-      <Divider variant="middle" />
-    </List>
-  </>)
+        <Link
+          to="/admin/serviceprovider/home"
+          style={{ textDecoration: 'none' }}
+        >
+          <ListItem
+            button
+            className={
+              props.pageTitle === 'serviceprovider' ||
+                props.pageTitle === 'category'
+                ? 'active'
+                : ''
+            }
+          >
+            <ListItemText primary={'Service Provider Management'} />
+          </ListItem>
+        </Link>
+        <Collapse
+          in={
+            props.pageTitle === 'serviceprovider' ||
+            props.pageTitle === 'category'
+          }
+          timeout="auto"
+          unmountOnExit
+        >
+          <List component="div" disablePadding>
+            <Link
+              to="/admin/serviceprovider/servicecategory"
+              style={{ textDecoration: 'none' }}
+            >
+              <ListItem
+                button
+                className={props.pageTitle === 'category' ? 'active' : ''}
+                style={{ paddingLeft: '32px' }}
+              >
+                <ListItemText primary={'Service Category'} />
+              </ListItem>
+            </Link>
+          </List>
+        </Collapse>
+        <Divider variant="middle" />
+        <Link to="/admin/newsletter-emails" style={{ textDecoration: 'none' }}>
+          <ListItem
+            button
+            className={props.pageTitle === 'newsletter' ? 'active' : ''}
+          >
+            <ListItemText primary={'Newsletter Emails'} />
+          </ListItem>
+        </Link>
+        <Divider variant="middle" />
+      </List>
+    </>
+  );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     // <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -242,10 +314,7 @@ const Navbar = (props) => {
     // </nav>
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classes.appBar}
-      >
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -256,12 +325,32 @@ const Navbar = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <NavLink to="/admin" className={classes.title}><Typography variant="h6" noWrap>
-            Admin Dashboard
-          </Typography></NavLink>
-          <div className="ml-auto" style={{ display: "flex", alignItems: "center" }}>
-            <NavLink style={style} className="text-light mr-4 ml-2" exact to="/admin/search"><SearchIcon /></NavLink>
-            <NavLink to="#"><img alt='profile-icon' src={profileicon} onClick={handleClick} className="profile-icon" width="35" /></NavLink>
+          <NavLink to="/admin" className={classes.title}>
+            <Typography variant="h6" noWrap>
+              Admin Dashboard
+            </Typography>
+          </NavLink>
+          <div
+            className="ml-auto"
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <NavLink
+              style={style}
+              className="text-light mr-4 ml-2"
+              exact
+              to="/admin/search"
+            >
+              <SearchIcon />
+            </NavLink>
+            <NavLink to="#/">
+              <img
+                alt="profile-icon"
+                src={profileicon}
+                onClick={handleClick}
+                className="profile-icon"
+                width="35"
+              />
+            </NavLink>
             <Menu
               id="simple-menu"
               anchorEl={anchorEl}
@@ -279,8 +368,15 @@ const Navbar = (props) => {
             >
               {/* <Link to="/admin/user-management/users/add" style={{ textDecoration: "none" }}><MenuItem>Add User</MenuItem></Link> */}
               {/* <Link to="/admin/addservice-provider" style={{ textDecoration: "none" }}><MenuItem>Add Service Provider</MenuItem></Link> */}
-              <Link to="/admin/changepassword" style={{ textDecoration: "none" }}><MenuItem>Change Password</MenuItem></Link>
-              <Link to="/admin/logout" style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>
+              <Link
+                to="/admin/changepassword"
+                style={{ textDecoration: 'none' }}
+              >
+                <MenuItem>Change Password</MenuItem>
+              </Link>
+              <Link to="/admin/logout" style={{ textDecoration: 'none' }}>
+                <MenuItem>Logout</MenuItem>
+              </Link>
             </Menu>
           </div>
         </Toolbar>
@@ -318,7 +414,6 @@ const Navbar = (props) => {
       </nav>
     </div>
   );
-
 };
 
 export default Navbar;

@@ -27,11 +27,13 @@ const UpcomingAppointmentCard = ({ appointment }) => {
       <div className="col-md-3">
         {
           appointment.patient.picture ? (
-            <img
-              src={appointment.patient.picture}
-              alt={`${appointment.patient.firstName}-image`}
-              className="img-circle ml-3 mt-3"
-            />
+            <div className="safari-helper">
+              <img
+                src={appointment.patient.picture}
+                alt={`${appointment.patient.firstName}-image`}
+                className="img-circle ml-3 mt-3"
+              />
+            </div>
           ) : (
             <Avatar
               round={true}
