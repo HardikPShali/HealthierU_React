@@ -67,7 +67,7 @@ const Header = (props) => {
               <div className="dropdown headerNavbar">
                 <button
                   type="button"
-                  className="btn dropdown-toggle"
+                  className="btn dropdown-toggle font-helper"
                   data-toggle="dropdown"
                 >
                   My Portal

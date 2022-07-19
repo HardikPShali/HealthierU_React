@@ -440,13 +440,13 @@ const AdminDocument = (props) => {
               <table className="table table-responsive shadow panelDocument">
                 <thead>
                   <tr>
-                    <th width="150">Action</th>
-                    <th width="150">Name</th>
-                    <th width="150">Date</th>
-                    <th width="250">Description</th>
-                    <th width="150">Duration</th>
-                    <th width="150">Patient</th>
-                    <th width="150">Doctor</th>
+                    <th width="150"><b>Action</b></th>
+                    <th width="150"><b>Name</b></th>
+                    <th width="150"><b>Date</b></th>
+                    <th width="250"><b>Description</b></th>
+                    <th width="150"><b>Duration</b></th>
+                    <th width="150"><b>Patient</b></th>
+                    <th width="150"><b>Doctor</b></th>
                   </tr>
                 </thead>
                 <tbody>

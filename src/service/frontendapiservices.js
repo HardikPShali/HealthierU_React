@@ -95,6 +95,8 @@ export const rescheduleAppointmentDoctor = async (data) => {
   });
   return response;
 };
+
+
 export const rescheduleAppointmentPatient = async (data) => {
   var payload = {
     method: "post",
@@ -112,6 +114,8 @@ export const rescheduleAppointmentPatient = async (data) => {
   });
   return response;
 };
+
+
 export const getAvailableSlots = async (type) => {
   var payload = {
     method: "post",
@@ -1412,7 +1416,7 @@ export const callRejectApi = async (channelId) => {
   });
   return response;
 }
-export const deleteReccurSlot = async (recurId,doctorId) => {
+export const deleteReccurSlot = async (recurId, doctorId) => {
   var payload = {
     method: "delete",
     mode: "no-cors",

@@ -33,11 +33,14 @@ const UpcomingAppointmentCard = ({ appointment }) => {
         {/* <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" /> */}
         {
           appointment.doctor.picture ? (
-            <img
-              src={appointment.doctor.picture}
-              alt={`${appointment.doctor.firstName}-image`}
-              className="img-circle ml-3 mt-3"
-            />
+            <div className="safari-helper">
+              <img
+                src={appointment.doctor.picture}
+                alt={`${appointment.doctor.firstName}-image`}
+                className="img-circle ml-3 mt-3"
+              />
+            </div>
+
           ) : (
             <Avatar
               round={true}
