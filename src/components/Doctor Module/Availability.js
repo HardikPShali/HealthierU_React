@@ -265,6 +265,7 @@ const Availability = () => {
     if (res) {
       toast.success(`Slots Deleted`);
       loadRecurSlots()
+      history.go(0);
     }
   };
   return (
