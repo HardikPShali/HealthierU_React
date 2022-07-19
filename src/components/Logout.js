@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
 import Cookies from 'universal-cookie';
 import { deleteTokenHandler } from "../util";
-import Loader from './Loader/Loader'
+import Loader from './Loader/loaderLogout'
 
 const Logout = () => {
   const cookies = new Cookies();
-  const history = useHistory();
+  // const history = useHistory();
   useEffect(() => {
     cookies.remove("refresh_token", { path: '/' });
     cookies.remove("currentUser", { path: '/' });
@@ -19,13 +19,17 @@ const Logout = () => {
 
     deleteTokenHandler().then(() => {
       localStorage.clear();
-      history.push("/");
-      history.go(0);
+      // history.push("/");
+      // history.go(0);
+      window.location.href = "/";
     }).catch(err => {
       localStorage.clear();
-      history.push("/");
-      history.go(0);
+      // history.push("/");
+      // history.go(0);
+      window.location.href = "/";
     });
+
+
     //userProfileCompleted
     //setTimeout(()=>{window.location.reload()},500);
     //window.location.reload();
