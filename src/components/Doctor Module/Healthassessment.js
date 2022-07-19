@@ -294,7 +294,7 @@ const Healthassessment = (props) => {
             prepData.forEach((f) => {
                 res.push(...f.documentsList)
             })
-            setLenghtofData(presecriptionDocument.data.data.documentsList[0].documentsList.length)
+            //setLenghtofData(presecriptionDocument.data.data.documentsList[0].documentsList.length)
             setMedicalRecordData(presecriptionDocument.data.data)
         }
         // const response = await getPatientQuestionnaire(

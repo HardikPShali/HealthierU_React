@@ -176,7 +176,6 @@ const Signin = () => {
 
   const [otpDisplay, setOtpDisplay] = useState(false);
   const [currentUser, setCurrentUser] = useState();
-
   const getCurrentUserData = async () => {
     const currentUserInformation = await getCurrentUserInfo().catch((err) => {
       if (err.response.status === 500 || err.response.status === 504) {
@@ -194,7 +193,6 @@ const Signin = () => {
     // if (!currentUserInformation) {
     //   window.location.assign("/");
     // }
-
     cookies.set("currentUser", currentUserInformation.data.userInfo);
     currentUserInformation.data.role.firebasePwd =
       currentUserInformation.data.firebasePwd;
@@ -211,7 +209,7 @@ const Signin = () => {
     }
 
     if (authorities.some((user) => user === "ROLE_PATIENT")) {
-      history.push("/patient");
+      { currentUserInformation.data.userInfo.questionCompleted === true ? history.push("/patient") : history.push("/patient/questionnaire/new") }
       // history.go(0);
     }
     if (authorities.some((user) => user === "ROLE_DOCTOR")) {
@@ -266,7 +264,7 @@ const Signin = () => {
     //if (captchaVerify) {
     setLoader(true);
     const accountCheckResponse = await accountActivationCheckBeforeTokenGeneration(email).catch(err => console.log({ err }))
-    // console.log({ accountCheckResponse })
+    //console.log({ accountCheckResponse })
 
     if (accountCheckResponse.data.status === true) {
       handleSigninHandler();
@@ -277,6 +275,13 @@ const Signin = () => {
     }
     else if (accountCheckResponse.data.data.profileComplete === true && accountCheckResponse.data.data.approved === false) {
       handleSigninHandler();
+    }
+    else if (accountCheckResponse.data.data.unrgistered === true) {
+      setLoader(false);
+      setUser({
+        ...user,
+        msg: "Invalid email and password combination. Please try again",
+      })
     }
     else {
       setLoader(false);
