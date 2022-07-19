@@ -1,0 +1,28 @@
+.promocode-tabs {
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+  border-bottom: 0 !important;
+  height: 3.5em !important;
+  /* background-color: #fff !important; */
+  width: 100%;
+}
+
+.nav-tabs {
+  border-bottom: 0px !important;
+}
+.nav-tabs .nav-link {
+  border-radius: 20px;
+  width: 50%;
+  background-color: #e2e2e2 !important;
+  color: #017bff;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #017bff !important;
+  color: #ffffff;
+}
