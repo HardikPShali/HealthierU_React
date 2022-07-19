@@ -7,7 +7,7 @@ export const LISTING_DATA = [
         doctorName: 'Dr. John',
         appointmentType: 'consultation',
         appointmentDate: '10 July 2020',
-        endTime: '11:00 AM',
+        startTime: '11:00 AM',
     },
     {
         id: 2,
@@ -17,7 +17,7 @@ export const LISTING_DATA = [
         doctorName: 'Dr. John',
         appointmentType: 'consultation',
         appointmentDate: '10 July 2020',
-        endTime: '11:00 AM',
+        startTime: '11:00 AM',
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ export const LISTING_DATA = [
         doctorName: 'Dr. John',
         appointmentType: 'consultation',
         appointmentDate: '10 July 2020',
-        endTime: '11:00 AM',
+        startTime: '11:00 AM',
     },
     {
         id: 4,
@@ -37,7 +37,7 @@ export const LISTING_DATA = [
         doctorName: 'Dr. John',
         appointmentType: 'consultation',
         appointmentDate: '10 July 2020',
-        endTime: '11:00 AM',
+        startTime: '11:00 AM',
     },
 
 ]
