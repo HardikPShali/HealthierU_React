@@ -572,7 +572,7 @@ const Myappointment = (props) => {
                                             )
                                           }
                                         >
-                                          <div className="col-md-3">
+                                          <div className="col-md-3 safari-helper">
                                             {appointment.doctor.picture ? (
                                               <img
                                                 src={appointment.doctor.picture}
@@ -677,7 +677,7 @@ const Myappointment = (props) => {
                                         className="row align-items-start mb-2"
                                       // style={{ cursor: 'pointer' }}
                                       >
-                                        <div className="col-md-3">
+                                        <div className="col-md-3 safari-helper">
                                           {/* <img
                                             src={appointment.doctor.picture}
                                             alt={`${appointment.doctor.firstName}-image`}
@@ -780,7 +780,7 @@ const Myappointment = (props) => {
                                         className="row align-items-start mb-2"
                                       // style={{ cursor: 'pointer' }}
                                       >
-                                        <div className="col-md-3">
+                                        <div className="col-md-3 safari-helper">
                                           {/* <img
                                             src={appointment.doctor.picture}
                                             alt={`${appointment.doctor.firstName}-image`}
@@ -937,22 +937,28 @@ const Myappointment = (props) => {
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
                       {selectedAppointment.doctor.picture ? (
-                        <img
-                          src={selectedAppointment.doctor.picture}
-                          alt={`${selectedAppointment.doctor.firstName}-image`}
-                          className="img-circle mt-3"
-                        />
+                        <div className='safari-helper'>
+                          <img
+                            src={selectedAppointment.doctor.picture}
+                            alt={`${selectedAppointment.doctor.firstName}-image`}
+                            className="img-circle mt-3"
+                          />
+                        </div>
+
                       ) : (
-                        <Avatar
-                          round={true}
-                          name={
-                            selectedAppointment.doctor.firstName +
-                            ' ' +
-                            (selectedAppointment.doctor.lastName || '')
-                          }
-                          size={60}
-                          className="my-appointments__modal-avatar"
-                        />
+                        <div className='safari-helper'>
+                          <Avatar
+                            round={true}
+                            name={
+                              selectedAppointment.doctor.firstName +
+                              ' ' +
+                              (selectedAppointment.doctor.lastName || '')
+                            }
+                            size={60}
+                            className="my-appointments__modal-avatar"
+                          />
+                        </div>
+
                       )}
                       <h2 className="my-appointments__header-names">
                         {selectedAppointment.doctor.firstName}{' '}
@@ -982,7 +988,7 @@ const Myappointment = (props) => {
                             src={calendarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'DD/MM/YY'
                             )}
@@ -993,7 +999,7 @@ const Myappointment = (props) => {
                             src={timeBig}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'hh:mm A'
                             )}
@@ -1009,7 +1015,7 @@ const Myappointment = (props) => {
                             src={dollarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.appointmentFee ? (
                               selectedAppointment.appointmentFee
                             ) : (
@@ -1022,7 +1028,7 @@ const Myappointment = (props) => {
                             src={creditCardIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.paymentMethod ? (
                               selectedAppointment.paymentMethod
                             ) : (
@@ -1146,22 +1152,28 @@ const Myappointment = (props) => {
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
                       {selectedAppointment.doctor.picture ? (
-                        <img
-                          src={selectedAppointment.doctor.picture}
-                          alt={`${selectedAppointment.doctor.firstName}-image`}
-                          className="img-circle mt-3"
-                        />
+                        <div className='safari-helper'>
+                          <img
+                            src={selectedAppointment.doctor.picture}
+                            alt={`${selectedAppointment.doctor.firstName}-image`}
+                            className="img-circle mt-3"
+                          />
+                        </div>
+
                       ) : (
-                        <Avatar
-                          round={true}
-                          name={
-                            selectedAppointment.doctor.firstName +
-                            ' ' +
-                            (selectedAppointment.doctor.lastName || '')
-                          }
-                          size={60}
-                          className="my-appointments__modal-avatar"
-                        />
+                        <div className='safari-helper'>
+                          <Avatar
+                            round={true}
+                            name={
+                              selectedAppointment.doctor.firstName +
+                              ' ' +
+                              (selectedAppointment.doctor.lastName || '')
+                            }
+                            size={60}
+                            className="my-appointments__modal-avatar"
+                          />
+                        </div>
+
                         // <img
                         //   src={defaultDoctorImage}
                         //   alt={`${selectedAppointment.doctor.firstName}-image`}
@@ -1196,7 +1208,7 @@ const Myappointment = (props) => {
                             src={calendarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'DD/MM/YY'
                             )}
@@ -1207,7 +1219,7 @@ const Myappointment = (props) => {
                             src={timeBig}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'hh:mm A'
                             )}
@@ -1223,7 +1235,7 @@ const Myappointment = (props) => {
                             src={dollarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.appointmentFee ? (
                               selectedAppointment.appointmentFee
                             ) : (
@@ -1236,7 +1248,7 @@ const Myappointment = (props) => {
                             src={creditCardIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.paymentMethod ? (
                               selectedAppointment.paymentMethod
                             ) : (
@@ -1251,7 +1263,10 @@ const Myappointment = (props) => {
                       {/* {console.log({ selectedAppointment })} */}
                       <Link
                         to={{
-                          pathname: `/patient/rescheduleappointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode?.toLowerCase().replace(" ", "-")}/${selectedAppointment.unifiedAppointment}`,
+                          pathname: `/patient/reschedule-appointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode
+                            .toLowerCase()
+                            .replace(' ', '-')}/${selectedAppointment.unifiedAppointment
+                            }`,
                         }}
                       >
                         <div className='firefox-helper'>
@@ -1387,22 +1402,28 @@ const Myappointment = (props) => {
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
                       {selectedAppointment.doctor.picture ? (
-                        <img
-                          src={selectedAppointment.doctor.picture}
-                          alt={`${selectedAppointment.doctor.firstName}-image`}
-                          className="img-circle mt-3"
-                        />
+                        <div className='safari-helper'>
+                          <img
+                            src={selectedAppointment.doctor.picture}
+                            alt={`${selectedAppointment.doctor.firstName}-image`}
+                            className="img-circle mt-3"
+                          />
+                        </div>
+
                       ) : (
-                        <Avatar
-                          round={true}
-                          name={
-                            selectedAppointment.doctor.firstName +
-                            ' ' +
-                            (selectedAppointment.doctor.lastName || '')
-                          }
-                          size={60}
-                          className="my-appointments__modal-avatar"
-                        />
+                        <div className='safari-helper'>
+                          <Avatar
+                            round={true}
+                            name={
+                              selectedAppointment.doctor.firstName +
+                              ' ' +
+                              (selectedAppointment.doctor.lastName || '')
+                            }
+                            size={60}
+                            className="my-appointments__modal-avatar"
+                          />
+                        </div>
+
                       )}
                       <h2 className="my-appointments__header-names">
                         {selectedAppointment.doctor.firstName}{' '}
@@ -1432,7 +1453,7 @@ const Myappointment = (props) => {
                             src={calendarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'DD/MM/YY'
                             )}
@@ -1443,7 +1464,7 @@ const Myappointment = (props) => {
                             src={timeBig}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {moment(selectedAppointment.startTime).format(
                               'hh:mm A'
                             )}
@@ -1459,7 +1480,7 @@ const Myappointment = (props) => {
                             src={dollarIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.appointmentFee ? (
                               selectedAppointment.appointmentFee
                             ) : (
@@ -1472,7 +1493,7 @@ const Myappointment = (props) => {
                             src={creditCardIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="my-patient-card__common-span">
+                          <span className="my-patient__common-span">
                             {selectedAppointment.paymentMethod ? (
                               selectedAppointment.paymentMethod
                             ) : (

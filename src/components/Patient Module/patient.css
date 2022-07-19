@@ -214,7 +214,7 @@ img#store-icon {
 a#copy-link {
   color: white;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 12px !important;
   margin: 0 20px 0 0;
 }
 a#copy-link:hover {
@@ -230,7 +230,7 @@ div#copyright {
 
 p#copyright-text {
   margin: 15px 0 0;
-  font-size: 12px;
+  font-size: 12px !important;
   color: white;
 }
 
@@ -4491,6 +4491,25 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   -webkit-margin-bottom: 5%;
 }
 
-.list-font{
+.list-font {
   font-size: 14px;
+}
+
+.font-helper {
+  font-size: 16px !important;
+}
+
+.my-patient__common-span {
+  font-size: 14px;
+  text-decoration: none;
+  text-shadow: none;
+  color: #000;
+  margin-left: 5px;
+}
+
+.safari-helper {
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
 }
