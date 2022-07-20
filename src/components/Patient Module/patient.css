@@ -4534,3 +4534,11 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   -moz-border-radius: 50%;
   border-radius: 50%;
 }
+
+.grid-image-mydoctor {
+  /* top: 10% !important; */
+  width: 100%;
+  position: relative;
+  transform: translateY(-50%);
+  height: 100%;
+}
