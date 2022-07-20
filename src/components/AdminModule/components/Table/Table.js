@@ -7,7 +7,8 @@ import "./Table.css";
 import PropTypes from 'prop-types';
 
 const Table = (props) => {
-  const { headers, data, isLoading, editLink, handleDelete, id } = props;
+  const { headers, data, isLoading, editLink, handleDelete, id, handleToggle } = props;
+
   return (
     <table className="table shadow">
       <thead className="thead-dark">
@@ -67,7 +68,25 @@ const Table = (props) => {
                       </div>
                     </td>
                   );
-                } else {
+                }
+                else if (header.key === 'toggle') {
+                  return (
+                    <td key="toggle">
+                      <div className="selected-users-toggle">
+                        <label className="toggle-switch">
+                          <input
+                            // checked={datas.active}
+                            id="toggleSlots"
+                            type="checkbox"
+                          // onChange={(e) => handleToggle(e)}
+                          />
+                          <span className="toggle-slider round"></span>
+                        </label>
+                      </div>
+                    </td>
+                  );
+                }
+                else {
                   return <td key="category">{datas[header.key]}</td>;
                 }
               })}

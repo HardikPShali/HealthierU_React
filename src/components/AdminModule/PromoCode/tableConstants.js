@@ -46,4 +46,8 @@ export const PROMOCODE_USER_TABLE_HEADERS = [
         label: "Patient Id",
         key: "patientId",
     },
+    {
+        label: "Toggle",
+        key: "toggle",
+    }
 ]
