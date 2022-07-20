@@ -270,7 +270,7 @@ const Availability = () => {
       toast.success("All available slots removed!");
       setOpenReschedule(false);
       loadRecurSlots()
-      //history.go(0);
+      history.go(0);
     }
   };
   const handleRescheduleClosePopup = () => {
@@ -300,7 +300,7 @@ const Availability = () => {
         toast.success(`Slots Deleted`);
       }
       loadRecurSlots()
-      //history.go(0);
+      history.go(0);
     }
   };
   const handleReschedule = async () => {
