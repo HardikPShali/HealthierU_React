@@ -172,7 +172,7 @@ const Availability = () => {
         loadRecurSlots();
         setTimeout(() => {
           history.go(0);
-        }, 5000);
+        }, 3000);
       }
 
       if (res.data.status === false) {
@@ -275,9 +275,14 @@ const Availability = () => {
       }
     );
     if (res) {
-      toast.success(`Slots Deleted`);
+      if (res.data.data.toggleMessage) {
+        setOpenReschedule(true)
+      }
+      else {
+        toast.success(`Slots Deleted`);
+      }
       loadRecurSlots()
-      history.go(0);
+      //history.go(0);
     }
   };
   return (

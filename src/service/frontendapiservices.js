@@ -1420,7 +1420,7 @@ export const deleteReccurSlot = async (recurId, doctorId) => {
   var payload = {
     method: "delete",
     mode: "no-cors",
-    url: `/api/v2/deleteBy?recurId=${recurId}&doctorId=${doctorId}`,
+    url: `/api/v2/recurSlot/deleteBy?recurId=${recurId}&doctorId=${doctorId}`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
