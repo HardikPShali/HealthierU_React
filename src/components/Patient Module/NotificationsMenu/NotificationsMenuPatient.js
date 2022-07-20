@@ -12,8 +12,6 @@ const NotificationMenuPatient = () => {
 
     const [notificationsData, setNotificationsData] = useState([]);
 
-    // console.log({ tokenFound });
-
     const cookies = new Cookies();
 
     const getPushNotifications = async () => {
@@ -33,6 +31,11 @@ const NotificationMenuPatient = () => {
 
     useEffect(() => {
         getPushNotifications();
+        const interval = setInterval(() => {
+            getPushNotifications();
+        }, 30000)
+
+        return () => clearInterval(interval);
     }, []);
 
     return (
