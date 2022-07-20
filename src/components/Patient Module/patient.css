@@ -4482,6 +4482,20 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   left: 1300px !important;
 }
 
+@media screen and (max-width: 425px) {
+  .profile-menu > .MuiMenu-paper {
+    top: 75% !important;
+    left: 7% !important;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .profile-menu > .MuiMenu-paper {
+    top: 75% !important;
+    left: 7% !important;
+  }
+}
+
 .rbc-time-header-content {
   margin-right: -1px;
 }
