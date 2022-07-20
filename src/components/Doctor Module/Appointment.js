@@ -272,9 +272,8 @@ const Myappointment = (props) => {
         }
       );
       if (resTomorrow && resTomorrow.data.data.appointmentsBetweenGivenDates) {
-        console.log("resTomorrow", resTomorrow);
         const tomoArray = [];
-        resTomorrow.data.data.appointmentsBetweenGivenDates.reverse();
+        //resTomorrow.data.data.appointmentsBetweenGivenDates.reverse();
         resTomorrow.data.data.appointmentsBetweenGivenDates.map((value, index) => {
           if (
             value.status === "ACCEPTED"
@@ -322,7 +321,7 @@ const Myappointment = (props) => {
         );
       if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
         const todayArray = [];
-        resToday.data.data.appointmentsBetweenGivenDates.reverse();
+        //resToday.data.data.appointmentsBetweenGivenDates.reverse();
         resToday.data.data.appointmentsBetweenGivenDates.map((value, index) => {
           if (
             value.status === "ACCEPTED"
@@ -369,7 +368,7 @@ const Myappointment = (props) => {
         });
       if (resupcoming && resupcoming.data.data.appointmentsBetweenGivenDates) {
         const upcomingArray = [];
-        resupcoming.data.data.appointmentsBetweenGivenDates.reverse();
+        // resupcoming.data.data.appointmentsBetweenGivenDates.reverse();
         resupcoming.data.data.appointmentsBetweenGivenDates.map((value, index) => {
           if (
             value.status === "ACCEPTED"
@@ -516,7 +515,7 @@ const Myappointment = (props) => {
       //setLoading(false);
       //const updateArray = [];
       const todayArray = [];
-      resToday.data.data.appointmentsBetweenGivenDates.reverse();
+      //resToday.data.data.appointmentsBetweenGivenDates.reverse();
       //console.log("res.data : ", res.data);
       resToday.data.data.appointmentsBetweenGivenDates.map((value, index) => {
         if (

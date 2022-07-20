@@ -6,7 +6,7 @@ import AcceptedAppointmentsNotification from './NotificationTypes/AcceptedAppoin
 import CancelledByDoctorNotifications from './NotificationTypes/CancelledByDoctorNotifications';
 import NextAppointmentNotifications from './NotificationTypes/NextAppointmentNotifications';
 import RescheduleNotification from './NotificationTypes/RescheduleNotification';
-// import StringNotifications from './NotificationTypes/StringNotifications';
+ import StringNotifications from './NotificationTypes/StringNotifications';
 
 const NotificationMenuPatient = () => {
 
@@ -44,6 +44,7 @@ const NotificationMenuPatient = () => {
             <div className="d-flex flex-column">
                 {notificationsData.length > 0 ? (
                     <div>
+                        {console.log("notificationsData", notificationsData)}
                         {notificationsData.map((notification, index) => {
                             if (notification.type === 'APPT_RESCHEDULE_BY_DOCTOR' && notification.data.appointmentDetails) {
                                 return (
@@ -56,17 +57,27 @@ const NotificationMenuPatient = () => {
                                 );
                             }
 
-                            // if (notification.type === 'STRING') {
-                            //     return (
-                            //         <div key={index}>
-                            //             <StringNotifications
-                            //                 notification={notification}
-                            //                 index={index}
-                            //             />
-                            //         </div>
-                            //     );
-                            // }
+                            if (notification.type === 'STRING') {
+                                return (
+                                    <div key={index}>
+                                        <StringNotifications
+                                            notification={notification}
+                                            index={index}
+                                        />
+                                    </div>
+                                );
+                            }
                             if (notification.type === 'APPT_CANCELLED_BY_DOCTOR') {
+                                return (
+                                    <div key={index}>
+                                        <CancelledByDoctorNotifications
+                                            notification={notification}
+                                            index={index}
+                                        />
+                                    </div>
+                                );
+                            }
+                            if (notification.type === 'APPT_CANCELLED_BY_DOCTOR_TOGGLE') {
                                 return (
                                     <div key={index}>
                                         <CancelledByDoctorNotifications

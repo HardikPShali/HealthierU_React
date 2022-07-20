@@ -1,11 +1,13 @@
 import React from 'react'
 import './Questions.css'
+import Cookies from 'universal-cookie'
 import {
     getHealthAssessmentPdf
 } from '../../../service/frontendapiservices'
 import { useParams } from 'react-router';
 const Questions = ({ answers }) => {
     const { id } = useParams();
+    const cookies = new Cookies()
     const showReport = async () => {
         const url = await getHealthAssessmentPdf(id)
         const link = document.createElement("a");
@@ -35,17 +37,25 @@ const Questions = ({ answers }) => {
                                     ))
                                 ) : (
 
-                                    <div
-                                        className="col-12 ml-2"
-                                        style={{ textShadow: 'none', color: '#3e4543' }}
-                                    >
-                                        Loading...
-                                    </div>
-
+                                    cookies.get('currentUser').questionCompleted === false ? (
+                                        <div
+                                            className="col-12 ml-2"
+                                            style={{ textShadow: 'none', color: '#3e4543' }}
+                                        >
+                                            No Data Found
+                                        </div>
+                                    )
+                                        : <div
+                                            className="col-12 ml-2"
+                                            style={{ textShadow: 'none', color: '#3e4543' }}
+                                        >
+                                            Loading...
+                                        </div>
                                 )
                             }
+
                             {
-                                answers === null && (
+                                cookies.get('currentUser').questionCompleted === false && (
                                     <div>
                                         <h6 className='Questions-card__question-title'>No Data Found</h6>
                                     </div>

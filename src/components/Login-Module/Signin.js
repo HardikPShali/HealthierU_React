@@ -209,7 +209,7 @@ const Signin = () => {
     }
 
     if (authorities.some((user) => user === "ROLE_PATIENT")) {
-      { currentUserInformation.data.userInfo.questionCompleted === true ? history.push("/patient") : history.push("/patient/questionnaire/new") }
+      history.push("/patient")
       // history.go(0);
     }
     if (authorities.some((user) => user === "ROLE_DOCTOR")) {
@@ -264,8 +264,6 @@ const Signin = () => {
     //if (captchaVerify) {
     setLoader(true);
     const accountCheckResponse = await accountActivationCheckBeforeTokenGeneration(email).catch(err => console.log({ err }))
-    //console.log({ accountCheckResponse })
-
     if (accountCheckResponse.data.status === true) {
       handleSigninHandler();
     }
