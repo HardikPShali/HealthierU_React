@@ -4482,17 +4482,24 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   left: 1300px !important;
 }
 
-@media screen and (max-width: 425px) {
+@media (max-width: 1180px) {
+  .profile-menu > .MuiMenu-paper {
+    top: 10% !important;
+    left: 83% !important;
+  }
+}
+
+/* @media screen and (max-width: 480px) {
   .profile-menu > .MuiMenu-paper {
     top: 75% !important;
     left: 7% !important;
   }
-}
+} */
 
 @media screen and (max-width: 990px) {
   .profile-menu > .MuiMenu-paper {
-    top: 75% !important;
-    left: 7% !important;
+    top: 25% !important;
+    left: 10% !important;
   }
 }
 
