@@ -172,7 +172,7 @@ const Availability = () => {
         loadRecurSlots();
         setTimeout(() => {
           history.go(0);
-        }, 5000);
+        }, 3000);
       }
 
       if (res.data.status === false) {
@@ -245,6 +245,9 @@ const Availability = () => {
   //Delete Slot
   const [openRecurDelete, setOpenRecurDelete] = useState(false);
   const [selectedRecurSlot, setSelectedRecurSlot] = useState();
+
+  const [openReschedule, setOpenReschedule] = useState(false);
+
   const handleRecurDeleteOpen = (eachTimes) => {
     setSelectedRecurSlot(eachTimes);
     setOpenRecurDelete(true);
@@ -252,6 +255,15 @@ const Availability = () => {
   const handleRecurDeleteClose = () => {
     setOpenRecurDelete(false);
   };
+
+  const handleRescheduleOpen = (eachTimes) => {
+    setSelectedRecurSlot(eachTimes);
+    setOpenReschedule(true);
+  };
+  const handleRescheduleClose = () => {
+    setOpenReschedule(false);
+  };
+
   const handleDeleteReccurSlot = async (eachTimes) => {
     handleRecurDeleteClose();
     const docId = cookies.get('profileDetails');
@@ -263,8 +275,14 @@ const Availability = () => {
       }
     );
     if (res) {
-      toast.success(`Slots Deleted`);
+      if (res.data.data.toggleMessage) {
+        setOpenReschedule(true)
+      }
+      else {
+        toast.success(`Slots Deleted`);
+      }
       loadRecurSlots()
+      //history.go(0);
     }
   };
   return (
@@ -430,6 +448,36 @@ const Availability = () => {
           <button
             autoFocus
             onClick={handleRecurDeleteClose}
+            className="btn btn-secondary"
+            id="close-btn"
+          >
+            Close
+          </button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        onClose={handleRescheduleClose}
+        aria-labelledby="customized-dialog-title"
+        open={openReschedule}
+      >
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={handleRescheduleClose}
+        >
+          There is already an appointment booked. Reschedule this appointment ?
+        </DialogTitle>
+        <DialogActions>
+          <button
+            autoFocus
+            //onClick={() => handleReschedule()}
+            className="btn btn-primary"
+            id="close-btn"
+          >
+            Reschedule
+          </button>
+          <button
+            autoFocus
+            onClick={handleRescheduleClose}
             className="btn btn-secondary"
             id="close-btn"
           >
