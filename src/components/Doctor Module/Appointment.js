@@ -29,7 +29,8 @@ import {
   deleteBookedAppointment,
   getDoctorAppointment,
   getPaymentInfoForDoctor,
-  getGlobalAppointmentsSearch
+  getGlobalAppointmentsSearch,
+  getAppointmentsForHomepage
   // getDoctorByUserId
 } from "../../service/frontendapiservices";
 import momentTz from "moment-timezone";
@@ -238,7 +239,7 @@ const Myappointment = (props) => {
     }
   };
   const [upcomingAppointment, setUpcomingAppointment] = useState([])
-  const clickTabEvent = async (event) => {
+  const clickTabEvent = async (event, startTime, endTime, doctorId) => {
     const today = new Date();
     const docId = cookies.get("profileDetails");
     // to return the date number(1-31) for the specified date
@@ -262,7 +263,7 @@ const Myappointment = (props) => {
         doctorId: docId.id,
         status: "ACCEPTED",
       };
-      const resTomorrow = await getDoctorAppointment(TomorrowData).catch(
+      const resTomorrow = await getAppointmentsForHomepage(startTime = new Date(tomorrow).toISOString(), endTime = new Date(tomoEndTime).toISOString(), doctorId = docId.id).catch(
         (err) => {
           if (err.response.status === 500 || err.response.status === 504) {
             setLoading(false);
@@ -270,10 +271,11 @@ const Myappointment = (props) => {
           }
         }
       );
-      if (resTomorrow && resTomorrow.data) {
+      if (resTomorrow && resTomorrow.data.data.appointmentsBetweenGivenDates) {
+        console.log("resTomorrow", resTomorrow);
         const tomoArray = [];
-        resTomorrow.data.reverse();
-        resTomorrow.data.map((value, index) => {
+        resTomorrow.data.data.appointmentsBetweenGivenDates.reverse();
+        resTomorrow.data.data.appointmentsBetweenGivenDates.map((value, index) => {
           if (
             value.status === "ACCEPTED"
           ) {
@@ -308,18 +310,20 @@ const Myappointment = (props) => {
         doctorId: docId.id,
         status: "ACCEPTED",
       };
-      const resToday = await getDoctorAppointment(TodayData).catch(
-        (err) => {
-          if (err.response.status === 500 || err.response.status === 504) {
-            setLoading(false);
-            setTransparentLoading(false);
+      const resToday = await getAppointmentsForHomepage(startTime = new Date(starttime).toISOString(),
+        endTime = new Date(endtime).toISOString(),
+        doctorId = docId.id).catch(
+          (err) => {
+            if (err.response.status === 500 || err.response.status === 504) {
+              setLoading(false);
+              setTransparentLoading(false);
+            }
           }
-        }
-      );
-      if (resToday && resToday.data) {
+        );
+      if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
         const todayArray = [];
-        resToday.data.reverse();
-        resToday.data.map((value, index) => {
+        resToday.data.data.appointmentsBetweenGivenDates.reverse();
+        resToday.data.data.appointmentsBetweenGivenDates.map((value, index) => {
           if (
             value.status === "ACCEPTED"
           ) {
@@ -357,15 +361,16 @@ const Myappointment = (props) => {
         doctorId: docId.id,
         status: "ACCEPTED",
       };
-      const resupcoming = await getDoctorAppointment(data).catch((err) => {
-        if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
-          setLoading(false);
-        }
-      });
-      if (resupcoming && resupcoming.data) {
+      const resupcoming = await getAppointmentsForHomepage(startTime = new Date(starttime).toISOString(), endTime = new Date(newEndDate).toISOString(),
+        doctorId = docId.id).catch((err) => {
+          if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
+            setLoading(false);
+          }
+        });
+      if (resupcoming && resupcoming.data.data.appointmentsBetweenGivenDates) {
         const upcomingArray = [];
-        resupcoming.data.reverse();
-        resupcoming.data.map((value, index) => {
+        resupcoming.data.data.appointmentsBetweenGivenDates.reverse();
+        resupcoming.data.data.appointmentsBetweenGivenDates.map((value, index) => {
           if (
             value.status === "ACCEPTED"
           ) {
@@ -403,7 +408,7 @@ const Myappointment = (props) => {
   }, [tomorrowAppointment]);
   const newStartDate = new Date().setDate(new Date().getDate() - 30);
   const newEndDate = new Date().setDate(new Date().getDate() + 25);
-  const loadAppointment = async () => {
+  const loadAppointment = async (startTime, endTime, doctorId) => {
     const docId = cookies.get("profileDetails");
 
     //setLoading(true);
@@ -441,12 +446,14 @@ const Myappointment = (props) => {
         setTransparentLoading(false);
       }
     });
-    const resToday = await getDoctorAppointment(TodayData).catch((err) => {
-      if (err.response.status === 500 || err.response.status === 504) {
-        setLoading(false);
-        setTransparentLoading(false);
-      }
-    });
+    const resToday = await getAppointmentsForHomepage(startTime = new Date(starttime).toISOString(),
+      endTime = new Date(endtime).toISOString(),
+      doctorId = docId.id).catch((err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          setLoading(false);
+          setTransparentLoading(false);
+        }
+      });
     if (res && res.data) {
       //setLoading(false);
       const updateArray = [];
@@ -505,13 +512,13 @@ const Myappointment = (props) => {
         setIsTourOpen(true);
       }
     }
-    if (resToday && resToday.data) {
+    if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
       //setLoading(false);
       //const updateArray = [];
       const todayArray = [];
-      resToday.data.reverse();
+      resToday.data.data.appointmentsBetweenGivenDates.reverse();
       //console.log("res.data : ", res.data);
-      resToday.data.map((value, index) => {
+      resToday.data.data.appointmentsBetweenGivenDates.map((value, index) => {
         if (
           value.status === "ACCEPTED"
         ) {
@@ -1499,7 +1506,7 @@ const Myappointment = (props) => {
                           state: selectedAppointment?.patient,
                         }}
                       >
-                        <div className="firefox-helper" style={{ display: "flex", alignItem: "center"}}>
+                        <div className="firefox-helper" style={{ display: "flex", alignItem: "center" }}>
                           <div style={{ width: "100%" }}>
                             <img
                               width="40"
