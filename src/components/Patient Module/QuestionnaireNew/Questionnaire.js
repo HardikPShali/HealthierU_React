@@ -13,6 +13,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import TransparentLoader from '../../Loader/transparentloader';
 import { ScoreSharp } from "@material-ui/icons";
 
 const Questionnaire = ({ match }) => {
@@ -22,8 +23,6 @@ const Questionnaire = ({ match }) => {
   const [continueClick, setContinueClick] = useState(false);
   const [totalscore, settotalScore] = useState(0);
   const [healthAssess, setHealthAssess] = useState("");
-
-  // const [loading, setLoading] = useState(true);
 
   const cookies = new Cookies();
 
@@ -167,8 +166,8 @@ const Questionnaire = ({ match }) => {
     console.log(questions);
     if (questions.length > 0) {
       handleAssessmentSubmit();
-
       setContinueClick(true);
+
       // healthBehaviorOnScore(totalscore);
 
       // history.push('/patient');

@@ -11,16 +11,10 @@
   {
     "questionId": 2,
     "questionTitle": "Do you eat healthy?",
-    "choices": [
-      "Never",
-      "Once a week",
-      "2-3 days per week",
-      "4-5 days per week",
-      "6-7 days per week"
-    ],
+    "choices": ["Never", "Occasionnally", "Regularly"],
     "type": "radio",
     "answers": "",
-    "mapScore": [0, 0, 1, 1, 2],
+    "mapScore": [0, 1, 1],
     "score": 0
   },
   {
@@ -96,10 +90,10 @@
   {
     "questionId": 7,
     "questionTitle": "Do you smoke?",
-    "choices": ["No", "Occasionally", "Regularly"],
+    "choices": ["No", "Occasionally", "Regularly", "Ex-Smoker"],
     "type": "radio",
     "answers": "",
-    "mapScore": [2, 0, 0],
+    "mapScore": [2, 0, 0, 1],
     "score": 0
   },
   {
