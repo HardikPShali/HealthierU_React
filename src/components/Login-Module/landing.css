@@ -678,10 +678,19 @@ button img {
 
 #signupform-bg {
   background-image: url(../../images/signupform.png);
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
+  /* background-position: center; */
+  background-repeat: no-repeat;
   max-width: 100%;
   padding: 10% 9%;
+  height: 232vh;
+}
+
+@media screen and (max-width: 1024px) {
+  #signupform-bg {
+    background-position: center;
+    background-size: cover;
+  }
 }
 
 #signupform-bg .sign-box {

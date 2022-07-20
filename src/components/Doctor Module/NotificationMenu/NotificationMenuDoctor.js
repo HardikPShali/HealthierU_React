@@ -47,6 +47,11 @@ const NotificationMenuDoctor = (props) => {
     useEffect(() => {
         getPushNotifications();
 
+        const interval = setInterval(() => {
+            getPushNotifications();
+        }, 30000)
+
+        return () => clearInterval(interval);
     }, []);
 
     // messageHandle();
