@@ -270,7 +270,9 @@ const Availability = () => {
       toast.success("All available slots removed!");
       setOpenReschedule(false);
       loadRecurSlots()
-      history.go(0);
+      setTimeout(() => {
+        history.go(0);
+      }, 2000);
     }
   };
   const handleRescheduleClosePopup = () => {
@@ -298,9 +300,11 @@ const Availability = () => {
       }
       else {
         toast.success(`Slots Deleted`);
+        loadRecurSlots()
+        setTimeout(() => {
+          history.go(0);
+        }, 2000);
       }
-      loadRecurSlots()
-      history.go(0);
     }
   };
   const handleReschedule = async () => {
@@ -321,7 +325,9 @@ const Availability = () => {
     if (res) {
       toast.success("Apppointments cancelled and slots removed!");
       loadRecurSlots()
-      //history.go(0);
+      setTimeout(() => {
+        history.go(0);
+      }, 2000);
     }
   }
   return (
