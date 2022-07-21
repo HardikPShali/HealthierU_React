@@ -275,17 +275,21 @@ const Welcome = ({ currentuserInfo }) => {
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-
-            const currentUserInformation = await getUpdatedUserData();
-            cookies.set("currentUser", currentUserInformation.data);
-            cookies.remove("userProfileCompleted");
-            setCurrentUserDataAfterApproval(currentUserInformation.data);
-            if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
-                setTransparentLoading(false);
-                handleClickOpen();
-            } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
-                // triggerFcmTokenHandler();
-                history.push('/doctor');
+            if (documentInfo && documentUpdateFile) {
+                const currentUserInformation = await getUpdatedUserData();
+                cookies.set("currentUser", currentUserInformation.data);
+                cookies.remove("userProfileCompleted");
+                setCurrentUserDataAfterApproval(currentUserInformation.data);
+                if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
+                    setTransparentLoading(false);
+                    handleClickOpen();
+                } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
+                    // triggerFcmTokenHandler();
+                    history.push('/doctor');
+                }
+            }
+            else {
+                toast.error("Please fill the mandatory details!")
             }
         }
     }
@@ -716,7 +720,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={height}
                                                     validators={[
                                                         "required",
-                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                        "matchRegexp:(^[1-9]+[0-9.]*$)",
                                                     ]}
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid Height"]}
@@ -730,7 +734,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={weight}
                                                     validators={[
                                                         "required",
-                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                        "matchRegexp:(^[1-9]+[0-9.]*$)",
                                                     ]}
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid Weight"]}
@@ -1081,8 +1085,8 @@ const Welcome = ({ currentuserInfo }) => {
                             )}
                             {displaydocumentForm && (<>
 
-                                <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor}  setDocumentinfo={setDocumentinfo}
-                                                            setDocumentUpdateFile={setDocumentUpdateFile} />
+                                <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} setDocumentinfo={setDocumentinfo}
+                                    setDocumentUpdateFile={setDocumentUpdateFile} />
                                 <br />
                                 <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>
                             </>)}
