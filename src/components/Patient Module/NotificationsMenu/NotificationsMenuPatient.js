@@ -1,12 +1,12 @@
 import moment from 'moment-timezone';
 import React, { useState, useEffect } from 'react'; //useEffect, useState
 import Cookies from 'universal-cookie';
-import { pushNotificationsApi } from '../../../service/frontendapiservices';
+import { getUnreadNotificationsCount, pushNotificationsApi, putMarkAsReadFromNotificationMenu } from '../../../service/frontendapiservices';
 import AcceptedAppointmentsNotification from './NotificationTypes/AcceptedAppointmentsNotification';
 import CancelledByDoctorNotifications from './NotificationTypes/CancelledByDoctorNotifications';
 import NextAppointmentNotifications from './NotificationTypes/NextAppointmentNotifications';
 import RescheduleNotification from './NotificationTypes/RescheduleNotification';
- import StringNotifications from './NotificationTypes/StringNotifications';
+import StringNotifications from './NotificationTypes/StringNotifications';
 
 const NotificationMenuPatient = () => {
 
@@ -29,6 +29,7 @@ const NotificationMenuPatient = () => {
         }
     };
 
+
     useEffect(() => {
         getPushNotifications();
         const interval = setInterval(() => {
@@ -45,10 +46,11 @@ const NotificationMenuPatient = () => {
             </div>
             <hr />
             <div className="d-flex flex-column">
+
                 {notificationsData.length > 0 ? (
                     <div>
-                        {console.log("notificationsData", notificationsData)}
                         {notificationsData.map((notification, index) => {
+
                             if (notification.type === 'APPT_RESCHEDULE_BY_DOCTOR' && notification.data.appointmentDetails) {
                                 return (
                                     <div key={index}>

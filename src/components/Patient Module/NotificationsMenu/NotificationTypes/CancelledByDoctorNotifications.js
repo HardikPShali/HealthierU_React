@@ -2,11 +2,36 @@ import React from 'react'
 import Avatar from 'react-avatar'
 import rightIcon from '../../../../images/svg/right-icon.svg';
 import moment from 'moment'
+import { getUnreadNotificationsCount, putMarkAsReadFromNotificationMenu } from '../../../../service/frontendapiservices';
 
 const CancelledByDoctorNotifications = ({ notification, index }) => {
+
+    //MARK AS READ NOTIFICATION LOGIC
+    const markAsReadFromNotificationMenuHandler = async () => {
+        const notificationId = notification.id;
+        const userId = notification.userId;
+
+        const data = {
+            id: notificationId,
+        };
+
+        const response = await putMarkAsReadFromNotificationMenu(
+            data,
+            userId
+        ).catch((err) => console.log({ err }));
+        console.log({ markAsReadFromNotificationMenuHandler: response });
+
+        if (response.data.status === true) {
+            //   setBadgeCount(0);
+            //   toast.success("Notification marked as read successfully");
+            await getUnreadNotificationsCount(userId);
+        }
+    };
+
+
     return (
 
-        <div key={index}>
+        <div key={index} onClick={() => markAsReadFromNotificationMenuHandler()}>
             <div className="notif-section">
                 <div className="profile-img col-md-3">
                     {notification.data.appointmentDetails?.doctor?.picture ? (

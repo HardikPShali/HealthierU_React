@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { uploadNote } from "../../../service/frontendapiservices";
 import backIcon from '../../../images/svg/close-btn.svg';
@@ -10,6 +10,16 @@ import './Notes.css'
 const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
     const { patientInfo, doctorInfo, latestAppointment } = selectedChatNote;
+
+    useEffect(() => {
+        setNotes({
+            chiefComplaint: '',
+            presentIllness: '',
+            vitalSigns: '',
+            physicalExam: '',
+            planAssessment: '',
+        })
+    }, [selectedChatNote]);
 
 
     // const [notes, setNotes] = useState({

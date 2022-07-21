@@ -1420,11 +1420,70 @@ export const deleteReccurSlot = async (data) => {
   var payload = {
     method: "delete",
     mode: "no-cors",
-    data:data,
+    data: data,
     url: `/api/v2/recurSlot/delete`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
+
+// UNREAD NOTIFS
+export const getUnreadNotificationsCount = async (userId) => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/count/unread/notification?userId=${userId}`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
+
+export const putMarkAsReadNotification = async (data, userId) => {
+  var payload = {
+    method: "put",
+    mode: "no-cors",
+    data: data,
+    url: `/api/v2/set/read/notificationList?userId=${userId}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
+
+export const putMarkAsReadFromNotificationMenu = async (data, userId) => {
+  var payload = {
+    method: "put",
+    data: data,
+    mode: "no-cors",
+    url: `/api/v2/set/read/notification?userId=${userId}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*",
     },
   };

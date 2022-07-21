@@ -1,4 +1,4 @@
-import React, { useState } from "react"; //useEffect
+import React, { useState, useEffect } from "react"; //useEffect
 import { Navbar, Container } from "react-bootstrap"; //NavDropdown, Row, Col, Nav
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../images/logo/logo-with-quote.png";
@@ -12,6 +12,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import NotificationMenu from "../CommonModule/NotificationMenu";
 import Cookies from "universal-cookie";
 import NotificationMenuPatient from "./NotificationsMenu/NotificationsMenuPatient";
+import { getUnreadNotificationsCount, pushNotificationsApi, putMarkAsReadNotification } from "../../service/frontendapiservices";
+import { toast } from "react-toastify";
 // import { updatePatientTimeZone } from '../../service/frontendapiservices';
 // import { toast } from 'react-toastify';
 
@@ -29,11 +31,78 @@ const Header = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { doctorDetailsList, unReadMessageList } = props;
-  const unReadMessageCount =
-    (unReadMessageList && Object.keys(unReadMessageList).length) || 0;
 
   const pathname = window.location.pathname;
+
+
+  //NOTIFICATION BADGE COUNT LOGIC
+  const [badgeCount, setBadgeCount] = useState(0);
+  const [notificationsData, setNotificationsData] = useState([]);
+
+  const getPushNotifications = async () => {
+    const user = cookies.get('profileDetails');
+    const userId = user.userId;
+
+    const response = await pushNotificationsApi(
+      userId,
+
+    ).catch((err) => console.log({ err }));
+
+    if (response?.status === 200) {
+      const notifications = response.data.data.notifications;
+      setNotificationsData(notifications);
+    }
+  };
+
+
+  const unreadNotificationCountHandler = async () => {
+    const user = cookies.get("profileDetails");
+    const userId = user.userId;
+    const size = 10;
+
+    const response = await getUnreadNotificationsCount(userId, size).catch(err => (console.log({ err })));
+
+    console.log({ response });
+
+    const notificationsCount = response.data.data;
+    // console.log({ notificationCount });
+
+    if (notificationsCount > 0) {
+      setBadgeCount(notificationsCount);
+    }
+    else {
+      setBadgeCount(0);
+    }
+  }
+
+  useEffect(() => {
+    unreadNotificationCountHandler();
+    getPushNotifications();
+  }, []);
+
+
+  //MARK AS READ NOTIFICATION LOGIC
+  const markAsReadNotificationHandler = async () => {
+    const user = cookies.get("profileDetails");
+    const userId = user.userId;
+
+    let notificationIds = {};
+
+    notificationIds = notificationsData.map((notification) => notification.id);
+    console.log({ notificationIds });
+
+    const data = {
+      id: notificationIds,
+    }
+
+    // const response = await putMarkAsReadNotification(data, userId).catch(err => (console.log({ err })));
+    // console.log({ response });
+
+    // if (response.data.status === true) {
+    //   setBadgeCount(0);
+    //   // toast.success("Notification marked as read successfully");
+    // }
+  }
 
   return (
     <Navbar variant="dark" expand="lg" id="navbar" sticky="top">
@@ -112,29 +181,33 @@ const Header = (props) => {
                         <MenuIcon />
                     </NavLink> */}
               {
-                <div className="dropdown headerNavbar notification-Navbar">
-                  <IconButton
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                    type="button"
-                    data-toggle="dropdown"
-                  >
-                    {/* <Badge badgeContent={unReadMessageCount} color="secondary"> */}
-                    <NotificationsIcon />
-                    {/* </Badge> */}
-                  </IconButton>
-                  <div
-                    className="dropdown-menu notification-Menu"
-                    style={{ width: "350px", left: "-160px" }}
-                  >
-                    {/* <NotificationMenu
+                <div onClick={() => markAsReadNotificationHandler()}>
+                  <div className="dropdown headerNavbar notification-Navbar" >
+                    <IconButton
+                      aria-label="show 17 new notifications"
+                      color="inherit"
+                      type="button"
+                      data-toggle="dropdown"
+                    >
+                      <Badge badgeContent={badgeCount} color="secondary" >
+                        <NotificationsIcon />
+                      </Badge>
+                    </IconButton>
+                    <div
+                      className="dropdown-menu notification-Menu"
+                      style={{ width: "350px", left: "-160px" }}
+
+                    >
+                      {/* <NotificationMenu
                       unReadMessageList={unReadMessageList}
                       detailsList={doctorDetailsList}
                       module={'patient'}
                     /> */}
-                    <NotificationMenuPatient />
+                      <NotificationMenuPatient />
+                    </div>
                   </div>
                 </div>
+
               }
             </>
           )}
