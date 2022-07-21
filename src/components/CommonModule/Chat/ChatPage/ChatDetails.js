@@ -23,45 +23,81 @@ const ChatDetails = ({
   endRef,
   onVideoClick,
   onNoteClick,
-  loadMoreData
+  loadMoreData,
 }) => {
   const [enableVideo, setEnableVideo] = useState(false);
   const [enableChat, setEnableChat] = useState(false);
   const [roles] = useRole();
 
+  const getAppointmentTime = (appointment) => {
+    const currentTime = moment(new Date());
+    const appointmentStartTime = moment(new Date(appointment.startTime));
+    const appointmentEndTime = moment(
+      new Date(selectedItem.latestAppointment.endTime)
+    );
+
+    return { currentTime, appointmentStartTime, appointmentEndTime };
+  };
+
+  const videoEnableCheck = (appointment) => {
+    const {
+      currentTime,
+      appointmentStartTime,
+      appointmentEndTime,
+    } = getAppointmentTime(appointment);
+
+    const videoEnableTime = appointmentStartTime.clone().subtract(5, "minutes");
+
+    if (
+      currentTime.isSameOrAfter(videoEnableTime) &&
+      currentTime.isBefore(appointmentEndTime)
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const chatEnableCheck = (appointment) => {
+    const {
+      currentTime,
+      appointmentStartTime,
+      appointmentEndTime,
+    } = getAppointmentTime(appointment);
+
+    const chatEnableTime = appointmentStartTime.clone().subtract(2, "days");
+
+    const chatEndCondition = appointmentEndTime.clone().add(3, "days");
+
+    if (
+      currentTime.isSameOrAfter(chatEnableTime) &&
+      currentTime.isBefore(chatEndCondition)
+    ) {
+      return true
+    }
+
+    return false
+  };
+
+  const hideChatAndVideo = () => {
+    setEnableChat(false);
+    setEnableVideo(false);
+  }
+
   useEffect(() => {
     if (selectedItem.id) {
-      const currentTime = moment(new Date());
-      const appointmentStartTime = moment(
-        new Date(selectedItem.latestAppointment.startTime)
-      );
-      const appointmentEndTime = moment(
-        new Date(selectedItem.latestAppointment.endTime)
-      );
-      const chatEnableTime = appointmentStartTime.clone().subtract(2, "days");
-      const videoEnableTime = appointmentStartTime
-        .clone()
-        .subtract(5, "minutes");
+      if (selectedItem.appointments.length) {
+        const isVideoEnabled = selectedItem.appointments.some(videoEnableCheck);
+        setEnableVideo(isVideoEnabled);
 
-      const chatEndCondition = appointmentEndTime.clone().add(3, "days");
-
-      const chatCondition = currentTime.clone().subtract(2, "days");
-      const videoCondition = currentTime.clone().subtract(5, "minuts");
-
-      if (
-        currentTime.isSameOrAfter(videoEnableTime) &&
-        currentTime.isBefore(appointmentEndTime)
-      ) {
-        setEnableVideo(true);
+        const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
+        setEnableChat(isChatEnabled);
+      } else {
+        hideChatAndVideo();
       }
-
-      if (
-        currentTime.isSameOrAfter(chatEnableTime) &&
-        currentTime.isBefore(chatEndCondition)
-      ) {
-        console.log("CHAT ENABLED");
-        setEnableChat(true);
-      }
+     
+    } else {
+      hideChatAndVideo();
     }
   }, [selectedItem]);
 
@@ -78,12 +114,12 @@ const ChatDetails = ({
   const checkIfEmailInString = (text) => {
     const re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
     return re.test(text);
-  }
+  };
 
   const checkIfPhoneInString = (text) => {
     const re = /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{6,15}\b/m;
     return re.test(text);
-  }
+  };
 
   const handleSend = () => {
     if (!enableChat) return;
@@ -95,8 +131,7 @@ const ChatDetails = ({
     if (emailCheck === true || phoneCheck === true) {
       toast.error("Oops, you can't send a phone number or email address here");
       return;
-    }
-    else {
+    } else {
       onSend();
     }
   };
@@ -126,18 +161,17 @@ const ChatDetails = ({
 
   // console.log({ selectedItem });
 
-
-
   let channelId = selectedItem.id;
   // console.log({ channelId: channelId });
-
 
   //CALL-TOPIC CODE
   const callUser = async () => {
     // console.log({ selectedItem });
     // const channelId = selectedItem.id;
     // console.log({ channelId });
-    const response = await getCallUserApi(channelId).catch(err => console.log({ err }))
+    const response = await getCallUserApi(channelId).catch((err) =>
+      console.log({ err })
+    );
     // console.log({ response })
   };
 
@@ -150,17 +184,20 @@ const ChatDetails = ({
       <h2 className="chating_with">
         {selectedItem[selectedItem.userKey] &&
           selectedItem[selectedItem.userKey]?.firstName +
-          " " +
-          selectedItem[selectedItem.userKey]?.lastName}
+            " " +
+            selectedItem[selectedItem.userKey]?.lastName}
       </h2>
       <div className="chat-section">
         <div className="chat_detail-body">
           {/* <div className="today-date">Jan 12, 2022</div> */}
-          <div onScroll={(e) => {
-            if (e.target.scrollTop === 0) {
-              loadMoreData()
-            }
-          }} className="chat_detail_received">
+          <div
+            onScroll={(e) => {
+              if (e.target.scrollTop === 0) {
+                loadMoreData();
+              }
+            }}
+            className="chat_detail_received"
+          >
             {messages.map((message, index) => {
               return (
                 <>
@@ -177,22 +214,27 @@ const ChatDetails = ({
                           className="received_chat-msg-wrap my-2"
                         >
                           <div className="received_chat-msg">
-                            <div className="chat-msg-text">{message.message}</div>
+                            <div className="chat-msg-text">
+                              {message.message}
+                            </div>
                             <div className="received_chat-time">
-                              {moment(message.createdAt).format('HH:mm')}
+                              {moment(message.createdAt).format("HH:mm")}
                             </div>
                           </div>
                         </div>
                       )}
                       {message.myMessage && (
-                        <div key={message.id} className="sent_chat-msg-wrap my-2">
+                        <div
+                          key={message.id}
+                          className="sent_chat-msg-wrap my-2"
+                        >
                           <div className="sent_chat-msg">
                             <span className="chat-msg-text">
                               {message.message}
                             </span>
                             <div className="sent_chat-time-tick-wrap">
                               <span className="sent_chat-time">
-                                {moment(message.createdAt).format('HH:mm')}
+                                {moment(message.createdAt).format("HH:mm")}
                               </span>
                               {/* <span className="sent_chat-seen">
                             <img src={blueTick} alt="" />
@@ -203,7 +245,6 @@ const ChatDetails = ({
                       )}
                     </div>
                   </div>
-
                 </>
               );
             })}
@@ -246,7 +287,7 @@ const ChatDetails = ({
             <button
               onClick={handleNoteToggle}
               className="notes-btn"
-            // disabled={!enableChat}
+              // disabled={!enableChat}
             >
               <img src={ChatIcon} alt="chat-icon" />
             </button>
