@@ -51,7 +51,7 @@ const Availability = () => {
       setTimes({
         time: []
       });
-      toast.error("Please enter a valid time. End time cannot be before start time")
+      toast.error("Please add a slot for within the day")
     }
 
   };
