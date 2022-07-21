@@ -42,9 +42,15 @@ const Availability = () => {
     const newTimeObj = { ...times };
     newTimeObj.time.push({ startTime: value[0], endTime: value[1] });
     // newTimeObj.time.push({ startTime: state.startTime, endTime: state.endTime });
-    setTimes({
-      ...newTimeObj,
-    });
+    if (state.startTime < state.endTime) {
+      setTimes({
+        ...newTimeObj,
+      });
+    }
+    else {
+      toast.error("Please enter a valid time. End time cannot be before start time")
+    }
+
   };
   const handleTime = (e) => {
     const format = moment(e.startTime).format('HH:mm A');
