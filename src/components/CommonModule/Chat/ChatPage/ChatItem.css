@@ -30,6 +30,7 @@
 }
 .chat_item-profile img {
   max-width: 3rem;
+  width: 3rem;
   height: 3rem;
   border-radius: 50%;
 }
