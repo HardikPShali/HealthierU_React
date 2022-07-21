@@ -151,33 +151,39 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         }
         if (documentFile && info.licenseNumber !== null && info.referencePhoneNumber !== null && info.certifyingBody !== null) {
             if (info.licenseNumber !== "" && info.referencePhoneNumber !== "" && info.certifyingBody !== "") {
-                const res = await uploadDoctorDocument(documentFile, info).catch(err => {
-                    //setErrorMsg("Something Went Wrong!");
-                    toast.error("Something went wrong. Please try again!")
-                    history.push(0)
+                if (info.licenseNumber && info.certifyingBody && info.referencePhoneNumber) {
+                    const res = await uploadDoctorDocument(documentFile, info).catch(err => {
+                        //setErrorMsg("Something Went Wrong!");
+                        toast.error("Something went wrong. Please try again!")
+                        history.push(0)
+                        setLoading(false);
+                    });
+                    if (res && res.status === 201) {
+                        toast.success("Document successfully Uploaded.");
+                        const existingDoc = documentData;
+                        existingDoc.push(res.data.data);
+                        setDocumentData(existingDoc);
+                        setUploadOpen(false);
+                        setLoading(false)
+                        const res1 = await getDoctorDocument(currentDoctor.id, 0);
+                        if (res1 && res1.status === 200) {
+                            setPage(res1.data)
+                            setDocumentData(res1.data.documentsDocumentsList);
+                            setCurrentDocumentData(res1.data.documentsDocumentsList[0])
+                            setDocumentinfo(res1.data.documentsDocumentsList[0])
+                            setDocumentFile("")
+                            setLoading(false);
+                        }
+                        else if (res1 && res1.status === 204) {
+                            setDocumentData([]);
+                            setDocumentFile("")
+                            setLoading(false);
+                        }
+                    }
+                }
+                else {
                     setLoading(false);
-                });
-                if (res && res.status === 201) {
-                    toast.success("Document successfully Uploaded.");
-                    const existingDoc = documentData;
-                    existingDoc.push(res.data.data);
-                    setDocumentData(existingDoc);
-                    setUploadOpen(false);
-                    setLoading(false)
-                    const res1 = await getDoctorDocument(currentDoctor.id, 0);
-                    if (res1 && res1.status === 200) {
-                        setPage(res1.data)
-                        setDocumentData(res1.data.documentsDocumentsList);
-                        setCurrentDocumentData(res1.data.documentsDocumentsList[0])
-                        setDocumentinfo(res1.data.documentsDocumentsList[0])
-                        setDocumentFile("")
-                        setLoading(false);
-                    }
-                    else if (res1 && res1.status === 204) {
-                        setDocumentData([]);
-                        setDocumentFile("")
-                        setLoading(false);
-                    }
+                    toast.error("Please enter all the details!")
                 }
             }
             else {
@@ -190,6 +196,10 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                 toast.error("Please select file before uploading!")
             }
             if (info.licenseNumber === null && info.referencePhoneNumber === null && info.certifyingBody === null) {
+                toast.error("Please enter all the details!")
+            }
+            if (!info.licenseNumber && !info.certifyingBody && !info.referencePhoneNumber) {
+                setLoading(false);
                 toast.error("Please enter all the details!")
             }
             setLoading(false);
