@@ -1416,11 +1416,12 @@ export const callRejectApi = async (channelId) => {
   });
   return response;
 }
-export const deleteReccurSlot = async (recurId, doctorId) => {
+export const deleteReccurSlot = async (data) => {
   var payload = {
     method: "delete",
     mode: "no-cors",
-    url: `/api/v2/recurSlot/deleteBy?recurId=${recurId}&doctorId=${doctorId}`,
+    data:data,
+    url: `/api/v2/recurSlot/delete`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
