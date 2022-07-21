@@ -112,7 +112,7 @@ const PaypalMobile = () => {
             }
 
         } catch (error) {
-            console.log({ error: JSON.stringify(error) });
+            console.log("PAYMENT API FAILED", JSON.stringify(error))
             successEventOnPayment(false);
             setLoading(false);
         }
