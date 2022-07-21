@@ -20,7 +20,8 @@ import {
   getGlobalAppointmentsSearch,
   rescheduleAppointmentDoctor,
   getAppointmentsTablistByStatus,
-  getPaymentInfoForDoctor
+  getPaymentInfoForDoctor,
+  getGlobalAppointmentsSearchNew
 } from "../../service/frontendapiservices";
 import rightIcon from "../../images/svg/right-icon.svg";
 import calendar from "../../images/icons used/Component 12.svg";
@@ -293,7 +294,7 @@ const MyAppointments = (props) => {
         }
       }
     );
-    
+
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
         setAppointment(response.data.data)
@@ -326,7 +327,7 @@ const MyAppointments = (props) => {
       endtime.setHours(23, 59, 59);
       data.endTime = endtime.toISOString();
     }
-    const responseTwo = await getGlobalAppointmentsSearch(data).catch((err) => {
+    const responseTwo = await getGlobalAppointmentsSearchNew(data).catch((err) => {
       if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
         setLoading(false);
       }
@@ -339,65 +340,26 @@ const MyAppointments = (props) => {
         const reversedAppointments = appointmentDetails.reverse();
         const updateArray = [];
         reversedAppointments.map((value, index) => {
-          if (value.status === "ACCEPTED") {
-            if (
-              value.unifiedAppointment ===
-              (reversedAppointments[index + 1] &&
-                reversedAppointments[index + 1].unifiedAppointment)
-            ) {
-              updateArray.push({
-                id: value.id,
-                patientId: value.patientId,
-                doctorId: value.doctorId,
-                doctor: value.doctor,
-                title: `Appointment booked with Dr. ${value?.doctor?.firstName
-                  } with ${value.urgency ? value.urgency : "no"
-                  } urgency, comments : ${value.remarks ? value.remarks : "no comments"
-                  }`,
-                startTime: new Date(value.startTime),
-                endTime: new Date(reversedAppointments[index + 1].endTime),
-                remarks: value.remarks,
-                status: value.status,
-                appointmentId: value.appointmentId,
-                appointmentMode: value.appointmentMode,
-                unifiedAppointment: value.unifiedAppointment,
-                patient: value.patient,
-              });
-            } else if (
-              value.unifiedAppointment !==
-              (reversedAppointments[index + 1] &&
-                reversedAppointments[index + 1].unifiedAppointment) &&
-              value.unifiedAppointment ===
-              (responseTwo[index - 1] &&
-                responseTwo[index - 1].unifiedAppointment)
-            ) {
-              return false;
-            } else if (
-              value.unifiedAppointment !==
-              (reversedAppointments[index + 1] &&
-                reversedAppointments[index + 1].unifiedAppointment) &&
-              value.unifiedAppointment !==
-              (reversedAppointments[index - 1] &&
-                reversedAppointments[index - 1].unifiedAppointment)
-            ) {
-              updateArray.push({
-                id: value.id,
-                patientId: value.patientId,
-                doctorId: value.doctorId,
-                doctor: value.doctor,
-                startTime: new Date(value.startTime),
-                endTime: new Date(value.endTime),
-                remarks: value.remarks,
-                status: value.status,
-                appointmentMode: value.appointmentMode,
-                appointmentId: value.appointmentId,
-                unifiedAppointment: value.unifiedAppointment,
-                patient: value.patient,
-              });
-            }
-          }
+          updateArray.push({
+            id: value.id,
+            patientId: value.patientId,
+            doctorId: value.doctorId,
+            doctor: value.doctor,
+            // title: `Appointment booked with Dr. ${value?.doctor?.firstName
+            //   } with ${value.urgency ? value.urgency : "no"
+            //   } urgency, comments : ${value.remarks ? value.remarks : "no comments"
+            //   }`,
+            startTime: new Date(value.startTime),
+            endTime: new Date(value.endTime),
+            remarks: value.remarks,
+            status: value.status,
+            appointmentId: value.appointmentId,
+            appointmentMode: value.appointmentMode,
+            unifiedAppointment: value.unifiedAppointment,
+            patient: value.patient,
+          });
         });
-        setAppointmentDets(updateArray);
+        setAppointmentDets(updateArray.reverse());
         updateArray.find((app) => {
           if (apptId == app.id) {
             const birthDate = new Date(app.patient.dateOfBirth);
@@ -434,6 +396,7 @@ const MyAppointments = (props) => {
 
       // setSearchText(searchValue);
     } else {
+
       // console.log("searchValue is | in SearchBarComponent", searchValue);
       // const response = await getAppointmentsByPatientName(searchValue);
       // setActiveAppointments(response.data);

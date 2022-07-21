@@ -3,7 +3,7 @@ import { getAppointmentsForHomepage } from '../../../service/frontendapiservices
 import Cookies from 'universal-cookie';
 const AppoitmentCountsSection = () => {
     const starttime = new Date();
-    starttime.setHours(0, 0, 0);
+    //starttime.setHours(0, 0, 0);
     const endtime = new Date();
     endtime.setHours(23, 59, 0);
     const [appointmentsCount, setAppointmentsCount] = useState(0);

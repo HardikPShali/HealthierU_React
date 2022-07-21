@@ -104,9 +104,13 @@ const PaypalMobile = () => {
             const response = await axios(newPaymentApi);
             console.log({ response: JSON.stringify(response) });
             if (response.status === 200 || response.status === 201) {
+                console.log("PAYMENT SUCCESS", JSON.stringify(response))
                 successEventOnPayment(true);
                 setLoading(false);
+            } else {
+                console.log("PAYMENT API FAILED", JSON.stringify(response))
             }
+
         } catch (error) {
             console.log({ error: JSON.stringify(error) });
             successEventOnPayment(false);
