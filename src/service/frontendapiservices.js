@@ -1150,6 +1150,24 @@ export const getGlobalAppointmentsSearch = async (data) => {
   });
   return response;
 };
+export const getGlobalAppointmentsSearchNew = async (data) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    url: `/api/v2/appointments/mobile/filter`,
+    data: data,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
 
 export const updateDoctorData = async (data) => {
   var payload = {
