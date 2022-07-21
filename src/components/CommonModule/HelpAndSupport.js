@@ -169,7 +169,7 @@ const HelpAndSupport = ({ currentuserInfo }) => {
                                     </Col>
                                     <Col md={4}>
                                         <h6>E-mail Address</h6>
-                                        <p>customerservice@healthieru.ae</p>
+                                        <p>info@healthieru.ae</p>
                                     </Col>
                                     <Col md={4}>
                                         <h6>Office Address</h6>
