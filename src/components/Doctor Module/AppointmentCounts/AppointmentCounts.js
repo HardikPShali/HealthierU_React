@@ -13,7 +13,7 @@ const AppoitmentCountsSection = () => {
         const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString(), doctorId = currentUserFromCookie.id).catch((err) => {
             console.log('err', err);
         });
-        if (response.status === 200 || response.status === 201) {
+        if (response?.status === 200 || response?.status === 201) {
             setAppointmentsCount(response.data.data);
         }
 

@@ -72,6 +72,13 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                 draggable: true,
                 progress: undefined,
             });
+            setNotes({
+                chiefComplaint: '',
+                presentIllness: '',
+                vitalSigns: '',
+                physicalExam: '',
+                planAssessment: '',
+            })
             onClose();
         }
 
