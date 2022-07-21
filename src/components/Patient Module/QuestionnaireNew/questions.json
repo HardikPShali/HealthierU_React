@@ -113,7 +113,7 @@
     "score": 0,
     "condition": {
       "questionId": 7,
-      "answer": "No"
+      "answer": "Never"
     },
     "hidden": true
   },
@@ -127,7 +127,7 @@
     "score": 0,
     "condition": {
       "questionId": 7,
-      "answer": "No"
+      "answer": "Never"
     },
     "hidden": true
   },
@@ -141,7 +141,7 @@
     "score": 0,
     "condition": {
       "questionId": 7,
-      "answer": "No"
+      "answer": "Never"
     },
     "hidden": true
   },
