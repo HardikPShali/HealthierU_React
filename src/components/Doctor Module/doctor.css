@@ -1057,12 +1057,12 @@ img#profile-pic {
   -khtml-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  outline: 5px solid #00d0cc;
+  border: 5px solid #00d0cc;
 }
 
 .avatar-profile {
   border-radius: 50% !important;
-  outline: 5px solid #00d0cc;
+  border: 5px solid #00d0cc;
   background-color: #fff !important;
 }
 .my-appointments-avatar-doctor > .sb-avatar__text {

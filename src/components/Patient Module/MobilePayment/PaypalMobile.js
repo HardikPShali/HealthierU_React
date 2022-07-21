@@ -90,8 +90,10 @@ const PaypalMobile = () => {
 
         const successEventOnPayment = (data) => {
             if (os === 'ios') {
+                console.log({ data: JSON.stringify(data) })
                 window.webkit.messageHandlers.sendOrderData.postMessage(data);
             } else {
+                console.log({ data: JSON.stringify(data) })
                 window.android.sendOrderData(data);
             }
         };
@@ -100,12 +102,13 @@ const PaypalMobile = () => {
 
         try {
             const response = await axios(newPaymentApi);
-            console.log({ response });
+            console.log({ response: JSON.stringify(response) });
             if (response.status === 200 || response.status === 201) {
                 successEventOnPayment(true);
                 setLoading(false);
             }
         } catch (error) {
+            console.log({ error: JSON.stringify(error) });
             successEventOnPayment(false);
             setLoading(false);
         }
