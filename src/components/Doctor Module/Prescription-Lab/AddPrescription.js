@@ -395,21 +395,21 @@ const AddPrescription = (props) => {
                                                                 <MenuItem value="">
                                                                     <em>Select Interval</em>
                                                                 </MenuItem>
-                                                                <MenuItem value="0-0-1">
-                                                                    <em>0-0-1</em>
+                                                                <MenuItem value="Daily">
+                                                                    <em>Daily</em>
                                                                 </MenuItem>
-                                                                <MenuItem value="1-0-0">
-                                                                    <em>1-0-0</em>
+                                                                <MenuItem value="2x Day">
+                                                                    <em>2x Day</em>
                                                                 </MenuItem>
-                                                                <MenuItem value="0-1-0">
-                                                                    <em>0-1-0</em>
+                                                                <MenuItem value="3x Day">
+                                                                    <em>3x Day</em>
                                                                 </MenuItem>
-                                                                <MenuItem value="1-0-1">
+                                                                {/* <MenuItem value="1-0-1">
                                                                     <em>1-0-1</em>
                                                                 </MenuItem>
                                                                 <MenuItem value="1-1-1">
                                                                     <em>1-1-1</em>
-                                                                </MenuItem>
+                                                                </MenuItem> */}
                                                             </Select>
                                                         </FormControl>
                                                     </div>
