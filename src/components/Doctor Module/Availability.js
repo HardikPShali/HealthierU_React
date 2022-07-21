@@ -48,6 +48,9 @@ const Availability = () => {
       });
     }
     else {
+      setTimes({
+        time: []
+      });
       toast.error("Please enter a valid time. End time cannot be before start time")
     }
 
@@ -74,7 +77,7 @@ const Availability = () => {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
-      toast.success('Start and End Time cant be same.');
+      toast.error('Start and End Time cant be same.');
     }
   };
   const [tempDays, setTempDays] = useState([]);
