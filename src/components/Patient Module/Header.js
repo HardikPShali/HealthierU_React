@@ -37,23 +37,6 @@ const Header = (props) => {
 
   //NOTIFICATION BADGE COUNT LOGIC
   const [badgeCount, setBadgeCount] = useState(0);
-  const [notificationsData, setNotificationsData] = useState([]);
-
-  const getPushNotifications = async () => {
-    const user = cookies.get('profileDetails');
-    const userId = user.userId;
-
-    const response = await pushNotificationsApi(
-      userId,
-
-    ).catch((err) => console.log({ err }));
-
-    if (response?.status === 200) {
-      const notifications = response.data.data.notifications;
-      setNotificationsData(notifications);
-    }
-  };
-
 
   const unreadNotificationCountHandler = async () => {
     const user = cookies.get("profileDetails");
@@ -77,7 +60,6 @@ const Header = (props) => {
 
   useEffect(() => {
     unreadNotificationCountHandler();
-    getPushNotifications();
   }, []);
 
 
@@ -86,22 +68,13 @@ const Header = (props) => {
     const user = cookies.get("profileDetails");
     const userId = user.userId;
 
-    let notificationIds = {};
+    const response = await putMarkAsReadNotification(userId).catch(err => (console.log({ err })));
+    console.log({ response });
 
-    notificationIds = notificationsData.map((notification) => notification.id);
-    console.log({ notificationIds });
-
-    const data = {
-      id: notificationIds,
+    if (response.data.status === true) {
+      setBadgeCount(0);
+      // toast.success("Notification marked as read successfully");
     }
-
-    // const response = await putMarkAsReadNotification(data, userId).catch(err => (console.log({ err })));
-    // console.log({ response });
-
-    // if (response.data.status === true) {
-    //   setBadgeCount(0);
-    //   // toast.success("Notification marked as read successfully");
-    // }
   }
 
   return (

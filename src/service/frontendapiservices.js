@@ -1473,12 +1473,11 @@ export const getUnreadNotificationsCount = async (userId) => {
   return response;
 }
 
-export const putMarkAsReadNotification = async (data, userId) => {
+export const putMarkAsReadNotification = async (userId) => {
   var payload = {
     method: "put",
     mode: "no-cors",
-    data: data,
-    url: `/api/v2/set/read/notificationList?userId=${userId}`,
+    url: `/api/v2/mark-all-as-read?userId=${userId}`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       'Content-Type': 'application/json',

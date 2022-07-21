@@ -30,7 +30,7 @@ const Header = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   // const [currentDoctorState, setCurrentDoctorState] = useState();
   //const cookies = new Cookies();
-  console.log("props in head ::: ", props);
+  // console.log("props in head ::: ", props);
   const systemTimeZone = momentTz.tz.guess();
   // const docId = props.currentDoctor.id;
   // const currentTimezone = props.currentDoctor.doctorTimeZone;
@@ -125,7 +125,7 @@ const Header = (props) => {
 
     const response = await getUnreadNotificationsCount(userId).catch(err => (console.log({ err })));
 
-    console.log({ response });
+    // console.log({ response });
 
     const notificationsCount = response.data.data;
     // console.log({ notificationCount });
@@ -148,12 +148,7 @@ const Header = (props) => {
     const user = cookies.get("profileDetails");
     const userId = user.userId;
 
-    const data = [{
-      userId: userId,
-    }]
-
-    const response = await putMarkAsReadNotification(data).catch(err => (console.log({ err })));
-    console.log({ response });
+    const response = await putMarkAsReadNotification(userId).catch(err => (console.log({ err })));
 
     if (response.data.status === true) {
       setBadgeCount(0);
@@ -231,27 +226,29 @@ const Header = (props) => {
           </NavLink>``` */}
           {/* unReadMessageCount > 0 && */}
           {
-            <div className="dropdown headerNavbar notification-Navbar">
-              <IconButton
-                aria-label="show 17 new notifications"
-                color="inherit"
-                type="button"
-                data-toggle="dropdown"
-              >
-                <Badge badgeContent={badgeCount} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <div
-                className="dropdown-menu notification-Menu"
-                style={{ width: "350px", left: "-160px" }}
-              >
-                {/* <NotificationMenu
+            <div onClick={() => markAsReadNotificationHandler()}>
+              <div className="dropdown headerNavbar notification-Navbar">
+                <IconButton
+                  aria-label="show 17 new notifications"
+                  color="inherit"
+                  type="button"
+                  data-toggle="dropdown"
+                >
+                  <Badge badgeContent={badgeCount} color="secondary">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <div
+                  className="dropdown-menu notification-Menu"
+                  style={{ width: "350px", left: "-160px" }}
+                >
+                  {/* <NotificationMenu
                   unReadMessageList={unReadMessageList}
                   detailsList={patientDetailsList}
                   module={'doctor'}
                 /> */}
-                <NotificationMenuDoctor />
+                  <NotificationMenuDoctor />
+                </div>
               </div>
             </div>
           }
