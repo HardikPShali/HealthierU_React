@@ -42,9 +42,18 @@ const Availability = () => {
     const newTimeObj = { ...times };
     newTimeObj.time.push({ startTime: value[0], endTime: value[1] });
     // newTimeObj.time.push({ startTime: state.startTime, endTime: state.endTime });
-    setTimes({
-      ...newTimeObj,
-    });
+    if (state.startTime < state.endTime) {
+      setTimes({
+        ...newTimeObj,
+      });
+    }
+    else {
+      setTimes({
+        time: []
+      });
+      toast.error("Please add a slot for within the day")
+    }
+
   };
   const handleTime = (e) => {
     const format = moment(e.startTime).format('HH:mm A');
@@ -68,7 +77,7 @@ const Availability = () => {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
-      toast.success('Start and End Time cant be same.');
+      toast.error('Start and End Time cant be same.');
     }
   };
   const [tempDays, setTempDays] = useState([]);
