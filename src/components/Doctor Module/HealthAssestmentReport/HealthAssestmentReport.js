@@ -14,8 +14,10 @@ const HealthAssestmentReport = () => {
         const response = await getHealthAssessment(id).catch(err => {
             console.log(err);
         });
-        const dataAnswers = response.data.data.selections;
-        setAnswerData(dataAnswers);
+        if (response) {
+            const dataAnswers = response.data.data.selections;
+            setAnswerData(dataAnswers);
+        }
     }
 
 

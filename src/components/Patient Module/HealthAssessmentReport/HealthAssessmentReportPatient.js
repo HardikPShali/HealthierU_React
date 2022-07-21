@@ -23,9 +23,10 @@ const HealthAssessmentReportPatient = () => {
         const response = await getHealthAssessment(id).catch((err) => {
             console.log(err);
         });
-
-        const dataAnswers = response.data.data.selections;
-        setAnswers(dataAnswers);
+        if (response) {
+            const dataAnswers = response.data.data.selections;
+            setAnswers(dataAnswers);
+        }
     };
 
     useEffect(() => {
@@ -57,21 +58,39 @@ const HealthAssessmentReportPatient = () => {
                                                 </AnswersCardDetails>
                                             ))
                                         ) : (
-                                            <Col
-                                                md={12}
-                                                className="ml-2"
-                                                style={{ textShadow: 'none', color: '#3e4543' }}
-                                            >
-                                                Loading...
-                                            </Col>
+                                            cookies.get('currentUser').questionCompleted === false ? (
+                                                <Col
+                                                    md={12}
+                                                    className="ml-2"
+                                                    style={{ textShadow: 'none', color: '#3e4543' }}
+                                                >
+                                                    No Data Found
+                                                </Col>
+                                            )
+                                                : <Col
+                                                    md={12}
+                                                    className="ml-2"
+                                                    style={{ textShadow: 'none', color: '#3e4543' }}
+                                                >
+                                                    Loading...
+                                                </Col>
                                         )}
-                                        {answers === null && (
+                                        {
+                                            cookies.get('currentUser').questionCompleted === false && (
+                                                <>
+                                                    <AnswersCardQuestionTitle>
+                                                        No Data Found
+                                                    </AnswersCardQuestionTitle>
+                                                </>
+                                            )
+                                        }
+                                        {/* {answers === null && (
                                             <>
                                                 <AnswersCardQuestionTitle>
                                                     No Data Found
                                                 </AnswersCardQuestionTitle>
                                             </>
-                                        )}
+                                        )} */}
                                     </Col>
                                 </Row>
                             </AnswersCard>
@@ -79,7 +98,7 @@ const HealthAssessmentReportPatient = () => {
                     </AnswersCardBox>
                 </Col>
             </Row>
-        </Container>
+        </Container >
 
     );
 };
