@@ -2,7 +2,7 @@
 import axios from 'axios';
 //import {Redirect} from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-export const handleGoogleAuth = async (googleUserData) => {
+export const handleGoogleAuth = async (googleUserData, history) => {
 
     var config = {
         method: 'post',
@@ -22,13 +22,13 @@ export const handleGoogleAuth = async (googleUserData) => {
             }
         }
     }).catch(error => {
-        const history = useHistory();
+        // const history = useHistory();
         if (error.response && error.response.status === 500) {
-            this.context.history.push('/signupform');
+            history.push('/signupform');
         } else if (error.response && error.response.status === 400 && error.response.data.title === "User role required.") {
-            this.context.history.push('/signupform');
+            history.push('/signupform');
         } else if (error.response && error.response.status === 405) {
-            this.context.history.push('/signupform');
+            history.push('/signupform');
         }
 
     })

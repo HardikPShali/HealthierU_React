@@ -42,7 +42,7 @@ const PaypalMobile = () => {
         setLoading(true);
 
         // window.android.onPaymentStatusChange(true);
-        orderData.slotId = appointmentIdParams;
+        // orderData.slotId = appointmentIdParams;
 
         // const data = JSON.stringify(orderData);
 

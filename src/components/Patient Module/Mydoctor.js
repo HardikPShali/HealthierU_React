@@ -52,6 +52,7 @@ import {
   getSearchData,
   setNextAppointmentDoctor,
   getAvailableSlotsForMyDoctors,
+  getUnreadNotificationsCount,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -766,7 +767,7 @@ const MyDoctor = (props) => {
     try {
       // await api call
       const newPaymentResponse = await axios(newPaymentApi);
-      // console.log({ newPaymentResponse });
+      console.log({ newPaymentResponse });
 
       //success logic
       if (

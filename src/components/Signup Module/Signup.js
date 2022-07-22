@@ -46,7 +46,7 @@ const Signup = () => {
     const googleUserData = {
       token: response.tokenId,
     };
-    const googleAccessToken = await handleGoogleAuth(googleUserData);
+    const googleAccessToken = await handleGoogleAuth(googleUserData, history);
     if (googleAccessToken) {
       console.log("googleAccessToken  :: ", googleAccessToken);
       LocalStorageService.setToken(googleAccessToken);
