@@ -52,6 +52,7 @@ import {
   getSearchData,
   setNextAppointmentDoctor,
   getAvailableSlotsForMyDoctors,
+  getUnreadNotificationsCount,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,

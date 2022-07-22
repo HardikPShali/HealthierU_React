@@ -539,20 +539,6 @@ const Signupform = () => {
                   disabled={
                     googleAccessToken && googleAccessToken ? true : false
                   }
-                  // validators={[
-                  //   "required",
-                  //   "maxStringLength:50",
-                  //   "isValidName",
-                  //   "isHavingSpace",
-                  //   "matchRegexp:^[a-zA-Z ]+$",
-                  // ]}
-                  // errorMessages={[
-                  //   "This field is required",
-                  //   "Last name should not exceed 50 characters.",
-                  //   "Please provide a valid last name.",
-                  //   "Please do not use whitespace in front Last Name",
-                  //   "Last Name cannot have any numeric values"
-                  // ]}
                   variant="filled"
                 />
                 <br />
@@ -653,6 +639,7 @@ const Signupform = () => {
                         "Password should not exceed 30 characters",
                       ]}
                       variant="filled"
+                      className="pwd-signup-form"
                       autoComplete="new-password"
                       InputProps={{
                         endAdornment: (
