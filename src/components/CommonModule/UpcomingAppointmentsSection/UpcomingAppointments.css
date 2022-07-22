@@ -55,7 +55,7 @@
   width: 70px;
   height: 70px;
   background-color: #fff !important;
-  outline: 2px solid #00d0cc;
+  border: 2px solid #00d0cc;
 }
 
 .upcoming-appointment-card__card-details {

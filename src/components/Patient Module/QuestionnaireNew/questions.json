@@ -90,7 +90,7 @@
   {
     "questionId": 7,
     "questionTitle": "Do you smoke?",
-    "choices": ["No", "Occasionally", "Regularly", "Ex-Smoker"],
+    "choices": ["Never", "Occasionally", "Regularly", "Ex-Smoker"],
     "type": "radio",
     "answers": "",
     "mapScore": [2, 0, 0, 1],
@@ -113,7 +113,7 @@
     "score": 0,
     "condition": {
       "questionId": 7,
-      "answer": "No"
+      "answer": "Never"
     },
     "hidden": true
   },
@@ -127,7 +127,7 @@
     "score": 0,
     "condition": {
       "questionId": 7,
-      "answer": "No"
+      "answer": "Never"
     },
     "hidden": true
   },
@@ -141,7 +141,7 @@
     "score": 0,
     "condition": {
       "questionId": 7,
-      "answer": "No"
+      "answer": "Never"
     },
     "hidden": true
   },
