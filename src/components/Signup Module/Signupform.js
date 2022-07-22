@@ -235,7 +235,7 @@ const Signupform = () => {
         token: googleAccessToken,
         authorities: authorities,
       };
-      const _accessToken = await handleGoogleAuth(googleUserData).catch(
+      const _accessToken = await handleGoogleAuth(googleUserData, history).catch(
         (err) => {
           if (err.response.status === 500 || err.response.status === 504) {
             setTransparentLoading(false);
