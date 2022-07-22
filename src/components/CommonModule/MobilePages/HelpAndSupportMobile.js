@@ -51,6 +51,17 @@ const HelpAndSuppostMobile = (props) => {
             });
     };
 
+    const emailValidator = new RegExp(
+        "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"
+    );
+    ValidatorForm.addValidationRule("isValidEmail", (value) => {
+        if (!emailValidator.test(value)) {
+            return false;
+        } else if (emailValidator.test(value)) {
+            return true;
+        }
+    });
+
     return (
         <div>
             <Container id="contact-us">
@@ -82,8 +93,16 @@ const HelpAndSuppostMobile = (props) => {
                                         value={senderMail}
                                         onChange={(e) => handleInputChange(e)}
                                         placeholder="EMAIL ADDRESS*"
-                                        validators={["required"]}
-                                        errorMessages={[("This field is required")]}
+                                        validators={[
+                                            "isValidEmail",
+                                            "required",
+                                            "maxStringLength:50",
+                                        ]}
+                                        errorMessages={[
+                                            "Please enter a valid email",
+                                            "This field is required",
+                                            "Email should not exceed 50 characters",
+                                        ]}
                                         variant="filled"
                                     />
                                     <br />
