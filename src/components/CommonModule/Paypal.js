@@ -69,7 +69,7 @@ const Paypal = (props) => {
                   amount: {
                     currency_code: 'USD',
                     value:
-                      appointmentMode === 'First Consultation'
+                      appointmentMode === 'First Consultation' || appointmentMode === 'FIRST_CONSULTATION'
                         ? rate
                         : halfRate,
                   },
