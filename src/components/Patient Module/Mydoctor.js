@@ -513,6 +513,7 @@ const MyDoctor = (props) => {
   const [selectedSlotId, setSelectedSlotId] = useState();
 
   const handleAppoitnmentType = (e) => {
+    setTransparentLoading(true)
     setSlotError('');
     setSelectedSlotId('0');
     setAppointment({ ...appointment, appointmentMode: e.target.value });
@@ -530,12 +531,14 @@ const MyDoctor = (props) => {
         const consultationSlots = createConsultationSlots(Availability);
         if (consultationSlots && consultationSlots.length > 0) {
           setAppointmentSlot(consultationSlots);
+          setTransparentLoading(false)
           // console.log({ consultationSlots });
           document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
           setDisplaySlot(true);
           getAvailableSlotsOfDoctors(user.id, e.target.value);
         } else {
+          setTransparentLoading(false)
           setAppointmentSlot([]);
           setDisplayCalendar(false);
           setDisplaySlot(true);
@@ -543,12 +546,14 @@ const MyDoctor = (props) => {
       } else if (e.target.value === 'Follow Up') {
         setAppointmentSlot(Availability);
         // console.log({ Availability });
+        setTransparentLoading(false)
         document.querySelector('#calendar-list').scrollTo(0, 500);
         setDisplayCalendar(false);
         setDisplaySlot(true);
         getAvailableSlotsOfDoctors(user.id, e.target.value);
       } else if (e.target.value === '') {
         setAppointmentSlot([]);
+        setTransparentLoading(false)
       }
       setDisable({ ...disable, continue: true });
     }
@@ -1575,6 +1580,7 @@ const MyDoctor = (props) => {
                                   doctor: 'block',
                                   appointment: 'none',
                                 });
+                                setAppointment({ ...appointment, appointmentMode: "" })
                                 setDisable({ ...disable, continue: true });
                                 // getAvailableSlotsOfDoctors(user.id);
                                 //const currentSelectedDate = new Date();
@@ -1604,7 +1610,7 @@ const MyDoctor = (props) => {
                                 />
                               )}
                               {user.picture ? (
-                                <img src={user.picture} alt="" className='grid-image-mydoctor' />
+                                <img src={user.picture} alt="" />
                               ) : (
                                 <Avatar
                                   name={user.firstName + ' ' + user.lastName}

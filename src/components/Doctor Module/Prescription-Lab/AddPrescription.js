@@ -88,11 +88,20 @@ const AddPrescription = (props) => {
                 setErrorMsg('Please upload PDF file with size less than 10mb.');
             }
         } else {
-            setprescriptionList({
-                ...prescriptionList,
-                [e.target.name]: e.target.value,
+            if (e.target.name === "numberOfDays") {
+                var reg = new RegExp('^[0-9]{0,3}$');
+                if (reg.test(e.target.value) == false) {
+                    toast.error('Please enter valid Days.');
+                    return false;
+                }
+            }
+            else {
+                setprescriptionList({
+                    ...prescriptionList,
+                    [e.target.name]: e.target.value,
 
-            });
+                });
+            }
         }
         // if (e.target.name === 'numberOfDays' && 'dose' && 'duration' && 'interval' && 'medicineName') {
         //     setIsSave(true);
@@ -169,7 +178,6 @@ const AddPrescription = (props) => {
     const handlePrescriptionSubmission = async (e) => {
         setIsSaveModal(false)
         e.preventDefault();
-        document.getElementById('prescriptionSave').disabled = true;
         let medicineData;
         let doseData;
         let durationData;
@@ -188,6 +196,7 @@ const AddPrescription = (props) => {
                 { !prescriptionResult.prescriptionDocument && toast.error("All Fields are Required!") }
             }
             else {
+                document.getElementById('prescriptionSave').disabled = true;
                 var medicalInfo = prescriptionList.map(function (a) { return a; });
                 const medicalDocumentInfo = {
                     documentType: "Prescription",
@@ -369,7 +378,7 @@ const AddPrescription = (props) => {
                                                             name="numberOfDays"
                                                             className="form-control"
                                                             onChange={(e) => handleInputChange(e, i)}
-                                                            value={x.numberOfDays}
+                                                            value={x.numberOfDays || ""}
                                                             placeholder="Number Of Days"
                                                             required
                                                             variant="filled"
