@@ -21,7 +21,7 @@ const UpcomingAppointments = () => {
         const response = await getAppointmentsForHomepage(startTime = starttime.toISOString(), endTime = endtime.toISOString(), doctorId = currentUserFromCookie.id).catch((err) => {
             console.log('err', err);
         });
-        if (response.status === 200 || response.status === 201) {
+        if (response?.status === 200 || response?.status === 201) {
             if (response && response.data) {
                 const upcomingAppointments = response.data.data.appointmentsBetweenGivenDates;
                 const reversedAppointments = upcomingAppointments.reverse();
@@ -48,7 +48,7 @@ const UpcomingAppointments = () => {
                                 status: value.status,
                                 appointmentId: value.appointmentId,
                                 unifiedAppointment: value.unifiedAppointment,
-                                appointmentMode : value.appointmentMode,
+                                appointmentMode: value.appointmentMode,
                                 patient: value.patient
                             });
                         } else if (
@@ -78,7 +78,7 @@ const UpcomingAppointments = () => {
                                 status: value.status,
                                 appointmentId: value.appointmentId,
                                 unifiedAppointment: value.unifiedAppointment,
-                                appointmentMode : value.appointmentMode,
+                                appointmentMode: value.appointmentMode,
                                 patient: value.patient
                             });
                         }
