@@ -3846,3 +3846,8 @@ input:checked + .slider:before {
 .close-btn-delete img:hover {
   transform: rotatez(88deg);
 }
+
+/* For Message from Administrator Modal */
+.admin-review-dialog {
+  background: #fff;
+}
