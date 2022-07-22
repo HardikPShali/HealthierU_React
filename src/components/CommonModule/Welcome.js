@@ -242,7 +242,14 @@ const Welcome = ({ currentuserInfo }) => {
 
     const handleInputChange = (e) => {
         e.preventDefault()
-        setstate({ ...state, [e.target.name]: e.target.value });
+        if (e.target.name === "experience") {
+            if (e.target.value > 50) {
+                toast.error("Experience must be between 1 to 50!")
+            }
+        }
+        else {
+            setstate({ ...state, [e.target.name]: e.target.value });
+        }
     };
     const handlePhone = (e) => {
         setstate({ ...state, phone: e });
@@ -532,7 +539,7 @@ const Welcome = ({ currentuserInfo }) => {
             <Container style={{ maxWidth: "100%" }}>
                 <Row>
                     <Col md={6} id="welcome-bg"></Col>
-                    <Col md={6} style={{ background: "#fff", padding: "5%" }}>
+                    <Col md={6} style={{ background: "#fff", padding: "2%" }}>
 
                         <div className="sign-box">
                             <h2 id="welcome-title">
@@ -833,12 +840,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="number" name="experience"
                                                     onChange={e => handleInputChange(e)}
                                                     value={experience}
-                                                    validators={['required']}
+                                                    validators={['required',
+                                                        'minNumber:0', 'maxNumber:50']}
                                                     errorMessages={['This field is required']}
-                                                    inputProps={{
-                                                        min: 0,
-                                                        max: 50
-                                                    }}
                                                     variant="filled"
                                                     required
                                                     placeholder='Years of experience' />

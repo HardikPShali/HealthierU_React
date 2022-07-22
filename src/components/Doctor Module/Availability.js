@@ -221,14 +221,12 @@ const Availability = () => {
   const convertHoursAndMinsToLocal = (hoursAndMins) => {
     if (hoursAndMins) {
       const [hr, min] = hoursAndMins.split(':');
-
       const currentDate = new Date();
       currentDate.setHours(hr);
       currentDate.setMinutes(min);
       currentDate.setSeconds(0);
-
       const localDate = convertUTCDateToLocalDate(currentDate);
-      const convertedHoursAndMinsInLocal = moment(localDate).format('HH:mm:ss');
+      const convertedHoursAndMinsInLocal = moment(localDate).format('HH:mm');
       return convertedHoursAndMinsInLocal;
     }
   };
