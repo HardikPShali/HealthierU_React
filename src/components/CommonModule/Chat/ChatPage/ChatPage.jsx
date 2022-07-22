@@ -193,11 +193,13 @@ const ChatPage = () => {
   const sendMsg = async () => {
     if (message && message.trim()) {
       try {
-        const messageObj = getMessageObj(true, message);
+        const msg = message;
+        setMessage('');
+        const messageObj = getMessageObj(true, msg);
         setMessages([...messages, messageObj]);
         reorderChatBoxOnMessageChange(messageObj);
 
-        await sendChannelMessage(message, channelName);
+        await sendChannelMessage(msg, channelName);
         if (endRef.current) {
           endRef.current.scrollIntoView({
             behavior: 'smooth',
@@ -207,10 +209,10 @@ const ChatPage = () => {
         }
         const messageData = {
           channelId: selectedChatItem.id,
-          message: message,
+          message: msg,
         };
         await sendMessage(messageData);
-        setMessage('');
+        
       } catch (error) {}
     }
   };

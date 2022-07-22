@@ -22,6 +22,7 @@ import {
     updateDoctorDocumentStatus,
     deleteDoctorDocument,
     updateDoctorDocument,
+    updateDoctorDocumentNew,
     getDoctorDocumentUrlForAdmin
 } from "../../service/frontendapiservices";
 import TransparentLoader from "../Loader/transparentloader";
@@ -61,8 +62,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         if (currentDoctor?.id) {
             loadDoctorDocument(currentDoctor);
         }
-    }, [currentDoctor], [page]);
-
+    }, [currentDoctor]);
+    useEffect(() => {
+    }, [page]);
     const loadDoctorDocument = async (doc) => {
         const doctorId = doc.id;
         const res = await getDoctorDocument(doctorId, 0);
@@ -70,7 +72,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             setPage(res.data)
             setDocumentData(res.data.documentsDocumentsList);
             console.log("loadDoctorDocument", res.data.documentsDocumentsList);
-            setCurrentDocumentData(res.data.documentsDocumentsList[0])
+            const firstData = res.data.documentsDocumentsList
+            const reverse = firstData.reverse()
+            setCurrentDocumentData(reverse[0])
             setDocumentinfo(res.data.documentsDocumentsList[0])
             setLoading(false);
         }
@@ -137,7 +141,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         //     setDocumentUpdateFile(e.target.files)
         // }
     }
-
+    const [error, SetError] = useState("")
     const handleUpload = async (e, data) => {
         setLoading(true);
         //document.getElementById("uploadBtn").disabled = true;
@@ -145,13 +149,27 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             doctorId: currentDoctor.id,
             doctor_email: currentDoctor.email,
             //documentName: documentName,
-            licenseNumber: licenseNumber,
-            referencePhoneNumber: referencePhoneNumber,
-            certifyingBody: certifyingBody
+            licenseNumber: state.licenseNumber,
+            referencePhoneNumber: state.referencePhoneNumber,
+            certifyingBody: state.certifyingBody
         }
+        const updateInfo = {
+            doctorId: currentDoctor.id,
+            licenseNumber: state.licenseNumber,
+            referencePhoneNumber: state.referencePhoneNumber,
+            certifyingBody: state.certifyingBody
+        }
+
+
         if (documentFile && info.licenseNumber !== null && info.referencePhoneNumber !== null && info.certifyingBody !== null) {
+            SetError("")
+            setPhoneError("")
             if (info.licenseNumber !== "" && info.referencePhoneNumber !== "" && info.certifyingBody !== "") {
+                SetError("")
+                setPhoneError("")
                 if (info.licenseNumber && info.certifyingBody && info.referencePhoneNumber) {
+                    SetError("")
+                    setPhoneError("")
                     const res = await uploadDoctorDocument(documentFile, info).catch(err => {
                         //setErrorMsg("Something Went Wrong!");
                         toast.error("Something went wrong. Please try again!")
@@ -179,28 +197,43 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             setDocumentFile("")
                             setLoading(false);
                         }
+                        const res2 = await updateDoctorDocumentNew(updateInfo).catch(err => {
+                            if (err.response.status === 500 || err.response.status === 504) {
+                                setLoading(false);
+                            }
+                        });
                     }
                 }
                 else {
                     setLoading(false);
-                    toast.error("Please enter all the details!")
+                    SetError("Required for document uploading!")
+                    setPhoneError("Required for document uploading!")
+                    //toast.error("Please enter License number,certifying body and reference phone number!")
                 }
             }
             else {
                 setLoading(false);
-                toast.error("Please enter all the details!")
+                SetError("Required for document uploading!")
+                setPhoneError("Required for document uploading!")
+                //toast.error("Please enter License number,certifying body and reference phone number!")
             }
         }
         else {
             if (!documentFile) {
                 toast.error("Please select file before uploading!")
+                SetError("")
+                setPhoneError("")
             }
             if (info.licenseNumber === null && info.referencePhoneNumber === null && info.certifyingBody === null) {
-                toast.error("Please enter all the details!")
+                //toast.error("Please enter License number,certifying body and reference phone number!")
+                SetError("Required for document uploading!")
+                setPhoneError("Required for document uploading!")
             }
             if (!info.licenseNumber && !info.certifyingBody && !info.referencePhoneNumber) {
                 setLoading(false);
-                toast.error("Please enter all the details!")
+                //toast.error("Please enter License number,certifying body and reference phone number!")
+                SetError("Required for document uploading!")
+                setPhoneError("Required for document uploading!")
             }
             setLoading(false);
         }
@@ -238,14 +271,14 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                 certifyingBody: state.certifyingBody,
             }
         }
-        const files = documentFile;
+        const files = documentFile[0];
         const res = await updateDoctorDocument(files, info).catch(err => {
             toast.error("Something went wrong. Please try again!")
             setLoading(false);
         });
         if (res && res.status === 200) {
-            //history.go(0);
-            loadDoctorDocument(currentDoctor)
+            history.go(0);
+            //loadDoctorDocument(currentDoctor)
             setLoading(false);
         }
     }
@@ -332,6 +365,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             history.go(0);
         }
     }
+    const [disableRefPhone, setDisableRefPhone] = useState(false)
     //Tell-Us-More-About-You Page
     const [state, setstate] = useState({
         licenseNumber: (currentdocumentData && currentdocumentData.licenseNumber) || "",
@@ -344,15 +378,33 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             referencePhoneNumber: currentdocumentData.referencePhoneNumber,
             certifyingBody: currentdocumentData.certifyingBody
         })
+        // if (state.licenseNumber !== "" || state.licenseNumber !== null || state.licenseNumber) {
+        //     document.getElementById("uploadlicence").disabled = true;
+        // }
+        // else {
+        //     document.getElementById("uploadlicence").disabled = false;
+        // }
+        // if (state.certifyingBody !== "" || state.certifyingBody !== null || state.certifyingBody) {
+        //     document.getElementById("uploadcerty").disabled = true;
+        // }
+        // else {
+        //     document.getElementById("uploadcerty").disabled = false;
+        // }
+
+        // if (state.referencePhoneNumber !== "" || state.referencePhoneNumber !== null || state.referencePhoneNumber) {
+        //     setDisableRefPhone(true)
+        // }
+        // else {
+        //     setDisableRefPhone(true)
+        // }
     }, [currentdocumentData]);
     const [phoneError, setPhoneError] = useState();
     const handleInputChange = (e) => {
         e.preventDefault()
-        console.log("state", e.target.value)
         setstate({ ...state, [e.target.name]: e.target.value });
         setDocumentinfo({ ...state, [e.target.name]: e.target.value })
-
     };
+
     const handlePhone = (e) => {
         setstate({ ...state, referencePhoneNumber: e });
         setDocumentinfo({ ...state, referencePhoneNumber: e })
@@ -391,7 +443,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             variant="filled"
                             required
                             placeholder='License Number' />
-
+                        {error && (<span style={{ color: "red", fontSize: "11px" }}>{error}</span>)}
                     </Col>
                     <Col md={6}>
                         <p>Certifying Body<sup>*</sup></p>
@@ -403,7 +455,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             variant="filled"
                             required
                             placeholder='Certifying Body' />
-
+                        {error && (<span style={{ color: "red", fontSize: "11px" }}>{error}</span>)}
                     </Col>
 
                 </Row>
@@ -424,6 +476,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             onChange={e => handlePhone(e)}
                             variant="filled"
                             required
+                            disabled={disableRefPhone}
                         />
                         {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
                     </Col>
@@ -535,7 +588,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                         )}
                     </tbody>
                 </table>
-                <div> <Pagination size="sm" style={{ float: 'right' }}>
+                <div style={{ marginRight: "3%" }}> <Pagination size="sm" style={{ float: 'right' }}>
                     {
                         page.totalPages ?
                             Array.from(Array(page.totalPages), (e, i) => {
