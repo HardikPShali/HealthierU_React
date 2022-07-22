@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Questions.css'
 import Cookies from 'universal-cookie'
 import {
     getHealthAssessmentPdf
 } from '../../../service/frontendapiservices'
 import { useParams } from 'react-router';
-const Questions = ({ answers }) => {
+const Questions = ({ answers,enableDownload }) => {
     const { id } = useParams();
+    console.log("showDownload",enableDownload);
     const cookies = new Cookies()
     const showReport = async () => {
         const url = await getHealthAssessmentPdf(id)
@@ -61,14 +62,14 @@ const Questions = ({ answers }) => {
                                     </div>
                                 )
                             }
-                            <button
+                            {enableDownload === true && <button
                                 className="btn btn-primary view-btn"
                                 onClick={() =>
                                     showReport()
                                 }
                             >
                                 Download
-                            </button>
+                            </button>}
                         </div>
                     </div>
                 </div>

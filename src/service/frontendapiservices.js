@@ -770,7 +770,6 @@ export const uploadDoctorDocument = async (files, info) => {
   for (let i = 0; i < files.length; i++) {
     newData.append(`doctorDocumentFile`, files[i])
   }
-  // newData.append(`doctorDocumentFile`, files);
   newData.append(
     "doctorDocumentInfo",
     new Blob([JSON.stringify(info)], {
@@ -819,9 +818,14 @@ export const updateDoctorDocumentNew = async (data) => {
 };
 export const updateDoctorDocument = async (files, info) => {
   var newData = new FormData();
-  newData.append(`doctorDocumentFile`, files);
-  newData.append("doctorDocumentInfo", JSON.stringify(info));
-
+  newData.append(`doctorDocumentFile`, files)
+  // newData.append("doctorDocumentInfo", JSON.stringify(info));
+  newData.append(
+    "doctorDocumentInfo",
+    new Blob([JSON.stringify(info)], {
+      type: "application/json",
+    })
+  );
   var payload = {
     method: "put",
     mode: "no-cors",
@@ -1438,7 +1442,7 @@ export const deleteReccurSlot = async (data) => {
   var payload = {
     method: "delete",
     mode: "no-cors",
-    data:data,
+    data: data,
     url: `/api/v2/recurSlot/delete`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
