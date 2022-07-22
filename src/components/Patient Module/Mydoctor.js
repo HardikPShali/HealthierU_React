@@ -476,7 +476,13 @@ const MyDoctor = (props) => {
     }
   };
 
+  // useeffect trigger handle search data with dep searchText
+
   const handleSearchData = async (showToast = false) => {
+
+
+    //controller abort function
+
     if (searchText !== '') {
       // setTransparentLoading(true);
       const res = await getSearchData(searchText, 0, doctorListLimit);
