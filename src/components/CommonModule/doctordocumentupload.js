@@ -137,7 +137,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         //     setDocumentUpdateFile(e.target.files)
         // }
     }
-
+    const [error, SetError] = useState("")
     const handleUpload = async (e, data) => {
         setLoading(true);
         //document.getElementById("uploadBtn").disabled = true;
@@ -150,8 +150,14 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             certifyingBody: certifyingBody
         }
         if (documentFile && info.licenseNumber !== null && info.referencePhoneNumber !== null && info.certifyingBody !== null) {
+            SetError("")
+            setPhoneError("")
             if (info.licenseNumber !== "" && info.referencePhoneNumber !== "" && info.certifyingBody !== "") {
+                SetError("")
+                setPhoneError("")
                 if (info.licenseNumber && info.certifyingBody && info.referencePhoneNumber) {
+                    SetError("")
+                    setPhoneError("")
                     const res = await uploadDoctorDocument(documentFile, info).catch(err => {
                         //setErrorMsg("Something Went Wrong!");
                         toast.error("Something went wrong. Please try again!")
@@ -183,24 +189,34 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                 }
                 else {
                     setLoading(false);
-                    toast.error("Please enter all the details!")
+                    SetError("Required for document uploading!")
+                    setPhoneError("Required for document uploading!")
+                    //toast.error("Please enter License number,certifying body and reference phone number!")
                 }
             }
             else {
                 setLoading(false);
-                toast.error("Please enter all the details!")
+                SetError("Required for document uploading!")
+                setPhoneError("Required for document uploading!")
+                //toast.error("Please enter License number,certifying body and reference phone number!")
             }
         }
         else {
             if (!documentFile) {
                 toast.error("Please select file before uploading!")
+                SetError("")
+                setPhoneError("")
             }
             if (info.licenseNumber === null && info.referencePhoneNumber === null && info.certifyingBody === null) {
-                toast.error("Please enter all the details!")
+                //toast.error("Please enter License number,certifying body and reference phone number!")
+                SetError("Required for document uploading!")
+                setPhoneError("Required for document uploading!")
             }
             if (!info.licenseNumber && !info.certifyingBody && !info.referencePhoneNumber) {
                 setLoading(false);
-                toast.error("Please enter all the details!")
+                //toast.error("Please enter License number,certifying body and reference phone number!")
+                SetError("Required for document uploading!")
+                setPhoneError("Required for document uploading!")
             }
             setLoading(false);
         }
@@ -244,8 +260,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             setLoading(false);
         });
         if (res && res.status === 200) {
-            //history.go(0);
-            loadDoctorDocument(currentDoctor)
+            history.go(0);
+            //loadDoctorDocument(currentDoctor)
             setLoading(false);
         }
     }
@@ -391,7 +407,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             variant="filled"
                             required
                             placeholder='License Number' />
-
+                        {error && (<span style={{ color: "red", fontSize: "11px" }}>{error}</span>)}
                     </Col>
                     <Col md={6}>
                         <p>Certifying Body<sup>*</sup></p>
@@ -403,7 +419,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             variant="filled"
                             required
                             placeholder='Certifying Body' />
-
+                        {error && (<span style={{ color: "red", fontSize: "11px" }}>{error}</span>)}
                     </Col>
 
                 </Row>
