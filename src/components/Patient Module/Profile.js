@@ -600,9 +600,9 @@ const Profile = () => {
                                                                 <MenuItem value="">
                                                                     <em>Select</em>
                                                                 </MenuItem>
-                                                                <MenuItem value="A+ve">A +ve</MenuItem>
-                                                                <MenuItem value="A-ve">A -ve</MenuItem>
-                                                                <MenuItem value="B+ve">B +ve</MenuItem>
+                                                                <MenuItem value="APOS">A +ve</MenuItem>
+                                                                <MenuItem value="ANEG">A -ve</MenuItem>
+                                                                <MenuItem value="BPOS">B +ve</MenuItem>
                                                                 <MenuItem value="BNEG">B -ve</MenuItem>
                                                                 <MenuItem value="OPOS">O +ve</MenuItem>
                                                                 <MenuItem value="ONEG">O -ve</MenuItem>
