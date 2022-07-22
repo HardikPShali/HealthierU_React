@@ -182,7 +182,7 @@ const Home = () => {
   //   // })
   // };
   const approveDoctor = async (userData) => {
-    setTransparentLoading(true);
+    // setTransparentLoading(true);
     userData.approved = true;
     const response = await approveDoctorByAdmin(userData);
     if (response.status === 200 || response.status === 201) {
