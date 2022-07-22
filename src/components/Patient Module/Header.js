@@ -60,6 +60,11 @@ const Header = (props) => {
 
   useEffect(() => {
     unreadNotificationCountHandler();
+    const interval = setInterval(() => {
+      unreadNotificationCountHandler();
+    }, 60000)
+
+    return () => clearInterval(interval);
   }, []);
 
 

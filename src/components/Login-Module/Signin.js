@@ -121,8 +121,9 @@ const Signin = () => {
     const googleUserData = {
       token: response.credential,
     };
-    const googleAccessToken = await handleGoogleAuth(googleUserData).catch(
+    const googleAccessToken = await handleGoogleAuth(googleUserData, history).catch(
       (err) => {
+        console.log({ err })
         if (err.response.status === 500 || err.response.status === 504) {
           setLoader(false);
         }
