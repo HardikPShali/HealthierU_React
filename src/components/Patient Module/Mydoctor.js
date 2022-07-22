@@ -52,6 +52,7 @@ import {
   getSearchData,
   setNextAppointmentDoctor,
   getAvailableSlotsForMyDoctors,
+  getUnreadNotificationsCount,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -475,7 +476,13 @@ const MyDoctor = (props) => {
     }
   };
 
+  // useeffect trigger handle search data with dep searchText
+
   const handleSearchData = async (showToast = false) => {
+
+
+    //controller abort function
+
     if (searchText !== '') {
       // setTransparentLoading(true);
       const res = await getSearchData(searchText, 0, doctorListLimit);
@@ -771,7 +778,7 @@ const MyDoctor = (props) => {
     try {
       // await api call
       const newPaymentResponse = await axios(newPaymentApi);
-      // console.log({ newPaymentResponse });
+      console.log({ newPaymentResponse });
 
       //success logic
       if (

@@ -46,6 +46,7 @@ import {
   deleteAppointment,
   getAppointmentListByPatientId,
   getAppointmentsTablistByStatus,
+  getUnreadNotificationsCount,
 } from '../../service/frontendapiservices';
 import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';

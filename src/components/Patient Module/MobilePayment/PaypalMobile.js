@@ -42,7 +42,7 @@ const PaypalMobile = () => {
         setLoading(true);
 
         // window.android.onPaymentStatusChange(true);
-        orderData.slotId = appointmentIdParams;
+        // orderData.slotId = appointmentIdParams;
 
         // const data = JSON.stringify(orderData);
 
@@ -58,9 +58,14 @@ const PaypalMobile = () => {
         //     halfRateParams,
         // }
 
+        const setAppointmentMode = (appMode) => {
+            if (appMode === 'First Consultation' || appMode === 'FIRST_CONSULTATION') return "FIRST_CONSULTATION";
+            return "FOLLOW_UP";
+        }
+
         const orderObject = {
             id: appointmentIdParams,
-            type: appointmentModeParams,
+            type: setAppointmentMode(appointmentModeParams),
             paymentsAppointmentsDTO: orderData,
         };
         //Book appt api
