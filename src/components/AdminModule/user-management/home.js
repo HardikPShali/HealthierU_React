@@ -32,6 +32,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Pagination from "../../CommonModule/pagination";
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 // import PublishIcon from "@material-ui/icons/Publish";
 // import { checkAccessToken } from '../../../service/RefreshTokenService';
 // import SearchIcon from "@material-ui/icons/Search";
@@ -185,7 +186,9 @@ const Home = () => {
     userData.approved = true;
     const response = await approveDoctorByAdmin(userData);
     if (response.status === 200 || response.status === 201) {
+      okClickOnActivateDoctor()
       history.go(0);
+
     }
   };
 
@@ -276,6 +279,13 @@ const Home = () => {
       }
     }
   };
+
+  const okClickOnActivateDoctor = () => {
+    // history.go(0);
+    toast.success('Doctor Approved');
+  }
+
+
   return (
     <div>
       {loading && <Loader />}
