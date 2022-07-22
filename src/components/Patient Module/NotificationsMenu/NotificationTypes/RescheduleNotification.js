@@ -3,16 +3,46 @@ import Avatar from 'react-avatar';
 import { NavLink } from 'react-router-dom';
 import rightIcon from '../../../../images/svg/right-icon.svg';
 import moment from 'moment';
+import {
+    getUnreadNotificationsCount,
+    putMarkAsReadFromNotificationMenu,
+} from '../../../../service/frontendapiservices';
 
 const RescheduleNotification = ({ notification, key }) => {
-
     const setDoctorIdInSession = (doctorId) => {
         // console.log({ doctorId });
         sessionStorage.setItem('doctorId', doctorId);
-    }
+    };
+
+    //MARK AS READ NOTIFICATION LOGIC
+    const markAsReadFromNotificationMenuHandler = async () => {
+        const notificationId = notification.id;
+        const userId = notification.userId;
+
+        const data = {
+            id: notificationId,
+        };
+
+        const response = await putMarkAsReadFromNotificationMenu(
+            data,
+            userId
+        ).catch((err) => console.log({ err }));
+        console.log({ markAsReadFromNotificationMenuHandler: response });
+
+        if (response.data.status === true) {
+            //   setBadgeCount(0);
+            //   toast.success("Notification marked as read successfully");
+            await getUnreadNotificationsCount(userId);
+        }
+    };
 
     return (
-        <div onClick={() => setDoctorIdInSession(notification.data.appointmentDetails.doctor.id)}>
+        <div
+            onClick={() => {
+                setDoctorIdInSession(notification.data.appointmentDetails.doctor.id);
+                markAsReadFromNotificationMenuHandler();
+            }}
+        >
             <NavLink
                 to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id
                     }/${notification.data.appointmentDetails.appointmentMode

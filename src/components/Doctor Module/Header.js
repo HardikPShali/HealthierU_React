@@ -10,7 +10,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Cookies from "universal-cookie";
 import profileicon from "../../images/Icons/profile.svg";
-import { getDoctorByUserId } from "../../service/frontendapiservices";
+import { getDoctorByUserId, getUnreadNotificationsCount, putMarkAsReadNotification } from "../../service/frontendapiservices";
 import { updateDoctorTimeZone } from "../../service/frontendapiservices";
 import { toast } from "react-toastify";
 // import NotificationMenu from '../CommonModule/NotificationMenu';
@@ -30,7 +30,7 @@ const Header = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   // const [currentDoctorState, setCurrentDoctorState] = useState();
   //const cookies = new Cookies();
-  console.log("props in head ::: ", props);
+  // console.log("props in head ::: ", props);
   const systemTimeZone = momentTz.tz.guess();
   // const docId = props.currentDoctor.id;
   // const currentTimezone = props.currentDoctor.doctorTimeZone;
@@ -115,6 +115,46 @@ const Header = (props) => {
   } = props;
   const unReadMessageCount =
     (unReadMessageList && Object.keys(unReadMessageList).length) || 0;
+
+
+  //NOTIFICATION BADGE COUNT LOGIC
+  const [badgeCount, setBadgeCount] = useState(0);
+  const unreadNotificationCountHandler = async () => {
+    const user = cookies.get("profileDetails");
+    const userId = user.userId;
+
+    const response = await getUnreadNotificationsCount(userId).catch(err => (console.log({ err })));
+
+    // console.log({ response });
+
+    const notificationsCount = response.data.data;
+    // console.log({ notificationCount });
+
+    if (notificationsCount > 0) {
+      setBadgeCount(notificationsCount);
+    }
+    else {
+      setBadgeCount(0);
+    }
+  }
+
+  useEffect(() => {
+    unreadNotificationCountHandler();
+  }, []);
+
+
+  //MARK AS READ NOTIFICATION LOGIC
+  const markAsReadNotificationHandler = async () => {
+    const user = cookies.get("profileDetails");
+    const userId = user.userId;
+
+    const response = await putMarkAsReadNotification(userId).catch(err => (console.log({ err })));
+
+    if (response.data.status === true) {
+      setBadgeCount(0);
+      // toast.success("Notification marked as read successfully");
+    }
+  }
   return (
     <Navbar variant="dark" expand="lg" id="navbar" sticky="top">
       <Container className="p-0 d-flex">
@@ -186,27 +226,29 @@ const Header = (props) => {
           </NavLink>``` */}
           {/* unReadMessageCount > 0 && */}
           {
-            <div className="dropdown headerNavbar notification-Navbar">
-              <IconButton
-                aria-label="show 17 new notifications"
-                color="inherit"
-                type="button"
-                data-toggle="dropdown"
-              >
-                {/* <Badge badgeContent={unReadMessageCount} color="secondary"> */}
-                <NotificationsIcon />
-                {/* </Badge> */}
-              </IconButton>
-              <div
-                className="dropdown-menu notification-Menu"
-                style={{ width: "350px", left: "-160px" }}
-              >
-                {/* <NotificationMenu
+            <div onClick={() => markAsReadNotificationHandler()}>
+              <div className="dropdown headerNavbar notification-Navbar">
+                <IconButton
+                  aria-label="show 17 new notifications"
+                  color="inherit"
+                  type="button"
+                  data-toggle="dropdown"
+                >
+                  <Badge badgeContent={badgeCount} color="secondary">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <div
+                  className="dropdown-menu notification-Menu"
+                  style={{ width: "350px", left: "-160px" }}
+                >
+                  {/* <NotificationMenu
                   unReadMessageList={unReadMessageList}
                   detailsList={patientDetailsList}
                   module={'doctor'}
                 /> */}
-                <NotificationMenuDoctor />
+                  <NotificationMenuDoctor />
+                </div>
               </div>
             </div>
           }

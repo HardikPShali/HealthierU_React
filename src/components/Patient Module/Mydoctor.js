@@ -1597,7 +1597,7 @@ const MyDoctor = (props) => {
                                 />
                               )}
                               {user.picture ? (
-                                <img src={user.picture} alt="" />
+                                <img src={user.picture} alt="" className='grid-image-mydoctor' />
                               ) : (
                                 <Avatar
                                   name={user.firstName + ' ' + user.lastName}
