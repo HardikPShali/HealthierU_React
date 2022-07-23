@@ -39,6 +39,7 @@ import bloodPressureIcon from "../../../src/images/svg/blood-pressure-icon.svg";
 import "./profile/profile.css";
 import ProfileRow from "../CommonModule/Profile/ProfileRow/ProfileRow";
 import ProfileImage from "../CommonModule/Profile/ProfileImage/ProfileImage";
+import { toast } from "react-toastify";
 
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 // import LocalStorageService from './../../util/LocalStorageService';
@@ -190,14 +191,23 @@ const Profile = () => {
 
     const handleDetails = async (e) => {
         console.log("profilePicture ::::::", profilePicture);
-        setTransparentLoading(true);
+        // setTransparentLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
         const reqData = { ...currentPatient };
         reqData.lastName = '';
         bodyFormData.append("profileData", JSON.stringify(reqData));
         bodyFormData.append("profilePicture", profilePicture);
-        const response = await updatePatientData(bodyFormData);
+        const response = await updatePatientData(bodyFormData).catch(err => {
+            if (err.response.status === 500 || err.response.status === 504) {
+                toast.error("Something went wrong. Please try again.");
+                setTimeout(() => {
+                    history.go(0);
+                }, 1000)
+            }
+        });
+
+        console.log({ response })
 
         if (response.status === 200 || response.status === 201) {
             // location.reload();
@@ -205,7 +215,12 @@ const Profile = () => {
             // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
             // setTransparentLoading(false);
             cookies.set('profileDetails', response.data);
-            history.go(0);
+
+            toast.success("Profile updated successfully");
+
+            setTimeout(() => {
+                history.go(0);
+            }, 1000)
             // eslint-disable-next-line no-restricted-globals
             // window.location.reload();
             // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
@@ -600,9 +615,9 @@ const Profile = () => {
                                                                 <MenuItem value="">
                                                                     <em>Select</em>
                                                                 </MenuItem>
-                                                                <MenuItem value="A+ve">A +ve</MenuItem>
-                                                                <MenuItem value="A-ve">A -ve</MenuItem>
-                                                                <MenuItem value="B+ve">B +ve</MenuItem>
+                                                                <MenuItem value="APOS">A +ve</MenuItem>
+                                                                <MenuItem value="ANEG">A -ve</MenuItem>
+                                                                <MenuItem value="BPOS">B +ve</MenuItem>
                                                                 <MenuItem value="BNEG">B -ve</MenuItem>
                                                                 <MenuItem value="OPOS">O +ve</MenuItem>
                                                                 <MenuItem value="ONEG">O -ve</MenuItem>

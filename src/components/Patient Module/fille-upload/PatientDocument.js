@@ -1212,7 +1212,7 @@ const PatientDocument = (props) => {
                                 <span>
                                     Patient Name:{" "}
                                     <b>
-                                        {patient?.firstName + " " + patient?.lastName}
+                                        {patient?.firstName + " " + (patient?.lastName || "")}
                                         <input
                                             hidden={true}
                                             id="patientId"

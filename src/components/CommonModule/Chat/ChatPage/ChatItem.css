@@ -30,6 +30,7 @@
 }
 .chat_item-profile img {
   max-width: 3rem;
+  width: 3rem;
   height: 3rem;
   border-radius: 50%;
 }
@@ -81,4 +82,17 @@
   .chat_lastMessage {
     width: 23ch !important;
   }
+}
+
+/* AVATAR CSS */
+.chat-avatar > .sb-avatar__text {
+  width: 3rem !important;
+  height: 3rem !important;
+  line-height: initial !important;
+  text-align: center !important;
+  color: var(--secondary) !important;
+  /* background: var(--primarysecond) !important; */
+  border-radius: 15px;
+  background-color: #fff !important;
+  border: 1px solid #00d0cc;
 }

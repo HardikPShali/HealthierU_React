@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { uploadNote } from "../../../service/frontendapiservices";
 import backIcon from '../../../images/svg/close-btn.svg';
@@ -10,6 +10,18 @@ import './Notes.css'
 const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
     const { patientInfo, doctorInfo, latestAppointment } = selectedChatNote;
+
+    const [disableButton, setDisableButton] = useState(false);
+
+    useEffect(() => {
+        setNotes({
+            chiefComplaint: '',
+            presentIllness: '',
+            vitalSigns: '',
+            physicalExam: '',
+            planAssessment: '',
+        })
+    }, [selectedChatNote]);
 
 
     // const [notes, setNotes] = useState({
@@ -34,15 +46,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
     const sendNotesDetails = async (e) => {
         e.preventDefault();
-        // console.log(notes);
-
-        // const { currentDoctor, patientDetailsList } = props;
-        // console.log(patientDetailsList[currentSelectedGroup]);
-        // // console.log(currentDoctor);
-
-        // const appointmentId = patientDetailsList[currentSelectedGroup].appointmentDetails
-        // console.log(appointmentId);
-
+        setDisableButton(true);
 
         const note = {
             chiefComplaint: notes.chiefComplaint,
@@ -54,8 +58,6 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
             doctorId: doctorInfo.id,
             appointmentId: latestAppointment.id
         }
-
-        // console.log("Note", note);
 
         const noteResponse = await uploadNote(note).catch(err => {
             console.log(err);
@@ -72,6 +74,14 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                 draggable: true,
                 progress: undefined,
             });
+            setNotes({
+                chiefComplaint: '',
+                presentIllness: '',
+                vitalSigns: '',
+                physicalExam: '',
+                planAssessment: '',
+            })
+            setDisableButton(false);
             onClose();
         }
 
@@ -151,6 +161,8 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                 className="btn btn-primary sign-btn"
                                 type="submit"
                                 value="ADD NOTE"
+                                disabled={disableButton}
+                                autoFocus={false}
                             />
 
                         </form>

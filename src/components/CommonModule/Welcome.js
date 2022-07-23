@@ -71,7 +71,7 @@ const Welcome = ({ currentuserInfo }) => {
     const history = useHistory();
     const [loading, setLoading] = useState(true);
     const [transparentLoading, setTransparentLoading] = useState(false);
-
+    const [currentDoctor, setCurrentDoctor] = useState();
     const cookies = new Cookies();
     const currentTimeZone = momentTz.tz.guess();
 
@@ -110,9 +110,15 @@ const Welcome = ({ currentuserInfo }) => {
         loadOptions();
         loadSpeciality();
         loadLanguage();
+        loadDocuments()
+    }, [])
+    // useEffect(() => {
+    //     loadDocuments();
+    // }, [currentDoctor])
+    const loadDocuments = async () => {
         const profileStatus = cookies.get("userProfileCompleted");
         if (profileStatus) {
-            async function currentUserData() {
+            const currentUserData = async () => {
                 const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
                 if (res) {
                     setCurrentDoctor(res.data);
@@ -122,7 +128,7 @@ const Welcome = ({ currentuserInfo }) => {
 
             currentUserData();
         }
-    }, [])
+    }
     const [educationList, setEducationList] = useState([{ institution: '', educationalQualification: '' }]);
     const [state, setstate] = useState({
         userId: (currentuserInfo && currentuserInfo.id) || "",
@@ -236,7 +242,14 @@ const Welcome = ({ currentuserInfo }) => {
 
     const handleInputChange = (e) => {
         e.preventDefault()
-        setstate({ ...state, [e.target.name]: e.target.value });
+        if (e.target.name === "experience") {
+            if (e.target.value > 50) {
+                toast.error("Experience must be between 1 to 50!")
+            }
+        }
+        else {
+            setstate({ ...state, [e.target.name]: e.target.value });
+        }
     };
     const handlePhone = (e) => {
         setstate({ ...state, phone: e });
@@ -255,13 +268,23 @@ const Welcome = ({ currentuserInfo }) => {
         //const isoDate = d.toISOString();
         // let formattedDate = `${d.getFullYear()}/${d.getMonth()}/${d.getDate()}`
         const age = moment().diff(e, 'years')
-        if (age >= 18) {
+        if (age >= 18 && age <= 120) {
             setstate({ ...state, dateOfBirth: e });
             setDefaultDate(e);
         }
-        else {
-            toast.success("Your Age must be 18 or above to process further.")
+        else if (age > 120) {
+            toast.error("Please enter valid age!")
         }
+        else {
+            toast.error("Your Age must be 18 or above to process further.")
+        }
+        // if (age <= 120) {
+        //     setstate({ ...state, dateOfBirth: e });
+        //     setDefaultDate(e);
+        // }
+        // else {
+        //     toast.error("Please enter valid age!")
+        // }
 
     };
     const getUpdatedCurrentUserData = async () => {
@@ -275,17 +298,21 @@ const Welcome = ({ currentuserInfo }) => {
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-
-            const currentUserInformation = await getUpdatedUserData();
-            cookies.set("currentUser", currentUserInformation.data);
-            cookies.remove("userProfileCompleted");
-            setCurrentUserDataAfterApproval(currentUserInformation.data);
-            if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
-                setTransparentLoading(false);
-                handleClickOpen();
-            } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
-                // triggerFcmTokenHandler();
-                history.push('/doctor');
+            if (documentInfo && documentUpdateFile) {
+                const currentUserInformation = await getUpdatedUserData();
+                cookies.set("currentUser", currentUserInformation.data);
+                cookies.remove("userProfileCompleted");
+                setCurrentUserDataAfterApproval(currentUserInformation.data);
+                if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
+                    setTransparentLoading(false);
+                    handleClickOpen();
+                } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
+                    // triggerFcmTokenHandler();
+                    history.push('/doctor');
+                }
+            }
+            else {
+                toast.error("Please Add the Document details!")
             }
         }
     }
@@ -443,7 +470,7 @@ const Welcome = ({ currentuserInfo }) => {
                     const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
 
                     if (res) {
-                        setCurrentDoctor(res);
+                        setCurrentDoctor(res.data);
                         updateCurrentUserData();
                     }
                 }
@@ -479,7 +506,7 @@ const Welcome = ({ currentuserInfo }) => {
     const [phoneError, setPhoneError] = useState();
     const [formError, setFormError] = useState();
     const [displaydocumentForm, setDisplayDocumentForm] = useState(false);
-    const [currentDoctor, setCurrentDoctor] = useState();
+
 
     console.log("currentUserInfo ::", currentuserInfo);
 
@@ -512,7 +539,7 @@ const Welcome = ({ currentuserInfo }) => {
             <Container style={{ maxWidth: "100%" }}>
                 <Row>
                     <Col md={6} id="welcome-bg"></Col>
-                    <Col md={6} style={{ background: "#fff", padding: "5%" }}>
+                    <Col md={6} style={{ background: "#fff", padding: "2%" }}>
 
                         <div className="sign-box">
                             <h2 id="welcome-title">
@@ -547,6 +574,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 // errorMessages={['This field is required']}
                                                 variant="filled"
                                                 disabled
+                                                required
                                                 style={{ display: 'none' }}
                                             />
                                         </Col>
@@ -583,10 +611,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={countryId}
                                                     inputProps={{ required: true }}
                                                     displayEmpty
+                                                    required
                                                     onChange={e => handleCountry(e)}
                                                 >
                                                     <MenuItem value="">
-                                                        <em>Select</em>
+                                                        Select
                                                     </MenuItem>
                                                     {countryList && countryList.map((option, index) => (
                                                         <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
@@ -629,20 +658,21 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={gender}
                                                     inputProps={{ required: true }}
                                                     displayEmpty
+                                                    required
                                                     onChange={e => handleInputChange(e)}
 
                                                 >
                                                     <MenuItem value="">
-                                                        <em>Select</em>
+                                                        Select
                                                     </MenuItem>
                                                     <MenuItem value="MALE">
-                                                        <em>Male</em>
+                                                        Male
                                                     </MenuItem>
                                                     <MenuItem value="FEMALE">
-                                                        <em>Female</em>
+                                                        Female
                                                     </MenuItem>
                                                     <MenuItem value="UNKNOWN">
-                                                        <em>Other</em>
+                                                        Other
                                                     </MenuItem>
 
                                                 </Select>
@@ -671,6 +701,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                         onSelect={handleLanguages}
                                                         onRemove={removeLanguages}
                                                         displayValue="name"
+                                                        required
                                                     />
                                                 </div>
                                             </FormControl>
@@ -691,10 +722,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                         name="maritalstatus"
                                                         value={maritalstatus}
                                                         displayEmpty
+                                                        required
                                                         inputProps={{ required: true }}
                                                         onChange={e => handleInputChange(e)}
                                                     >
-                                                        <MenuItem value=""><em>Select</em></MenuItem>
+                                                        <MenuItem value="">Select</MenuItem>
                                                         <MenuItem value="MARRIED">Married</MenuItem>
                                                         <MenuItem value="SINGLE">Single</MenuItem>
                                                         <MenuItem value="DIVORCED">Divorced</MenuItem>
@@ -716,11 +748,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={height}
                                                     validators={[
                                                         "required",
-                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                        "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
                                                     ]}
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid Height"]}
                                                     variant="filled"
+                                                    required
                                                     placeholder='Height' />
                                             </Col>
                                             <Col md={6}>
@@ -730,11 +763,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={weight}
                                                     validators={[
                                                         "required",
-                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                        "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
                                                     ]}
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid Weight"]}
                                                     variant="filled"
+                                                    required
                                                     placeholder='Weight' />
                                             </Col>
                                         </Row>
@@ -747,11 +781,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={highbp}
                                                     validators={[
                                                         "required",
-                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                        "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
                                                     ]}
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid High BP Rate"]}
                                                     variant="filled"
+                                                    required
                                                     placeholder='High BP' />
                                             </Col>
                                             <Col md={6}>
@@ -761,11 +796,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={lowbp}
                                                     validators={[
                                                         "required",
-                                                        "matchRegexp:(^[1-9]+[0-9]*$)",
+                                                        "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
                                                     ]}
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid Low BP Rate"]}
                                                     variant="filled"
+                                                    required
                                                     placeholder='Low BP' />
                                             </Col>
                                         </Row>
@@ -777,6 +813,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     onChange={e => handleInputChange(e)}
                                                     value={allergies}
                                                     variant="filled"
+                                                    required
                                                     placeholder="Allergies"
                                                     inputProps={{
                                                         title: "Make it comma (,) separated."
@@ -803,13 +840,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="number" name="experience"
                                                     onChange={e => handleInputChange(e)}
                                                     value={experience}
-                                                    validators={['required']}
+                                                    validators={['required',
+                                                        'minNumber:0', 'maxNumber:50']}
                                                     errorMessages={['This field is required']}
-                                                    inputProps={{
-                                                        min: 0,
-                                                        max: 65
-                                                    }}
                                                     variant="filled"
+                                                    required
                                                     placeholder='Years of experience' />
                                             </Col>
                                             <Col md={6}>
@@ -821,10 +856,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                         name="modeOfEmployment"
                                                         value={modeOfEmployment}
                                                         displayEmpty
+                                                        required
                                                         inputProps={{ required: true }}
                                                         onChange={e => handleInputChange(e)}
                                                     >
-                                                        <MenuItem value=""><em>Select</em></MenuItem>
+                                                        <MenuItem value="">Select</MenuItem>
                                                         <MenuItem value="Self - Employed">Self - Employed</MenuItem>
                                                         <MenuItem value="Employed">Employed</MenuItem>
 
@@ -866,6 +902,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="text" name="affiliation"
                                                     onChange={e => handleInputChange(e)}
                                                     value={affiliation}
+                                                    required
                                                     validators={[
                                                         "required",
                                                         "matchRegexp:(^[a-zA-Z ]*$)",
@@ -891,6 +928,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                             onSelect={handleSpecialities}
                                                             onRemove={removeSpecialities}
                                                             displayValue="name"
+                                                            required
                                                         />
                                                     </div>
                                                 </FormControl>
@@ -1002,6 +1040,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                             <TextValidator id="standard-basic" type="text" name="educationalQualification"
                                                                 onChange={(e) => handleEducationDetailsInputChange(e, i)}
                                                                 value={x.educationalQualification}
+                                                                required
                                                                 validators={[
                                                                     "required",
                                                                     "matchRegexp:(^[a-zA-Z ]*$)",
@@ -1019,7 +1058,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                             <TextValidator id="standard-basic" type="text" name="institution"
                                                                 onChange={(e) => handleEducationDetailsInputChange(e, i)}
                                                                 value={x.institution}
+                                                                required
                                                                 validators={[
+
                                                                     "required",
                                                                     "matchRegexp:(^[a-zA-Z ]*$)",
                                                                 ]}
@@ -1081,8 +1122,8 @@ const Welcome = ({ currentuserInfo }) => {
                             )}
                             {displaydocumentForm && (<>
 
-                                <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor}  setDocumentinfo={setDocumentinfo}
-                                                            setDocumentUpdateFile={setDocumentUpdateFile} />
+                                <DoctorDocumentUpload isDoctor={true} currentDoctor={currentDoctor} setDocumentinfo={setDocumentinfo}
+                                    setDocumentUpdateFile={setDocumentUpdateFile} />
                                 <br />
                                 <button className="btn btn-primary continue-btn" onClick={() => getUpdatedCurrentUserData()}>Continue</button>
                             </>)}

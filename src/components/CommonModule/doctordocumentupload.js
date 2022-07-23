@@ -22,6 +22,7 @@ import {
     updateDoctorDocumentStatus,
     deleteDoctorDocument,
     updateDoctorDocument,
+    updateDoctorDocumentNew,
     getDoctorDocumentUrlForAdmin
 } from "../../service/frontendapiservices";
 import TransparentLoader from "../Loader/transparentloader";
@@ -61,16 +62,19 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         if (currentDoctor?.id) {
             loadDoctorDocument(currentDoctor);
         }
-    }, [currentDoctor], [page]);
-
+    }, [currentDoctor]);
+    useEffect(() => {
+    }, [page]);
     const loadDoctorDocument = async (doc) => {
         const doctorId = doc.id;
         const res = await getDoctorDocument(doctorId, 0);
         if (res && res.status === 200) {
             setPage(res.data)
             setDocumentData(res.data.documentsDocumentsList);
-            console.log("loadDoctorDocument",res.data.documentsDocumentsList);
-            setCurrentDocumentData(res.data.documentsDocumentsList[0])
+            console.log("loadDoctorDocument", res.data.documentsDocumentsList);
+            const firstData = res.data.documentsDocumentsList
+            const reverse = firstData.reverse()
+            setCurrentDocumentData(reverse[0])
             setDocumentinfo(res.data.documentsDocumentsList[0])
             setLoading(false);
         }
@@ -88,6 +92,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
 
     const handleUploadClose = () => {
         setUploadOpen(false);
+        setDocumentFile("")
+        setDocumentUpdateFile("")
         setErrorMsg("");
     }
 
@@ -116,7 +122,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                 document.getElementById("uploadForm").reset();
             }
             if (!file[i].name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
-                setDocumentError("Document must be PNG, JPG, JPEG or PDF");
+                // setDocumentError("Document must be PNG, JPG, JPEG or PDF");
+                toast.error("Document must be PNG, JPG, JPEG or PDF")
                 document.getElementById("uploadForm").reset();
             }
             else {
@@ -135,7 +142,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         //     setDocumentUpdateFile(e.target.files)
         // }
     }
-
+    const [error, SetError] = useState("")
     const handleUpload = async (e, data) => {
         setLoading(true);
         //document.getElementById("uploadBtn").disabled = true;
@@ -143,34 +150,93 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             doctorId: currentDoctor.id,
             doctor_email: currentDoctor.email,
             //documentName: documentName,
-            licenseNumber: licenseNumber,
-            referencePhoneNumber: referencePhoneNumber,
-            certifyingBody: certifyingBody
+            licenseNumber: state.licenseNumber,
+            referencePhoneNumber: state.referencePhoneNumber,
+            certifyingBody: state.certifyingBody
         }
-        const res = await uploadDoctorDocument(documentFile, info).catch(err => {
-            //setErrorMsg("Something Went Wrong!");
-            toast.error("Something went wrong. Please try again!")
+        const updateInfo = {
+            doctorId: currentDoctor.id,
+            licenseNumber: state.licenseNumber,
+            referencePhoneNumber: state.referencePhoneNumber,
+            certifyingBody: state.certifyingBody
+        }
+
+
+        if (documentFile && info.licenseNumber !== null && info.referencePhoneNumber !== null && info.certifyingBody !== null) {
+            SetError("")
+            setPhoneError("")
+            if (info.licenseNumber !== "" && info.referencePhoneNumber !== "" && info.certifyingBody !== "") {
+                SetError("")
+                setPhoneError("")
+                if (info.licenseNumber && info.certifyingBody && info.referencePhoneNumber) {
+                    SetError("")
+                    setPhoneError("")
+                    const res = await uploadDoctorDocument(documentFile, info).catch(err => {
+                        //setErrorMsg("Something Went Wrong!");
+                        toast.error("Something went wrong. Please try again!")
+                        history.push(0)
+                        setLoading(false);
+                    });
+                    if (res && res.status === 201) {
+                        toast.success("Document Successfully Uploaded.");
+                        const existingDoc = documentData;
+                        existingDoc.push(res.data.data);
+                        setDocumentData(existingDoc);
+                        setUploadOpen(false);
+                        setLoading(false)
+                        const res1 = await getDoctorDocument(currentDoctor.id, 0);
+                        if (res1 && res1.status === 200) {
+                            setPage(res1.data)
+                            setDocumentData(res1.data.documentsDocumentsList);
+                            setCurrentDocumentData(res1.data.documentsDocumentsList[0])
+                            setDocumentinfo(res1.data.documentsDocumentsList[0])
+                            setDocumentFile("")
+                            setLoading(false);
+                        }
+                        else if (res1 && res1.status === 204) {
+                            setDocumentData([]);
+                            setDocumentFile("")
+                            setLoading(false);
+                        }
+                        const res2 = await updateDoctorDocumentNew(updateInfo).catch(err => {
+                            if (err.response.status === 500 || err.response.status === 504) {
+                                setLoading(false);
+                            }
+                        });
+                    }
+                }
+                else {
+                    setLoading(false);
+                    SetError("Required for document uploading!")
+                    setPhoneError("Required for document uploading!")
+                    //toast.error("Please enter License number,certifying body and reference phone number!")
+                }
+            }
+            else {
+                setLoading(false);
+                SetError("Required for document uploading!")
+                setPhoneError("Required for document uploading!")
+                //toast.error("Please enter License number,certifying body and reference phone number!")
+            }
+        }
+        else {
+            if (!documentFile) {
+                toast.error("Please select file before uploading!")
+                SetError("")
+                setPhoneError("")
+            }
+            if (info.licenseNumber === null && info.referencePhoneNumber === null && info.certifyingBody === null) {
+                //toast.error("Please enter License number,certifying body and reference phone number!")
+                SetError("Required for document uploading!")
+                setPhoneError("Required for document uploading!")
+            }
+            if (!info.licenseNumber && !info.certifyingBody && !info.referencePhoneNumber) {
+                setLoading(false);
+                //toast.error("Please enter License number,certifying body and reference phone number!")
+                SetError("Required for document uploading!")
+                setPhoneError("Required for document uploading!")
+            }
             setLoading(false);
-        });
-        if (res && res.status === 201) {
-            toast.success("Document successfully Uploaded.");
-            const existingDoc = documentData;
-            existingDoc.push(res.data.data);
-            setDocumentData(existingDoc);
-            setUploadOpen(false);
-            setLoading(false)
-            const res1 = await getDoctorDocument(currentDoctor.id, 0);
-            if (res1 && res1.status === 200) {
-                setPage(res1.data)
-                setDocumentData(res1.data.documentsDocumentsList);
-                setCurrentDocumentData(res1.data.documentsDocumentsList[0])
-                setDocumentinfo(res1.data.documentsDocumentsList[0])
-                setLoading(false);
-            }
-            else if (res1 && res1.status === 204) {
-                setDocumentData([]);
-                setLoading(false);
-            }
         }
     }
 
@@ -182,9 +248,10 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                 id: selectedDocument.id,
                 doctorId: selectedDocument.doctorId,
                 doctor_email: selectedDocument.doctor_email,
+                //document: selectedDocument.document,
                 documentKey: selectedDocument.documentKey,
-                documentName: selectedDocument.documentName,
-                documentType: selectedDocument.documentType,
+                documentName: documentFile[0].name,
+                documentType: documentFile[0].type,
                 licenseNumber: state.licenseNumber,
                 referencePhoneNumber: state.referencePhoneNumber,
                 certifyingBody: state.certifyingBody,
@@ -195,23 +262,25 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             info = {
                 id: selectedDocument.id,
                 doctorId: selectedDocument.doctorId,
+                //document: selectedDocument.document,
                 doctor_email: selectedDocument.doctor_email,
                 documentKey: selectedDocument.documentKey,
-                documentName: selectedDocument.documentName,
-                documentType: selectedDocument.documentType,
+                documentName: documentFile[0].name,
+                documentType: documentFile[0].type,
                 licenseNumber: state.licenseNumber,
                 referencePhoneNumber: state.referencePhoneNumber,
                 certifyingBody: state.certifyingBody,
             }
         }
-        console.log("Info", info);
-        const files = documentFile;
+        const files = documentFile[0];
         const res = await updateDoctorDocument(files, info).catch(err => {
             toast.error("Something went wrong. Please try again!")
             setLoading(false);
         });
         if (res && res.status === 200) {
             history.go(0);
+            //loadDoctorDocument(currentDoctor)
+            setLoading(false);
         }
     }
 
@@ -238,6 +307,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             id: doc.id,
             doctorId: doc.doctorId,
             doctor_email: doc.doctor_email,
+            document: doc.document,
             documentKey: doc.documentKey,
             documentName: doc.documentName,
             documentType: doc.documentType,
@@ -258,6 +328,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         const payloadData = {
             id: doc.id,
             doctorId: doc.doctorId,
+            document: doc.document,
             doctor_email: doc.doctor_email,
             documentKey: doc.documentKey,
             documentName: doc.documentName,
@@ -295,6 +366,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             history.go(0);
         }
     }
+    const [disableRefPhone, setDisableRefPhone] = useState(false)
     //Tell-Us-More-About-You Page
     const [state, setstate] = useState({
         licenseNumber: (currentdocumentData && currentdocumentData.licenseNumber) || "",
@@ -307,14 +379,33 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             referencePhoneNumber: currentdocumentData.referencePhoneNumber,
             certifyingBody: currentdocumentData.certifyingBody
         })
+        // if (state.licenseNumber !== "" || state.licenseNumber !== null || state.licenseNumber) {
+        //     document.getElementById("uploadlicence").disabled = true;
+        // }
+        // else {
+        //     document.getElementById("uploadlicence").disabled = false;
+        // }
+        // if (state.certifyingBody !== "" || state.certifyingBody !== null || state.certifyingBody) {
+        //     document.getElementById("uploadcerty").disabled = true;
+        // }
+        // else {
+        //     document.getElementById("uploadcerty").disabled = false;
+        // }
+
+        // if (state.referencePhoneNumber !== "" || state.referencePhoneNumber !== null || state.referencePhoneNumber) {
+        //     setDisableRefPhone(true)
+        // }
+        // else {
+        //     setDisableRefPhone(true)
+        // }
     }, [currentdocumentData]);
     const [phoneError, setPhoneError] = useState();
     const handleInputChange = (e) => {
         e.preventDefault()
         setstate({ ...state, [e.target.name]: e.target.value });
         setDocumentinfo({ ...state, [e.target.name]: e.target.value })
-
     };
+
     const handlePhone = (e) => {
         setstate({ ...state, referencePhoneNumber: e });
         setDocumentinfo({ ...state, referencePhoneNumber: e })
@@ -353,7 +444,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             variant="filled"
                             required
                             placeholder='License Number' />
-
+                        {error && (<span style={{ color: "red", fontSize: "11px" }}>{error}</span>)}
                     </Col>
                     <Col md={6}>
                         <p>Certifying Body<sup>*</sup></p>
@@ -365,7 +456,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             variant="filled"
                             required
                             placeholder='Certifying Body' />
-
+                        {error && (<span style={{ color: "red", fontSize: "11px" }}>{error}</span>)}
                     </Col>
 
                 </Row>
@@ -386,6 +477,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             onChange={e => handlePhone(e)}
                             variant="filled"
                             required
+                            disabled={disableRefPhone}
                         />
                         {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
                     </Col>
@@ -497,7 +589,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                         )}
                     </tbody>
                 </table>
-                <div> <Pagination size="sm" style={{ float: 'right' }}>
+                <div style={{ marginRight: "3%" }}> <Pagination size="sm" style={{ float: 'right' }}>
                     {
                         page.totalPages ?
                             Array.from(Array(page.totalPages), (e, i) => {

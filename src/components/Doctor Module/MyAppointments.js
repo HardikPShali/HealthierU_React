@@ -20,7 +20,8 @@ import {
   getGlobalAppointmentsSearch,
   rescheduleAppointmentDoctor,
   getAppointmentsTablistByStatus,
-  getPaymentInfoForDoctor
+  getPaymentInfoForDoctor,
+  getGlobalAppointmentsSearchNew
 } from "../../service/frontendapiservices";
 import rightIcon from "../../images/svg/right-icon.svg";
 import calendar from "../../images/icons used/Component 12.svg";
@@ -31,6 +32,7 @@ import calendarSmall from "../../images/svg/calendar-white.svg";
 import timeSmall from "../../images/svg/time-white.svg";
 import { useHistory } from "react-router";
 import HealthAssestmentReport from "./HealthAssestmentReport/HealthAssestmentReport";
+import { getInbox } from "../../service/chatService";
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
 // import timeSmall from "../../../images/svg/time-small.svg";
 const MyAppointments = (props) => {
@@ -293,7 +295,7 @@ const MyAppointments = (props) => {
         }
       }
     );
-    
+
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
         setAppointment(response.data.data)
@@ -326,7 +328,7 @@ const MyAppointments = (props) => {
       endtime.setHours(23, 59, 59);
       data.endTime = endtime.toISOString();
     }
-    const responseTwo = await getGlobalAppointmentsSearch(data).catch((err) => {
+    const responseTwo = await getGlobalAppointmentsSearchNew(data).catch((err) => {
       if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
         setLoading(false);
       }
@@ -339,65 +341,26 @@ const MyAppointments = (props) => {
         const reversedAppointments = appointmentDetails.reverse();
         const updateArray = [];
         reversedAppointments.map((value, index) => {
-          if (value.status === "ACCEPTED") {
-            if (
-              value.unifiedAppointment ===
-              (reversedAppointments[index + 1] &&
-                reversedAppointments[index + 1].unifiedAppointment)
-            ) {
-              updateArray.push({
-                id: value.id,
-                patientId: value.patientId,
-                doctorId: value.doctorId,
-                doctor: value.doctor,
-                title: `Appointment booked with Dr. ${value?.doctor?.firstName
-                  } with ${value.urgency ? value.urgency : "no"
-                  } urgency, comments : ${value.remarks ? value.remarks : "no comments"
-                  }`,
-                startTime: new Date(value.startTime),
-                endTime: new Date(reversedAppointments[index + 1].endTime),
-                remarks: value.remarks,
-                status: value.status,
-                appointmentId: value.appointmentId,
-                appointmentMode: value.appointmentMode,
-                unifiedAppointment: value.unifiedAppointment,
-                patient: value.patient,
-              });
-            } else if (
-              value.unifiedAppointment !==
-              (reversedAppointments[index + 1] &&
-                reversedAppointments[index + 1].unifiedAppointment) &&
-              value.unifiedAppointment ===
-              (responseTwo[index - 1] &&
-                responseTwo[index - 1].unifiedAppointment)
-            ) {
-              return false;
-            } else if (
-              value.unifiedAppointment !==
-              (reversedAppointments[index + 1] &&
-                reversedAppointments[index + 1].unifiedAppointment) &&
-              value.unifiedAppointment !==
-              (reversedAppointments[index - 1] &&
-                reversedAppointments[index - 1].unifiedAppointment)
-            ) {
-              updateArray.push({
-                id: value.id,
-                patientId: value.patientId,
-                doctorId: value.doctorId,
-                doctor: value.doctor,
-                startTime: new Date(value.startTime),
-                endTime: new Date(value.endTime),
-                remarks: value.remarks,
-                status: value.status,
-                appointmentMode: value.appointmentMode,
-                appointmentId: value.appointmentId,
-                unifiedAppointment: value.unifiedAppointment,
-                patient: value.patient,
-              });
-            }
-          }
+          updateArray.push({
+            id: value.id,
+            patientId: value.patientId,
+            doctorId: value.doctorId,
+            doctor: value.doctor,
+            // title: `Appointment booked with Dr. ${value?.doctor?.firstName
+            //   } with ${value.urgency ? value.urgency : "no"
+            //   } urgency, comments : ${value.remarks ? value.remarks : "no comments"
+            //   }`,
+            startTime: new Date(value.startTime),
+            endTime: new Date(value.endTime),
+            remarks: value.remarks,
+            status: value.status,
+            appointmentId: value.appointmentId,
+            appointmentMode: value.appointmentMode,
+            unifiedAppointment: value.unifiedAppointment,
+            patient: value.patient,
+          });
         });
-        setAppointmentDets(updateArray);
+        setAppointmentDets(updateArray.reverse());
         updateArray.find((app) => {
           if (apptId == app.id) {
             const birthDate = new Date(app.patient.dateOfBirth);
@@ -434,6 +397,7 @@ const MyAppointments = (props) => {
 
       // setSearchText(searchValue);
     } else {
+
       // console.log("searchValue is | in SearchBarComponent", searchValue);
       // const response = await getAppointmentsByPatientName(searchValue);
       // setActiveAppointments(response.data);
@@ -508,6 +472,37 @@ const MyAppointments = (props) => {
         props.history.push({ pathname: `/doctor/consultationhistory/${id}` }),
       500
     );
+  };
+
+  //video call code
+  let queryChannelId;
+
+  const videoClickHandler = async (channelId = null) => {
+    const result = await getInbox();
+    const patientId = SelectedPatient.patientId;
+    // console.log({ patientId })
+    // console.log({ result });
+    const inbox = result.data.data.filter((item) => {
+      return item.patientInfo.id === patientId;
+    })
+    // console.log({ inbox })
+    queryChannelId = inbox[0].id;
+    // console.log({ queryChannelId })
+    history.push(`/doctor/chat?channelId=${queryChannelId}&openVideo=${true}`);
+  };
+
+  const chatClickHandler = async (channelId = null) => {
+    const result = await getInbox();
+    const patientId = SelectedPatient.patientId;
+    // console.log({ patientId })
+    // console.log({ result });
+    const inbox = result.data.data.filter((item) => {
+      return item.patientInfo.id === patientId;
+    })
+    // console.log({ inbox })
+    queryChannelId = inbox[0].id;
+    // console.log({ queryChannelId })
+    history.push(`/doctor/chat?channelId=${queryChannelId}`);
   };
 
   return (
@@ -780,33 +775,11 @@ const MyAppointments = (props) => {
                                 />
                               ))}
                           </Col>
-                          {/* <Col
-                                                        xs={2}
-                                                        style={{
-                                                            paddingRight: '0',
-                                                            paddingLeft: '80px',
-                                                            paddingTop: '35px',
-                                                        }}
-                                                    >
-                                                        <DateRangeOutlinedIcon />
-                                                    </Col> */}
                           <Col xs={9} style={{ textAlign: "center" }}>
                             <b>
                               <p className="pclass">Upcoming Appointment</p>
                             </b>
-                            {/* <div id="req-date" style={{ paddingRight: '5px' }}>
-                                                            {moment(SelectedPatient.startTime).format(
-                                                                'MMM DD, YYYY'
-                                                            )}
-                                                            <br />
-                                                            {moment(SelectedPatient.startTime).format(
-                                                                'h:mm A'
-                                                            ) +
-                                                                ' - ' +
-                                                                moment(SelectedPatient.endTime).format(
-                                                                    'h:mm A'
-                                                                )}
-                                                        </div> */}
+
                             <div className="my-patient-card__card-details--date-div">
                               <div className="my-patient-card__card-time-row">
                                 <img src={calendarSmall} />
@@ -827,34 +800,7 @@ const MyAppointments = (props) => {
                             </div>
                           </Col>
 
-                          {/* <Col
-                                                        xs={2}
-                                                        style={{
-                                                            paddingRight: '0',
-                                                            paddingLeft: '80px',
-                                                            paddingTop: '35px',
-                                                        }}
-                                                    >
-                                                        <DateRangeOutlinedIcon />
-                                                    </Col>
-                                                    <Col xs={3} style={{ textAlign: 'center' }}>
-                                                        <b>
-                                                            <p className="pclass">Current :</p>
-                                                        </b>
-                                                        <div id="req-date" style={{ paddingRight: '5px' }}>
-                                                            {moment(SelectedPatient.startTime).format(
-                                                                'MMM DD, YYYY'
-                                                            )}
-                                                            <br />
-                                                            {moment(SelectedPatient.startTime).format(
-                                                                'h:mm A'
-                                                            ) +
-                                                                ' - ' +
-                                                                moment(SelectedPatient.endTime).format(
-                                                                    'h:mm A'
-                                                                )}
-                                                        </div>
-                                                    </Col> */}
+
                         </Row>
                         <Row style={{ alignItems: "center", marginTop: "5px" }}>
                           <Col xs={4} style={{ textAlign: "center" }}>
@@ -881,20 +827,20 @@ const MyAppointments = (props) => {
                               }
                             </div>
                           </Col>
-                          {/* <Col xs={1} style={{ alignItems: "center",paddingTop: '35px' }}><DateRangeOutlinedIcon /></Col>
-                                                <Col xs={7} style={{ textAlign: 'right' }}><p className='pclass'>Appointment Fee & Payment Method</p><div id="req-date" style={{ paddingRight: '5px' }}>{moment(SelectedPatient.startTime).format("MMM DD, YYYY")}<br />{moment(SelectedPatient.startTime).format("h:mm A") + " - " + moment(SelectedPatient.endTime).format("h:mm A")}</div></Col> */}
+
                           <Col
                             xs={4}
                             className="patient-video-button"
                           >
-                            <IconButton>
-                              <Link
-                                to={`/doctor/chat?chatgroup=P${SelectedPatient?.patient?.id}_D${doctorId}`}
-                                title="Chat"
-                              >
-                                <ChatIcon id="active-video-icon" />
-                              </Link>
+
+                            <IconButton onClick={() => chatClickHandler()}>
+
+
+                              <ChatIcon id="active-video-icon" />
+
+
                             </IconButton>
+
                             <IconButton
                               onClick={() =>
                                 handleVideoCall(SelectedPatient.startTime)
@@ -906,10 +852,7 @@ const MyAppointments = (props) => {
                         </Row>
                       </div>
                       <div id="req-info">
-                        {/* <Link to={{
-                                                    pathname: `/doctor/consulatationhistory`,
-                                                    state: SelectedPatient.patient,
-                                                }}> */}
+
                         <a
                           onClick={(e) =>
                             consultationHistory(SelectedPatient.patientId)
@@ -1022,63 +965,11 @@ const MyAppointments = (props) => {
                           </div>
                           {/* </Link> */}
                         </a>
-                        {/* <span id="info-title">Diseases</span><br />
-                                    <p>Hypertension Medium</p>
-                                    <br /> */}
-                        {/* <span id="info-title">Comment</span><br />
-                                            <p>{SelectedPatient.remarks}</p>
-                                            <br />
-                                            <span id="info-title">Chief Complaint</span><br />
-                                            <p>
 
-                                                {chiefComplaint && chiefComplaint.questionSubTopics && chiefComplaint.questionSubTopics.map((item, index) =>
-
-                                                    <span key={index}>
-                                                        {chiefComplaint.questionSubTopics[index].title === "Chief Complaint##1" && chiefComplaint.questionSubTopics[index].questions.map((question, subIndex) =>
-                                                            question.answer
-                                                        )}
-                                                    </span>
-                                                )}
-                                            </p>
-                                            <br />
-                                            <span id="info-title" style={{ fontSize: '16' }}>Health Behaviour</span><br />
-                                            <span id="info-title">Family History</span><br />
-                                            <div>{familyAndSocialHistory && familyAndSocialHistory.questionSubTopics && familyAndSocialHistory.questionSubTopics.map((item, index) =>
-
-                                                <span key={index}>
-                                                    <ul style={{ fontSize: '12px' }} className="list--tags">
-                                                        {familyAndSocialHistory.questionSubTopics[index].title === "Family History##4" && familyAndSocialHistory.questionSubTopics[index].questions.map((question, subIndex) =>
-
-                                                            question.answer === "Y" && (
-                                                                <li key={subIndex}>{question.question}</li>
-                                                            )
-                                                        )}
-                                                    </ul>
-                                                </span>
-                                            )}</div>
-                                            <span id="info-title">Social History</span><br />
-                                            <div>{familyAndSocialHistory && familyAndSocialHistory.questionSubTopics && familyAndSocialHistory.questionSubTopics.map((item, index) =>
-
-                                                <span key={index}>
-                                                    <ul style={{ fontSize: '12px', margin: '0px' }} className="list--tags">
-                                                        {familyAndSocialHistory.questionSubTopics[index].title === "Social history##4" && familyAndSocialHistory.questionSubTopics[index].questions.map((question, subIndex) =>
-
-                                                            question.answer === "Y" && (
-                                                                <li key={subIndex}>{question.question}</li>
-                                                            )
-                                                        )}
-                                                    </ul>
-                                                </span>
-                                            )}</div> */}
                       </div>
                       <Row>
                         <Col className="profile-btn">
-                          {/* <Link
-                                                        to={{
-                                                            pathname: `/doctor/health-assessment/${SelectedPatient.patientId}`,
-                                                            state: SelectedPatient.patient,
-                                                        }}
-                                                    > */}
+
                           <button
                             className="btn btn-primary view-btn"
                             onClick={() =>
@@ -1087,13 +978,11 @@ const MyAppointments = (props) => {
                           >
                             Reschedule
                           </button>
-                          {/* </Link> */}
                         </Col>
                       </Row>
                     </div>
                   </>
                 ) : (
-                  //{SelectedPatient && SelectedPatient.length === 0 && (
                   <>
                     <div
                       id="request-box"
@@ -1113,27 +1002,7 @@ const MyAppointments = (props) => {
             )}
           </Col>
 
-          {/* <Col lg={3} md={6} id="col">
-                        <div id="chat-box">
-                            <div id="chat-heading">Recent Messages</div>
-                            <div id="chat-area">
-                                {chatRooms.map((chatRoom, index) => {
-                                    return <Row id="chat-head" key={chatRoom[1].Key} onClick={() => redirectToChat()}>
-                                        <Col xs={8}>
-                                            <Row style={{ alignItems: "center" }}>
-                                                <Col xs={4}><img src={default_image} alt="" style={{ width: 40, height: 40, borderRadius: 10 }} /></Col>
-                                                <Col xs={8} style={{ padding: 0 }}><div id="chat-name"><b>{chatRoom[1].ReceiverName}</b><br />{chatRoom[1].LastMessage}</div></Col>
-                                            </Row>
-                                        </Col>
-                                        <Col xs={4} style={{ textAlign: "right" }}><span id="chat-time">{formatDate(chatRoom[1].LastMessageDate)}</span></Col>
-                                    </Row>
-                                })
-                                }
 
-
-                            </div>
-                        </div>
-                    </Col> */}
         </Row>
       </Container>
       {/* <Footer /> */}
@@ -1146,18 +1015,16 @@ const MyAppointments = (props) => {
           Do you want to Start Video Call
         </DialogTitle>
         <DialogActions>
-          <Link
-            to={`/doctor/chat?chatgroup=P${SelectedPatient?.patientId}_D${SelectedPatient?.doctorId}&openVideoCall=true`}
+
+          <button
+            autoFocus
+            onClick={() => videoClickHandler()}
+            className="btn btn-primary"
+            id="close-btn"
           >
-            <button
-              autoFocus
-              //onClick={() => handleAgoraAccessToken({name:`${SelectedPatient.doctorId}` + `${SelectedPatient.patientId}` + `${SelectedPatient.id}`, id: SelectedPatient.id})}
-              className="btn btn-primary"
-              id="close-btn"
-            >
-              Yes
-            </button>
-          </Link>
+            Yes
+          </button>
+
           <button
             autoFocus
             onClick={confirmVideoClose}

@@ -143,7 +143,7 @@ const ForgetPassword = () => {
                 </DialogTitle>
                 <DialogContent dividers>
                     <Typography gutterBottom>
-                        Email has been sent to your email address with a password reset link. Please check your inbox.
+                        Email has been sent to your email address with a password reset OTP. Please check your inbox.
                     </Typography>
                 </DialogContent>
                 <DialogActions>

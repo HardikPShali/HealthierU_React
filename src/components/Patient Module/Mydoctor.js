@@ -52,6 +52,7 @@ import {
   getSearchData,
   setNextAppointmentDoctor,
   getAvailableSlotsForMyDoctors,
+  getUnreadNotificationsCount,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -475,7 +476,13 @@ const MyDoctor = (props) => {
     }
   };
 
+  // useeffect trigger handle search data with dep searchText
+
   const handleSearchData = async (showToast = false) => {
+
+
+    //controller abort function
+
     if (searchText !== '') {
       // setTransparentLoading(true);
       const res = await getSearchData(searchText, 0, doctorListLimit);
@@ -506,6 +513,7 @@ const MyDoctor = (props) => {
   const [selectedSlotId, setSelectedSlotId] = useState();
 
   const handleAppoitnmentType = (e) => {
+    setTransparentLoading(true)
     setSlotError('');
     setSelectedSlotId('0');
     setAppointment({ ...appointment, appointmentMode: e.target.value });
@@ -523,12 +531,14 @@ const MyDoctor = (props) => {
         const consultationSlots = createConsultationSlots(Availability);
         if (consultationSlots && consultationSlots.length > 0) {
           setAppointmentSlot(consultationSlots);
+          setTransparentLoading(false)
           // console.log({ consultationSlots });
           document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
           setDisplaySlot(true);
           getAvailableSlotsOfDoctors(user.id, e.target.value);
         } else {
+          setTransparentLoading(false)
           setAppointmentSlot([]);
           setDisplayCalendar(false);
           setDisplaySlot(true);
@@ -536,12 +546,14 @@ const MyDoctor = (props) => {
       } else if (e.target.value === 'Follow Up') {
         setAppointmentSlot(Availability);
         // console.log({ Availability });
+        setTransparentLoading(false)
         document.querySelector('#calendar-list').scrollTo(0, 500);
         setDisplayCalendar(false);
         setDisplaySlot(true);
         getAvailableSlotsOfDoctors(user.id, e.target.value);
       } else if (e.target.value === '') {
         setAppointmentSlot([]);
+        setTransparentLoading(false)
       }
       setDisable({ ...disable, continue: true });
     }
@@ -766,7 +778,7 @@ const MyDoctor = (props) => {
     try {
       // await api call
       const newPaymentResponse = await axios(newPaymentApi);
-      // console.log({ newPaymentResponse });
+      console.log({ newPaymentResponse });
 
       //success logic
       if (
@@ -1568,6 +1580,7 @@ const MyDoctor = (props) => {
                                   doctor: 'block',
                                   appointment: 'none',
                                 });
+                                setAppointment({ ...appointment, appointmentMode: "" })
                                 setDisable({ ...disable, continue: true });
                                 // getAvailableSlotsOfDoctors(user.id);
                                 //const currentSelectedDate = new Date();

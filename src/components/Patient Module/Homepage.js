@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './patient.css';
+import Cookies from 'universal-cookie'
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import healthAssessmentBg from '../../images/svg/health-assessment-bg__compressed.svg';
 import { Link } from 'react-router-dom';
@@ -25,25 +26,16 @@ import OurDoctors from './OurDoctorsSections/OurDoctors';
 const Homepage = ({ currentuserInfo }) => {
     const [loading, setLoading] = useState(true);
     //const [currentUser, setCurrentUser] = useState(currentuserInfo)
-    ////console.log("currentuserInfo :::: ", currentuserInfo)
-
     useEffect(() => {
         if (currentuserInfo) {
             setTimeout(() => setLoading(false), 1000);
         }
     }, [currentuserInfo]);
-
-
-
-
     // const getCurrentuser = async () => {
     //     const currentUser = await getCurrentUserInfo();
     //     setLoading(false);
     //     setCurrentUser(currentUser)
     // }
-
-
-
     return (<>
         {loading && (
             <Loader />
@@ -55,13 +47,11 @@ const Homepage = ({ currentuserInfo }) => {
             <Welcome currentuserInfo={currentuserInfo} /> : patientHomePage()
         }
     </>)
-
-
 }
 
 
 const patientHomePage = () => {
-
+    const cookies = new Cookies()
     return (
         <div>
             <br />
@@ -73,11 +63,15 @@ const patientHomePage = () => {
                             <div className="patient-card_text col-md-6">
                                 <div className="patient-card_how-healthy-wrap">
                                     <h3 style={{ marginLeft: 15 }} className="mb-3">How healthy are you?</h3>
-                                    <Link to="/patient/questionnaire/existing" style={{ marginRight: 20 }}>
+                                    {cookies.get('currentUser').questionCompleted === true ? <Link to="/patient/questionnaire/existing" style={{ marginRight: 20 }}>
                                         <button type='button' className="btn btn-primary btn-block health-assessment-btn">
                                             Take Assessment
                                         </button>
-                                    </Link>
+                                    </Link> : <Link to="/patient/questionnaire/new" style={{ marginRight: 20 }}>
+                                        <button type='button' className="btn btn-primary btn-block health-assessment-btn">
+                                            Take Assessment
+                                        </button>
+                                    </Link>}
                                 </div>
                             </div>
                             <div className='col-md-6 text-center w-100'>

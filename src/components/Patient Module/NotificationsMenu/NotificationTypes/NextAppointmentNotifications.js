@@ -12,6 +12,7 @@ import axios from 'axios';
 import { toast } from "react-toastify";
 import rightIcon from '../../../../images/svg/right-icon.svg';
 import { getAppointmentMode } from '../../../../util/appointmentModeUtil';
+import { getUnreadNotificationsCount, putMarkAsReadFromNotificationMenu } from '../../../../service/frontendapiservices';
 
 
 const NextAppointmentNotifications = ({ notification, index }) => {
@@ -97,10 +98,34 @@ const NextAppointmentNotifications = ({ notification, index }) => {
     //     setPaymentConfirmed(false);
     // }, [paymentConfirmed])
 
+    //MARK AS READ NOTIFICATION LOGIC
+    const markAsReadFromNotificationMenuHandler = async () => {
+        const notificationId = notification.id;
+        const userId = notification.userId;
+
+        const data = {
+            id: notificationId,
+        };
+
+        const response = await putMarkAsReadFromNotificationMenu(
+            data,
+            userId
+        ).catch((err) => console.log({ err }));
+        console.log({ markAsReadFromNotificationMenuHandler: response });
+
+        if (response.data.status === true) {
+            //   setBadgeCount(0);
+            //   toast.success("Notification marked as read successfully");
+            await getUnreadNotificationsCount(userId);
+        }
+    };
+
+
     return (
         <div key={index} className='set-next-appt' >
             <div className="notif-section" onClick={() => {
                 onClickPayNowModalHandler();
+                markAsReadFromNotificationMenuHandler();
             }}>
                 <div className="profile-img col-md-3">
                     {notification.data.appointmentDetails?.doctor?.picture ? (

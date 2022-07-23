@@ -46,6 +46,7 @@ import {
   deleteAppointment,
   getAppointmentListByPatientId,
   getAppointmentsTablistByStatus,
+  getUnreadNotificationsCount,
 } from '../../service/frontendapiservices';
 import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';
@@ -429,7 +430,7 @@ const Myappointment = (props) => {
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
         const upcomingArray = response.data.data.upcoming;
-        console.log('upcomingArray', upcomingArray);
+
         setUpcomingAppointment(upcomingArray);
 
         const completedAppointmentsArray = response.data.data.completed;

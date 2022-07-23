@@ -42,7 +42,7 @@ const PaypalMobile = () => {
         setLoading(true);
 
         // window.android.onPaymentStatusChange(true);
-        orderData.slotId = appointmentIdParams;
+        // orderData.slotId = appointmentIdParams;
 
         // const data = JSON.stringify(orderData);
 
@@ -58,9 +58,14 @@ const PaypalMobile = () => {
         //     halfRateParams,
         // }
 
+        const setAppointmentMode = (appMode) => {
+            if (appMode === 'First Consultation' || appMode === 'FIRST_CONSULTATION') return "FIRST_CONSULTATION";
+            return "FOLLOW_UP";
+        }
+
         const orderObject = {
             id: appointmentIdParams,
-            type: appointmentModeParams,
+            type: setAppointmentMode(appointmentModeParams),
             paymentsAppointmentsDTO: orderData,
         };
         //Book appt api
@@ -90,8 +95,10 @@ const PaypalMobile = () => {
 
         const successEventOnPayment = (data) => {
             if (os === 'ios') {
+                console.log({ data: JSON.stringify(data) })
                 window.webkit.messageHandlers.sendOrderData.postMessage(data);
             } else {
+                console.log({ data: JSON.stringify(data) })
                 window.android.sendOrderData(data);
             }
         };
@@ -100,12 +107,17 @@ const PaypalMobile = () => {
 
         try {
             const response = await axios(newPaymentApi);
-            console.log({ response });
+            console.log({ response: JSON.stringify(response) });
             if (response.status === 200 || response.status === 201) {
+                console.log("PAYMENT SUCCESS", JSON.stringify(response))
                 successEventOnPayment(true);
                 setLoading(false);
+            } else {
+                console.log("PAYMENT API FAILED", JSON.stringify(response))
             }
+
         } catch (error) {
+            console.log("PAYMENT API FAILED", JSON.stringify(error))
             successEventOnPayment(false);
             setLoading(false);
         }

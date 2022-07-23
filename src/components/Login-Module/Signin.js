@@ -121,8 +121,9 @@ const Signin = () => {
     const googleUserData = {
       token: response.credential,
     };
-    const googleAccessToken = await handleGoogleAuth(googleUserData).catch(
+    const googleAccessToken = await handleGoogleAuth(googleUserData, history).catch(
       (err) => {
+        console.log({ err })
         if (err.response.status === 500 || err.response.status === 504) {
           setLoader(false);
         }
@@ -209,7 +210,7 @@ const Signin = () => {
     }
 
     if (authorities.some((user) => user === "ROLE_PATIENT")) {
-      { currentUserInformation.data.userInfo.questionCompleted === true ? history.push("/patient") : history.push("/patient/questionnaire/new") }
+      history.push("/patient")
       // history.go(0);
     }
     if (authorities.some((user) => user === "ROLE_DOCTOR")) {
@@ -264,8 +265,6 @@ const Signin = () => {
     //if (captchaVerify) {
     setLoader(true);
     const accountCheckResponse = await accountActivationCheckBeforeTokenGeneration(email).catch(err => console.log({ err }))
-    //console.log({ accountCheckResponse })
-
     if (accountCheckResponse.data.status === true) {
       handleSigninHandler();
     }

@@ -33,7 +33,6 @@ const Availability = () => {
   const cookies = new Cookies();
   //getting time input value
   const handleValue = (value) => {
-    console.log('value', value);
     setValue(value);
     setIsDisabled(false);
   };
@@ -43,9 +42,18 @@ const Availability = () => {
     const newTimeObj = { ...times };
     newTimeObj.time.push({ startTime: value[0], endTime: value[1] });
     // newTimeObj.time.push({ startTime: state.startTime, endTime: state.endTime });
-    setTimes({
-      ...newTimeObj,
-    });
+    if (state.startTime < state.endTime) {
+      setTimes({
+        ...newTimeObj,
+      });
+    }
+    else {
+      setTimes({
+        time: []
+      });
+      toast.error("Please add a slot for within the day")
+    }
+
   };
   const handleTime = (e) => {
     const format = moment(e.startTime).format('HH:mm A');
@@ -69,7 +77,7 @@ const Availability = () => {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
-      toast.success('Start and End Time cant be same.');
+      toast.error('Start and End Time cant be same.');
     }
   };
   const [tempDays, setTempDays] = useState([]);
@@ -115,11 +123,9 @@ const Availability = () => {
   }, []);
   const addDaySlot = async () => {
     setCount(count + 1);
-    console.log('tempDays', tempDays);
     const newTimes = { ...times };
     newTimes.days = tempDays;
     const docId = cookies.get('profileDetails');
-    console.log(times);
     clearTick();
     setTimes({ time: [], days: [] });
     const utcTimes = times.time.map((t) => {
@@ -159,20 +165,16 @@ const Availability = () => {
     };
     const dataForRecurSlot = [];
     dataForRecurSlot.push(data);
-    // console.log({ dataForRecurSlot });
     if (data.days.length === 0) {
       toast.error('Please select at least one day before adding time slots.');
     } else {
-      // console.log({ data: data.days });
       const res = await addRecurringSLot(dataForRecurSlot);
-      // console.log({ res });
-
       const afterSuccessOrFailEvent = async () => {
         setState({ startTime: moment(), endTime: moment() });
         loadRecurSlots();
         setTimeout(() => {
           history.go(0);
-        }, 5000);
+        }, 3000);
       }
 
       if (res.data.status === false) {
@@ -219,14 +221,12 @@ const Availability = () => {
   const convertHoursAndMinsToLocal = (hoursAndMins) => {
     if (hoursAndMins) {
       const [hr, min] = hoursAndMins.split(':');
-
       const currentDate = new Date();
       currentDate.setHours(hr);
       currentDate.setMinutes(min);
       currentDate.setSeconds(0);
-
       const localDate = convertUTCDateToLocalDate(currentDate);
-      const convertedHoursAndMinsInLocal = moment(localDate).format('HH:mm:ss');
+      const convertedHoursAndMinsInLocal = moment(localDate).format('HH:mm');
       return convertedHoursAndMinsInLocal;
     }
   };
@@ -245,6 +245,7 @@ const Availability = () => {
   //Delete Slot
   const [openRecurDelete, setOpenRecurDelete] = useState(false);
   const [selectedRecurSlot, setSelectedRecurSlot] = useState();
+  const [openReschedule, setOpenReschedule] = useState(false);
   const handleRecurDeleteOpen = (eachTimes) => {
     setSelectedRecurSlot(eachTimes);
     setOpenRecurDelete(true);
@@ -252,10 +253,20 @@ const Availability = () => {
   const handleRecurDeleteClose = () => {
     setOpenRecurDelete(false);
   };
-  const handleDeleteReccurSlot = async (eachTimes) => {
-    handleRecurDeleteClose();
+
+  const handleRescheduleOpen = (eachTimes) => {
+    setSelectedRecurSlot(eachTimes);
+    setOpenReschedule(true);
+  };
+  const handleRescheduleClose = async () => {
+    setOpenReschedule(false);
     const docId = cookies.get('profileDetails');
-    const res = await deleteReccurSlot(eachTimes.recurId, docId.id).catch(
+    const data = {
+      "recurId": oldSlotData,
+      "doctorId": docId.id,
+      "popUpResponse": "Cancel"
+    }
+    const res = await deleteReccurSlot(data).catch(
       (err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           toast.error(`Something went wrong.Please try agin!`);
@@ -263,10 +274,69 @@ const Availability = () => {
       }
     );
     if (res) {
-      toast.success(`Slots Deleted`);
+      toast.success("All available slots removed!");
+      setOpenReschedule(false);
       loadRecurSlots()
+      setTimeout(() => {
+        history.go(0);
+      }, 2000);
     }
   };
+  const handleRescheduleClosePopup = () => {
+    setOpenReschedule(false);
+  };
+  const [oldSlotData, setOldSlotData] = useState(0)
+  const handleDeleteReccurSlot = async (eachTimes) => {
+    handleRecurDeleteClose();
+    const docId = cookies.get('profileDetails');
+    const data = {
+      "recurId": eachTimes.recurId,
+      "doctorId": docId.id
+    }
+    setOldSlotData(eachTimes.recurId)
+    const res = await deleteReccurSlot(data).catch(
+      (err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          toast.error(`Something went wrong.Please try agin!`);
+        }
+      }
+    );
+    if (res) {
+      if (res.data.data.toggleStatus === 'DELETE_WARN') {
+        setOpenReschedule(true)
+      }
+      else {
+        toast.success(`Slots Deleted`);
+        loadRecurSlots()
+        setTimeout(() => {
+          history.go(0);
+        }, 2000);
+      }
+    }
+  };
+  const handleReschedule = async () => {
+    setOpenReschedule(false);
+    const docId = cookies.get('profileDetails');
+    const data = {
+      "recurId": oldSlotData,
+      "doctorId": docId.id,
+      "popUpResponse": "OK"
+    }
+    const res = await deleteReccurSlot(data).catch(
+      (err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          toast.error(`Something went wrong.Please try agin!`);
+        }
+      }
+    );
+    if (res) {
+      toast.success("Apppointments cancelled and slots removed!");
+      loadRecurSlots()
+      setTimeout(() => {
+        history.go(0);
+      }, 2000);
+    }
+  }
   return (
     <>
       <Container>
@@ -434,6 +504,36 @@ const Availability = () => {
             id="close-btn"
           >
             Close
+          </button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        onClose={handleRescheduleClose}
+        aria-labelledby="customized-dialog-title"
+        open={openReschedule}
+      >
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={handleRescheduleClose}
+        >
+          There is already an appointment booked. Reschedule this appointment ?
+        </DialogTitle>
+        <DialogActions>
+          <button
+            autoFocus
+            onClick={() => handleReschedule()}
+            className="btn btn-primary"
+            id="close-btn"
+          >
+            Reschedule
+          </button>
+          <button
+            autoFocus
+            onClick={handleRescheduleClose}
+            className="btn btn-secondary"
+            id="close-btn"
+          >
+            Delete Available Slots
           </button>
         </DialogActions>
       </Dialog>

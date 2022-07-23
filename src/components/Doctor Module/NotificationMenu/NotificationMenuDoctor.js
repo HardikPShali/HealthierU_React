@@ -13,8 +13,6 @@ const NotificationMenuDoctor = (props) => {
 
     const cookies = new Cookies();
 
-    console.log(moment("2022-06-17T09:42:24Z").format("DD-MM-YYYY hh:mm"));
-
     const getPushNotifications = async () => {
         const user = cookies.get('profileDetails');
 
@@ -41,12 +39,14 @@ const NotificationMenuDoctor = (props) => {
         }
     };
 
-    const fcmToken = localStorage.getItem('fcmToken');
-    // console.log({ fcmToken })
-
     useEffect(() => {
         getPushNotifications();
 
+        const interval = setInterval(() => {
+            getPushNotifications();
+        }, 30000)
+
+        return () => clearInterval(interval);
     }, []);
 
     // messageHandle();

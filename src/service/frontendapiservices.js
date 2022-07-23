@@ -770,7 +770,6 @@ export const uploadDoctorDocument = async (files, info) => {
   for (let i = 0; i < files.length; i++) {
     newData.append(`doctorDocumentFile`, files[i])
   }
-  // newData.append(`doctorDocumentFile`, files);
   newData.append(
     "doctorDocumentInfo",
     new Blob([JSON.stringify(info)], {
@@ -819,9 +818,14 @@ export const updateDoctorDocumentNew = async (data) => {
 };
 export const updateDoctorDocument = async (files, info) => {
   var newData = new FormData();
-  newData.append(`doctorDocumentFile`, files);
-  newData.append("doctorDocumentInfo", JSON.stringify(info));
-
+  newData.append(`doctorDocumentFile`, files)
+  // newData.append("doctorDocumentInfo", JSON.stringify(info));
+  newData.append(
+    "doctorDocumentInfo",
+    new Blob([JSON.stringify(info)], {
+      type: "application/json",
+    })
+  );
   var payload = {
     method: "put",
     mode: "no-cors",
@@ -1150,6 +1154,24 @@ export const getGlobalAppointmentsSearch = async (data) => {
   });
   return response;
 };
+export const getGlobalAppointmentsSearchNew = async (data) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    url: `/api/v2/appointments/mobile/filter`,
+    data: data,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
 
 export const updateDoctorData = async (data) => {
   var payload = {
@@ -1416,14 +1438,73 @@ export const callRejectApi = async (channelId) => {
   });
   return response;
 }
-export const deleteReccurSlot = async (recurId, doctorId) => {
+export const deleteReccurSlot = async (data) => {
   var payload = {
     method: "delete",
     mode: "no-cors",
-    url: `/api/v2/deleteBy?recurId=${recurId}&doctorId=${doctorId}`,
+    data: data,
+    url: `/api/v2/recurSlot/delete`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
+
+// UNREAD NOTIFS
+export const getUnreadNotificationsCount = async (userId) => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/count/unread/notification?userId=${userId}`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
+
+export const putMarkAsReadNotification = async (userId) => {
+  var payload = {
+    method: "put",
+    mode: "no-cors",
+    url: `/api/v2/mark-all-as-read?userId=${userId}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
+
+export const putMarkAsReadFromNotificationMenu = async (data, userId) => {
+  var payload = {
+    method: "put",
+    data: data,
+    mode: "no-cors",
+    url: `/api/v2/set/read/notification?userId=${userId}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*",
     },
   };
