@@ -1,3 +1,5 @@
+
+
 importScripts("https://www.gstatic.com/firebasejs/9.8.3/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/9.8.3/firebase-messaging-compat.js");
 
@@ -33,13 +35,38 @@ const messaging = firebase.messaging();
 //   return promiseChain;
 // });
 
+// messaging.setBackgroundMessageHandler((payload) => {
+//   console.log("[firebase-messaging-sw.js] Received background message ", payload);
+//   // Customize notification here
+//   const notificationTitle = "Background Message Title";
+//   const notificationOptions = {
+//     body: "Background Message body.",
+//     icon: "/firebase-logo.png"
+//   };
+
+//   // postMessage(payload);
+
+//   return self.registration.showNotification(notificationTitle, notificationOptions);
+// });
+
 messaging.onBackgroundMessage((payload) => {
   console.log({ payload });
 
   const notificationTitle = payload.data.title;
   const notificationOptions = {
-    body: payload.data.message,
+   body: payload.data.title,
+   data: payload.data,
   }
 
-  return self.registration.showNotification(notificationTitle, notificationOptions);
+
+  self.clients.matchAll({includeUncontrolled: true}).then((clients) => {
+    console.log(clients); 
+    //you can see your main window client in this list.
+    clients.forEach((client) => {
+        client.postMessage(payload);
+    })
+  })
+  // console.log(payload.data, notificationOptions, "options")
+
+  return self.registration.showNotification(notificationTitle, payload);
 })
