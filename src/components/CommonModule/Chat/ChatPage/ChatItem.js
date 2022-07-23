@@ -42,7 +42,7 @@ const ChatItem = ({ item, onChatChange, messageDateFormat, selectedChatItem }) =
             {/* <img src={item[item.userKey]?.picture} alt="" /> */}
           </div>
           <div className="chat_item-text-wrap">
-            <div className="chat_item-name">{item[item.userKey]?.firstName} {item[item.userKey]?.lastName}</div>
+            <div className="chat_item-name">{item[item.userKey]?.firstName}</div>
             <div className="chat_item-message-wrap">
               {item.lastMessage?.isMyMessage && <span className="chat_item-by">You</span>}
               <span className="chat_lastMessage">{item.lastMessage?.message || ""}</span>
