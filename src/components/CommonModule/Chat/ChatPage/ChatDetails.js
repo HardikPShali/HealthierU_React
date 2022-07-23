@@ -13,6 +13,7 @@ import { ROLES } from "../../../../util/configurations";
 import ChatIcon from "../../../../images/svg/notes-outline-icon.svg";
 import { getCallUserApi } from "../../../../service/frontendapiservices";
 import { toast } from "react-toastify";
+import { chatValidation, videoValiation } from "../../../../util/chatAndCallValidations";
 
 const ChatDetails = ({
   selectedItem,
@@ -87,10 +88,13 @@ const ChatDetails = ({
   useEffect(() => {
     if (selectedItem.id) {
       if (selectedItem.appointments.length) {
-        const isVideoEnabled = selectedItem.appointments.some(videoEnableCheck);
+        // const isVideoEnabled = selectedItem.appointments.some(videoEnableCheck);
+
+        const isVideoEnabled = videoValiation(selectedItem.appointments);
         setEnableVideo(isVideoEnabled);
 
-        const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
+        // const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
+        const isChatEnabled = chatValidation(selectedItem.appointments);
         setEnableChat(isChatEnabled);
       } else {
         hideChatAndVideo();
@@ -103,11 +107,6 @@ const ChatDetails = ({
 
   const handleVideo = () => {
     if (!enableVideo) return;
-
-    if (roles.some((role) => role === ROLES.ROLE_DOCTOR)) {
-      callUser();
-    }
-
     onVideoClick();
   };
 
@@ -164,16 +163,7 @@ const ChatDetails = ({
   let channelId = selectedItem.id;
   // console.log({ channelId: channelId });
 
-  //CALL-TOPIC CODE
-  const callUser = async () => {
-    // console.log({ selectedItem });
-    // const channelId = selectedItem.id;
-    // console.log({ channelId });
-    const response = await getCallUserApi(channelId).catch((err) =>
-      console.log({ err })
-    );
-    // console.log({ response })
-  };
+
 
   // useEffect(() => {
   //   callUser();

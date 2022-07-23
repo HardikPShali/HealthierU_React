@@ -615,7 +615,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     onChange={e => handleCountry(e)}
                                                 >
                                                     <MenuItem value="">
-                                                        <em>Select</em>
+                                                        Select
                                                     </MenuItem>
                                                     {countryList && countryList.map((option, index) => (
                                                         <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
@@ -663,16 +663,16 @@ const Welcome = ({ currentuserInfo }) => {
 
                                                 >
                                                     <MenuItem value="">
-                                                        <em>Select</em>
+                                                        Select
                                                     </MenuItem>
                                                     <MenuItem value="MALE">
-                                                        <em>Male</em>
+                                                        Male
                                                     </MenuItem>
                                                     <MenuItem value="FEMALE">
-                                                        <em>Female</em>
+                                                        Female
                                                     </MenuItem>
                                                     <MenuItem value="UNKNOWN">
-                                                        <em>Other</em>
+                                                        Other
                                                     </MenuItem>
 
                                                 </Select>
@@ -726,7 +726,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                         inputProps={{ required: true }}
                                                         onChange={e => handleInputChange(e)}
                                                     >
-                                                        <MenuItem value=""><em>Select</em></MenuItem>
+                                                        <MenuItem value="">Select</MenuItem>
                                                         <MenuItem value="MARRIED">Married</MenuItem>
                                                         <MenuItem value="SINGLE">Single</MenuItem>
                                                         <MenuItem value="DIVORCED">Divorced</MenuItem>
@@ -860,7 +860,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                         inputProps={{ required: true }}
                                                         onChange={e => handleInputChange(e)}
                                                     >
-                                                        <MenuItem value=""><em>Select</em></MenuItem>
+                                                        <MenuItem value="">Select</MenuItem>
                                                         <MenuItem value="Self - Employed">Self - Employed</MenuItem>
                                                         <MenuItem value="Employed">Employed</MenuItem>
 

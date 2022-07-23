@@ -3812,7 +3812,7 @@ input:checked + .slider:before {
 
 .profile-menu > .MuiMenu-paper {
   top: 80px !important;
-  left: 1300px !important;
+  left: 1165px !important;
 }
 
 @media (max-width: 1180px) {
@@ -3845,4 +3845,9 @@ input:checked + .slider:before {
 
 .close-btn-delete img:hover {
   transform: rotatez(88deg);
+}
+
+/* For Message from Administrator Modal */
+.admin-review-dialog {
+  background: #fff;
 }

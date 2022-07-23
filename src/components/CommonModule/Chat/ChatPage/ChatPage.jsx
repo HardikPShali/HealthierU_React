@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import ChatItems from './ChatItems';
 import ChatDetails from './ChatDetails';
 import './ChatPage.css';
-import { APP_ID } from '../../../../util/configurations';
+import { APP_ID, ROLES } from '../../../../util/configurations';
 import useAgoraChat from '../ChatScreen/useAgoraChat';
 import useAgoraVideo from '../ChatScreen/useAgoraVideo';
 import Cookies from 'universal-cookie';
@@ -21,8 +21,12 @@ import {
 import moment from 'moment';
 import Meeting from '../../../video-call/pages/meeting';
 import Notes from '../../../Doctor Module/NotesSection/Notes';
+import { videoValiation } from '../../../../util/chatAndCallValidations';
+import useRole from '../../../../custom-hooks/useRole';
+import { getCallUserApi } from '../../../../service/frontendapiservices';
 
 const ChatPage = () => {
+  const history = useHistory();
   const [chatList, setChatList] = useState([]);
   const [filteredChatList, setFilteredChatList] = useState(chatList);
   const [selectedChatItem, setSelectedChatItem] = useState({});
@@ -40,6 +44,8 @@ const ChatPage = () => {
     totalItems: 1,
     totalPages: 1,
   });
+
+  const [roles] = useRole();
 
   const endRef = useRef();
 
@@ -110,6 +116,17 @@ const ChatPage = () => {
       });
       getMessagesDetails(0);
       if (searchParams.get('openVideo') === 'true') {
+
+        const isVideoEnabled = videoValiation(selectedChatItem.appointments);
+        if(!isVideoEnabled) {
+          removeQueryParamsAndDisableVideo();
+          return;
+        }
+
+        if (roles.some((role) => role === ROLES.ROLE_DOCTOR)) {
+          callUser(selectedChatItem.id);
+        }
+
         getToken(
           Number(selectedChatItem.patientInfo.id),
           Number(selectedChatItem.doctorInfo.id)
@@ -117,6 +134,22 @@ const ChatPage = () => {
       }
     }
   }, [selectedChatItem]);
+
+    //CALL-TOPIC CODE
+    const callUser = async (channelId) => {
+      const response = await getCallUserApi(channelId).catch((err) =>
+        console.log({ err })
+      );
+    };
+
+  const removeQueryParamsAndDisableVideo = () => {
+    searchParams.delete('openVideo');
+          searchParams.delete('channelId');
+          setOpenVideoCall(false);
+          history.replace({
+            search: searchParams.toString()
+          })
+  }
 
   const agoraTrigger = async () => {
     try {
@@ -179,6 +212,7 @@ const ChatPage = () => {
 
   const changeChatItem = (chatItem) => {
     setSelectedChatItem(chatItem);
+    removeQueryParamsAndDisableVideo();
   };
 
   const clearData = () => {
@@ -228,6 +262,7 @@ const ChatPage = () => {
   };
 
   const onVideoClick = () => {
+    callUser(selectedChatItem.id);
     getToken(pIdState, dIdState);
   };
 
@@ -295,7 +330,7 @@ const ChatPage = () => {
             onSearch={handleSearch}
           />
         )}
-        {openVideoCall && <Meeting onClose={() => setOpenVideoCall(false)} />}
+        {openVideoCall && <Meeting onClose={() => removeQueryParamsAndDisableVideo()} />}
       </div>
       <div className="chat-details-container">
         <ChatDetails
