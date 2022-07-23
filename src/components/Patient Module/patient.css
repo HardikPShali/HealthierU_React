@@ -4555,3 +4555,24 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   transform: translateY(-50%);
   height: 100%;
 }
+
+/* promo code css in My doctors */
+.promo-code-listing {
+  display: flex;
+  margin: 15px auto;
+  /* box-shadow: 3px 5px 3px 4px #002; */
+  padding: 15px;
+  border-radius: 10px;
+  justify-content: space-between;
+  width: 98%;
+  /* background: red; */
+  /* text-align: center; */
+}
+
+.promo-code-listing:hover {
+  background: #ebe4e4;
+  color: #343a40;
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
+}

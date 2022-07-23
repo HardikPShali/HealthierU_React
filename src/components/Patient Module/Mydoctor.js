@@ -37,6 +37,7 @@ import Paypal from '../CommonModule/Paypal';
 import TransparentLoader from '../Loader/transparentloader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import rightIcon from '../../images/svg/right-icon.svg';
 //import SearchIcon from "@material-ui/icons/Search";
 import {
   getLoggedInUserDataByUserId,
@@ -2917,6 +2918,18 @@ const MyDoctor = (props) => {
 
                       {disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
+                          <div className='promo-code-listing'>
+                            <div
+                              style={{ width: "100%" }}
+                            >
+                              Apply Promo Code
+                            </div>
+                            <img
+                              src={rightIcon}
+                              alt="right-icon"
+                              style={{ marginLeft: 7, marginRight: 7 }}
+                            />
+                          </div>
                           <button
                             className="btn btn-primary"
                             style={{ width: '100%' }}
