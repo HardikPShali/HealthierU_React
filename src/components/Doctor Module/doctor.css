@@ -2360,7 +2360,7 @@ div.reply .messageBody span.messageTime {
   /* background: var(--primarysecond) !important; */
   border-radius: 10px;
   background-color: #fff !important;
-  /* outline: 1px solid #00d0cc; */
+  outline: 1px solid #00d0cc;
 }
 
 .questionnaire-preview-label {
