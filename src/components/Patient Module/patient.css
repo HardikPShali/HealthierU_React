@@ -4492,7 +4492,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .profile-menu > .MuiMenu-paper {
   top: 80px !important;
-  left: 1165px !important;
+  left: 1175px !important;
 }
 
 @media (max-width: 1180px) {
@@ -4514,10 +4514,6 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
     top: 25% !important;
     left: 10% !important;
   }
-}
-
-.rbc-time-header-content {
-  margin-right: -1px;
 }
 
 .firefox-helper {
@@ -4554,4 +4550,15 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   position: relative;
   transform: translateY(-50%);
   height: 100%;
+}
+
+/* CALENDAR CUSTOM CSS */
+.rbc-time-header-content {
+  margin-right: -1px;
+}
+
+@-moz-document url-prefix() {
+  .rbc-time-header-content {
+    margin-right: -5px;
+  }
 }
