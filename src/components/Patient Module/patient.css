@@ -1526,7 +1526,7 @@ img#profile-pic {
 }
 .avatar-profile {
   border-radius: 50% !important;
-  border: 5px solid #00d0cc;
+  border: 1px solid #00d0cc;
   background-color: #fff !important;
 }
 .my-doctor-avatar > .sb-avatar__text {
