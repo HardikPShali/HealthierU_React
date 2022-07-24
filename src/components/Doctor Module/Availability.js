@@ -174,7 +174,7 @@ const Availability = () => {
         loadRecurSlots();
         setTimeout(() => {
           history.go(0);
-        }, 3000);
+        }, 1000);
       }
 
       if (res.data.status === false) {
@@ -186,25 +186,38 @@ const Availability = () => {
       }
     }
   };
+  const [toggleStatus, setToggleStatus] = useState("");
+  const [selectedRecurId, setSelectedRecurId] = useState(0);
   const [isToggle, setIsToggle] = useState(false);
   const handleToggle = async (e, eachTimes) => {
     const docId = cookies.get('profileDetails');
     setIsToggle(e.target.checked);
+    setSelectedRecurId(eachTimes.recurId)
     eachTimes.toggle = e.target.checked;
     setAllTimeSlot([...allTimeSlot]);
     const data = {
       recurId: eachTimes.recurId,
       doctorId: docId.id,
       toggle: e.target.checked,
-      popUpResponse: 'Cancel',
     };
     const res = await toggleRecurSlots(data);
     if (res) {
-      if (eachTimes.toggle === true) {
-        toast.success(`Slots toggled ON`);
-      } else {
-        toast.success(`Slots toggled OFF`);
+      if (res.data.data.toggleStatus === 'OFF_WARN') {
+        setOpenReschedule(true)
+        setToggleStatus('OFF_WARN')
       }
+      else {
+        if (eachTimes.toggle === true) {
+          toast.success(`Slots toggled ON`);
+        } else {
+          toast.success(`Slots toggled OFF`);
+        }
+        loadRecurSlots()
+        // setTimeout(() => {
+        //   history.go(0);
+        // }, 2000);
+      }
+
     }
   };
   const handleCloseSlot = (timeData) => {
@@ -252,35 +265,71 @@ const Availability = () => {
   };
   const handleRecurDeleteClose = () => {
     setOpenRecurDelete(false);
+    loadRecurSlots()
   };
 
   const handleRescheduleOpen = (eachTimes) => {
     setSelectedRecurSlot(eachTimes);
     setOpenReschedule(true);
   };
+  const handleRescheduleDeleteClose = async () => {
+    setOpenReschedule(false);
+    loadRecurSlots()
+  }
   const handleRescheduleClose = async () => {
     setOpenReschedule(false);
     const docId = cookies.get('profileDetails');
-    const data = {
-      "recurId": oldSlotData,
-      "doctorId": docId.id,
-      "popUpResponse": "Cancel"
-    }
-    const res = await deleteReccurSlot(data).catch(
-      (err) => {
-        if (err.response.status === 500 || err.response.status === 504) {
-          toast.error(`Something went wrong.Please try agin!`);
-        }
+    let data;
+    if (toggleStatus === 'DELETE_WARN') {
+      data = {
+        "recurId": oldSlotData,
+        "doctorId": docId.id,
+        "popUpResponse": "Cancel"
       }
-    );
-    if (res) {
-      toast.success("All available slots removed!");
-      setOpenReschedule(false);
-      loadRecurSlots()
-      setTimeout(() => {
-        history.go(0);
-      }, 2000);
     }
+    else {
+      data = {
+        "recurId": selectedRecurId,
+        "doctorId": docId.id,
+        "popUpResponse": "Cancel",
+        "toggle": false
+      }
+    }
+    if (toggleStatus === 'DELETE_WARN') {
+      const res = await deleteReccurSlot(data).catch(
+        (err) => {
+          if (err.response.status === 500 || err.response.status === 504) {
+            toast.error(`Something went wrong.Please try agin!`);
+          }
+        }
+      );
+      if (res) {
+        toast.success("All available slots removed!");
+        setOpenReschedule(false);
+        loadRecurSlots()
+        // setTimeout(() => {
+        //   history.go(0);
+        // }, 2000);
+      }
+    }
+    else {
+      const res = await toggleRecurSlots(data).catch(
+        (err) => {
+          if (err.response.status === 500 || err.response.status === 504) {
+            toast.error(`Something went wrong.Please try agin!`);
+          }
+        }
+      );
+      if (res) {
+        toast.success("All available slots removed!");
+        setOpenReschedule(false);
+        loadRecurSlots()
+        setTimeout(() => {
+          history.go(0);
+        }, 2000);
+      }
+    }
+
   };
   const handleRescheduleClosePopup = () => {
     setOpenReschedule(false);
@@ -304,6 +353,7 @@ const Availability = () => {
     if (res) {
       if (res.data.data.toggleStatus === 'DELETE_WARN') {
         setOpenReschedule(true)
+        setToggleStatus('DELETE_WARN')
       }
       else {
         toast.success(`Slots Deleted`);
@@ -317,25 +367,55 @@ const Availability = () => {
   const handleReschedule = async () => {
     setOpenReschedule(false);
     const docId = cookies.get('profileDetails');
-    const data = {
-      "recurId": oldSlotData,
-      "doctorId": docId.id,
-      "popUpResponse": "OK"
-    }
-    const res = await deleteReccurSlot(data).catch(
-      (err) => {
-        if (err.response.status === 500 || err.response.status === 504) {
-          toast.error(`Something went wrong.Please try agin!`);
-        }
+    let data;
+    if (toggleStatus === 'DELETE_WARN') {
+      data = {
+        "recurId": oldSlotData,
+        "doctorId": docId.id,
+        "popUpResponse": "OK"
       }
-    );
-    if (res) {
-      toast.success("Apppointments cancelled and slots removed!");
-      loadRecurSlots()
-      setTimeout(() => {
-        history.go(0);
-      }, 2000);
     }
+    else {
+      data = {
+        "recurId": selectedRecurId,
+        "doctorId": docId.id,
+        "popUpResponse": "OK",
+        "toggle": false
+      }
+    }
+    if (toggleStatus === 'DELETE_WARN') {
+      const res = await deleteReccurSlot(data).catch(
+        (err) => {
+          if (err.response.status === 500 || err.response.status === 504) {
+            toast.error(`Something went wrong.Please try agin!`);
+          }
+        }
+      );
+      if (res) {
+        toast.success("Apppointments cancelled and slots removed!");
+        loadRecurSlots()
+        setTimeout(() => {
+          history.go(0);
+        }, 2000);
+      }
+    }
+    else {
+      const res = await toggleRecurSlots(data).catch(
+        (err) => {
+          if (err.response.status === 500 || err.response.status === 504) {
+            toast.error(`Something went wrong.Please try agin!`);
+          }
+        }
+      );
+      if (res) {
+        toast.success("Apppointments cancelled and slots removed!");
+        loadRecurSlots()
+        setTimeout(() => {
+          history.go(0);
+        }, 2000);
+      }
+    }
+
   }
   return (
     <>
@@ -534,6 +614,14 @@ const Availability = () => {
             id="close-btn"
           >
             Delete Available Slots
+          </button>
+          <button
+            autoFocus
+            onClick={handleRescheduleDeleteClose}
+            className="btn btn-primary"
+            id="close-btn"
+          >
+            Close
           </button>
         </DialogActions>
       </Dialog>
