@@ -1644,7 +1644,7 @@ const Myappointment = (props) => {
                 className="btn btn-primary"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
             </DialogActions>
           </Dialog>
