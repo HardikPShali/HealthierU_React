@@ -252,7 +252,7 @@ const ChatDetails = ({
                 }
               }}
               type="text"
-              placeholder="Write you message here"
+              placeholder="Write your message here"
               disabled={!enableChat}
             />
           </div>
