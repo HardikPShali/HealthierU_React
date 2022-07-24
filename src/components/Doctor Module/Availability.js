@@ -174,7 +174,7 @@ const Availability = () => {
         loadRecurSlots();
         setTimeout(() => {
           history.go(0);
-        }, 3000);
+        }, 1000);
       }
 
       if (res.data.status === false) {
