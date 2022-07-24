@@ -100,7 +100,7 @@ const Footer = () => {
                   Terms and Conditions
                 </Link>
                 <Link to="/help-and-support" className="" id="copy-link">
-                  Help And Support
+                  Help and Support
                 </Link>
                 {/* <Link to="/licenses" className="" id="copy-link">
                                     HealthierU Licenses

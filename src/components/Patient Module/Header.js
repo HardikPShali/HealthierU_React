@@ -45,9 +45,9 @@ const Header = (props) => {
 
     const response = await getUnreadNotificationsCount(userId, size).catch(err => (console.log({ err })));
 
-    console.log({ response });
+    // console.log({ response });
 
-    const notificationsCount = response.data.data;
+    const notificationsCount = response?.data?.data;
     // console.log({ notificationCount });
 
     if (notificationsCount > 0) {

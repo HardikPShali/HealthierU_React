@@ -81,6 +81,9 @@ import { doctorListLimit } from '../../util/configurations';
 const rightArrow = <FontAwesomeIcon icon={faChevronRight} />;
 
 const MyDoctor = (props) => {
+
+  const controller = new AbortController();
+
   let history = useHistory();
   const ref = useRef();
 
@@ -98,7 +101,7 @@ const MyDoctor = (props) => {
   const [transparentLoading, setTransparentLoading] = useState(false);
   const [currentPatient, setCurrentPatient] = useState({});
 
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState(' ');
   const [filterData, setFilterData] = useState(users);
   const [specialityArray, setSpecialityArray] = useState({
     name: [],
@@ -429,7 +432,9 @@ const MyDoctor = (props) => {
     const response = await postUnlikedDoctor(likeId);
     // //console.log(response.status);
     if (response.status === 200 || response.status === 204) {
-      getAllLikedDoctors();
+      // getAllLikedDoctors();
+      toast.success('Doctor Unliked Successfully');
+      loadUsers(currentPatient.id);
       //loadUsers(currentPatient.id);
     }
   };
@@ -477,11 +482,14 @@ const MyDoctor = (props) => {
   };
 
   // useeffect trigger handle search data with dep searchText
+  useEffect(() => {
+    handleSearchData();
+  }, [searchText]);
 
   const handleSearchData = async (showToast = false) => {
 
-
     //controller abort function
+    controller.abort();
 
     if (searchText !== '') {
       // setTransparentLoading(true);
@@ -491,8 +499,6 @@ const MyDoctor = (props) => {
         // setdoctor(res.data.doctors[0]);
         setAvailability([]);
         setAppointmentSlot([]);
-        // getInValidAppointments(res.data.doctors[0].id);
-        // setTransparentLoading(false);
       } else if (res.status === 204) {
         setFilterData([]);
         setdoctor('');
@@ -1306,7 +1312,7 @@ const MyDoctor = (props) => {
                     autoComplete="off"
                     onChange={(value) => { handleSearchInputChange(value); handleSearchData(true) }}
                     onCancelSearch={() => handleSearchInputChange('')}
-                    onRequestSearch={() => handleSearchData(false)}
+                    onRequestSearch={() => handleSearchData(true)}
                     cancelOnEscape={true}
                     onKeyDown={(e) =>
                       e.keyCode === 13 ? handleSearchData(true) : ''
@@ -1553,8 +1559,7 @@ const MyDoctor = (props) => {
                 <br />
                 <div id="card-list" className="scroller-cardlist">
                   {filterData &&
-                    filterData.length > 0 &&
-                    filterData[0] !== null ? (
+                    filterData.length > 0 ? (
                     <GridList cellHeight={220}>
                       <GridListTile
                         key="Subheader"
@@ -1684,14 +1689,6 @@ const MyDoctor = (props) => {
                       </div>
                     </>
                   )}
-                  {/* {searchText && filterData && (<>
-                                    <div className="text-center" style={{ display: display.unlike }}>
-                                        <button className="btn btn-outline-secondary" onClick={loadMore}>Load More</button>
-                                    </div>
-                                    <div className="text-center" style={{ display: display.like }}>
-                                        <button className="btn btn-outline-secondary" onClick={loadMoreLike}>Load More</button>
-                                    </div>
-                                </>)} */}
                 </div>
               </div>
             </Col>

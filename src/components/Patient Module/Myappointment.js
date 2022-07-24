@@ -343,9 +343,9 @@ const Myappointment = (props) => {
       }
     });
 
-    // console.log("AppointmentList", response);
+    console.log("AppointmentList", response);
 
-    if (response.status === 200 || response.status === 201) {
+    if (response?.status === 200 || response?.status === 201) {
       if (response && response.data) {
         //console.log("response.data ::: ", response.data)
         const updateArray = [];
@@ -425,9 +425,9 @@ const Myappointment = (props) => {
       }
     );
 
-    // console.log({ response });
+    console.log({ response });
 
-    if (response.status === 200 || response.status === 201) {
+    if (response?.status === 200 || response?.status === 201) {
       if (response && response.data) {
         const upcomingArray = response.data.data.upcoming;
 
@@ -1644,7 +1644,7 @@ const Myappointment = (props) => {
                 className="btn btn-primary"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
             </DialogActions>
           </Dialog>

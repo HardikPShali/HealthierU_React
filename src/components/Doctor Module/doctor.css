@@ -1062,7 +1062,7 @@ img#profile-pic {
 
 .avatar-profile {
   border-radius: 50% !important;
-  border: 5px solid #00d0cc;
+  border: 1px solid #00d0cc;
   background-color: #fff !important;
 }
 .my-appointments-avatar-doctor > .sb-avatar__text {
@@ -3812,7 +3812,7 @@ input:checked + .slider:before {
 
 .profile-menu > .MuiMenu-paper {
   top: 80px !important;
-  left: 1165px !important;
+  left: 1175px !important;
 }
 
 @media (max-width: 1180px) {

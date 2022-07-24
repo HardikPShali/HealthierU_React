@@ -892,7 +892,7 @@ const Myappointment = (props) => {
     },
     {
       selector: ".rbc-today .rbc-time-slot:nth-child(1)",
-      content: `Click here to create a appointment slot for patient as per your current time.`,
+      content: `Click here to create an appointment slot for patient as per your current time.`,
     },
     {
       selector: ".rbc-toolbar",
@@ -1717,7 +1717,7 @@ const Myappointment = (props) => {
                 className="btn btn-primary"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
             </DialogActions>
           </Dialog>
