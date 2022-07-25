@@ -100,7 +100,7 @@ const Footer = () => {
                   Terms and Conditions
                 </Link>
                 <Link to="/patient/help-and-support" className="" id="copy-link">
-                  Help And Support
+                  Help and Support
                 </Link>
                 <a
                   href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"

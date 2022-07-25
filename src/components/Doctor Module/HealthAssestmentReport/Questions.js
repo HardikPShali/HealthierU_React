@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Questions.css'
 import Cookies from 'universal-cookie'
 import {
     getHealthAssessmentPdf
 } from '../../../service/frontendapiservices'
 import { useParams } from 'react-router';
-const Questions = ({ answers,enableDownload }) => {
+const Questions = ({ answers, enableDownload }) => {
     const { id } = useParams();
-    console.log("showDownload",enableDownload);
     const cookies = new Cookies()
     const showReport = async () => {
         const url = await getHealthAssessmentPdf(id)
@@ -24,43 +23,34 @@ const Questions = ({ answers,enableDownload }) => {
                 <div className='Questions-card'>
                     <div className='row' >
                         <div className='col-md-12'>
-                            {
-                                answers ? (
-                                    answers.map((answer, index) => (
-                                        <div className='Questions-card__card-details' key={index + 1}>
-                                            <h6 className='Questions-card__question-title'>{answer.questionId}. {answer.questionTitle}</h6>
-                                            {
-                                                answer.answers.map((answer, index) => (
-                                                    <h6 className='Questions-card__question-answer' key={index}>{answer}</h6>
-                                                ))
-                                            }
-                                        </div>
-                                    ))
-                                ) : (
 
-                                    cookies.get('currentUser').questionCompleted === false ? (
-                                        <div
-                                            className="col-12 ml-2"
-                                            style={{ textShadow: 'none', color: '#3e4543' }}
-                                        >
-                                            No Data Found
-                                        </div>
-                                    )
-                                        : <div
-                                            className="col-12 ml-2"
-                                            style={{ textShadow: 'none', color: '#3e4543' }}
-                                        >
-                                            Loading...
-                                        </div>
-                                )
-                            }
+                            {answers ? (
+                                answers.map((answer, index) => (
+                                    (answer.answers.length && answer.answers.every((ans) => ans != undefined && ans != null && ans !== "") === true && <div className='Questions-card__card-details' key={index + 1}>
+                                        <h6 className='Questions-card__question-title'>{answer.questionTitle}</h6>
+                                        {answer.answers.map((answer, index1) => (
+                                            (answer && answer !== "" && <h6 className='Questions-card__question-answer' key={index1}>{answer}</h6>)
+                                        ))
+                                        }
+                                    </div>)
+                                ))
+                            ) : (
 
-                            {
-                                cookies.get('currentUser').questionCompleted === false && (
-                                    <div>
-                                        <h6 className='Questions-card__question-title'>No Data Found</h6>
+                                cookies.get('currentUser').questionCompleted === false ? (
+                                    <div
+                                        className="col-12 ml-2"
+                                        style={{ textShadow: 'none', color: '#3e4543' }}
+                                    >
+                                        No Data Found
                                     </div>
                                 )
+                                    : <div
+                                        className="col-12 ml-2"
+                                        style={{ textShadow: 'none', color: '#3e4543' }}
+                                    >
+                                        Loading...
+                                    </div>
+                            )
                             }
                             {enableDownload === true && <button
                                 className="btn btn-primary view-btn"

@@ -242,7 +242,14 @@ const Welcome = ({ currentuserInfo }) => {
 
     const handleInputChange = (e) => {
         e.preventDefault()
-        setstate({ ...state, [e.target.name]: e.target.value });
+        if (e.target.name === "experience") {
+            if (e.target.value > 50) {
+                toast.error("Experience must be between 1 to 50!")
+            }
+        }
+        else {
+            setstate({ ...state, [e.target.name]: e.target.value });
+        }
     };
     const handlePhone = (e) => {
         setstate({ ...state, phone: e });
@@ -532,7 +539,7 @@ const Welcome = ({ currentuserInfo }) => {
             <Container style={{ maxWidth: "100%" }}>
                 <Row>
                     <Col md={6} id="welcome-bg"></Col>
-                    <Col md={6} style={{ background: "#fff", padding: "5%" }}>
+                    <Col md={6} style={{ background: "#fff", padding: "2%" }}>
 
                         <div className="sign-box">
                             <h2 id="welcome-title">
@@ -608,7 +615,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     onChange={e => handleCountry(e)}
                                                 >
                                                     <MenuItem value="">
-                                                        <em>Select</em>
+                                                        Select
                                                     </MenuItem>
                                                     {countryList && countryList.map((option, index) => (
                                                         <MenuItem value={option.id} key={index}>{option.name}</MenuItem>
@@ -656,16 +663,16 @@ const Welcome = ({ currentuserInfo }) => {
 
                                                 >
                                                     <MenuItem value="">
-                                                        <em>Select</em>
+                                                        Select
                                                     </MenuItem>
                                                     <MenuItem value="MALE">
-                                                        <em>Male</em>
+                                                        Male
                                                     </MenuItem>
                                                     <MenuItem value="FEMALE">
-                                                        <em>Female</em>
+                                                        Female
                                                     </MenuItem>
                                                     <MenuItem value="UNKNOWN">
-                                                        <em>Other</em>
+                                                        Other
                                                     </MenuItem>
 
                                                 </Select>
@@ -719,7 +726,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                         inputProps={{ required: true }}
                                                         onChange={e => handleInputChange(e)}
                                                     >
-                                                        <MenuItem value=""><em>Select</em></MenuItem>
+                                                        <MenuItem value="">Select</MenuItem>
                                                         <MenuItem value="MARRIED">Married</MenuItem>
                                                         <MenuItem value="SINGLE">Single</MenuItem>
                                                         <MenuItem value="DIVORCED">Divorced</MenuItem>
@@ -833,12 +840,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <TextValidator id="standard-basic" type="number" name="experience"
                                                     onChange={e => handleInputChange(e)}
                                                     value={experience}
-                                                    validators={['required']}
+                                                    validators={['required',
+                                                        'minNumber:0', 'maxNumber:50']}
                                                     errorMessages={['This field is required']}
-                                                    inputProps={{
-                                                        min: 0,
-                                                        max: 50
-                                                    }}
                                                     variant="filled"
                                                     required
                                                     placeholder='Years of experience' />
@@ -856,7 +860,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                         inputProps={{ required: true }}
                                                         onChange={e => handleInputChange(e)}
                                                     >
-                                                        <MenuItem value=""><em>Select</em></MenuItem>
+                                                        <MenuItem value="">Select</MenuItem>
                                                         <MenuItem value="Self - Employed">Self - Employed</MenuItem>
                                                         <MenuItem value="Employed">Employed</MenuItem>
 

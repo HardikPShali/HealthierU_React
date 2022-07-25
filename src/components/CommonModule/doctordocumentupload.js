@@ -122,7 +122,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                 document.getElementById("uploadForm").reset();
             }
             if (!file[i].name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
-                setDocumentError("Document must be PNG, JPG, JPEG or PDF");
+                // setDocumentError("Document must be PNG, JPG, JPEG or PDF");
+                toast.error("Document must be PNG, JPG, JPEG or PDF")
                 document.getElementById("uploadForm").reset();
             }
             else {
@@ -177,7 +178,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                         setLoading(false);
                     });
                     if (res && res.status === 201) {
-                        toast.success("Document successfully Uploaded.");
+                        toast.success("Document Successfully Uploaded.");
                         const existingDoc = documentData;
                         existingDoc.push(res.data.data);
                         setDocumentData(existingDoc);

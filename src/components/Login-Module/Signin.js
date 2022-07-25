@@ -270,7 +270,7 @@ const Signin = () => {
     }
     else if (accountCheckResponse.data.data.registerAgain === true) {
       setLoader(false);
-      toast.error('OTP is not activated. Please register again with a valid OTP.');
+      toast.error('Your Account is Deactivated.Please contact Admin');
     }
     else if (accountCheckResponse.data.data.profileComplete === true && accountCheckResponse.data.data.approved === false) {
       handleSigninHandler();

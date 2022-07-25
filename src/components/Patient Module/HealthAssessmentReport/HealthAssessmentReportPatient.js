@@ -48,7 +48,7 @@ const HealthAssessmentReportPatient = () => {
                                             answers.map((answer, index) => (
                                                 <AnswersCardDetails key={index + 1}>
                                                     <AnswersCardQuestionTitle>
-                                                        {answer.questionId}. {answer.questionTitle}
+                                                        {index + 1}. {answer.questionTitle}
                                                     </AnswersCardQuestionTitle>
                                                     {answer.answers.map((answer, index) => (
                                                         <AnswersCardQuestionAnswer key={index}>
@@ -75,15 +75,6 @@ const HealthAssessmentReportPatient = () => {
                                                     Loading...
                                                 </Col>
                                         )}
-                                        {
-                                            cookies.get('currentUser').questionCompleted === false && (
-                                                <>
-                                                    <AnswersCardQuestionTitle>
-                                                        No Data Found
-                                                    </AnswersCardQuestionTitle>
-                                                </>
-                                            )
-                                        }
                                         {/* {answers === null && (
                                             <>
                                                 <AnswersCardQuestionTitle>

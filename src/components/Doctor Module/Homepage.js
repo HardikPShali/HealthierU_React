@@ -42,7 +42,7 @@ const Homepage = ({ currentuserInfo }) => {
       {currentuserInfo && !currentuserInfo.profileCompleted ? (
         <Welcome currentuserInfo={currentuserInfo} />
       ) : currentuserInfo && !currentuserInfo.approved ? (
-        <Dialog aria-labelledby="customized-dialog-title" open={open}>
+        <Dialog aria-labelledby="customized-dialog-title" className="admin-review-dialog" open={open}>
           <DialogTitle id="customized-dialog-title">
             Message from Administrator
           </DialogTitle>

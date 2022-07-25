@@ -343,6 +343,7 @@ const EditUser = (props) => {
         // if (userResponse) {
         //window.location.assign("/admin");
         history.go(0);
+        toast.success("Data Updated Successfully")
       }
       //}
     }
