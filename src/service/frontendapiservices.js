@@ -752,7 +752,7 @@ export const getMyAppointmentListbyModule = (payloadObject) => {
   return axios(payload);
 };
 
-export const getSearchData = (queryText, offset, limit) => {
+export const getSearchData = (queryText, offset, limit) => { //page ofset, size limit
   var payload = {
     method: "get",
     mode: "no-cors",
@@ -1514,4 +1514,19 @@ export const putMarkAsReadFromNotificationMenu = async (data, userId) => {
     }
   });
   return response;
+};
+
+export const getSearchDataAndFilter = (data, offset, limit) => { //page ofset, size limit
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    data: data,
+    url: `/api/mobile/tab/doctors?sort=id,desc&page=${offset}&size=${limit}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
 };

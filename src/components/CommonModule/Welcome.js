@@ -541,7 +541,7 @@ const Welcome = ({ currentuserInfo }) => {
                     <Col md={6} id="welcome-bg"></Col>
                     <Col md={6} style={{ background: "#fff", padding: "2%" }}>
 
-                        <div className="sign-box">
+                        <div className="sign-box signup-form-helper">
                             <h2 id="welcome-title">
                                 Tell Us More About You!
                             </h2>

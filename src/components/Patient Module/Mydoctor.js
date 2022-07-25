@@ -53,6 +53,7 @@ import {
   setNextAppointmentDoctor,
   getAvailableSlotsForMyDoctors,
   getUnreadNotificationsCount,
+  getSearchDataAndFilter,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -71,7 +72,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { searchFilterForDoctor } from '../../service/searchfilter';
 // import { firestoreService } from '../../util';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { doctorListLimit } from '../../util/configurations';
+import { doctorListLimit, doctorListLimitNonPaginated } from '../../util/configurations';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
@@ -493,13 +494,31 @@ const MyDoctor = (props) => {
 
     if (searchText !== '') {
       // setTransparentLoading(true);
-      const res = await getSearchData(searchText, 0, doctorListLimit);
-      if (res.status === 200 && res.data?.doctors.length > 0) {
-        setFilterData(res.data.doctors);
+      const data = {
+        searchKeyword: searchText,
+        specialitiesId: [],
+        countryIds: [],
+        languageName: [],
+        gender: [],
+        // docStartTime: new Date(),
+        docEndTime: null,
+        rateMin: 0.0,
+        rateMax: null
+      }
+      const res = await getSearchDataAndFilter(data, 0, doctorListLimit);
+      console.log({ res });
+      if (res.status === 200 && res.data.data?.doctors.length > 0) {
+        setFilterData(res.data.data.doctors);
         // setdoctor(res.data.doctors[0]);
         setAvailability([]);
         setAppointmentSlot([]);
-      } else if (res.status === 204) {
+
+      }
+      else if (res.status === 200 && res.data.data.totalItems === 0) {
+        setFilterData([]);
+        setdoctor('');
+      }
+      else if (res.status === 204) {
         setFilterData([]);
         setdoctor('');
         // setTransparentLoading(false);
