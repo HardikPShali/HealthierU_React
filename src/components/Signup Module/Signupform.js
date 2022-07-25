@@ -354,6 +354,19 @@ const Signupform = () => {
   };
 
 
+  // cookie removal function ----> 25072022
+  const clearEveryCookie = () => {
+    cookies.remove("refresh_token", { path: '/' });
+    cookies.remove("currentUser", { path: '/' });
+    cookies.remove("access_token", { path: '/' });
+    cookies.remove("GOOGLE_ACCESS_TOKEN", { path: '/' });
+    cookies.remove("GOOGLE_PROFILE_DATA", { path: '/' });
+    cookies.remove("authorities", { path: '/' });
+    cookies.remove("userProfileCompleted", { path: '/' });
+    cookies.remove("profileDetails", { path: '/' });
+    console.log('Cleared all cookies');
+  }
+
   //CODSE FOR OTP PART
   //LOGIC FOR OTP BOXES
   const [otpBox, setOtpBox] = useState(new Array(4).fill(''));
@@ -428,6 +441,7 @@ const Signupform = () => {
     else if (res.data.message === 'account activated' && res.data.status === true) {
       setOtpBox(new Array(4).fill(''));
       toast.success("Account Activated Successfully!. Please Log In.")
+      clearEveryCookie();
       history.push("/signin")
     }
     else {

@@ -37,8 +37,8 @@ const CancelledByPatient = ({ notification, index }) => {
                             alt="profile"
                             src={notification.data.appointmentDetails?.patient.picture}
                             style={{
-                                height: 40,
-                                width: 40,
+                                height: 50,
+                                width: 50,
                                 borderRadius: '50%',
                             }}
                         />
