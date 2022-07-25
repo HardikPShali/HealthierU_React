@@ -346,6 +346,8 @@ const EditUser = (props) => {
       const res = await updateDoctorDocumentNew(info).catch(err => {
         if (err.response.status === 500 || err.response.status === 504) {
           setTransparentLoading(false);
+          toast.error("Something went wrong.Please try again!")
+          history.go(0)
         }
       });
       if (response.status === 200 || response.status === 201 && res.status === 200) {
