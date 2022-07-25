@@ -26,7 +26,7 @@ const Questions = ({ answers, enableDownload }) => {
 
                             {answers ? (
                                 answers.map((answer, index) => (
-                                    (answer.answers.length && answer.answers.every((ans) => ans != undefined && ans != null && ans !== "") === true && <div className='Questions-card__card-details' key={index + 1}>
+                                    (answer.answers.length > 0 && answer.answers.every((ans) => ans != undefined && ans != null && ans !== "") == true && <div className='Questions-card__card-details' key={index + 1}>
                                         <h6 className='Questions-card__question-title'>{answer.questionTitle}</h6>
                                         {answer.answers.map((answer, index1) => (
                                             (answer && answer !== "" && <h6 className='Questions-card__question-answer' key={index1}>{answer}</h6>)

@@ -193,6 +193,8 @@ const EditUser = (props) => {
     educationalQualifications,
     modeOfEmployment,
     affiliation,
+    rate,
+    halfRate,
     licenseNumber,
     referencePhoneNumber,
     certifyingBody
@@ -282,6 +284,8 @@ const EditUser = (props) => {
       gender: user.gender,
       height: user.height,
       highBp: user.highBp,
+      rate: user.rate,
+      halfRate: user.halfRate,
       id: user.id,
       languages: user.languages,
       lastName: user.lastName,
@@ -342,7 +346,7 @@ const EditUser = (props) => {
         // const userResponse = await updateUserData(user);
         // if (userResponse) {
         //window.location.assign("/admin");
-        history.go(0);
+        history.push('/admin/doctorlist');
         toast.success("Data Updated Successfully")
       }
       //}
@@ -513,7 +517,7 @@ const EditUser = (props) => {
               </Col>
             </Row>
             <br />
-            {/* {currentUserAuthorities === 'ROLE_DOCTOR' && (
+            {currentUserAuthorities === 'ROLE_DOCTOR' && (
               <>
                 <Row>
                   <Col md={6}>
@@ -551,7 +555,7 @@ const EditUser = (props) => {
                 </Row>
                 <br />
               </>
-            )} */}
+            )}
             <Row>
               <Col md={12}>
                 <p>Address</p>
