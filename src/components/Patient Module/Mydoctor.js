@@ -97,6 +97,8 @@ const MyDoctor = (props) => {
 
   const cookies = new Cookies();
 
+  const id = props.currentPatient.id;
+
   const [doctor, setdoctor] = useState([]);
   const [loading, setLoading] = useState(true);
   const [transparentLoading, setTransparentLoading] = useState(false);
@@ -222,11 +224,13 @@ const MyDoctor = (props) => {
         rateMax: null
       }
 
+
+
       const result = await getSearchDataAndFilter(
         // patientId,
         data, 0,
         doctorListLimit,
-        patientId
+        id
       ).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
@@ -519,8 +523,7 @@ const MyDoctor = (props) => {
         rateMin: 0.0,
         rateMax: null
       }
-      const patientId = currentPatient.id;
-      const res = await getSearchDataAndFilter(data, 0, doctorListLimit, patientId);
+      const res = await getSearchDataAndFilter(data, 0, doctorListLimit, id);
       console.log({ res });
       if (res.status === 200 && res.data.data?.doctors.length > 0) {
         setFilterData(res.data.data.doctors);
