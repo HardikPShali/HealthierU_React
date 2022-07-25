@@ -1421,5 +1421,5 @@ button.btn.btn-outline-primary.sign-btn:hover {
 }
 
 .signup-form-helper {
-  height: 750px;
+  min-height: 750px;
 }

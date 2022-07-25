@@ -304,13 +304,17 @@ const Signupform = () => {
         }
       });
 
+      console.log("Response", response);
+
       if (response && response.status === 200) {
         setTransparentLoading(false);
 
         if (authorities.some((user) => user === "ROLE_PATIENT")) {
+          toast.success("OTP is sent to your email. Please check your email and verify OTP.")
           setDisplay({ ...display, signupForm: "none", whoyouAre: "none", otpPage: "block" });
         }
         if (authorities.some((user) => user === "ROLE_DOCTOR")) {
+          toast.success("OTP is sent to your email. Please check your email and verify OTP.")
           setDisplay({ ...display, signupForm: "none", whoyouAre: "none", otpPage: "block" });
         }
         // handleClickOpen();
@@ -751,7 +755,7 @@ const Signupform = () => {
                 className="btn btn-primary sign-btn"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
             </Link>
           </DialogActions>
@@ -767,7 +771,7 @@ const Signupform = () => {
             className="btn btn-primary sign-btn w-100"
             id="close-btn"
           >
-            Ok
+            OK
           </button>
         </DialogActions>
       </Dialog>
