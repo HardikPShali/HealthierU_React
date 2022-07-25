@@ -1292,7 +1292,7 @@ button.btn.timeSlot:hover {
   /* background: var(--primarysecond) !important; */
   border-radius: 15px;
   background-color: #fff !important;
-  outline: 2px solid #00d0cc;
+  /* outline: 2px solid #00d0cc; */
 }
 
 .doc-img > .sb-avatar--text > .sb-avatar__text {
@@ -4409,6 +4409,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 70px !important;
   height: 70px !important;
   margin: 15px !important;
+  border: 2px solid #00d0cc;
 }
 
 .set-next-notif__button {

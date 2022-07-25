@@ -123,6 +123,7 @@ const Signupform = () => {
   const handleDoctorClick = () => {
     const value = "ROLE_DOCTOR";
     setUser({ ...user, authorities: [] });
+    // if authorities>0 is there then pop the array and push the new value 
     authorities.push(value);
     if (
       authorities &&
@@ -135,6 +136,8 @@ const Signupform = () => {
   const handlePatientClick = () => {
     const value = "ROLE_PATIENT";
     setUser({ ...user, authorities: [] });
+    // if authorities>0 is there then pop the array and push the new value 
+
     authorities.push(value);
     if (
       authorities &&
@@ -299,28 +302,6 @@ const Signupform = () => {
             emailExistance: 'Email is already in use. Please try with different email.',
           });
         }
-
-
-
-        // if (
-        //   error.response &&
-        //   error.response.status === 400 &&
-        //   error.response.data.errorKey === "emailexists"
-        // ) {
-        //   setErrorMsg({
-        //     ...errorMsg,
-        //     emailExistance: error.response.data.title,
-        //   });
-        // } else if (
-        //   error.response &&
-        //   error.response.status === 400 &&
-        //   error.response.data.errorKey === "userexists"
-        // ) {
-        //   setErrorMsg({
-        //     ...errorMsg,
-        //     userNameExistance: error.response.data.title,
-        //   });
-        // }
       });
 
       if (response && response.status === 200) {
@@ -334,13 +315,7 @@ const Signupform = () => {
         }
         // handleClickOpen();
       }
-      // }).catch(error => {
-      //  if (error.response && error.response.status === 400 && error.response.data.errorKey === "emailexists") {
-      //    setErrorMsg({ ...errorMsg, emailExistance: error.response.data.title });
-      //  } else if (error.response && error.response.status === 400 && error.response.data.errorKey === "userexists") {
-      //    setErrorMsg({ ...errorMsg, userNameExistance: error.response.data.title });
-      //  }
-      // })
+
     }
     //} //else {
     // setCaptchaError("Please verify captcha!");

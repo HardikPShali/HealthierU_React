@@ -210,9 +210,23 @@ const MyDoctor = (props) => {
 
   const loadUsers = async (patientId) => {
     if (!profilepID.activated) {
-      const result = await getDoctorListByPatientId(
-        patientId,
-        doctorListLimit
+      const data = {
+        searchKeyword: '',
+        specialitiesId: [],
+        countryIds: [],
+        languageName: [],
+        gender: [],
+        // docStartTime: new Date(),
+        docEndTime: null,
+        rateMin: 0.0,
+        rateMax: null
+      }
+
+      const result = await getSearchDataAndFilter(
+        // patientId,
+        data, 0,
+        doctorListLimit,
+        patientId
       ).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
@@ -221,22 +235,22 @@ const MyDoctor = (props) => {
       if (
         result &&
         result.data &&
-        result.data.doctors &&
-        result.data.doctors.length > 0
+        result.data.data.doctors &&
+        result.data.data.doctors.length > 0
       ) {
         setOffset(1);
-        setUser(result.data.doctors);
-        setdoctor(result.data.doctors);
+        setUser(result.data.data.doctors);
+        setdoctor(result.data.data.doctors);
         //const currentSelectedDate = new Date();
         //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
-        const docId = result.data.doctors[0]?.id;
+        const docId = result.data.data.doctors[0]?.id;
         setAppointment({
           ...appointment,
           patientId: patientId,
           doctorId: docId,
         });
         // getInValidAppointments(docId);
-        setFilterData(result.data.doctors);
+        setFilterData(result.data.data.doctors);
         //setTimeout(() => searchNutritionDoctor(), 3000);
         setTimeout(() => setLoading(false), 1000);
         const tourState = cookies.get('tour');
@@ -505,7 +519,8 @@ const MyDoctor = (props) => {
         rateMin: 0.0,
         rateMax: null
       }
-      const res = await getSearchDataAndFilter(data, 0, doctorListLimit);
+      const patientId = currentPatient.id;
+      const res = await getSearchDataAndFilter(data, 0, doctorListLimit, patientId);
       console.log({ res });
       if (res.status === 200 && res.data.data?.doctors.length > 0) {
         setFilterData(res.data.data.doctors);

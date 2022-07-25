@@ -1516,12 +1516,12 @@ export const putMarkAsReadFromNotificationMenu = async (data, userId) => {
   return response;
 };
 
-export const getSearchDataAndFilter = (data, offset, limit) => { //page ofset, size limit
+export const getSearchDataAndFilter = (data, offset, limit, patientId) => { //page ofset, size limit
   var payload = {
     method: "post",
     mode: "no-cors",
     data: data,
-    url: `/api/mobile/tab/doctors?sort=id,desc&page=${offset}&size=${limit}`,
+    url: `/api/mobile/tab/doctors?sort=id,desc&page=${offset}&size=${limit}&patientId=${patientId}`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
