@@ -50,7 +50,6 @@ const NotificationMenuPatient = () => {
                 {notificationsData.length > 0 ? (
                     <div>
                         {notificationsData.map((notification, index) => {
-
                             if (notification.type === 'APPT_RESCHEDULE_BY_DOCTOR' && notification.data.appointmentDetails) {
                                 return (
                                     <div key={index}>
