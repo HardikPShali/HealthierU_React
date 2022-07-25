@@ -193,6 +193,8 @@ const EditUser = (props) => {
     educationalQualifications,
     modeOfEmployment,
     affiliation,
+    rate,
+    halfRate,
     licenseNumber,
     referencePhoneNumber,
     certifyingBody
@@ -247,12 +249,17 @@ const EditUser = (props) => {
   };
   const handleInputChange = (e) => {
     let value;
-    // if ((e.target.name === "rate" || e.target.name === "halfRate") && (e.target.value % 1 !== 0)) {
-    //   value = parseFloat(e.target.value).toFixed(2);
-    // }
-    // else {
-    value = e.target.value;
-    // }
+    if ((e.target.name === "rate" || e.target.name === "halfRate") && (e.target.value % 1 !== '0')) {
+      if (e.target.value !== '0') {
+        value = parseFloat(e.target.value);
+      }
+      else {
+        toast.error("Invalid Rate or Half rate!")
+      }
+    }
+    else {
+      value = e.target.value;
+    }
     setUser({ ...user, [e.target.name]: value });
   };
 
@@ -282,6 +289,8 @@ const EditUser = (props) => {
       gender: user.gender,
       height: user.height,
       highBp: user.highBp,
+      rate: user.rate,
+      halfRate: user.halfRate,
       id: user.id,
       languages: user.languages,
       lastName: user.lastName,
@@ -299,6 +308,8 @@ const EditUser = (props) => {
       const response = await updateRolePatient(bodyFormData).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setTransparentLoading(false);
+          toast.error("Something went wrong.Please try again!")
+          history.go(0)
         }
       });
       if (response.status === 200 || response.status === 201) {
@@ -319,6 +330,8 @@ const EditUser = (props) => {
       const response = await updateRoleDoctor(bodyFormData).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setTransparentLoading(false);
+          toast.error("Something went wrong.Please try again!")
+          history.go(0)
         }
       });
       const info = {
@@ -333,6 +346,8 @@ const EditUser = (props) => {
       const res = await updateDoctorDocumentNew(info).catch(err => {
         if (err.response.status === 500 || err.response.status === 504) {
           setTransparentLoading(false);
+          toast.error("Something went wrong.Please try again!")
+          history.go(0)
         }
       });
       if (response.status === 200 || response.status === 201 && res.status === 200) {
@@ -342,7 +357,7 @@ const EditUser = (props) => {
         // const userResponse = await updateUserData(user);
         // if (userResponse) {
         //window.location.assign("/admin");
-        history.go(0);
+        history.push('/admin/doctorlist');
         toast.success("Data Updated Successfully")
       }
       //}
@@ -513,7 +528,7 @@ const EditUser = (props) => {
               </Col>
             </Row>
             <br />
-            {/* {currentUserAuthorities === 'ROLE_DOCTOR' && (
+            {currentUserAuthorities === 'ROLE_DOCTOR' && (
               <>
                 <Row>
                   <Col md={6}>
@@ -524,11 +539,13 @@ const EditUser = (props) => {
                       name="rate"
                       onChange={(e) => handleInputChange(e)}
                       value={rate ? rate : ''}
-                      inputProps={{
-                        min: 0.01,
-                        step: 0.01,
-                        required: true,
-                      }}
+                      // inputProps={{
+                      //   min: 0.01,
+                      //   step: 0.01,
+                      //   required: true,
+                      // }}
+                      validators={['required']}
+                      errorMessages={['This field is required']}
                       variant="filled"
                     />
                   </Col>
@@ -540,18 +557,20 @@ const EditUser = (props) => {
                       name="halfRate"
                       onChange={(e) => handleInputChange(e)}
                       value={halfRate ? halfRate : ''}
-                      inputProps={{
-                        min: 0.01,
-                        step: 0.01,
-                        required: true,
-                      }}
+                      // inputProps={{
+                      //   min: 0.01,
+                      //   step: 0.01,
+                      //   required: true,
+                      // }}
+                      validators={['required']}
+                      errorMessages={['This field is required']}
                       variant="filled"
                     />
                   </Col>
                 </Row>
                 <br />
               </>
-            )} */}
+            )}
             <Row>
               <Col md={12}>
                 <p>Address</p>
