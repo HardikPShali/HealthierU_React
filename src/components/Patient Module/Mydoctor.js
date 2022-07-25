@@ -97,7 +97,7 @@ const MyDoctor = (props) => {
 
   const cookies = new Cookies();
 
-  const id = props.currentPatient.id;
+  // const newPatientId = props.currentPatient.id;
 
   const [doctor, setdoctor] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -230,7 +230,7 @@ const MyDoctor = (props) => {
         // patientId,
         data, 0,
         doctorListLimit,
-        id
+        patientId
       ).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
@@ -509,6 +509,7 @@ const MyDoctor = (props) => {
 
     //controller abort function
     controller.abort();
+    const newPatientId = cookies.get('profileDetails')?.id;
 
     if (searchText !== '') {
       // setTransparentLoading(true);
@@ -523,7 +524,7 @@ const MyDoctor = (props) => {
         rateMin: 0.0,
         rateMax: null
       }
-      const res = await getSearchDataAndFilter(data, 0, doctorListLimit, id);
+      const res = await getSearchDataAndFilter(data, 0, doctorListLimit, newPatientId);
       console.log({ res });
       if (res.status === 200 && res.data.data?.doctors.length > 0) {
         setFilterData(res.data.data.doctors);
@@ -1206,7 +1207,10 @@ const MyDoctor = (props) => {
       }
     );
   };
+
+  const [disableButton, setDisableButton] = useState(false);
   const setNextAppointment = async () => {
+    setDisableButton(true)
     const stateData = [];
     stateData.push(nextAppDetails);
     const app = [];
@@ -2519,7 +2523,7 @@ const MyDoctor = (props) => {
                   onClick={() => {
                     setNextAppointment()
                   }}
-                  disabled={disable.continue}
+                  disabled={disable.continue && disableButton}
                 >
                   Book Slot
                 </button>
