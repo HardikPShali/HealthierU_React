@@ -686,7 +686,7 @@ const Meeting = (props) => {
     <>
       {/* <Row> */}
       {/* <Col md={9}> */}
-      <div className="wrapper w-100" id="page-meeting">
+      <div className="wrapper w-100" id="page-meeting" onContextMenu={e => e.preventDefault()}>
         {/*<div className="ag-header">
               <div className="ag-header-lead">
                 <img className="ag-header-logo" src={logo} alt="" />

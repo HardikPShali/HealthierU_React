@@ -678,12 +678,12 @@ button img {
 
 #signupform-bg {
   background-image: url(../../images/signupform.png);
-  background-size: contain;
-  /* background-position: center; */
+  background-size: cover;
+  background-position: top;
   background-repeat: no-repeat;
   max-width: 100%;
-  padding: 10% 9%;
-  height: 232vh;
+  padding: 5% 9%;
+  height: 132vh;
 }
 
 @media screen and (max-width: 1024px) {

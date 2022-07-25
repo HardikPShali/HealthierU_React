@@ -14,8 +14,8 @@ const StringAppointment = ({ notification, index }) => {
                                 notification.data.appointmentDetails?.patient.picture
                             }
                             style={{
-                                height: 40,
-                                width: 40,
+                                height: 50,
+                                width: 50,
                                 borderRadius: '50%',
                             }}
                         />

@@ -328,7 +328,11 @@ const EditServiceProvider = props => {
         setIsLoading(true);
         event.preventDefault();
         // const data = new FormData(event.target);
-        const resp = await addOpeningHours(id, openingHoursDetails);
+        const resp = await addOpeningHours(id, openingHoursDetails).catch(err => {
+            //setErrorMsg("Something Went Wrong!");
+            toast.error("Something went wrong. Please try again!")
+            history.push(0)
+        });
         if (resp) {
             setShowOpeningHours(false);
             await loadServiceProvider();
@@ -1140,6 +1144,7 @@ const EditServiceProvider = props => {
                                     className="form-control"
                                     name="day"
                                     id="day"
+                                    required
                                     value={openingHoursDetails?.day}
                                     onChange={e => onOpeningHourInputChange(e)}
                                 >
@@ -1168,6 +1173,7 @@ const EditServiceProvider = props => {
                                     id="lon"
                                     name="openTime"
                                     className="form-control"
+                                    required
                                     value={openingHoursDetails?.openTime}
                                     onChange={e => onOpeningHourInputChange(e)}
                                     placeholder="Close Time"
@@ -1189,6 +1195,7 @@ const EditServiceProvider = props => {
                                     name="closeTime"
                                     className="form-control"
                                     value={openingHoursDetails?.closeTime}
+                                    required
                                     onChange={e => onOpeningHourInputChange(e)}
                                     placeholder="Close Time"
                                 ></input>

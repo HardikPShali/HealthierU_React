@@ -53,6 +53,7 @@ import {
   setNextAppointmentDoctor,
   getAvailableSlotsForMyDoctors,
   getUnreadNotificationsCount,
+  getSearchDataAndFilter,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -71,7 +72,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { searchFilterForDoctor } from '../../service/searchfilter';
 // import { firestoreService } from '../../util';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { doctorListLimit } from '../../util/configurations';
+import { doctorListLimit, doctorListLimitNonPaginated } from '../../util/configurations';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
@@ -95,6 +96,8 @@ const MyDoctor = (props) => {
   };
 
   const cookies = new Cookies();
+
+  // const newPatientId = props.currentPatient.id;
 
   const [doctor, setdoctor] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -209,9 +212,25 @@ const MyDoctor = (props) => {
 
   const loadUsers = async (patientId) => {
     if (!profilepID.activated) {
-      const result = await getDoctorListByPatientId(
-        patientId,
-        doctorListLimit
+      const data = {
+        searchKeyword: '',
+        specialitiesId: [],
+        countryIds: [],
+        languageName: [],
+        gender: [],
+        // docStartTime: new Date(),
+        docEndTime: null,
+        rateMin: 0.0,
+        rateMax: null
+      }
+
+
+
+      const result = await getSearchDataAndFilter(
+        // patientId,
+        data, 0,
+        doctorListLimit,
+        patientId
       ).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
@@ -220,22 +239,22 @@ const MyDoctor = (props) => {
       if (
         result &&
         result.data &&
-        result.data.doctors &&
-        result.data.doctors.length > 0
+        result.data.data.doctors &&
+        result.data.data.doctors.length > 0
       ) {
         setOffset(1);
-        setUser(result.data.doctors);
-        setdoctor(result.data.doctors);
+        setUser(result.data.data.doctors);
+        setdoctor(result.data.data.doctors);
         //const currentSelectedDate = new Date();
         //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
-        const docId = result.data.doctors[0]?.id;
+        const docId = result.data.data.doctors[0]?.id;
         setAppointment({
           ...appointment,
           patientId: patientId,
           doctorId: docId,
         });
         // getInValidAppointments(docId);
-        setFilterData(result.data.doctors);
+        setFilterData(result.data.data.doctors);
         //setTimeout(() => searchNutritionDoctor(), 3000);
         setTimeout(() => setLoading(false), 1000);
         const tourState = cookies.get('tour');
@@ -490,16 +509,35 @@ const MyDoctor = (props) => {
 
     //controller abort function
     controller.abort();
+    const newPatientId = cookies.get('profileDetails')?.id;
 
     if (searchText !== '') {
       // setTransparentLoading(true);
-      const res = await getSearchData(searchText, 0, doctorListLimit);
-      if (res.status === 200 && res.data?.doctors.length > 0) {
-        setFilterData(res.data.doctors);
+      const data = {
+        searchKeyword: searchText,
+        specialitiesId: [],
+        countryIds: [],
+        languageName: [],
+        gender: [],
+        // docStartTime: new Date(),
+        docEndTime: null,
+        rateMin: 0.0,
+        rateMax: null
+      }
+      const res = await getSearchDataAndFilter(data, 0, doctorListLimit, newPatientId);
+      console.log({ res });
+      if (res.status === 200 && res.data.data?.doctors.length > 0) {
+        setFilterData(res.data.data.doctors);
         // setdoctor(res.data.doctors[0]);
         setAvailability([]);
         setAppointmentSlot([]);
-      } else if (res.status === 204) {
+
+      }
+      else if (res.status === 200 && res.data.data.totalItems === 0) {
+        setFilterData([]);
+        setdoctor('');
+      }
+      else if (res.status === 204) {
         setFilterData([]);
         setdoctor('');
         // setTransparentLoading(false);
@@ -1169,7 +1207,10 @@ const MyDoctor = (props) => {
       }
     );
   };
+
+  const [disableButton, setDisableButton] = useState(false);
   const setNextAppointment = async () => {
+    setDisableButton(true)
     const stateData = [];
     stateData.push(nextAppDetails);
     const app = [];
@@ -2482,7 +2523,7 @@ const MyDoctor = (props) => {
                   onClick={() => {
                     setNextAppointment()
                   }}
-                  disabled={disable.continue}
+                  disabled={disable.continue && disableButton}
                 >
                   Book Slot
                 </button>

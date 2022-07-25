@@ -68,6 +68,9 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                 //   props.history.push('/patient/myappointment');
                 setClickModal(false);
                 toast.success('Appointment has been set successfully');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000)
             }
         } catch (err) {
             //error logic
@@ -133,8 +136,8 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                             alt="profile"
                             src={notification.data.appointmentDetails?.doctor.picture}
                             style={{
-                                height: 40,
-                                width: 40,
+                                height: 50,
+                                width: 50,
                                 borderRadius: '50%',
                             }}
                         />
