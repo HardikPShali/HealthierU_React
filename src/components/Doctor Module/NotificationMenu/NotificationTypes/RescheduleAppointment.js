@@ -57,7 +57,7 @@ const RescheduleAppointment = ({ notification, index }) => {
                         <span>
                             You have an appointment rescheduled on{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
-                                'DD-MM-YYYY hh:mm'
+                                'DD-MM-YYYY HH:mm'
                             )}{' '}
                             with{' '}
                             {notification.data.appointmentDetails.patient?.firstName}

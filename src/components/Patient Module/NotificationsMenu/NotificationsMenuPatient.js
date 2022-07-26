@@ -46,7 +46,6 @@ const NotificationMenuPatient = () => {
             </div>
             <hr />
             <div className="d-flex flex-column">
-
                 {notificationsData.length > 0 ? (
                     <div>
                         {notificationsData.map((notification, index) => {

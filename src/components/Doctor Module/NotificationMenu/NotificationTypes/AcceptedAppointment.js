@@ -56,7 +56,7 @@ const AcceptedAppointment = ({ notification, index }) => {
                         <span>
                             {notification.data.message}
                             {moment(notification.data.appointmentDetails.startTime).format(
-                                'DD-MM-YYYY hh:mm'
+                                'DD-MM-YYYY HH:mm'
                             )}{' '}
                             with {notification.data.appointmentDetails.patient?.firstName}
                         </span>

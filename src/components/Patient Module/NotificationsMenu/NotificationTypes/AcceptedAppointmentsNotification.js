@@ -55,7 +55,7 @@ const AcceptedAppointmentsNotification = ({ notification, index }) => {
               Your appointment has been booked with {' '}
               {notification.data.appointmentDetails?.doctor.firstName} for time {' '}
               {moment(notification.data.appointmentDetails.startTime).format(
-                'DD-MM-YYYY hh:mm'
+                'DD-MM-YYYY HH:mm'
               )}
             </span>
             {/* <span>TIME</span> */}

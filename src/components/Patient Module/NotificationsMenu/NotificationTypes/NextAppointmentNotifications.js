@@ -155,7 +155,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                         <span>
                             Your next appointment is confirmed for{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
-                                'DD-MM-YYYY hh:mm'
+                                'DD-MM-YYYY HH:mm'
                             )} by {notification.data.appointmentDetails?.doctor.firstName}. Click here to pay now.
                         </span>
                         {/* <span>TIME</span> */}
