@@ -104,7 +104,7 @@ const MyDoctor = (props) => {
   const [transparentLoading, setTransparentLoading] = useState(false);
   const [currentPatient, setCurrentPatient] = useState({});
 
-  const [searchText, setSearchText] = useState(' ');
+  const [searchText, setSearchText] = useState('');
   const [filterData, setFilterData] = useState(users);
   const [specialityArray, setSpecialityArray] = useState({
     name: [],
@@ -1613,7 +1613,7 @@ const MyDoctor = (props) => {
                           user.activated && (
                             <GridListTile
                               key={index}
-                              className={`card-list__grid-list-tile ${user.id === doctor.id ? 'card-border' : ''
+                              className={`card-list__grid-list-tile ${user.id === doctor?.id ? 'card-border' : ''
                                 }`}
                               onClick={async () => {
                                 setdoctor(user);
@@ -2611,18 +2611,18 @@ const MyDoctor = (props) => {
                 <Row id="doc-row">
                   <Col xs={12}>
                     <div className="doc-img">
-                      {doctor.picture ? (
-                        <img src={doctor.picture} alt="" />
+                      {doctor?.picture ? (
+                        <img src={doctor?.picture} alt="" />
                       ) : (
                         <Avatar
-                          name={doctor.firstName + ' ' + doctor.lastName}
+                          name={doctor?.firstName + ' ' + doctor?.lastName}
                         />
                       )}
                     </div>
                   </Col>
                   <Col xs={12} id="doc-details">
                     <div>
-                      <p className="doc-name">{doctor.firstName}</p>
+                      <p className="doc-name">{doctor?.firstName}</p>
                       <ul
                         style={{
                           fontSize: 12,
@@ -2644,7 +2644,7 @@ const MyDoctor = (props) => {
                           fontWeight: '600',
                         }}
                       >
-                        {doctor.experience} years of experience
+                        {doctor?.experience} years of experience
                       </p>
                     </div>
                   </Col>
@@ -2653,7 +2653,7 @@ const MyDoctor = (props) => {
                   <div className="row">
                     <div className="col-12">
                       <span style={{ fontSize: 12 }}>
-                        Country Of Residence: <b>{doctor.countryName}</b>
+                        Country Of Residence: <b>{doctor?.countryName}</b>
                       </span>
                     </div>
                   </div>
