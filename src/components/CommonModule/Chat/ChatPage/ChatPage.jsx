@@ -184,7 +184,7 @@ const ChatPage = () => {
       setVideoCallEnding(isVideoEnding)
     
 
-    }, 6000);
+    }, 30000);
   };
 
   useEffect(() => {
