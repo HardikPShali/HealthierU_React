@@ -151,6 +151,8 @@ const Signin = () => {
   const { email, password, msg, otp } = user;
   const handleInputChange = (e) => {
     e.preventDefault();
+    console.log("e.target.name :: ", e.target.name);
+    console.log("e.target.value :: ", e.target.value);
     setUser({ ...user, [e.target.name]: e.target.value, msg: "" });
   };
 
@@ -242,8 +244,9 @@ const Signin = () => {
   });
 
   const handleSigninHandler = async () => {
+    let encodedPassword = encodeURIComponent(password);
     // SIGNIN LOGIC
-    const response = await handleSignin(email, password).catch((err) => {
+    const response = await handleSignin(email, encodedPassword).catch((err) => {
       if (err.response && err.response.status === 400) {
         setUser({
           ...user,

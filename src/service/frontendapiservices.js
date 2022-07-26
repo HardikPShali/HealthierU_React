@@ -485,7 +485,7 @@ export const handleChangePassword = async (passwordData) => {
     method: "post",
     mode: "no-cors",
     data: passwordData,
-    url: `/api/account/change-password/`,
+    url: `/api/mobile/account/change-password/`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",

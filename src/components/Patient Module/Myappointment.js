@@ -1635,8 +1635,7 @@ const Myappointment = (props) => {
             open={alertVideo}
           >
             <DialogTitle id="customized-dialog-title" onClose={alertVideoClose}>
-              Video call is possible only starting 2 Minutes before the
-              Appointment Time
+              Video call is possible only 5 minutes before the appointment time.
             </DialogTitle>
             <DialogActions>
               <button

@@ -81,8 +81,8 @@ const HelpAndSuppostMobile = (props) => {
                                         value={senderName}
                                         onChange={(e) => handleInputChange(e)}
                                         placeholder="YOUR NAME*"
-                                        validators={["required"]}
-                                        errorMessages={[("This field is required")]}
+                                        validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
+                                        errorMessages={["This field is required", "Name cannot have any numeric values"]}
                                         variant="filled"
                                     />
                                     <br />
