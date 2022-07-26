@@ -454,7 +454,7 @@ const MyDoctor = (props) => {
     // //console.log(response.status);
     if (response.status === 200 || response.status === 204) {
       // getAllLikedDoctors();
-      toast.success('Doctor Unliked Successfully');
+      toast.success('Successfully removed from your favourites');
       loadUsers(currentPatient.id);
       //loadUsers(currentPatient.id);
     }
