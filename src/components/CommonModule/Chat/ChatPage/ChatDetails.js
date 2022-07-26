@@ -29,6 +29,7 @@ const ChatDetails = ({
   const [enableVideo, setEnableVideo] = useState(false);
   const [enableChat, setEnableChat] = useState(false);
   const [roles] = useRole();
+  let intervalId = null;
 
   const getAppointmentTime = (appointment) => {
     const currentTime = moment(new Date());
@@ -86,6 +87,11 @@ const ChatDetails = ({
   }
 
   useEffect(() => {
+
+    if(intervalId != null) {
+      clearInterval(intervalId);
+    }
+
     if (selectedItem.id) {
       if (selectedItem.appointments.length) {
         // const isVideoEnabled = selectedItem.appointments.some(videoEnableCheck);
@@ -96,6 +102,8 @@ const ChatDetails = ({
         // const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
         const isChatEnabled = chatValidation(selectedItem.appointments);
         setEnableChat(isChatEnabled);
+
+        startPeriodicValidationCheck();
       } else {
         hideChatAndVideo();
       }
@@ -104,6 +112,22 @@ const ChatDetails = ({
       hideChatAndVideo();
     }
   }, [selectedItem]);
+
+  const startPeriodicValidationCheck = () => {
+    intervalId = setInterval(() => {
+      const isVideoEnabled = videoValiation(selectedItem.appointments);
+        if(isVideoEnabled != enableVideo){
+          setEnableVideo(isVideoEnabled);
+        }
+
+        // const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
+        const isChatEnabled = chatValidation(selectedItem.appointments);
+        if(isChatEnabled != enableChat){
+          setEnableChat(isChatEnabled);
+        }
+    }, 60000);
+
+  }
 
   const handleVideo = () => {
     if (!enableVideo) return;
