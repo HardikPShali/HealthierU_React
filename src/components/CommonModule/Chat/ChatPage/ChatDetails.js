@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import ChatDetailsStyle from "./ChatDetails.css";
@@ -28,9 +28,11 @@ const ChatDetails = ({
   onVideoClick,
   onNoteClick,
   loadMoreData,
+  enableChat,
+  enableVideo
 }) => {
-  const [enableVideo, setEnableVideo] = useState(false);
-  const [enableChat, setEnableChat] = useState(false);
+  // const [enableVideo, setEnableVideo] = useState(false);
+  // const [enableChat, setEnableChat] = useState(false);
   const [roles] = useRole();
   let intervalId = null;
 
@@ -84,46 +86,40 @@ const ChatDetails = ({
     return false;
   };
 
-  const hideChatAndVideo = () => {
-    setEnableChat(false);
-    setEnableVideo(false);
-  };
+  // const hideChatAndVideo = () => {
+  //   setEnableChat(false);
+  //   setEnableVideo(false);
+  // };
 
-  useEffect(() => {
-    if (intervalId != null) {
-      clearInterval(intervalId);
-    }
+  // useEffect(() => {
+  //   if (intervalId != null) {
+  //     clearInterval(intervalId);
+  //   }
 
-    if (selectedItem.id) {
-      if (selectedItem.appointments.length) {
-        // const isVideoEnabled = selectedItem.appointments.some(videoEnableCheck);
+  //   if (selectedItem.id) {
+  //     if (selectedItem.appointments.length) {
 
-        const isVideoEnabled = videoValiation(selectedItem.appointments);
-        setEnableVideo(isVideoEnabled);
+  //       const isVideoEnabled = videoValiation(selectedItem.appointments);
+  //       setEnableVideo(isVideoEnabled);
 
-        // const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
-        const isChatEnabled = chatValidation(selectedItem.appointments);
-        setEnableChat(isChatEnabled);
+  //       const isChatEnabled = chatValidation(selectedItem.appointments);
+  //       setEnableChat(isChatEnabled);
 
-        startPeriodicValidationCheck();
-      } else {
-        hideChatAndVideo();
-      }
-    } else {
-      hideChatAndVideo();
-    }
-  }, [selectedItem]);
+  //       startPeriodicValidationCheck();
+  //     } else {
+  //       hideChatAndVideo();
+  //     }
+  //   } else {
+  //     hideChatAndVideo();
+  //   }
+  // }, [selectedItem]);
 
-  const startPeriodicValidationCheck = () => {
-    intervalId = setInterval(() => {
-      const isVideoEnabled = videoValiation(selectedItem.appointments);
-      setEnableVideo(isVideoEnabled);
-
-      // const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
-      const isChatEnabled = chatValidation(selectedItem.appointments);
-      setEnableChat(isChatEnabled);
-    }, 60000);
-  };
+  // const startPeriodicValidationCheck = () => {
+  //   intervalId = setInterval(() => {
+  //     const isVideoEnabled = videoValiation(selectedItem.appointments);
+  //     setEnableVideo(isVideoEnabled);
+  //   }, 60000);
+  // };
 
   const handleVideo = () => {
     if (!enableVideo) return;
@@ -208,7 +204,7 @@ const ChatDetails = ({
           >
             {messages.map((message, index) => {
               return (
-                <>
+                <Fragment key={message.id}>
                   {groupDateCalculation(index) && (
                     <div className="date-divider">
                       {moment(message.createdAt).format("DD MMM yyyy")}
@@ -218,7 +214,7 @@ const ChatDetails = ({
                     <div className="row">
                       {!message.myMessage && (
                         <div
-                          key={message.id}
+                      
                           className="received_chat-msg-wrap my-2"
                         >
                           <div className="received_chat-msg">
@@ -233,7 +229,7 @@ const ChatDetails = ({
                       )}
                       {message.myMessage && (
                         <div
-                          key={message.id}
+                        
                           className="sent_chat-msg-wrap my-2"
                         >
                           <div className="sent_chat-msg">
@@ -253,9 +249,10 @@ const ChatDetails = ({
                       )}
                     </div>
                   </div>
-                </>
+                </Fragment>
               );
             })}
+            
             <div style={{ float: "left", clear: "both" }} ref={endRef}></div>
           </div>
         </div>

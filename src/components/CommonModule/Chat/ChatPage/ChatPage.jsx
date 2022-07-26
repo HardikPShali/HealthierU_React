@@ -1,29 +1,38 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Container } from 'react-bootstrap';
-import { Link, NavLink, useHistory } from 'react-router-dom';
-import ChatItems from './ChatItems';
-import ChatDetails from './ChatDetails';
-import './ChatPage.css';
-import { APP_ID, ROLES } from '../../../../util/configurations';
-import useAgoraChat from '../ChatScreen/useAgoraChat';
-import useAgoraVideo from '../ChatScreen/useAgoraVideo';
-import Cookies from 'universal-cookie';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from "react";
+import { Container } from "react-bootstrap";
+import { Link, NavLink, useHistory } from "react-router-dom";
+import ChatItems from "./ChatItems";
+import ChatDetails from "./ChatDetails";
+import "./ChatPage.css";
+import { APP_ID, ROLES } from "../../../../util/configurations";
+import useAgoraChat from "../ChatScreen/useAgoraChat";
+import useAgoraVideo from "../ChatScreen/useAgoraVideo";
+import Cookies from "universal-cookie";
+import { useLocation } from "react-router-dom";
 import {
   generateRTMToken,
   handleAgoraAccessToken,
-} from '../../../../service/agoratokenservice';
+} from "../../../../service/agoratokenservice";
 import {
   getInbox,
   getMessages,
   sendMessage,
-} from '../../../../service/chatService';
-import moment from 'moment';
-import Meeting from '../../../video-call/pages/meeting';
-import Notes from '../../../Doctor Module/NotesSection/Notes';
-import { videoValiation } from '../../../../util/chatAndCallValidations';
-import useRole from '../../../../custom-hooks/useRole';
-import { getCallUserApi } from '../../../../service/frontendapiservices';
+} from "../../../../service/chatService";
+import moment from "moment";
+import Meeting from "../../../video-call/pages/meeting";
+import Notes from "../../../Doctor Module/NotesSection/Notes";
+import {
+  chatValidation,
+  isVideoGoingToEnd,
+  videoValiation,
+} from "../../../../util/chatAndCallValidations";
+import useRole from "../../../../custom-hooks/useRole";
+import {
+  callRejectApi,
+  getCallUserApi,
+} from "../../../../service/frontendapiservices";
+import { toast } from "react-toastify";
+import $ from "jquery";
 
 const ChatPage = () => {
   const history = useHistory();
@@ -31,23 +40,28 @@ const ChatPage = () => {
   const [filteredChatList, setFilteredChatList] = useState(chatList);
   const [selectedChatItem, setSelectedChatItem] = useState({});
   // const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const cookies = new Cookies();
   const location = useLocation();
   const [isAgoraLoggedIn, setAgoraLoggedIn] = useState(false);
-  const [pIdState, setPIdState] = useState('');
-  const [dIdState, setDIdState] = useState('');
-  const [channelName, setChannelName] = useState('');
-  const [agoraToken, setAgoraToken] = useState('');
+  const [pIdState, setPIdState] = useState("");
+  const [dIdState, setDIdState] = useState("");
+  const [enableVideo, setEnableVideo] = useState(false);
+  const [enableChat, setEnableChat] = useState(false);
+  const [channelName, setChannelName] = useState("");
+  const [agoraToken, setAgoraToken] = useState("");
   const [paginationConfig, setPaginationConfig] = useState({
     pageNo: 0,
     totalItems: 1,
     totalPages: 1,
   });
+  const [videoCallEnding, setVideoCallEnding] = useState(false)
 
   const [roles] = useRole();
 
   const endRef = useRef();
+
+  let intervalId = null;
 
   const onConnectionChange = (e) => {
     console.log(e);
@@ -59,9 +73,9 @@ const ChatPage = () => {
     reorderChatBoxOnMessageChange(e);
     if (endRef.current) {
       endRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'start',
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
       });
     }
   };
@@ -83,12 +97,12 @@ const ChatPage = () => {
   const searchParams = new URLSearchParams(location.search);
 
   useEffect(() => {
-    let chatGroup = searchParams.get('chatgroup');
-    let queryChannelId = searchParams.get('channelId');
+    let chatGroup = searchParams.get("chatgroup");
+    let queryChannelId = searchParams.get("channelId");
 
     if (chatGroup) {
-      setPIdState(Number(chatGroup.split('_')[0].replace('P', '')));
-      setDIdState(Number(chatGroup.split('_')[1].replace('D', '')));
+      setPIdState(Number(chatGroup.split("_")[0].replace("P", "")));
+      setDIdState(Number(chatGroup.split("_")[1].replace("D", "")));
     }
 
     getInboxDetails(queryChannelId);
@@ -115,10 +129,11 @@ const ChatPage = () => {
         totalPages: 1,
       });
       getMessagesDetails(0);
-      if (searchParams.get('openVideo') === 'true') {
+      chatAndCallAvailabilityCheck();
 
+      if (searchParams.get("openVideo") === "true") {
         const isVideoEnabled = videoValiation(selectedChatItem.appointments);
-        if(!isVideoEnabled) {
+        if (!isVideoEnabled) {
           removeQueryParamsAndDisableVideo();
           return;
         }
@@ -133,23 +148,90 @@ const ChatPage = () => {
         );
       }
     }
+
+    return () => {
+      if (intervalId != null) {
+        clearInterval(intervalId);
+      }
+    };
   }, [selectedChatItem]);
 
-    //CALL-TOPIC CODE
-    const callUser = async (channelId) => {
-      const response = await getCallUserApi(channelId).catch((err) =>
-        console.log({ err })
-      );
-    };
+  const chatAndCallAvailabilityCheck = () => {
+    if (selectedChatItem.id) {
+      if (selectedChatItem.appointments.length) {
+        const isVideoEnabled = videoValiation(selectedChatItem.appointments);
+        setEnableVideo(isVideoEnabled);
+
+        const isChatEnabled = chatValidation(selectedChatItem.appointments);
+        setEnableChat(isChatEnabled);
+
+        startPeriodicValidationCheck();
+      } else {
+        hideChatAndVideo();
+      }
+    } else {
+      hideChatAndVideo();
+    }
+  };
+
+  const startPeriodicValidationCheck = () => {
+    intervalId = setInterval(() => {
+      const isVideoEnabled = videoValiation(selectedChatItem.appointments);
+      console.log("VIDEO VALIDATION CHECK PERIODICALLY");
+      setEnableVideo(isVideoEnabled);
+
+      const isVideoEnding = isVideoGoingToEnd(selectedChatItem.appointments);
+      setVideoCallEnding(isVideoEnding)
+    
+
+    }, 6000);
+  };
+
+  useEffect(() => {
+    let timeout = null;
+    if(videoCallEnding && openVideoCall) {
+      toast.warn("Video call will end in 5 minutes", {
+        autoClose: false,
+        position: "top-right",
+      });
+
+      if(!timeout) {
+        timeout = setTimeout(() => {
+          setVideoCallEnding(false);
+          removeQueryParamsAndDisableVideo();
+        }, 30000)
+      }
+    }
+
+
+  }, [enableVideo, videoCallEnding, openVideoCall])
+
+  const hideChatAndVideo = () => {
+    setEnableChat(false);
+    setEnableVideo(false);
+  };
+
+  //CALL-TOPIC CODE
+  const callUser = async (channelId) => {
+    const response = await getCallUserApi(channelId).catch((err) =>
+      console.log({ err })
+    );
+  };
 
   const removeQueryParamsAndDisableVideo = () => {
-    searchParams.delete('openVideo');
-          searchParams.delete('channelId');
-          setOpenVideoCall(false);
-          history.replace({
-            search: searchParams.toString()
-          })
-  }
+    searchParams.delete("openVideo");
+    searchParams.delete("channelId");
+    const exitBtn = $(".exitBtn");
+    if(exitBtn) {
+      exitBtn.trigger("click");
+    }
+    setOpenVideoCall(false);
+    history.replace({
+      search: searchParams.toString(),
+    });
+
+    
+  };
 
   const agoraTrigger = async () => {
     try {
@@ -202,9 +284,9 @@ const ChatPage = () => {
 
       if (endRef.current && pageNo === 0) {
         endRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'start',
+          behavior: "smooth",
+          block: "nearest",
+          inline: "start",
         });
       }
     }
@@ -217,7 +299,9 @@ const ChatPage = () => {
 
   const clearData = () => {
     setMessages([]);
-    setMessage('');
+    setMessage("");
+    setVideoCallEnding(false);
+    setOpenVideoCall(false);
   };
 
   const handleMessageChange = (e) => {
@@ -228,7 +312,7 @@ const ChatPage = () => {
     if (message && message.trim()) {
       try {
         const msg = message;
-        setMessage('');
+        setMessage("");
         const messageObj = getMessageObj(true, msg);
         setMessages([...messages, messageObj]);
         reorderChatBoxOnMessageChange(messageObj);
@@ -236,9 +320,9 @@ const ChatPage = () => {
         await sendChannelMessage(msg, channelName);
         if (endRef.current) {
           endRef.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'start',
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start",
           });
         }
         const messageData = {
@@ -246,7 +330,6 @@ const ChatPage = () => {
           message: msg,
         };
         await sendMessage(messageData);
-        
       } catch (error) {}
     }
   };
@@ -254,10 +337,10 @@ const ChatPage = () => {
   const messageDateFormat = (val) => {
     if (val) {
       const dateValue = new Date(val);
-      return moment(dateValue).format('YYYYMMDD') ===
-        moment().format('YYYYMMDD')
-        ? moment(dateValue).format('HH:mm')
-        : moment(dateValue).format('YYYY-MM-DD HH:mm');
+      return moment(dateValue).format("YYYYMMDD") ===
+        moment().format("YYYYMMDD")
+        ? moment(dateValue).format("HH:mm")
+        : moment(dateValue).format("YYYY-MM-DD HH:mm");
     }
   };
 
@@ -304,13 +387,19 @@ const ChatPage = () => {
     }
   };
 
+  const callRejectHandler = async (channelId) => {
+    const rejectCallApiResponse = await callRejectApi(channelId).catch((err) =>
+      console.log({ err })
+    );
+  };
+
   //NOTES CODE
   const [notes, setNotes] = useState({
-    chiefComplaint: '',
-    presentIllness: '',
-    vitalSigns: '',
-    physicalExam: '',
-    planAssessment: '',
+    chiefComplaint: "",
+    presentIllness: "",
+    vitalSigns: "",
+    physicalExam: "",
+    planAssessment: "",
   });
   const [notesClick, setNotesClick] = useState(false);
 
@@ -330,7 +419,14 @@ const ChatPage = () => {
             onSearch={handleSearch}
           />
         )}
-        {openVideoCall && <Meeting onClose={() => removeQueryParamsAndDisableVideo()} />}
+        {openVideoCall && (
+          <Meeting
+            onClose={() => {
+              callRejectHandler(selectedChatItem.id);
+              removeQueryParamsAndDisableVideo();
+            }}
+          />
+        )}
       </div>
       <div className="chat-details-container">
         <ChatDetails
@@ -343,6 +439,8 @@ const ChatPage = () => {
           onVideoClick={onVideoClick}
           onNoteClick={handleNotesClick}
           loadMoreData={loadMoreData}
+          enableChat={enableChat}
+          enableVideo={enableVideo}
           totalItems={paginationConfig.totalItems}
         />
         {notesClick && (
