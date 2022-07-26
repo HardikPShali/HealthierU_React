@@ -605,7 +605,7 @@ const PatientDocument = (props) => {
                     id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}
                 >
-                    <Tab eventKey="prescription" title="Prescription">
+                    <Tab eventKey="prescription" title="Treatment">
                         <br />
 
                         <br />
@@ -655,7 +655,7 @@ const PatientDocument = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: "none", color: "#3e4543" }}
                                 >
-                                    {isSearch === false && "No Documents"}
+                                    No Documents
                                 </div>
                             )}
                         </div>
@@ -736,7 +736,7 @@ const PatientDocument = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: "none", color: "#3e4543" }}
                                 >
-                                    {isSearch === false && "No Documents"}
+                                    No Documents
                                 </div>
                             )}
                         </div>

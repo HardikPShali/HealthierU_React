@@ -14,7 +14,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { handleChangePassword } from '../../service/frontendapiservices';
 import Loader from '../Loader/Loader';
 import { useHistory } from 'react-router';
-
+import { toast } from 'react-toastify';
 const ChangePassword = (props) => {
   const history = useHistory();
   const { homeUrl } = props;
@@ -62,11 +62,12 @@ const ChangePassword = (props) => {
     };
     const response = await handleChangePassword(changePasswordObj).catch(
       (err) => {
-        if (err && err.response.status === 400) {
-          setChangePassword({
-            ...changePassword,
-            msg: 'Incorrect current password.',
-          });
+        if (err && err.response.status === 400 || err.response.status === 500) {
+          // setChangePassword({
+          //   ...changePassword,
+          //   msg: 'Incorrect current password.',
+          // });
+          toast.error(err.response.data.message)
         }
       }
     );
@@ -166,6 +167,7 @@ const ChangePassword = (props) => {
                               'required',
                               'matchRegexp:(?=.*[a-z])',
                               'matchRegexp:(?=.*[A-Z])',
+                              "matchRegexp:(?=.*[0-9].*|.*[~`!@#$%^&*()--+={}\[\]|\\:;\"\'<>,.?/_₹])",
                               'minStringLength:8',
                               'matchRegexp:(?=.*[0-9])',
                             ]}
@@ -173,6 +175,7 @@ const ChangePassword = (props) => {
                               'This field is required',
                               'Include at least 1 lower case',
                               'Include at least 1 upper case',
+                              "Include at least 1 number or 1 special character",
                               'Minimum of 8 characters',
                               'At least 1 number',
                             ]}
@@ -260,7 +263,7 @@ const ChangePassword = (props) => {
             className="closeButton"
             onClick={handleChangePasswordClose}
           >
-            Close <CloseIcon />
+            <CloseIcon />
           </button>
           <br />
           <h4>Password Changed!</h4>

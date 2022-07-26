@@ -18,6 +18,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import qs from "qs";
 import { getCreatePasswordOtpApi } from "../../service/frontendapiservices";
+import { toast } from "react-toastify";
 
 const isnum = /\d/;
 const islow = "(?=.*[a-z])";
@@ -119,6 +120,9 @@ const CreatePassword = () => {
         setTimeout(() => {
           history.go(0);
         }, 3000)
+      }
+      if (error.response.status === 400 || error.response.status === 500) {
+        toast.error(error.response.data.message)
       }
     });
   };
@@ -260,14 +264,14 @@ const CreatePassword = () => {
                       "required",
                       "matchRegexp:(?=.*[a-z])",
                       "matchRegexp:(?=.*[A-Z])",
-                      "matchRegexp:(?=.*[0-9])",
+                      "matchRegexp:(?=.*[0-9].*|.*[~`!@#$%^&*()--+={}\[\]|\\:;\"\'<>,.?/_₹])",
                       "minStringLength:8",
                     ]}
                     errorMessages={[
                       "This field is required",
                       "Include at least 1 lower case",
                       "Include at least 1 upper case",
-                      "At least 1 number",
+                      "Include at least 1 number or 1 special character",
                       "Minimum of 8 characters",
                     ]}
                     variant="filled"
