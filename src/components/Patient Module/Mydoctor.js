@@ -104,7 +104,7 @@ const MyDoctor = (props) => {
   const [transparentLoading, setTransparentLoading] = useState(false);
   const [currentPatient, setCurrentPatient] = useState({});
 
-  const [searchText, setSearchText] = useState(' ');
+  const [searchText, setSearchText] = useState('');
   const [filterData, setFilterData] = useState(users);
   const [specialityArray, setSpecialityArray] = useState({
     name: [],
