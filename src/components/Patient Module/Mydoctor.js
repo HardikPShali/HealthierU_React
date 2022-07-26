@@ -54,6 +54,7 @@ import {
   setNextAppointmentDoctor,
   getAvailableSlotsForMyDoctors,
   getUnreadNotificationsCount,
+  getSearchDataAndFilter,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -72,7 +73,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { searchFilterForDoctor } from '../../service/searchfilter';
 // import { firestoreService } from '../../util';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { doctorListLimit } from '../../util/configurations';
+import { doctorListLimit, doctorListLimitNonPaginated } from '../../util/configurations';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
@@ -82,6 +83,9 @@ import { doctorListLimit } from '../../util/configurations';
 const rightArrow = <FontAwesomeIcon icon={faChevronRight} />;
 
 const MyDoctor = (props) => {
+
+  const controller = new AbortController();
+
   let history = useHistory();
   const ref = useRef();
 
@@ -94,12 +98,14 @@ const MyDoctor = (props) => {
 
   const cookies = new Cookies();
 
+  // const newPatientId = props.currentPatient.id;
+
   const [doctor, setdoctor] = useState([]);
   const [loading, setLoading] = useState(true);
   const [transparentLoading, setTransparentLoading] = useState(false);
   const [currentPatient, setCurrentPatient] = useState({});
 
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState(' ');
   const [filterData, setFilterData] = useState(users);
   const [specialityArray, setSpecialityArray] = useState({
     name: [],
@@ -207,9 +213,25 @@ const MyDoctor = (props) => {
 
   const loadUsers = async (patientId) => {
     if (!profilepID.activated) {
-      const result = await getDoctorListByPatientId(
-        patientId,
-        doctorListLimit
+      const data = {
+        searchKeyword: '',
+        specialitiesId: [],
+        countryIds: [],
+        languageName: [],
+        gender: [],
+        // docStartTime: new Date(),
+        docEndTime: null,
+        rateMin: 0.0,
+        rateMax: null
+      }
+
+
+
+      const result = await getSearchDataAndFilter(
+        // patientId,
+        data, 0,
+        doctorListLimit,
+        patientId
       ).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
@@ -218,22 +240,22 @@ const MyDoctor = (props) => {
       if (
         result &&
         result.data &&
-        result.data.doctors &&
-        result.data.doctors.length > 0
+        result.data.data.doctors &&
+        result.data.data.doctors.length > 0
       ) {
         setOffset(1);
-        setUser(result.data.doctors);
-        setdoctor(result.data.doctors);
+        setUser(result.data.data.doctors);
+        setdoctor(result.data.data.doctors);
         //const currentSelectedDate = new Date();
         //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
-        const docId = result.data.doctors[0]?.id;
+        const docId = result.data.data.doctors[0]?.id;
         setAppointment({
           ...appointment,
           patientId: patientId,
           doctorId: docId,
         });
         // getInValidAppointments(docId);
-        setFilterData(result.data.doctors);
+        setFilterData(result.data.data.doctors);
         //setTimeout(() => searchNutritionDoctor(), 3000);
         setTimeout(() => setLoading(false), 1000);
         const tourState = cookies.get('tour');
@@ -430,7 +452,9 @@ const MyDoctor = (props) => {
     const response = await postUnlikedDoctor(likeId);
     // //console.log(response.status);
     if (response.status === 200 || response.status === 204) {
-      getAllLikedDoctors();
+      // getAllLikedDoctors();
+      toast.success('Doctor Unliked Successfully');
+      loadUsers(currentPatient.id);
       //loadUsers(currentPatient.id);
     }
   };
@@ -478,23 +502,43 @@ const MyDoctor = (props) => {
   };
 
   // useeffect trigger handle search data with dep searchText
+  useEffect(() => {
+    handleSearchData();
+  }, [searchText]);
 
   const handleSearchData = async (showToast = false) => {
 
-
     //controller abort function
+    controller.abort();
+    const newPatientId = cookies.get('profileDetails')?.id;
 
     if (searchText !== '') {
       // setTransparentLoading(true);
-      const res = await getSearchData(searchText, 0, doctorListLimit);
-      if (res.status === 200 && res.data?.doctors.length > 0) {
-        setFilterData(res.data.doctors);
+      const data = {
+        searchKeyword: searchText,
+        specialitiesId: [],
+        countryIds: [],
+        languageName: [],
+        gender: [],
+        // docStartTime: new Date(),
+        docEndTime: null,
+        rateMin: 0.0,
+        rateMax: null
+      }
+      const res = await getSearchDataAndFilter(data, 0, doctorListLimit, newPatientId);
+      console.log({ res });
+      if (res.status === 200 && res.data.data?.doctors.length > 0) {
+        setFilterData(res.data.data.doctors);
         // setdoctor(res.data.doctors[0]);
         setAvailability([]);
         setAppointmentSlot([]);
-        // getInValidAppointments(res.data.doctors[0].id);
-        // setTransparentLoading(false);
-      } else if (res.status === 204) {
+
+      }
+      else if (res.status === 200 && res.data.data.totalItems === 0) {
+        setFilterData([]);
+        setdoctor('');
+      }
+      else if (res.status === 204) {
         setFilterData([]);
         setdoctor('');
         // setTransparentLoading(false);
@@ -1164,7 +1208,10 @@ const MyDoctor = (props) => {
       }
     );
   };
+
+  const [disableButton, setDisableButton] = useState(false);
   const setNextAppointment = async () => {
+    setDisableButton(true)
     const stateData = [];
     stateData.push(nextAppDetails);
     const app = [];
@@ -1307,7 +1354,7 @@ const MyDoctor = (props) => {
                     autoComplete="off"
                     onChange={(value) => { handleSearchInputChange(value); handleSearchData(true) }}
                     onCancelSearch={() => handleSearchInputChange('')}
-                    onRequestSearch={() => handleSearchData(false)}
+                    onRequestSearch={() => handleSearchData(true)}
                     cancelOnEscape={true}
                     onKeyDown={(e) =>
                       e.keyCode === 13 ? handleSearchData(true) : ''
@@ -1554,8 +1601,7 @@ const MyDoctor = (props) => {
                 <br />
                 <div id="card-list" className="scroller-cardlist">
                   {filterData &&
-                    filterData.length > 0 &&
-                    filterData[0] !== null ? (
+                    filterData.length > 0 ? (
                     <GridList cellHeight={220}>
                       <GridListTile
                         key="Subheader"
@@ -1685,14 +1731,6 @@ const MyDoctor = (props) => {
                       </div>
                     </>
                   )}
-                  {/* {searchText && filterData && (<>
-                                    <div className="text-center" style={{ display: display.unlike }}>
-                                        <button className="btn btn-outline-secondary" onClick={loadMore}>Load More</button>
-                                    </div>
-                                    <div className="text-center" style={{ display: display.like }}>
-                                        <button className="btn btn-outline-secondary" onClick={loadMoreLike}>Load More</button>
-                                    </div>
-                                </>)} */}
                 </div>
               </div>
             </Col>
@@ -2486,7 +2524,7 @@ const MyDoctor = (props) => {
                   onClick={() => {
                     setNextAppointment()
                   }}
-                  disabled={disable.continue}
+                  disabled={disable.continue && disableButton}
                 >
                   Book Slot
                 </button>

@@ -44,7 +44,7 @@ const RescheduleNotification = ({ notification, key }) => {
             }}
         >
             <NavLink
-                to={`patient/rescheduleappointment/${notification.data.appointmentDetails.id
+                to={`/patient/rescheduleappointment/${notification.data.appointmentDetails.id
                     }/${notification.data.appointmentDetails.appointmentMode
                         .toLowerCase()
                         .replace(' ', '-')}/${notification.data.appointmentDetails.unifiedAppointment

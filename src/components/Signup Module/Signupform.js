@@ -123,6 +123,7 @@ const Signupform = () => {
   const handleDoctorClick = () => {
     const value = "ROLE_DOCTOR";
     setUser({ ...user, authorities: [] });
+    // if authorities>0 is there then pop the array and push the new value 
     authorities.push(value);
     if (
       authorities &&
@@ -135,6 +136,8 @@ const Signupform = () => {
   const handlePatientClick = () => {
     const value = "ROLE_PATIENT";
     setUser({ ...user, authorities: [] });
+    // if authorities>0 is there then pop the array and push the new value 
+
     authorities.push(value);
     if (
       authorities &&
@@ -299,48 +302,24 @@ const Signupform = () => {
             emailExistance: 'Email is already in use. Please try with different email.',
           });
         }
-
-
-
-        // if (
-        //   error.response &&
-        //   error.response.status === 400 &&
-        //   error.response.data.errorKey === "emailexists"
-        // ) {
-        //   setErrorMsg({
-        //     ...errorMsg,
-        //     emailExistance: error.response.data.title,
-        //   });
-        // } else if (
-        //   error.response &&
-        //   error.response.status === 400 &&
-        //   error.response.data.errorKey === "userexists"
-        // ) {
-        //   setErrorMsg({
-        //     ...errorMsg,
-        //     userNameExistance: error.response.data.title,
-        //   });
-        // }
       });
+
+      console.log("Response", response);
 
       if (response && response.status === 200) {
         setTransparentLoading(false);
 
         if (authorities.some((user) => user === "ROLE_PATIENT")) {
+          toast.success("OTP is sent to your email. Please check your email and verify OTP.")
           setDisplay({ ...display, signupForm: "none", whoyouAre: "none", otpPage: "block" });
         }
         if (authorities.some((user) => user === "ROLE_DOCTOR")) {
+          toast.success("OTP is sent to your email. Please check your email and verify OTP.")
           setDisplay({ ...display, signupForm: "none", whoyouAre: "none", otpPage: "block" });
         }
         // handleClickOpen();
       }
-      // }).catch(error => {
-      //  if (error.response && error.response.status === 400 && error.response.data.errorKey === "emailexists") {
-      //    setErrorMsg({ ...errorMsg, emailExistance: error.response.data.title });
-      //  } else if (error.response && error.response.status === 400 && error.response.data.errorKey === "userexists") {
-      //    setErrorMsg({ ...errorMsg, userNameExistance: error.response.data.title });
-      //  }
-      // })
+
     }
     //} //else {
     // setCaptchaError("Please verify captcha!");
@@ -374,6 +353,19 @@ const Signupform = () => {
     }
   };
 
+
+  // cookie removal function ----> 25072022
+  const clearEveryCookie = () => {
+    cookies.remove("refresh_token", { path: '/' });
+    cookies.remove("currentUser", { path: '/' });
+    cookies.remove("access_token", { path: '/' });
+    cookies.remove("GOOGLE_ACCESS_TOKEN", { path: '/' });
+    cookies.remove("GOOGLE_PROFILE_DATA", { path: '/' });
+    cookies.remove("authorities", { path: '/' });
+    cookies.remove("userProfileCompleted", { path: '/' });
+    cookies.remove("profileDetails", { path: '/' });
+    console.log('Cleared all cookies');
+  }
 
   //CODSE FOR OTP PART
   //LOGIC FOR OTP BOXES
@@ -449,6 +441,7 @@ const Signupform = () => {
     else if (res.data.message === 'account activated' && res.data.status === true) {
       setOtpBox(new Array(4).fill(''));
       toast.success("Account Activated Successfully!. Please Log In.")
+      clearEveryCookie();
       history.push("/signin")
     }
     else {
@@ -776,7 +769,7 @@ const Signupform = () => {
                 className="btn btn-primary sign-btn"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
             </Link>
           </DialogActions>
@@ -792,7 +785,7 @@ const Signupform = () => {
             className="btn btn-primary sign-btn w-100"
             id="close-btn"
           >
-            Ok
+            OK
           </button>
         </DialogActions>
       </Dialog>

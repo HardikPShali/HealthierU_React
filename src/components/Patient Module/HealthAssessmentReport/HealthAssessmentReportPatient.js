@@ -46,17 +46,18 @@ const HealthAssessmentReportPatient = () => {
                                     <Col md={12}>
                                         {answers ? (
                                             answers.map((answer, index) => (
-                                                <AnswersCardDetails key={index + 1}>
-                                                    <AnswersCardQuestionTitle>
-                                                        {answer.questionId}. {answer.questionTitle}
-                                                    </AnswersCardQuestionTitle>
-                                                    {answer.answers.map((answer, index) => (
-                                                        <AnswersCardQuestionAnswer key={index}>
-                                                            {answer}
-                                                        </AnswersCardQuestionAnswer>
-                                                    ))}
-                                                </AnswersCardDetails>
-                                            ))
+                                                (answer.answers.length > 0 && answer.answers.every((ans) => ans != undefined && ans != null && ans !== "") == true &&
+                                                    <AnswersCardDetails key={index + 1}>
+                                                        <AnswersCardQuestionTitle>
+                                                            {answer.questionTitle}
+                                                        </AnswersCardQuestionTitle>
+                                                        {answer.answers.map((answer, index) => (
+                                                            <AnswersCardQuestionAnswer key={index}>
+                                                                {answer}
+                                                            </AnswersCardQuestionAnswer>
+                                                        ))}
+                                                    </AnswersCardDetails>
+                                                )))
                                         ) : (
                                             cookies.get('currentUser').questionCompleted === false ? (
                                                 <Col
@@ -75,15 +76,6 @@ const HealthAssessmentReportPatient = () => {
                                                     Loading...
                                                 </Col>
                                         )}
-                                        {
-                                            cookies.get('currentUser').questionCompleted === false && (
-                                                <>
-                                                    <AnswersCardQuestionTitle>
-                                                        No Data Found
-                                                    </AnswersCardQuestionTitle>
-                                                </>
-                                            )
-                                        }
                                         {/* {answers === null && (
                                             <>
                                                 <AnswersCardQuestionTitle>

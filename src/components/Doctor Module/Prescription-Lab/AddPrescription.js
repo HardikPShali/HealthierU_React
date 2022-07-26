@@ -373,7 +373,7 @@ const AddPrescription = (props) => {
                                                     </label>
                                                     <div className="col-sm-9">
                                                         <TextValidator
-                                                            type="number"
+                                                            type="text"
                                                             id="numberOfDays"
                                                             name="numberOfDays"
                                                             className="form-control"

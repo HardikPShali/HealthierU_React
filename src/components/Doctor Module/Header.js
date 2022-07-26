@@ -253,10 +253,10 @@ const Header = (props) => {
             </div>
           }
           <NavLink to="#">
-            {currentProfileDets.picture ? (
+            {currentProfileDets?.picture ? (
               <img
                 id="profilePicId"
-                src={currentProfileDets.picture}
+                src={currentProfileDets?.picture}
                 alt=""
                 onClick={handleClick}
                 className="profile-icon"

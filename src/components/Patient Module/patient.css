@@ -1292,7 +1292,7 @@ button.btn.timeSlot:hover {
   /* background: var(--primarysecond) !important; */
   border-radius: 15px;
   background-color: #fff !important;
-  outline: 2px solid #00d0cc;
+  /* outline: 2px solid #00d0cc; */
 }
 
 .doc-img > .sb-avatar--text > .sb-avatar__text {
@@ -1526,7 +1526,7 @@ img#profile-pic {
 }
 .avatar-profile {
   border-radius: 50% !important;
-  border: 5px solid #00d0cc;
+  border: 1px solid #00d0cc;
   background-color: #fff !important;
 }
 .my-doctor-avatar > .sb-avatar__text {
@@ -4398,6 +4398,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 .notifications-avatar > .sb-avatar__text {
   width: 50px !important;
   height: 50px !important;
+  border: 2px solid #00d0cc;
 }
 
 .my-appointment-avatar > .sb-avatar__text {
@@ -4409,6 +4410,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 70px !important;
   height: 70px !important;
   margin: 15px !important;
+  border: 2px solid #00d0cc;
 }
 
 .set-next-notif__button {
@@ -4492,7 +4494,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .profile-menu > .MuiMenu-paper {
   top: 80px !important;
-  left: 1165px !important;
+  left: 1175px !important;
 }
 
 @media (max-width: 1180px) {
@@ -4514,10 +4516,6 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
     top: 25% !important;
     left: 10% !important;
   }
-}
-
-.rbc-time-header-content {
-  margin-right: -1px;
 }
 
 .firefox-helper {
@@ -4554,6 +4552,17 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   position: relative;
   transform: translateY(-50%);
   height: 100%;
+}
+
+/* CALENDAR CUSTOM CSS */
+.rbc-time-header-content {
+  margin-right: -1px;
+}
+
+@-moz-document url-prefix() {
+  .rbc-time-header-content {
+    margin-right: -5px;
+  }
 }
 
 /* promo code css in My doctors */

@@ -458,7 +458,7 @@ const Profile = ({ currentDoctor }) => {
                                                     <div className="d-flex flex-column">
                                                         <ProfileRow
                                                             icon={educationIcon}
-                                                            title="EducationalQualification"
+                                                            title="Educational Qualification"
                                                             value={
                                                                 currentDoctor &&
                                                                 currentDoctor.educationalQualifications &&

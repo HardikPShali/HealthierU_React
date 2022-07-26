@@ -1419,3 +1419,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
     font-size: 10px;
   }
 }
+
+.signup-form-helper {
+  min-height: 750px;
+}
