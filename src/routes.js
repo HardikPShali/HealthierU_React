@@ -11,87 +11,88 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UnprotectedRoutes from "./components/CommonModule/RoutesComponent/UnprotectedRoutes";
 import ProtectedRoutes from "./components/CommonModule/RoutesComponent/ProtectedRoutes";
+import Loader from "./components/Loader/Loader";
 
 
 const ForgetPassword = Loadable({
   loader: () => import('./components/Login-Module/ForgetPassword'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 const CreatePassword = Loadable({
   loader: () => import('./components/Login-Module/CreatePassword'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 const Signup = Loadable({
   loader: () => import('./components/Signup Module/Signup'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 const Healthbehaviour = Loadable({
   loader: () => import('./components/Signup Module/Healthbehaviour'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 const Signupform = Loadable({
   loader: () => import('./components/Signup Module/Signupform'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 const AboutUs = Loadable({
   loader: () => import('./components/Login-Module/about-us'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const ViewArticle = Loadable({
   loader: () => import('./components/Login-Module/ViewArticle'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const PrivacyPolicyPage = Loadable({
   loader: () => import('./components/CommonModule/PrivacyPolicy'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const TermsAndConditionsPage = Loadable({
   loader: () => import('./components/CommonModule/TermsAndConditions'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const HelpAndSupportPage = Loadable({
   loader: () => import('./components/CommonModule/HelpAndSupport'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const LicensesPage = Loadable({
   loader: () => import('./components/CommonModule/Licenses'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const PartnersPage = Loadable({
   loader: () => import('./components/CommonModule/Partners'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 const SelectRolePage = Loadable({
   loader: () => import('./components/Signup Module/components/selectRole'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const PaypalMob = Loadable({
   loader: () => import('./components/Patient Module/MobilePayment/PaypalMobile'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const AdminRoutes = Loadable({
   loader: () => import('./components/AdminModule'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 const MainRoute = Loadable({
   loader: () => import('./Routing'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 const PatientRoute = Loadable({
   loader: () => import('./components/Patient Module'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 const DoctorRoute = Loadable({
   loader: () => import('./components/Doctor Module'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 // const Logout = Loadable({
 //   loader: () => import('./components/Logout'),
@@ -100,32 +101,32 @@ const DoctorRoute = Loadable({
 
 const Signin = Loadable({
   loader: () => import('./components/Login-Module/Signin'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const Homepage = Loadable({
   loader: () => import('./components/Login-Module/Homepage'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const AboutUsMobile = Loadable({
   loader: () => import('./components/CommonModule/MobilePages/AboutUsMobile'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const HelpUsMobile = Loadable({
   loader: () => import('./components/CommonModule/MobilePages/HelpAndSupportMobile'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const PrivacySecurityMobile = Loadable({
   loader: () => import('./components/CommonModule/MobilePages/PrivacyAndSecurityMobile'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 })
 
 const TermsAndConditionsMobile = Loadable({
   loader: () => import('./components/CommonModule/MobilePages/TermsAndConditionsMobile'),
-  loading: () => <div></div>
+  loading: () => <Loader />
 });
 
 const Routes = () => {
