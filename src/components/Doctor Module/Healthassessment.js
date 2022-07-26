@@ -676,7 +676,7 @@ const Healthassessment = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    {isSearch === false && "No Documents"}
+                                    No Documents
                                 </div>
                             )
                             }
@@ -747,7 +747,7 @@ const Healthassessment = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    {isSearch === false && "No Documents"}
+                                    No Documents
                                 </div>
                             )
                             }
