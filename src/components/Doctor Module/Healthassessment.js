@@ -624,7 +624,7 @@ const Healthassessment = (props) => {
                 <br />
                 <Tabs className="justify-content-center record-tabs" defaultActiveKey="prescription" id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}>
-                    <Tab eventKey="prescription" title="Prescription">
+                    <Tab eventKey="prescription" title="Treatment">
                         <br />
                         <div className="d-flex justify-content-end">
                             <div className="col text-right">

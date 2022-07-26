@@ -605,7 +605,7 @@ const PatientDocument = (props) => {
                     id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}
                 >
-                    <Tab eventKey="prescription" title="Prescription">
+                    <Tab eventKey="prescription" title="Treatment">
                         <br />
 
                         <br />

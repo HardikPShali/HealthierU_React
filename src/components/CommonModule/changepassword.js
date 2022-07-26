@@ -14,7 +14,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { handleChangePassword } from '../../service/frontendapiservices';
 import Loader from '../Loader/Loader';
 import { useHistory } from 'react-router';
-
+import { toast } from 'react-toastify';
 const ChangePassword = (props) => {
   const history = useHistory();
   const { homeUrl } = props;
@@ -62,11 +62,12 @@ const ChangePassword = (props) => {
     };
     const response = await handleChangePassword(changePasswordObj).catch(
       (err) => {
-        if (err && err.response.status === 400) {
-          setChangePassword({
-            ...changePassword,
-            msg: 'Incorrect current password.',
-          });
+        if (err && err.response.status === 400 || err.response.status === 500) {
+          // setChangePassword({
+          //   ...changePassword,
+          //   msg: 'Incorrect current password.',
+          // });
+          toast.error(err.response.data.message)
         }
       }
     );
@@ -260,7 +261,7 @@ const ChangePassword = (props) => {
             className="closeButton"
             onClick={handleChangePasswordClose}
           >
-            Close <CloseIcon />
+            <CloseIcon />
           </button>
           <br />
           <h4>Password Changed!</h4>
