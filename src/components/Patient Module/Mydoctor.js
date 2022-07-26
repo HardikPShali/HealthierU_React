@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-//import Footer from "./Footer";
 import {
   getAppointmentMode,
   getAppointmentModeForAvailabilitySlotsDisplay,
@@ -37,7 +36,6 @@ import Paypal from '../CommonModule/Paypal';
 import TransparentLoader from '../Loader/transparentloader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//import SearchIcon from "@material-ui/icons/Search";
 import {
   getLoggedInUserDataByUserId,
   getLikedDoctorByPatientId,
@@ -64,25 +62,30 @@ import './patient.css';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Tour from 'reactour';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-// import Tooltip from '@material-ui/core/Tooltip';
 import Slider from '@material-ui/core/Slider';
 import { Multiselect } from 'multiselect-react-dropdown';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { searchFilterForDoctor } from '../../service/searchfilter';
-// import { firestoreService } from '../../util';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { doctorListLimit, doctorListLimitNonPaginated } from '../../util/configurations';
+import {
+  doctorListLimit,
+  doctorListLimitNonPaginated,
+} from '../../util/configurations';
+import lodash from 'lodash';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
+// import { firestoreService } from '../../util';
+// import Tooltip from '@material-ui/core/Tooltip';
+//import SearchIcon from "@material-ui/icons/Search";
+//import Footer from "./Footer";
 
 const rightArrow = <FontAwesomeIcon icon={faChevronRight} />;
 
 const MyDoctor = (props) => {
-
   const controller = new AbortController();
 
   let history = useHistory();
@@ -221,14 +224,13 @@ const MyDoctor = (props) => {
         // docStartTime: new Date(),
         docEndTime: null,
         rateMin: 0.0,
-        rateMax: null
-      }
-
-
+        rateMax: null,
+      };
 
       const result = await getSearchDataAndFilter(
         // patientId,
-        data, 0,
+        data,
+        0,
         doctorListLimit,
         patientId
       ).catch((err) => {
@@ -480,6 +482,18 @@ const MyDoctor = (props) => {
     getAvailableSlotsOfDoctors();
   }, [appointment]);
 
+  const [debouncedSearchText, setDebouncedSearchText] = useState(searchText);
+
+  // useeffect trigger handle search data with dep searchText
+  useEffect(() => {
+    const timerFn = setTimeout(() => {
+      setSearchText(debouncedSearchText);
+    }, 2000);
+    return () => {
+      clearTimeout(timerFn);
+    };
+  }, [debouncedSearchText]);
+
   const handleSearchInputChange = (searchValue) => {
     //console.log("searchValue :::::::", searchValue);
     if (searchValue === '') {
@@ -500,13 +514,13 @@ const MyDoctor = (props) => {
     }
   };
 
-  // useeffect trigger handle search data with dep searchText
-  useEffect(() => {
-    handleSearchData();
-  }, [searchText]);
+  // useEffect(() => {
+  //   if (searchText !== "") {
+  //     handleSearchData();
+  //   }
+  // }, [searchText]);
 
-  const handleSearchData = async (showToast = false) => {
-
+  const handleSearchData = lodash.memoize(async (showToast = false) => {
     //controller abort function
     controller.abort();
     const newPatientId = cookies.get('profileDetails')?.id;
@@ -522,22 +536,23 @@ const MyDoctor = (props) => {
         // docStartTime: new Date(),
         docEndTime: null,
         rateMin: 0.0,
-        rateMax: null
-      }
-      const res = await getSearchDataAndFilter(data, 0, doctorListLimit, newPatientId);
-      console.log({ res });
+        rateMax: null,
+      };
+      const res = await getSearchDataAndFilter(
+        data,
+        0,
+        doctorListLimit,
+        newPatientId
+      );
       if (res.status === 200 && res.data.data?.doctors.length > 0) {
         setFilterData(res.data.data.doctors);
         // setdoctor(res.data.doctors[0]);
         setAvailability([]);
         setAppointmentSlot([]);
-
-      }
-      else if (res.status === 200 && res.data.data.totalItems === 0) {
+      } else if (res.data.data.doctors.length === 0) {
         setFilterData([]);
         setdoctor('');
-      }
-      else if (res.status === 204) {
+      } else if (res.status === 204) {
         setFilterData([]);
         setdoctor('');
         // setTransparentLoading(false);
@@ -546,7 +561,7 @@ const MyDoctor = (props) => {
     // if (showToast) {
     //   handleToast();
     // }
-  };
+  });
 
   const handleInputChange = (e) => {
     setAppointment({ ...appointment, [e.target.name]: e.target.value });
@@ -557,7 +572,7 @@ const MyDoctor = (props) => {
   const [selectedSlotId, setSelectedSlotId] = useState();
 
   const handleAppoitnmentType = (e) => {
-    setTransparentLoading(true)
+    setTransparentLoading(true);
     setSlotError('');
     setSelectedSlotId('0');
     setAppointment({ ...appointment, appointmentMode: e.target.value });
@@ -575,14 +590,14 @@ const MyDoctor = (props) => {
         const consultationSlots = createConsultationSlots(Availability);
         if (consultationSlots && consultationSlots.length > 0) {
           setAppointmentSlot(consultationSlots);
-          setTransparentLoading(false)
+          setTransparentLoading(false);
           // console.log({ consultationSlots });
           document.querySelector('#calendar-list').scrollTo(0, 500);
           setDisplayCalendar(false);
           setDisplaySlot(true);
           getAvailableSlotsOfDoctors(user.id, e.target.value);
         } else {
-          setTransparentLoading(false)
+          setTransparentLoading(false);
           setAppointmentSlot([]);
           setDisplayCalendar(false);
           setDisplaySlot(true);
@@ -590,14 +605,14 @@ const MyDoctor = (props) => {
       } else if (e.target.value === 'Follow Up') {
         setAppointmentSlot(Availability);
         // console.log({ Availability });
-        setTransparentLoading(false)
+        setTransparentLoading(false);
         document.querySelector('#calendar-list').scrollTo(0, 500);
         setDisplayCalendar(false);
         setDisplaySlot(true);
         getAvailableSlotsOfDoctors(user.id, e.target.value);
       } else if (e.target.value === '') {
         setAppointmentSlot([]);
-        setTransparentLoading(false)
+        setTransparentLoading(false);
       }
       setDisable({ ...disable, continue: true });
     }
@@ -1210,7 +1225,7 @@ const MyDoctor = (props) => {
 
   const [disableButton, setDisableButton] = useState(false);
   const setNextAppointment = async () => {
-    setDisableButton(true)
+    setDisableButton(true);
     const stateData = [];
     stateData.push(nextAppDetails);
     const app = [];
@@ -1310,24 +1325,24 @@ const MyDoctor = (props) => {
                       onClick={() => toggleFilterBox()}
                       style={{
                         backgroundColor: `${specialityFilter.length > 0 ||
-                          languageFilter.length > 0 ||
-                          genderFilter ||
-                          feesFilter[0] > 0 ||
-                          feesFilter[1] < 1000 ||
-                          docStartTime ||
-                          countryFilter
-                          ? '#F6CEB4'
-                          : ''
+                            languageFilter.length > 0 ||
+                            genderFilter ||
+                            feesFilter[0] > 0 ||
+                            feesFilter[1] < 1000 ||
+                            docStartTime ||
+                            countryFilter
+                            ? '#F6CEB4'
+                            : ''
                           }`,
                         color: `${specialityFilter.length > 0 ||
-                          languageFilter.length > 0 ||
-                          genderFilter ||
-                          feesFilter[0] > 0 ||
-                          feesFilter[1] < 1000 ||
-                          docStartTime ||
-                          countryFilter
-                          ? '#00d0cc'
-                          : ''
+                            languageFilter.length > 0 ||
+                            genderFilter ||
+                            feesFilter[0] > 0 ||
+                            feesFilter[1] < 1000 ||
+                            docStartTime ||
+                            countryFilter
+                            ? '#00d0cc'
+                            : ''
                           }`,
                       }}
                     >
@@ -1348,10 +1363,14 @@ const MyDoctor = (props) => {
                   </div>
                   <SearchBar
                     type="text"
-                    value={searchText}
+                    value={debouncedSearchText}
                     id="doctor-search"
                     autoComplete="off"
-                    onChange={(value) => { handleSearchInputChange(value); handleSearchData(true) }}
+                    onChange={(value) => {
+                      setDebouncedSearchText(value);
+                      handleSearchInputChange(value);
+                      handleSearchData(true);
+                    }}
                     onCancelSearch={() => handleSearchInputChange('')}
                     onRequestSearch={() => handleSearchData(true)}
                     cancelOnEscape={true}
@@ -1599,8 +1618,7 @@ const MyDoctor = (props) => {
                 </div>
                 <br />
                 <div id="card-list" className="scroller-cardlist">
-                  {filterData &&
-                    filterData.length > 0 ? (
+                  {filterData && filterData.length > 0 ? (
                     <GridList cellHeight={220}>
                       <GridListTile
                         key="Subheader"
@@ -1626,7 +1644,10 @@ const MyDoctor = (props) => {
                                   doctor: 'block',
                                   appointment: 'none',
                                 });
-                                setAppointment({ ...appointment, appointmentMode: "" })
+                                setAppointment({
+                                  ...appointment,
+                                  appointmentMode: '',
+                                });
                                 setDisable({ ...disable, continue: true });
                                 // getAvailableSlotsOfDoctors(user.id);
                                 //const currentSelectedDate = new Date();
@@ -1831,64 +1852,67 @@ const MyDoctor = (props) => {
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <b><span style={{ fontSize: 14 }}>Education</span></b>
+                          <b>
+                            <span style={{ fontSize: 14 }}>Education</span>
+                          </b>
                           <br />
 
                           {doctor &&
                             doctor.educationalQualifications &&
-                            doctor.educationalQualifications.map(
-                              (x, index) => (
-                                <li key={index} className='list-font'>
-                                  {x.educationalQualification}{' '}
-                                </li>
-                              )
-                            )}
-
+                            doctor.educationalQualifications.map((x, index) => (
+                              <li key={index} className="list-font">
+                                {x.educationalQualification}{' '}
+                              </li>
+                            ))}
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <b><span style={{ fontSize: 14 }}>Institution</span></b>
+                          <b>
+                            <span style={{ fontSize: 14 }}>Institution</span>
+                          </b>
                           <br />
 
                           {doctor &&
                             doctor.educationalQualifications &&
-                            doctor.educationalQualifications.map(
-                              (x, index) => (
-                                <li className='list-font' key={index}>{x.institution} </li>
-                              )
-                            )}
-
+                            doctor.educationalQualifications.map((x, index) => (
+                              <li className="list-font" key={index}>
+                                {x.institution}{' '}
+                              </li>
+                            ))}
                         </div>
                       </div>
 
                       <div className="row">
                         <div className="col-12">
-                          <b><span style={{ fontSize: 14 }}>Language</span></b>
+                          <b>
+                            <span style={{ fontSize: 14 }}>Language</span>
+                          </b>
                           <br />
 
                           {doctor &&
                             doctor.languages &&
                             doctor.languages.map((lang, index) => (
-                              <li key={index} className='list-font'>{lang.name} </li>
+                              <li key={index} className="list-font">
+                                {lang.name}{' '}
+                              </li>
                             ))}
-
                         </div>
                       </div>
                     </div>
                     <hr />
 
                     <div className="ml-4">
-                      {
-                        doctor.bio && <b><p style={{ fontSize: 14, margin: "0 auto" }}>About</p></b>
-                      }
-
+                      {doctor.bio && (
+                        <b>
+                          <p style={{ fontSize: 14, margin: '0 auto' }}>
+                            About
+                          </p>
+                        </b>
+                      )}
 
                       <p style={{ fontSize: 14, textAlign: 'justify' }}>
-
-                        {
-                          doctor.bio && <span>{doctor.bio}</span>
-                        }
+                        {doctor.bio && <span>{doctor.bio}</span>}
 
                         <br />
 
@@ -2048,46 +2072,49 @@ const MyDoctor = (props) => {
                       <div className="row">
                         <div className="col-12">
                           <span style={{ fontSize: 14 }}>
-                            <b>Country Of Residence:</b>{doctor.countryName}
+                            <b>Country Of Residence:</b>
+                            {doctor.countryName}
                           </span>
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <b><span style={{ fontSize: 14 }}>Education</span></b>
+                          <b>
+                            <span style={{ fontSize: 14 }}>Education</span>
+                          </b>
                           <br />
 
                           {doctor &&
                             doctor.educationalQualifications &&
-                            doctor.educationalQualifications.map(
-                              (x, index) => (
-                                <li key={index} className='list-font'>
-                                  {x.educationalQualification}{' '}
-                                </li>
-                              )
-                            )}
-
+                            doctor.educationalQualifications.map((x, index) => (
+                              <li key={index} className="list-font">
+                                {x.educationalQualification}{' '}
+                              </li>
+                            ))}
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          <b><span style={{ fontSize: 14 }}>Institution</span></b>
+                          <b>
+                            <span style={{ fontSize: 14 }}>Institution</span>
+                          </b>
                           <br />
 
                           {doctor &&
                             doctor.educationalQualifications &&
-                            doctor.educationalQualifications.map(
-                              (x, index) => (
-                                <li key={index} className='list-font'>{x.institution} </li>
-                              )
-                            )}
-
+                            doctor.educationalQualifications.map((x, index) => (
+                              <li key={index} className="list-font">
+                                {x.institution}{' '}
+                              </li>
+                            ))}
                         </div>
                       </div>
 
                       <div className="row">
                         <div className="col-12">
-                          <b><span style={{ fontSize: 14 }}>Language</span></b>
+                          <b>
+                            <span style={{ fontSize: 14 }}>Language</span>
+                          </b>
                           <br />
 
                           {doctor &&
@@ -2095,21 +2122,21 @@ const MyDoctor = (props) => {
                             doctor.languages.map((lang, index) => (
                               <li key={index}>{lang.name} </li>
                             ))}
-
                         </div>
                       </div>
                     </div>
                     <hr />
                     {/* <h5>About</h5> */}
                     <div className="ml-4">
-                      {
-                        doctor.bio && <b><p style={{ fontSize: 14, margin: "0 auto" }}>About</p></b>
-                      }
+                      {doctor.bio && (
+                        <b>
+                          <p style={{ fontSize: 14, margin: '0 auto' }}>
+                            About
+                          </p>
+                        </b>
+                      )}
                       <p style={{ fontSize: 14 }}>
-
-                        {
-                          doctor.bio && <span>{doctor.bio}</span>
-                        }
+                        {doctor.bio && <span>{doctor.bio}</span>}
                         <br />
 
                         {doctor.awards && (
@@ -2457,7 +2484,7 @@ const MyDoctor = (props) => {
                           Available Slots For{' '}
                           {moment(currentDate).format('DD, MMM YYYY')}
                         </p>
-                        <div className='slot-display'>
+                        <div className="slot-display">
                           {appointmentSlot && appointmentSlot.length > 0 ? (
                             appointmentSlot.map((current, i) => (
                               <div className="inputGroup" key={i}>
@@ -2480,8 +2507,11 @@ const MyDoctor = (props) => {
                                   className="choseSlotLable"
                                 >
                                   <b>
-                                    {moment(current.startTime).format('hh:mm A')}{' '}
-                                    - {moment(current.endTime).format('hh:mm A')}{' '}
+                                    {moment(current.startTime).format(
+                                      'hh:mm A'
+                                    )}{' '}
+                                    -{' '}
+                                    {moment(current.endTime).format('hh:mm A')}{' '}
                                   </b>
                                 </label>
                               </div>
@@ -2502,7 +2532,6 @@ const MyDoctor = (props) => {
                             </div>
                           )}
                         </div>
-
                       </>
                     )}
                   </div>
@@ -2521,7 +2550,7 @@ const MyDoctor = (props) => {
                 <button
                   className="btn btn-primary continue-btn"
                   onClick={() => {
-                    setNextAppointment()
+                    setNextAppointment();
                   }}
                   disabled={disable.continue && disableButton}
                 >
@@ -2964,7 +2993,6 @@ const MyDoctor = (props) => {
                           >
                             Pay Now
                           </button>
-
                         </Col>
                       )}
 

@@ -260,14 +260,14 @@ const CreatePassword = () => {
                       "required",
                       "matchRegexp:(?=.*[a-z])",
                       "matchRegexp:(?=.*[A-Z])",
-                      "matchRegexp:(?=.*[0-9])",
+                      "matchRegexp:(?=.*[0-9].*|.*[~`!@#$%^&*()--+={}\[\]|\\:;\"\'<>,.?/_₹])",
                       "minStringLength:8",
                     ]}
                     errorMessages={[
                       "This field is required",
                       "Include at least 1 lower case",
                       "Include at least 1 upper case",
-                      "At least 1 number",
+                      "Include at least 1 number or 1 special character",
                       "Minimum of 8 characters",
                     ]}
                     variant="filled"
