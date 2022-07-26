@@ -2957,16 +2957,16 @@ const MyDoctor = (props) => {
                       {disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           <div className='promo-code-listing'>
-                            <div
-                              style={{ width: "100%" }}
-                            >
-                              Apply Promo Code
-                            </div>
-                            <img
-                              src={rightIcon}
-                              alt="right-icon"
-                              style={{ marginLeft: 7, marginRight: 7 }}
+                            <input
+                              id="standard-basic"
+                              type="text"
+                              name="promocode"
+                              onChange={(e) => handleInputChange(e)}
+                              placeholder="Enter Promo Code"
                             />
+                            <button className='btn promo-code-button'>
+                              Apply Promo Code
+                            </button>
                           </div>
                           <button
                             className="btn btn-primary"
