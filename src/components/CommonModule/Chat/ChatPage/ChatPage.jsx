@@ -195,12 +195,12 @@ const ChatPage = () => {
         position: "top-right",
       });
 
-      if(!timeout) {
-        timeout = setTimeout(() => {
-          setVideoCallEnding(false);
-          removeQueryParamsAndDisableVideo();
-        }, 30000)
-      }
+      // if(!timeout) {
+      //   timeout = setTimeout(() => {
+      //     setVideoCallEnding(false);
+      //     removeQueryParamsAndDisableVideo();
+      //   }, 30000)
+      // }
     }
 
 
@@ -221,11 +221,8 @@ const ChatPage = () => {
   const removeQueryParamsAndDisableVideo = () => {
     searchParams.delete("openVideo");
     searchParams.delete("channelId");
-    const exitBtn = $(".exitBtn");
-    if(exitBtn) {
-      exitBtn.trigger("click");
-    }
     setOpenVideoCall(false);
+    setVideoCallEnding(false);
     history.replace({
       search: searchParams.toString(),
     });
