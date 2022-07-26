@@ -13,7 +13,10 @@ import { ROLES } from "../../../../util/configurations";
 import ChatIcon from "../../../../images/svg/notes-outline-icon.svg";
 import { getCallUserApi } from "../../../../service/frontendapiservices";
 import { toast } from "react-toastify";
-import { chatValidation, videoValiation } from "../../../../util/chatAndCallValidations";
+import {
+  chatValidation,
+  videoValiation,
+} from "../../../../util/chatAndCallValidations";
 
 const ChatDetails = ({
   selectedItem,
@@ -75,20 +78,19 @@ const ChatDetails = ({
       currentTime.isSameOrAfter(chatEnableTime) &&
       currentTime.isBefore(chatEndCondition)
     ) {
-      return true
+      return true;
     }
 
-    return false
+    return false;
   };
 
   const hideChatAndVideo = () => {
     setEnableChat(false);
     setEnableVideo(false);
-  }
+  };
 
   useEffect(() => {
-
-    if(intervalId != null) {
+    if (intervalId != null) {
       clearInterval(intervalId);
     }
 
@@ -107,7 +109,6 @@ const ChatDetails = ({
       } else {
         hideChatAndVideo();
       }
-
     } else {
       hideChatAndVideo();
     }
@@ -116,18 +117,13 @@ const ChatDetails = ({
   const startPeriodicValidationCheck = () => {
     intervalId = setInterval(() => {
       const isVideoEnabled = videoValiation(selectedItem.appointments);
-        if(isVideoEnabled != enableVideo){
-          setEnableVideo(isVideoEnabled);
-        }
+      setEnableVideo(isVideoEnabled);
 
-        // const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
-        const isChatEnabled = chatValidation(selectedItem.appointments);
-        if(isChatEnabled != enableChat){
-          setEnableChat(isChatEnabled);
-        }
+      // const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
+      const isChatEnabled = chatValidation(selectedItem.appointments);
+      setEnableChat(isChatEnabled);
     }, 60000);
-
-  }
+  };
 
   const handleVideo = () => {
     if (!enableVideo) return;
@@ -187,8 +183,6 @@ const ChatDetails = ({
   let channelId = selectedItem.id;
   // console.log({ channelId: channelId });
 
-
-
   // useEffect(() => {
   //   callUser();
   // }, [channelId]);
@@ -198,8 +192,8 @@ const ChatDetails = ({
       <h2 className="chating_with">
         {selectedItem[selectedItem.userKey] &&
           selectedItem[selectedItem.userKey]?.firstName +
-          " " +
-          selectedItem[selectedItem.userKey]?.lastName}
+            " " +
+            selectedItem[selectedItem.userKey]?.lastName}
       </h2>
       <div className="chat-section">
         <div className="chat_detail-body">
@@ -301,7 +295,7 @@ const ChatDetails = ({
             <button
               onClick={handleNoteToggle}
               className="notes-btn"
-            // disabled={!enableChat}
+              // disabled={!enableChat}
             >
               <img src={ChatIcon} alt="chat-icon" />
             </button>
