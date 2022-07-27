@@ -1063,7 +1063,7 @@ const MyAppointments = (props) => {
           id="customized-dialog-title"
           onClose={handleRescheduleClose}
         >
-          Are you sure you want to Reschedule this patient's slot?
+          Are you sure you want to reschedule this patient's slot?
         </DialogTitle>
         <DialogActions>
           <button
