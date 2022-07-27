@@ -1017,7 +1017,7 @@ const EditUser = (props) => {
             onClick={() => handleDetails()}
             className="btn btn-primary sign-btn"
           >
-            Ok
+            OK
           </button>
           <button
             autoFocus

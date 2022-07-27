@@ -171,23 +171,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                         style={{ marginRight: '15px' }}
                         className="ml-2"
                     />
-                    {/* {
-                        paymentConfirmed ? ( */}
-                    {/* <button
-                        className="btn btn-primary set-next-notif__button"
-                        onClick={() => onClickPayNowModalHandler()}
-                    >
-                        Pay Now
-                    </button> */}
-                    {/* ) : (
-                            <button
-                                className="btn btn-primary set-next-notif__button"
-                                onClick={() => onClickPayNowModalHandler()}
-                            >
-                                Pay Nowwwwww
-                            </button>
-                        )
-                    } */}
+
 
                 </div>
             </div>

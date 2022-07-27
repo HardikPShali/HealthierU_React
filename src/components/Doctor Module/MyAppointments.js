@@ -315,8 +315,13 @@ const MyAppointments = (props) => {
       doctorId: currentDoctor.id,
       status: "ACCEPTED",
       startTime: starttime.toISOString(),
-      patientName: search,
+      // patientName: search,
     };
+
+    if (search && search !== "") {
+      data.patientName = search
+    }
+
     if (filter.patientSlot && filter.patientSlot !== "") {
       data.unifiedAppointment = filter.patientSlot;
     }
@@ -333,6 +338,7 @@ const MyAppointments = (props) => {
         setLoading(false);
       }
     });
+    console.log({ responseTwo })
     if (responseTwo.status === 200 || responseTwo.status === 201) {
       if (responseTwo && responseTwo.data) {
         setLoading(false);

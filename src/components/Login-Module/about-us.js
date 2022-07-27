@@ -127,7 +127,7 @@ const AboutUs = ({ currentuserInfo }) => {
       {!serverError && (
         <>
           {authorities.length > 0 &&
-          authorities.some((user) => user === "ROLE_PATIENT") ? (
+            authorities.some((user) => user === "ROLE_PATIENT") ? (
             <></>
           ) : authorities.length > 0 &&
             authorities.some((user) => user === "ROLE_DOCTOR") ? (
@@ -481,7 +481,7 @@ const AboutUs = ({ currentuserInfo }) => {
             </Row>
           </Container> */}
           {authorities.length > 0 &&
-          authorities.some((user) => user === "ROLE_PATIENT") ? (
+            authorities.some((user) => user === "ROLE_PATIENT") ? (
             <></>
           ) : authorities.length > 0 &&
             authorities.some((user) => user === "ROLE_DOCTOR") ? (
@@ -504,7 +504,7 @@ const AboutUs = ({ currentuserInfo }) => {
                 className="btn btn-primary sign-btn"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
             </DialogActions>
           </Dialog>

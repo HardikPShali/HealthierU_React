@@ -520,7 +520,7 @@ const Signin = () => {
                     className="btn btn-primary sign-btn"
                     id="close-btn"
                   >
-                    Ok
+                    OK
                   </button>
                 </DialogActions>
               </Dialog>
@@ -548,7 +548,7 @@ const Signin = () => {
             className="btn btn-primary sign-btn"
             id="close-btn"
           >
-            Ok
+            OK
           </button>
         </DialogActions>
       </Dialog>

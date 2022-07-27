@@ -549,7 +549,7 @@ const Home = () => {
               autoFocus
               className="btn btn-primary sign-btn"
             >
-              Ok
+              OK
             </button>
           </DialogActions>
         </ValidatorForm>

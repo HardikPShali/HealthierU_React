@@ -906,7 +906,7 @@ const Myappointment = (props) => {
                 onClick={() => handleDelete(selectedAppointment)}
                 className="btn btn-primary"
               >
-                Ok
+                OK
               </button>
               <button
                 onClick={handleClose}
@@ -1593,7 +1593,7 @@ const Myappointment = (props) => {
                 className="btn btn-primary"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
             </DialogActions>
           </Dialog>
@@ -1661,7 +1661,7 @@ const Myappointment = (props) => {
                 className="btn btn-primary"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
             </DialogActions>
           </Dialog>
@@ -1810,7 +1810,7 @@ const Myappointment = (props) => {
                   alignSelf: 'center',
                 }}
               >
-                Ok
+                OK
               </button>
             </DialogActions>
           </Dialog>

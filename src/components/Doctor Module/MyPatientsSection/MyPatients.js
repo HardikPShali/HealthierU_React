@@ -76,8 +76,13 @@ const MyPatients = (props) => {
             status: 'ACCEPTED',
             // startTime: startTimeFromPrevYear,
             endTime: new Date(),
-            patientName: search,
+            // patientName: search,
         };
+
+        if (search && search !== "") {
+            data.patientName = search
+        }
+
         if (filter.patientSlot && filter.patientSlot !== '') {
             data.unifiedAppointment = filter.patientSlot;
         }
