@@ -38,6 +38,7 @@ import {
     postDocument,
     postLabDocument,
     getDocumentById,
+    deleteDocument
 } from '../../service/DocumentService';
 import CancelIcon from '@material-ui/icons/Cancel';
 import PrescriptionLabCard from './Prescription-Lab/PrescriptionLabCard';
@@ -47,6 +48,7 @@ import { dateFnsLocalizer } from 'react-big-calendar';
 import SearchBarComponent from './SearchAndFilter/SearchComponent';
 import PrescriptionFilter from './SearchAndFilter/PrescriptionFIlter'
 import FilterComponent from './SearchAndFilter/FilterComponent';
+import { toast } from 'react-toastify';
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
@@ -600,6 +602,42 @@ const Healthassessment = (props) => {
         }
     };
     const [currentTab, setCurrentTab] = useState("prescription");
+    const [documentId, setDocumentId] = useState(null);
+    const [showDelete, setDeleteShow] = useState(false);
+    const handleDeleteShow = () => setDeleteShow(true);
+    const handleDeleteClose = () => setDeleteShow(false);
+    const handleDeleteModal = (id) => {
+        setDocumentId(id);
+        setDeleteShow(true);
+    };
+    const handleDeleteDocumentSubmission = async (event) => {
+        setPrescriptionDocumentUrl("");
+        setLabDocumentUrl("");
+        const resp = await deleteDocument(documentId);
+        if (resp) {
+            toast.success("Document successfully Deleted.");
+            setDeleteShow(false);
+        }
+        let page = 0;
+        let size = 3;
+        const info = {
+            documentType: "LabResult",
+            patientId: patient
+        }
+        const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
+        if (labDocument.status === 200 || labDocument.status === 201) {
+            setMedicalRecordLabData(labDocument.data.data)
+        }
+        const data = {
+            documentType: "Prescription",
+            doctorId: doctor.id,
+            patientId: patient,
+        }
+        const presecriptionDocument = await getGlobalMedicalRecordsSearch(page, size, data);
+        if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
+            setMedicalRecordData(presecriptionDocument.data.data)
+        }
+    };
     return (
         <>
             <div className="container">
@@ -634,7 +672,7 @@ const Healthassessment = (props) => {
                                     style={{ fontSize: '0.65rem' }}
                                     onClick={(e) => handlePrescriptionUploadShow()}
                                 >
-                                    Add Prescription
+                                    Add Treatment
                                 </button>
                             </div>
                         </div>
@@ -656,11 +694,12 @@ const Healthassessment = (props) => {
 
                                                             <PrescriptionLabCard
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
-                                                                name={"Prescription"}
+                                                                name={"Treatment"}
                                                                 apid={appointmentID}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
                                                                 download={(e) => showDocument(dataItem)}
+                                                                delete={(e) => handleDeleteModal(dataItem.id)}
                                                             />
                                                         </div>
 
@@ -777,6 +816,25 @@ const Healthassessment = (props) => {
                 </Tabs>
                 <br />
                 <br />
+                <Modal show={showDelete} onHide={handleDeleteShow}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete Document</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Are you sure to Delete the Document ?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleDeleteClose}>
+                            Close
+                        </Button>
+                        <Button
+                            variant="primary"
+                            onClick={() => handleDeleteDocumentSubmission()}
+                        >
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         </>
     );
