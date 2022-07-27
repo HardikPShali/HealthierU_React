@@ -88,7 +88,7 @@ const HelpAndSuppostMobile = (props) => {
                                     <br />
                                     <TextValidator
                                         id="standard-basic"
-                                        type="eamil"
+                                        type="email"
                                         name="senderMail"
                                         value={senderMail}
                                         onChange={(e) => handleInputChange(e)}
