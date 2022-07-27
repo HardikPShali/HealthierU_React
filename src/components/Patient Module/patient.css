@@ -188,7 +188,7 @@ b#right-border {
 
 input.btn.submit-btn {
   padding: 10px 20px;
-  background-color: var(--primarysecond) !important;
+  background-color: #f6ceb4 !important;
   color: #fff;
   border-radius: 22px;
   width: 30%;

@@ -58,9 +58,13 @@ const CancelledByPatient = ({ notification, index }) => {
                             {notification.data.appointmentDetails.patient?.firstName} is
                             cancelled for the time{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
-                                'DD-MM-YYYY hh:mm'
+                                'DD-MM-YYYY HH:mm'
                             )}
                         </span>
+                        <span style={{
+                            color: '#bfbfbf',
+                            fontSize: 11,
+                        }}>{moment(notification.createdAt).format('HH:mm')}</span>
                     </div>
                 </div>
                 <div className="notif-section__arrow">
