@@ -164,32 +164,16 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                         }}>{moment(notification.createdAt).format('HH:mm')}</span>
                     </div>
                 </div>
-                <div className="notif-section__arrow">
+                {/* <div className="notif-section__arrow">
                     <img
                         src={rightIcon}
                         alt="right-icon"
                         style={{ marginRight: '15px' }}
                         className="ml-2"
                     />
-                    {/* {
-                        paymentConfirmed ? ( */}
-                    {/* <button
-                        className="btn btn-primary set-next-notif__button"
-                        onClick={() => onClickPayNowModalHandler()}
-                    >
-                        Pay Now
-                    </button> */}
-                    {/* ) : (
-                            <button
-                                className="btn btn-primary set-next-notif__button"
-                                onClick={() => onClickPayNowModalHandler()}
-                            >
-                                Pay Nowwwwww
-                            </button>
-                        )
-                    } */}
+                   
 
-                </div>
+                </div> */}
             </div>
             <hr />
             <Dialog

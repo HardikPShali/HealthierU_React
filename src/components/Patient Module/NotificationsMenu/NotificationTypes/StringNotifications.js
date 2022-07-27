@@ -66,14 +66,14 @@ const StringNotifications = ({ notification, index }) => {
                         }}>{moment(notification.createdAt).format('HH:mm')}</span>
                     </div>
                 </div>
-                <div className="notif-section__arrow">
+                {/* <div className="notif-section__arrow">
                     <img
                         src={rightIcon}
                         alt="right-icon"
                         style={{ marginRight: '15px' }}
                         className="ml-2"
                     />
-                </div>
+                </div> */}
             </div>
             <hr />
         </div>
