@@ -116,6 +116,7 @@ const Signin = () => {
   // }, [cookies.get("currentUser")]);
 
   const responseGoogle = async (response) => {
+    removeAllCookies();
     setLoader(true);
 
     const googleUserData = {
@@ -241,8 +242,18 @@ const Signin = () => {
     }
   });
 
+  const removeAllCookies = () => {
+    const allCookies = cookies.getAll()
+
+    for (let key in allCookies) {
+      cookies.remove(key)
+
+    }
+  }
+
   const handleSigninHandler = async () => {
     let encodedPassword = encodeURIComponent(password);
+    removeAllCookies();
     // SIGNIN LOGIC
     const response = await handleSignin(email, encodedPassword).catch((err) => {
       if (err.response && err.response.status === 400) {
