@@ -61,7 +61,10 @@ const CancelledByDoctorNotifications = ({ notification, index }) => {
                                 .utc(notification.data.appointmentDetails.startTime)
                                 .format('DD-MM-YYYY HH:mm')}
                         </span>
-                        {/* <span>TIME</span> */}
+                        <span style={{
+                            color: '#bfbfbf',
+                            fontSize: 11,
+                        }}>{moment(notification.createdAt).format('HH:mm')}</span>
                     </div>
                 </div>
                 <div className="notif-section__arrow">
