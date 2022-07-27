@@ -611,7 +611,7 @@ const Profile = ({ currentDoctor }) => {
                                                             }}
                                                             maxLength={500}
                                                         />
-                                                        <p>Note: Maximum 500 character allowed.</p>
+                                                        <p>Note: Maximum 500 characters allowed.</p>
                                                     </Col>
                                                 </Row>
                                                 <br />
