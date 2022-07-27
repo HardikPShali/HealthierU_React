@@ -1149,7 +1149,7 @@ const Welcome = ({ currentuserInfo }) => {
                     <>
                         {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") &&
                             (<Typography gutterBottom>
-                                You have successfully complete your profile details. Please click Ok to proceed.
+                                You have successfully complete your profile details. Please click OK to proceed.
                             </Typography>
                             )}
                         {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") &&
@@ -1169,7 +1169,7 @@ const Welcome = ({ currentuserInfo }) => {
                             && currentUserDataAfterApproval.authorities.some((user) => user === "ROLE_PATIENT")
                             && currentUserDataAfterApproval.profileCompleted &&
                             (<Link to="/patient/questionnaire/new"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                Ok
+                                OK
                             </button></Link>
                             )}
                         {currentUserDataAfterApproval && Object.keys(currentUserDataAfterApproval).length > 0
@@ -1178,7 +1178,7 @@ const Welcome = ({ currentuserInfo }) => {
                             (
                                 <div onClick={() => logoutLogic()}>
                                     <Link to="/doctor/logout"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                        Ok
+                                        OK
                                     </button></Link>
                                 </div>
 
@@ -1189,7 +1189,7 @@ const Welcome = ({ currentuserInfo }) => {
                             (
                                 <div onClick={() => logoutLogic()}>
                                     <Link to="/doctor"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                        Ok
+                                        OK
                                     </button></Link>
                                 </div>
 

@@ -2226,7 +2226,7 @@ const RescheduleAppointment = (props) => {
                                         className="btn btn-primary sign-btn"
                                         id="close-btn"
                                     >
-                                        Ok
+                                        OK
                                     </button>
                                 </Link>
                             </DialogActions>

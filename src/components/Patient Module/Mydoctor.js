@@ -1325,24 +1325,24 @@ const MyDoctor = (props) => {
                       onClick={() => toggleFilterBox()}
                       style={{
                         backgroundColor: `${specialityFilter.length > 0 ||
-                            languageFilter.length > 0 ||
-                            genderFilter ||
-                            feesFilter[0] > 0 ||
-                            feesFilter[1] < 1000 ||
-                            docStartTime ||
-                            countryFilter
-                            ? '#F6CEB4'
-                            : ''
+                          languageFilter.length > 0 ||
+                          genderFilter ||
+                          feesFilter[0] > 0 ||
+                          feesFilter[1] < 1000 ||
+                          docStartTime ||
+                          countryFilter
+                          ? '#F6CEB4'
+                          : ''
                           }`,
                         color: `${specialityFilter.length > 0 ||
-                            languageFilter.length > 0 ||
-                            genderFilter ||
-                            feesFilter[0] > 0 ||
-                            feesFilter[1] < 1000 ||
-                            docStartTime ||
-                            countryFilter
-                            ? '#00d0cc'
-                            : ''
+                          languageFilter.length > 0 ||
+                          genderFilter ||
+                          feesFilter[0] > 0 ||
+                          feesFilter[1] < 1000 ||
+                          docStartTime ||
+                          countryFilter
+                          ? '#00d0cc'
+                          : ''
                           }`,
                       }}
                     >
@@ -3051,7 +3051,7 @@ const MyDoctor = (props) => {
                     className="btn btn-primary sign-btn"
                     id="close-btn"
                   >
-                    Ok
+                    OK
                   </button>
                 </Link>
               </DialogActions>
@@ -3073,7 +3073,7 @@ const MyDoctor = (props) => {
                     className="btn btn-primary sign-btn"
                     id="close-btn"
                   >
-                    Ok
+                    OK
                   </button>
                 </div>
 
