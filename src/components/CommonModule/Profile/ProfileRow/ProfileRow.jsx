@@ -3,7 +3,7 @@ import './ProfileRow.css';
 
 const ProfileRow = ({ icon, title, value }) => {
   return (
-    <div className="d-flex align-items-center mb-3">
+    <div className="d-flex align-items-start mb-3">
       <img src={icon} alt="icons" className="profile-column-icon" />
       <div className="d-flex flex-column align-items-start">
         <div className="profile-column-title">{title}</div>
