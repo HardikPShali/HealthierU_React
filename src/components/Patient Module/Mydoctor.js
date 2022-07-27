@@ -522,11 +522,11 @@ const MyDoctor = (props) => {
 
   const handleSearchData = lodash.memoize(async (showToast = false) => {
     //controller abort function
-    controller.abort();
+    // controller.abort();
     const newPatientId = cookies.get('profileDetails')?.id;
 
     if (searchText !== '') {
-      // setTransparentLoading(true);
+      setTransparentLoading(true);
       const data = {
         searchKeyword: searchText,
         specialitiesId: [],
@@ -547,15 +547,17 @@ const MyDoctor = (props) => {
       if (res.status === 200 && res.data.data?.doctors.length > 0) {
         setFilterData(res.data.data.doctors);
         // setdoctor(res.data.doctors[0]);
+        setTransparentLoading(false);
         setAvailability([]);
         setAppointmentSlot([]);
       } else if (res.data.data.doctors.length === 0) {
         setFilterData([]);
         setdoctor('');
+        setTransparentLoading(false);
       } else if (res.status === 204) {
         setFilterData([]);
         setdoctor('');
-        // setTransparentLoading(false);
+        setTransparentLoading(false);
       }
     }
     // if (showToast) {
@@ -1369,10 +1371,10 @@ const MyDoctor = (props) => {
                     onChange={(value) => {
                       setDebouncedSearchText(value);
                       handleSearchInputChange(value);
-                      handleSearchData(true);
+                      // handleSearchData(true);
                     }}
                     onCancelSearch={() => handleSearchInputChange('')}
-                    onRequestSearch={() => handleSearchData(true)}
+                    onRequestSearch={() => handleSearchData(false)}
                     cancelOnEscape={true}
                     onKeyDown={(e) =>
                       e.keyCode === 13 ? handleSearchData(true) : ''
@@ -1389,14 +1391,14 @@ const MyDoctor = (props) => {
                     draggable
                     pauseOnHover
                   />
-                  {/* {searchText !== '' && (
+                  {searchText !== '' && (
                     <IconButton
                       onClick={() => handleSearchData(true)}
                       className="searchForwardIcon"
                     >
                       <ArrowForwardIcon />
                     </IconButton>
-                  )} */}
+                  )}
                   {/* <Link to="/patient/search"><div className="suggestion-text" style={{ display: display.suggestion }}><SearchIcon /> Did'nt find doctor, Do global search</div></Link> */}
                   {/* Filter box start */}
                   {filter && (
