@@ -298,7 +298,7 @@ const AddPrescription = (props) => {
 
         <div>
             <h3 className="prescription-lab--main-header mb-3 mt-2" style={{ paddingTop: '2%' }}>
-                Add Prescription
+                Add Treatment
             </h3>
             <div className="prescription-lab__card-box">
                 <div className="card-holder">
@@ -486,7 +486,7 @@ const AddPrescription = (props) => {
                     <Modal show={showPrescriptionUpload} onHide={handleUploadPrescriptionClosed}>
                         <form onSubmit={(e) => handlePrescriptionSubmission(e)}>
                             <Modal.Header closeButton>
-                                <Modal.Title>Prescription</Modal.Title>
+                                <Modal.Title>Treatment</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <input
@@ -496,7 +496,7 @@ const AddPrescription = (props) => {
                                     value={prescriptionResult?.id}
                                     onChange={(e) => handlePrescriptionChange(e)}
                                 ></input>
-                                <div className="form-group row">
+                                {/* <div className="form-group row">
                                     <label htmlFor="description" className="col-sm-3 col-form-label">
                                         Description
                                     </label>
@@ -512,7 +512,7 @@ const AddPrescription = (props) => {
                                             required
                                         ></input>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="form-group row">
                                     <label
                                         htmlFor="prescriptionDocument"
