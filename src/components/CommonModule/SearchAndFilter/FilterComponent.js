@@ -10,8 +10,33 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
+// const useOutsideAlerter = (ref, onOutsideClick) => {
+//     useEffect(() => {
+//         /**
+//          * Alert if clicked on outside of element
+//          */
+//         const handleClickOutside = (event) => {
+//             if (ref.current && !ref.current.contains(event.target)) {
+//                 console.log("You clicked outside of me!");
+//                 onOutsideClick();
+//             }
+//         }
+//         // Bind the event listener
+//         document.addEventListener("mousedown", handleClickOutside);
+//         return () => {
+//             // Unbind the event listener on clean up
+//             document.removeEventListener("mousedown", handleClickOutside);
+//         };
+//     }, [ref]);
+// }
+
+
 const FilterComponent = (props) => {
     const ref = useRef();
+
+    // useOutsideAlerter(ref, () => {
+    //     setFilter(false);
+    // })
 
     const [filter, setFilter] = useState('');
 
@@ -74,6 +99,8 @@ const FilterComponent = (props) => {
         });
         props.updatedFilter({});
     };
+
+
 
 
     // useEffect(() => {
