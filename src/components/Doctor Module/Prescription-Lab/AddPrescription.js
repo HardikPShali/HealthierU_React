@@ -91,7 +91,10 @@ const AddPrescription = (props) => {
             if (e.target.name === "numberOfDays") {
                 var reg = new RegExp('^[0-9]{0,3}$');
                 if (reg.test(e.target.value) == false) {
-                    toast.error('Please enter valid Days.');
+                    setTimeout(() => {
+                        toast.error('Please enter valid Days.');
+                    }, 2000);
+
                     return false;
                 }
             }
