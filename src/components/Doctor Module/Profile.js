@@ -47,6 +47,7 @@ import ImageCropper from '../CommonModule/ImageCroper';
 import ProfileRow from '../CommonModule/Profile/ProfileRow/ProfileRow';
 import Cookies from "universal-cookie";
 import { MDBInput } from "mdbreact";
+import { toast } from 'react-toastify';
 
 // import Cookies from 'universal-cookie';
 // import CreateIcon from '@material-ui/icons/Create';
@@ -285,7 +286,12 @@ const Profile = ({ currentDoctor }) => {
         reqBody.lastName = '';
         bodyFormData.append('profileData', JSON.stringify(reqBody));
         bodyFormData.append('profilePicture', profilePicture);
-        const response = await updateDoctorData(bodyFormData);
+        const response = await updateDoctorData(bodyFormData).catch(err => {
+            if (err.response.status === 500 || err.response.status === 504) {
+                setLoading(false);
+                toast.error("Something went wrong.Please try again!")
+            }
+        });
         const user = cookies.get("profileDetails");
         const info = {
             doctorId: user.id,
@@ -298,6 +304,7 @@ const Profile = ({ currentDoctor }) => {
         const res = await updateDoctorDocumentNew(info).catch(err => {
             if (err.response.status === 500 || err.response.status === 504) {
                 setLoading(false);
+                toast.error("Something went wrong.Please try again!")
             }
         });
         if (response.status === 200 || response.status === 201 && res.status === 200) {
@@ -602,6 +609,7 @@ const Profile = ({ currentDoctor }) => {
                                                             style={{
                                                                 background: '#e8e8e8',
                                                             }}
+                                                            maxLength={500}
                                                         />
                                                     </Col>
                                                 </Row>

@@ -605,7 +605,7 @@ const Availability = () => {
             className="btn btn-primary"
             id="close-btn"
           >
-            Reschedule appointments & disable slot
+            Reschedule appointments & disable/delete slot
           </button>
           <button
             autoFocus
@@ -613,7 +613,7 @@ const Availability = () => {
             className="btn btn-secondary"
             id="close-btn"
           >
-            Keep appointments and disable slot
+            Keep appointments and disable/delete slot
           </button>
           <button
             autoFocus

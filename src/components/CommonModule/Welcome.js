@@ -35,6 +35,7 @@ import {
     updateRoleDoctor,
     getUpdatedUserData,
     getFcmTokenApi,
+    getDoctorDocument
 } from '../../service/frontendapiservices';
 import ImageCropper from './ImageCroper';
 import DoctorDocumentUpload from "./doctordocumentupload";
@@ -298,22 +299,29 @@ const Welcome = ({ currentuserInfo }) => {
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-            if (documentInfo && documentUpdateFile) {
-                const currentUserInformation = await getUpdatedUserData();
-                cookies.set("currentUser", currentUserInformation.data);
-                cookies.remove("userProfileCompleted");
-                setCurrentUserDataAfterApproval(currentUserInformation.data);
-                if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
-                    setTransparentLoading(false);
-                    handleClickOpen();
-                } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
-                    // triggerFcmTokenHandler();
-                    history.push('/doctor');
+            const res = await getDoctorDocument(currentDoctor.id, 0);
+            if (res.status === 200) {
+                if (res.data.documentsDocumentsList.length > 0) {
+                    const currentUserInformation = await getUpdatedUserData();
+                    cookies.set("currentUser", currentUserInformation.data);
+                    cookies.remove("userProfileCompleted");
+                    setCurrentUserDataAfterApproval(currentUserInformation.data);
+                    if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
+                        setTransparentLoading(false);
+                        handleClickOpen();
+                    } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
+                        // triggerFcmTokenHandler();
+                        history.push('/doctor');
+                    }
+                }
+                else {
+                    toast.error("Please Add the Document details!")
                 }
             }
             else {
                 toast.error("Please Add the Document details!")
             }
+
         }
     }
     const updateCurrentUserData = async () => {
@@ -842,7 +850,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                     value={experience}
                                                     validators={['required',
                                                         'minNumber:0', 'maxNumber:50']}
-                                                    errorMessages={['This field is required','Invalid Experience','Invalid Experience']}
+                                                    errorMessages={['This field is required', 'Invalid Experience', 'Invalid Experience']}
                                                     variant="filled"
                                                     required
                                                     placeholder='Years of experience' />
