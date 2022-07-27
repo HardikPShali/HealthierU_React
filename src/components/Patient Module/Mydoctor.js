@@ -1628,6 +1628,8 @@ const MyDoctor = (props) => {
                                 });
                                 setAppointment({ ...appointment, appointmentMode: "" })
                                 setDisable({ ...disable, continue: true });
+                                setEnableDates([])
+                                setAvailableSlotsDisplay([])
                                 // getAvailableSlotsOfDoctors(user.id);
                                 //const currentSelectedDate = new Date();
                                 //onDaySelect(currentSelectedDate, user.id);
