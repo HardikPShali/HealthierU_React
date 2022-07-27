@@ -2,6 +2,7 @@ import React from 'react'
 import Avatar from 'react-avatar'
 import rightIcon from '../../../../images/svg/right-icon.svg';
 import { getUnreadNotificationsCount, putMarkAsReadFromNotificationMenu } from '../../../../service/frontendapiservices';
+import moment from 'moment';
 
 
 const StringNotifications = ({ notification, index }) => {
@@ -59,7 +60,10 @@ const StringNotifications = ({ notification, index }) => {
                 <div className="notif-section__message">
                     <div className="message-notif">
                         <span>{notification.data.message}</span>
-                        {/* <span>TIME</span> */}
+                        <span style={{
+                            color: '#bfbfbf',
+                            fontSize: 11,
+                        }}>{moment(notification.createdAt).format('HH:mm')}</span>
                     </div>
                 </div>
                 <div className="notif-section__arrow">
