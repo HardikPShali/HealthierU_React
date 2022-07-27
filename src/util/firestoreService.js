@@ -31,11 +31,11 @@ const initializeFirestore = () => {
     console.log(
       "window.location",
       window.location.hostname.includes("localhost") ||
-        window.location.hostname.includes("dev")
+      window.location.hostname.includes("dev")
     );
     let configSetting =
       window.location.hostname.includes("localhost") ||
-      window.location.hostname.includes("dev")
+        window.location.hostname.includes("dev")
         ? LOCALFIRESTORECONFIG
         : PRODFIRESTORECONFIG;
     firebase.initializeApp(configSetting);
@@ -199,6 +199,7 @@ const callToast = (payload) => {
     // position: "top-right",
     autoClose: false,
     className: "caller-toast",
+    toastId: "caller-toast",
   });
 };
 
