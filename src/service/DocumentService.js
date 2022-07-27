@@ -269,21 +269,21 @@ export const postLabDocument = async (data) => {
     return response.data;
   });
 };
-
 export const deleteDocument = async (documentId) => {
   const headers = {
-    "Content-Type": "application/json",
+    mode: "no-cors",
     Authorization: "Bearer " + LocalStorageService.getAccessToken(),
   };
 
-  const methodType = "DELETE";
   const config = {
-    method: methodType,
-    url: "/api/v2/mobile/medical-documents/" + documentId,
+    method: "delete",
+    url: "/api/v2/medical-documents/" + documentId,
     headers: headers,
   };
 
-  return await axios(config);
+  return await axios(config).then((response) => {
+    return response.data;
+  });
 };
 
 export const getDoctorDetail = async (emailId) => {

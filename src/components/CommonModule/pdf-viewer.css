@@ -61,6 +61,7 @@
 @media (max-width: 1180px) {
   .mobile-css-helper {
     display: flex;
+    align-items: flex-start;
     height: 25vh;
   }
 }
@@ -75,6 +76,7 @@
 @media screen and (max-width: 990px) {
   .mobile-css-helper {
     display: flex;
-    height: 32vh;
+    align-items: flex-start;
+    height: 25vh;
   }
 }

@@ -276,7 +276,7 @@ const ChangePassword = (props) => {
             className="btn btn-dark float-right px-5"
             onClick={() => handleChangePasswordClose()}
           >
-            Ok
+            OK
           </button>
         </DialogContent>
       </Dialog>

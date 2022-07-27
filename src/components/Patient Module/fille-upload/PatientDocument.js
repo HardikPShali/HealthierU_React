@@ -21,6 +21,7 @@ import {
     postDocumentAddPrescriptionLabResult,
     //getPatientDetail,
     //getDocuments,
+    deleteDocument
 } from "../../../service/DocumentService";
 import "../../Doctor Module/doctor.css";
 import moment from "moment";
@@ -576,6 +577,42 @@ const PatientDocument = (props) => {
             setSearch(searchValue);
         }
     };
+    const [documentId, setDocumentId] = useState(null);
+    const [showDelete, setDeleteShow] = useState(false);
+    const handleDeleteShow = () => setDeleteShow(true);
+    const handleDeleteClose = () => setDeleteShow(false);
+    const handleDeleteModal = (id) => {
+        setDocumentId(id);
+        setDeleteShow(true);
+    };
+    const handleDeleteDocumentSubmission = async (event) => {
+        setPrescriptionDocumentUrl("");
+        setLabDocumentUrl("");
+        const resp = await deleteDocument(documentId);
+        if (resp) {
+            toast.success("Document successfully Deleted.");
+            setDeleteShow(false);
+        }
+        let page = 0;
+        let size = 3;
+        const info = {
+            documentType: "LabResult",
+            patientId: patient.id
+        }
+        const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
+        if (labDocument.status === 200 || labDocument.status === 201) {
+            setLabDocument(labDocument.data.data)
+        }
+        const info1 = {
+            documentType: "Prescription",
+            patientId: patient.id
+        }
+        const prepDocument = await getGlobalMedicalRecordsSearch(page, size, info1);
+        if (prepDocument.status === 200 || prepDocument.status === 201) {
+            setPresecriptionDocument(prepDocument.data.data)
+        }
+
+    };
     return (
         <>
             {loading && <TransparentLoader />}
@@ -637,7 +674,7 @@ const PatientDocument = (props) => {
                                                                 filetype={getFileExtension(
                                                                     dataItem.documentUrl
                                                                 )}
-                                                                name={"Prescription"}
+                                                                name={"Treatment"}
                                                                 docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
@@ -724,6 +761,7 @@ const PatientDocument = (props) => {
                                                             date={dataItem.docUploadTime}
                                                             time={dataItem.docUploadTime}
                                                             download={(e) => showLabDocument(dataItem)}
+                                                            delete={(e) => handleDeleteModal(dataItem.id)}
                                                         />
                                                     </div>
                                                 </div>
@@ -1239,6 +1277,25 @@ const PatientDocument = (props) => {
                             </Button>
                         </Modal.Footer>
                     </form>
+                </Modal>
+                <Modal show={showDelete} onHide={handleDeleteShow}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete Document</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Are you sure to Delete the Document ?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleDeleteClose}>
+                            Close
+                        </Button>
+                        <Button
+                            variant="primary"
+                            onClick={() => handleDeleteDocumentSubmission()}
+                        >
+                            Delete
+                        </Button>
+                    </Modal.Footer>
                 </Modal>
             </div>
 

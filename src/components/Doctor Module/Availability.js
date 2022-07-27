@@ -575,7 +575,7 @@ const Availability = () => {
             className="btn btn-primary"
             id="close-btn"
           >
-            Ok
+            OK
           </button>
           <button
             autoFocus

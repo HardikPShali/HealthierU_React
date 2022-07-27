@@ -193,7 +193,7 @@ const OurDoctorCard = ({ doctor }) => {
                             alignSelf: 'center',
                         }}
                     >
-                        Ok
+                        OK
                     </button>
                 </DialogActions>
             </Dialog>
