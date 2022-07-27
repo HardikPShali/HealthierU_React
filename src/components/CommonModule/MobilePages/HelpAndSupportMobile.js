@@ -88,18 +88,18 @@ const HelpAndSuppostMobile = (props) => {
                                     <br />
                                     <TextValidator
                                         id="standard-basic"
-                                        type="text"
+                                        type="email"
                                         name="senderMail"
                                         value={senderMail}
                                         onChange={(e) => handleInputChange(e)}
                                         placeholder="EMAIL ADDRESS*"
                                         validators={[
-                                            "isValidEmail",
+                                            // "isValidEmail",
                                             "required",
                                             "maxStringLength:50",
                                         ]}
                                         errorMessages={[
-                                            "Please enter a valid email",
+                                            // "Please enter a valid email",
                                             "This field is required",
                                             "Email should not exceed 50 characters",
                                         ]}

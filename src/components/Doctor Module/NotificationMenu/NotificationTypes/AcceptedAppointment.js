@@ -56,10 +56,14 @@ const AcceptedAppointment = ({ notification, index }) => {
                         <span>
                             {notification.data.message}
                             {moment(notification.data.appointmentDetails.startTime).format(
-                                'DD-MM-YYYY hh:mm'
+                                'DD-MM-YYYY HH:mm'
                             )}{' '}
                             with {notification.data.appointmentDetails.patient?.firstName}
                         </span>
+                        <span style={{
+                            color: '#bfbfbf',
+                            fontSize: 11,
+                        }}>{moment(notification.createdAt).format('HH:mm')}</span>
                     </div>
                 </div>
                 <div className="notif-section__arrow">

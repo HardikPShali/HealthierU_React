@@ -151,8 +151,6 @@ const Signin = () => {
   const { email, password, msg, otp } = user;
   const handleInputChange = (e) => {
     e.preventDefault();
-    console.log("e.target.name :: ", e.target.name);
-    console.log("e.target.value :: ", e.target.value);
     setUser({ ...user, [e.target.name]: e.target.value, msg: "" });
   };
 

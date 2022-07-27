@@ -552,7 +552,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                             : doc.documentStatus === "UNAPPROVED" ? "Unapproved"
                                                 : "N/A"}
                                 </td>
-                                <td>
+                                <td className='mobile-css-helper'>
                                     {isDoctor ? (<>
                                         {doc.documentStatus === "UNAPPROVED" && (<>
                                             <IconButton color="primary" className="mr-2 p-0" onClick={() => handleUpdateClick(doc)}><CreateIcon /></IconButton>

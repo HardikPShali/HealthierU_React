@@ -1015,11 +1015,11 @@ const Myappointment = (props) => {
                 </Row>
                 <br />
                 <div className="calendar-color">
-                  <span className="followupColor">Follow up Appointment</span>
+                  {/* <span className="followupColor">Follow up Appointment</span> */}
                   <span className="consultationColor">
-                    Consultation Appointment
+                    Available Slots
                   </span>
-                  <span className="availableColor">Available Appointment</span>
+                  <span className="availableColor">Consultation/Follow Up Appointments</span>
                   <br />
                 </div>
                 <hr />
