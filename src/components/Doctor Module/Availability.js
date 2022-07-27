@@ -22,9 +22,17 @@ import { useHistory } from 'react-router';
 const Availability = () => {
   const [value, setValue] = useState([]);
   const [count, setCount] = useState(1);
+
+  const initialStartTime = new Date();
+  initialStartTime.setHours(10, 0, 0, 0);
+
+  const initialEndTime = new Date();
+  initialEndTime.setHours(10, 0, 0, 0);
+
+
   const [state, setState] = useState({
-    startTime: moment(),
-    endTime: moment(),
+    startTime: moment(initialStartTime),
+    endTime: moment(initialEndTime),
   });
   const [times, setTimes] = useState({ time: [], days: [] });
   const [timesOfRecur, setTimesOfRecur] = useState({ time: [], days: [] });
@@ -170,7 +178,7 @@ const Availability = () => {
     } else {
       const res = await addRecurringSLot(dataForRecurSlot);
       const afterSuccessOrFailEvent = async () => {
-        setState({ startTime: moment(), endTime: moment() });
+        setState({ startTime: moment(initialStartTime), endTime: moment(initialEndTime) });
         loadRecurSlots();
         setTimeout(() => {
           history.go(0);
