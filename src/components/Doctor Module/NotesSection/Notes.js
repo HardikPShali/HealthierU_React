@@ -15,6 +15,8 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
     const [disableButton, setDisableButton] = useState(false);
 
+    const [toastShow, setToastShow] = useState(false);
+
     useEffect(() => {
         if (selectedChatNote) {
             setNotes({
@@ -52,6 +54,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
     const sendNotesDetails = async (e) => {
         e.preventDefault();
         setDisableButton(true);
+        // setToastShow(false);
 
         const note = {
             chiefComplaint: notes.chiefComplaint,
@@ -70,22 +73,17 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
         console.log(noteResponse);
         if (noteResponse.status === 200) {
-            toast.success(`Notes Added Successfully`, {
-                position: 'top-right',
-                autoClose: 2000,
+            setToastShow(true);
+
+            toast.success("Notes sent successfully", {
+                position: "top-right",
+                autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
             });
-            // setNotes({
-            //     chiefComplaint: '',
-            //     presentIllness: '',
-            //     vitalSigns: '',
-            //     physicalExam: '',
-            //     planAssessment: '',
-            // })
             setDisableButton(false);
             onClose();
         }
@@ -176,17 +174,22 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                             />
 
                         </form>
-                        <ToastContainer
-                            position="top-right"
-                            autoClose={1000}
-                            hideProgressBar
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                        />
+                        {
+                            toastShow && (
+                                <ToastContainer
+                                    position="top-right"
+                                    autoClose={1000}
+                                    hideProgressBar
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover
+                                />
+                            )
+                        }
+
                     </Col>
                 </Row>
 
