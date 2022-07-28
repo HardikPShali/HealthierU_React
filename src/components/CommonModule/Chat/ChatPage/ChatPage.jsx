@@ -213,6 +213,7 @@ const ChatPage = () => {
 
   //CALL-TOPIC CODE
   const callUser = async (channelId) => {
+    
     const response = await getCallUserApi(channelId).catch((err) =>
       console.log({ err })
     );
@@ -342,7 +343,9 @@ const ChatPage = () => {
   };
 
   const onVideoClick = () => {
-    callUser(selectedChatItem.id);
+    if (roles.some((role) => role === ROLES.ROLE_DOCTOR)) {
+      callUser(selectedChatItem.id);
+    }
     getToken(pIdState, dIdState);
   };
 
