@@ -435,14 +435,17 @@ const ChatPage = () => {
           enableVideo={enableVideo}
           totalItems={paginationConfig.totalItems}
         />
-        {notesClick && (
+        {/* {notesClick && ( */}
+        <div style={{ display: notesClick ? 'block' : 'none' }}>
           <Notes
             onClose={() => setNotesClick(false)}
             selectedChatNote={selectedChatItem}
             notes={notes}
             setNotes={setNotes}
           />
-        )}
+        </div>
+
+        {/* )} */}
       </div>
     </Container>
   );
