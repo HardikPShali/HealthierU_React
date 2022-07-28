@@ -2,21 +2,22 @@
 import {
   LOCALFIRESTORECONFIG,
   PRODFIRESTORECONFIG,
-} from "../util/configurations";
+} from '../util/configurations';
 
 // import { getMessaging } from "firebase/messaging";
-import React, { useState } from "react";
-import firebase from "firebase/compat/app";
-import "firebase/compat/messaging";
-import { sendFcmTokenToServer } from "../service/firebaseservice";
-import Cookies from "universal-cookie";
-import { toast } from "react-toastify";
-import CustomToastMessage from "../components/CommonModule/CustomToastMessage/CustomToastMessage";
-import { Howl } from "howler";
-import soundSrc from "../images/svg/notification-chime.wav";
-import soundSrcCall from "../images/svg/call-notification-sound.wav";
-import CustomCallNotification from "../components/CommonModule/CustomToastMessage/CustomCallNotification";
-import CustomCallRejectNotification from "../components/CommonModule/CustomToastMessage/CustomCallRejectNotification";
+import React, { useState } from 'react';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/messaging';
+import { sendFcmTokenToServer } from '../service/firebaseservice';
+import Cookies from 'universal-cookie';
+import { toast } from 'react-toastify';
+import CustomToastMessage from '../components/CommonModule/CustomToastMessage/CustomToastMessage';
+import { Howl } from 'howler';
+import soundSrc from '../images/svg/notification-chime.wav';
+import soundSrcCall from '../images/svg/call-notification-sound.wav';
+import CustomCallNotification from '../components/CommonModule/CustomToastMessage/CustomCallNotification';
+import CustomCallRejectNotification from '../components/CommonModule/CustomToastMessage/CustomCallRejectNotification';
+import CustomPushNotifications from '../components/CommonModule/CustomToastMessage/CustomPushNotifications';
 
 // import '@firebase/messaging';
 
@@ -27,15 +28,15 @@ export let messaging;
 
 const initializeFirestore = () => {
   if (!firebase.apps.length) {
-    console.log("NODE_ENV", process.env, process.env.NODE_ENV);
+    console.log('NODE_ENV', process.env, process.env.NODE_ENV);
     console.log(
-      "window.location",
-      window.location.hostname.includes("localhost") ||
-      window.location.hostname.includes("dev")
+      'window.location',
+      window.location.hostname.includes('localhost') ||
+      window.location.hostname.includes('dev')
     );
     let configSetting =
-      window.location.hostname.includes("localhost") ||
-        window.location.hostname.includes("dev")
+      window.location.hostname.includes('localhost') ||
+        window.location.hostname.includes('dev')
         ? LOCALFIRESTORECONFIG
         : PRODFIRESTORECONFIG;
     firebase.initializeApp(configSetting);
@@ -43,19 +44,19 @@ const initializeFirestore = () => {
 };
 
 export const getPermissions = async () => {
-  console.log("Requesting permission...");
+  console.log('Requesting permission...');
   return Notification.requestPermission();
 };
 
 const fcmTokenApiHandler = async (token) => {
   const cookie = new Cookies();
-  const user = cookie.get("currentUser");
+  const user = cookie.get('currentUser');
 
   const userId = user.id;
 
   const data = {
     token: token,
-    platform: "web",
+    platform: 'web',
     userId: userId,
     createdAt: new Date().toISOString(),
   };
@@ -71,16 +72,16 @@ export const getFirebaseToken = async (setTokenFound) => {
 
   messaging = firebase.messaging();
 
-  let currentToken = "";
+  let currentToken = '';
 
   try {
     currentToken = await messaging.getToken({
       vapidKey:
-        "BMDkjCarQVzdebqtAcVnfW84-WK7QWHsxGfhmPhFHuGvnG8d--zSwRGj9xzx03fE9CTgwYfoq52CmtUo-biyFxM",
+        'BMDkjCarQVzdebqtAcVnfW84-WK7QWHsxGfhmPhFHuGvnG8d--zSwRGj9xzx03fE9CTgwYfoq52CmtUo-biyFxM',
     });
     if (currentToken) {
       setTokenFound(true);
-      localStorage.setItem("fcmToken", currentToken);
+      localStorage.setItem('fcmToken', currentToken);
       fcmTokenApiHandler(currentToken);
       // const messageListener = await onMessageListener()
       // console.log({ messageListener });
@@ -107,8 +108,8 @@ export const onMessageListener = () => {
   // });
 
   if (navigator.serviceWorker) {
-    navigator.serviceWorker.addEventListener("message", (event) => {
-      console.log("INSIDE POSTMESSAGE LISTENER");
+    navigator.serviceWorker.addEventListener('message', (event) => {
+      console.log('INSIDE POSTMESSAGE LISTENER');
       toastMessage(event.data);
     });
   }
@@ -144,18 +145,27 @@ const toastMessage = (payload) => {
   const topicFromPayload = payload?.data?.topic;
 
   if (
-    topicFromPayload === "CHAT" &&
-    window.location.pathname.indexOf("/chat") === -1
+    topicFromPayload === 'CHAT' &&
+    window.location.pathname.indexOf('/chat') === -1
   ) {
     messageToast(payload);
   }
 
-  if (topicFromPayload === "CALL") {
+  if (topicFromPayload === 'CALL') {
     callToast(payload);
   }
 
-  if (topicFromPayload === "REJECT") {
+  if (topicFromPayload === 'REJECT') {
     callRejectToast(payload);
+  }
+
+  if (
+    topicFromPayload === 'APPT_ACCEPTED' ||
+    topicFromPayload === 'APPT_CANCELLED_BY_PATIENT' ||
+    topicFromPayload === 'APPT_RESCHEDULE_BY_DOCTOR' ||
+    topicFromPayload === 'APPT_RESCHEDULE_BY_PATIENT'
+  ) {
+    customPushNotificationToast(payload);
   }
 };
 
@@ -166,9 +176,9 @@ const messageToast = (payload) => {
   sound.play();
   const customToast = <CustomToastMessage payload={payload} />;
   toast.info(customToast, {
-    position: "top-right",
+    position: 'top-right',
     autoClose: 5000,
-    className: "caller-toast",
+    className: 'caller-toast',
   });
 };
 
@@ -182,7 +192,7 @@ const callToast = (payload) => {
     soundCall.stop();
     history.push(url); // ?cId=1
 
-    if (window.location.pathname.indexOf("/chat") > -1) {
+    if (window.location.pathname.indexOf('/chat') > -1) {
       window.location.reload();
     }
   };
@@ -198,8 +208,8 @@ const callToast = (payload) => {
   toast.info(customToast, {
     // position: "top-right",
     autoClose: false,
-    className: "caller-toast",
-    toastId: "caller-toast",
+    className: 'caller-toast',
+    toastId: 'caller-toast',
   });
 };
 
@@ -214,8 +224,18 @@ const callRejectToast = (payload) => {
   }, 1000);
 
   toast.info(customToast, {
-    position: "top-right",
+    position: 'top-right',
     autoClose: 5000,
-    className: "caller-toast",
+    className: 'caller-toast',
+  });
+};
+
+const customPushNotificationToast = (payload) => {
+  sound.play();
+  const customToast = <CustomPushNotifications payload={payload} />;
+  toast.info(customToast, {
+    position: 'top-right',
+    autoClose: 5000,
+    className: 'caller-toast',
   });
 };
