@@ -5,7 +5,7 @@ import './CustomCallToast.css';
 import defaultImage from '../../../images/default_image.png';
 import moment from 'moment';
 
-const CustomPushNotifications = ({ payload, toastFromPayload }) => {
+const CustomPushNotifications = ({ payload }) => {
     const history = useHistory();
     const role = useRole();
     const [picture, setPicture] = useState('');
@@ -24,10 +24,10 @@ const CustomPushNotifications = ({ payload, toastFromPayload }) => {
         }
     }, [payload]);
 
-    console.log({ topicFromPayload: payload.data.topic });
+    // console.log({ topicFromPayload: payload.data.topic });
 
     const apptDetailsJson = JSON.parse(payload.data.appointmentDetails);
-    console.log({ apptDetailsJson });
+    // console.log({ apptDetailsJson });
 
     const messageDisplayHandler = () => {
         switch (payload.data.topic) {
@@ -77,8 +77,7 @@ const CustomPushNotifications = ({ payload, toastFromPayload }) => {
                     );
                 }
 
-
-            case "APPT_RESCHEDULE_BY_DOCTOR":
+            case 'APPT_RESCHEDULE_BY_DOCTOR':
                 if (getRoleName() === 'doctor') {
                     return (
                         <span>
@@ -99,7 +98,7 @@ const CustomPushNotifications = ({ payload, toastFromPayload }) => {
                     );
                 }
 
-            case "APPT_RESCHEDULE_BY_PATIENT":
+            case 'APPT_RESCHEDULE_BY_PATIENT':
                 if (getRoleName() === 'doctor') {
                     return (
                         <span>
@@ -120,7 +119,7 @@ const CustomPushNotifications = ({ payload, toastFromPayload }) => {
                     );
                 }
 
-            case "SET_NEXT_APPOINTMENT_BY_DR":
+            case 'SET_NEXT_APPOINTMENT_BY_DR':
                 if (getRoleName() === 'doctor') {
                     return (
                         <span>
@@ -162,9 +161,11 @@ const CustomPushNotifications = ({ payload, toastFromPayload }) => {
                 )}
             </div>
             <div className="caller-name msg-name">
-                <div className="name">{
-                    payload.data.topic === 'SET_NEXT_APPOINTMENT_BY_DR' ? 'Next appointment set by doctor' : payload.data.title
-                }</div>
+                <div className="name">
+                    {payload.data.topic === 'SET_NEXT_APPOINTMENT_BY_DR'
+                        ? 'Next appointment set by doctor'
+                        : payload.data.title}
+                </div>
                 <div className="call-tag text-small msg-text">
                     {messageDisplayHandler()}
                 </div>
