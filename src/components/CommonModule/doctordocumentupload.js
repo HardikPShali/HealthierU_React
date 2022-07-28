@@ -436,6 +436,14 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             setLoading(false);
         }
     };
+
+    const customInputStyle = {
+        whiteSpace: "nowrap",
+        width: "300px",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+    }
+
     return (
         <>
             {loading && (
@@ -637,6 +645,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                     }}
                                     multiple
                                     onChange={(e) => handleFileChange(e)}
+                                    style={customInputStyle}
                                 />
                                 {documentError && (<span style={{ color: "red", fontSize: "11px" }}>{documentError}</span>)}
                             </Col>
@@ -695,6 +704,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                 <b>Choose Document:</b>
                             </Col>
                             <Col md={8}>
+                                {/* <div> */}
                                 <input
                                     id="docFile"
                                     variant="filled"
@@ -705,8 +715,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                     }}
                                     multiple
                                     onChange={(e) => handleFileChange(e)}
-
                                 />
+                                {/* </div> */}
+
                                 {/* {console.log("docFile::", documentFile && documentFile.name)} */}
                                 {documentError && (<span style={{ color: "red", fontSize: "11px" }}>{documentError}</span>)}
                             </Col>
