@@ -1078,7 +1078,7 @@ const MyAppointments = (props) => {
               rescheduleAppointment(SelectedPatient.id)
             }
           >
-            reschedule
+            Reschedule
           </button>
           <button
             autoFocus
