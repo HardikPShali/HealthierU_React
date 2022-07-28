@@ -110,6 +110,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="1"
                                     name='chiefComplaint'
                                     value={chiefComplaint}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
@@ -121,6 +122,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="3"
                                     name='presentIllness'
                                     value={presentIllness}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
@@ -132,6 +134,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="2"
                                     name='vitalSigns'
                                     value={vitalSigns}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
@@ -143,6 +146,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="2"
                                     name='physicalExam'
                                     value={physicalExam}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
@@ -154,6 +158,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="3"
                                     name='planAssessment'
                                     value={planAssessment}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
