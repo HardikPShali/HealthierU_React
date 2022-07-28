@@ -36,6 +36,7 @@ import Cookies from "universal-cookie";
 import SearchBarComponent from "../../Doctor Module/SearchAndFilter/SearchComponent";
 import PrescriptionFilter from "../../Doctor Module/SearchAndFilter/PrescriptionFIlter";
 import FilterComponent from "../../Doctor Module/SearchAndFilter/FilterComponent";
+import PrescriptionLabCardPatient from "../../Doctor Module/Prescription-Lab/PrescriptionLabCardPatient";
 // import documentViewImage from '../../../images/icons used/document icon@2x.png';
 // import Footer from '../Footer';
 // import editIcon from "../../../images/Icons/edit icon_40 pxl.svg";
@@ -752,7 +753,7 @@ const PatientDocument = (props) => {
                                                         style={{ cursor: "pointer" }}
                                                         className="prescription-lab-card"
                                                     >
-                                                        <PrescriptionLabCard
+                                                        <PrescriptionLabCardPatient
                                                             filetype={getFileExtension(dataItem.documentUrl)}
                                                             name={dataItem.name}
                                                             labname={dataItem.labName}
