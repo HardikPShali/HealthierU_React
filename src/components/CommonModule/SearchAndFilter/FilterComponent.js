@@ -6,9 +6,9 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import moment from 'moment';
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 // const useOutsideAlerter = (ref, onOutsideClick) => {
 //     useEffect(() => {
@@ -30,7 +30,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 //     }, [ref]);
 // }
 
-
 const FilterComponent = (props) => {
     const ref = useRef();
 
@@ -38,7 +37,7 @@ const FilterComponent = (props) => {
     //     setFilter(false);
     // })
 
-    const [filter, setFilter] = useState('');
+    const [filter, setFilter] = useState(false);
 
     const [filterValues, setFilterValues] = useState({
         patientSlot: '',
@@ -46,11 +45,7 @@ const FilterComponent = (props) => {
         patientEndTime: '',
     });
 
-    const {
-        patientSlot,
-        patientStartTime,
-        patientEndTime,
-    } = filterValues;
+    const { patientSlot, patientStartTime, patientEndTime } = filterValues;
 
     const [endtimeChecked, setEndTimeChecked] = useState(false);
 
@@ -59,25 +54,22 @@ const FilterComponent = (props) => {
     };
 
     const handleAppoitnmentType = (e) => {
-
-
-        if (e.target.value === "First Consultation") {
-            console.log("CONSULTATION| selected", e.target.value);
+        if (e.target.value === 'First Consultation') {
+            console.log('CONSULTATION| selected', e.target.value);
             setFilterValues({
                 ...filterValues,
                 patientSlot: e.target.value,
-            })
-        } else if (e.target.value === "Follow Up") {
-            console.log("FOLLOW UP| selected", e.target.value);
+            });
+        } else if (e.target.value === 'Follow Up') {
+            console.log('FOLLOW UP| selected', e.target.value);
             setFilterValues({
                 ...filterValues,
                 patientSlot: e.target.value,
-            })
-        } else if (e.target.value === "") {
+            });
+        } else if (e.target.value === '') {
             // setAppointmentSlot([]);
         }
         //   setDisable({ ...disable, continue: true });
-
     };
 
     const handleCheckbox = (checked) => {
@@ -89,19 +81,13 @@ const FilterComponent = (props) => {
         }
     };
 
-
-
     const clearFilter = () => {
         setFilterValues({
-
             patientStartTime: '',
             patientEndTime: '',
         });
         props.updatedFilter({});
     };
-
-
-
 
     // useEffect(() => {
     //     props.updatedFilter(filterValues);
@@ -113,14 +99,9 @@ const FilterComponent = (props) => {
             <IconButton
                 onClick={() => toggleFilterBox()}
                 style={{
-                    backgroundColor: `${patientStartTime || patientEndTime
-                        ? '#F6CEB4'
-                        : ''
+                    backgroundColor: `${patientStartTime || patientEndTime || filter ? '#F6CEB4' : ''
                         }`,
-                    color: `${patientStartTime || patientEndTime
-                        ? '#00d0cc'
-                        : ''
-                        }`,
+                    color: `${patientStartTime || patientEndTime || filter === '' ? '#00d0cc' : ''}`,
                 }}
             >
                 <TuneIcon />
@@ -128,7 +109,10 @@ const FilterComponent = (props) => {
             {filter && (
                 <div className="appointment-filter-box" ref={ref}>
                     <ValidatorForm
-                        onSubmit={() => props.updatedFilter(filterValues)}
+                        onSubmit={() => {
+                            props.updatedFilter(filterValues);
+                            setFilter(false);
+                        }}
                         onError={(error) => console.log(error)}
                     >
                         <div className="appointment-filter-body">
@@ -143,7 +127,10 @@ const FilterComponent = (props) => {
                                                 onChange={(e) =>
                                                     setFilterValues({
                                                         ...filterValues,
-                                                        patientStartTime: e.target.value === '' ? '' : new Date(e.target.value),
+                                                        patientStartTime:
+                                                            e.target.value === ''
+                                                                ? ''
+                                                                : new Date(e.target.value),
                                                     })
                                                 }
                                                 className="filterDate"
@@ -163,7 +150,10 @@ const FilterComponent = (props) => {
                                                 onChange={(e) =>
                                                     setFilterValues({
                                                         ...filterValues,
-                                                        patientEndTime: e.target.value === '' ? '' : new Date(e.target.value),
+                                                        patientEndTime:
+                                                            e.target.value === ''
+                                                                ? ''
+                                                                : new Date(e.target.value),
                                                     })
                                                 }
                                                 className="filterDate"

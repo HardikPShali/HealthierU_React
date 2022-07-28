@@ -220,19 +220,18 @@ const CreatePassword = () => {
               <div>
                 <button
                   className="otp-verify"
+                  onClick={() => handleOTPSubmit()}
+                  disabled={otpBox.join("") === "" ? true : false}
+                >
+                  Verify
+                </button>
+                <button
+                  className="otp-verify"
                   onClick={() => {
                     setOtpBox(new Array(4).fill(""));
                   }}
                 >
                   Clear
-                </button>
-
-                <button
-                  className="otp-verify"
-                  onClick={() => handleOTPSubmit()}
-                  disabled={otpBox.join("") === "" ? true : false}
-                >
-                  Verify
                 </button>
               </div>
             </div>
@@ -303,8 +302,8 @@ const CreatePassword = () => {
                     value={confirmPassword}
                     validators={["isPasswordMatch", "required"]}
                     errorMessages={[
-                      "Password Does not match",
-                      "This Field is Required",
+                      "Password does not match",
+                      "This field is required",
                     ]}
                     variant="filled"
                     InputProps={{

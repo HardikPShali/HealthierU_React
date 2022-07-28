@@ -2419,22 +2419,10 @@ const RescheduleAppointment = (props) => {
               </div>
             </Col>
           )}
-          {!profilepID.activated && (
+          {/* {!profilepID.activated && (
             <Col md={4} style={{ display: display.appointment }}>
               <div id="dorctor-list">
-                <IconButton
-                  style={{ background: '#F6CEB4', color: '#00d0cc' }}
-                  onClick={() => {
-                    setDisplay({
-                      ...display,
-                      doctor: 'block',
-                      appointment: 'none',
-                    });
-                    setDisable({ ...disable, payment: true });
-                  }}
-                >
-                  <ArrowBackIcon />
-                </IconButton>
+                
                 <br />
                 <br />
 
@@ -2450,9 +2438,6 @@ const RescheduleAppointment = (props) => {
                         displayEmpty
                         onChange={(e) => handleInputChange(e)}
                       >
-                        {/* <MenuItem value="">
-                                                    <em>Select</em>
-                                                </MenuItem> */}
                         <MenuItem value="Low">Low</MenuItem>
                         <MenuItem value="Medium">Medium</MenuItem>
                         <MenuItem value="High">High</MenuItem>
@@ -2460,20 +2445,6 @@ const RescheduleAppointment = (props) => {
                     </FormControl>
                     <br />
                     <br />
-                    {/* <p>Diseases</p>
-                                    <FormControl>
-                                        <div className="multiselect">
-                                            <Multiselect
-                                                options={diseasesOptions}                                                
-                                                // onSelect={handleDiseases}
-                                                // onRemove={removeDiseases}
-                                                displayValue="name"
-                                            />
-                                        </div>
-                                    </FormControl>
-                                    <br />
-                                    <br /> */}
-
                     <p>Comments</p>
                     <TextValidator
                       id="standard-basic"
@@ -2492,10 +2463,23 @@ const RescheduleAppointment = (props) => {
                 <br />
               </div>
             </Col>
-          )}
+          )} */}
           {!profilepID.activated ? (
-            <Col md={4} style={{ display: display.appointment }}>
+            <Col md={7} style={{ display: display.appointment }}>
               <div id="dorctor-list" className="doctor-list-new">
+                <IconButton
+                  style={{ background: '#F6CEB4', color: '#00d0cc' }}
+                  onClick={() => {
+                    setDisplay({
+                      ...display,
+                      doctor: 'block',
+                      appointment: 'none',
+                    });
+                    setDisable({ ...disable, payment: true });
+                  }}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
                 <p className="blue ml-2 text-center">Confirm your booking</p>
                 <Row id="doc-row">
                   <Col xs={12}>
@@ -2781,7 +2765,7 @@ const RescheduleAppointment = (props) => {
               </Col>
             </>
           )}
-          <Col md={4} style={{ display: display.appointment }}>
+          <Col md={5} style={{ display: display.appointment }}>
             <div id="dorctor-list" className="doctor-list-new">
               <p style={{ fontSize: 12 }}>
                 Your total for this Primary Care visit.

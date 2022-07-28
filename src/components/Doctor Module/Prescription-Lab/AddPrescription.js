@@ -88,23 +88,11 @@ const AddPrescription = (props) => {
                 setErrorMsg('Please upload PDF file with size less than 10mb.');
             }
         } else {
-            if (e.target.name === "numberOfDays") {
-                var reg = new RegExp('^[0-9]{0,3}$');
-                if (reg.test(e.target.value) == false) {
-                    setTimeout(() => {
-                        toast.error('Please enter valid Days.');
-                    }, 2000);
+            setprescriptionList({
+                ...prescriptionList,
+                [e.target.name]: e.target.value,
 
-                    return false;
-                }
-            }
-            else {
-                setprescriptionList({
-                    ...prescriptionList,
-                    [e.target.name]: e.target.value,
-
-                });
-            }
+            });
         }
         // if (e.target.name === 'numberOfDays' && 'dose' && 'duration' && 'interval' && 'medicineName') {
         //     setIsSave(true);
@@ -197,6 +185,11 @@ const AddPrescription = (props) => {
 
             if (medicineData === '' || doseData === '' || durationData === '' || noOfDaysData === '' || intervalData === '') {
                 { !prescriptionResult.prescriptionDocument && toast.error("All Fields are Required!") }
+            }
+            var reg = new RegExp('^[0-9]{0,3}$');
+            if (reg.test(noOfDaysData) == false) {
+                toast.error('Please enter valid Days.');
+                return false;
             }
             else {
                 document.getElementById('prescriptionSave').disabled = true;

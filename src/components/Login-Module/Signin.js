@@ -118,7 +118,7 @@ const Signin = () => {
   const responseGoogle = async (response) => {
     removeAllCookies();
     setLoader(true);
-
+    storeGoogleToken(response);
     const googleUserData = {
       token: response.credential,
     };
@@ -130,7 +130,9 @@ const Signin = () => {
         }
       }
     );
+
     if (googleAccessToken) {
+
       //console.log("googleAccessToken  :: ", googleAccessToken);
       LocalStorageService.setToken(googleAccessToken);
       getCurrentUserData();
@@ -349,6 +351,13 @@ const Signin = () => {
       cookies.set("currentUser", currentUser);
       history.push("/admin");
     }
+  };
+
+
+  // google signup code to tackle "500 user role reqd." error
+  const storeGoogleToken = (response) => {
+    cookies.set("GOOGLE_ACCESS_TOKEN", response.credential);
+    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj);
   };
 
 

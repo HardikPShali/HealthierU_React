@@ -9,18 +9,23 @@ import './Notes.css'
 
 const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
+    console.log({ selectedChatNote })
+
     const { patientInfo, doctorInfo, latestAppointment } = selectedChatNote;
 
     const [disableButton, setDisableButton] = useState(false);
 
     useEffect(() => {
-        setNotes({
-            chiefComplaint: '',
-            presentIllness: '',
-            vitalSigns: '',
-            physicalExam: '',
-            planAssessment: '',
-        })
+        if (selectedChatNote) {
+            setNotes({
+                chiefComplaint: '',
+                presentIllness: '',
+                vitalSigns: '',
+                physicalExam: '',
+                planAssessment: '',
+            })
+        }
+
     }, [selectedChatNote]);
 
 
@@ -74,13 +79,13 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                 draggable: true,
                 progress: undefined,
             });
-            setNotes({
-                chiefComplaint: '',
-                presentIllness: '',
-                vitalSigns: '',
-                physicalExam: '',
-                planAssessment: '',
-            })
+            // setNotes({
+            //     chiefComplaint: '',
+            //     presentIllness: '',
+            //     vitalSigns: '',
+            //     physicalExam: '',
+            //     planAssessment: '',
+            // })
             setDisableButton(false);
             onClose();
         }
