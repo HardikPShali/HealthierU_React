@@ -1421,14 +1421,15 @@ export const getHealthAssessmentPdf = async (patientId) => {
   return response;
 }
 
-export const callRejectApi = async (channelId) => {
+export const callRejectApi = async (channelId, message) => {
   var payload = {
     method: 'post',
     mode: 'no-cors',
     url: `/api/v2/reject-call-user/${channelId}`,
+    data: message,
     headers: {
       'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/html'
     }
   };
   const response = await axios(payload).then(res => {
