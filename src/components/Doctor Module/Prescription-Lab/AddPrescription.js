@@ -165,7 +165,7 @@ const AddPrescription = (props) => {
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
     const { DurationStartDate, DurationEndDate } = date;
     const [errorMsg, setErrorMsg] = useState('');
-
+    const [isValidDays, setIsValidDays] = useState(false)
     const handlePrescriptionSubmission = async (e) => {
         setIsSaveModal(false)
         e.preventDefault();
@@ -186,49 +186,63 @@ const AddPrescription = (props) => {
             if (medicineData === '' || doseData === '' || durationData === '' || noOfDaysData === '' || intervalData === '') {
                 { !prescriptionResult.prescriptionDocument && toast.error("All Fields are Required!") }
             }
-            var reg = new RegExp('^[0-9]{0,3}$');
-            if (reg.test(noOfDaysData) == false) {
-                toast.error('Please enter valid Days.');
-                return false;
-            }
             else {
-                document.getElementById('prescriptionSave').disabled = true;
-                var medicalInfo = prescriptionList.map(function (a) { return a; });
-                const medicalDocumentInfo = {
-                    documentType: "Prescription",
-                    patientId: patient,
-                    doctorId: doctor?.id,
-                    decription: prescriptionResult?.decription
-                };
-                setErrorMsg('');
-                const formData = new FormData();
-                medicalInfo.map((a) => {
-                    if (a.medicineName != '') {
-                        formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
-                            type: "application/json"
-                        }))
+                // document.getElementById('prescriptionSave').disabled = true;
+                var reg = new RegExp('^[0-9]{0,3}$');
+                prescriptionList.forEach((p) => {
+                    if (reg.test(p.numberOfDays) == false) {
+                        // setTimeout(() => {
+                        //     toast.error('Please enter valid Days.');
+                        // }, 3000)
+                        toast.error('Please enter valid Days', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            toastId: 'isValidDaysToast'
+                        });
+                        return false;
+                    }
+                    else {
+                        setIsValidDays(true)
                     }
                 })
-                formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
-                    type: "application/json"
-                }));
-                // {
-                //     prescriptionResult.prescriptionDocument &&
-                //         formData.append("file", (prescriptionResult?.prescriptionDocument))
-                // }
-                const response = await postDocumentAddPrescriptionLabResult(
-                    formData
-                ).catch((err) => {
-                    // if (err.response.status === 500 || err.response.status === 504) {
-                    //     toast.error("Please Fill Up the Prescription Details!")
+                if (isValidDays === true) {
+                    var medicalInfo = prescriptionList.map(function (a) { return a; });
+                    const medicalDocumentInfo = {
+                        documentType: "Prescription",
+                        patientId: patient,
+                        doctorId: doctor?.id,
+                        decription: prescriptionResult?.decription
+                    };
+                    setErrorMsg('');
+                    const formData = new FormData();
+                    medicalInfo.map((a) => {
+                        if (a.medicineName != '') {
+                            formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
+                                type: "application/json"
+                            }))
+                        }
+                    })
+                    formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+                        type: "application/json"
+                    }));
+                    // {
+                    //     prescriptionResult.prescriptionDocument &&
+                    //         formData.append("file", (prescriptionResult?.prescriptionDocument))
                     // }
-                });
-                if (response) {
-                    toast.success("Document successfully Uploaded.");
-                    const patientInfo = params.patientID;
-                    const apID = params.apid;
-                    window.scrollTo(0, 0)
-                    history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}` })
+                    const response = await postDocumentAddPrescriptionLabResult(
+                        formData
+                    ).catch((err) => {
+                        // if (err.response.status === 500 || err.response.status === 504) {
+                        //     toast.error("Please Fill Up the Prescription Details!")
+                        // }
+                    });
+                    if (response) {
+                        toast.success("Document successfully Uploaded.");
+                        const patientInfo = params.patientID;
+                        const apID = params.apid;
+                        window.scrollTo(0, 0)
+                        history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}` })
+                    }
                 }
             }
         }
