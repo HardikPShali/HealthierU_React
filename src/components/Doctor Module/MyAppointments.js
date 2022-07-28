@@ -976,14 +976,14 @@ const MyAppointments = (props) => {
                       <Row>
                         <Col className="profile-btn">
 
-                          <button
+                          {moment().isBefore(moment(SelectedPatient.startTime)) && <button
                             className="btn btn-primary view-btn"
                             onClick={() =>
                               handleRescheduleOpen(SelectedPatient.id)
                             }
                           >
                             Reschedule
-                          </button>
+                          </button>}
                         </Col>
                       </Row>
                     </div>

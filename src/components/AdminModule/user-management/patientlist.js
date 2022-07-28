@@ -74,7 +74,9 @@ const PatientList = () => {
       );
     });
     setFilterData(filteredData);
-    setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
+    if (filteredData.length == '0') {
+      setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
+    }
   };
   const loadMore = async () => {
     const result = await getPaginatedPatientList(offset, limit);

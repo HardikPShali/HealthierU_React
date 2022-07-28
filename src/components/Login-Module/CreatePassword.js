@@ -220,19 +220,18 @@ const CreatePassword = () => {
               <div>
                 <button
                   className="otp-verify"
+                  onClick={() => handleOTPSubmit()}
+                  disabled={otpBox.join("") === "" ? true : false}
+                >
+                  Verify
+                </button>
+                <button
+                  className="otp-verify"
                   onClick={() => {
                     setOtpBox(new Array(4).fill(""));
                   }}
                 >
                   Clear
-                </button>
-
-                <button
-                  className="otp-verify"
-                  onClick={() => handleOTPSubmit()}
-                  disabled={otpBox.join("") === "" ? true : false}
-                >
-                  Verify
                 </button>
               </div>
             </div>
