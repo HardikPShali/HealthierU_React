@@ -404,6 +404,15 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         e.preventDefault()
         setstate({ ...state, [e.target.name]: e.target.value });
         setDocumentinfo({ ...state, [e.target.name]: e.target.value })
+        // if (!documentFile) {
+        //     setTimeout(() => {
+        //         toast.error("Please upload file to edit document details", {
+        //             position: "top-right",
+        //             autoClose: 5000,
+        //             toastId: "docUploadToast"
+        //         });
+        //     }, 3000)
+        // }
     };
 
     const handlePhone = (e) => {

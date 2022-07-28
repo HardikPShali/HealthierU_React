@@ -277,6 +277,7 @@ const Profile = ({ currentDoctor }) => {
 
     // EDIT PROFILE HANDLER ON SUBMIT
     const handleDetails = async e => {
+        let res;
         console.log("Doctor Profile Data", currentDoctorData);
         console.log("profilePicture ::::::", profilePicture);
         setLoading(true);
@@ -292,25 +293,31 @@ const Profile = ({ currentDoctor }) => {
                 toast.error("Something went wrong.Please try again!")
             }
         });
-        const user = cookies.get("profileDetails");
-        const info = {
-            doctorId: user.id,
-            //doctor_email: user.email,
-            // documentName: documentName,
-            licenseNumber: documentInfo.licenseNumber,
-            referencePhoneNumber: documentInfo.referencePhoneNumber,
-            certifyingBody: documentInfo.certifyingBody
-        }
-        const res = await updateDoctorDocumentNew(info).catch(err => {
-            if (err.response.status === 500 || err.response.status === 504) {
-                setLoading(false);
-                toast.error("Something went wrong.Please try again!")
+        if (documentUpdateFile) {
+            const user = cookies.get("profileDetails");
+            const info = {
+                doctorId: user.id,
+                //doctor_email: user.email,
+                // documentName: documentName,
+                licenseNumber: documentInfo.licenseNumber,
+                referencePhoneNumber: documentInfo.referencePhoneNumber,
+                certifyingBody: documentInfo.certifyingBody
             }
-        });
-        if (response.status === 200 || response.status === 201 && res.status === 200) {
-            cookies.set('profileDetails', response.data.data);
-            // setCurrentDoctorData({ currentDoctorData: currentDoctorData });
-            history.go(0);
+            res = await updateDoctorDocumentNew(info).catch(err => {
+                if (err.response.status === 500 || err.response.status === 504) {
+                    setLoading(false);
+                    toast.error("Something went wrong.Please try again!")
+                }
+            });
+            if (response.status === 200 || response.status === 201 && res.status === 200) {
+                cookies.set('profileDetails', response.data.data);
+                toast.success("Profile Data Updated")
+                history.go(`doctor/profile`);
+            }
+        }
+        else {
+            toast.error("Please upload file to update document details")
+            setLoading(false);
         }
     }
 
