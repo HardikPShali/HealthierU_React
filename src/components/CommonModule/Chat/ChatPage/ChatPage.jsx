@@ -384,8 +384,8 @@ const ChatPage = () => {
     }
   };
 
-  const callRejectHandler = async (channelId) => {
-    const rejectCallApiResponse = await callRejectApi(channelId).catch((err) =>
+  const callRejectHandler = async (channelId, message = "call-reject") => {
+    const rejectCallApiResponse = await callRejectApi(channelId, message).catch((err) =>
       console.log({ err })
     );
   };
@@ -419,7 +419,7 @@ const ChatPage = () => {
         {openVideoCall && (
           <Meeting
             onClose={() => {
-              callRejectHandler(selectedChatItem.id);
+              callRejectHandler(selectedChatItem.id, "call-end");
               removeQueryParamsAndDisableVideo();
             }}
           />

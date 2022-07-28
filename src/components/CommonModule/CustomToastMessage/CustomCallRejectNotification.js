@@ -37,7 +37,13 @@ const CustomCallRejectNotification = ({ payload }) => {
             </div>
             <div className="caller-name msg-name">
                 <div className="name">{payload.data.title}</div>
-                <div className="call-tag text-small msg-text">Your call has been rejected by {payload.data.title}</div>
+                <div className="call-tag text-small msg-text">
+                    {
+                        payload.data.message === "call-end" ? "Call ended" : `Your call has been rejected by ${payload.data.title}`
+                    }
+                    
+                    
+                </div>
             </div>
         </div>
     );
