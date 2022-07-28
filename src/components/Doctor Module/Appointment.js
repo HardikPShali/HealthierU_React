@@ -904,7 +904,7 @@ const Myappointment = (props) => {
     },
     {
       selector: ".available",
-      content: `Here, you can see the list of appointment slots which are avilable for booking.`,
+      content: `Here, you can see the list of appointment slots which are available for booking.`,
     },
     {
       selector: ".booked",
