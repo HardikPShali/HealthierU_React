@@ -209,7 +209,20 @@ const callRejectToast = (payload) => {
   sound.play();
   const customToast = <CustomCallRejectNotification payload={payload} />;
   setTimeout(() => {
-    window.location.reload();
+    const [fullUrl, queryParams] =  window.location.href.split("?")
+    let channelName = ""
+    if(queryParams !== "") {
+      const queryParamsList = queryParams.split("&");
+      channelName = queryParamsList.length ? queryParamsList[0] : "";
+      console.log({ channelName })
+    }
+
+    if(channelName !== "") {
+      window.location = `${fullUrl}?${channelName}`
+    } else {
+      window.location = fullUrl
+    }
+    
   }, 1000);
 
   toast.info(customToast, {
