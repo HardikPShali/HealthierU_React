@@ -468,9 +468,7 @@ const Myappointment = (props) => {
             title:
               value.status === "AVAILABLE"
                 ? "Slot Available"
-                : `This is ${value?.patient?.firstName} have ${value.urgency ? value.urgency : "no"
-                } urgency, comments : ${value.remarks ? value.remarks : "no comments"
-                }`,
+                : `This is ${value?.patient?.firstName}`, // have ${value.urgency ? value.urgency : "no"} urgency, comments : ${value.remarks ? value.remarks : "no comments"
             remarks: value.remarks,
             status: value.status,
             doctorId: value.doctorId,
@@ -809,10 +807,10 @@ const Myappointment = (props) => {
                 patientId: value.patientId,
                 doctorId: value.doctorId,
                 doctor: value.doctor,
-                title: `Appointment booked with Dr. ${value?.doctor?.firstName
-                  } with ${value.urgency ? value.urgency : "no"
-                  } urgency, comments : ${value.remarks ? value.remarks : "no comments"
-                  }`,
+                title: `Appointment booked with Dr. ${value?.doctor?.firstName}`,
+                // with ${value.urgency ? value.urgency : "no"
+                //   } urgency, comments : ${value.remarks ? value.remarks : "no comments"
+                //   }`,
                 startTime: new Date(value.startTime),
                 endTime: new Date(reversedAppointments[index + 1].endTime),
                 remarks: value.remarks,
