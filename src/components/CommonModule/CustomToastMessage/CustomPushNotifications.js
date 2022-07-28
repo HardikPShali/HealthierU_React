@@ -119,6 +119,27 @@ const CustomPushNotifications = ({ payload, toastFromPayload }) => {
                         </span>
                     );
                 }
+
+            case "SET_NEXT_APPOINTMENT_BY_DR":
+                if (getRoleName() === 'doctor') {
+                    return (
+                        <span>
+                            {payload.data.message}{' '}
+                            {moment(apptDetailsJson.startTimeAsString).format(
+                                'DD-MM-YYYY HH:mm'
+                            )}{' '}
+                        </span>
+                    );
+                } else {
+                    return (
+                        <span>
+                            {payload.data.message}{' '}
+                            {moment(apptDetailsJson.startTimeAsString).format(
+                                'DD-MM-YYYY HH:mm'
+                            )}{' '}
+                        </span>
+                    );
+                }
         }
     };
 
@@ -141,7 +162,9 @@ const CustomPushNotifications = ({ payload, toastFromPayload }) => {
                 )}
             </div>
             <div className="caller-name msg-name">
-                <div className="name">{payload.data.title}</div>
+                <div className="name">{
+                    payload.data.topic === 'SET_NEXT_APPOINTMENT_BY_DR' ? 'Next appointment set by doctor' : payload.data.title
+                }</div>
                 <div className="call-tag text-small msg-text">
                     {messageDisplayHandler()}
                 </div>

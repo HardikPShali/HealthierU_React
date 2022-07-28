@@ -163,7 +163,8 @@ const toastMessage = (payload) => {
     topicFromPayload === 'APPT_ACCEPTED' ||
     topicFromPayload === 'APPT_CANCELLED_BY_PATIENT' ||
     topicFromPayload === 'APPT_RESCHEDULE_BY_DOCTOR' ||
-    topicFromPayload === 'APPT_RESCHEDULE_BY_PATIENT'
+    topicFromPayload === 'APPT_RESCHEDULE_BY_PATIENT' ||
+    topicFromPayload === 'SET_NEXT_APPOINTMENT_BY_DR'
   ) {
     customPushNotificationToast(payload);
   }
