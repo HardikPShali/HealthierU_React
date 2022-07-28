@@ -325,42 +325,47 @@ const EditUser = (props) => {
       }
     }
     if (currentUserAuthorities === 'ROLE_DOCTOR') {
+      let res;
       bodyFormData.append('profileData', JSON.stringify(user));
       bodyFormData.append('profilePicture', profilePicture);
       const response = await updateRoleDoctor(bodyFormData).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setTransparentLoading(false);
           toast.error("Something went wrong.Please try again!")
-          history.go(0)
+          //history.go(0)
         }
       });
-      const info = {
-        doctorId: user.id,
-        //doctor_email: user.email,
-        // documentName: documentName,
-        licenseNumber: documentInfo.licenseNumber,
-        referencePhoneNumber: documentInfo.referencePhoneNumber,
-        certifyingBody: documentInfo.certifyingBody
-      }
+      if (documentUpdateFile) {
+        const info = {
+          doctorId: user.id,
+          licenseNumber: documentInfo.licenseNumber,
+          referencePhoneNumber: documentInfo.referencePhoneNumber,
+          certifyingBody: documentInfo.certifyingBody
+        }
 
-      const res = await updateDoctorDocumentNew(info).catch(err => {
-        if (err.response.status === 500 || err.response.status === 504) {
-          setTransparentLoading(false);
-          toast.error("Something went wrong.Please try again!")
-          history.go(0)
+        res = await updateDoctorDocumentNew(info).catch(err => {
+          if (err.response.status === 500 || err.response.status === 504) {
+            setTransparentLoading(false);
+            toast.error("Something went wrong.Please try again!")
+            //history.go(0)
+          }
+        });
+
+        if (response.status === 200 || response.status === 201 && res.status === 200) {
+          history.push('/admin/doctorlist');
+          toast.success("Profile Data Updated")
         }
-      });
-      if (response.status === 200 || response.status === 201 && res.status === 200) {
-        // user.login = userState.login;
-        // user.langKey = userState.langKey;
-        // user.authorities = userState.authorities;
-        // const userResponse = await updateUserData(user);
-        // if (userResponse) {
-        //window.location.assign("/admin");
-        history.push('/admin/doctorlist');
-        toast.success("Data Updated Successfully")
+        if (!documentUpdateFile && !documentInfo) {
+          toast.error("Please add document details")
+        }
       }
-      //}
+      else {
+        // setTimeout(() => {
+        setTransparentLoading(false);
+        handleClose()
+        toast.error("Please upload file to edit document details")
+        // }, 5000)
+      }
     }
   };
 
