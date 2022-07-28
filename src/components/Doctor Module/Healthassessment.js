@@ -49,6 +49,7 @@ import SearchBarComponent from './SearchAndFilter/SearchComponent';
 import PrescriptionFilter from './SearchAndFilter/PrescriptionFIlter'
 import FilterComponent from './SearchAndFilter/FilterComponent';
 import { toast } from 'react-toastify';
+import PrescriptionLabCardDoctor from './Prescription-Lab/PrescriptionLabCardDoctor';
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
@@ -692,7 +693,7 @@ const Healthassessment = (props) => {
 
                                                         <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
 
-                                                            <PrescriptionLabCard
+                                                            <PrescriptionLabCardDoctor
                                                                 filetype={getFileExtension(dataItem.documentUrl)}
                                                                 name={"Treatment"}
                                                                 apid={appointmentID}

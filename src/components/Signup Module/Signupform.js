@@ -731,6 +731,9 @@ const Signupform = () => {
               }
 
               <div>
+                <button className="otp-verify" onClick={() => handleOTPSubmit()}>
+                  Verify
+                </button>
                 <button
                   className='otp-verify'
                   onClick={() => {
@@ -739,11 +742,6 @@ const Signupform = () => {
                 >
                   Clear
                 </button>
-
-                <button className="otp-verify" onClick={() => handleOTPSubmit()}>
-                  Verify
-                </button>
-
               </div>
 
 
