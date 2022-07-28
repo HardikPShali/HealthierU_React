@@ -302,8 +302,8 @@ const CreatePassword = () => {
                     value={confirmPassword}
                     validators={["isPasswordMatch", "required"]}
                     errorMessages={[
-                      "Password Does not match",
-                      "This Field is Required",
+                      "Password does not match",
+                      "This field is required",
                     ]}
                     variant="filled"
                     InputProps={{

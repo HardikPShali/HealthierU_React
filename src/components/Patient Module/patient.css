@@ -3594,7 +3594,7 @@ sup {
 }
 
 button.apply-btn {
-  background-color: var(--primarysecond) !important;
+  background-color: #f6ceb4 !important;
   width: 100%;
   border-radius: 30px;
   border-color: var(--primarysecond) !important;
