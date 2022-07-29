@@ -406,7 +406,7 @@ const Myappointment = (props) => {
     console.log("tomorrowAppointment", tomorrowAppointment);
   }, [tomorrowAppointment]);
   const newStartDate = new Date().setDate(new Date().getDate() - 30);
-  const newEndDate = new Date().setDate(new Date().getDate() + 25);
+  const newEndDate = new Date().setDate(new Date().getDate() + 28);
   const loadAppointment = async (startTime, endTime, doctorId) => {
     const docId = cookies.get("profileDetails");
 
@@ -630,13 +630,13 @@ const Myappointment = (props) => {
         });
       if (
         slots[0].toISOString() >
-        new Date(new Date().setDate(new Date().getDate() + 21)).toISOString()
+        new Date(new Date().setDate(new Date().getDate() + 28)).toISOString()
       ) {
         duplicateFlag = 1;
         setWarningMsg({
           ...warningMsg,
           message:
-            "You cannot make the slots available for booking more than 21 days from current day!",
+            "You cannot make the slots available for booking more than 28 days from current day!",
         });
       }
       if (duplicateFlag === 0) {
