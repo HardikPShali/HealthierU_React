@@ -26,7 +26,7 @@ const CustomCallNotification = ({ onAccept, onClose, payload }) => {
     }, [payload]);
 
     const callRejectHandler = async (channelId) => {
-        const rejectCallApiResponse = await callRejectApi(channelId).catch(err => console.log({ err }));
+        const rejectCallApiResponse = await callRejectApi(channelId, "call-reject").catch(err => console.log({ err }));
         // console.log({ rejectCallApiResponse });
     }
 
