@@ -240,17 +240,13 @@ const Welcome = ({ currentuserInfo }) => {
         array.splice(index, 1);
         setstate({ ...state, languages: array });
     }
-
+    const [heightError, setHeightError] = useState(false)
+    const [weightError, setWeightError] = useState(false)
+    const [highbpError, setHighbpError] = useState(false)
+    const [lowbpError, setLowbpError] = useState(false)
     const handleInputChange = (e) => {
         e.preventDefault()
-        // if (e.target.name === "experience") {
-        //     if (e.target.value > 50) {
-        //         toast.error("Experience must be between 1 to 50!")
-        //     }
-        // }
-
         setstate({ ...state, [e.target.name]: e.target.value });
-
     };
     const handlePhone = (e) => {
         setstate({ ...state, phone: e });
@@ -421,12 +417,36 @@ const Welcome = ({ currentuserInfo }) => {
         var bodyFormData = new FormData();
         var bodyFormDataDoctor = new FormData();
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
-
             if (languages.length === 0) {
                 setLanguageError(true);
             }
+            if (highbp === 0) {
+                setHighbpError(true)
+            }
+            else {
+                setHighbpError(false)
+            }
+            if (height === 0) {
+                setHeightError(true)
+            }
+            else {
+                setHeightError(false)
+            }
+            if (weight === 0) {
+                setWeightError(true)
+            }
+            else {
+                setWeightError(false)
+            }
+            if (lowbp === 0) {
+                setLowbpError(true)
+            }
             else {
                 setTransparentLoading(true);
+                setLowbpError(false)
+                setHighbpError(false)
+                setHeightError(false)
+                setWeightError(false)
                 bodyFormData.append('profileData', JSON.stringify(patientPayload));
                 bodyFormData.append('profilePicture', profilePicture);
                 const response = await updateRolePatient(bodyFormData).catch(err => {
@@ -763,6 +783,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     required
                                                     placeholder='Height' />
+                                                {heightError && (
+                                                    <p style={{ color: "red" }}>Height cannot be 0</p>
+                                                )}
                                             </Col>
                                             <Col md={6}>
                                                 <p>Weight(KG)<sup>*</sup></p>
@@ -778,6 +801,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     required
                                                     placeholder='Weight' />
+                                                {weightError && (
+                                                    <p style={{ color: "red" }}>Weight cannot be 0</p>
+                                                )}
                                             </Col>
                                         </Row>
                                         <br />
@@ -796,6 +822,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     required
                                                     placeholder='High BP' />
+                                                {highbpError && (
+                                                    <p style={{ color: "red" }}>High BP cannot be 0</p>
+                                                )}
                                             </Col>
                                             <Col md={6}>
                                                 <p>Low BP(mmHg)<sup>*</sup></p>
@@ -811,6 +840,9 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     required
                                                     placeholder='Low BP' />
+                                                {lowbpError && (
+                                                    <p style={{ color: "red" }}>Low BP cannot be 0</p>
+                                                )}
                                             </Col>
                                         </Row>
                                         <br />

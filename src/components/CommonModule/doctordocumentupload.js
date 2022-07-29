@@ -456,8 +456,12 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                         <TextValidator id="uploadlicence" type="text" name="licenseNumber"
                             onChange={(e) => handleInputChange(e)}
                             value={licenseNumber}
-                            validators={['required']}
-                            errorMessages={['This field is required']}
+                            validators={[
+                                "required",
+                                "matchRegexp:(^\w+$)",
+                            ]}
+                            errorMessages={['This field is required',
+                                "Please Enter Valid License Number"]}
                             variant="filled"
                             required
                             placeholder='License Number' />
