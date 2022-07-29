@@ -3466,7 +3466,7 @@ button.reset-btn {
 }
 
 .available-btn button {
-  background: var(--primary);
+  background: #00d0cc;
   padding: 0.5rem 1.5rem;
   border-radius: 10px;
   color: white;
@@ -3475,6 +3475,17 @@ button.reset-btn {
   cursor: pointer;
   transition: all 0.2s;
 }
+.cancel-btn button {
+  background: #ff6563;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
 
 .available-btn button:hover {
   background: #02bcb9;
