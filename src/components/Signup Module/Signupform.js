@@ -523,7 +523,7 @@ const Signupform = () => {
                   errorMessages={[
                     "This field is required",
                     "First name should not exceed 50 characters",
-                    "Please provide a valid first name",
+                    "Please provide a valid Full Name",
                     "Please do not use whitespace in front First Name",
                     "First Name cannot have any numeric values"
                   ]}
