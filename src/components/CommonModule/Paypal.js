@@ -175,6 +175,7 @@ const Paypal = (props) => {
               }
               else if (window.webkit) {
                 window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
+                window.webkit.messageHandlers.sendOrderData.postMessage(false);
               }
               else {
                 history.go(0)
