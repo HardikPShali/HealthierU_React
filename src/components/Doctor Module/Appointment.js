@@ -296,10 +296,10 @@ const Myappointment = (props) => {
         setTomorrowAppointment(tomoArray);
         setTimeout(() => setLoading(false), 1000);
         setTimeout(() => setTransparentLoading(false), 1000);
-        const tourState = cookies.get("appointmentTour");
-        if (!tourState) {
-          setIsTourOpen(true);
-        }
+        // const tourState = cookies.get("appointmentTour");
+        // if (!tourState) {
+        //   setIsTourOpen(true);
+        // }
       }
     }
     if (event === "today") {
@@ -344,10 +344,10 @@ const Myappointment = (props) => {
         setTodayAppointment(todayArray);
         setTimeout(() => setLoading(false), 1000);
         setTimeout(() => setTransparentLoading(false), 1000);
-        const tourState = cookies.get("appointmentTour");
-        if (!tourState) {
-          setIsTourOpen(true);
-        }
+        // const tourState = cookies.get("appointmentTour");
+        // if (!tourState) {
+        //   setIsTourOpen(true);
+        // }
       }
     }
     if (event === "upcoming") {
@@ -391,10 +391,10 @@ const Myappointment = (props) => {
         setUpcomingAppointment(upcomingArray);
         setTimeout(() => setLoading(false), 1000);
         setTimeout(() => setTransparentLoading(false), 1000);
-        const tourState = cookies.get("appointmentTour");
-        if (!tourState) {
-          setIsTourOpen(true);
-        }
+        // const tourState = cookies.get("appointmentTour");
+        // if (!tourState) {
+        //   setIsTourOpen(true);
+        // }
       }
     }
   }
@@ -504,10 +504,10 @@ const Myappointment = (props) => {
       setAcceptedAppointment(acceptedArray);
       setTimeout(() => setLoading(false), 1000);
       setTimeout(() => setTransparentLoading(false), 1000);
-      const tourState = cookies.get("appointmentTour");
-      if (!tourState) {
-        setIsTourOpen(true);
-      }
+      // const tourState = cookies.get("appointmentTour");
+      // if (!tourState) {
+      //   setIsTourOpen(true);
+      // }
     }
     if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
       //setLoading(false);
@@ -538,10 +538,10 @@ const Myappointment = (props) => {
       console.log("todayArray", todayArray);
       setTimeout(() => setLoading(false), 1000);
       setTimeout(() => setTransparentLoading(false), 1000);
-      const tourState = cookies.get("appointmentTour");
-      if (!tourState) {
-        setIsTourOpen(true);
-      }
+      // const tourState = cookies.get("appointmentTour");
+      // if (!tourState) {
+      //   setIsTourOpen(true);
+      // }
     }
   };
 
@@ -870,61 +870,61 @@ const Myappointment = (props) => {
 
   // React Tour code
 
-  const [isTourOpen, setIsTourOpen] = useState(false);
+  // const [isTourOpen, setIsTourOpen] = useState(false);
 
-  const disableBody = (target) => disableBodyScroll(target);
-  const enableBody = (target) => enableBodyScroll(target);
+  // const disableBody = (target) => disableBodyScroll(target);
+  // const enableBody = (target) => enableBodyScroll(target);
 
-  const closeTour = () => {
-    cookies.set("appointmentTour", false);
-    setIsTourOpen(false);
-    window.scrollTo(0, 0);
-  };
+  // const closeTour = () => {
+  //   cookies.set("appointmentTour", false);
+  //   setIsTourOpen(false);
+  //   window.scrollTo(0, 0);
+  // };
 
   // const accentColor = "#5cb7b7";
 
-  const tourConfig = [
-    {
-      selector: ".rbc-calendar",
-      content: `This Calendar is used to create appointment slots for patients.`,
-    },
-    {
-      selector: ".rbc-today .rbc-time-slot:nth-child(1)",
-      content: `Click here to create an appointment slot for patient as per your current time.`,
-    },
-    {
-      selector: ".rbc-toolbar",
-      content: `Navigate the Calendar as per your requirement, change the view and check your agenda for the week, month etc.`,
-    },
-    {
-      selector: ".calendar-color",
-      content: `These color combinations used for displaying appointment types on calendar.`,
-    },
-    {
-      selector: ".available",
-      content: `Here, you can see the list of appointment slots which are available for booking.`,
-    },
-    {
-      selector: ".booked",
-      content: () => (
-        <div>
-          <p>
-            Here, you can see the list of appointment slots which are booked as
-            Followup or Consultation.
-          </p>
-          <button className="btn btn-primary" onClick={() => closeTour()}>
-            Got it
-          </button>
-        </div>
-      ),
-    },
-  ];
+  // const tourConfig = [
+  //   {
+  //     selector: ".rbc-calendar",
+  //     content: `This Calendar is used to create appointment slots for patients.`,
+  //   },
+  //   {
+  //     selector: ".rbc-today .rbc-time-slot:nth-child(1)",
+  //     content: `Click here to create an appointment slot for patient as per your current time.`,
+  //   },
+  //   {
+  //     selector: ".rbc-toolbar",
+  //     content: `Navigate the Calendar as per your requirement, change the view and check your agenda for the week, month etc.`,
+  //   },
+  //   {
+  //     selector: ".calendar-color",
+  //     content: `These color combinations used for displaying appointment types on calendar.`,
+  //   },
+  //   {
+  //     selector: ".available",
+  //     content: `Here, you can see the list of appointment slots which are available for booking.`,
+  //   },
+  //   {
+  //     selector: ".booked",
+  //     content: () => (
+  //       <div>
+  //         <p>
+  //           Here, you can see the list of appointment slots which are booked as
+  //           Followup or Consultation.
+  //         </p>
+  //         <button className="btn btn-primary" onClick={() => closeTour()}>
+  //           Got it
+  //         </button>
+  //       </div>
+  //     ),
+  //   },
+  // ];
 
-  if (isTourOpen) {
-    document.body.style.color = "#00000080";
-  } else {
-    document.body.style.color = "unset";
-  }
+  // if (isTourOpen) {
+  //   document.body.style.color = "#00000080";
+  // } else {
+  //   document.body.style.color = "unset";
+  // }
 
   const TouchCellWrapper = ({ children, value, handleSelect }) =>
     React.cloneElement(React.Children.only(children), {
@@ -1074,7 +1074,7 @@ const Myappointment = (props) => {
                 </Row>
                 {/* List of Appointments End */}
                 <br />
-                <Tour
+                {/* <Tour
                   onRequestClose={() => closeTour()}
                   startAt={0}
                   steps={tourConfig}
@@ -1085,7 +1085,7 @@ const Myappointment = (props) => {
                   //accentColor={accentColor}
                   onAfterOpen={disableBody}
                   onBeforeClose={enableBody}
-                />
+                /> */}
 
               </Tab>
               <Tab eventKey="setAvailability" title="Set Recurring Availability">
