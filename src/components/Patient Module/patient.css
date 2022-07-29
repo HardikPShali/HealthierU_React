@@ -3368,7 +3368,7 @@ input.choseSlotInput {
 
 input.choseSlotInput:checked ~ label {
   /* border-color: #4062F6; */
-  background-color: var(--primarysecond);
+  background-color: #f6ceb4;
   color: #fff;
 }
 
@@ -3808,7 +3808,7 @@ button a {
 /* mydoctor calendar */
 
 button.react-calendar__tile--active.react-calendar__tile.react-calendar__month-view__days__day {
-  background: var(--primarysecond) !important;
+  background: #f6ceb4 !important;
   border: 1px solid #fff !important;
 }
 

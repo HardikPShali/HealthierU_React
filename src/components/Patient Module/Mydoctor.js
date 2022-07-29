@@ -52,6 +52,7 @@ import {
   getAvailableSlotsForMyDoctors,
   getUnreadNotificationsCount,
   getSearchDataAndFilter,
+  getAvailableSlotTimings,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -654,7 +655,7 @@ const MyDoctor = (props) => {
   };
 
   // //console.log("Selected Doctor ::::  ", doctor);
-  const onDaySelect = async (slectedDate, doctorId) => {
+  const onDaySelect = async (slectedDate, doctorId, type) => {
     setTransparentLoading(true);
     setSlotError('');
     setCurrentDate(slectedDate);
@@ -664,51 +665,70 @@ const MyDoctor = (props) => {
       status: 'AVAILABLE',
       doctorId: doctorId,
     };
+
+    const apptType = getAppointmentModeForAvailabilitySlotsDisplay(type);
+
     // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
-    const response = await getFilteredAppointmentData(dataForSelectedDay);
-    // //console.log(response.status);
-    if (response.status === 200 || response.status === 201) {
-      console.log(response.data, 'in response');
-      const arraySlot = [];
-      response.data &&
-        response.data.map((value) => {
-          if (
-            new Date(value.startTime) >=
-            new Date(moment(new Date()).subtract(25, 'minutes'))
-          ) {
-            arraySlot.push(value);
-          } else {
-            arraySlot.push(value);
-          }
-        });
-      setAvailability(arraySlot);
-      setDisplayCalendar(true);
-      setDisplaySlot(false);
+    const newRes = await getAvailableSlotTimings(dataForSelectedDay, apptType).catch(err => console.log({ err }))
+    // console.log({ newRes })
+
+    if (newRes.status === 200) {
       setTransparentLoading(false);
-      if (appointment.appointmentMode) {
-        if (appointment.appointmentMode === 'First Consultation') {
-          const consultationSlots = createConsultationSlots(arraySlot);
-          //console.log("consultationSlots :: ", consultationSlots);
-          if (consultationSlots && consultationSlots.length > 0) {
-            setAppointmentSlot(consultationSlots);
-            document.querySelector('#calendar-list').scrollTo(0, 500);
-            setDisplayCalendar(false);
-            setDisplaySlot(true);
-          } else {
-            setAppointmentSlot([]);
-            setDisplayCalendar(false);
-            setDisplaySlot(true);
-          }
-        } else if (appointment.appointmentMode === 'Follow Up') {
-          setAppointmentSlot(arraySlot);
-          document.querySelector('#calendar-list').scrollTo(0, 500);
-          setDisplayCalendar(false);
-          setDisplaySlot(true);
-        }
-      } else {
-        setIsAppointmentTourOpen(true);
-      }
+      const slotsDisplayed = newRes.data.data.map(slot => {
+        return slot;
+      });
+      console.log({ slotsDisplayed })
+      console.log({ apptType })
+      setAppointmentSlot(slotsDisplayed);
+      if (apptType === "FOLLOW_UP") setAppointmentSlot(slotsDisplayed.reverse())
+      setDisplayCalendar(false);
+      setDisplaySlot(true);
     }
+
+    // const response = await getFilteredAppointmentData(dataForSelectedDay);
+    // // //console.log(response.status);
+    // if (response.status === 200 || response.status === 201) {
+    //   console.log(response.data, 'in response');
+    //   const arraySlot = [];
+    //   response.data &&
+    //     response.data.map((value) => {
+    //       if (
+    //         new Date(value.startTime) >=
+    //         new Date(moment(new Date()).subtract(0, 'minutes'))
+    //       ) {
+    //         arraySlot.push(value);
+    //       } else {
+    //         arraySlot.push(value);
+    //       }
+    //     });
+    //   setAvailability(arraySlot);
+    //   setDisplayCalendar(true);
+    //   setDisplaySlot(false);
+    //   setTransparentLoading(false);
+    //   if (appointment.appointmentMode) {
+    //     if (appointment.appointmentMode === 'First Consultation') {
+    //       const consultationSlots = createConsultationSlots(arraySlot);
+    //       //console.log("consultationSlots :: ", consultationSlots);
+    //       if (consultationSlots && consultationSlots.length > 0) {
+    //         setAppointmentSlot(consultationSlots);
+    //         document.querySelector('#calendar-list').scrollTo(0, 500);
+    //         setDisplayCalendar(false);
+    //         setDisplaySlot(true);
+    //       } else {
+    //         setAppointmentSlot([]);
+    //         setDisplayCalendar(false);
+    //         setDisplaySlot(true);
+    //       }
+    //     } else if (appointment.appointmentMode === 'Follow Up') {
+    //       setAppointmentSlot(arraySlot);
+    //       document.querySelector('#calendar-list').scrollTo(0, 500);
+    //       setDisplayCalendar(false);
+    //       setDisplaySlot(true);
+    //     }
+    //   } else {
+    //     setIsAppointmentTourOpen(true);
+    //   }
+    // }
   };
 
   const [disabledDates, setDisabledDates] = useState([]);
@@ -2264,7 +2284,7 @@ const MyDoctor = (props) => {
                           </div>
                           <Calendar
                             onChange={(e) =>
-                              onDaySelect(new Date(e), doctor && doctor.id)
+                              onDaySelect(new Date(e), doctor && doctor.id, appointment.appointmentMode)
                             }
                             value={currentDate}
                             // maxDetail="month"
@@ -2449,7 +2469,7 @@ const MyDoctor = (props) => {
                         </div>
                         <Calendar
                           onChange={(e) =>
-                            onDaySelect(new Date(e), doctor && doctor.id)
+                            onDaySelect(new Date(e), doctor && doctor.id, appointment.appointmentMode)
                           }
                           value={currentDate}
                           // maxDetail="month"

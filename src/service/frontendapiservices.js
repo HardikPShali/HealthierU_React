@@ -1531,3 +1531,18 @@ export const getSearchDataAndFilter = (data, offset, limit, patientId) => { //pa
   };
   return axios(payload);
 };
+
+export const getAvailableSlotTimings = (data, type) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    data: data,
+    url: `/api/v2/appointments/availableslots?type=${type}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
+};
