@@ -171,6 +171,7 @@ const Paypal = (props) => {
             onClick={() => {
               if (window.android) {
                 window.android.onPaymentStatusChange(false);
+                window.android.sendOrderData(false);
               }
               else if (window.webkit) {
                 window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
