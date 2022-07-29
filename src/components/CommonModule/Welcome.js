@@ -246,7 +246,45 @@ const Welcome = ({ currentuserInfo }) => {
     const [lowbpError, setLowbpError] = useState(false)
     const handleInputChange = (e) => {
         e.preventDefault()
-        setstate({ ...state, [e.target.name]: e.target.value });
+        if (e.target.name === 'highbp') {
+            if (e.target.value > 300 || e.target.value == 0) {
+                toast.error("High BP must be between 0 to 300")
+                setstate({ ...state, highbp: '' });
+            }
+            else {
+                setstate({ ...state, [e.target.name]: e.target.value });
+            }
+        }
+        else if (e.target.name === 'lowbp') {
+            if (e.target.value > 200 || e.target.value == 0) {
+                toast.error("Low BP must be between 0 to 200")
+                setstate({ ...state, lowbp: '' });
+            }
+            else {
+                setstate({ ...state, [e.target.name]: e.target.value });
+            }
+        }
+        else if (e.target.name === 'height') {
+            if (e.target.value == 0) {
+                toast.error("Please Enter Valid Height")
+                setstate({ ...state, height: '' });
+            }
+            else {
+                setstate({ ...state, [e.target.name]: e.target.value });
+            }
+        }
+        else if (e.target.name === 'weight') {
+            if (e.target.value == 0) {
+                toast.error("Please Enter Valid Weight")
+                setstate({ ...state, weight: '' });
+            }
+            else {
+                setstate({ ...state, [e.target.name]: e.target.value });
+            }
+        }
+        else {
+            setstate({ ...state, [e.target.name]: e.target.value });
+        }
     };
     const handlePhone = (e) => {
         setstate({ ...state, phone: e });
@@ -420,26 +458,29 @@ const Welcome = ({ currentuserInfo }) => {
             if (languages.length === 0) {
                 setLanguageError(true);
             }
-            if (highbp === 0) {
+            if (highbp == 0) {
                 setHighbpError(true)
             }
             else {
                 setHighbpError(false)
             }
-            if (height === 0) {
+            if (height == 0) {
                 setHeightError(true)
             }
             else {
                 setHeightError(false)
             }
-            if (weight === 0) {
+            if (weight == 0) {
                 setWeightError(true)
             }
             else {
                 setWeightError(false)
             }
-            if (lowbp === 0) {
+            if (lowbp == 0) {
                 setLowbpError(true)
+            }
+            else if (lowbp != 0) {
+                setLowbpError(false)
             }
             else {
                 setTransparentLoading(true);
