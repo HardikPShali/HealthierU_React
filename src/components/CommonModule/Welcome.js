@@ -35,7 +35,6 @@ import {
     updateRoleDoctor,
     getUpdatedUserData,
     getFcmTokenApi,
-    getDoctorDocument
 } from '../../service/frontendapiservices';
 import ImageCropper from './ImageCroper';
 import DoctorDocumentUpload from "./doctordocumentupload";
@@ -240,51 +239,17 @@ const Welcome = ({ currentuserInfo }) => {
         array.splice(index, 1);
         setstate({ ...state, languages: array });
     }
-    const [heightError, setHeightError] = useState(false)
-    const [weightError, setWeightError] = useState(false)
-    const [highbpError, setHighbpError] = useState(false)
-    const [lowbpError, setLowbpError] = useState(false)
+
     const handleInputChange = (e) => {
         e.preventDefault()
-        if (e.target.name === 'highbp') {
-            if (e.target.value > 300 || e.target.value == 0) {
-                toast.error("High BP must be between 0 to 300")
-                setstate({ ...state, highbp: '' });
-            }
-            else {
-                setstate({ ...state, [e.target.name]: e.target.value });
-            }
-        }
-        else if (e.target.name === 'lowbp') {
-            if (e.target.value > 200 || e.target.value == 0) {
-                toast.error("Low BP must be between 0 to 200")
-                setstate({ ...state, lowbp: '' });
-            }
-            else {
-                setstate({ ...state, [e.target.name]: e.target.value });
-            }
-        }
-        else if (e.target.name === 'height') {
-            if (e.target.value == 0) {
-                toast.error("Please Enter Valid Height")
-                setstate({ ...state, height: '' });
-            }
-            else {
-                setstate({ ...state, [e.target.name]: e.target.value });
-            }
-        }
-        else if (e.target.name === 'weight') {
-            if (e.target.value == 0) {
-                toast.error("Please Enter Valid Weight")
-                setstate({ ...state, weight: '' });
-            }
-            else {
-                setstate({ ...state, [e.target.name]: e.target.value });
-            }
-        }
-        else {
-            setstate({ ...state, [e.target.name]: e.target.value });
-        }
+        // if (e.target.name === "experience") {
+        //     if (e.target.value > 50) {
+        //         toast.error("Experience must be between 1 to 50!")
+        //     }
+        // }
+
+        setstate({ ...state, [e.target.name]: e.target.value });
+
     };
     const handlePhone = (e) => {
         setstate({ ...state, phone: e });
@@ -333,29 +298,22 @@ const Welcome = ({ currentuserInfo }) => {
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-            const res = await getDoctorDocument(currentDoctor.id, 0);
-            if (res.status === 200) {
-                if (res.data.documentsDocumentsList.length > 0) {
-                    const currentUserInformation = await getUpdatedUserData();
-                    cookies.set("currentUser", currentUserInformation.data);
-                    cookies.remove("userProfileCompleted");
-                    setCurrentUserDataAfterApproval(currentUserInformation.data);
-                    if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
-                        setTransparentLoading(false);
-                        handleClickOpen();
-                    } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
-                        // triggerFcmTokenHandler();
-                        history.push('/doctor');
-                    }
-                }
-                else {
-                    toast.error("Please Add the Document details!")
+            if (documentInfo && documentUpdateFile) {
+                const currentUserInformation = await getUpdatedUserData();
+                cookies.set("currentUser", currentUserInformation.data);
+                cookies.remove("userProfileCompleted");
+                setCurrentUserDataAfterApproval(currentUserInformation.data);
+                if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
+                    setTransparentLoading(false);
+                    handleClickOpen();
+                } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
+                    // triggerFcmTokenHandler();
+                    history.push('/doctor');
                 }
             }
             else {
                 toast.error("Please Add the Document details!")
             }
-
         }
     }
     const updateCurrentUserData = async () => {
@@ -455,39 +413,12 @@ const Welcome = ({ currentuserInfo }) => {
         var bodyFormData = new FormData();
         var bodyFormDataDoctor = new FormData();
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT")) {
+
             if (languages.length === 0) {
                 setLanguageError(true);
             }
-            if (highbp == 0) {
-                setHighbpError(true)
-            }
-            else {
-                setHighbpError(false)
-            }
-            if (height == 0) {
-                setHeightError(true)
-            }
-            else {
-                setHeightError(false)
-            }
-            if (weight == 0) {
-                setWeightError(true)
-            }
-            else {
-                setWeightError(false)
-            }
-            if (lowbp == 0) {
-                setLowbpError(true)
-            }
-            else if (lowbp != 0) {
-                setLowbpError(false)
-            }
             else {
                 setTransparentLoading(true);
-                setLowbpError(false)
-                setHighbpError(false)
-                setHeightError(false)
-                setWeightError(false)
                 bodyFormData.append('profileData', JSON.stringify(patientPayload));
                 bodyFormData.append('profilePicture', profilePicture);
                 const response = await updateRolePatient(bodyFormData).catch(err => {
@@ -814,7 +745,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <p>Height(CM)<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="height"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={height}
+                                                    value={height === 0 ? '' : height}
                                                     validators={[
                                                         "required",
                                                         "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
@@ -824,15 +755,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     required
                                                     placeholder='Height' />
-                                                {heightError && (
-                                                    <p style={{ color: "red" }}>Height cannot be 0</p>
-                                                )}
                                             </Col>
                                             <Col md={6}>
                                                 <p>Weight(KG)<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="weight"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={weight}
+                                                    value={weight === 0 ? '' : weight}
                                                     validators={[
                                                         "required",
                                                         "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
@@ -842,9 +770,6 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     required
                                                     placeholder='Weight' />
-                                                {weightError && (
-                                                    <p style={{ color: "red" }}>Weight cannot be 0</p>
-                                                )}
                                             </Col>
                                         </Row>
                                         <br />
@@ -853,7 +778,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <p>High BP(mmHg)<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="highbp"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={highbp}
+                                                    value={highbp === 0 ? '' : highbp}
                                                     validators={[
                                                         "required",
                                                         "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
@@ -863,15 +788,12 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     required
                                                     placeholder='High BP' />
-                                                {highbpError && (
-                                                    <p style={{ color: "red" }}>High BP cannot be 0</p>
-                                                )}
                                             </Col>
                                             <Col md={6}>
                                                 <p>Low BP(mmHg)<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="lowbp"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={lowbp}
+                                                    value={lowbp === 0 ? '' : lowbp}
                                                     validators={[
                                                         "required",
                                                         "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
@@ -881,9 +803,6 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     required
                                                     placeholder='Low BP' />
-                                                {lowbpError && (
-                                                    <p style={{ color: "red" }}>Low BP cannot be 0</p>
-                                                )}
                                             </Col>
                                         </Row>
                                         <br />
@@ -1222,7 +1141,7 @@ const Welcome = ({ currentuserInfo }) => {
                     <>
                         {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") &&
                             (<Typography gutterBottom>
-                                You have successfully complete your profile details. Please click OK to proceed.
+                                You have successfully complete your profile details. Please click Ok to proceed.
                             </Typography>
                             )}
                         {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") &&
@@ -1242,7 +1161,7 @@ const Welcome = ({ currentuserInfo }) => {
                             && currentUserDataAfterApproval.authorities.some((user) => user === "ROLE_PATIENT")
                             && currentUserDataAfterApproval.profileCompleted &&
                             (<Link to="/patient/questionnaire/new"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                OK
+                                Ok
                             </button></Link>
                             )}
                         {currentUserDataAfterApproval && Object.keys(currentUserDataAfterApproval).length > 0
@@ -1251,7 +1170,7 @@ const Welcome = ({ currentuserInfo }) => {
                             (
                                 <div onClick={() => logoutLogic()}>
                                     <Link to="/doctor/logout"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                        OK
+                                        Ok
                                     </button></Link>
                                 </div>
 
@@ -1262,7 +1181,7 @@ const Welcome = ({ currentuserInfo }) => {
                             (
                                 <div onClick={() => logoutLogic()}>
                                     <Link to="/doctor"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                        OK
+                                        Ok
                                     </button></Link>
                                 </div>
 
