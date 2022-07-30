@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 //import Footer from "./Footer";
-import { getAppointmentMode } from '../../../util/appointmentModeUtil';
+import { getAppointmentMode, getAppointmentModeToDisplayAsLabel } from '../../../util/appointmentModeUtil';
 import { useLocation, useParams } from 'react-router';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
@@ -430,8 +430,8 @@ const RescheduleAppointment = (props) => {
             const slotsDisplayed = newRes.data.data.map(slot => {
                 return slot;
             });
-            console.log({ slotsDisplayed })
-            console.log({ apptType })
+            // console.log({ slotsDisplayed })
+            // console.log({ apptType })
             setAppointmentSlot(slotsDisplayed);
             if (apptType === "FOLLOW_UP") setAppointmentSlot(slotsDisplayed.reverse())
             setDisplayCalendar(false);
@@ -528,27 +528,37 @@ const RescheduleAppointment = (props) => {
         oldAppID = params.id;
         // setOldAppointmentID(params.id);
         console.log({ oldAppointmentID });
-        let tempSlotConsultationId = '';
+        // let tempSlotConsultationId = '';
         const finalAppointmentDataArray = [];
         if (appointment.appointmentMode === 'First Consultation') {
-            combinedSlots &&
-                combinedSlots.map((slotData) => {
-                    if (combinedSlotId === slotData.slotId) {
-                        tempSlotConsultationId =
-                            slotData.slot1.id + '-' + slotData.slot2.id;
-                        // !orderData.appointmentId &&
-                        //     (orderData.appointmentId = tempSlotConsultationId);
-                        finalAppointmentDataArray.push({
-                            doctorId: appointment.doctorId,
-                            patientId: appointment.patientId,
-                            id: slotData.slot1.id,
-                            unifiedAppointment:
-                                params.unifiedAppt +
-                                '#' +
-                                getAppointmentMode(appointment.appointmentMode),
-                        });
-                    }
-                });
+            // combinedSlots &&
+            //     combinedSlots.map((slotData) => {
+            //         if (combinedSlotId === slotData.slotId) {
+            //             tempSlotConsultationId =
+            //                 slotData.slot1.id + '-' + slotData.slot2.id;
+            //             // !orderData.appointmentId &&
+            //             //     (orderData.appointmentId = tempSlotConsultationId);
+            //             finalAppointmentDataArray.push({
+            //                 doctorId: appointment.doctorId,
+            //                 patientId: appointment.patientId,
+            //                 id: slotData.slot1.id,
+            //                 unifiedAppointment:
+            //                     params.unifiedAppt +
+            //                     '#' +
+            //                     getAppointmentMode(appointment.appointmentMode),
+            //             });
+            //         }
+            //     });
+
+            finalAppointmentDataArray.push({
+                doctorId: appointment.doctorId,
+                patientId: appointment.patientId,
+                id: appointment.id,
+                unifiedAppointment:
+                    params.unifiedAppt +
+                    '#' +
+                    getAppointmentMode(appointment.appointmentMode),
+            });
         } else if (appointment.appointmentMode === 'Follow Up') {
             finalAppointmentDataArray.push({
                 doctorId: appointment.doctorId,
@@ -1552,8 +1562,8 @@ const RescheduleAppointment = (props) => {
                                                 </IconButton>{' '}
                                                 Back to calendar
                                                 <p className="mt-3">
-                                                    Available Slots For{' '}
-                                                    {moment(currentDate).format('DD, MMM YYYY')}
+                                                    Available {getAppointmentModeToDisplayAsLabel(appointment.appointmentMode)} Slots For{' '}
+                                                    {moment(currentDate).format('DD, MMMM YYYY')}
                                                 </p>
                                                 <div className="slot-display">
                                                     {appointmentSlot && appointmentSlot.length > 0 ? (
@@ -1581,8 +1591,8 @@ const RescheduleAppointment = (props) => {
                                                                         {moment(current.startTime).format(
                                                                             'hh:mm A'
                                                                         )}{' '}
-                                                                        -{' '}
-                                                                        {moment(current.endTime).format('hh:mm A')}{' '}
+                                                                        {/* -{' '}
+                                                                        {moment(current.endTime).format('hh:mm A')}{' '} */}
                                                                     </b>
                                                                 </label>
                                                             </div>
@@ -1704,8 +1714,8 @@ const RescheduleAppointment = (props) => {
                                                 </IconButton>{' '}
                                                 Back to calendar
                                                 <p className="mt-3">
-                                                    Available Slots For{' '}
-                                                    {moment(currentDate).format('DD, MMM YYYY')}
+                                                    Available {getAppointmentModeToDisplayAsLabel(appointment.appointmentMode)} Slots For{' '}
+                                                    {moment(currentDate).format('DD, MMMY YYYY')}
                                                 </p>
                                                 {appointmentSlot && appointmentSlot.length > 0 ? (
                                                     appointmentSlot.map((current, i) => (
@@ -1730,7 +1740,7 @@ const RescheduleAppointment = (props) => {
                                                             >
                                                                 <b>
                                                                     {moment(current.startTime).format('hh:mm A')}{' '}
-                                                                    - {moment(current.endTime).format('hh:mm A')}{' '}
+                                                                    {/* - {moment(current.endTime).format('hh:mm A')}{' '} */}
                                                                 </b>
                                                             </label>
                                                         </div>

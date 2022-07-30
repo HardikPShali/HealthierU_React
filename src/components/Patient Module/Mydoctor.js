@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   getAppointmentMode,
   getAppointmentModeForAvailabilitySlotsDisplay,
+  getAppointmentModeToDisplayAsLabel,
 } from './../../util/appointmentModeUtil';
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -2321,8 +2322,8 @@ const MyDoctor = (props) => {
                         </IconButton>{' '}
                         Back to calendar
                         <p className="mt-3">
-                          Available Slots For{' '}
-                          {moment(currentDate).format('DD, MMM YYYY')}
+                          Available {getAppointmentModeToDisplayAsLabel(appointment.appointmentMode)} Slots For{' '}
+                          {moment(currentDate).format('DD, MMMM YYYY')}
                         </p>
                         <div className="slot-display">
                           {appointmentSlot && appointmentSlot.length > 0 ? (
@@ -2500,8 +2501,8 @@ const MyDoctor = (props) => {
                         </IconButton>{' '}
                         Back to calendar
                         <p className="mt-3">
-                          Available Slots For{' '}
-                          {moment(currentDate).format('DD, MMM YYYY')}
+                          Available {getAppointmentModeToDisplayAsLabel(appointment.appointmentMode)} Slots For{' '}
+                          {moment(currentDate).format('DD, MMMM YYYY')}
                         </p>
                         <div className="slot-display">
                           {appointmentSlot && appointmentSlot.length > 0 ? (
