@@ -631,28 +631,34 @@ const MyDoctor = (props) => {
     const combinedArray = [];
     if (slots && slots.length > 0) {
       slots.map((slot, i) => {
-        if (slots[i + 1] && slots[i + 1].startTime === slot.endTime) {
-          updatedArray.push({
-            startTime: slot.startTime,
-            endTime: slots[i + 1].endTime,
-            type: slot.type,
-            status: slot.status,
-            doctorId: slot.doctorId,
-            remarks: slot.remarks,
-            slotId: slot.id + slots[i + 1].id,
-          });
-          combinedArray.push({
-            slot1: slot,
-            slot2: slots[i + 1],
-            slotId: slot.id + slots[i + 1].id,
-          });
-        }
+        // if (slots[i + 1] && slots[i + 1].startTime === slot.endTime) {
+        const endTime = moment(slot.endTime).add('0.5', 'hours').utc().format();
+        // const endTimeInOneHour = endTime.add(30, 'minutes');
+        console.log({ endTime, });
+        updatedArray.push({
+          ...slot,
+          // startTime: slot.startTime,
+          endTime: endTime,
+          // type: slot.type,
+          // status: slot.status,
+          // doctorId: slot.doctorId,
+          // remarks: slot.remarks,
+        });
+        // combinedArray.push({
+        //   slot1: slot,
+        //   slot2: slots[i + 1],
+        //   slotId: slot.id + slots[i + 1].id,
+        // });
+        // }
         return slots;
       });
     }
-    setCombinedSlots(combinedArray);
+    // setCombinedSlots(combinedArray);
+    console.log({ updatedArray })
     return updatedArray;
   };
+
+  const [consultationSlotsDisplay, setConsultationSlotsDisplay] = useState([]);
 
   // //console.log("Selected Doctor ::::  ", doctor);
   const onDaySelect = async (slectedDate, doctorId, type) => {
@@ -677,8 +683,8 @@ const MyDoctor = (props) => {
       const slotsDisplayed = newRes.data.data.map(slot => {
         return slot;
       });
-      console.log({ slotsDisplayed })
-      console.log({ apptType })
+      // console.log({ slotsDisplayed })
+      // console.log({ apptType })
       setAppointmentSlot(slotsDisplayed);
       if (apptType === "FOLLOW_UP") setAppointmentSlot(slotsDisplayed.reverse())
       setDisplayCalendar(false);
@@ -809,24 +815,13 @@ const MyDoctor = (props) => {
 
   const bookappointment = async (orderData) => {
     setLoading(true);
-    let tempSlotConsultationId = '';
     let finalAppointmentDataArray = {};
     if (appointment.appointmentMode === 'First Consultation') {
-      combinedSlots &&
-        combinedSlots.map((slotData) => {
-          // console.log({ slotData });
-          if (combinedSlotId === slotData.slotId) {
-            tempSlotConsultationId =
-              slotData.slot1.id + '-' + slotData.slot2.id;
-            // !orderData.appointmentId &&
-            //   (orderData.appointmentId = tempSlotConsultationId);
-            finalAppointmentDataArray = {
-              id: slotData.slot1.id,
-              type: 'FIRST_CONSULTATION',
-              paymentsAppointmentsDTO: orderData,
-            };
-          }
-        });
+      finalAppointmentDataArray = {
+        id: appointment.id,
+        type: 'FIRST_CONSULTATION',
+        paymentsAppointmentsDTO: orderData,
+      };
     } else if (appointment.appointmentMode === 'Follow Up') {
       finalAppointmentDataArray = {
         id: appointment.id,
@@ -2355,8 +2350,8 @@ const MyDoctor = (props) => {
                                     {moment(current.startTime).format(
                                       'hh:mm A'
                                     )}{' '}
-                                    -{' '}
-                                    {moment(current.endTime).format('hh:mm A')}{' '}
+                                    {/* -{' '}
+                                    {moment(current.endTime).format('hh:mm A')}{' '} */}
                                   </b>
                                 </label>
                               </div>
@@ -2534,8 +2529,8 @@ const MyDoctor = (props) => {
                                     {moment(current.startTime).format(
                                       'hh:mm A'
                                     )}{' '}
-                                    -{' '}
-                                    {moment(current.endTime).format('hh:mm A')}{' '}
+                                    {/* -{' '}
+                                    {moment(current.endTime).format('hh:mm A')}{' '} */}
                                   </b>
                                 </label>
                               </div>
