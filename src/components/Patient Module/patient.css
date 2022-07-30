@@ -3538,8 +3538,10 @@ sup {
   box-shadow: 0px 0px 10px #ddd;
   height: 73%;
   overflow: scroll;
+  overflow-x: hidden;
 }
 .scroller-cardlist,
+.filter-box,
 .MuiDialogContent-dividers,
 .MuiDialogContent-root {
   scrollbar-color: #00d0cc white; /* thumb and track color */
@@ -3548,13 +3550,16 @@ sup {
   border-radius: 2px;
 }
 .scroller-cardlist::-webkit-scrollbar,
+.filter-box::-webkit-scrollbar,
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
   -moz-appearance: none !important;
 }
 
 .scroller-cardlist::-webkit-scrollbar-track,
+.filter-box::-webkit-scrollbar-track,
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
   background: white;
@@ -3562,6 +3567,7 @@ sup {
 }
 
 .scroller-cardlist::-webkit-scrollbar-thumb,
+.filter-box::-webkit-scrollbar-thumb,
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
   background: #00d0cc;
@@ -3623,13 +3629,13 @@ button.reset-btn {
 }
 
 .filter-box .MuiInputBase-formControl {
-  border-radius: 30px;
+  border-radius: 5px;
   text-align: left;
   margin-bottom: 5px;
 }
 
 .filter-box .MuiFilledInput-input {
-  padding: 5px 10px !important;
+  padding: 10px 10px !important;
   font-size: 14px;
 }
 
@@ -3641,7 +3647,7 @@ button.reset-btn {
 .filter-multiselect div {
   border: none;
   background: #e8e8e8;
-  border-radius: 20px !important;
+  border-radius: 5px !important;
   margin-bottom: 5px;
 }
 

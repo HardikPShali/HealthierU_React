@@ -94,6 +94,9 @@ const MyDoctor = (props) => {
   let history = useHistory();
   const ref = useRef();
 
+  const specialityRef = useRef();
+  const languageRef = useRef()
+
   const [users, setUser] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -470,7 +473,7 @@ const MyDoctor = (props) => {
         name.push(specialityName.name);
         return specialityName;
       });
-      setSpeciality({ ...speciality, specialityOptions: res.data.data });
+      setSpeciality({ specialityOptions: res.data.data });
     }
   };
 
@@ -1034,7 +1037,7 @@ const MyDoctor = (props) => {
     setTransparentLoading(true);
     setFilterData(users);
     setFilterValues({
-      ...filterValues,
+      // ...filterValues,
       specialityFilter: [],
       languageFilter: [],
       genderFilter: '',
@@ -1047,13 +1050,14 @@ const MyDoctor = (props) => {
       sortFilter: '',
     });
     setSelectedFilter({
-      ...selectedFilter,
+      // ...selectedFilter,
       selectedSpeciality: [],
       selectedLanguage: [],
     });
     // setdoctor(users[0]);
-    console.log({ filterValues });
-    console.log({ selectedFilter });
+    specialityRef.current.resetSelectedValues();
+    languageRef.current.resetSelectedValues();
+    loadSpeciality();
     setTransparentLoading(false);
   };
 
@@ -1448,6 +1452,7 @@ const MyDoctor = (props) => {
                                     selectedValues={selectedSpeciality}
                                     placeholder="Select Specialities"
                                     displayValue="name"
+                                    ref={specialityRef}
                                   />
                                 </div>
                               </FormControl>
@@ -1460,6 +1465,7 @@ const MyDoctor = (props) => {
                                     selectedValues={selectedLanguage}
                                     placeholder="Select Language"
                                     displayValue="name"
+                                    ref={languageRef}
                                   />
                                 </div>
                               </FormControl>
