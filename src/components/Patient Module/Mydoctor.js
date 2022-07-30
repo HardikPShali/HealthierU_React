@@ -75,6 +75,7 @@ import {
   doctorListLimitNonPaginated,
 } from '../../util/configurations';
 import lodash from 'lodash';
+import { convertCompilerOptionsFromJson } from 'typescript';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
@@ -1051,6 +1052,8 @@ const MyDoctor = (props) => {
       selectedLanguage: [],
     });
     // setdoctor(users[0]);
+    console.log({ filterValues });
+    console.log({ selectedFilter });
     setTransparentLoading(false);
   };
 
@@ -1167,53 +1170,63 @@ const MyDoctor = (props) => {
     const splitStr = availabilityFilter?.split(',');
     const startTime = splitStr[0];
     const endTime = splitStr[1];
+
+    const patientIdForFilter = cookies.get('profileDetails')?.id;
     if (
       genderFilter === '' &&
       feesFilter[0] === 0 &&
       feesFilter[1] === 1000 &&
       countryFilter === '' &&
-      docStartTime === '' &&
+      (docStartTime === '' || null) &&
       specialityFilter.length === 0 &&
       languageFilter.length === 0
     ) {
       loadUsers(currentPatient.id);
     } else {
-      let url = searchFilterForDoctor(
-        genderFilter,
-        feesFilter,
-        countryFilter,
-        docStartTime,
-        specialityFilter,
-        languageFilter,
-        startTime,
-        endTime
-      );
+      let data = {
+        "searchKeyword": "",
+        "specialitiesId": specialityFilter ? specialityFilter : [],
+        "countryIds": countryFilter ? countryFilter : [],
+        "languageName": languageFilter ? languageFilter : [],
+        "gender": genderFilter ? genderFilter : [],
+        "docStartTime": startTime,
+        "docEndTime": endTime,
+        "rateMin": feesFilter[0] ? feesFilter[0] : "",
+        "rateMax": feesFilter[1] ? feesFilter[1] : "",
+      }
 
-      const result = await getFilteredDoctors(url).catch((err) => {
+      if (startTime === 'undefined') {
+        data.docStartTime = null;
+      }
+
+      if (endTime === 'undefined') {
+        data.docEndTime = null;
+      }
+
+      console.log({ startTime, endTime });
+      const result = await getSearchDataAndFilter(
+        data,
+        0,
+        doctorListLimitNonPaginated,
+        patientIdForFilter
+      ).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
         }
       });
+
+      // console.log({ result })
+
       if (result && (result.status === 200 || result.status === 204)) {
         if (
-          result.data &&
-          result.data.doctors &&
-          result.data.doctors.length > 0
+          result.data.data &&
+          result.data.data.doctors &&
+          result.data.data.doctors.length > 0
         ) {
           setOffset(1);
-          // setdoctor(result.data.doctors[0]);
-          //const currentSelectedDate = new Date();
-          //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
           setAvailability([]);
           setAppointmentSlot([]);
-          // const docId = result.data.doctors[0]?.id;
-          // setAppointment({
-          //   ...appointment,
-          //   patientId: currentPatient.id,
-          //   doctorId: docId,
-          // });
-          // getInValidAppointments(docId);
-          setFilterData(result.data.doctors);
+          setFilterData(result.data.data.doctors);
           setTransparentLoading(false);
         } else {
           setdoctor(null);
