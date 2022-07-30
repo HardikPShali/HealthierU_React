@@ -221,20 +221,20 @@ const callRejectToast = (payload) => {
   sound.play();
   const customToast = <CustomCallRejectNotification payload={payload} />;
   setTimeout(() => {
-    const [fullUrl, queryParams] =  window.location.href.split("?")
+    const [fullUrl, queryParams] = window.location.href.split("?")
     let channelName = ""
-    if(queryParams && queryParams !== "") {
+    if (queryParams && queryParams !== "") {
       const queryParamsList = queryParams.split("&");
       channelName = queryParamsList.length ? queryParamsList[0] : "";
       console.log({ channelName })
     }
 
-    if(channelName !== "") {
+    if (channelName !== "") {
       window.location = `${fullUrl}?${channelName}`
     } else {
       window.location = fullUrl
     }
-    
+
   }, 1000);
 
   toast.info(customToast, {
@@ -249,7 +249,7 @@ const customPushNotificationToast = (payload) => {
   const customToast = <CustomPushNotifications payload={payload} />;
   toast.info(customToast, {
     position: 'top-right',
-    autoClose: 5000,
+    autoClose: 3000,
     className: 'caller-toast',
   });
 };
