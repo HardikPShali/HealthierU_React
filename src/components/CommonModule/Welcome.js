@@ -35,7 +35,6 @@ import {
     updateRoleDoctor,
     getUpdatedUserData,
     getFcmTokenApi,
-    getDoctorDocument
 } from '../../service/frontendapiservices';
 import ImageCropper from './ImageCroper';
 import DoctorDocumentUpload from "./doctordocumentupload";
@@ -299,29 +298,22 @@ const Welcome = ({ currentuserInfo }) => {
             }
         }
         if (currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR")) {
-            const res = await getDoctorDocument(currentDoctor.id, 0);
-            if (res.status === 200) {
-                if (res.data.documentsDocumentsList.length > 0) {
-                    const currentUserInformation = await getUpdatedUserData();
-                    cookies.set("currentUser", currentUserInformation.data);
-                    cookies.remove("userProfileCompleted");
-                    setCurrentUserDataAfterApproval(currentUserInformation.data);
-                    if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
-                        setTransparentLoading(false);
-                        handleClickOpen();
-                    } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
-                        // triggerFcmTokenHandler();
-                        history.push('/doctor');
-                    }
-                }
-                else {
-                    toast.error("Please Add the Document details!")
+            if (documentInfo && documentUpdateFile) {
+                const currentUserInformation = await getUpdatedUserData();
+                cookies.set("currentUser", currentUserInformation.data);
+                cookies.remove("userProfileCompleted");
+                setCurrentUserDataAfterApproval(currentUserInformation.data);
+                if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && !currentUserInformation.data.approved) {
+                    setTransparentLoading(false);
+                    handleClickOpen();
+                } else if (currentUserInformation && currentUserInformation.data && currentUserInformation.data.profileCompleted && currentUserInformation.data.approved) {
+                    // triggerFcmTokenHandler();
+                    history.push('/doctor');
                 }
             }
             else {
                 toast.error("Please Add the Document details!")
             }
-
         }
     }
     const updateCurrentUserData = async () => {
@@ -753,7 +745,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <p>Height(CM)<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="height"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={height}
+                                                    value={height === 0 ? '' : height}
                                                     validators={[
                                                         "required",
                                                         "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
@@ -768,7 +760,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <p>Weight(KG)<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="weight"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={weight}
+                                                    value={weight === 0 ? '' : weight}
                                                     validators={[
                                                         "required",
                                                         "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
@@ -786,7 +778,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <p>High BP(mmHg)<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="highbp"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={highbp}
+                                                    value={highbp === 0 ? '' : highbp}
                                                     validators={[
                                                         "required",
                                                         "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
@@ -801,7 +793,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <p>Low BP(mmHg)<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="lowbp"
                                                     onChange={e => handleInputChange(e)}
-                                                    value={lowbp}
+                                                    value={lowbp === 0 ? '' : lowbp}
                                                     validators={[
                                                         "required",
                                                         "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
@@ -1149,7 +1141,7 @@ const Welcome = ({ currentuserInfo }) => {
                     <>
                         {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") &&
                             (<Typography gutterBottom>
-                                You have successfully complete your profile details. Please click OK to proceed.
+                                You have successfully complete your profile details. Please click Ok to proceed.
                             </Typography>
                             )}
                         {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") &&
@@ -1169,7 +1161,7 @@ const Welcome = ({ currentuserInfo }) => {
                             && currentUserDataAfterApproval.authorities.some((user) => user === "ROLE_PATIENT")
                             && currentUserDataAfterApproval.profileCompleted &&
                             (<Link to="/patient/questionnaire/new"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                OK
+                                Ok
                             </button></Link>
                             )}
                         {currentUserDataAfterApproval && Object.keys(currentUserDataAfterApproval).length > 0
@@ -1178,7 +1170,7 @@ const Welcome = ({ currentuserInfo }) => {
                             (
                                 <div onClick={() => logoutLogic()}>
                                     <Link to="/doctor/logout"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                        OK
+                                        Ok
                                     </button></Link>
                                 </div>
 
@@ -1189,7 +1181,7 @@ const Welcome = ({ currentuserInfo }) => {
                             (
                                 <div onClick={() => logoutLogic()}>
                                     <Link to="/doctor"><button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                                        OK
+                                        Ok
                                     </button></Link>
                                 </div>
 

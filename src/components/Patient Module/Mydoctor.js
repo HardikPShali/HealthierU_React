@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   getAppointmentMode,
   getAppointmentModeForAvailabilitySlotsDisplay,
+  getAppointmentModeToDisplayAsLabel,
 } from './../../util/appointmentModeUtil';
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -52,6 +53,7 @@ import {
   getAvailableSlotsForMyDoctors,
   getUnreadNotificationsCount,
   getSearchDataAndFilter,
+  getAvailableSlotTimings,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -73,6 +75,7 @@ import {
   doctorListLimitNonPaginated,
 } from '../../util/configurations';
 import lodash from 'lodash';
+import { convertCompilerOptionsFromJson } from 'typescript';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
@@ -90,6 +93,9 @@ const MyDoctor = (props) => {
 
   let history = useHistory();
   const ref = useRef();
+
+  const specialityRef = useRef();
+  const languageRef = useRef()
 
   const [users, setUser] = useState([]);
   const [open, setOpen] = useState(false);
@@ -467,7 +473,7 @@ const MyDoctor = (props) => {
         name.push(specialityName.name);
         return specialityName;
       });
-      setSpeciality({ ...speciality, specialityOptions: res.data.data });
+      setSpeciality({ specialityOptions: res.data.data });
     }
   };
 
@@ -630,31 +636,37 @@ const MyDoctor = (props) => {
     const combinedArray = [];
     if (slots && slots.length > 0) {
       slots.map((slot, i) => {
-        if (slots[i + 1] && slots[i + 1].startTime === slot.endTime) {
-          updatedArray.push({
-            startTime: slot.startTime,
-            endTime: slots[i + 1].endTime,
-            type: slot.type,
-            status: slot.status,
-            doctorId: slot.doctorId,
-            remarks: slot.remarks,
-            slotId: slot.id + slots[i + 1].id,
-          });
-          combinedArray.push({
-            slot1: slot,
-            slot2: slots[i + 1],
-            slotId: slot.id + slots[i + 1].id,
-          });
-        }
+        // if (slots[i + 1] && slots[i + 1].startTime === slot.endTime) {
+        const endTime = moment(slot.endTime).add('0.5', 'hours').utc().format();
+        // const endTimeInOneHour = endTime.add(30, 'minutes');
+        console.log({ endTime, });
+        updatedArray.push({
+          ...slot,
+          // startTime: slot.startTime,
+          endTime: endTime,
+          // type: slot.type,
+          // status: slot.status,
+          // doctorId: slot.doctorId,
+          // remarks: slot.remarks,
+        });
+        // combinedArray.push({
+        //   slot1: slot,
+        //   slot2: slots[i + 1],
+        //   slotId: slot.id + slots[i + 1].id,
+        // });
+        // }
         return slots;
       });
     }
-    setCombinedSlots(combinedArray);
+    // setCombinedSlots(combinedArray);
+    console.log({ updatedArray })
     return updatedArray;
   };
 
+  const [consultationSlotsDisplay, setConsultationSlotsDisplay] = useState([]);
+
   // //console.log("Selected Doctor ::::  ", doctor);
-  const onDaySelect = async (slectedDate, doctorId) => {
+  const onDaySelect = async (slectedDate, doctorId, type) => {
     setTransparentLoading(true);
     setSlotError('');
     setCurrentDate(slectedDate);
@@ -664,51 +676,70 @@ const MyDoctor = (props) => {
       status: 'AVAILABLE',
       doctorId: doctorId,
     };
+
+    const apptType = getAppointmentModeForAvailabilitySlotsDisplay(type);
+
     // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
-    const response = await getFilteredAppointmentData(dataForSelectedDay);
-    // //console.log(response.status);
-    if (response.status === 200 || response.status === 201) {
-      console.log(response.data, 'in response');
-      const arraySlot = [];
-      response.data &&
-        response.data.map((value) => {
-          if (
-            new Date(value.startTime) >=
-            new Date(moment(new Date()).subtract(25, 'minutes'))
-          ) {
-            arraySlot.push(value);
-          } else {
-            arraySlot.push(value);
-          }
-        });
-      setAvailability(arraySlot);
-      setDisplayCalendar(true);
-      setDisplaySlot(false);
+    const newRes = await getAvailableSlotTimings(dataForSelectedDay, apptType).catch(err => console.log({ err }))
+    // console.log({ newRes })
+
+    if (newRes.status === 200) {
       setTransparentLoading(false);
-      if (appointment.appointmentMode) {
-        if (appointment.appointmentMode === 'First Consultation') {
-          const consultationSlots = createConsultationSlots(arraySlot);
-          //console.log("consultationSlots :: ", consultationSlots);
-          if (consultationSlots && consultationSlots.length > 0) {
-            setAppointmentSlot(consultationSlots);
-            document.querySelector('#calendar-list').scrollTo(0, 500);
-            setDisplayCalendar(false);
-            setDisplaySlot(true);
-          } else {
-            setAppointmentSlot([]);
-            setDisplayCalendar(false);
-            setDisplaySlot(true);
-          }
-        } else if (appointment.appointmentMode === 'Follow Up') {
-          setAppointmentSlot(arraySlot);
-          document.querySelector('#calendar-list').scrollTo(0, 500);
-          setDisplayCalendar(false);
-          setDisplaySlot(true);
-        }
-      } else {
-        setIsAppointmentTourOpen(true);
-      }
+      const slotsDisplayed = newRes.data.data.map(slot => {
+        return slot;
+      });
+      // console.log({ slotsDisplayed })
+      // console.log({ apptType })
+      setAppointmentSlot(slotsDisplayed);
+      if (apptType === "FOLLOW_UP") setAppointmentSlot(slotsDisplayed.reverse())
+      setDisplayCalendar(false);
+      setDisplaySlot(true);
     }
+
+    // const response = await getFilteredAppointmentData(dataForSelectedDay);
+    // // //console.log(response.status);
+    // if (response.status === 200 || response.status === 201) {
+    //   console.log(response.data, 'in response');
+    //   const arraySlot = [];
+    //   response.data &&
+    //     response.data.map((value) => {
+    //       if (
+    //         new Date(value.startTime) >=
+    //         new Date(moment(new Date()).subtract(0, 'minutes'))
+    //       ) {
+    //         arraySlot.push(value);
+    //       } else {
+    //         arraySlot.push(value);
+    //       }
+    //     });
+    //   setAvailability(arraySlot);
+    //   setDisplayCalendar(true);
+    //   setDisplaySlot(false);
+    //   setTransparentLoading(false);
+    //   if (appointment.appointmentMode) {
+    //     if (appointment.appointmentMode === 'First Consultation') {
+    //       const consultationSlots = createConsultationSlots(arraySlot);
+    //       //console.log("consultationSlots :: ", consultationSlots);
+    //       if (consultationSlots && consultationSlots.length > 0) {
+    //         setAppointmentSlot(consultationSlots);
+    //         document.querySelector('#calendar-list').scrollTo(0, 500);
+    //         setDisplayCalendar(false);
+    //         setDisplaySlot(true);
+    //       } else {
+    //         setAppointmentSlot([]);
+    //         setDisplayCalendar(false);
+    //         setDisplaySlot(true);
+    //       }
+    //     } else if (appointment.appointmentMode === 'Follow Up') {
+    //       setAppointmentSlot(arraySlot);
+    //       document.querySelector('#calendar-list').scrollTo(0, 500);
+    //       setDisplayCalendar(false);
+    //       setDisplaySlot(true);
+    //     }
+    //   } else {
+    //     setIsAppointmentTourOpen(true);
+    //   }
+    // }
   };
 
   const [disabledDates, setDisabledDates] = useState([]);
@@ -789,24 +820,13 @@ const MyDoctor = (props) => {
 
   const bookappointment = async (orderData) => {
     setLoading(true);
-    let tempSlotConsultationId = '';
     let finalAppointmentDataArray = {};
     if (appointment.appointmentMode === 'First Consultation') {
-      combinedSlots &&
-        combinedSlots.map((slotData) => {
-          // console.log({ slotData });
-          if (combinedSlotId === slotData.slotId) {
-            tempSlotConsultationId =
-              slotData.slot1.id + '-' + slotData.slot2.id;
-            // !orderData.appointmentId &&
-            //   (orderData.appointmentId = tempSlotConsultationId);
-            finalAppointmentDataArray = {
-              id: slotData.slot1.id,
-              type: 'FIRST_CONSULTATION',
-              paymentsAppointmentsDTO: orderData,
-            };
-          }
-        });
+      finalAppointmentDataArray = {
+        id: appointment.id,
+        type: 'FIRST_CONSULTATION',
+        paymentsAppointmentsDTO: orderData,
+      };
     } else if (appointment.appointmentMode === 'Follow Up') {
       finalAppointmentDataArray = {
         id: appointment.id,
@@ -1017,7 +1037,7 @@ const MyDoctor = (props) => {
     setTransparentLoading(true);
     setFilterData(users);
     setFilterValues({
-      ...filterValues,
+      // ...filterValues,
       specialityFilter: [],
       languageFilter: [],
       genderFilter: '',
@@ -1030,11 +1050,14 @@ const MyDoctor = (props) => {
       sortFilter: '',
     });
     setSelectedFilter({
-      ...selectedFilter,
+      // ...selectedFilter,
       selectedSpeciality: [],
       selectedLanguage: [],
     });
     // setdoctor(users[0]);
+    specialityRef.current.resetSelectedValues();
+    languageRef.current.resetSelectedValues();
+    loadSpeciality();
     setTransparentLoading(false);
   };
 
@@ -1151,53 +1174,63 @@ const MyDoctor = (props) => {
     const splitStr = availabilityFilter?.split(',');
     const startTime = splitStr[0];
     const endTime = splitStr[1];
+
+    const patientIdForFilter = cookies.get('profileDetails')?.id;
     if (
       genderFilter === '' &&
       feesFilter[0] === 0 &&
       feesFilter[1] === 1000 &&
       countryFilter === '' &&
-      docStartTime === '' &&
+      (docStartTime === '' || null) &&
       specialityFilter.length === 0 &&
       languageFilter.length === 0
     ) {
       loadUsers(currentPatient.id);
     } else {
-      let url = searchFilterForDoctor(
-        genderFilter,
-        feesFilter,
-        countryFilter,
-        docStartTime,
-        specialityFilter,
-        languageFilter,
-        startTime,
-        endTime
-      );
+      let data = {
+        "searchKeyword": "",
+        "specialitiesId": specialityFilter ? specialityFilter : [],
+        "countryIds": countryFilter ? countryFilter : [],
+        "languageName": languageFilter ? languageFilter : [],
+        "gender": genderFilter ? genderFilter : [],
+        "docStartTime": startTime,
+        "docEndTime": endTime,
+        "rateMin": feesFilter[0] ? feesFilter[0] : "",
+        "rateMax": feesFilter[1] ? feesFilter[1] : "",
+      }
 
-      const result = await getFilteredDoctors(url).catch((err) => {
+      if (startTime === 'undefined') {
+        data.docStartTime = null;
+      }
+
+      if (endTime === 'undefined') {
+        data.docEndTime = null;
+      }
+
+      console.log({ startTime, endTime });
+      const result = await getSearchDataAndFilter(
+        data,
+        0,
+        doctorListLimitNonPaginated,
+        patientIdForFilter
+      ).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
         }
       });
+
+      // console.log({ result })
+
       if (result && (result.status === 200 || result.status === 204)) {
         if (
-          result.data &&
-          result.data.doctors &&
-          result.data.doctors.length > 0
+          result.data.data &&
+          result.data.data.doctors &&
+          result.data.data.doctors.length > 0
         ) {
           setOffset(1);
-          // setdoctor(result.data.doctors[0]);
-          //const currentSelectedDate = new Date();
-          //onDaySelect(currentSelectedDate, result.data.doctors[0] && result.data.doctors[0].id);
           setAvailability([]);
           setAppointmentSlot([]);
-          // const docId = result.data.doctors[0]?.id;
-          // setAppointment({
-          //   ...appointment,
-          //   patientId: currentPatient.id,
-          //   doctorId: docId,
-          // });
-          // getInValidAppointments(docId);
-          setFilterData(result.data.doctors);
+          setFilterData(result.data.data.doctors);
           setTransparentLoading(false);
         } else {
           setdoctor(null);
@@ -1419,6 +1452,7 @@ const MyDoctor = (props) => {
                                     selectedValues={selectedSpeciality}
                                     placeholder="Select Specialities"
                                     displayValue="name"
+                                    ref={specialityRef}
                                   />
                                 </div>
                               </FormControl>
@@ -1431,6 +1465,7 @@ const MyDoctor = (props) => {
                                     selectedValues={selectedLanguage}
                                     placeholder="Select Language"
                                     displayValue="name"
+                                    ref={languageRef}
                                   />
                                 </div>
                               </FormControl>
@@ -2264,7 +2299,7 @@ const MyDoctor = (props) => {
                           </div>
                           <Calendar
                             onChange={(e) =>
-                              onDaySelect(new Date(e), doctor && doctor.id)
+                              onDaySelect(new Date(e), doctor && doctor.id, appointment.appointmentMode)
                             }
                             value={currentDate}
                             // maxDetail="month"
@@ -2306,8 +2341,8 @@ const MyDoctor = (props) => {
                         </IconButton>{' '}
                         Back to calendar
                         <p className="mt-3">
-                          Available Slots For{' '}
-                          {moment(currentDate).format('DD, MMM YYYY')}
+                          Available {getAppointmentModeToDisplayAsLabel(appointment.appointmentMode)} Slots For{' '}
+                          {moment(currentDate).format('DD, MMMM YYYY')}
                         </p>
                         <div className="slot-display">
                           {appointmentSlot && appointmentSlot.length > 0 ? (
@@ -2335,8 +2370,8 @@ const MyDoctor = (props) => {
                                     {moment(current.startTime).format(
                                       'hh:mm A'
                                     )}{' '}
-                                    -{' '}
-                                    {moment(current.endTime).format('hh:mm A')}{' '}
+                                    {/* -{' '}
+                                    {moment(current.endTime).format('hh:mm A')}{' '} */}
                                   </b>
                                 </label>
                               </div>
@@ -2449,7 +2484,7 @@ const MyDoctor = (props) => {
                         </div>
                         <Calendar
                           onChange={(e) =>
-                            onDaySelect(new Date(e), doctor && doctor.id)
+                            onDaySelect(new Date(e), doctor && doctor.id, appointment.appointmentMode)
                           }
                           value={currentDate}
                           // maxDetail="month"
@@ -2485,8 +2520,8 @@ const MyDoctor = (props) => {
                         </IconButton>{' '}
                         Back to calendar
                         <p className="mt-3">
-                          Available Slots For{' '}
-                          {moment(currentDate).format('DD, MMM YYYY')}
+                          Available {getAppointmentModeToDisplayAsLabel(appointment.appointmentMode)} Slots For{' '}
+                          {moment(currentDate).format('DD, MMMM YYYY')}
                         </p>
                         <div className="slot-display">
                           {appointmentSlot && appointmentSlot.length > 0 ? (
@@ -2514,8 +2549,8 @@ const MyDoctor = (props) => {
                                     {moment(current.startTime).format(
                                       'hh:mm A'
                                     )}{' '}
-                                    -{' '}
-                                    {moment(current.endTime).format('hh:mm A')}{' '}
+                                    {/* -{' '}
+                                    {moment(current.endTime).format('hh:mm A')}{' '} */}
                                   </b>
                                 </label>
                               </div>

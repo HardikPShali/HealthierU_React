@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 //import Footer from "./Footer";
-import { getAppointmentMode } from './../../util/appointmentModeUtil';
+import { getAppointmentMode, getAppointmentModeToDisplayAsLabel } from './../../util/appointmentModeUtil';
 import { useLocation, useParams } from 'react-router';
 import { Container, Row, Col } from 'react-bootstrap';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -53,6 +53,7 @@ import {
   rescheduleAppointmentPatient,
   getAvailableSlots,
   getNonPaginatedDoctorListByPatientId,
+  getAvailableSlotTimings,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -591,7 +592,7 @@ const RescheduleAppointment = (props) => {
   };
 
   // //console.log("Selected Doctor ::::  ", doctor);
-  const onDaySelect = async (slectedDate, doctorId) => {
+  const onDaySelect = async (slectedDate, doctorId, type) => {
     setTransparentLoading(true);
     setSlotError('');
     setCurrentDate(slectedDate);
@@ -602,50 +603,71 @@ const RescheduleAppointment = (props) => {
       doctorId: doctorId,
     };
     // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
-    const response = await getFilteredAppointmentData(dataForSelectedDay);
-    // //console.log(response.status);
-    if (response.status === 200 || response.status === 201) {
-      console.log(response.data, 'in response');
-      const arraySlot = [];
-      response.data &&
-        response.data.map((value) => {
-          if (
-            new Date(value.startTime) >=
-            new Date(moment(new Date()).subtract(25, 'minutes'))
-          ) {
-            arraySlot.push(value);
-          } else {
-            arraySlot.push(value);
-          }
-        });
-      setAvailability(arraySlot);
-      setDisplayCalendar(true);
-      setDisplaySlot(false);
+
+    const apptType = getAppointmentModeForAvailabilitySlotsDisplay(type);
+
+    // //console.log("dataForSelectedDay :::  ", dataForSelectedDay);
+    const newRes = await getAvailableSlotTimings(dataForSelectedDay, apptType).catch(err => console.log({ err }))
+    // console.log({ newRes })
+
+    if (newRes.status === 200) {
       setTransparentLoading(false);
-      if (appointment.appointmentMode) {
-        if (appointment.appointmentMode === 'First Consultation') {
-          const consultationSlots = createConsultationSlots(arraySlot);
-          //console.log("consultationSlots :: ", consultationSlots);
-          if (consultationSlots && consultationSlots.length > 0) {
-            setAppointmentSlot(consultationSlots);
-            document.querySelector('#calendar-list').scrollTo(0, 500);
-            setDisplayCalendar(false);
-            setDisplaySlot(true);
-          } else {
-            setAppointmentSlot([]);
-            setDisplayCalendar(false);
-            setDisplaySlot(true);
-          }
-        } else if (appointment.appointmentMode === 'Follow Up') {
-          setAppointmentSlot(arraySlot);
-          document.querySelector('#calendar-list').scrollTo(0, 500);
-          setDisplayCalendar(false);
-          setDisplaySlot(true);
-        }
-      } else {
-        setIsAppointmentTourOpen(true);
-      }
+      const slotsDisplayed = newRes.data.data.map(slot => {
+        return slot;
+      });
+      // console.log({ slotsDisplayed })
+      // console.log({ apptType })
+      setAppointmentSlot(slotsDisplayed);
+      if (apptType === "FOLLOW_UP") setAppointmentSlot(slotsDisplayed.reverse())
+      setDisplayCalendar(false);
+      setDisplaySlot(true);
     }
+
+
+    // const response = await getFilteredAppointmentData(dataForSelectedDay);
+    // // //console.log(response.status);
+    // if (response.status === 200 || response.status === 201) {
+    //   console.log(response.data, 'in response');
+    //   const arraySlot = [];
+    //   response.data &&
+    //     response.data.map((value) => {
+    //       if (
+    //         new Date(value.startTime) >=
+    //         new Date(moment(new Date()).subtract(25, 'minutes'))
+    //       ) {
+    //         arraySlot.push(value);
+    //       } else {
+    //         arraySlot.push(value);
+    //       }
+    //     });
+    //   setAvailability(arraySlot);
+    //   setDisplayCalendar(true);
+    //   setDisplaySlot(false);
+    //   setTransparentLoading(false);
+    //   if (appointment.appointmentMode) {
+    //     if (appointment.appointmentMode === 'First Consultation') {
+    //       const consultationSlots = createConsultationSlots(arraySlot);
+    //       //console.log("consultationSlots :: ", consultationSlots);
+    //       if (consultationSlots && consultationSlots.length > 0) {
+    //         setAppointmentSlot(consultationSlots);
+    //         document.querySelector('#calendar-list').scrollTo(0, 500);
+    //         setDisplayCalendar(false);
+    //         setDisplaySlot(true);
+    //       } else {
+    //         setAppointmentSlot([]);
+    //         setDisplayCalendar(false);
+    //         setDisplaySlot(true);
+    //       }
+    //     } else if (appointment.appointmentMode === 'Follow Up') {
+    //       setAppointmentSlot(arraySlot);
+    //       document.querySelector('#calendar-list').scrollTo(0, 500);
+    //       setDisplayCalendar(false);
+    //       setDisplaySlot(true);
+    //     }
+    //   } else {
+    //     setIsAppointmentTourOpen(true);
+    //   }
+    // }
   };
   const [disabledDates, setDisabledDates] = useState([]);
 
@@ -699,30 +721,40 @@ const RescheduleAppointment = (props) => {
   }, [oldAppointmentID]);
   const bookappointment = async (orderData) => {
     setLoading(true);
-    let oldAppID = 0;
-    oldAppID = params.id;
+    // let oldAppID = 0;
+    // oldAppID = params.id;
     setOldAppointmentID(params.id);
-    let tempSlotConsultationId = '';
+    // let tempSlotConsultationId = '';
     const finalAppointmentDataArray = [];
     if (appointment.appointmentMode === 'First Consultation') {
-      combinedSlots &&
-        combinedSlots.map((slotData) => {
-          if (combinedSlotId === slotData.slotId) {
-            tempSlotConsultationId =
-              slotData.slot1.id + '-' + slotData.slot2.id;
-            // !orderData.appointmentId &&
-            //     (orderData.appointmentId = tempSlotConsultationId);
-            finalAppointmentDataArray.push({
-              doctorId: appointment.doctorId,
-              patientId: appointment.patientId,
-              id: slotData.slot1.id,
-              unifiedAppointment:
-                params.unifiedAppt +
-                '#' +
-                getAppointmentMode(appointment.appointmentMode),
-            });
-          }
-        });
+      // combinedSlots &&
+      //   combinedSlots.map((slotData) => {
+      //     if (combinedSlotId === slotData.slotId) {
+      //       tempSlotConsultationId =
+      //         slotData.slot1.id + '-' + slotData.slot2.id;
+      //       // !orderData.appointmentId &&
+      //       //     (orderData.appointmentId = tempSlotConsultationId);
+      //       finalAppointmentDataArray.push({
+      //         doctorId: appointment.doctorId,
+      //         patientId: appointment.patientId,
+      //         id: slotData.slot1.id,
+      //         unifiedAppointment:
+      //           params.unifiedAppt +
+      //           '#' +
+      //           getAppointmentMode(appointment.appointmentMode),
+      //       });
+      //     }
+      // });
+
+      finalAppointmentDataArray.push({
+        doctorId: appointment.doctorId,
+        patientId: appointment.patientId,
+        id: appointment.id,
+        unifiedAppointment:
+          params.unifiedAppt +
+          '#' +
+          getAppointmentMode(appointment.appointmentMode),
+      });
     } else if (appointment.appointmentMode === 'Follow Up') {
       finalAppointmentDataArray.push({
         doctorId: appointment.doctorId,
@@ -2123,7 +2155,7 @@ const RescheduleAppointment = (props) => {
                         </div>
                         <Calendar
                           onChange={(e) =>
-                            onDaySelect(new Date(e), doctor && doctor.id)
+                            onDaySelect(new Date(e), doctor && doctor.id, appointment.appointmentMode)
                           }
                           value={currentDate}
                           minDate={new Date()} //to disable past days
@@ -2157,7 +2189,7 @@ const RescheduleAppointment = (props) => {
                         </IconButton>{' '}
                         Back to calendar
                         <p className="mt-3">
-                          Available Slots For{' '}
+                          Available {getAppointmentModeToDisplayAsLabel(appointment.appointmentMode)} Slots For{' '}
                           {moment(currentDate).format('DD, MMM YYYY')}
                         </p>
                         <div className="slot-display">
@@ -2186,8 +2218,8 @@ const RescheduleAppointment = (props) => {
                                     {moment(current.startTime).format(
                                       'hh:mm A'
                                     )}{' '}
-                                    -{' '}
-                                    {moment(current.endTime).format('hh:mm A')}{' '}
+                                    {/* -{' '}
+                                    {moment(current.endTime).format('hh:mm A')}{' '} */}
                                   </b>
                                 </label>
                               </div>
@@ -2299,7 +2331,7 @@ const RescheduleAppointment = (props) => {
                         </div>
                         <Calendar
                           onChange={(e) =>
-                            onDaySelect(new Date(e), doctor && doctor.id)
+                            onDaySelect(new Date(e), doctor && doctor.id, appointment.appointmentMode)
                           }
                           value={currentDate}
                           minDate={new Date()} //to disable past days
@@ -2334,7 +2366,7 @@ const RescheduleAppointment = (props) => {
                         </IconButton>{' '}
                         Back to calendar
                         <p className="mt-3">
-                          Available Slots For{' '}
+                          Available {getAppointmentModeToDisplayAsLabel(appointment.appointmentMode)}Slots For{' '}
                           {moment(currentDate).format('DD, MMM YYYY')}
                         </p>
                         {appointmentSlot && appointmentSlot.length > 0 ? (
@@ -2360,7 +2392,7 @@ const RescheduleAppointment = (props) => {
                               >
                                 <b>
                                   {moment(current.startTime).format('hh:mm A')}{' '}
-                                  - {moment(current.endTime).format('hh:mm A')}{' '}
+                                  {/* - {moment(current.endTime).format('hh:mm A')}{' '} */}
                                 </b>
                               </label>
                             </div>

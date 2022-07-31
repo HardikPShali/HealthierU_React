@@ -33,6 +33,7 @@ import timeSmall from "../../images/svg/time-white.svg";
 import { useHistory } from "react-router";
 import HealthAssestmentReport from "./HealthAssestmentReport/HealthAssestmentReport";
 import { getInbox } from "../../service/chatService";
+import { videoEnableCheck } from "../../util/chatAndCallValidations";
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
 // import timeSmall from "../../../images/svg/time-small.svg";
 const MyAppointments = (props) => {
@@ -85,17 +86,19 @@ const MyAppointments = (props) => {
     setAlertVideo(false);
   };
 
-  const handleVideoCall = (startTime) => {
-    const appointmentStartTime = new Date(startTime);
-    const AppointmnetBeforeTenMinutes = new Date(
-      appointmentStartTime.getTime() - 5 * 60000
-    );
-    const AppointmnetAfter70Minutes = new Date(
-      appointmentStartTime.getTime() + 70 * 60000
-    );
+  const handleVideoCall = (selectedPatient) => {
+    // const appointmentStartTime = new Date(startTime);
+    // const AppointmnetBeforeTenMinutes = new Date(
+    //   appointmentStartTime.getTime() - 5 * 60000
+    // );
+    // const AppointmnetAfter70Minutes = new Date(
+    //   appointmentStartTime.getTime() + 70 * 60000
+    // );
+
+    const isVideoEnabled = videoEnableCheck(selectedPatient);
+
     if (
-      new Date().toISOString() >= AppointmnetBeforeTenMinutes.toISOString() &&
-      new Date().toISOString() <= AppointmnetAfter70Minutes.toISOString()
+      isVideoEnabled
     ) {
       handleConfirmVideo();
     } else {
@@ -849,7 +852,7 @@ const MyAppointments = (props) => {
 
                             <IconButton
                               onClick={() =>
-                                handleVideoCall(SelectedPatient.startTime)
+                                handleVideoCall(SelectedPatient)
                               }
                             >
                               <VideocamIcon id="active-video-icon" />
