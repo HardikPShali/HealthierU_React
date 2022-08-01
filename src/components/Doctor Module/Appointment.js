@@ -948,6 +948,32 @@ const Myappointment = (props) => {
   const closeMorePatientInfo = () => {
     setMorePatientInfo(false);
   };
+  const showBloodGroup = (bg) => {
+    if (bg === "APOS") {
+      return "A +ve";
+    }
+    if (bg === "ANEG") {
+      return "A -ve";
+    }
+    if (bg === "BPOS") {
+      return "B +ve";
+    }
+    if (bg === "BNEG") {
+      return "B -ve";
+    }
+    if (bg === "OPOS") {
+      return "O +ve";
+    }
+    if (bg === "ONEG") {
+      return "O -ve";
+    }
+    if (bg === "ABPOS") {
+      return "AB +ve";
+    }
+    if (bg === "ABNEG") {
+      return "AB -ve";
+    }
+  };
   return (
     <div>
       {loading && <Loader />}
@@ -1762,6 +1788,7 @@ const Myappointment = (props) => {
               Patient Info
             </DialogTitle>
             <DialogContent dividers>
+              {console.log("selectedAppointment", selectedAppointment)}
               {selectedAppointment && selectedAppointment.patient && (
                 <div className="details-container">
                   <div className="details-wrapper">
@@ -1782,9 +1809,6 @@ const Myappointment = (props) => {
                         {selectedAppointment.patient.firstName}{" "}
                         {selectedAppointment.patient.lastName || ""}
                       </h2>
-                      {/* <span className="details-content__app-type">
-                        {selectedAppointment.appointmentMode}
-                      </span> */}
                     </div>
                     <div className="details-body">
                       <span>Medical</span>
@@ -1796,7 +1820,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="details-body__common-span">
-                            <b> Blood Group : </b> {selectedAppointment.bloodGroup ? selectedAppointment.bloodGroup : "No data found"}
+                            <b> Blood Group : </b> {showBloodGroup(selectedAppointment.patient.bloodGroup) || "No data found"}
                           </span>
                         </div>
                       </div>
@@ -1808,7 +1832,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="details-body__common-span">
-                            <b> Height : </b>{selectedAppointment.patient.height}
+                            <b> Height (CM) : </b>{selectedAppointment.patient.height}
                           </span>
                         </div>
                         <div className="details-body__appointment-time-row">
@@ -1817,7 +1841,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="details-body__common-span">
-                            <b> Weight : </b>{selectedAppointment.patient.weight}
+                            <b> Weight (KG) : </b>{selectedAppointment.patient.weight}
                           </span>
                         </div>
                       </div>
@@ -1829,7 +1853,7 @@ const Myappointment = (props) => {
                             src={bloodPressureIcon}
                             className="details-body__appointment-time-row-image"
                           />
-                          <span className="details-body__common-span"><b> High BP : </b>{selectedAppointment.patient.highBp}</span>
+                          <span className="details-body__common-span"><b> High (mmHg) : </b>{selectedAppointment.patient.highBp}</span>
                         </div>
                         <div className="details-body__appointment-time-row">
                           <img
@@ -1837,7 +1861,7 @@ const Myappointment = (props) => {
                             className="details-body__appointment-time-row-image"
                           />
                           <span className="details-body__common-span">
-                            <b> Low BP : </b> {selectedAppointment.patient.lowBp}
+                            <b> Low (mmHg) : </b> {selectedAppointment.patient.lowBp}
                           </span>
                         </div>
                       </div>
