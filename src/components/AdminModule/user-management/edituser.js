@@ -366,7 +366,7 @@ const EditUser = (props) => {
         // setTimeout(() => {
         setTransparentLoading(false);
         handleClose()
-        toast.error("Please upload file to update document details")
+        toast.error("Please add document details")
         // }, 5000)
       }
     }

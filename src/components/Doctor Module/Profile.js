@@ -316,7 +316,7 @@ const Profile = ({ currentDoctor }) => {
             }
         }
         else {
-            toast.error("Please upload file to update document details")
+            toast.error("Please add document details")
             setLoading(false);
         }
     }
