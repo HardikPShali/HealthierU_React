@@ -329,7 +329,7 @@ const Profile = ({ currentDoctor }) => {
             }
         }
         else {
-            toast.error("Please upload file to update document details")
+            toast.error("Please add license/registration number and subsequent documents")
             setLoading(false);
         }
     }
