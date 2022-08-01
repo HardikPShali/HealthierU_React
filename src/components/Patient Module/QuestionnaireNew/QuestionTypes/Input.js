@@ -6,14 +6,14 @@ export const Input = ({ question, followQuestion, isError }) => {
     const handleChange = (e) => {
         setAnswer(e.target.value);
         question.answers = e.target.value;
-        if(e.target.value) {
+        if (e.target.value) {
             question.isError = false;
         }
         followQuestion();
     }
 
     return (
-        <div className={`form-group row mb-1 pb-2 input-div ${isError ? 'error-field' : ''}` }>
+        <div className={`form-group row mb-1 pb-2 input-div ${isError ? 'error-field' : ''}`}>
             <label
                 htmlFor="description"
                 className="col-sm-8 col-form-label"
@@ -22,7 +22,7 @@ export const Input = ({ question, followQuestion, isError }) => {
             </label>
             <div className="col-sm-8 input-place">
                 <input
-                    type="text"
+                    type="number"
                     className="form-control"
                     value={answers}
                     onChange={handleChange}
