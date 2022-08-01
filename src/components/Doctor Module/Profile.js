@@ -243,7 +243,6 @@ const Profile = ({ currentDoctor }) => {
             .format('YYYY-MM-DD'),
     };
 
-    const [dateCheck, setDateCheck] = useState(false)
 
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
@@ -252,13 +251,11 @@ const Profile = ({ currentDoctor }) => {
             moment().subtract(18, 'years')
         )
         if (dateBefore18Years === false) {
-            setDateCheck(true)
-            toast.error("You age must be 18 years or above.", {
+            toast.error("Your age entered must be 18 years and above.", {
                 toastId: "ageError",
             });
         }
         else {
-            setDateCheck(false)
             setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
         }
         // setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
@@ -873,7 +870,6 @@ const Profile = ({ currentDoctor }) => {
                                         <button
                                             className="btn btn-primary continue-btn"
                                             type="submit"
-                                            disabled={dateCheck}
                                         >
                                             Update Profile
                                         </button>

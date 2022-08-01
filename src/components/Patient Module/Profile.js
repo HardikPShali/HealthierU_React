@@ -186,7 +186,19 @@ const Profile = () => {
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
+
+        const dateBefore18Years = moment(isoDate).isBefore(
+            moment().subtract(18, "years")
+        );
+
+        if (dateBefore18Years === false) {
+            toast.error("Your age entered must be 18 years and above.", {
+                toastId: "ageError",
+            });
+        }
+        else {
+            setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
+        }
     };
 
     const handleDetails = async (e) => {
