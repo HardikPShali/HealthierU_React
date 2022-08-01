@@ -624,7 +624,6 @@ const Welcome = ({ currentuserInfo }) => {
                                             </FormControl>
                                         </Col>
                                         <Col md={6}>
-                                            {console.log("dob", dateOfBirth)}
                                             <p>Date of Birth<sup>*</sup></p>
 
                                             <DatePicker
@@ -743,7 +742,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         <Row>
                                             <Col md={6}>
                                                 <p>Height(CM)<sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="text" name="height"
+                                                <TextValidator id="standard-basic" type="number" name="height"
                                                     onChange={e => handleInputChange(e)}
                                                     value={height === 0 ? '' : height}
                                                     validators={[
@@ -753,12 +752,17 @@ const Welcome = ({ currentuserInfo }) => {
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid Height"]}
                                                     variant="filled"
+                                                    inputProps={{
+                                                        min: 30,
+                                                        max: 250,
+                                                        step: 0.1,
+                                                    }}
                                                     required
                                                     placeholder='Height' />
                                             </Col>
                                             <Col md={6}>
                                                 <p>Weight(KG)<sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="text" name="weight"
+                                                <TextValidator id="standard-basic" type="number" name="weight"
                                                     onChange={e => handleInputChange(e)}
                                                     value={weight === 0 ? '' : weight}
                                                     validators={[
@@ -768,6 +772,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid Weight"]}
                                                     variant="filled"
+                                                    inputProps={{
+                                                        min: 5.0,
+                                                        max: 999.0,
+                                                        step: 0.1,
+                                                    }}
                                                     required
                                                     placeholder='Weight' />
                                             </Col>
@@ -776,7 +785,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         <Row>
                                             <Col md={6}>
                                                 <p>High BP(mmHg)<sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="text" name="highbp"
+                                                <TextValidator id="standard-basic" type="number" name="highbp"
                                                     onChange={e => handleInputChange(e)}
                                                     value={highbp === 0 ? '' : highbp}
                                                     validators={[
@@ -786,12 +795,17 @@ const Welcome = ({ currentuserInfo }) => {
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid High BP Rate"]}
                                                     variant="filled"
+                                                    inputProps={{
+                                                        min: 50,
+                                                        max: 300,
+                                                        step: 0.1,
+                                                    }}
                                                     required
                                                     placeholder='High BP' />
                                             </Col>
                                             <Col md={6}>
                                                 <p>Low BP(mmHg)<sup>*</sup></p>
-                                                <TextValidator id="standard-basic" type="text" name="lowbp"
+                                                <TextValidator id="standard-basic" type="number" name="lowbp"
                                                     onChange={e => handleInputChange(e)}
                                                     value={lowbp === 0 ? '' : lowbp}
                                                     validators={[
@@ -801,6 +815,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                     errorMessages={['This field is required',
                                                         "Please Enter Valid Low BP Rate"]}
                                                     variant="filled"
+                                                    inputProps={{
+                                                        min: 50,
+                                                        max: 200,
+                                                        step: 0.1,
+                                                    }}
                                                     required
                                                     placeholder='Low BP' />
                                             </Col>

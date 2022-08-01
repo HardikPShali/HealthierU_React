@@ -348,7 +348,7 @@ const Home = () => {
                         ? index + 1
                         : index + 1 + currentPageNumber * 20}
                     </th>
-                    <td>{user.firstName}</td>
+                    <td>{user.firstName + ' ' + (user.lastName || "")}</td>
                     {/* <td>{user.lastName}</td> */}
                     <td>{user.email}</td>
                     <td>

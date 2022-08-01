@@ -145,7 +145,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
     const [isValidlicense, setIsValidlicense] = useState(false)
     const [isValidcertifyingBody, setIsValidcertifyingBody] = useState(false)
     const handleUpload = async (e, data) => {
-        setLoading(true);
+        // setLoading(true);
         //document.getElementById("uploadBtn").disabled = true;
         const info = {
             doctorId: currentDoctor.id,
@@ -165,6 +165,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         var regCertifyingBody = new RegExp('^[a-zA-Z0-9 {}]+$');
         if (regLicenseNo.test(state.licenseNumber) == false) {
             setLoading(false);
+            setUploadOpen(false)
             toast.error('Please enter valid license number', {
                 position: "top-right",
                 autoClose: 5000,
@@ -177,6 +178,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         }
         if (regCertifyingBody.test(state.certifyingBody) == false) {
             setLoading(false);
+            setUploadOpen(false)
             toast.error('Please enter valid certifying Body', {
                 position: "top-right",
                 autoClose: 5000,
@@ -186,6 +188,12 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         }
         else {
             setIsValidcertifyingBody(true)
+        }
+        if (!documentFile) {
+            setLoading(false);
+            toast.error("Please select file before uploading!")
+            SetError("")
+            setPhoneError("")
         }
         if (isValidlicense == true && isValidcertifyingBody == true) {
             if (documentFile && info.licenseNumber !== null && info.referencePhoneNumber !== null && info.certifyingBody !== null) {
@@ -197,6 +205,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                     if (info.licenseNumber && info.certifyingBody && info.referencePhoneNumber) {
                         SetError("")
                         setPhoneError("")
+                        setLoading(true);
                         const res = await uploadDoctorDocument(documentFile, info).catch(err => {
                             //setErrorMsg("Something Went Wrong!");
                             toast.error("Something went wrong. Please try again!")
@@ -231,36 +240,60 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             });
                         }
                     }
+                    else if (!info.referencePhoneNumber) {
+                        setLoading(false);
+                        setUploadOpen(false)
+                        SetError("")
+                        setDocumentFile("")
+                        setPhoneError("Required for document uploading!")
+                    }
                     else {
                         setLoading(false);
+                        setUploadOpen(false)
+                        setDocumentFile("")
                         SetError("Required for document uploading!")
-                        setPhoneError("Required for document uploading!")
+                        //setPhoneError("Required for document uploading!")
                         //toast.error("Please enter License number,certifying body and reference phone number!")
                     }
                 }
+                else if (info.referencePhoneNumber == "") {
+                    setLoading(false);
+                    setUploadOpen(false)
+                    SetError("")
+                    setDocumentFile("")
+                    setPhoneError("Required for document uploading!")
+                }
                 else {
                     setLoading(false);
+                    setUploadOpen(false)
+                    setDocumentFile("")
                     SetError("Required for document uploading!")
-                    setPhoneError("Required for document uploading!")
+                    //setPhoneError("Required for document uploading!")
                     //toast.error("Please enter License number,certifying body and reference phone number!")
                 }
             }
+            else if (info.referencePhoneNumber == null) {
+                setLoading(false);
+                setUploadOpen(false)
+                SetError("")
+                setDocumentFile("")
+                setPhoneError("Required for document uploading!")
+            }
         }
         else {
-            if (!documentFile) {
-                toast.error("Please select file before uploading!")
-                SetError("")
-                setPhoneError("")
-            }
             if (info.licenseNumber === null && info.referencePhoneNumber === null && info.certifyingBody === null) {
                 //toast.error("Please enter License number,certifying body and reference phone number!")
                 SetError("Required for document uploading!")
+                setUploadOpen(false)
+                setDocumentFile("")
                 setPhoneError("Required for document uploading!")
             }
             if (!info.licenseNumber && !info.certifyingBody && !info.referencePhoneNumber) {
                 setLoading(false);
+                setDocumentFile("")
                 //toast.error("Please enter License number,certifying body and reference phone number!")
                 SetError("Required for document uploading!")
+                setUploadOpen(false)
                 setPhoneError("Required for document uploading!")
             }
             setLoading(false);
@@ -529,7 +562,6 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             onChange={e => handlePhone(e)}
                             variant="filled"
                             required
-                            disabled={disableRefPhone}
                         />
                         {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
                     </Col>
