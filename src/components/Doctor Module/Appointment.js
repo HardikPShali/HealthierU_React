@@ -49,6 +49,11 @@ import creditCardIcon from "../../images/svg/credit-card-icon.svg";
 import chatButtonIcon from "../../images/svg/chat-button-icon.svg";
 import callButtonIcon from "../../images/svg/video-call-icon.svg";
 import { toast } from "react-toastify";
+import infoIcon from '../../images/svg/info-i-icon.svg';
+import bloodGroupIcon from "../../../src/images/svg/blood-group-icon.svg";
+import heightIcon from "../../../src/images/svg/height-icon.svg";
+import weightIcon from "../../../src/images/svg/weight-icon.svg";
+import bloodPressureIcon from "../../../src/images/svg/blood-pressure-icon.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -934,7 +939,15 @@ const Myappointment = (props) => {
   const handleTabSelection = (event) => {
     // loadAppointment();
   };
+  //More Info about Patient
+  const [morePatientInfo, setMorePatientInfo] = useState(false);
+  const openMorePatientInfo = () => {
+    setMorePatientInfo(true);
+  };
 
+  const closeMorePatientInfo = () => {
+    setMorePatientInfo(false);
+  };
   return (
     <div>
       {loading && <Loader />}
@@ -1528,7 +1541,7 @@ const Myappointment = (props) => {
                           state: selectedAppointment?.patient,
                         }}
                       >
-                        <div style={{ display: "flex", alignItem: "center" }}>
+                        <div className="firefox-helper" style={{ display: "flex", alignItem: "center" }}>
                           <div style={{ width: "100%" }}>
                             <img
                               width="40"
@@ -1547,6 +1560,23 @@ const Myappointment = (props) => {
                           />
                         </div>
                       </Link>
+                      <div style={{ display: "flex", alignItem: "center", cursor: 'pointer' }}>
+                        <div style={{ width: "100%" }} onClick={() => openMorePatientInfo()}>
+                          <img
+                            width="40"
+                            height="40"
+                            src={infoIcon}
+                            alt=""
+                            style={{ marginLeft: "5%", marginRight: "5%" }}
+                          />
+                          More Info About Patient
+                        </div>
+                        <img
+                          src={rightIcon}
+                          alt="right-icon"
+                          style={{ marginRight: "15px" }}
+                        />
+                      </div>
                     </div>
                     <hr />
                   </div>
@@ -1713,6 +1743,117 @@ const Myappointment = (props) => {
                 onClick={alertVideoClose}
                 className="btn btn-primary"
                 id="close-btn"
+              >
+                OK
+              </button>
+            </DialogActions>
+          </Dialog>
+          {/* More Info about Patient */}
+          <Dialog
+            onClose={closeMorePatientInfo}
+            aria-labelledby="customized-dialog-title"
+            open={morePatientInfo}
+            style={{ width: "100%" }}
+          >
+            <DialogTitle
+              id="customized-dialog-title"
+              onClose={closeMorePatientInfo}
+            >
+              Patient Info
+            </DialogTitle>
+            <DialogContent dividers>
+              {selectedAppointment && selectedAppointment.patient && (
+                <div className="details-container">
+                  <div className="details-wrapper">
+                    <div className="details-content">
+                      {selectedAppointment.patient.picture ? (
+                        <img src={selectedAppointment.patient.picture} alt="" />
+                      ) : (
+                        <Avatar
+                          name={
+                            selectedAppointment.patient.firstName +
+                            " " +
+                            (selectedAppointment.patient.lastName || "")
+                          }
+                          className="my-patient-modal__avatar"
+                        />
+                      )}
+                      <h2>
+                        {selectedAppointment.patient.firstName}{" "}
+                        {selectedAppointment.patient.lastName || ""}
+                      </h2>
+                      {/* <span className="details-content__app-type">
+                        {selectedAppointment.appointmentMode}
+                      </span> */}
+                    </div>
+                    <div className="details-body">
+                      <span>Medical</span>
+
+                      <div className="details-body__appointment">
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={bloodGroupIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span">
+                            <b> Blood Group : </b> {selectedAppointment.bloodGroup ? selectedAppointment.bloodGroup : "No data found"}
+                          </span>
+                        </div>
+                      </div>
+                      <br />
+                      <div className="details-body__appointment">
+                        <div className="details-body__appointment-time-row" style={{ marginRight: '50px' }}>
+                          <img
+                            src={heightIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span">
+                            <b> Height : </b>{selectedAppointment.patient.height}
+                          </span>
+                        </div>
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={weightIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span">
+                            <b> Weight : </b>{selectedAppointment.patient.weight}
+                          </span>
+                        </div>
+                      </div>
+                      <br />
+                      <span>Blood Pressure</span>
+                      <div className="details-body__payment">
+                        <div className="details-body__appointment-time-row" style={{ marginRight: '50px' }}>
+                          <img
+                            src={bloodPressureIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span"><b> High BP : </b>{selectedAppointment.patient.highBp}</span>
+                        </div>
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={bloodPressureIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span">
+                            <b> Low BP : </b> {selectedAppointment.patient.lowBp}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </DialogContent>
+            <DialogActions>
+              <button
+                onClick={closeMorePatientInfo}
+                className="btn btn-primary"
+                id="close-btn"
+                style={{
+                  alignSelf: 'center',
+                }}
               >
                 OK
               </button>
