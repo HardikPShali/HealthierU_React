@@ -293,7 +293,7 @@ const Profile = ({ currentDoctor }) => {
                 toast.error("Something went wrong.Please try again!")
             }
         });
-        if (documentUpdateFile) {
+        if (documentInfo.document && documentInfo.licenseNumber && documentInfo.certifyingBody && documentInfo.referencePhoneNumber) {
             const user = cookies.get("profileDetails");
             const info = {
                 doctorId: user.id,
