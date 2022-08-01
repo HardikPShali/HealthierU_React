@@ -624,7 +624,6 @@ const Welcome = ({ currentuserInfo }) => {
                                             </FormControl>
                                         </Col>
                                         <Col md={6}>
-                                            {console.log("dob", dateOfBirth)}
                                             <p>Date of Birth<sup>*</sup></p>
 
                                             <DatePicker
