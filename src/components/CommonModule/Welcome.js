@@ -715,6 +715,22 @@ const Welcome = ({ currentuserInfo }) => {
                                         {currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
                                             <Row>
                                                 <Col md={12}>
+                                                    <p>Allergies<sup>*</sup></p>
+                                                    <TextValidator id="standard-basic" type="text" name="allergies"
+                                                        onChange={e => handleInputChange(e)}
+                                                        value={allergies}
+                                                        variant="filled"
+                                                        required
+                                                        placeholder="Allergies"
+                                                        inputProps={{
+                                                            title: "Make it comma (,) separated."
+                                                        }} />
+                                                </Col>
+
+                                            </Row>
+                                            <br />
+                                            <Row>
+                                                <Col md={12}>
                                                     <p>Marital Status<sup>*</sup></p>
                                                     <FormControl>
                                                         <Select
@@ -827,21 +843,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 </Col>
                                             </Row>
                                             <br />
-                                            <Row>
-                                                <Col md={12}>
-                                                    <p>Allergies<sup>*</sup></p>
-                                                    <TextValidator id="standard-basic" type="text" name="allergies"
-                                                        onChange={e => handleInputChange(e)}
-                                                        value={allergies}
-                                                        variant="filled"
-                                                        required
-                                                        placeholder="Allergies"
-                                                        inputProps={{
-                                                            title: "Make it comma (,) separated."
-                                                        }} />
-                                                </Col>
 
-                                            </Row>
                                         </>)}
                                         {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
                                             {/* <Row> */}
