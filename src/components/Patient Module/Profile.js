@@ -251,10 +251,10 @@ const Profile = () => {
     const now = new Date();
     const newDate = now.setDate(now.getDate() - 1);
     const maxDate = {
-        max: moment(newDate).format("YYYY-MM-DD"),
+        max: moment(newDate).format('YYYY-MM-DD'),
         min: moment(now)
-            .subtract(400, "years")
-            .format("YYYY-MM-DD"),
+            .subtract(100, 'years')
+            .format('YYYY-MM-DD'),
     };
 
     const showBloodGroup = (bg) => {
@@ -320,7 +320,7 @@ const Profile = () => {
                                                             icon={calendarIcon}
                                                             title="Date of Birth"
                                                             value={moment(currentPatient.dateOfBirth).format(
-                                                                "DD/MM/YY"
+                                                                "DD/MM/YYYY"
                                                             )}
                                                         />
                                                         <ProfileRow
