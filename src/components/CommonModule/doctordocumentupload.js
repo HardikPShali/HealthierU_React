@@ -71,7 +71,6 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         if (res && res.status === 200) {
             setPage(res.data)
             setDocumentData(res.data.documentsDocumentsList);
-            console.log("loadDoctorDocument", res.data.documentsDocumentsList);
             const firstData = res.data.documentsDocumentsList
             const reverse = firstData.reverse()
             setCurrentDocumentData(reverse[0])

@@ -43,7 +43,8 @@ import {
   // updateUserData
 } from '../../../service/adminbackendservices';
 import {
-  updateDoctorDocumentNew
+  updateDoctorDocumentNew,
+  getDoctorDocument
 } from '../../../service/frontendapiservices'
 import DoctorDocumentUpload from '../../CommonModule/doctordocumentupload';
 import { Button } from 'react-bootstrap';
@@ -123,6 +124,8 @@ const EditUser = (props) => {
   const cookies = new Cookies();
   const [documentInfo, setDocumentinfo] = useState({})
   const [documentUpdateFile, setDocumentUpdateFile] = useState()
+  const [doctorId, setDoctorId] = useState(0)
+  const [checkDoctorDocument, setCheckDoctorDocument] = useState(false)
   useEffect(() => {
     getCurrentUser();
     loadOptions();
@@ -147,11 +150,11 @@ const EditUser = (props) => {
         setUser(res.data[0]);
       } else if (authorityName === 'doctors') {
         setUser(res.data.doctors[0]);
+        setDoctorId(res.data.doctors[0])
       }
       setTimeout(() => setTransparentLoading(false), 1000);
     }
   };
-
   const loadOptions = async () => {
     const res = await getCountryList();
     if (res && res.data) {
@@ -335,7 +338,7 @@ const EditUser = (props) => {
           //history.go(0)
         }
       });
-      if (documentUpdateFile) {
+      if (documentInfo.document && documentInfo.licenseNumber && documentInfo.certifyingBody && documentInfo.referencePhoneNumber) {
         const info = {
           doctorId: user.id,
           licenseNumber: documentInfo.licenseNumber,
