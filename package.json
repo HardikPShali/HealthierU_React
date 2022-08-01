@@ -150,7 +150,7 @@
   "scripts": {
     "start": "set PORT=3000 && react-scripts --max_old_space_size=4096 start",
     "json-server-products": "json-server --watch products.json --port 3011",
-    "build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts --max_old_space_size=4096 build",
+    "build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts --max_old_space_size=8192 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
