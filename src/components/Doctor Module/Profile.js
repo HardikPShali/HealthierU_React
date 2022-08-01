@@ -431,7 +431,7 @@ const Profile = ({ currentDoctor }) => {
                                                             icon={calendarIcon}
                                                             title="Date of Birth"
                                                             value={moment(currentDoctor.dateOfBirth).format(
-                                                                'DD/MM/YY'
+                                                                'DD/MM/YYYY'
                                                             )}
                                                         />
                                                         <ProfileRow
