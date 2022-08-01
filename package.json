@@ -156,9 +156,9 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "proxy": "http://localhost:3000",
-    "build:development": "env-cmd -f .env.development react-scripts build",
-    "build:staging": "env-cmd -f .env.staging react-scripts build",
-    "build:production": "env-cmd -f .env.production react-scripts build"
+    "build:development": "env-cmd -f .env.development react-scripts --max_old_space_size=8192 build",
+    "build:staging": "env-cmd -f .env.staging react-scripts --max_old_space_size=8192 build",
+    "build:production": "env-cmd -f .env.production react-scripts --max_old_space_size=8192 build"
   },
   "eslintConfig": {
     "extends": "react-app",
