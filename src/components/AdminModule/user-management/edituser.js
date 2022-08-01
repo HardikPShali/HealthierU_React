@@ -366,7 +366,7 @@ const EditUser = (props) => {
         // setTimeout(() => {
         setTransparentLoading(false);
         handleClose()
-        toast.error("Please add document details")
+        toast.error("Please add license/registration number and subsequent documents")
         // }, 5000)
       }
     }
