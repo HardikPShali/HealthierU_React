@@ -48,6 +48,7 @@ import ProfileRow from '../CommonModule/Profile/ProfileRow/ProfileRow';
 import Cookies from "universal-cookie";
 import { MDBInput } from "mdbreact";
 import { toast } from 'react-toastify';
+import { DH_UNABLE_TO_CHECK_GENERATOR } from 'constants';
 
 // import Cookies from 'universal-cookie';
 // import CreateIcon from '@material-ui/icons/Create';
@@ -242,10 +243,22 @@ const Profile = ({ currentDoctor }) => {
             .format('YYYY-MM-DD'),
     };
 
+
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
+        const dateBefore18Years = moment(isoDate).isBefore(
+            moment().subtract(18, 'years')
+        )
+        if (dateBefore18Years === false) {
+            toast.error("Your age entered must be 18 years and above.", {
+                toastId: "ageError",
+            });
+        }
+        else {
+            setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
+        }
+        // setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
     };
 
     const handlePhone = (e) => {
