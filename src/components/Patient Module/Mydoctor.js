@@ -1194,9 +1194,12 @@ const MyDoctor = (props) => {
     const startTime = splitStr[0];
     const endTime = splitStr[1];
 
+    console.log({ gender: genderFilter.split(" ") })
+    const genderConvertedToArray = genderFilter.split(" ")
+
     const patientIdForFilter = cookies.get('profileDetails')?.id;
     if (
-      genderFilter === '' &&
+      genderConvertedToArray === '' &&
       feesFilter[0] === 0 &&
       feesFilter[1] === 1000 &&
       countryFilter === '' &&
@@ -1211,7 +1214,7 @@ const MyDoctor = (props) => {
         "specialitiesId": specialityFilter ? specialityFilter : [],
         "countryIds": countryFilter ? countryFilter : [],
         "languageName": languageFilter ? languageFilter : [],
-        "gender": genderFilter ? genderFilter : [],
+        "gender": genderConvertedToArray ? genderConvertedToArray : [],
         "docStartTime": startTime,
         "docEndTime": endTime,
         "rateMin": feesFilter[0] ? feesFilter[0] : "",
