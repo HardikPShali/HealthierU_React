@@ -44,24 +44,18 @@ const FilterComponent = (props) => {
     const handleLabResultChange = (e) => {
         setFilterValues({ ...filterValues, [e.target.name]: e.target.value });
     }
-
-
     const clearFilter = () => {
         setFilterValues({
-
             startTime: '',
             endTime: '',
             resultType: ''
         });
         props.updatedFilter({});
     };
-
-
     // useEffect(() => {
     //     props.updatedFilter(filterValues);
     //     console.log("filterValues", filterValues);
     // }, [filterValues])
-
     return (
         <div style={{ marginRight: '15px' }}>
             <IconButton
@@ -82,7 +76,7 @@ const FilterComponent = (props) => {
             {filter && (
                 <div className="medicalrecord-filter-box" ref={ref}>
                     <ValidatorForm
-                        onSubmit={() => props.updatedFilter(filterValues)}
+                        onSubmit={() => {props.updatedFilter(filterValues);setFilter(false)}}
                         onError={(error) => console.log(error)}
                     >
                         <div className="medicalrecord-filter-body">
