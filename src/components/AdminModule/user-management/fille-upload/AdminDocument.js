@@ -549,7 +549,7 @@ const AdminDocument = (props) => {
             </div>
             <br />
             <br />
-            <div className="row">
+            {/* <div className="row">
               <embed
                 src={prescriptionDocumentUrl}
                 type="application/pdf"
@@ -557,7 +557,7 @@ const AdminDocument = (props) => {
                 height="400px"
                 width="100%"
               />
-            </div>
+            </div> */}
           </Tab>
           <Tab eventKey="labResult" title="Lab Result" onSelect={clickTabEvent}>
             <br />
@@ -699,7 +699,7 @@ const AdminDocument = (props) => {
             <br />
             <br />
 
-            <div className="row">
+            {/* <div className="row">
               {labDocumentUrl !== null || labDocumentUrl !== "" ? (
                 <embed
                   src={labDocumentUrl}
@@ -711,7 +711,7 @@ const AdminDocument = (props) => {
               ) : (
                 <span></span>
               )}
-            </div>
+            </div> */}
           </Tab>
         </Tabs>
 
