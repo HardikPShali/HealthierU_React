@@ -284,7 +284,10 @@ const Signin = () => {
     }
     else if (accountCheckResponse.data.data.registerAgain === true) {
       setLoader(false);
-      toast.error('Your Account is Deactivated.Please contact Admin');
+      toast.error('Your account was not registered properly. Please register again.');
+      setTimeout(() => {
+        history.push('/signup');
+      }, 3000);
     }
     else if (accountCheckResponse.data.data.profileComplete === true && accountCheckResponse.data.data.approved === false) {
       handleSigninHandler();
