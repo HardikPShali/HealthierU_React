@@ -1813,18 +1813,7 @@ const Myappointment = (props) => {
                     <div className="details-body">
                       <span>Medical</span>
 
-                      <div className="details-body__appointment">
-                        <div className="details-body__appointment-time-row">
-                          <img
-                            src={bloodGroupIcon}
-                            className="details-body__appointment-time-row-image"
-                          />
-                          <span className="details-body__common-span">
-                            <b> Blood Group : </b> {showBloodGroup(selectedAppointment.patient.bloodGroup) || "No data found"}
-                          </span>
-                        </div>
-                      </div>
-                      <br />
+
                       <div className="details-body__appointment">
                         <div className="details-body__appointment-time-row" style={{ marginRight: '50px' }}>
                           <img
@@ -1845,6 +1834,19 @@ const Myappointment = (props) => {
                           </span>
                         </div>
                       </div>
+                      <br />
+                      <div className="details-body__appointment">
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={bloodGroupIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span">
+                            <b> Blood Group : </b> {showBloodGroup(selectedAppointment.patient.bloodGroup) || "No data found"}
+                          </span>
+                        </div>
+                      </div>
+
                       <br />
                       <span>Blood Pressure</span>
                       <div className="details-body__payment">
