@@ -8,7 +8,7 @@ import {
     putMarkAsReadFromNotificationMenu,
 } from '../../../../service/frontendapiservices';
 
-const RescheduleNotification = ({ notification, key }) => {
+const RescheduleByDoctorNotification = ({ notification, key }) => {
     const setDoctorIdInSession = (doctorId) => {
         // console.log({ doctorId });
         sessionStorage.setItem('doctorId', doctorId);
@@ -107,4 +107,4 @@ const RescheduleNotification = ({ notification, key }) => {
     );
 };
 
-export default RescheduleNotification;
+export default RescheduleByDoctorNotification;

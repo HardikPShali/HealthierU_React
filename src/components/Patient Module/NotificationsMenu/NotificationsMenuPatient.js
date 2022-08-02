@@ -1,11 +1,12 @@
-import moment from 'moment-timezone';
 import React, { useState, useEffect } from 'react'; //useEffect, useState
 import Cookies from 'universal-cookie';
-import { getUnreadNotificationsCount, pushNotificationsApi, putMarkAsReadFromNotificationMenu } from '../../../service/frontendapiservices';
+import { pushNotificationsApi } from '../../../service/frontendapiservices';
 import AcceptedAppointmentsNotification from './NotificationTypes/AcceptedAppointmentsNotification';
 import CancelledByDoctorNotifications from './NotificationTypes/CancelledByDoctorNotifications';
 import NextAppointmentNotifications from './NotificationTypes/NextAppointmentNotifications';
-import RescheduleNotification from './NotificationTypes/RescheduleNotification';
+import RescheduleByDoctorNotification from './NotificationTypes/RescheduleByDoctorNotification';
+import RescheduleNotification from './NotificationTypes/RescheduleByDoctorNotification';
+import RescheduleFromPatientNotification from './NotificationTypes/RescheduleFromPatientNotification';
 import StringNotifications from './NotificationTypes/StringNotifications';
 
 const NotificationMenuPatient = () => {
@@ -53,7 +54,18 @@ const NotificationMenuPatient = () => {
                             if (notification.type === 'APPT_RESCHEDULE_BY_DOCTOR' && notification.data.appointmentDetails) {
                                 return (
                                     <div key={index}>
-                                        <RescheduleNotification
+                                        <RescheduleByDoctorNotification
+                                            notification={notification}
+                                            index={index}
+                                        />
+                                    </div>
+                                );
+                            }
+
+                            if (notification.type === 'APPT_RESCHEDULE_BY_PATIENT') {
+                                return (
+                                    <div key={index}>
+                                        <RescheduleFromPatientNotification
                                             notification={notification}
                                             index={index}
                                         />
