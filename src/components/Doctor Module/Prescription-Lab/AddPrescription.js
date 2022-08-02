@@ -278,19 +278,23 @@ const AddPrescription = (props) => {
     };
     const handlePrescriptionChange = (e) => {
         if (e.target.type === 'file') {
+            const file = e.target.files[0]
             const fileSize = e.target.files[0].size;
             console.log('fileSize ::', fileSize);
             const maxSize = 10000000;
-            if (e.target.files[0].size <= maxSize) {
+            if (e.target.files[0].size > maxSize) {
+                document.getElementById('prescriptionDocument').value = '';
+                setErrorMsg('Please upload PDF file with size less than 10mb.');
+            } else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
+                setErrorMsg("Document must be PNG, JPG, JPEG or PDF");
+                document.getElementById("prescriptionDocument").value = "";
+            } else {
                 setErrorMsg('');
                 setPrescriptionResult({
                     ...prescriptionResult,
                     prescriptionDocument: e.target.files[0],
                 });
                 setIsSaveModal(true);
-            } else {
-                document.getElementById('prescriptionDocument').value = '';
-                setErrorMsg('Please upload PDF file with size less than 10mb.');
             }
         } else {
             setPrescriptionResult({

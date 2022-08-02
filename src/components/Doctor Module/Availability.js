@@ -187,7 +187,7 @@ const Availability = () => {
 
       if (res.data.status === false) {
         toast.error(res.data.message);
-        afterSuccessOrFailEvent();
+        //afterSuccessOrFailEvent();
       } else {
         toast.success('Recurring Slot Added');
         afterSuccessOrFailEvent();

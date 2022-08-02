@@ -3,15 +3,11 @@ import SearchBar from "material-ui-search-bar";
 
 
 const SearchBarComponent = ({ updatedSearch }) => {
-
     const [searchText, setSearchText] = useState('');
-
-
     const handleSearchInputChange = (searchValue) => {
         setSearchText(searchValue);
         updatedSearch(searchValue);
     }
-
     return (
         <div style={{ marginLeft: '15px' }}>
             <SearchBar
@@ -21,7 +17,6 @@ const SearchBarComponent = ({ updatedSearch }) => {
                 autoComplete='off'
                 onChange={(value) => handleSearchInputChange(value)}
                 onCancelSearch={() => handleSearchInputChange("")}
-
             />
         </div>
     )

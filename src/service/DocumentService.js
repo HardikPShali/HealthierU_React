@@ -181,8 +181,8 @@ export const postDocument = async (data) => {
   //   interval: data.get("interval"),
   // }];
   const medicalDocumentInfo = {
-    decription: data.get("decription") ? data.get("decription") : null,
-    duration: data.get("duration"),
+    // decription: data.get("decription") ? data.get("decription") : null,
+    // duration: data.get("duration"),
     documentType: "Prescription",
     patientId: data.get("patientId"),
     doctorId: data.get("doctorId"),
@@ -234,26 +234,29 @@ export const postLabDocument = async (data) => {
   };
 
   const methodType = data.get("id") ? "PUT" : "POST";
-  const medicalInfo = {
-    id: data.get("id") ? data.get("id") : null,
-    decription: data.get("decription"),
-    labName: data.get("labName"),
-    documentType: "Lab",
-    patientId: data.get("patientId"),
-    doctorId: data.get("doctorId"),
-  };
+  // const medicalInfo = {
+  //   id: data.get("id") ? data.get("id") : null,
+  //   // decription: data.get("decription"),
+  //   labName: data.get("labName"),
+  //   documentType: "Lab",
+  //   patientId: data.get("patientId"),
+  //   doctorId: data.get("doctorId"),
+  // };
   const medicalDocumentInfo = {
-    decription: data.get("decription") ? data.get("decription") : null,
+    // decription: data.get("decription") ? data.get("decription") : null,
     duration: data.get("duration"),
     documentType: "LabResult",
     patientId: data.get("patientId"),
     doctorId: data.get("doctorId"),
+    labName: data.get("labName"),
+    resultType: data.get("resultType"),
+    name: data.get("resultName")
   };
   const formData = new FormData();
   formData.append("file", data.get("labResultDocument"));
-  formData.append("medicalInfo", new Blob([JSON.stringify(medicalInfo)], {
-    type: "application/json"
-  }));
+  // formData.append("medicalInfo", new Blob([JSON.stringify(medicalInfo)], {
+  //   type: "application/json"
+  // }));
   formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
     type: "application/json"
   }));

@@ -67,7 +67,8 @@ const AdminDocument = (props) => {
   });
 
   const [labResult, setLabResult] = useState({
-    name: "",
+    resultName: "",
+    resultType: "",
     duration: null,
     labName: "",
     decription: "",
@@ -109,18 +110,23 @@ const AdminDocument = (props) => {
 
   const handleLabResultChange = (e) => {
     if (e.target.type === "file") {
+      const file = e.target.files[0];
       const fileSize = e.target.files[0].size;
       console.log("fileSize ::", fileSize);
       const maxSize = 10000000;
-      if (e.target.files[0].size <= maxSize) {
+      if (e.target.files[0].size > maxSize) {
+        document.getElementById("labResultDocument").value = "";
+        setErrorMsg("Please upload PDF file with size less than 10mb.");
+      } else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
+        setErrorMsg("Document must be PNG, JPG, JPEG or PDF");
+        document.getElementById("labUploadForm").reset();
+      }
+      else {
         setErrorMsg("");
         setLabResult({
           ...labResult,
           labResultDocument: e.target.value,
         });
-      } else {
-        document.getElementById("labResultDocument").value = "";
-        setErrorMsg("Please upload PDF file with size less than 10mb.");
       }
     } else {
       setLabResult({ ...labResult, [e.target.name]: e.target.value });
@@ -129,18 +135,21 @@ const AdminDocument = (props) => {
 
   const handlePrescriptionChange = (e) => {
     if (e.target.type === "file") {
+      const file = e.target.files[0];
       const fileSize = e.target.files[0].size;
-      console.log("fileSize ::", fileSize);
       const maxSize = 10000000;
-      if (e.target.files[0].size <= maxSize) {
+      if (e.target.files[0].size > maxSize) {
+        document.getElementById("prescriptionDocument").value = "";
+        setErrorMsg("Please upload PDF file with size less than 10mb.");
+      } else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
+        setErrorMsg("Document must be PNG, JPG, JPEG or PDF");
+        document.getElementById("prepUploadForm").reset();
+      } else {
         setErrorMsg("");
         setPrescriptionResult({
           ...prescriptionResult,
           prescriptionDocument: e.target.value,
         });
-      } else {
-        document.getElementById("prescriptionDocument").value = "";
-        setErrorMsg("Please upload PDF file with size less than 10mb.");
       }
     } else {
       setPrescriptionResult({
@@ -180,9 +189,10 @@ const AdminDocument = (props) => {
     event.preventDefault();
     const data = new FormData(event.target);
     const response = await postLabDocument(data).catch((err) => {
-      if (err.response.status === 400) {
+      if (err.response.status === 400 || err.response.status === 500) {
         setLoading(false);
-        setErrorMsg("Please upload the document in PDF format.");
+        toast.error("Lab result must have patient email")
+        // setErrorMsg("Please upload the document in PDF format.");
       }
     });
     if (response) {
@@ -191,8 +201,8 @@ const AdminDocument = (props) => {
       setLoading(false);
       setErrorMsg("");
     }
-    const labDocument = await getMedicalDocuments("Lab", 0);
-    setLabDocument(labDocument.data);
+    const labDocument = await getDocuments("LabResult", 0);
+    setLabDocument(labDocument);
   };
 
   const handlePrescriptionSubmission = async (event) => {
@@ -201,20 +211,20 @@ const AdminDocument = (props) => {
     setErrorMsg("");
     const data = new FormData(event.target);
     const response = await postDocument(data).catch((err) => {
-      if (err.response.status === 400) {
+      if (err.response.status === 400 || err.response.status === 500) {
         setLoading(false);
-        setErrorMsg("Please upload the document in PDF format.");
+        toast.error("Prescription must have both doctor email and patient email")
+        // setErrorMsg("Please upload the document in PDF format.");
       }
     });
-    console.log("response ::", response);
     if (response) {
       toast.success("Document successfully Uploaded.");
       setShowPrescriptionUpload(false);
       setLoading(false);
       setErrorMsg("");
     }
-    const prescriptionDocument = await getMedicalDocuments();
-    setPresecriptionDocument(prescriptionDocument.data);
+    const prescriptionDocument = await getDocuments("Prescription", 0);
+    setPresecriptionDocument(prescriptionDocument);
   };
   const handleDefaultPrescription = (e) => {
     const file = e.target.files[0];
@@ -386,15 +396,17 @@ const AdminDocument = (props) => {
   const handleDeleteDocumentSubmission = async (event) => {
     setPrescriptionDocumentUrl("");
     setLabDocumentUrl("");
+    setLoading(true)
     const resp = await deleteDocument(documentId);
     if (resp) {
       toast.success("Document successfully Deleted.");
       setDeleteShow(false);
+      setLoading(false)
     }
-    const prescriptionDocument = await getMedicalDocuments();
-    setPresecriptionDocument(prescriptionDocument.data);
+    const prescriptionDocument = await getDocuments("Prescription", 0);
+    setPresecriptionDocument(prescriptionDocument);
 
-    const labDocument = await getDocuments("Lab", 0);
+    const labDocument = await getDocuments("LabResult", 0);
     setLabDocument(labDocument);
   };
 
@@ -415,7 +427,7 @@ const AdminDocument = (props) => {
           <Tab eventKey="prescription" title="Prescription">
             <br />
             <div className="row">
-              <div className="col-md-2 text-left">
+              {/* <div className="col-md-2 text-left">
                 <button
                   type="button"
                   className="btn btn-primary add-button"
@@ -423,8 +435,8 @@ const AdminDocument = (props) => {
                 >
                   Add Default Prescription
                 </button>
-              </div>
-              <div className="col-md-8"></div>
+              </div> */}
+              <div className="col-md-10"></div>
               <div className="col-md-2 text-right">
                 <button
                   type="button"
@@ -443,8 +455,8 @@ const AdminDocument = (props) => {
                     <th width="150"><b>Action</b></th>
                     <th width="150"><b>Name</b></th>
                     <th width="150"><b>Date</b></th>
-                    <th width="250"><b>Description</b></th>
-                    <th width="150"><b>Duration</b></th>
+                    {/* <th width="250"><b>Description</b></th> */}
+                    {/* <th width="150"><b>Duration</b></th> */}
                     <th width="150"><b>Patient</b></th>
                     <th width="150"><b>Doctor</b></th>
                   </tr>
@@ -471,7 +483,7 @@ const AdminDocument = (props) => {
                                 height="20"
                                 onClick={(e) => showDocument(dataItem)}
                               />
-                              <img
+                              {/* <img
                                 width="15"
                                 height="15"
                                 onClick={() => handleEditModal(dataItem)}
@@ -481,7 +493,7 @@ const AdminDocument = (props) => {
                                   marginLeft: "5%",
                                   marginRight: "5%",
                                 }}
-                              />
+                              /> */}
 
                               <img
                                 width="15"
@@ -497,10 +509,10 @@ const AdminDocument = (props) => {
                             </td>
                             <td width="150">{dataItem.name}</td>
                             <td width="150">
-                              {moment.utc(dataItem.docUploadTime).format("YYYY-MM-DD HH:mm:ss")}
+                              {moment(dataItem.docUploadTime).format("YYYY-MM-DD HH:mm")}
                             </td>
-                            <td width="250">{dataItem.decription}</td>
-                            <td width="150">{dataItem.duration}</td>
+                            {/* <td width="250">{dataItem.decription}</td> */}
+                            {/* <td width="150">{dataItem.duration}</td> */}
                             <td width="150">
                               {dataItem?.patient
                                 ? dataItem?.patient?.firstName +
@@ -549,7 +561,7 @@ const AdminDocument = (props) => {
             </div>
             <br />
             <br />
-            <div className="row">
+            {/* <div className="row">
               <embed
                 src={prescriptionDocumentUrl}
                 type="application/pdf"
@@ -557,7 +569,7 @@ const AdminDocument = (props) => {
                 height="400px"
                 width="100%"
               />
-            </div>
+            </div> */}
           </Tab>
           <Tab eventKey="labResult" title="Lab Result" onSelect={clickTabEvent}>
             <br />
@@ -586,20 +598,23 @@ const AdminDocument = (props) => {
                       <b>Name</b>
                     </th>
                     <th width="150">
+                      <b>Result Type</b>
+                    </th>
+                    <th width="150">
                       <b>Lab Name</b>
                     </th>
                     <th width="150">
                       <b>Date</b>
                     </th>
-                    <th width="250">
+                    {/* <th width="250">
                       <b>Description</b>
-                    </th>
+                    </th> */}
                     <th width="150">
                       <b>Patient</b>
                     </th>
-                    <th width="150">
+                    {/* <th width="150">
                       <b>Doctor</b>
-                    </th>
+                    </th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -624,7 +639,7 @@ const AdminDocument = (props) => {
                               onClick={(e) => showLabDocument(dataItem)}
                             />
 
-                            <img
+                            {/* <img
                               width="15"
                               height="15"
                               onClick={() => handleEditLabModal(dataItem)}
@@ -634,7 +649,7 @@ const AdminDocument = (props) => {
                                 marginLeft: "5%",
                                 marginRight: "5%",
                               }}
-                            />
+                            /> */}
 
                             <img
                               width="15"
@@ -649,11 +664,12 @@ const AdminDocument = (props) => {
                             />
                           </td>
                           <td width="150">{dataItem.name}</td>
+                          <td width="150">{dataItem.resultType}</td>
                           <td width="150">{dataItem.labName}</td>
                           <td width="150">
-                            {moment.utc(dataItem.docUploadTime).format("YYYY-MM-DD HH:mm:ss")}
+                            {moment(dataItem.docUploadTime).format("YYYY-MM-DD HH:mm")}
                           </td>
-                          <td width="250">{dataItem.description}</td>
+                          {/* <td width="250">{dataItem.description}</td> */}
                           <td width="150">
                             {dataItem?.patient
                               ? dataItem?.patient?.firstName +
@@ -661,13 +677,13 @@ const AdminDocument = (props) => {
                               (dataItem?.patient?.lastName || "")
                               : ""}
                           </td>
-                          <td width="150">
+                          {/* <td width="150">
                             {dataItem?.doctor
                               ? dataItem?.doctor?.firstName +
                               " " +
                               (dataItem?.patient?.lastName || "")
                               : ""}
-                          </td>
+                          </td> */}
                         </tr>
                       );
                     })
@@ -699,7 +715,7 @@ const AdminDocument = (props) => {
             <br />
             <br />
 
-            <div className="row">
+            {/* <div className="row">
               {labDocumentUrl !== null || labDocumentUrl !== "" ? (
                 <embed
                   src={labDocumentUrl}
@@ -711,7 +727,7 @@ const AdminDocument = (props) => {
               ) : (
                 <span></span>
               )}
-            </div>
+            </div> */}
           </Tab>
         </Tabs>
 
@@ -722,7 +738,7 @@ const AdminDocument = (props) => {
           show={showPrescriptionUpload}
           onHide={handleUploadPrescriptionClosed}
         >
-          <form onSubmit={(e) => handlePrescriptionSubmission(e)}>
+          <form onSubmit={(e) => handlePrescriptionSubmission(e)} id="prepUploadForm">
             <Modal.Header closeButton>
               <Modal.Title>Prescription</Modal.Title>
             </Modal.Header>
@@ -734,7 +750,7 @@ const AdminDocument = (props) => {
                 value={prescriptionResult?.id}
                 onChange={(e) => handlePrescriptionChange(e)}
               />
-              <div className="form-group row">
+              {/* <div className="form-group row">
                 <label htmlFor="topic" className="col-sm-3 col-form-label">
                   Duration
                 </label>
@@ -751,8 +767,8 @@ const AdminDocument = (props) => {
                     required
                   />
                 </div>
-              </div>
-              <div className="form-group row">
+              </div> */}
+              {/* <div className="form-group row">
                 <label htmlFor="decription" className="col-sm-3 col-form-label">
                   Description
                 </label>
@@ -769,7 +785,7 @@ const AdminDocument = (props) => {
                     required
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="form-group row">
                 <label
                   htmlFor="prescriptionDocument"
@@ -948,7 +964,7 @@ const AdminDocument = (props) => {
         </Modal>
 
         <Modal show={showLabResultUpload} onHide={handleUploadLabResultClosed}>
-          <form onSubmit={(e) => handleLabResultSubmission(e)}>
+          <form onSubmit={(e) => handleLabResultSubmission(e)} id="labUploadForm">
             <Modal.Header closeButton>
               <Modal.Title>Lab Result</Modal.Title>
             </Modal.Header>
@@ -960,6 +976,44 @@ const AdminDocument = (props) => {
                 value={labResult?.id}
                 onChange={(e) => handleLabResultChange(e)}
               />
+              <div className="form-group row">
+                <label htmlFor="labName" className="col-sm-3 col-form-label">
+                  Result Name
+                </label>
+                <div className="col-sm-9">
+                  <input
+                    type="text"
+                    id="resultName"
+                    name="resultName"
+                    className="form-control"
+                    onChange={(e) => handleLabResultChange(e)}
+                    value={labResult?.resultName}
+                    placeholder="Result Name"
+                    required
+                    autoComplete="off"
+                  ></input>
+                </div>
+              </div>
+
+              <div className="form-group row">
+                <label htmlFor="labName" className="col-sm-3 col-form-label">
+                  Result Type
+                </label>
+                <div className="col-sm-9">
+                  <select
+                    id="resultType"
+                    name="resultType"
+                    value={labResult?.resultType}
+                    onChange={(e) => handleLabResultChange(e)}
+                    required
+                    className="browser-default custom-select"
+                  >
+                    <option>Select Result Type</option>
+                    <option value="Imaging">Imaging</option>
+                    <option value="Blood Tests">Blood Tests</option>
+                  </select>
+                </div>
+              </div>
               <div className="form-group row">
                 <label htmlFor="labName" className="col-sm-3 col-form-label">
                   Lab Name
@@ -979,7 +1033,7 @@ const AdminDocument = (props) => {
                 </div>
               </div>
 
-              <div className="form-group row">
+              {/* <div className="form-group row">
                 <label htmlFor="decription" className="col-sm-3 col-form-label">
                   Description
                 </label>
@@ -996,7 +1050,7 @@ const AdminDocument = (props) => {
                     required
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="form-group row">
                 <label htmlFor="document" className="col-sm-3 col-form-label">
                   Document
@@ -1067,7 +1121,7 @@ const AdminDocument = (props) => {
                   )}
                 </div>
               </div>
-              <div className="form-group row">
+              {/* <div className="form-group row">
                 <label
                   htmlFor="doctorEmail"
                   className="col-sm-3 col-form-label"
@@ -1103,7 +1157,7 @@ const AdminDocument = (props) => {
                     <span>No Doctor Found</span>
                   )}
                 </div>
-              </div>
+              </div> */}
 
               <div className="form-group row">
                 <label

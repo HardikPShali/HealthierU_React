@@ -402,16 +402,46 @@ const MyDoctor = (props) => {
         setTransparentLoading(false);
       }
     } else {
-      const result = await getMoreDoctors(
-        currentPatient,
+      // const result = await getMoreDoctors(
+      //   currentPatient,
+      //   doctorListLimit,
+      //   offset
+      // );
+      const data = {
+        searchKeyword: '',
+        specialitiesId: [],
+        countryIds: [],
+        languageName: [],
+        gender: [],
+        // docStartTime: new Date(),
+        docEndTime: null,
+        rateMin: 0.0,
+        rateMax: null,
+      };
+
+      const patientIdForLoadMore = cookies.get('profileDetails')?.id;
+
+      const result = await getSearchDataAndFilter(
+        // patientId,
+        data,
+        offset,
         doctorListLimit,
-        offset
-      );
-      if (result && result.data) {
+        patientIdForLoadMore
+      ).catch((err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          setLoading(false);
+        }
+      });
+      if (
+        result &&
+        result.data &&
+        result.data.data.doctors &&
+        result.data.data.doctors.length > 0
+      ) {
         // var existingUsersList = [];
         var existingUsersList = users;
-        result.data &&
-          result.data.doctors.map((newData) => {
+        result.data.data &&
+          result.data.data.doctors.map((newData) => {
             existingUsersList.push(newData);
             return newData;
           });
@@ -1194,12 +1224,25 @@ const MyDoctor = (props) => {
     const startTime = splitStr[0];
     const endTime = splitStr[1];
 
+
+    let genderConvertedToArray = genderFilter.split(" ")
+    let countryIdConvertedToArray = countryFilter.toString().split(' ')
+
+    if (genderConvertedToArray == "") {
+      genderConvertedToArray = []
+    }
+
+    if (countryIdConvertedToArray == "") {
+      countryIdConvertedToArray = []
+    }
+
+
     const patientIdForFilter = cookies.get('profileDetails')?.id;
     if (
-      genderFilter === '' &&
+      genderConvertedToArray === '' &&
       feesFilter[0] === 0 &&
       feesFilter[1] === 1000 &&
-      countryFilter === '' &&
+      countryIdConvertedToArray === '' &&
       (docStartTime === '' || null) &&
       specialityFilter.length === 0 &&
       languageFilter.length === 0
@@ -1209,9 +1252,9 @@ const MyDoctor = (props) => {
       let data = {
         "searchKeyword": "",
         "specialitiesId": specialityFilter ? specialityFilter : [],
-        "countryIds": countryFilter ? countryFilter : [],
+        "countryIds": countryIdConvertedToArray ? countryIdConvertedToArray : [],
         "languageName": languageFilter ? languageFilter : [],
-        "gender": genderFilter ? genderFilter : [],
+        "gender": genderConvertedToArray ? genderConvertedToArray : [],
         "docStartTime": startTime,
         "docEndTime": endTime,
         "rateMin": feesFilter[0] ? feesFilter[0] : "",
@@ -1233,12 +1276,16 @@ const MyDoctor = (props) => {
         doctorListLimitNonPaginated,
         patientIdForFilter
       ).catch((err) => {
+        console.log(err);
         if (err.response.status === 500 || err.response.status === 504) {
-          setLoading(false);
+          toast.error('Something went wrong. Please try again', {
+            toastId: 'filterErrorToast',
+          });
+          setTransparentLoading(false);
         }
       });
 
-      // console.log({ result })
+      console.log({ result })
 
       if (result && (result.status === 200 || result.status === 204)) {
         if (
