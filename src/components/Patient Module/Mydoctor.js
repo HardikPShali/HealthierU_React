@@ -177,6 +177,7 @@ const MyDoctor = (props) => {
   };
 
   const getAllLikedDoctors = async () => {
+    // console.log("getAllLikedDoctors trigerred");
     setTransparentLoading(true);
     setDisplay({ ...display, like: 'block', unlike: 'none' });
     const res = await getLikedDoctorByPatientId(currentPatient, 0).catch(
@@ -205,6 +206,7 @@ const MyDoctor = (props) => {
     }
   };
   const allDoctorData = () => {
+    // console.log("allDoctorData trigerred");
     // history.go(0);
     if (history.go(0) === true) {
       setFilterData(users);
@@ -440,6 +442,7 @@ const MyDoctor = (props) => {
   };
 
   const createLikedDoctor = async (doctorId) => {
+    // console.log('createLikedDoctor trigerred')
     setTransparentLoading(true);
     const likedData = {
       patientId: currentPatient.id,
@@ -454,14 +457,30 @@ const MyDoctor = (props) => {
   };
 
   const createUnlikedDoctor = async (likeId) => {
+    // console.log('createUnlikedDoctor trigerred')
+    // console.log({ display })
     setTransparentLoading(true);
     setLikedOffset(0);
     const response = await postUnlikedDoctor(likeId);
     // //console.log(response.status);
     if (response.status === 200 || response.status === 204) {
-      // getAllLikedDoctors();
+
       toast.success('Successfully removed from your favourites');
-      loadUsers(currentPatient.id);
+
+      if (display.like === 'block' && display.unlike === 'none') {
+        getAllLikedDoctors();
+
+
+      }
+      else if (display.like === 'none' && display.unlike === 'block') {
+        loadUsers(currentPatient.id);
+      }
+      else {
+        loadUsers(currentPatient.id);
+      }
+
+      // setTransparentLoading(false);
+
       //loadUsers(currentPatient.id);
     }
   };

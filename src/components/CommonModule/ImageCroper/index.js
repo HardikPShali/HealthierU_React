@@ -54,6 +54,7 @@ const ImageCropper = (props) => {
     }, [])
 
     const handleImageChange = (e) => {
+        e.stopPropagation();
         setTransparentLoading(true);
         const imageFile = e.target.files[0];
         if (!imageFile) return setTransparentLoading(false);
@@ -88,24 +89,30 @@ const ImageCropper = (props) => {
         }
     }, [croppedAreaPixels, rotation])
 
-    
+
+
+
 
     return (
 
         <>
 
             <div className="small-12 medium-2 large-2 columns m-auto">
-            <label for={uniqueId}>
-                <div className="circle upload-button" style={{ cursor: 'pointer' }}>
-                    {/* <!-- User Profile Image --> */}
-                    <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
-                </div>
+                <label htmlFor={uniqueId}>
+                    <div className="circle upload-button" style={{ cursor: 'pointer' }}>
+                        {/* <!-- User Profile Image --> */}
+                        <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
+                    </div>
 
-                <span className="p-image">
-                    <AddAPhotoIcon className="upload-button" />
-                    <input id={uniqueId} className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
-                        variant="filled" />
-                </span>
+                    <span className="p-image" onClick={(e) => {
+                        if (props.prevention === true) {
+                            e.preventDefault();
+                        }
+                    }}>
+                        <AddAPhotoIcon className="upload-button" />
+                        <input id={uniqueId} className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
+                            variant="filled" onClick={(e) => e.stopPropagation()} />
+                    </span>
                 </label>
             </div>
 
