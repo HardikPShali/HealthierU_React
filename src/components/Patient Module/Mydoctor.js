@@ -402,16 +402,46 @@ const MyDoctor = (props) => {
         setTransparentLoading(false);
       }
     } else {
-      const result = await getMoreDoctors(
-        currentPatient,
+      // const result = await getMoreDoctors(
+      //   currentPatient,
+      //   doctorListLimit,
+      //   offset
+      // );
+      const data = {
+        searchKeyword: '',
+        specialitiesId: [],
+        countryIds: [],
+        languageName: [],
+        gender: [],
+        // docStartTime: new Date(),
+        docEndTime: null,
+        rateMin: 0.0,
+        rateMax: null,
+      };
+
+      const patientIdForLoadMore = cookies.get('profileDetails')?.id;
+
+      const result = await getSearchDataAndFilter(
+        // patientId,
+        data,
+        offset,
         doctorListLimit,
-        offset
-      );
-      if (result && result.data) {
+        patientIdForLoadMore
+      ).catch((err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          setLoading(false);
+        }
+      });
+      if (
+        result &&
+        result.data &&
+        result.data.data.doctors &&
+        result.data.data.doctors.length > 0
+      ) {
         // var existingUsersList = [];
         var existingUsersList = users;
-        result.data &&
-          result.data.doctors.map((newData) => {
+        result.data.data &&
+          result.data.data.doctors.map((newData) => {
             existingUsersList.push(newData);
             return newData;
           });
