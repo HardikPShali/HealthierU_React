@@ -255,7 +255,7 @@ div#social-icon {
 
 .footer-store-icons {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 img#store-icon {
@@ -3485,7 +3485,6 @@ button.reset-btn {
   cursor: pointer;
   transition: all 0.2s;
 }
-
 
 .available-btn button:hover {
   background: #02bcb9;

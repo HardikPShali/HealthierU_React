@@ -49,8 +49,8 @@ const ServiceCategory = () => {
             // setSelectedServiceCategory(null);
             // setShowDelete(false);
             toast.success("Service Category successfully Deleted.");
-            setTimeout(() => history.go(0), 500);
-            loadServiceCategory();
+            setTimeout(() => history.go(0), 2000);
+            // loadServiceCategory();
         }
     }
 
@@ -84,7 +84,13 @@ const ServiceCategory = () => {
         setIsLoading(true);
         event.preventDefault();
         const data = new FormData(event.target);
-        const resp = await addServiceCategory(data);
+        const resp = await addServiceCategory(data).catch(err => {
+            console.log(err);
+            toast.error("An entry with these details already exist. Please add new details to add new Service Category.", {
+                toastId: "errorDuplicate",
+            })
+            setIsLoading(false);
+        });
         if (resp) {
             setShow(false);
             await loadServiceCategory();
@@ -128,25 +134,25 @@ const ServiceCategory = () => {
                                     <td key="action"
                                     >
                                         <div>
-                                        <img
-                                                                            width="15"
-                                                                            height="15"
-                                                                            src={editIcon}
-                                                                            onClick={() => handleEditModal(list)}
-                                                                            alt=""
-                                                                            style={{ marginLeft: "5%", marginRight: "5%" }
-                                                                            }
-                                                                        />
+                                            <img
+                                                width="15"
+                                                height="15"
+                                                src={editIcon}
+                                                onClick={() => handleEditModal(list)}
+                                                alt=""
+                                                style={{ marginLeft: "5%", marginRight: "5%", cursor: "pointer" }
+                                                }
+                                            />
 
-                                                                        <img
-                                                                            width="15"
-                                                                            height="15"
-                                                                            src={deleteIcon}
-                                                                            onClick={() => handleDeleteModal(list)}
-                                                                            className="delete-icon"
-                                                                            alt=""
-                                                                            style={{ marginLeft: "5%", marginRight: "5%" }}
-                                                                        />
+                                            <img
+                                                width="15"
+                                                height="15"
+                                                src={deleteIcon}
+                                                onClick={() => handleDeleteModal(list)}
+                                                className="delete-icon"
+                                                alt=""
+                                                style={{ marginLeft: "5%", marginRight: "5%", cursor: "pointer" }}
+                                            />
                                             {/* <button className="btn btn-info mr-2" onClick={() => handleEditModal(list)}>Edit</button>
                                             <button className="btn btn-danger"
                                                 onClick={() => handleDeleteModal(list)}>Delete
