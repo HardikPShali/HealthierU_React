@@ -5,12 +5,18 @@ import 'mdbreact/dist/css/mdb.css';
 import Navbar from "../layout/Navbar";
 import { saveServiceProvider } from "./../../../service/adminbackendservices";
 import { useHistory } from 'react-router-dom';
+import { toast } from "react-toastify";
 const AddServiceProvider = () => {
     const history = useHistory();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
-        const resp = await saveServiceProvider(data);
+        const resp = await saveServiceProvider(data).catch(err => {
+            console.log({ err })
+            toast.error('An entry with these details already exist. Please add new details to add new Service Providers.', {
+                toastId: "errorDuplicate",
+            });
+        });
         if (resp && resp.status === 201) {
             handleRedirect(resp);
         }
