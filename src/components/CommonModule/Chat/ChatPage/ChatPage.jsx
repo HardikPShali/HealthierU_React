@@ -416,8 +416,11 @@ const ChatPage = () => {
         )}
         {openVideoCall && (
           <Meeting
-            onClose={() => {
-              callRejectHandler(selectedChatItem.id, "call-end");
+            onClose={(dontTriggerReject = false) => {
+              if(!dontTriggerReject) {
+                callRejectHandler(selectedChatItem.id, "call-end");
+              }
+
               removeQueryParamsAndDisableVideo();
             }}
           />
