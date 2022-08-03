@@ -605,6 +605,7 @@ const MyDoctor = (props) => {
         setTransparentLoading(false);
         setAvailability([]);
         setAppointmentSlot([]);
+        setdoctor([])
       } else if (res.data.data.doctors.length === 0) {
         setFilterData([]);
         setdoctor('');
@@ -1951,7 +1952,7 @@ const MyDoctor = (props) => {
                       <div className="row">
                         <div className="col-12">
                           <span style={{ fontSize: 14 }}>
-                            <b>Country Of Residence:</b> {doctor.countryName}
+                            <b>Nationality:</b> {doctor.countryName}
                           </span>
                         </div>
                       </div>
@@ -2177,7 +2178,7 @@ const MyDoctor = (props) => {
                       <div className="row">
                         <div className="col-12">
                           <span style={{ fontSize: 14 }}>
-                            <b>Country Of Residence:</b>
+                            <b>Nationality:</b>
                             {doctor.countryName}
                           </span>
                         </div>
@@ -2787,7 +2788,7 @@ const MyDoctor = (props) => {
                   <div className="row">
                     <div className="col-12">
                       <span style={{ fontSize: 12 }}>
-                        Country Of Residence: <b>{doctor?.countryName}</b>
+                        <b>Nationality:</b> {doctor?.countryName}
                       </span>
                     </div>
                   </div>
@@ -2934,7 +2935,7 @@ const MyDoctor = (props) => {
                     <div className="row">
                       <div className="col-12">
                         <span style={{ fontSize: 12 }}>
-                          Country Of Residence: <b>{doctor.countryName}</b>
+                          <b>Nationality:</b> {doctor.countryName}
                         </span>
                       </div>
                     </div>
