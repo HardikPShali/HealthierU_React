@@ -677,6 +677,14 @@ const Meeting = (props) => {
       setInterval(infoDetectSchedule, 1000);
     }
 
+
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if(event?.data?.data?.topic === "REJECT") {
+          props.onClose(true)
+        }
+      });
+    }
   }, [])
 
 

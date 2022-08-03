@@ -695,8 +695,10 @@ const Myappointment = (props) => {
       type: "DR",
       status: "UNAVAILABLE",
       remarks: selectedAppointmentData.remarks,
-      startTime: new Date(selectedAppointmentData.startTime).toISOString(),
-      endTime: new Date(selectedAppointmentData.endTime).toISOString(),
+      // startTime: new Date(selectedAppointmentData.startTime).toISOString(),
+      // endTime: new Date(selectedAppointmentData.endTime).toISOString(),
+      startTime: null,
+      endTime: null,
       timeZone: timeZone,
     };
     const res = await deleteAvailableAppointment(payload).catch((err) => {

@@ -598,7 +598,7 @@ const EditUser = (props) => {
               <>
                 <Row>
                   <Col md={6}>
-                    <p>Country Of Residence</p>
+                    <p>Nationality</p>
                     <FormControl>
                       <Select
                         id="demo-controlled-open-select"
@@ -737,7 +737,7 @@ const EditUser = (props) => {
               <>
                 <Row>
                   <Col md={6}>
-                    <p>Country Of Residence</p>
+                    <p>Nationality</p>
                     <FormControl>
                       <Select
                         id="demo-controlled-open-select"

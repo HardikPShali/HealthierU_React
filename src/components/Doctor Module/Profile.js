@@ -302,8 +302,9 @@ const Profile = ({ currentDoctor }) => {
         bodyFormData.append('profileData', JSON.stringify(reqBody));
         bodyFormData.append('profilePicture', profilePicture);
         const response = await updateDoctorData(bodyFormData).catch(err => {
+            setLoading(false);
+            //.error("Something went wrong.Please try again!")
             if (err.response.status === 500 || err.response.status === 504) {
-                setLoading(false);
                 toast.error("Something went wrong.Please try again!")
             }
         });
@@ -318,8 +319,9 @@ const Profile = ({ currentDoctor }) => {
                 certifyingBody: documentInfo.certifyingBody
             }
             res = await updateDoctorDocumentNew(info).catch(err => {
+                setLoading(false);
+                //toast.error("Something went wrong.Please try again!")
                 if (err.response.status === 500 || err.response.status === 504) {
-                    setLoading(false);
                     toast.error("Something went wrong.Please try again!")
                 }
             });
