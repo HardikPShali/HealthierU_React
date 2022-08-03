@@ -1140,7 +1140,7 @@ const RescheduleAppointment = (props) => {
                                             <div className="row">
                                                 <div className="col-12">
                                                     <span style={{ fontSize: 14 }}>
-                                                        <b>Country Of Residence</b>: {doctor.countryName}
+                                                        <b>Nationality</b>: {doctor.countryName}
                                                     </span>
                                                 </div>
                                             </div>
@@ -1357,7 +1357,7 @@ const RescheduleAppointment = (props) => {
                                             <div className="row">
                                                 <div className="col-12">
                                                     <span style={{ fontSize: 14 }}>
-                                                        <b>Country Of Residence</b>: {doctor.countryName}
+                                                        <b>Nationality</b>: {doctor.countryName}
                                                     </span>
                                                 </div>
                                             </div>
@@ -1912,7 +1912,7 @@ const RescheduleAppointment = (props) => {
                                     <div className="row">
                                         <div className="col-12">
                                             <span style={{ fontSize: 12 }}>
-                                                Country Of Residence: <b>{doctor.countryName}</b>
+                                                <b> Nationality:</b> {doctor.countryName}
                                             </span>
                                         </div>
                                     </div>
@@ -2061,7 +2061,7 @@ const RescheduleAppointment = (props) => {
                                         <div className="row">
                                             <div className="col-12">
                                                 <span style={{ fontSize: 12 }}>
-                                                    Country Of Residence: <b>{doctor.countryName}</b>
+                                                    <b> Nationality:</b> {doctor.countryName}
                                                 </span>
                                             </div>
                                         </div>
