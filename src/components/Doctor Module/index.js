@@ -69,13 +69,14 @@ const DoctorRoute = () => {
   }, []);
 
   const getCurrentDoctor = async () => {
-    // const res = await getDoctorByUserId(loggedInUserId);
-    // //axios(payload).then(res => {
-    // if (res && res.data) {
-    //   res.data.doctors.map((value, index) => setCurrentDoctor(value));
-    // }
     const currentDoctor = cookies.get('profileDetails');
     setCurrentDoctor(currentDoctor);
+    const res = await getDoctorByUserId(currentDoctor.userId);
+    if (res && res.data) {
+      res.data.doctors.map((value, index) => {
+        setCurrentDoctor(value);
+      });
+    }
   };
 
   const fcmTokenGenerationHandler = async () => {

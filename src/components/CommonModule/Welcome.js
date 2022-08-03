@@ -312,7 +312,7 @@ const Welcome = ({ currentuserInfo }) => {
                 }
             }
             else {
-                toast.error("Please Add the Document details!")
+                toast.error("Please add license/registration number and subsequent documents!")
             }
         }
     }

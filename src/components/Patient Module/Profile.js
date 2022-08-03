@@ -203,7 +203,7 @@ const Profile = () => {
 
     const handleDetails = async (e) => {
         console.log("profilePicture ::::::", profilePicture);
-        // setTransparentLoading(true);
+        setTransparentLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
         const reqData = { ...currentPatient };
@@ -211,11 +211,13 @@ const Profile = () => {
         bodyFormData.append("profileData", JSON.stringify(reqData));
         bodyFormData.append("profilePicture", profilePicture);
         const response = await updatePatientData(bodyFormData).catch(err => {
+            setTransparentLoading(false);
+            //toast.error("Something went wrong. Please try again.");
             if (err.response.status === 500 || err.response.status === 504) {
                 toast.error("Something went wrong. Please try again.");
-                setTimeout(() => {
-                    history.go(0);
-                }, 1000)
+                // setTimeout(() => {
+                //     history.go(0);
+                // }, 1000) 
             }
         });
 
