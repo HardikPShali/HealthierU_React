@@ -967,14 +967,14 @@ const Myappointment = (props) => {
                       </h2>
                       <span>
                         <ul
-                          style={{ fontSize: 12, display: 'block' }}
-                          className="list--tags"
+                          // style={{ fontSize: 12, display: 'block' }}
+                          className="list--tags-speciality ul-helper"
                         >
                           {selectedAppointment.doctor &&
                             selectedAppointment.doctor.specialities &&
                             selectedAppointment.doctor.specialities.map(
                               (speciality, index) => (
-                                <li key={index}>{speciality.name} </li>
+                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
                               )
                             )}
                         </ul>
@@ -1187,14 +1187,14 @@ const Myappointment = (props) => {
                       </h2>
                       <span>
                         <ul
-                          style={{ fontSize: 12, display: 'block' }}
-                          className="list--tags"
+                          // style={{ fontSize: 12, display: 'block' }}
+                          className="list--tags-speciality ul-helper"
                         >
                           {selectedAppointment.doctor &&
                             selectedAppointment.doctor.specialities &&
                             selectedAppointment.doctor.specialities.map(
                               (speciality, index) => (
-                                <li key={index}>{speciality.name} </li>
+                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
                               )
                             )}
                         </ul>
@@ -1432,14 +1432,14 @@ const Myappointment = (props) => {
                       </h2>
                       <span>
                         <ul
-                          style={{ fontSize: 12, display: 'block' }}
-                          className="list--tags"
+                          //style={{ fontSize: 12, display: 'block' }}
+                          className="list--tags-speciality ul-helper"
                         >
                           {selectedAppointment.doctor &&
                             selectedAppointment.doctor.specialities &&
                             selectedAppointment.doctor.specialities.map(
                               (speciality, index) => (
-                                <li key={index}>{speciality.name} </li>
+                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
                               )
                             )}
                         </ul>
@@ -1695,14 +1695,14 @@ const Myappointment = (props) => {
                       </h2>
                       <span>
                         <ul
-                          style={{ fontSize: 12, display: 'block' }}
-                          className="list--tags"
+                          //style={{ fontSize: 12, display: 'block' }}
+                          className="list--tags-speciality ul-helper"
                         >
                           {selectedAppointment.doctor &&
                             selectedAppointment.doctor.specialities &&
                             selectedAppointment.doctor.specialities.map(
                               (speciality, index) => (
-                                <li key={index}>{speciality.name} </li>
+                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
                               )
                             )}
                         </ul>
