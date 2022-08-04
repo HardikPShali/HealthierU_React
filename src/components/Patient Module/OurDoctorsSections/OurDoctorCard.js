@@ -83,14 +83,14 @@ const OurDoctorCard = ({ doctor }) => {
 
                                     <span>
                                         <ul
-                                            style={{ fontSize: 12, display: 'block' }}
-                                            className="list--tags"
+                                            // style={{ fontSize: 12, display: 'block' }}
+                                            className="list--tags-speciality ul-helper"
                                         >
                                             {doctor &&
                                                 doctor.specialities &&
                                                 doctor.specialities.map(
                                                     (speciality, index) => (
-                                                        <li key={index}>{speciality.name} </li>
+                                                        <li className='specialitiesTags' key={index}>{speciality.name} </li>
                                                     )
                                                 )}
                                         </ul>
@@ -107,7 +107,7 @@ const OurDoctorCard = ({ doctor }) => {
                                             />
                                             <div className="d-flex flex-column align-items-start">
                                                 <div className="doctor-info-title">Education</div>
-                                                <div className="doctor-info-value">
+                                                <div className="doctor-info-new">
                                                     {doctor &&
                                                         doctor.specialities &&
                                                         doctor.specialities.map(
@@ -127,7 +127,7 @@ const OurDoctorCard = ({ doctor }) => {
                                             />
                                             <div className="d-flex flex-column align-items-start">
                                                 <div className="doctor-info-title">Experience</div>
-                                                <div className="doctor-info-value">
+                                                <div className="doctor-info-new">
                                                     {doctor.experience}
                                                 </div>
                                             </div>
@@ -144,7 +144,7 @@ const OurDoctorCard = ({ doctor }) => {
                                             />
                                             <div className="d-flex flex-column align-items-start">
                                                 <div className="doctor-info-title">Languages</div>
-                                                <div className="doctor-info-value">
+                                                <div className="doctor-info-new">
                                                     {doctor &&
                                                         doctor.languages &&
                                                         doctor.languages.map(
@@ -168,7 +168,7 @@ const OurDoctorCard = ({ doctor }) => {
                                                     />
                                                     <div className="d-flex flex-column align-items-start">
                                                         <div className="doctor-info-title">About</div>
-                                                        <div className="doctor-info-value">
+                                                        <div className="doctor-info-new">
                                                             {doctor.bio}
                                                         </div>
                                                     </div>
