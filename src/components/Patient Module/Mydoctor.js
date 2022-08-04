@@ -1886,22 +1886,22 @@ const MyDoctor = (props) => {
                         <div>
                           <p className="doc-name">{doctor.firstName}</p>
                           <div>
-                          <ul
-                            style={{
-                              fontSize: 14,
-                              display: 'flex',
-                              //textAlign: 'center',
-                              flexWrap:'wrap',
-                              justifyContent: 'flex-start'
-                            }}
-                            className="list--tags-speciality"
-                          >
-                            {doctor &&
-                              doctor.specialities &&
-                              doctor.specialities.map((speciality, index) => (
-                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
-                              ))}
-                          </ul>
+                            <ul
+                              style={{
+                                fontSize: 14,
+                                display: 'flex',
+                                //textAlign: 'center',
+                                flexWrap: 'wrap',
+                                justifyContent: 'flex-start'
+                              }}
+                              className="list--tags-speciality"
+                            >
+                              {doctor &&
+                                doctor.specialities &&
+                                doctor.specialities.map((speciality, index) => (
+                                  <li className='specialitiesTags' key={index}>{speciality.name} </li>
+                                ))}
+                            </ul>
                           </div>
                           <p
                             style={{
@@ -2118,15 +2118,17 @@ const MyDoctor = (props) => {
                           <ul
                             style={{
                               fontSize: 14,
-                              display: 'block',
-                              textAlign: 'center',
+                              display: 'flex',
+                              //textAlign: 'center',
+                              flexWrap: 'wrap',
+                              justifyContent: 'flex-start'
                             }}
-                            className="list--tags"
+                            className="list--tags-speciality"
                           >
                             {doctor &&
                               doctor.specialities &&
                               doctor.specialities.map((speciality, index) => (
-                                <li key={index}>{speciality.name} </li>
+                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
                               ))}
                           </ul>
                           <p
@@ -2764,16 +2766,18 @@ const MyDoctor = (props) => {
                       <p className="doc-name">{doctor?.firstName}</p>
                       <ul
                         style={{
-                          fontSize: 12,
-                          display: 'block',
-                          textAlign: 'center',
+                          fontSize: 14,
+                          display: 'flex',
+                          //textAlign: 'center',
+                          flexWrap: 'wrap',
+                          justifyContent: 'flex-start'
                         }}
-                        className="list--tags"
+                        className="list--tags-speciality"
                       >
                         {doctor &&
                           doctor.specialities &&
                           doctor.specialities.map((speciality, index) => (
-                            <li key={index}>{speciality.name} </li>
+                            <li className='specialitiesTags' key={index}>{speciality.name} </li>
                           ))}
                       </ul>
                       <p
@@ -2911,16 +2915,18 @@ const MyDoctor = (props) => {
                         <p className="doc-name">{doctor.firstName}</p>
                         <ul
                           style={{
-                            fontSize: 12,
-                            display: 'block',
-                            textAlign: 'center',
+                            fontSize: 14,
+                            display: 'flex',
+                            //textAlign: 'center',
+                            flexWrap: 'wrap',
+                            justifyContent: 'flex-start'
                           }}
-                          className="list--tags"
+                          className="list--tags-speciality"
                         >
                           {doctor &&
                             doctor.specialities &&
                             doctor.specialities.map((speciality, index) => (
-                              <li key={index}>{speciality.name} </li>
+                              <li className='specialitiesTags' key={index}>{speciality.name} </li>
                             ))}
                         </ul>
                         <p
@@ -3094,18 +3100,6 @@ const MyDoctor = (props) => {
 
                       {disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
-                          <div className='promo-code-listing'>
-                            <input
-                              id="standard-basic"
-                              type="text"
-                              name="promocode"
-                              onChange={(e) => handleInputChange(e)}
-                              placeholder="Enter Promo Code"
-                            />
-                            <button className='btn promo-code-button'>
-                              Apply Promo Code
-                            </button>
-                          </div>
                           <button
                             className="btn btn-primary"
                             style={{ width: '100%' }}
