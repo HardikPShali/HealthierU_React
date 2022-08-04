@@ -89,6 +89,10 @@
   font-weight: none;
   margin-left: 2px;
   font-weight: 400;
+  /* border: 1px solid none;
+  padding: 5px 10px;
+  border-radius: 12px;
+  background-color: #ECF8F7; */
 }
 
 .upcoming-appointment-card__card-details--date-div {
