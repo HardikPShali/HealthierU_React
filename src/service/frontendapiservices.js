@@ -1546,3 +1546,22 @@ export const getAvailableSlotTimings = (data, type) => {
   };
   return axios(payload);
 };
+
+// PROMO-CODE APIS
+export const getAvailableCouponsByPatientId = async (patientId) => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/coupon/patients/${patientId}`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}

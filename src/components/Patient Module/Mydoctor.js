@@ -54,6 +54,7 @@ import {
   getUnreadNotificationsCount,
   getSearchDataAndFilter,
   getAvailableSlotTimings,
+  getAvailableCouponsByPatientId,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -531,6 +532,7 @@ const MyDoctor = (props) => {
     loadSpeciality();
     loadCountry();
     loadLanguage();
+    getAvailableCoupons();
   }, []);
 
   useEffect(() => {
@@ -1405,6 +1407,15 @@ const MyDoctor = (props) => {
       })
     );
   };
+
+
+  // Promocode Apis
+  const getAvailableCoupons = async () => {
+    const patientIdForPromoCode = cookies.get('profileDetails')?.id
+    const couponResponse = await getAvailableCouponsByPatientId(patientIdForPromoCode).catch(err => console.log({ err }))
+    console.log({ couponResponse })
+  }
+
 
   return (
     <div>
