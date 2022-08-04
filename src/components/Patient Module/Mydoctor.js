@@ -1885,20 +1885,24 @@ const MyDoctor = (props) => {
                       <Col xs={12} id="doc-details">
                         <div>
                           <p className="doc-name">{doctor.firstName}</p>
-                          <ul
-                            style={{
-                              fontSize: 14,
-                              display: 'block',
-                              textAlign: 'center',
-                            }}
-                            className="list--tags"
-                          >
-                            {doctor &&
-                              doctor.specialities &&
-                              doctor.specialities.map((speciality, index) => (
-                                <li key={index}>{speciality.name} </li>
-                              ))}
-                          </ul>
+                          <div>
+                            <ul
+                              style={{
+                                fontSize: 14,
+                                display: 'flex',
+                                //textAlign: 'center',
+                                flexWrap: 'wrap',
+                                justifyContent: 'flex-start'
+                              }}
+                              className="list--tags-speciality"
+                            >
+                              {doctor &&
+                                doctor.specialities &&
+                                doctor.specialities.map((speciality, index) => (
+                                  <li className='specialitiesTags' key={index}>{speciality.name} </li>
+                                ))}
+                            </ul>
+                          </div>
                           <p
                             style={{
                               fontSize: 14,
@@ -2114,15 +2118,17 @@ const MyDoctor = (props) => {
                           <ul
                             style={{
                               fontSize: 14,
-                              display: 'block',
-                              textAlign: 'center',
+                              display: 'flex',
+                              //textAlign: 'center',
+                              flexWrap: 'wrap',
+                              justifyContent: 'flex-start'
                             }}
-                            className="list--tags"
+                            className="list--tags-speciality"
                           >
                             {doctor &&
                               doctor.specialities &&
                               doctor.specialities.map((speciality, index) => (
-                                <li key={index}>{speciality.name} </li>
+                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
                               ))}
                           </ul>
                           <p
@@ -2760,16 +2766,18 @@ const MyDoctor = (props) => {
                       <p className="doc-name">{doctor?.firstName}</p>
                       <ul
                         style={{
-                          fontSize: 12,
-                          display: 'block',
-                          textAlign: 'center',
+                          fontSize: 14,
+                          display: 'flex',
+                          //textAlign: 'center',
+                          flexWrap: 'wrap',
+                          justifyContent: 'flex-start'
                         }}
-                        className="list--tags"
+                        className="list--tags-speciality"
                       >
                         {doctor &&
                           doctor.specialities &&
                           doctor.specialities.map((speciality, index) => (
-                            <li key={index}>{speciality.name} </li>
+                            <li className='specialitiesTags' key={index}>{speciality.name} </li>
                           ))}
                       </ul>
                       <p
@@ -2907,16 +2915,18 @@ const MyDoctor = (props) => {
                         <p className="doc-name">{doctor.firstName}</p>
                         <ul
                           style={{
-                            fontSize: 12,
-                            display: 'block',
-                            textAlign: 'center',
+                            fontSize: 14,
+                            display: 'flex',
+                            //textAlign: 'center',
+                            flexWrap: 'wrap',
+                            justifyContent: 'flex-start'
                           }}
-                          className="list--tags"
+                          className="list--tags-speciality"
                         >
                           {doctor &&
                             doctor.specialities &&
                             doctor.specialities.map((speciality, index) => (
-                              <li key={index}>{speciality.name} </li>
+                              <li className='specialitiesTags' key={index}>{speciality.name} </li>
                             ))}
                         </ul>
                         <p
