@@ -10,11 +10,21 @@ const PromocodeListing = ({ data }) => {
         <div className='promocode-listing-view'>
             <div className='row'>
                 <div className='col-md-12'>
-                    <Table
-                        headers={tableHeaders}
-                        data={data}
-                        isLoading={isLoading}
-                    ></Table>
+                    {data.length > 0 ?
+                        <Table
+                            headers={tableHeaders}
+                            data={data}
+                            isLoading={isLoading}
+                        ></Table>
+                        : (
+                            <div
+                                className="col-12 ml-2"
+                                style={{ textShadow: "none", color: "#3e4543", textAlign: 'center', marginTop: '15%' }}
+                            >
+                                No Data Found
+                            </div>
+                        )
+                    }
                 </div>
             </div>
 

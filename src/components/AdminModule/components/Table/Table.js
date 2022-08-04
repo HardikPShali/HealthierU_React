@@ -1,14 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, MemoryRouter } from "react-router-dom";
 import editIcon from "../../../../images/icons used/edit icon_40 pxl.svg";
 import deleteIcon from "../../../../images/icons used/delete_icon_40 pxl.svg";
 import ContentLoader from "react-content-loader";
 import "./Table.css";
 import PropTypes from 'prop-types';
-
+import { toggleCoupon, manageCouponDetails } from '../../../../service/frontendapiservices'
+import { toast } from 'react-toastify'
 const Table = (props) => {
-  const { headers, data, isLoading, editLink, handleDelete, id, handleToggle } = props;
-
+  const { headers, data, isLoading, editLink, handleDelete, id } = props;
+  const [isChecked, setIsChecked] = useState(false)
+  const handleToggle = async (e, datas) => {
+    const info = {
+      patientId: datas.patientId,
+      //couponId: '2',
+      toggle: e.target.checked
+    }
+    const res = await toggleCoupon(info).catch(err => {
+      toast.error("Something went wrong.Please try again!")
+    })
+    if (res) {
+      // const response = await manageCouponDetails().catch(err => {
+      //   toast.error("Something went wrong.Please try again!")
+      // })
+      // if (response) {
+      //   const dataForManageCoupon = response.data.data.content
+      //   dataForManageCoupon.map((data) => {
+      //     if (datas.patientId == data.id) {
+      //       setIsChecked(data.couponToggle)
+      //     }
+      //   })
+      // }
+      setIsChecked(res.data.couponToggle)
+    }
+  }
   return (
     <table className="table shadow">
       <thead className="thead-dark">
@@ -75,10 +100,10 @@ const Table = (props) => {
                       <div className="selected-users-toggle">
                         <label className="toggle-switch">
                           <input
-                            // checked={datas.active}
+                            checked={isChecked}
                             id="toggleSlots"
                             type="checkbox"
-                          // onChange={(e) => handleToggle(e)}
+                            onChange={(e) => handleToggle(e, datas)}
                           />
                           <span className="toggle-slider round"></span>
                         </label>

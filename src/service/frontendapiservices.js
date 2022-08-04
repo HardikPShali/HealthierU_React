@@ -1546,3 +1546,47 @@ export const getAvailableSlotTimings = (data, type) => {
   };
   return axios(payload);
 };
+//Promocode-APIs
+// List Coupon Usage details
+export const getPromocodeListing = () => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    url: `/api/v2/coupon/usage?size=0&number=10`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
+};
+// Manage Coupon  details
+export const manageCouponDetails = () => {
+  var payload = {
+    method: "get",
+    mode: "no-cors",
+    url: `/api/v2/coupon/patients/all?number=0&size=2`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
+};
+// Toggle API
+export const toggleCoupon = (data) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    data: data,
+    url: `/api/v2/coupon/patients/toggle`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
+};

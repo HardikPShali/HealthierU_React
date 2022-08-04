@@ -1,6 +1,6 @@
 export const PROMOCODE_LISTING_TABLE_HEADERS = [
     {
-        label: "Sr. No.",
+        label: "Slot Id",
         key: "id",
     },
     {
@@ -35,7 +35,7 @@ export const PROMOCODE_LISTING_TABLE_HEADERS = [
 
 export const PROMOCODE_USER_TABLE_HEADERS = [
     {
-        label: "Sr. No.",
+        label: "Slot Id",
         key: "id",
     },
     {
