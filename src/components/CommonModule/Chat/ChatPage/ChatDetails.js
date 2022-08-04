@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import ChatDetailsStyle from "./ChatDetails.css";
@@ -13,7 +13,10 @@ import { ROLES } from "../../../../util/configurations";
 import ChatIcon from "../../../../images/svg/notes-outline-icon.svg";
 import { getCallUserApi } from "../../../../service/frontendapiservices";
 import { toast } from "react-toastify";
-import { chatValidation, videoValiation } from "../../../../util/chatAndCallValidations";
+import {
+  chatValidation,
+  videoValiation,
+} from "../../../../util/chatAndCallValidations";
 
 const ChatDetails = ({
   selectedItem,
@@ -25,10 +28,13 @@ const ChatDetails = ({
   onVideoClick,
   onNoteClick,
   loadMoreData,
+  enableChat,
+  enableVideo
 }) => {
-  const [enableVideo, setEnableVideo] = useState(false);
-  const [enableChat, setEnableChat] = useState(false);
+  // const [enableVideo, setEnableVideo] = useState(false);
+  // const [enableChat, setEnableChat] = useState(false);
   const [roles] = useRole();
+  let intervalId = null;
 
   const getAppointmentTime = (appointment) => {
     const currentTime = moment(new Date());
@@ -74,36 +80,46 @@ const ChatDetails = ({
       currentTime.isSameOrAfter(chatEnableTime) &&
       currentTime.isBefore(chatEndCondition)
     ) {
-      return true
+      return true;
     }
 
-    return false
+    return false;
   };
 
-  const hideChatAndVideo = () => {
-    setEnableChat(false);
-    setEnableVideo(false);
-  }
+  // const hideChatAndVideo = () => {
+  //   setEnableChat(false);
+  //   setEnableVideo(false);
+  // };
 
-  useEffect(() => {
-    if (selectedItem.id) {
-      if (selectedItem.appointments.length) {
-        // const isVideoEnabled = selectedItem.appointments.some(videoEnableCheck);
+  // useEffect(() => {
+  //   if (intervalId != null) {
+  //     clearInterval(intervalId);
+  //   }
 
-        const isVideoEnabled = videoValiation(selectedItem.appointments);
-        setEnableVideo(isVideoEnabled);
+  //   if (selectedItem.id) {
+  //     if (selectedItem.appointments.length) {
 
-        // const isChatEnabled = selectedItem.appointments.some(chatEnableCheck);
-        const isChatEnabled = chatValidation(selectedItem.appointments);
-        setEnableChat(isChatEnabled);
-      } else {
-        hideChatAndVideo();
-      }
+  //       const isVideoEnabled = videoValiation(selectedItem.appointments);
+  //       setEnableVideo(isVideoEnabled);
 
-    } else {
-      hideChatAndVideo();
-    }
-  }, [selectedItem]);
+  //       const isChatEnabled = chatValidation(selectedItem.appointments);
+  //       setEnableChat(isChatEnabled);
+
+  //       startPeriodicValidationCheck();
+  //     } else {
+  //       hideChatAndVideo();
+  //     }
+  //   } else {
+  //     hideChatAndVideo();
+  //   }
+  // }, [selectedItem]);
+
+  // const startPeriodicValidationCheck = () => {
+  //   intervalId = setInterval(() => {
+  //     const isVideoEnabled = videoValiation(selectedItem.appointments);
+  //     setEnableVideo(isVideoEnabled);
+  //   }, 60000);
+  // };
 
   const handleVideo = () => {
     if (!enableVideo) return;
@@ -163,8 +179,6 @@ const ChatDetails = ({
   let channelId = selectedItem.id;
   // console.log({ channelId: channelId });
 
-
-
   // useEffect(() => {
   //   callUser();
   // }, [channelId]);
@@ -174,8 +188,8 @@ const ChatDetails = ({
       <h2 className="chating_with">
         {selectedItem[selectedItem.userKey] &&
           selectedItem[selectedItem.userKey]?.firstName +
-          " " +
-          selectedItem[selectedItem.userKey]?.lastName}
+            " " +
+            selectedItem[selectedItem.userKey]?.lastName}
       </h2>
       <div className="chat-section">
         <div className="chat_detail-body">
@@ -190,7 +204,7 @@ const ChatDetails = ({
           >
             {messages.map((message, index) => {
               return (
-                <>
+                <Fragment key={message.id}>
                   {groupDateCalculation(index) && (
                     <div className="date-divider">
                       {moment(message.createdAt).format("DD MMM yyyy")}
@@ -200,7 +214,7 @@ const ChatDetails = ({
                     <div className="row">
                       {!message.myMessage && (
                         <div
-                          key={message.id}
+                      
                           className="received_chat-msg-wrap my-2"
                         >
                           <div className="received_chat-msg">
@@ -215,7 +229,7 @@ const ChatDetails = ({
                       )}
                       {message.myMessage && (
                         <div
-                          key={message.id}
+                        
                           className="sent_chat-msg-wrap my-2"
                         >
                           <div className="sent_chat-msg">
@@ -235,9 +249,10 @@ const ChatDetails = ({
                       )}
                     </div>
                   </div>
-                </>
+                </Fragment>
               );
             })}
+            
             <div style={{ float: "left", clear: "both" }} ref={endRef}></div>
           </div>
         </div>
@@ -277,7 +292,7 @@ const ChatDetails = ({
             <button
               onClick={handleNoteToggle}
               className="notes-btn"
-            // disabled={!enableChat}
+              // disabled={!enableChat}
             >
               <img src={ChatIcon} alt="chat-icon" />
             </button>

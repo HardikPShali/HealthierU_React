@@ -9,18 +9,25 @@ import './Notes.css'
 
 const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
+    console.log({ selectedChatNote })
+
     const { patientInfo, doctorInfo, latestAppointment } = selectedChatNote;
 
     const [disableButton, setDisableButton] = useState(false);
 
+    const [toastShow, setToastShow] = useState(false);
+
     useEffect(() => {
-        setNotes({
-            chiefComplaint: '',
-            presentIllness: '',
-            vitalSigns: '',
-            physicalExam: '',
-            planAssessment: '',
-        })
+        if (selectedChatNote) {
+            setNotes({
+                chiefComplaint: '',
+                presentIllness: '',
+                vitalSigns: '',
+                physicalExam: '',
+                planAssessment: '',
+            })
+        }
+
     }, [selectedChatNote]);
 
 
@@ -47,6 +54,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
     const sendNotesDetails = async (e) => {
         e.preventDefault();
         setDisableButton(true);
+        // setToastShow(false);
 
         const note = {
             chiefComplaint: notes.chiefComplaint,
@@ -65,22 +73,17 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
         console.log(noteResponse);
         if (noteResponse.status === 200) {
-            toast.success(`Notes Added Successfully`, {
-                position: 'top-right',
-                autoClose: 2000,
+            setToastShow(true);
+
+            toast.success("Notes sent successfully", {
+                position: "top-right",
+                autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
             });
-            setNotes({
-                chiefComplaint: '',
-                presentIllness: '',
-                vitalSigns: '',
-                physicalExam: '',
-                planAssessment: '',
-            })
             setDisableButton(false);
             onClose();
         }
@@ -110,6 +113,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="1"
                                     name='chiefComplaint'
                                     value={chiefComplaint}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
@@ -121,6 +125,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="3"
                                     name='presentIllness'
                                     value={presentIllness}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
@@ -132,6 +137,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="2"
                                     name='vitalSigns'
                                     value={vitalSigns}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
@@ -143,6 +149,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="2"
                                     name='physicalExam'
                                     value={physicalExam}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
@@ -154,6 +161,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                                     rows="3"
                                     name='planAssessment'
                                     value={planAssessment}
+                                    maxLength={500}
                                     onChange={(e) => handleInputChange(e)}
                                 ></textarea>
                             </div>
@@ -166,17 +174,22 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
                             />
 
                         </form>
-                        <ToastContainer
-                            position="top-right"
-                            autoClose={1000}
-                            hideProgressBar
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                        />
+                        {
+                            toastShow && (
+                                <ToastContainer
+                                    position="top-right"
+                                    autoClose={1000}
+                                    hideProgressBar
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover
+                                />
+                            )
+                        }
+
                     </Col>
                 </Row>
 

@@ -21,6 +21,7 @@ import {
     postDocumentAddPrescriptionLabResult,
     //getPatientDetail,
     //getDocuments,
+    deleteDocument
 } from "../../../service/DocumentService";
 import "../../Doctor Module/doctor.css";
 import moment from "moment";
@@ -35,6 +36,7 @@ import Cookies from "universal-cookie";
 import SearchBarComponent from "../../Doctor Module/SearchAndFilter/SearchComponent";
 import PrescriptionFilter from "../../Doctor Module/SearchAndFilter/PrescriptionFIlter";
 import FilterComponent from "../../Doctor Module/SearchAndFilter/FilterComponent";
+import PrescriptionLabCardPatient from "../../Doctor Module/Prescription-Lab/PrescriptionLabCardPatient";
 // import documentViewImage from '../../../images/icons used/document icon@2x.png';
 // import Footer from '../Footer';
 // import editIcon from "../../../images/Icons/edit icon_40 pxl.svg";
@@ -73,7 +75,8 @@ const PatientDocument = (props) => {
         currentPage: 0,
         documentsList: [],
     });
-
+    const [medicalRecordData, setMedicalRecordData] = useState([]);
+    const [medicalRecordLabData, setMedicalRecordLabData] = useState([]);
     const [labResult, setLabResult] = useState({
         resultName: "",
         resultType: "",
@@ -110,15 +113,20 @@ const PatientDocument = (props) => {
 
     const handleLabResultChange = (e) => {
         if (e.target.type === "file") {
+            const file = e.target.files[0]
             const fileSize = e.target.files[0].size;
             console.log("fileSize ::", fileSize);
             const maxSize = 10000000;
-            if (e.target.files[0].size <= maxSize) {
-                setErrorMsg("");
-                setLabResult({ ...labResult, labResultDocument: e.target.files[0] });
-            } else {
+            if (e.target.files[0].size > maxSize) {
                 document.getElementById("labResultDocument").value = "";
                 setErrorMsg("Please upload PDF file with size less than 10mb.");
+
+            } else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
+                setErrorMsg("Document must be PNG, JPG, JPEG or PDF");
+                document.getElementById("labResultDocument").value = "";
+            } else {
+                setErrorMsg("");
+                setLabResult({ ...labResult, labResultDocument: e.target.files[0] });
             }
         } else {
             setLabResult({ ...labResult, [e.target.name]: e.target.value });
@@ -127,18 +135,23 @@ const PatientDocument = (props) => {
 
     const handlePrescriptionChange = (e) => {
         if (e.target.type === "file") {
+            const file = e.target.files[0]
             const fileSize = e.target.files[0].size;
             console.log("fileSize ::", fileSize);
             const maxSize = 10000000;
-            if (e.target.files[0].size <= maxSize) {
+            if (e.target.files[0].size > maxSize) {
+                document.getElementById("prescriptionDocument").value = "";
+                setErrorMsg("Please upload PDF file with size less than 10mb.");
+
+            } else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
+                setErrorMsg("Document must be PNG, JPG, JPEG or PDF");
+                document.getElementById("prescriptionDocument").value = "";
+            } else {
                 setErrorMsg("");
                 setPrescriptionResult({
                     ...prescriptionResult,
                     prescriptionDocument: e.target.value,
                 });
-            } else {
-                document.getElementById("prescriptionDocument").value = "";
-                setErrorMsg("Please upload PDF file with size less than 10mb.");
             }
         } else {
             setPrescriptionResult({
@@ -167,12 +180,12 @@ const PatientDocument = (props) => {
         // console.log("Matches::", matches)
         // setSuggestion(matches);
     };
-
+    const [lenghtofData, setLenghtofData] = useState({});
+    const [lenghtofLabData, setLenghtofLabData] = useState({});
     const loadDocuments = async () => {
         // GET request using fetch with async/await
         setLoading(true);
         const currentUser = await getCurrentUserInfo();
-        console.log("patientInfo", currentUser);
         // const currentLoggedInUser = cookies.get("currentUser");
         const patientInfo = await getCurrentPatientInfo(
             currentUser.data.userInfo.id,
@@ -187,8 +200,13 @@ const PatientDocument = (props) => {
         }
         const presecriptionDocument = await getGlobalMedicalRecordsSearch(page, size, data);
         if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
-            setPresecriptionDocument(presecriptionDocument.data.data)
-            console.log("presecriptionDocument", presecriptionDocument.data.data);
+            const res = []
+            const prepData = presecriptionDocument.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordData(res)
+            setLenghtofData(presecriptionDocument.data.data)
         }
         setLoading(false);
     };
@@ -241,7 +259,13 @@ const PatientDocument = (props) => {
         }
         const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
         if (labDocument.status === 200 || labDocument.status === 201) {
-            setLabDocument(labDocument.data.data)
+            const res = []
+            const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordLabData(res)
+            setLenghtofLabData(labDocument.data.data)
         }
     };
 
@@ -304,7 +328,7 @@ const PatientDocument = (props) => {
     const clickTabEvent = async (event) => {
         //let documents;
         // setLoading(true);
-        setMedicalRecordData([])
+        // setMedicalRecordData([])
         if (event === "labResult") {
             let page = 0;
             let size = 3;
@@ -314,7 +338,13 @@ const PatientDocument = (props) => {
             }
             const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
             if (labDocument.status === 200 || labDocument.status === 201) {
-                setLabDocument(labDocument.data.data)
+                const res = []
+                const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+                prepData.forEach((f) => {
+                    res.push(...f.documentsList)
+                })
+                setMedicalRecordLabData(res)
+                setLenghtofLabData(labDocument.data.data)
             }
             setLoading(false);
         }
@@ -328,7 +358,13 @@ const PatientDocument = (props) => {
             }
             const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
             if (labDocument.status === 200 || labDocument.status === 201) {
-                setPresecriptionDocument(labDocument.data.data)
+                const res = []
+                const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+                prepData.forEach((f) => {
+                    res.push(...f.documentsList)
+                })
+                setMedicalRecordData(res)
+                setLenghtofData(labDocument.data.data)
             }
             setLoading(false);
         }
@@ -353,7 +389,13 @@ const PatientDocument = (props) => {
             }
         }
         const response = await getGlobalMedicalRecordsSearch(page, size, data)
-        setPresecriptionDocument(response.data.data);
+        const res = []
+        const prepData = response.data.data.documentsList.filter(re => re.documentsList.length)
+        prepData.forEach((f) => {
+            res.push(...f.documentsList)
+        })
+        setMedicalRecordData(res)
+        setLenghtofData(response.data.data);
     };
 
     const clickPaginationForLab = async (pageNumber) => {
@@ -371,7 +413,13 @@ const PatientDocument = (props) => {
             }
         }
         const response = await getGlobalMedicalRecordsSearch(page, size, data)
-        setLabDocument(response.data.data);
+        const res = []
+        const prepData = response.data.data.documentsList.filter(re => re.documentsList.length)
+        prepData.forEach((f) => {
+            res.push(...f.documentsList)
+        })
+        setMedicalRecordLabData(res)
+        setLenghtofLabData(response.data.data);
         //console.log(currentPageNumber)
     };
 
@@ -465,7 +513,6 @@ const PatientDocument = (props) => {
     }
     //Search
     const [search, setSearch] = useState("");
-    const [medicalRecordData, setMedicalRecordData] = useState([]);
     const [currentPatient, setCurrentPatient] = useState("");
     const [isSearch, setIsSearch] = useState(false);
     const getGlobalPrescriptions = async (search, filter = {}) => {
@@ -483,14 +530,17 @@ const PatientDocument = (props) => {
         let page = 0;
         let size = 3;
         if (filter.startTime && filter.startTime !== "") {
+            data.doctorName = ""
             data.startTime = filter.startTime;
         }
         if (filter.endTime && filter.endTime !== "") {
+            data.doctorName = ""
             const endtime = new Date(filter.endTime);
             endtime.setHours(23, 59, 59);
             data.endTime = endtime.toISOString();
         }
         if (filter.resultType && filter.resultType !== "") {
+            data.doctorName = ""
             data.resultType = filter.resultType;
         }
         setSearchandFilterData(data)
@@ -502,7 +552,14 @@ const PatientDocument = (props) => {
             }
         );
         if (responseTwo.status === 200 || responseTwo.status === 201) {
-            setPresecriptionDocument(responseTwo.data.data)
+            const res = []
+            const prepData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordData(res)
+            setLenghtofData(responseTwo.data.data);
+            // setPresecriptionDocument(responseTwo.data.data)
             setCurrentPageNumber(1);
         }
     };
@@ -522,14 +579,17 @@ const PatientDocument = (props) => {
         let page = 0;
         let size = 3;
         if (filter.startTime && filter.startTime !== "") {
+            data.labName = ""
             data.startTime = filter.startTime;
         }
         if (filter.endTime && filter.endTime !== "") {
+            data.labName = ""
             const endtime = new Date(filter.endTime);
             endtime.setHours(23, 59, 59);
             data.endTime = endtime.toISOString();
         }
         if (filter.resultType && filter.resultType !== "") {
+            data.labName = ""
             data.resultType = filter.resultType;
         }
         setSearchandFilterData(data)
@@ -541,7 +601,13 @@ const PatientDocument = (props) => {
             }
         );
         if (responseTwo.status === 200 || responseTwo.status === 201) {
-            setLabDocument(responseTwo.data.data)
+            const res = []
+            const prepData = responseTwo.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordLabData(res)
+            setLenghtofLabData(responseTwo.data.data)
             setCurrentPageNumber(1);
         }
     };
@@ -576,6 +642,54 @@ const PatientDocument = (props) => {
             setSearch(searchValue);
         }
     };
+    const [documentId, setDocumentId] = useState(null);
+    const [showDelete, setDeleteShow] = useState(false);
+    const handleDeleteShow = () => setDeleteShow(true);
+    const handleDeleteClose = () => setDeleteShow(false);
+    const handleDeleteModal = (id) => {
+        setDocumentId(id);
+        setDeleteShow(true);
+    };
+    const handleDeleteDocumentSubmission = async (event) => {
+        setPrescriptionDocumentUrl("");
+        setLabDocumentUrl("");
+        const resp = await deleteDocument(documentId);
+        if (resp) {
+            toast.success("Document successfully Deleted.");
+            setDeleteShow(false);
+        }
+        let page = 0;
+        let size = 3;
+        const info = {
+            documentType: "LabResult",
+            patientId: patient.id
+        }
+        const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
+        if (labDocument.status === 200 || labDocument.status === 201) {
+            const res = []
+            const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordLabData(res)
+            setLenghtofLabData(labDocument.data.data)
+        }
+        const info1 = {
+            documentType: "Prescription",
+            patientId: patient.id
+        }
+        const prepDocument = await getGlobalMedicalRecordsSearch(page, size, info1);
+        if (prepDocument.status === 200 || prepDocument.status === 201) {
+            const res = []
+            const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordData(res)
+            setLenghtofData(prepDocument.data.data)
+        }
+
+    };
     return (
         <>
             {loading && <TransparentLoader />}
@@ -605,13 +719,13 @@ const PatientDocument = (props) => {
                     id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}
                 >
-                    <Tab eventKey="prescription" title="Prescription">
+                    <Tab eventKey="prescription" title="Treatment">
                         <br />
 
                         <br />
                         <div>
-                            {presecriptionDocument.totalPages ? (
-                                presecriptionDocument.documentsList[0].documentsList.map(
+                            {lenghtofData.totalItems ? (
+                                medicalRecordData.map(
                                     (dataItem, subIndex) => {
                                         return (
                                             <div className="prescription-lab__card-box" key={subIndex}>
@@ -637,7 +751,7 @@ const PatientDocument = (props) => {
                                                                 filetype={getFileExtension(
                                                                     dataItem.documentUrl
                                                                 )}
-                                                                name={"Prescription"}
+                                                                name={"Treatment"}
                                                                 docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
@@ -655,7 +769,7 @@ const PatientDocument = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: "none", color: "#3e4543" }}
                                 >
-                                    {isSearch === false && "No Documents"}
+                                    No Documents
                                 </div>
                             )}
                         </div>
@@ -663,8 +777,8 @@ const PatientDocument = (props) => {
                         <div style={{ minHeight: '100px' }}>
                             <Pagination size="sm" style={{ float: 'right' }}>
                                 {
-                                    presecriptionDocument.totalPages ?
-                                        Array.from(Array(presecriptionDocument.totalPages), (e, i) => {
+                                    lenghtofData.totalPages ?
+                                        Array.from(Array(lenghtofData.totalPages), (e, i) => {
                                             return <Pagination.Item key={i + 1}
                                                 active={i + 1 === currentPageNumber ? true : false}
                                                 onClick={e => clickPagination(i + 1)}>
@@ -702,8 +816,8 @@ const PatientDocument = (props) => {
                         </div>
                         <br />
                         <div>
-                            {labDocument.totalPages ? (
-                                labDocument.documentsList[0].documentsList.map((dataItem, subIndex) => {
+                            {lenghtofLabData.totalItems ? (
+                                medicalRecordLabData.map((dataItem, subIndex) => {
                                     return (
                                         <div className="prescription-lab__card-box">
                                             <h3 className="prescription-lab--month-header mb-3 mt-2">
@@ -715,7 +829,7 @@ const PatientDocument = (props) => {
                                                         style={{ cursor: "pointer" }}
                                                         className="prescription-lab-card"
                                                     >
-                                                        <PrescriptionLabCard
+                                                        <PrescriptionLabCardPatient
                                                             filetype={getFileExtension(dataItem.documentUrl)}
                                                             name={dataItem.name}
                                                             labname={dataItem.labName}
@@ -724,6 +838,7 @@ const PatientDocument = (props) => {
                                                             date={dataItem.docUploadTime}
                                                             time={dataItem.docUploadTime}
                                                             download={(e) => showLabDocument(dataItem)}
+                                                            delete={(e) => handleDeleteModal(dataItem.id)}
                                                         />
                                                     </div>
                                                 </div>
@@ -736,7 +851,7 @@ const PatientDocument = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: "none", color: "#3e4543" }}
                                 >
-                                    {isSearch === false && "No Documents"}
+                                    No Documents
                                 </div>
                             )}
                         </div>
@@ -744,8 +859,8 @@ const PatientDocument = (props) => {
                             <br />
                             <Pagination size="sm" style={{ float: 'right' }}>
                                 {
-                                    labDocument.totalPages ?
-                                        Array.from(Array(labDocument.totalPages), (e, i) => {
+                                    lenghtofLabData.totalPages ?
+                                        Array.from(Array(lenghtofLabData.totalPages), (e, i) => {
                                             return <Pagination.Item key={i + 1}
                                                 active={i + 1 === currentPageNumber ? true : false}
                                                 onClick={e => clickPaginationForLab(i + 1)}>
@@ -1239,6 +1354,25 @@ const PatientDocument = (props) => {
                             </Button>
                         </Modal.Footer>
                     </form>
+                </Modal>
+                <Modal show={showDelete} onHide={handleDeleteShow}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete Document</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Are you sure to Delete the Document ?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleDeleteClose}>
+                            Close
+                        </Button>
+                        <Button
+                            variant="primary"
+                            onClick={() => handleDeleteDocumentSubmission()}
+                        >
+                            Delete
+                        </Button>
+                    </Modal.Footer>
                 </Modal>
             </div>
 

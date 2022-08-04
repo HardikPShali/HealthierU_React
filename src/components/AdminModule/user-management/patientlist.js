@@ -74,7 +74,9 @@ const PatientList = () => {
       );
     });
     setFilterData(filteredData);
-    setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
+    if (filteredData.length == '0') {
+      setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
+    }
   };
   const loadMore = async () => {
     const result = await getPaginatedPatientList(offset, limit);
@@ -137,8 +139,8 @@ const PatientList = () => {
             <thead>
               <tr>
                 <th width={70}>S no.</th>
-                <th width={100}>First Name</th>
-                <th width={100}>Last Name</th>
+                <th width={100}>Full Name</th>
+                {/* <th width={100}>Last Name</th> */}
                 <th width={150}>Email</th>
                 <th width={100}>Role</th>
                 <th width={250}>Signup Date</th>
@@ -150,8 +152,8 @@ const PatientList = () => {
                 filterData.map((user, index) => (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
-                    <td>{user.firstName}</td>
-                    <td>{user.lastName}</td>
+                    <td>{user.firstName + ' ' + (user.lastName || "")}</td>
+                    {/* <td>{user.lastName}</td> */}
                     <td>{user.email}</td>
                     <td>
                       Patient

@@ -33,6 +33,7 @@ import timeSmall from "../../images/svg/time-white.svg";
 import { useHistory } from "react-router";
 import HealthAssestmentReport from "./HealthAssestmentReport/HealthAssestmentReport";
 import { getInbox } from "../../service/chatService";
+import { videoEnableCheck } from "../../util/chatAndCallValidations";
 // import calendarSmall from "../../../images/svg/calendar-small.svg";
 // import timeSmall from "../../../images/svg/time-small.svg";
 const MyAppointments = (props) => {
@@ -85,17 +86,19 @@ const MyAppointments = (props) => {
     setAlertVideo(false);
   };
 
-  const handleVideoCall = (startTime) => {
-    const appointmentStartTime = new Date(startTime);
-    const AppointmnetBeforeTenMinutes = new Date(
-      appointmentStartTime.getTime() - 5 * 60000
-    );
-    const AppointmnetAfter70Minutes = new Date(
-      appointmentStartTime.getTime() + 70 * 60000
-    );
+  const handleVideoCall = (selectedPatient) => {
+    // const appointmentStartTime = new Date(startTime);
+    // const AppointmnetBeforeTenMinutes = new Date(
+    //   appointmentStartTime.getTime() - 5 * 60000
+    // );
+    // const AppointmnetAfter70Minutes = new Date(
+    //   appointmentStartTime.getTime() + 70 * 60000
+    // );
+
+    const isVideoEnabled = videoEnableCheck(selectedPatient);
+
     if (
-      new Date().toISOString() >= AppointmnetBeforeTenMinutes.toISOString() &&
-      new Date().toISOString() <= AppointmnetAfter70Minutes.toISOString()
+      isVideoEnabled
     ) {
       handleConfirmVideo();
     } else {
@@ -315,8 +318,13 @@ const MyAppointments = (props) => {
       doctorId: currentDoctor.id,
       status: "ACCEPTED",
       startTime: starttime.toISOString(),
-      patientName: search,
+      // patientName: search,
     };
+
+    if (search && search !== "") {
+      data.patientName = search
+    }
+
     if (filter.patientSlot && filter.patientSlot !== "") {
       data.unifiedAppointment = filter.patientSlot;
     }
@@ -333,6 +341,7 @@ const MyAppointments = (props) => {
         setLoading(false);
       }
     });
+    console.log({ responseTwo })
     if (responseTwo.status === 200 || responseTwo.status === 201) {
       if (responseTwo && responseTwo.data) {
         setLoading(false);
@@ -843,7 +852,7 @@ const MyAppointments = (props) => {
 
                             <IconButton
                               onClick={() =>
-                                handleVideoCall(SelectedPatient.startTime)
+                                handleVideoCall(SelectedPatient)
                               }
                             >
                               <VideocamIcon id="active-video-icon" />
@@ -970,14 +979,14 @@ const MyAppointments = (props) => {
                       <Row>
                         <Col className="profile-btn">
 
-                          <button
+                          {moment().isBefore(moment(SelectedPatient.startTime)) && <button
                             className="btn btn-primary view-btn"
                             onClick={() =>
                               handleRescheduleOpen(SelectedPatient.id)
                             }
                           >
                             Reschedule
-                          </button>
+                          </button>}
                         </Col>
                       </Row>
                     </div>
@@ -1041,8 +1050,7 @@ const MyAppointments = (props) => {
         open={alertVideo}
       >
         <DialogTitle id="customized-dialog-title" onClose={alertVideoClose}>
-          Video call is possible only starting 5 Minutes before the Appointment
-          Time and 10 minutes after appointment end time.
+          Video call is possible only 5 minutes before the appointment time and 10 minutes after the appointment end time.
         </DialogTitle>
         <DialogActions>
           <button
@@ -1064,7 +1072,7 @@ const MyAppointments = (props) => {
           id="customized-dialog-title"
           onClose={handleRescheduleClose}
         >
-          Are you sure you want to Reschedule this patient's slot?
+          Are you sure you want to reschedule this patient's slot?
         </DialogTitle>
         <DialogActions>
           <button

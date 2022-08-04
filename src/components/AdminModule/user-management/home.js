@@ -331,8 +331,8 @@ const Home = () => {
             <thead className="thead-dark">
               <tr>
                 <th width={70}>S no.</th>
-                <th width={80}>First Name</th>
-                <th width={80}>Last Name</th>
+                <th width={80}>Full Name</th>
+                {/* <th width={80}>Last Name</th> */}
                 <th width={150}>Email</th>
                 <th width={80}>Role</th>
                 <th width={250}>Signup Date</th>
@@ -348,8 +348,8 @@ const Home = () => {
                         ? index + 1
                         : index + 1 + currentPageNumber * 20}
                     </th>
-                    <td>{user.firstName}</td>
-                    <td>{user.lastName}</td>
+                    <td>{user.firstName + ' ' + (user.lastName || "")}</td>
+                    {/* <td>{user.lastName}</td> */}
                     <td>{user.email}</td>
                     <td>
                       {user.authorities.some(
@@ -549,7 +549,7 @@ const Home = () => {
               autoFocus
               className="btn btn-primary sign-btn"
             >
-              Ok
+              OK
             </button>
           </DialogActions>
         </ValidatorForm>

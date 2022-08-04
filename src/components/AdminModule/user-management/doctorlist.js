@@ -291,8 +291,8 @@ const DoctorList = () => {
             <thead>
               <tr>
                 <th width={70}>S no.</th>
-                <th width={80}>First Name</th>
-                <th width={80}>Last Name</th>
+                <th width={80}>Full Name</th>
+                {/* <th width={80}>Last Name</th> */}
                 <th width={150}>Email</th>
                 <th width={100}>Role</th>
                 <th width={250}>Signup Date</th>
@@ -308,8 +308,8 @@ const DoctorList = () => {
                         ? index + 1
                         : index + 1 + currentPageNumber * 15}
                     </th>
-                    <td>{user.firstName}</td>
-                    <td>{user.lastName}</td>
+                    <td>{user.firstName + ' ' + (user.lastName || "")}</td>
+                    {/* <td>{user.lastName}</td> */}
                     <td>{user.email}</td>
                     <td>
                       {/* {user.authorities.some(

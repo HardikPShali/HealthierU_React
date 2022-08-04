@@ -8,7 +8,7 @@ import {
     putMarkAsReadFromNotificationMenu,
 } from '../../../../service/frontendapiservices';
 
-const RescheduleNotification = ({ notification, key }) => {
+const RescheduleByDoctorNotification = ({ notification, key }) => {
     const setDoctorIdInSession = (doctorId) => {
         // console.log({ doctorId });
         sessionStorage.setItem('doctorId', doctorId);
@@ -82,10 +82,13 @@ const RescheduleNotification = ({ notification, key }) => {
                                     has requested to reschedule the appointment booked for{' '}
                                     {moment(
                                         notification.data.appointmentDetails.startTime
-                                    ).format('DD-MM-YYYY hh:mm')}{' '}
+                                    ).format('DD-MM-YYYY HH:mm')}{' '}
                                     . Click here to reschedule
                                 </span>
-                                {/* <span>TIME</span> */}
+                                <span style={{
+                                    color: '#bfbfbf',
+                                    fontSize: 11,
+                                }}>{moment(notification.createdAt).format('HH:mm')}</span>
                             </div>
                         </div>
                         <div className="notif-section__arrow">
@@ -104,4 +107,4 @@ const RescheduleNotification = ({ notification, key }) => {
     );
 };
 
-export default RescheduleNotification;
+export default RescheduleByDoctorNotification;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 //import axios from 'axios'
 import Header from "../Login-Module/Header";
 import Footer from "../Login-Module/Footer";
@@ -55,6 +55,10 @@ const Signupform = () => {
   const cookies = new Cookies();
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
+
+    if (queryFromGSign === 'true') {
+      setDisplay({ ...display, signupForm: "none", whoyouAre: "block", otpPage: "none" });
+    }
   }, []);
   const history = useHistory();
   const googleAccessToken = cookies.get("GOOGLE_ACCESS_TOKEN");
@@ -453,6 +457,14 @@ const Signupform = () => {
     }
   };
 
+
+  // to tackle "500 user role reqd." error
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  let queryFromGSign = searchParams.get('form-google');
+  // console.log({ queryFromGSign });
+
   return (
     <div>
       {loading && <Loader />}
@@ -511,7 +523,7 @@ const Signupform = () => {
                   errorMessages={[
                     "This field is required",
                     "First name should not exceed 50 characters",
-                    "Please provide a valid first name",
+                    "Please provide a valid Full Name",
                     "Please do not use whitespace in front First Name",
                     "First Name cannot have any numeric values"
                   ]}
@@ -731,6 +743,9 @@ const Signupform = () => {
               }
 
               <div>
+                <button className="otp-verify" onClick={() => handleOTPSubmit()}>
+                  Verify
+                </button>
                 <button
                   className='otp-verify'
                   onClick={() => {
@@ -739,11 +754,6 @@ const Signupform = () => {
                 >
                   Clear
                 </button>
-
-                <button className="otp-verify" onClick={() => handleOTPSubmit()}>
-                  Verify
-                </button>
-
               </div>
 
 

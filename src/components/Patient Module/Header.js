@@ -12,7 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import NotificationMenu from "../CommonModule/NotificationMenu";
 import Cookies from "universal-cookie";
 import NotificationMenuPatient from "./NotificationsMenu/NotificationsMenuPatient";
-import { getUnreadNotificationsCount, pushNotificationsApi, putMarkAsReadNotification } from "../../service/frontendapiservices";
+import { getUnreadNotificationsCount, getLoggedInUserDataByUserId, pushNotificationsApi, putMarkAsReadNotification } from "../../service/frontendapiservices";
 import { toast } from "react-toastify";
 // import { updatePatientTimeZone } from '../../service/frontendapiservices';
 // import { toast } from 'react-toastify';
@@ -66,8 +66,17 @@ const Header = (props) => {
 
     return () => clearInterval(interval);
   }, []);
-
-
+  useEffect(() => {
+    getCurrentPatient();
+  }, [currentUser])
+  const getCurrentPatient = async () => {
+    const user = cookies.get("profileDetails");
+    const userId = user.userId;
+    const res = await getLoggedInUserDataByUserId(userId);
+    if (res && res.data) {
+      cookies.set("profileDetails", res.data[0])
+    }
+  };
   //MARK AS READ NOTIFICATION LOGIC
   const markAsReadNotificationHandler = async () => {
     const user = cookies.get("profileDetails");

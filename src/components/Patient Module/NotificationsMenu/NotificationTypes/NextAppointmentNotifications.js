@@ -155,10 +155,13 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                         <span>
                             Your next appointment is confirmed for{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
-                                'DD-MM-YYYY hh:mm'
+                                'DD-MM-YYYY HH:mm'
                             )} by {notification.data.appointmentDetails?.doctor.firstName}. Click here to pay now.
                         </span>
-                        {/* <span>TIME</span> */}
+                        <span style={{
+                            color: '#bfbfbf',
+                            fontSize: 11,
+                        }}>{moment(notification.createdAt).format('HH:mm')}</span>
                     </div>
                 </div>
                 <div className="notif-section__arrow">
@@ -168,23 +171,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                         style={{ marginRight: '15px' }}
                         className="ml-2"
                     />
-                    {/* {
-                        paymentConfirmed ? ( */}
-                    {/* <button
-                        className="btn btn-primary set-next-notif__button"
-                        onClick={() => onClickPayNowModalHandler()}
-                    >
-                        Pay Now
-                    </button> */}
-                    {/* ) : (
-                            <button
-                                className="btn btn-primary set-next-notif__button"
-                                onClick={() => onClickPayNowModalHandler()}
-                            >
-                                Pay Nowwwwww
-                            </button>
-                        )
-                    } */}
+
 
                 </div>
             </div>

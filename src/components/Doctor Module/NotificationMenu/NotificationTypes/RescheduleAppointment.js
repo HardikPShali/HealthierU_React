@@ -57,11 +57,15 @@ const RescheduleAppointment = ({ notification, index }) => {
                         <span>
                             You have an appointment rescheduled on{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
-                                'DD-MM-YYYY hh:mm'
+                                'DD-MM-YYYY HH:mm'
                             )}{' '}
                             with{' '}
                             {notification.data.appointmentDetails.patient?.firstName}
                         </span>
+                        <span style={{
+                            color: '#bfbfbf',
+                            fontSize: 11,
+                        }}>{moment(notification.createdAt).format('HH:mm')}</span>
                     </div>
                 </div>
                 <div className="notif-section__arrow">

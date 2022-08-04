@@ -188,7 +188,7 @@ b#right-border {
 
 input.btn.submit-btn {
   padding: 10px 20px;
-  background-color: var(--primarysecond) !important;
+  background-color: #f6ceb4 !important;
   color: #fff;
   border-radius: 22px;
   width: 30%;
@@ -263,7 +263,7 @@ div#social-icon {
 }
 .footer-store-icons {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 img#store-icon {
   width: 7rem;
@@ -3368,7 +3368,7 @@ input.choseSlotInput {
 
 input.choseSlotInput:checked ~ label {
   /* border-color: #4062F6; */
-  background-color: var(--primarysecond);
+  background-color: #f6ceb4;
   color: #fff;
 }
 
@@ -3538,8 +3538,10 @@ sup {
   box-shadow: 0px 0px 10px #ddd;
   height: 73%;
   overflow: scroll;
+  overflow-x: hidden;
 }
 .scroller-cardlist,
+.filter-box,
 .MuiDialogContent-dividers,
 .MuiDialogContent-root {
   scrollbar-color: #00d0cc white; /* thumb and track color */
@@ -3548,13 +3550,16 @@ sup {
   border-radius: 2px;
 }
 .scroller-cardlist::-webkit-scrollbar,
+.filter-box::-webkit-scrollbar,
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
   -moz-appearance: none !important;
 }
 
 .scroller-cardlist::-webkit-scrollbar-track,
+.filter-box::-webkit-scrollbar-track,
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
   background: white;
@@ -3562,6 +3567,7 @@ sup {
 }
 
 .scroller-cardlist::-webkit-scrollbar-thumb,
+.filter-box::-webkit-scrollbar-thumb,
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
   background: #00d0cc;
@@ -3594,7 +3600,7 @@ sup {
 }
 
 button.apply-btn {
-  background-color: var(--primarysecond) !important;
+  background-color: #f6ceb4 !important;
   width: 100%;
   border-radius: 30px;
   border-color: var(--primarysecond) !important;
@@ -3623,13 +3629,13 @@ button.reset-btn {
 }
 
 .filter-box .MuiInputBase-formControl {
-  border-radius: 30px;
+  border-radius: 5px;
   text-align: left;
   margin-bottom: 5px;
 }
 
 .filter-box .MuiFilledInput-input {
-  padding: 5px 10px !important;
+  padding: 10px 10px !important;
   font-size: 14px;
 }
 
@@ -3641,7 +3647,7 @@ button.reset-btn {
 .filter-multiselect div {
   border: none;
   background: #e8e8e8;
-  border-radius: 20px !important;
+  border-radius: 5px !important;
   margin-bottom: 5px;
 }
 
@@ -3808,7 +3814,7 @@ button a {
 /* mydoctor calendar */
 
 button.react-calendar__tile--active.react-calendar__tile.react-calendar__month-view__days__day {
-  background: var(--primarysecond) !important;
+  background: #f6ceb4 !important;
   border: 1px solid #fff !important;
 }
 
@@ -4146,7 +4152,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 4px solid #fff;
+  /* border: 4px solid #fff; */
   margin-top: -52px;
   margin-bottom: 20px;
 }
@@ -4476,6 +4482,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   width: 70px !important;
   height: 70px !important;
   margin: 7px -5px !important;
+  border: 2px solid #00d0cc;
 }
 
 .my-appointments__header-names {

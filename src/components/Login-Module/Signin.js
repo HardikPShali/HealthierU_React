@@ -116,8 +116,9 @@ const Signin = () => {
   // }, [cookies.get("currentUser")]);
 
   const responseGoogle = async (response) => {
+    removeAllCookies();
     setLoader(true);
-
+    storeGoogleToken(response);
     const googleUserData = {
       token: response.credential,
     };
@@ -129,7 +130,9 @@ const Signin = () => {
         }
       }
     );
+
     if (googleAccessToken) {
+
       //console.log("googleAccessToken  :: ", googleAccessToken);
       LocalStorageService.setToken(googleAccessToken);
       getCurrentUserData();
@@ -241,9 +244,20 @@ const Signin = () => {
     }
   });
 
+  const removeAllCookies = () => {
+    const allCookies = cookies.getAll()
+
+    for (let key in allCookies) {
+      cookies.remove(key)
+
+    }
+  }
+
   const handleSigninHandler = async () => {
+    let encodedPassword = encodeURIComponent(password);
+    removeAllCookies();
     // SIGNIN LOGIC
-    const response = await handleSignin(email, password).catch((err) => {
+    const response = await handleSignin(email, encodedPassword).catch((err) => {
       if (err.response && err.response.status === 400) {
         setUser({
           ...user,
@@ -270,7 +284,10 @@ const Signin = () => {
     }
     else if (accountCheckResponse.data.data.registerAgain === true) {
       setLoader(false);
-      toast.error('Your Account is Deactivated.Please contact Admin');
+      toast.error('Your account was not registered properly. Please register again.');
+      setTimeout(() => {
+        history.push('/signup');
+      }, 3000);
     }
     else if (accountCheckResponse.data.data.profileComplete === true && accountCheckResponse.data.data.approved === false) {
       handleSigninHandler();
@@ -337,6 +354,13 @@ const Signin = () => {
       cookies.set("currentUser", currentUser);
       history.push("/admin");
     }
+  };
+
+
+  // google signup code to tackle "500 user role reqd." error
+  const storeGoogleToken = (response) => {
+    cookies.set("GOOGLE_ACCESS_TOKEN", response.credential);
+    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj);
   };
 
 
@@ -519,7 +543,7 @@ const Signin = () => {
                     className="btn btn-primary sign-btn"
                     id="close-btn"
                   >
-                    Ok
+                    OK
                   </button>
                 </DialogActions>
               </Dialog>
@@ -547,7 +571,7 @@ const Signin = () => {
             className="btn btn-primary sign-btn"
             id="close-btn"
           >
-            Ok
+            OK
           </button>
         </DialogActions>
       </Dialog>

@@ -131,18 +131,23 @@ const Paypal = (props) => {
             handleCancel();
             if (window.android) {
               window.android.onPaymentStatusChange(false);
+              window.android.sendOrderData(false);
             }
             if (window.webkit) {
               window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
+              window.webkit.messageHandlers.sendOrderData.postMessage(false);
             }
           },
           onError: (err, a) => {
             console.log(err);
             if (window.android) {
               window.android.onPaymentStatusChange(false);
+              window.android.sendOrderData(false);
             }
             if (window.webkit) {
               window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
+              window.webkit.messageHandlers.sendOrderData.postMessage(false);
+
             }
           },
         })
@@ -171,9 +176,11 @@ const Paypal = (props) => {
             onClick={() => {
               if (window.android) {
                 window.android.onPaymentStatusChange(false);
+                window.android.sendOrderData(false);
               }
               else if (window.webkit) {
                 window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
+                window.webkit.messageHandlers.sendOrderData.postMessage(false);
               }
               else {
                 history.go(0)
@@ -182,7 +189,7 @@ const Paypal = (props) => {
             className="btn btn-primary"
             id="close-btn"
           >
-            Ok
+            OK
           </button>
         </DialogActions>
       </Dialog>

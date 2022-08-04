@@ -14,6 +14,7 @@ import Loader from '../Loader/Loader'
 import {
   getFcmTokenApi,
   updatePatientTimeZone,
+  getLoggedInUserDataByUserId
   // getModulesDetailsByIds
 } from "../../service/frontendapiservices";
 import Cookies from "universal-cookie";
@@ -61,7 +62,6 @@ const HealthAssessmentReportPatient = React.lazy(() => import("./HealthAssessmen
 
 const PatientRoute = () => {
   const currentuserInfo = LocalStorageService.getCurrentUser();
-  console.log("currentuserInfo", currentuserInfo);
   const [currentPatient, setCurrentPatient] = useState({});
   const [chatGroupList, setChatGroupList] = useState({});
   const [updateChatGroupListTrigger, setUpdateChatGroupListTrigger] = useState(0);
@@ -93,10 +93,15 @@ const PatientRoute = () => {
   const getCurrentPatient = async () => {
     // const currentPatient = await getCurrentPatientInfo(currentuserInfo.id, currentuserInfo.login);
     const currentPatient = cookie.get('profileDetails');
-    console.log('Current patient', currentPatient);
     setCurrentPatient(currentPatient);
     if (currentPatient?.patientTimeZone !== systemTimeZone) {
       handleSubmit(currentPatient.id, systemTimeZone);
+    }
+    else {
+      const res = await getLoggedInUserDataByUserId(currentPatient.userId);
+      if (res && res.data) {
+        setCurrentPatient(res.data[0]);
+      }
     }
   };
 

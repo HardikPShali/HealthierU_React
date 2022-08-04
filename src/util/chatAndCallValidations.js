@@ -10,6 +10,29 @@ export const getAppointmentTime = (appointment) => {
     return { currentTime, appointmentStartTime, appointmentEndTime };
   };
 
+export const videoCallEndCheck = (appointment) => {
+    const {
+      currentTime,
+      appointmentStartTime,
+      appointmentEndTime,
+    } = getAppointmentTime(appointment);
+
+    const videoDisableTime = appointmentEndTime.clone().subtract(5, "minutes");
+  
+    if (
+      currentTime.isBefore(appointmentEndTime) && 
+      currentTime.isSameOrAfter(videoDisableTime)
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+export const isVideoGoingToEnd = (appointments) => {
+  return appointments.some(videoCallEndCheck);
+}
+ 
  export const videoEnableCheck = (appointment) => {
     const {
       currentTime,

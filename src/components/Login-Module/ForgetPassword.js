@@ -148,7 +148,7 @@ const ForgetPassword = () => {
                 </DialogContent>
                 <DialogActions>
                     <button autoFocus onClick={handleClose} className="btn btn-primary sign-btn" id="close-btn">
-                        Ok
+                        OK
                     </button>
                 </DialogActions>
             </Dialog>

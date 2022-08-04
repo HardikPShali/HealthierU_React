@@ -50,7 +50,7 @@ const Header = (props) => {
 
   useEffect(() => {
     getCurrentDoctor();
-  }, []);
+  }, [currentProfileDets]);
   const getCurrentDoctor = async () => {
     const res = await getDoctorByUserId(loggedInUserId);
     //axios(payload).then(res => {
@@ -59,10 +59,13 @@ const Header = (props) => {
         if (value && value.doctorTimeZone !== systemTimeZone) {
           handleSubmit(value.id, systemTimeZone);
         }
-        return value;
+        else {
+          cookies.set("profileDetails", value)
+        }
+        //return value;
       });
     }
-    return res;
+   //return res;
   };
   // const handleClickOpen = () => {
   //   setTimezone({
@@ -123,7 +126,7 @@ const Header = (props) => {
     const user = cookies.get("profileDetails");
     const userId = user.userId;
 
-    const response = await getUnreadNotificationsCount(userId).catch(err => (console.log({ err })));
+    const response = await getUnreadNotificationsCount(loggedInUserId).catch(err => (console.log({ err })));
 
     // console.log({ response });
 

@@ -183,7 +183,7 @@ div#social-icon {
 
 .footer-store-icons {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 img#store-icon {
   width: 7rem;

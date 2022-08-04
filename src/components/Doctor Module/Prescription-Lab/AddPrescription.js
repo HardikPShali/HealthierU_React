@@ -88,20 +88,11 @@ const AddPrescription = (props) => {
                 setErrorMsg('Please upload PDF file with size less than 10mb.');
             }
         } else {
-            if (e.target.name === "numberOfDays") {
-                var reg = new RegExp('^[0-9]{0,3}$');
-                if (reg.test(e.target.value) == false) {
-                    toast.error('Please enter valid Days.');
-                    return false;
-                }
-            }
-            else {
-                setprescriptionList({
-                    ...prescriptionList,
-                    [e.target.name]: e.target.value,
+            setprescriptionList({
+                ...prescriptionList,
+                [e.target.name]: e.target.value,
 
-                });
-            }
+            });
         }
         // if (e.target.name === 'numberOfDays' && 'dose' && 'duration' && 'interval' && 'medicineName') {
         //     setIsSave(true);
@@ -174,7 +165,7 @@ const AddPrescription = (props) => {
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
     const { DurationStartDate, DurationEndDate } = date;
     const [errorMsg, setErrorMsg] = useState('');
-
+    const [isValidDays, setIsValidDays] = useState(false)
     const handlePrescriptionSubmission = async (e) => {
         setIsSaveModal(false)
         e.preventDefault();
@@ -196,43 +187,62 @@ const AddPrescription = (props) => {
                 { !prescriptionResult.prescriptionDocument && toast.error("All Fields are Required!") }
             }
             else {
-                document.getElementById('prescriptionSave').disabled = true;
-                var medicalInfo = prescriptionList.map(function (a) { return a; });
-                const medicalDocumentInfo = {
-                    documentType: "Prescription",
-                    patientId: patient,
-                    doctorId: doctor?.id,
-                    decription: prescriptionResult?.decription
-                };
-                setErrorMsg('');
-                const formData = new FormData();
-                medicalInfo.map((a) => {
-                    if (a.medicineName != '') {
-                        formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
-                            type: "application/json"
-                        }))
+                // document.getElementById('prescriptionSave').disabled = true;
+                var reg = new RegExp('^[0-9]{0,3}$');
+                prescriptionList.forEach((p) => {
+                    if (reg.test(p.numberOfDays) == false) {
+                        // setTimeout(() => {
+                        //     toast.error('Please enter valid Days.');
+                        // }, 3000)
+                        toast.error('Please enter valid Days', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            toastId: 'isValidDaysToast'
+                        });
+                        return false;
+                    }
+                    else {
+                        setIsValidDays(true)
                     }
                 })
-                formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
-                    type: "application/json"
-                }));
-                // {
-                //     prescriptionResult.prescriptionDocument &&
-                //         formData.append("file", (prescriptionResult?.prescriptionDocument))
-                // }
-                const response = await postDocumentAddPrescriptionLabResult(
-                    formData
-                ).catch((err) => {
-                    // if (err.response.status === 500 || err.response.status === 504) {
-                    //     toast.error("Please Fill Up the Prescription Details!")
+                if (isValidDays === true) {
+                    var medicalInfo = prescriptionList.map(function (a) { return a; });
+                    const medicalDocumentInfo = {
+                        documentType: "Prescription",
+                        patientId: patient,
+                        doctorId: doctor?.id,
+                        decription: prescriptionResult?.decription
+                    };
+                    setErrorMsg('');
+                    const formData = new FormData();
+                    medicalInfo.map((a) => {
+                        if (a.medicineName != '') {
+                            formData.append("medicineInfoList", new Blob([JSON.stringify(medicalInfo)], {
+                                type: "application/json"
+                            }))
+                        }
+                    })
+                    formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
+                        type: "application/json"
+                    }));
+                    // {
+                    //     prescriptionResult.prescriptionDocument &&
+                    //         formData.append("file", (prescriptionResult?.prescriptionDocument))
                     // }
-                });
-                if (response) {
-                    toast.success("Document successfully Uploaded.");
-                    const patientInfo = params.patientID;
-                    const apID = params.apid;
-                    window.scrollTo(0, 0)
-                    history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}` })
+                    const response = await postDocumentAddPrescriptionLabResult(
+                        formData
+                    ).catch((err) => {
+                        // if (err.response.status === 500 || err.response.status === 504) {
+                        //     toast.error("Please Fill Up the Prescription Details!")
+                        // }
+                    });
+                    if (response) {
+                        toast.success("Document successfully Uploaded.");
+                        const patientInfo = params.patientID;
+                        const apID = params.apid;
+                        window.scrollTo(0, 0)
+                        history.push({ pathname: `/doctor/medicalrecord/${patientInfo}/${apID}` })
+                    }
                 }
             }
         }
@@ -268,19 +278,23 @@ const AddPrescription = (props) => {
     };
     const handlePrescriptionChange = (e) => {
         if (e.target.type === 'file') {
+            const file = e.target.files[0]
             const fileSize = e.target.files[0].size;
             console.log('fileSize ::', fileSize);
             const maxSize = 10000000;
-            if (e.target.files[0].size <= maxSize) {
+            if (e.target.files[0].size > maxSize) {
+                document.getElementById('prescriptionDocument').value = '';
+                setErrorMsg('Please upload PDF file with size less than 10mb.');
+            } else if (!file.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG|pdf|PDF)$/)) {
+                setErrorMsg("Document must be PNG, JPG, JPEG or PDF");
+                document.getElementById("prescriptionDocument").value = "";
+            } else {
                 setErrorMsg('');
                 setPrescriptionResult({
                     ...prescriptionResult,
                     prescriptionDocument: e.target.files[0],
                 });
                 setIsSaveModal(true);
-            } else {
-                document.getElementById('prescriptionDocument').value = '';
-                setErrorMsg('Please upload PDF file with size less than 10mb.');
             }
         } else {
             setPrescriptionResult({
@@ -295,7 +309,7 @@ const AddPrescription = (props) => {
 
         <div>
             <h3 className="prescription-lab--main-header mb-3 mt-2" style={{ paddingTop: '2%' }}>
-                Add Prescription
+                Add Treatment
             </h3>
             <div className="prescription-lab__card-box">
                 <div className="card-holder">
@@ -483,7 +497,7 @@ const AddPrescription = (props) => {
                     <Modal show={showPrescriptionUpload} onHide={handleUploadPrescriptionClosed}>
                         <form onSubmit={(e) => handlePrescriptionSubmission(e)}>
                             <Modal.Header closeButton>
-                                <Modal.Title>Prescription</Modal.Title>
+                                <Modal.Title>Treatment</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <input
@@ -493,7 +507,7 @@ const AddPrescription = (props) => {
                                     value={prescriptionResult?.id}
                                     onChange={(e) => handlePrescriptionChange(e)}
                                 ></input>
-                                <div className="form-group row">
+                                {/* <div className="form-group row">
                                     <label htmlFor="description" className="col-sm-3 col-form-label">
                                         Description
                                     </label>
@@ -509,7 +523,7 @@ const AddPrescription = (props) => {
                                             required
                                         ></input>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="form-group row">
                                     <label
                                         htmlFor="prescriptionDocument"

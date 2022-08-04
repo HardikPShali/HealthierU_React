@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 const HelpAndSupport = ({ currentuserInfo }) => {
     const history = useHistory();
 
-
+    const [disbleBtn, setDisbleBtn] = useState(false);
     const [serverError, setServerError] = useState(false);
     const [contactDetails, setContactDetails] = useState({
         senderName: "",
@@ -39,6 +39,7 @@ const HelpAndSupport = ({ currentuserInfo }) => {
     };
 
     const sendContactDetails = () => {
+        setDisbleBtn(true);
         var payload = {
             method: "post",
             mode: "no-cors",
@@ -61,6 +62,7 @@ const HelpAndSupport = ({ currentuserInfo }) => {
                         message: "",
                     })
                 }
+                setDisbleBtn(false);
             })
             .catch((error) => {
                 if (error.response && error.response.status === 500) {
@@ -124,26 +126,26 @@ const HelpAndSupport = ({ currentuserInfo }) => {
                                                 value={senderName}
                                                 onChange={(e) => handleInputChange(e)}
                                                 placeholder="YOUR NAME*"
-                                                validators={["required"]}
-                                                errorMessages={[("This field is required")]}
+                                                validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
+                                                errorMessages={["This field is required", "Name cannot have any numeric values"]}
                                                 variant="filled"
                                             />
                                             <br />
                                             <TextValidator
                                                 id="standard-basic"
-                                                type="text"
+                                                type="email"
                                                 name="senderMail"
                                                 value={senderMail}
                                                 onChange={(e) => handleInputChange(e)}
                                                 placeholder="EMAIL ADDRESS*"
                                                 validators={[
-                                                    "isValidEmail",
                                                     "required",
+                                                    // "isValidEmail",
                                                     "maxStringLength:50",
                                                 ]}
                                                 errorMessages={[
-                                                    "Please enter a valid email",
                                                     "This field is required",
+                                                    // "Please enter a valid email",
                                                     "Email should not exceed 50 characters",
                                                 ]}
                                                 variant="filled"
@@ -176,6 +178,7 @@ const HelpAndSupport = ({ currentuserInfo }) => {
                                                 className="btn btn-primary sign-btn"
                                                 type="submit"
                                                 value="SEND MESSAGE"
+                                                disabled={disbleBtn}
                                             />
                                         </Col>
                                     </Row>

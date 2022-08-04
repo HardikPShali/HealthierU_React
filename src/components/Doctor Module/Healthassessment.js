@@ -38,6 +38,7 @@ import {
     postDocument,
     postLabDocument,
     getDocumentById,
+    deleteDocument
 } from '../../service/DocumentService';
 import CancelIcon from '@material-ui/icons/Cancel';
 import PrescriptionLabCard from './Prescription-Lab/PrescriptionLabCard';
@@ -47,6 +48,8 @@ import { dateFnsLocalizer } from 'react-big-calendar';
 import SearchBarComponent from './SearchAndFilter/SearchComponent';
 import PrescriptionFilter from './SearchAndFilter/PrescriptionFIlter'
 import FilterComponent from './SearchAndFilter/FilterComponent';
+import { toast } from 'react-toastify';
+import PrescriptionLabCardDoctor from './Prescription-Lab/PrescriptionLabCardDoctor';
 const Healthassessment = (props) => {
     //console.log("Props patient Data ::", props);
 
@@ -197,7 +200,12 @@ const Healthassessment = (props) => {
             }
         }
         const response = await getGlobalMedicalRecordsSearch(page, size, data)
-        setMedicalRecordData(response.data.data)
+        const res = []
+        const prepData = response.data.data.documentsList.filter(re => re.documentsList.length)
+        prepData.forEach((f) => {
+            res.push(...f.documentsList)
+        })
+        setMedicalRecordData(res)
 
     };
     const clickPaginationForLab = async (pageNumber) => {
@@ -216,7 +224,12 @@ const Healthassessment = (props) => {
             }
         }
         const response = await getGlobalMedicalRecordsSearch(page, size, data)
-        setMedicalRecordLabData(response.data.data)
+        const res = []
+        const prepData = response.data.data.documentsList.filter(re => re.documentsList.length)
+        prepData.forEach((f) => {
+            res.push(...f.documentsList)
+        })
+        setMedicalRecordLabData(res)
     };
 
     const handleEditModal = async (item) => {
@@ -258,7 +271,8 @@ const Healthassessment = (props) => {
     const [editDocument, setEditDocument] = useState(false);
     const [appointmentID, setAppointmentID] = useState(0);
     const cookies = new Cookies();
-    const [lenghtofData, setLenghtofData] = useState(0);
+    const [lenghtofData, setLenghtofData] = useState({});
+    const [lenghtofLabData, setLenghtofLabData] = useState({});
     const loadDocuments = async () => {
         // GET request using fetch with async/await
         const currentUser = await getCurrentUserInfo();
@@ -295,7 +309,8 @@ const Healthassessment = (props) => {
                 res.push(...f.documentsList)
             })
             //setLenghtofData(presecriptionDocument.data.data.documentsList[0].documentsList.length)
-            setMedicalRecordData(presecriptionDocument.data.data)
+            setMedicalRecordData(res)
+            setLenghtofData(presecriptionDocument.data.data)
         }
         // const response = await getPatientQuestionnaire(
         //     patientInfo && patientInfo.id
@@ -374,7 +389,8 @@ const Healthassessment = (props) => {
             prepData.forEach((f) => {
                 res.push(...f.documentsList)
             })
-            setMedicalRecordData(labDocument.data.data)
+            setMedicalRecordLabData(res)
+            setLenghtofLabData(labDocument.data.data)
         }
     }
 
@@ -402,7 +418,8 @@ const Healthassessment = (props) => {
                 prepData.forEach((f) => {
                     res.push(...f.documentsList)
                 })
-                setMedicalRecordLabData(labDocument.data.data)
+                setLenghtofLabData(labDocument.data.data)
+                setMedicalRecordLabData(res)
             }
         }
 
@@ -428,7 +445,7 @@ const Healthassessment = (props) => {
                 prepData.forEach((f) => {
                     res.push(...f.documentsList)
                 })
-                setMedicalRecordData(presecriptionDocument.data.data)
+                setMedicalRecordData(res)
             }
         }
         setPrescriptionDocumentUrl('');
@@ -476,22 +493,28 @@ const Healthassessment = (props) => {
             documentType: "Prescription",
             //startTime: starttime.toISOString(),
             //endTime: endtime.toISOString(),
-            doctorName: search,
+            //doctorName: search,
             //resultType: search,
             //labName: search,
             //id: "null"
         };
         let page = 0;
         let size = 3;
+        if (search && search !== "") {
+            data.doctorName = search
+        }
         if (filter.startTime && filter.startTime !== '') {
+            data.doctorName = ""
             data.startTime = filter.startTime;
         }
         if (filter.endTime && filter.endTime !== '') {
+            data.doctorName = ""
             const endtime = new Date(filter.endTime);
             endtime.setHours(23, 59, 59);
             data.endTime = endtime.toISOString();
         }
         if (filter.resultType && filter.resultType !== '') {
+            data.doctorName = ""
             data.resultType = filter.resultType;
         }
         setSearchandFilterData(data)
@@ -510,7 +533,8 @@ const Healthassessment = (props) => {
             if (res.length > 0) {
                 setIsSearch(true)
             }
-            setMedicalRecordData(responseTwo.data.data)
+            setMedicalRecordData(res)
+            setLenghtofData(responseTwo.data.data)
             setCurrentPageNumber(1);
         }
     };
@@ -529,25 +553,31 @@ const Healthassessment = (props) => {
             //endTime: endtime.toISOString(),
             //doctorName: search,
             //resultType: search,
-            labName: search,
+            //labName: search,
             //id: "null"
         };
         let page = 0;
         let size = 3;
+        if (search && search !== "") {
+            data.labName = search
+        }
         if (filter.startTime && filter.startTime !== '') {
+            data.labName = ""
             data.startTime = filter.startTime;
         }
         if (filter.endTime && filter.endTime !== '') {
+            data.labName = ""
             const endtime = new Date(filter.endTime);
             endtime.setHours(23, 59, 59);
             data.endTime = endtime.toISOString();
         }
         if (filter.resultType && filter.resultType !== '') {
+            data.labName = ""
             data.resultType = filter.resultType;
         }
-        if (filter.startTime && filter.endTime && filter.resultType === '') {
-            clearAll()
-        }
+        // if (filter.startTime == undefined && filter.endTime == undefined && filter.resultType === undefined) {
+        //     data.labName = ""
+        // }
         setSearchandFilterData(data)
         const responseTwo = await getGlobalMedicalRecordsSearch(page, size, data).catch((err) => {
             if (err.responseTwo.status === 500 || err.responseTwo.status === 504) {
@@ -563,7 +593,8 @@ const Healthassessment = (props) => {
             if (res.length > 0) {
                 setIsSearch(true)
             }
-            setMedicalRecordLabData(responseTwo.data.data)
+            setMedicalRecordLabData(res)
+            setLenghtofLabData(responseTwo.data.data)
             setCurrentPageNumber(1);
         }
     };
@@ -600,6 +631,54 @@ const Healthassessment = (props) => {
         }
     };
     const [currentTab, setCurrentTab] = useState("prescription");
+    const [documentId, setDocumentId] = useState(null);
+    const [showDelete, setDeleteShow] = useState(false);
+    const handleDeleteShow = () => setDeleteShow(true);
+    const handleDeleteClose = () => setDeleteShow(false);
+    const handleDeleteModal = (id) => {
+        setDocumentId(id);
+        setDeleteShow(true);
+    };
+    const handleDeleteDocumentSubmission = async (event) => {
+        setPrescriptionDocumentUrl("");
+        setLabDocumentUrl("");
+        const resp = await deleteDocument(documentId);
+        if (resp) {
+            toast.success("Document successfully Deleted.");
+            setDeleteShow(false);
+        }
+        let page = 0;
+        let size = 3;
+        const info = {
+            documentType: "LabResult",
+            patientId: patient
+        }
+        const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
+        if (labDocument.status === 200 || labDocument.status === 201) {
+            const res = []
+            const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordLabData(res)
+            setLenghtofLabData(labDocument.data.data)
+        }
+        const data = {
+            documentType: "Prescription",
+            doctorId: doctor.id,
+            patientId: patient,
+        }
+        const presecriptionDocument = await getGlobalMedicalRecordsSearch(page, size, data);
+        if (presecriptionDocument.status === 200 || presecriptionDocument.status === 201) {
+            const res = []
+            const prepData = labDocument.data.data.documentsList.filter(re => re.documentsList.length)
+            prepData.forEach((f) => {
+                res.push(...f.documentsList)
+            })
+            setMedicalRecordData(res)
+            setLenghtofData(presecriptionDocument.data.data)
+        }
+    };
     return (
         <>
             <div className="container">
@@ -624,7 +703,7 @@ const Healthassessment = (props) => {
                 <br />
                 <Tabs className="justify-content-center record-tabs" defaultActiveKey="prescription" id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}>
-                    <Tab eventKey="prescription" title="Prescription">
+                    <Tab eventKey="prescription" title="Treatment">
                         <br />
                         <div className="d-flex justify-content-end">
                             <div className="col text-right">
@@ -634,49 +713,46 @@ const Healthassessment = (props) => {
                                     style={{ fontSize: '0.65rem' }}
                                     onClick={(e) => handlePrescriptionUploadShow()}
                                 >
-                                    Add Prescription
+                                    Add Treatment
                                 </button>
                             </div>
                         </div>
                         <br />
                         <div>
-                            {medicalRecordData.totalItems > 0 ? (
-                                medicalRecordData.documentsList[0].documentsList.map(
-                                    (dataItem, subIndex) => {
-                                        return (
-
-                                            <div className="prescription-lab__card-box">
-                                                <h3 className="prescription-lab--month-header mb-3 mt-2">
-                                                    {moment(dataItem.docUploadTime).format("MMM")}
-                                                </h3>
-                                                <div className="card-holder">
-                                                    <div className="row">
-
-                                                        <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
-
-                                                            <PrescriptionLabCard
-                                                                filetype={getFileExtension(dataItem.documentUrl)}
-                                                                name={"Prescription"}
-                                                                apid={appointmentID}
-                                                                date={dataItem.docUploadTime}
-                                                                time={dataItem.docUploadTime}
-                                                                download={(e) => showDocument(dataItem)}
-                                                            />
-                                                        </div>
-
-
+                            {lenghtofData.totalItems > 0 ? (
+                                medicalRecordData.map((docData) => {
+                                    return (
+                                        <div className="prescription-lab__card-box">
+                                            <h3 className="prescription-lab--month-header mb-3 mt-2">
+                                                {moment(docData.docUploadTime).format("MMM")}
+                                            </h3>
+                                            <div className="card-holder">
+                                                <div className="row">
+                                                    <div style={{ cursor: 'pointer' }} className='prescription-lab-card'>
+                                                        {console.log("docData1", docData)}
+                                                        <PrescriptionLabCardDoctor
+                                                            filetype={getFileExtension(docData.documentUrl)}
+                                                            name={"Treatment"}
+                                                            apid={appointmentID}
+                                                            date={docData.docUploadTime}
+                                                            time={docData.docUploadTime}
+                                                            download={(e) => showDocument(docData)}
+                                                            delete={(e) => handleDeleteModal(docData.id)}
+                                                        />
+                                                        {/* <h3>{docData.docUploadTime}</h3> */}
                                                     </div>
                                                 </div>
                                             </div>
-                                        );
-                                    }
-                                )) : (
+                                        </div>
+                                    )
 
+                                }
+                                )) : (
                                 <div
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    {isSearch === false && "No Documents"}
+                                    No Documents
                                 </div>
                             )
                             }
@@ -684,8 +760,8 @@ const Healthassessment = (props) => {
                         <br />
                         <div> <Pagination size="sm" style={{ float: 'right' }}>
                             {
-                                medicalRecordData.totalPages ?
-                                    Array.from(Array(medicalRecordData.totalPages), (e, i) => {
+                                lenghtofData.totalPages ?
+                                    Array.from(Array(lenghtofData.totalPages), (e, i) => {
                                         return <Pagination.Item key={i + 1}
                                             active={i + 1 === currentPageNumber ? true : false}
                                             onClick={e => clickPagination(i + 1)}>
@@ -696,7 +772,6 @@ const Healthassessment = (props) => {
 
                             }
                         </Pagination>
-
                         </div>
                         <br />
                         {/* <div>
@@ -714,8 +789,8 @@ const Healthassessment = (props) => {
                         </div>
                         <br />
                         <div>
-                            {medicalRecordLabData.totalItems > 0 ? (
-                                medicalRecordLabData.documentsList[0].documentsList.map(
+                            {lenghtofLabData.totalItems > 0 ? (
+                                medicalRecordLabData.map(
                                     (dataItem, subIndex) => {
                                         return (
                                             <div className="prescription-lab__card-box">
@@ -747,7 +822,7 @@ const Healthassessment = (props) => {
                                     className="col-12 ml-2"
                                     style={{ textShadow: 'none', color: '#3e4543' }}
                                 >
-                                    {isSearch === false && "No Documents"}
+                                    No Documents
                                 </div>
                             )
                             }
@@ -756,8 +831,8 @@ const Healthassessment = (props) => {
                             <br />
                             <Pagination size="sm" style={{ float: 'right' }}>
                                 {
-                                    medicalRecordLabData?.totalPages ?
-                                        Array.from(Array(medicalRecordLabData.totalPages), (e, i) => {
+                                    lenghtofLabData?.totalPages ?
+                                        Array.from(Array(lenghtofLabData.totalPages), (e, i) => {
                                             return <Pagination.Item key={i + 1} active={i + 1 === currentPageNumber}
                                                 onClick={e => clickPaginationForLab(i + 1)}>
                                                 {i + 1}
@@ -777,6 +852,25 @@ const Healthassessment = (props) => {
                 </Tabs>
                 <br />
                 <br />
+                <Modal show={showDelete} onHide={handleDeleteShow}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete Document</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Are you sure to Delete the Document ?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleDeleteClose}>
+                            Close
+                        </Button>
+                        <Button
+                            variant="primary"
+                            onClick={() => handleDeleteDocumentSubmission()}
+                        >
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         </>
     );

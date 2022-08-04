@@ -21,9 +21,18 @@ import {
 import moment from 'moment';
 import Meeting from '../../../video-call/pages/meeting';
 import Notes from '../../../Doctor Module/NotesSection/Notes';
-import { videoValiation } from '../../../../util/chatAndCallValidations';
+import {
+  chatValidation,
+  isVideoGoingToEnd,
+  videoValiation,
+} from '../../../../util/chatAndCallValidations';
 import useRole from '../../../../custom-hooks/useRole';
-import { getCallUserApi } from '../../../../service/frontendapiservices';
+import {
+  callRejectApi,
+  getCallUserApi,
+} from '../../../../service/frontendapiservices';
+import { toast } from 'react-toastify';
+import $ from 'jquery';
 
 const ChatPage = () => {
   const history = useHistory();
@@ -37,6 +46,8 @@ const ChatPage = () => {
   const [isAgoraLoggedIn, setAgoraLoggedIn] = useState(false);
   const [pIdState, setPIdState] = useState('');
   const [dIdState, setDIdState] = useState('');
+  const [enableVideo, setEnableVideo] = useState(false);
+  const [enableChat, setEnableChat] = useState(false);
   const [channelName, setChannelName] = useState('');
   const [agoraToken, setAgoraToken] = useState('');
   const [paginationConfig, setPaginationConfig] = useState({
@@ -44,10 +55,13 @@ const ChatPage = () => {
     totalItems: 1,
     totalPages: 1,
   });
+  const [videoCallEnding, setVideoCallEnding] = useState(false);
 
   const [roles] = useRole();
 
   const endRef = useRef();
+
+  let intervalId = null;
 
   const onConnectionChange = (e) => {
     console.log(e);
@@ -115,10 +129,11 @@ const ChatPage = () => {
         totalPages: 1,
       });
       getMessagesDetails(0);
-      if (searchParams.get('openVideo') === 'true') {
+      chatAndCallAvailabilityCheck();
 
+      if (searchParams.get('openVideo') === 'true') {
         const isVideoEnabled = videoValiation(selectedChatItem.appointments);
-        if(!isVideoEnabled) {
+        if (!isVideoEnabled) {
           removeQueryParamsAndDisableVideo();
           return;
         }
@@ -133,23 +148,83 @@ const ChatPage = () => {
         );
       }
     }
+
+    return () => {
+      if (intervalId != null) {
+        clearInterval(intervalId);
+      }
+    };
   }, [selectedChatItem]);
 
-    //CALL-TOPIC CODE
-    const callUser = async (channelId) => {
-      const response = await getCallUserApi(channelId).catch((err) =>
-        console.log({ err })
-      );
-    };
+  const chatAndCallAvailabilityCheck = () => {
+    if (selectedChatItem.id) {
+      if (selectedChatItem.appointments.length) {
+        const isVideoEnabled = videoValiation(selectedChatItem.appointments);
+        setEnableVideo(isVideoEnabled);
+
+        const isChatEnabled = chatValidation(selectedChatItem.appointments);
+        setEnableChat(isChatEnabled);
+
+        startPeriodicValidationCheck();
+      } else {
+        hideChatAndVideo();
+      }
+    } else {
+      hideChatAndVideo();
+    }
+  };
+
+  const startPeriodicValidationCheck = () => {
+    intervalId = setInterval(() => {
+      const isVideoEnabled = videoValiation(selectedChatItem.appointments);
+      console.log('VIDEO VALIDATION CHECK PERIODICALLY');
+      setEnableVideo(isVideoEnabled);
+
+      const isVideoEnding = isVideoGoingToEnd(selectedChatItem.appointments);
+      setVideoCallEnding(isVideoEnding);
+    }, 30000);
+  };
+
+  useEffect(() => {
+    let timeout = null;
+    if (videoCallEnding && openVideoCall) {
+      toast.warn('Video call will end in 5 minutes', {
+        autoClose: false,
+        position: 'top-right',
+        toastId: 'videoCallEnding',
+      });
+
+      // if(!timeout) {
+      //   timeout = setTimeout(() => {
+      //     setVideoCallEnding(false);
+      //     removeQueryParamsAndDisableVideo();
+      //   }, 30000)
+      // }
+    }
+  }, [enableVideo, videoCallEnding, openVideoCall]);
+
+  const hideChatAndVideo = () => {
+    setEnableChat(false);
+    setEnableVideo(false);
+  };
+
+  //CALL-TOPIC CODE
+  const callUser = async (channelId) => {
+    
+    const response = await getCallUserApi(channelId).catch((err) =>
+      console.log({ err })
+    );
+  };
 
   const removeQueryParamsAndDisableVideo = () => {
     searchParams.delete('openVideo');
-          searchParams.delete('channelId');
-          setOpenVideoCall(false);
-          history.replace({
-            search: searchParams.toString()
-          })
-  }
+    searchParams.delete('channelId');
+    setOpenVideoCall(false);
+    setVideoCallEnding(false);
+    history.replace({
+      search: searchParams.toString(),
+    });
+  };
 
   const agoraTrigger = async () => {
     try {
@@ -218,6 +293,8 @@ const ChatPage = () => {
   const clearData = () => {
     setMessages([]);
     setMessage('');
+    setVideoCallEnding(false);
+    setOpenVideoCall(false);
   };
 
   const handleMessageChange = (e) => {
@@ -246,7 +323,6 @@ const ChatPage = () => {
           message: msg,
         };
         await sendMessage(messageData);
-        
       } catch (error) {}
     }
   };
@@ -262,7 +338,9 @@ const ChatPage = () => {
   };
 
   const onVideoClick = () => {
-    callUser(selectedChatItem.id);
+    if (roles.some((role) => role === ROLES.ROLE_DOCTOR)) {
+      callUser(selectedChatItem.id);
+    }
     getToken(pIdState, dIdState);
   };
 
@@ -304,6 +382,12 @@ const ChatPage = () => {
     }
   };
 
+  const callRejectHandler = async (channelId, message = "call-reject") => {
+    const rejectCallApiResponse = await callRejectApi(channelId, message).catch((err) =>
+      console.log({ err })
+    );
+  };
+
   //NOTES CODE
   const [notes, setNotes] = useState({
     chiefComplaint: '',
@@ -330,7 +414,17 @@ const ChatPage = () => {
             onSearch={handleSearch}
           />
         )}
-        {openVideoCall && <Meeting onClose={() => removeQueryParamsAndDisableVideo()} />}
+        {openVideoCall && (
+          <Meeting
+            onClose={(dontTriggerReject = false) => {
+              if(!dontTriggerReject) {
+                callRejectHandler(selectedChatItem.id, "call-end");
+              }
+
+              removeQueryParamsAndDisableVideo();
+            }}
+          />
+        )}
       </div>
       <div className="chat-details-container">
         <ChatDetails
@@ -343,16 +437,21 @@ const ChatPage = () => {
           onVideoClick={onVideoClick}
           onNoteClick={handleNotesClick}
           loadMoreData={loadMoreData}
+          enableChat={enableChat}
+          enableVideo={enableVideo}
           totalItems={paginationConfig.totalItems}
         />
-        {notesClick && (
+        {/* {notesClick && ( */}
+        <div style={{ display: notesClick ? 'block' : 'none' }}>
           <Notes
             onClose={() => setNotesClick(false)}
             selectedChatNote={selectedChatItem}
             notes={notes}
             setNotes={setNotes}
           />
-        )}
+        </div>
+
+        {/* )} */}
       </div>
     </Container>
   );

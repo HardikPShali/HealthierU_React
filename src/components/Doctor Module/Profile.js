@@ -47,6 +47,8 @@ import ImageCropper from '../CommonModule/ImageCroper';
 import ProfileRow from '../CommonModule/Profile/ProfileRow/ProfileRow';
 import Cookies from "universal-cookie";
 import { MDBInput } from "mdbreact";
+import { toast } from 'react-toastify';
+import { DH_UNABLE_TO_CHECK_GENERATOR } from 'constants';
 
 // import Cookies from 'universal-cookie';
 // import CreateIcon from '@material-ui/icons/Create';
@@ -241,10 +243,22 @@ const Profile = ({ currentDoctor }) => {
             .format('YYYY-MM-DD'),
     };
 
+
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
+        const dateBefore18Years = moment(isoDate).isBefore(
+            moment().subtract(18, 'years')
+        )
+        if (dateBefore18Years === false) {
+            toast.error("Your age entered must be 18 years and above.", {
+                toastId: "ageError",
+            });
+        }
+        else {
+            setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
+        }
+        // setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
     };
 
     const handlePhone = (e) => {
@@ -268,14 +282,16 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const removeSpecialities = (removedItem) => {
-        var array = specialities;
-        var index = array.indexOf(removedItem); // Let's say it's Bob.
-        array.splice(index, 1);
-        setCurrentDoctorData({ ...setCurrentDoctorData, specialities: array });
+        console.log({ removedItem })
+        // var array = specialities;
+        // var index = array.findIndex(removedItem); // Let's say it's Bob.
+        // array.splice(index, 1);
+        setCurrentDoctorData({ ...currentDoctorData, specialities: removedItem });
     };
 
     // EDIT PROFILE HANDLER ON SUBMIT
     const handleDetails = async e => {
+        let res;
         console.log("Doctor Profile Data", currentDoctorData);
         console.log("profilePicture ::::::", profilePicture);
         setLoading(true);
@@ -285,25 +301,39 @@ const Profile = ({ currentDoctor }) => {
         reqBody.lastName = '';
         bodyFormData.append('profileData', JSON.stringify(reqBody));
         bodyFormData.append('profilePicture', profilePicture);
-        const response = await updateDoctorData(bodyFormData);
-        const user = cookies.get("profileDetails");
-        const info = {
-            doctorId: user.id,
-            //doctor_email: user.email,
-            // documentName: documentName,
-            licenseNumber: documentInfo.licenseNumber,
-            referencePhoneNumber: documentInfo.referencePhoneNumber,
-            certifyingBody: documentInfo.certifyingBody
-        }
-        const res = await updateDoctorDocumentNew(info).catch(err => {
+        const response = await updateDoctorData(bodyFormData).catch(err => {
+            setLoading(false);
+            //.error("Something went wrong.Please try again!")
             if (err.response.status === 500 || err.response.status === 504) {
-                setLoading(false);
+                toast.error("Something went wrong.Please try again!")
             }
         });
-        if (response.status === 200 || response.status === 201 && res.status === 200) {
-            cookies.set('profileDetails', response.data.data);
-            // setCurrentDoctorData({ currentDoctorData: currentDoctorData });
-            history.go(0);
+        if (documentInfo.document && documentInfo.licenseNumber && documentInfo.certifyingBody && documentInfo.referencePhoneNumber) {
+            const user = cookies.get("profileDetails");
+            const info = {
+                doctorId: user.id,
+                //doctor_email: user.email,
+                // documentName: documentName,
+                licenseNumber: documentInfo.licenseNumber,
+                referencePhoneNumber: documentInfo.referencePhoneNumber,
+                certifyingBody: documentInfo.certifyingBody
+            }
+            res = await updateDoctorDocumentNew(info).catch(err => {
+                setLoading(false);
+                //toast.error("Something went wrong.Please try again!")
+                if (err.response.status === 500 || err.response.status === 504) {
+                    toast.error("Something went wrong.Please try again!")
+                }
+            });
+            if (response.status === 200 || response.status === 201 && res.status === 200) {
+                cookies.set('profileDetails', response.data.data);
+                toast.success("Profile Data Updated")
+                history.go(`doctor/profile`);
+            }
+        }
+        else {
+            toast.error("Please add license/registration number and subsequent documents")
+            setLoading(false);
         }
     }
 
@@ -404,7 +434,7 @@ const Profile = ({ currentDoctor }) => {
                                                             icon={calendarIcon}
                                                             title="Date of Birth"
                                                             value={moment(currentDoctor.dateOfBirth).format(
-                                                                'DD/MM/YY'
+                                                                'DD/MM/YYYY'
                                                             )}
                                                         />
                                                         <ProfileRow
@@ -531,58 +561,60 @@ const Profile = ({ currentDoctor }) => {
                             <br />
 
                             <div id="editProfile-col">
-                                <ValidatorForm onSubmit={handleDetails}>
+                                <>
                                     <Row style={{ justifyContent: 'center', flexDirection: "column" }} >
                                         <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} />
                                     </Row>
+                                    <ValidatorForm onSubmit={handleDetails}>
 
-                                    <Tabs
-                                        defaultActiveKey="general"
-                                        id="uncontrolled-tab-example"
-                                        className="record-tabs mb-3"
-                                    >
-                                        <Tab eventKey="general" title="General">
-                                            <div className="general-medical-tab">
-                                                <Row>
-                                                    <Col md={12}>
-                                                        <p>
-                                                            Name<sup>*</sup>
-                                                        </p>
-                                                        <TextValidator
-                                                            id="standard-basic"
-                                                            type="text"
-                                                            name="firstName"
-                                                            onChange={(e) => handleInputChange(e)}
-                                                            value={firstName}
-                                                            validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                                            errorMessages={["This field is required", "First Name cannot have any numeric values"]}
-                                                            variant="filled"
-                                                        />
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        {/* <p>
+
+                                        <Tabs
+                                            defaultActiveKey="general"
+                                            id="uncontrolled-tab-example"
+                                            className="record-tabs mb-3"
+                                        >
+                                            <Tab eventKey="general" title="General">
+                                                <div className="general-medical-tab">
+                                                    <Row>
+                                                        <Col md={12}>
+                                                            <p>
+                                                                Name<sup>*</sup>
+                                                            </p>
+                                                            <TextValidator
+                                                                id="standard-basic"
+                                                                type="text"
+                                                                name="firstName"
+                                                                onChange={(e) => handleInputChange(e)}
+                                                                value={firstName}
+                                                                validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
+                                                                errorMessages={["This field is required", "First Name cannot have any numeric values"]}
+                                                                variant="filled"
+                                                            />
+                                                        </Col>
+                                                        <Col md={6}>
+                                                            {/* <p>
                                                             Last Name<sup>*</sup>
                                                         </p> */}
-                                                        <TextValidator
-                                                            id="standard-basic"
-                                                            type="text"
-                                                            name="lastName"
-                                                            onChange={(e) => handleInputChange(e)}
-                                                            value={lastName}
-                                                            // validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                                            // errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
-                                                            variant="filled"
-                                                            style={{ display: 'none' }}
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                                <br />
-                                                <Row>
-                                                    <Col md={12}>
-                                                        <p>
-                                                            About
-                                                        </p>
-                                                        {/* <textarea
+                                                            <TextValidator
+                                                                id="standard-basic"
+                                                                type="text"
+                                                                name="lastName"
+                                                                onChange={(e) => handleInputChange(e)}
+                                                                value={lastName}
+                                                                // validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
+                                                                // errorMessages={["This field is required", "Last Name cannot have any numeric values"]}
+                                                                variant="filled"
+                                                                style={{ display: 'none' }}
+                                                            />
+                                                        </Col>
+                                                    </Row>
+                                                    <br />
+                                                    <Row>
+                                                        <Col md={12}>
+                                                            <p>
+                                                                About
+                                                            </p>
+                                                            {/* <textarea
                                                             id="standard-basic"
                                                             type="text"
                                                             name="bio"
@@ -594,259 +626,262 @@ const Profile = ({ currentDoctor }) => {
                                                             cols={50}
                                                         ></textarea> */}
 
-                                                        <MDBInput type="textarea" rows="5"
-                                                            id="standard-basic"
-                                                            name="bio"
-                                                            onChange={(e) => handleInputChange(e)}
-                                                            value={bio}
-                                                            style={{
-                                                                background: '#e8e8e8',
-                                                            }}
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                                <br />
-                                                <Row>
-                                                    <Col md={6}>
-                                                        <p>Date of Birth</p>
-                                                        <TextValidator
-                                                            id="standard-basic"
-                                                            type="date"
-                                                            name="dateOfBirth"
-                                                            value={moment(dateOfBirth).format('YYYY-MM-DD')}
-                                                            inputProps={maxDate}
-                                                            InputLabelProps={{ shrink: true }}
-                                                            variant="filled"
-                                                            onChange={(e) => handleDateChange(e)}
-                                                            onKeyDown={(e) => e.preventDefault()}
-                                                        />
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        <p>
-                                                            Phone Number<sup>*</sup>
-                                                        </p>
-                                                        <PhoneInput
-                                                            inputProps={{
-                                                                name: 'phone',
-                                                                required: true,
-                                                                maxLength: 20,
-                                                                minLength: 12,
-                                                            }}
-                                                            country={'us'}
-                                                            value={phone}
-                                                            onChange={(e) => handlePhone(e)}
-                                                            variant="filled"
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                                <br />
-
-                                                <br />
-
-                                                <Row>
-                                                    <Col md={6}>
-                                                        <p>Nationality</p>
-                                                        <FormControl>
-                                                            <Select
-                                                                id="demo-controlled-open-select"
-                                                                variant="filled"
-                                                                name="countryName"
-                                                                value={countryId}
-                                                                displayEmpty
-                                                                onChange={(e) => handleCountry(e)}
-                                                            >
-                                                                <MenuItem value="">
-                                                                    <em>Select</em>
-                                                                </MenuItem>
-                                                                {countryList &&
-                                                                    countryList.map((option) => (
-                                                                        <MenuItem value={option.id} key={option.id}>
-                                                                            {option.name}
-                                                                        </MenuItem>
-                                                                    ))}
-                                                            </Select>
-                                                        </FormControl>
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        <p>Gender</p>
-                                                        <FormControl component="fieldset">
-                                                            <RadioGroup
-                                                                id="gender-radio"
-                                                                aria-label="gender"
-                                                                name="gender"
-                                                                variant="filled"
+                                                            <MDBInput type="textarea" rows="5"
+                                                                id="standard-basic"
+                                                                name="bio"
                                                                 onChange={(e) => handleInputChange(e)}
-                                                                value={gender}
-                                                            >
-                                                                <FormControlLabel
-                                                                    value="FEMALE"
-                                                                    control={<Radio color="primary" />}
-                                                                    label="Female"
-                                                                />
-                                                                <FormControlLabel
-                                                                    value="MALE"
-                                                                    control={<Radio color="primary" />}
-                                                                    label="Male"
-
-                                                                />
-                                                                <FormControlLabel
-                                                                    value="OTHER"
-                                                                    control={<Radio color="primary" />}
-                                                                    label="Other"
-
-                                                                />
-                                                            </RadioGroup>
-                                                        </FormControl>
-                                                    </Col>
-                                                </Row>
-                                                <br />
-                                                <Row>
-                                                    <Col md={12}>
-                                                        <p>Languages</p>
-                                                        <FormControl>
-                                                            <div className="multiselect">
-                                                                <Multiselect
-                                                                    options={languageOptions}
-                                                                    onSelect={handleLanguages}
-                                                                    onRemove={removeLanguages}
-                                                                    selectedValues={languages}
-                                                                    displayValue="name"
-                                                                />
-                                                            </div>
-                                                        </FormControl>
-                                                    </Col>
-                                                </Row>
-                                                <br />
-                                                <Row>
-                                                    <Col md={12}>
-                                                        <DoctorDocumentUpload
-                                                            currentDoctor={currentDoctor}
-                                                            isDoctor={true}
-                                                            setDocumentinfo={setDocumentinfo}
-                                                            setDocumentUpdateFile={setDocumentUpdateFile}
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Tab>
-
-                                        <Tab eventKey="education" title="Education">
-                                            <div className="general-medical-tab">
-                                                {currentDoctorData?.educationalQualifications.map((x, i) => {
-                                                    return (
-                                                        <div key={i}>
-                                                            <Row>
-                                                                <Col md={6}>
-                                                                    <p>Education<sup>*</sup></p>
-                                                                    <TextValidator id="standard-basic" type="text" name="educationalQualification"
-                                                                        onChange={(e) => handleEducationDetailsInputChange(e, i)}
-                                                                        value={x.educationalQualification}
-                                                                        validators={['required']}
-                                                                        errorMessages={['This field is required']}
-                                                                        variant="filled"
-                                                                        placeholder='Education' />
-
-                                                                </Col>
-                                                                <Col md={6}>
-                                                                    <p>Institution<sup>*</sup></p>
-                                                                    <TextValidator id="standard-basic" type="text" name="institution"
-                                                                        onChange={(e) => handleEducationDetailsInputChange(e, i)}
-                                                                        value={x.institution}
-                                                                        validators={['required']}
-                                                                        errorMessages={['This field is required']}
-                                                                        variant="filled"
-                                                                        placeholder='Institution' />
-
-                                                                </Col>
-                                                            </Row>
-                                                            <br />
-                                                            <div className="btn-box">
-                                                                {currentDoctorData?.educationalQualifications.length !== 1 && (
-                                                                    <Button
-                                                                        className="medicineRemoveButton"
-                                                                        variant="secondary"
-                                                                        onClick={() => handleRemoveClick(i)}
-                                                                    >
-                                                                        Remove
-                                                                    </Button>
-                                                                )}
-                                                                {currentDoctorData?.educationalQualifications.length - 1 === i && (
-                                                                    <Button
-
-                                                                        className="medicineButton"
-                                                                        variant="primary"
-                                                                        onClick={handleAddClick}
-                                                                    >
-                                                                        Add Education
-                                                                    </Button>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                })}
-                                                <br />
-                                                <Row>
-                                                    <Col md={12}>
-                                                        <p>Experience</p>
-                                                        <TextValidator
-                                                            id="standard-basic"
-                                                            type="number"
-                                                            name="experience"
-                                                            onChange={(e) => handleInputChange(e)}
-                                                            value={experience}
-                                                            variant="filled"
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                                {/* </Row> */}
-                                                <br />
-
-                                                <Row>
-                                                    <Col md={12}>
-                                                        <p>Specialities</p>
-                                                        <FormControl>
-                                                            <div className="multiselect">
-                                                                <Multiselect
-                                                                    options={specialityOptions}
-                                                                    onSelect={handleSpecialities}
-                                                                    onRemove={removeSpecialities}
-                                                                    selectedValues={specialities}
-                                                                    displayValue="name"
-                                                                />
-                                                            </div>
-                                                        </FormControl>
-                                                        {specialityError && (
-                                                            <p style={{ color: 'red' }}>
-                                                                This field is required.
+                                                                value={bio}
+                                                                style={{
+                                                                    background: '#e8e8e8',
+                                                                }}
+                                                                maxLength={500}
+                                                            />
+                                                            <p>Note: Maximum 500 characters allowed.</p>
+                                                        </Col>
+                                                    </Row>
+                                                    <br />
+                                                    <Row>
+                                                        <Col md={6}>
+                                                            <p>Date of Birth</p>
+                                                            <TextValidator
+                                                                id="standard-basic"
+                                                                type="date"
+                                                                name="dateOfBirth"
+                                                                value={moment(dateOfBirth).format('YYYY-MM-DD')}
+                                                                inputProps={maxDate}
+                                                                InputLabelProps={{ shrink: true }}
+                                                                variant="filled"
+                                                                onChange={(e) => handleDateChange(e)}
+                                                                onKeyDown={(e) => e.preventDefault()}
+                                                            />
+                                                        </Col>
+                                                        <Col md={6}>
+                                                            <p>
+                                                                Phone Number<sup>*</sup>
                                                             </p>
-                                                        )}
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Tab>
-                                    </Tabs>
+                                                            <PhoneInput
+                                                                inputProps={{
+                                                                    name: 'phone',
+                                                                    required: true,
+                                                                    maxLength: 20,
+                                                                    minLength: 12,
+                                                                }}
+                                                                country={'us'}
+                                                                value={phone}
+                                                                onChange={(e) => handlePhone(e)}
+                                                                variant="filled"
+                                                            />
+                                                        </Col>
+                                                    </Row>
+                                                    <br />
 
-                                    <br />
-                                    <div className='edit-profile__button-wrapper'>
-                                        <button
-                                            className="btn btn-primary continue-btn"
-                                            onClick={() => {
-                                                // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
-                                                setToggleProfile({ ...toggleProfile, editProfile: false });
-                                            }}
-                                        >
-                                            Go Back
-                                        </button>
+                                                    <br />
 
-                                        <button
-                                            className="btn btn-primary continue-btn"
-                                            type="submit"
-                                        >
-                                            Update Profile
-                                        </button>
-                                    </div>
+                                                    <Row>
+                                                        <Col md={6}>
+                                                            <p>Nationality</p>
+                                                            <FormControl>
+                                                                <Select
+                                                                    id="demo-controlled-open-select"
+                                                                    variant="filled"
+                                                                    name="countryName"
+                                                                    value={countryId}
+                                                                    displayEmpty
+                                                                    onChange={(e) => handleCountry(e)}
+                                                                >
+                                                                    <MenuItem value="">
+                                                                        <em>Select</em>
+                                                                    </MenuItem>
+                                                                    {countryList &&
+                                                                        countryList.map((option) => (
+                                                                            <MenuItem value={option.id} key={option.id}>
+                                                                                {option.name}
+                                                                            </MenuItem>
+                                                                        ))}
+                                                                </Select>
+                                                            </FormControl>
+                                                        </Col>
+                                                        <Col md={6}>
+                                                            <p>Gender</p>
+                                                            <FormControl component="fieldset">
+                                                                <RadioGroup
+                                                                    id="gender-radio"
+                                                                    aria-label="gender"
+                                                                    name="gender"
+                                                                    variant="filled"
+                                                                    onChange={(e) => handleInputChange(e)}
+                                                                    value={gender}
+                                                                >
+                                                                    <FormControlLabel
+                                                                        value="FEMALE"
+                                                                        control={<Radio color="primary" />}
+                                                                        label="Female"
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        value="MALE"
+                                                                        control={<Radio color="primary" />}
+                                                                        label="Male"
 
-                                </ValidatorForm>
+                                                                    />
+                                                                    <FormControlLabel
+                                                                        value="OTHER"
+                                                                        control={<Radio color="primary" />}
+                                                                        label="Other"
+
+                                                                    />
+                                                                </RadioGroup>
+                                                            </FormControl>
+                                                        </Col>
+                                                    </Row>
+                                                    <br />
+                                                    <Row>
+                                                        <Col md={12}>
+                                                            <p>Languages</p>
+                                                            <FormControl>
+                                                                <div className="multiselect">
+                                                                    <Multiselect
+                                                                        options={languageOptions}
+                                                                        onSelect={handleLanguages}
+                                                                        onRemove={removeLanguages}
+                                                                        selectedValues={languages}
+                                                                        displayValue="name"
+                                                                    />
+                                                                </div>
+                                                            </FormControl>
+                                                        </Col>
+                                                    </Row>
+                                                    <br />
+                                                    <Row>
+                                                        <Col md={12}>
+                                                            <DoctorDocumentUpload
+                                                                currentDoctor={currentDoctor}
+                                                                isDoctor={true}
+                                                                setDocumentinfo={setDocumentinfo}
+                                                                setDocumentUpdateFile={setDocumentUpdateFile}
+                                                            />
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Tab>
+
+                                            <Tab eventKey="education" title="Education">
+                                                <div className="general-medical-tab">
+                                                    {currentDoctorData?.educationalQualifications.map((x, i) => {
+                                                        return (
+                                                            <div key={i}>
+                                                                <Row>
+                                                                    <Col md={6}>
+                                                                        <p>Education<sup>*</sup></p>
+                                                                        <TextValidator id="standard-basic" type="text" name="educationalQualification"
+                                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
+                                                                            value={x.educationalQualification}
+                                                                            validators={['required']}
+                                                                            errorMessages={['This field is required']}
+                                                                            variant="filled"
+                                                                            placeholder='Education' />
+
+                                                                    </Col>
+                                                                    <Col md={6}>
+                                                                        <p>Institution<sup>*</sup></p>
+                                                                        <TextValidator id="standard-basic" type="text" name="institution"
+                                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
+                                                                            value={x.institution}
+                                                                            validators={['required']}
+                                                                            errorMessages={['This field is required']}
+                                                                            variant="filled"
+                                                                            placeholder='Institution' />
+
+                                                                    </Col>
+                                                                </Row>
+                                                                <br />
+                                                                <div className="btn-box">
+                                                                    {currentDoctorData?.educationalQualifications.length !== 1 && (
+                                                                        <Button
+                                                                            className="medicineRemoveButton"
+                                                                            variant="secondary"
+                                                                            onClick={() => handleRemoveClick(i)}
+                                                                        >
+                                                                            Remove
+                                                                        </Button>
+                                                                    )}
+                                                                    {currentDoctorData?.educationalQualifications.length - 1 === i && (
+                                                                        <Button
+
+                                                                            className="medicineButton"
+                                                                            variant="primary"
+                                                                            onClick={handleAddClick}
+                                                                        >
+                                                                            Add Education
+                                                                        </Button>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                    <br />
+                                                    <Row>
+                                                        <Col md={12}>
+                                                            <p>Experience</p>
+                                                            <TextValidator
+                                                                id="standard-basic"
+                                                                type="number"
+                                                                name="experience"
+                                                                onChange={(e) => handleInputChange(e)}
+                                                                value={experience}
+                                                                variant="filled"
+                                                            />
+                                                        </Col>
+                                                    </Row>
+                                                    {/* </Row> */}
+                                                    <br />
+
+                                                    <Row>
+                                                        <Col md={12}>
+                                                            <p>Specialities</p>
+                                                            <FormControl>
+                                                                <div className="multiselect">
+                                                                    <Multiselect
+                                                                        options={specialityOptions}
+                                                                        onSelect={handleSpecialities}
+                                                                        onRemove={removeSpecialities}
+                                                                        selectedValues={specialities}
+                                                                        displayValue="name"
+                                                                    />
+                                                                </div>
+                                                            </FormControl>
+                                                            {specialityError && (
+                                                                <p style={{ color: 'red' }}>
+                                                                    This field is required.
+                                                                </p>
+                                                            )}
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Tab>
+                                        </Tabs>
+
+                                        <br />
+                                        <div className='edit-profile__button-wrapper'>
+                                            <button
+                                                className="btn btn-primary continue-btn"
+                                                onClick={() => {
+                                                    // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
+                                                    setToggleProfile({ ...toggleProfile, editProfile: false });
+                                                }}
+                                            >
+                                                Go Back
+                                            </button>
+
+                                            <button
+                                                className="btn btn-primary continue-btn"
+                                                type="submit"
+                                            >
+                                                Update Profile
+                                            </button>
+                                        </div>
+
+                                    </ValidatorForm>
+                                </>
                             </div>
                         </Col>
                     </Row>

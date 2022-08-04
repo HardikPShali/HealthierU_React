@@ -2,10 +2,12 @@ import React from 'react';
 import Avatar from 'react-avatar';
 import rightIcon from '../../../../images/svg/right-icon.svg';
 import moment from 'moment';
-import { getUnreadNotificationsCount, putMarkAsReadFromNotificationMenu } from '../../../../service/frontendapiservices';
+import {
+    getUnreadNotificationsCount,
+    putMarkAsReadFromNotificationMenu,
+} from '../../../../service/frontendapiservices';
 
 const AcceptedAppointment = ({ notification, index }) => {
-
     //MARK AS READ NOTIFICATION LOGIC
     const markAsReadFromNotificationMenuHandler = async () => {
         const notificationId = notification.id;
@@ -54,22 +56,31 @@ const AcceptedAppointment = ({ notification, index }) => {
                 <div className="notif-section__message">
                     <div className="message-notif">
                         <span>
-                            {notification.data.message}
+                            Your appointment with{' '}
+                            {notification.data.appointmentDetails.patient?.firstName} is
+                            confirmed for the time{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
-                                'DD-MM-YYYY hh:mm'
+                                'DD-MM-YYYY HH:mm'
                             )}{' '}
-                            with {notification.data.appointmentDetails.patient?.firstName}
+                        </span>
+                        <span
+                            style={{
+                                color: '#bfbfbf',
+                                fontSize: 11,
+                            }}
+                        >
+                            {moment(notification.createdAt).format('HH:mm')}
                         </span>
                     </div>
                 </div>
-                <div className="notif-section__arrow">
+                {/* <div className="notif-section__arrow">
                     <img
                         src={rightIcon}
                         alt="right-icon"
                         style={{ marginRight: '15px' }}
                         className="ml-2"
                     />
-                </div>
+                </div> */}
             </div>
             <hr />
         </div>

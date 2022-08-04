@@ -23,10 +23,11 @@ export const handleGoogleAuth = async (googleUserData, history) => {
         }
     }).catch(error => {
         // const history = useHistory();
-        if (error.response && error.response.status === 500) {
-            history.push('/signupform');
-        } else if (error.response && error.response.status === 400 && error.response.data.title === "User role required.") {
-            history.push('/signupform');
+        // if (error.response && error.response.status === 500) {
+        //     history.push('/signupform');
+        // } else
+        if (error.response && error.response.status === 500 || error.response.data.title === "User role required.") {
+            history.push(`/signupform?form-google=${true}`);
         } else if (error.response && error.response.status === 405) {
             history.push('/signupform');
         }

@@ -78,7 +78,7 @@ const FilterComponent = (props) => {
             {filter && (
                 <div className="medicalrecord-filter-box" ref={ref}>
                     <ValidatorForm
-                        onSubmit={() => props.updatedFilter(filterValues)}
+                        onSubmit={() => {props.updatedFilter(filterValues);setFilter(false)}}
                         onError={(error) => console.log(error)}
                     >
                         <div className="medicalrecord-filter-body">

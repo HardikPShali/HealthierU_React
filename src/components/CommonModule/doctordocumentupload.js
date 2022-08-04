@@ -71,7 +71,6 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         if (res && res.status === 200) {
             setPage(res.data)
             setDocumentData(res.data.documentsDocumentsList);
-            console.log("loadDoctorDocument", res.data.documentsDocumentsList);
             const firstData = res.data.documentsDocumentsList
             const reverse = firstData.reverse()
             setCurrentDocumentData(reverse[0])
@@ -143,8 +142,10 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         // }
     }
     const [error, SetError] = useState("")
+    const [isValidlicense, setIsValidlicense] = useState(false)
+    const [isValidcertifyingBody, setIsValidcertifyingBody] = useState(false)
     const handleUpload = async (e, data) => {
-        setLoading(true);
+        // setLoading(true);
         //document.getElementById("uploadBtn").disabled = true;
         const info = {
             doctorId: currentDoctor.id,
@@ -160,80 +161,139 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             referencePhoneNumber: state.referencePhoneNumber,
             certifyingBody: state.certifyingBody
         }
-
-
-        if (documentFile && info.licenseNumber !== null && info.referencePhoneNumber !== null && info.certifyingBody !== null) {
+        var regLicenseNo = new RegExp('^[a-zA-Z0-9 ]+$');
+        var regCertifyingBody = new RegExp('^[a-zA-Z0-9 {}]+$');
+        if (regLicenseNo.test(state.licenseNumber) == false) {
+            setLoading(false);
+            setUploadOpen(false)
+            toast.error('Please enter valid license number', {
+                position: "top-right",
+                autoClose: 5000,
+                toastId: 'isValidlicense'
+            });
+            return false;
+        }
+        else {
+            setIsValidlicense(true)
+        }
+        if (regCertifyingBody.test(state.certifyingBody) == false) {
+            setLoading(false);
+            setUploadOpen(false)
+            toast.error('Please enter valid certifying Body', {
+                position: "top-right",
+                autoClose: 5000,
+                toastId: 'isValidcertifyingBody'
+            });
+            return false;
+        }
+        else {
+            setIsValidcertifyingBody(true)
+        }
+        if (!documentFile) {
+            setLoading(false);
+            toast.error("Please select file before uploading!")
             SetError("")
             setPhoneError("")
-            if (info.licenseNumber !== "" && info.referencePhoneNumber !== "" && info.certifyingBody !== "") {
+        }
+        if (isValidlicense == true && isValidcertifyingBody == true) {
+            if (documentFile && info.licenseNumber !== null && info.referencePhoneNumber !== null && info.certifyingBody !== null) {
                 SetError("")
                 setPhoneError("")
-                if (info.licenseNumber && info.certifyingBody && info.referencePhoneNumber) {
+                if (info.licenseNumber !== "" && info.referencePhoneNumber !== "" && info.certifyingBody !== "") {
                     SetError("")
                     setPhoneError("")
-                    const res = await uploadDoctorDocument(documentFile, info).catch(err => {
-                        //setErrorMsg("Something Went Wrong!");
-                        toast.error("Something went wrong. Please try again!")
-                        history.push(0)
-                        setLoading(false);
-                    });
-                    if (res && res.status === 201) {
-                        toast.success("Document Successfully Uploaded.");
-                        const existingDoc = documentData;
-                        existingDoc.push(res.data.data);
-                        setDocumentData(existingDoc);
-                        setUploadOpen(false);
-                        setLoading(false)
-                        const res1 = await getDoctorDocument(currentDoctor.id, 0);
-                        if (res1 && res1.status === 200) {
-                            setPage(res1.data)
-                            setDocumentData(res1.data.documentsDocumentsList);
-                            setCurrentDocumentData(res1.data.documentsDocumentsList[0])
-                            setDocumentinfo(res1.data.documentsDocumentsList[0])
-                            setDocumentFile("")
+                    if (info.licenseNumber && info.certifyingBody && info.referencePhoneNumber) {
+                        SetError("")
+                        setPhoneError("")
+                        setLoading(true);
+                        const res = await uploadDoctorDocument(documentFile, info).catch(err => {
+                            //setErrorMsg("Something Went Wrong!");
+                            toast.error("Something went wrong. Please try again!")
+                            history.push(0)
                             setLoading(false);
-                        }
-                        else if (res1 && res1.status === 204) {
-                            setDocumentData([]);
-                            setDocumentFile("")
-                            setLoading(false);
-                        }
-                        const res2 = await updateDoctorDocumentNew(updateInfo).catch(err => {
-                            if (err.response.status === 500 || err.response.status === 504) {
+                        });
+                        if (res && res.status === 201) {
+                            toast.success("Document Successfully Uploaded.");
+                            const existingDoc = documentData;
+                            existingDoc.push(res.data.data);
+                            setDocumentData(existingDoc);
+                            setUploadOpen(false);
+                            setLoading(false)
+                            const res1 = await getDoctorDocument(currentDoctor.id, 0);
+                            if (res1 && res1.status === 200) {
+                                setPage(res1.data)
+                                setDocumentData(res1.data.documentsDocumentsList);
+                                setCurrentDocumentData(res1.data.documentsDocumentsList[0])
+                                setDocumentinfo(res1.data.documentsDocumentsList[0])
+                                setDocumentFile("")
                                 setLoading(false);
                             }
-                        });
+                            else if (res1 && res1.status === 204) {
+                                setDocumentData([]);
+                                setDocumentFile("")
+                                setLoading(false);
+                            }
+                            const res2 = await updateDoctorDocumentNew(updateInfo).catch(err => {
+                                if (err.response.status === 500 || err.response.status === 504) {
+                                    setLoading(false);
+                                }
+                            });
+                        }
                     }
+                    else if (!info.referencePhoneNumber) {
+                        setLoading(false);
+                        setUploadOpen(false)
+                        SetError("")
+                        setDocumentFile("")
+                        setPhoneError("Required for document uploading!")
+                    }
+                    else {
+                        setLoading(false);
+                        setUploadOpen(false)
+                        setDocumentFile("")
+                        SetError("Required for document uploading!")
+                        //setPhoneError("Required for document uploading!")
+                        //toast.error("Please enter License number,certifying body and reference phone number!")
+                    }
+                }
+                else if (info.referencePhoneNumber == "") {
+                    setLoading(false);
+                    setUploadOpen(false)
+                    SetError("")
+                    setDocumentFile("")
+                    setPhoneError("Required for document uploading!")
                 }
                 else {
                     setLoading(false);
+                    setUploadOpen(false)
+                    setDocumentFile("")
                     SetError("Required for document uploading!")
-                    setPhoneError("Required for document uploading!")
+                    //setPhoneError("Required for document uploading!")
                     //toast.error("Please enter License number,certifying body and reference phone number!")
                 }
             }
-            else {
+            else if (info.referencePhoneNumber == null) {
                 setLoading(false);
-                SetError("Required for document uploading!")
+                setUploadOpen(false)
+                SetError("")
+                setDocumentFile("")
                 setPhoneError("Required for document uploading!")
-                //toast.error("Please enter License number,certifying body and reference phone number!")
             }
         }
         else {
-            if (!documentFile) {
-                toast.error("Please select file before uploading!")
-                SetError("")
-                setPhoneError("")
-            }
             if (info.licenseNumber === null && info.referencePhoneNumber === null && info.certifyingBody === null) {
                 //toast.error("Please enter License number,certifying body and reference phone number!")
                 SetError("Required for document uploading!")
+                setUploadOpen(false)
+                setDocumentFile("")
                 setPhoneError("Required for document uploading!")
             }
             if (!info.licenseNumber && !info.certifyingBody && !info.referencePhoneNumber) {
                 setLoading(false);
+                setDocumentFile("")
                 //toast.error("Please enter License number,certifying body and reference phone number!")
                 SetError("Required for document uploading!")
+                setUploadOpen(false)
                 setPhoneError("Required for document uploading!")
             }
             setLoading(false);
@@ -404,6 +464,15 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
         e.preventDefault()
         setstate({ ...state, [e.target.name]: e.target.value });
         setDocumentinfo({ ...state, [e.target.name]: e.target.value })
+        // if (!documentFile) {
+        //     setTimeout(() => {
+        //         toast.error("Please upload file to edit document details", {
+        //             position: "top-right",
+        //             autoClose: 5000,
+        //             toastId: "docUploadToast"
+        //         });
+        //     }, 3000)
+        // }
     };
 
     const handlePhone = (e) => {
@@ -427,6 +496,14 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             setLoading(false);
         }
     };
+
+    const customInputStyle = {
+        whiteSpace: "nowrap",
+        width: "300px",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+    }
+
     return (
         <>
             {loading && (
@@ -439,8 +516,12 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                         <TextValidator id="uploadlicence" type="text" name="licenseNumber"
                             onChange={(e) => handleInputChange(e)}
                             value={licenseNumber}
-                            validators={['required']}
-                            errorMessages={['This field is required']}
+                            validators={[
+                                "required",
+                                "matchRegexp:(^[a-zA-Z0-9 ]+$)",
+                            ]}
+                            errorMessages={['This field is required',
+                                "Please Enter Valid License Number"]}
                             variant="filled"
                             required
                             placeholder='License Number' />
@@ -451,8 +532,12 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                         <TextValidator id="uploadcerty" type="text" name="certifyingBody"
                             onChange={(e) => handleInputChange(e)}
                             value={certifyingBody}
-                            validators={['required']}
-                            errorMessages={['This field is required']}
+                            validators={[
+                                "required",
+                                "matchRegexp:(^[a-zA-Z0-9 {}]+$)",
+                            ]}
+                            errorMessages={['This field is required',
+                                "Please Enter Valid Certifying Body"]}
                             variant="filled"
                             required
                             placeholder='Certifying Body' />
@@ -477,7 +562,6 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             onChange={e => handlePhone(e)}
                             variant="filled"
                             required
-                            disabled={disableRefPhone}
                         />
                         {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
                     </Col>
@@ -552,7 +636,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                             : doc.documentStatus === "UNAPPROVED" ? "Unapproved"
                                                 : "N/A"}
                                 </td>
-                                <td>
+                                <td className='mobile-css-helper'>
                                     {isDoctor ? (<>
                                         {doc.documentStatus === "UNAPPROVED" && (<>
                                             <IconButton color="primary" className="mr-2 p-0" onClick={() => handleUpdateClick(doc)}><CreateIcon /></IconButton>
@@ -628,6 +712,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                     }}
                                     multiple
                                     onChange={(e) => handleFileChange(e)}
+                                    style={customInputStyle}
                                 />
                                 {documentError && (<span style={{ color: "red", fontSize: "11px" }}>{documentError}</span>)}
                             </Col>
@@ -686,6 +771,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                 <b>Choose Document:</b>
                             </Col>
                             <Col md={8}>
+                                {/* <div> */}
                                 <input
                                     id="docFile"
                                     variant="filled"
@@ -696,8 +782,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                                     }}
                                     multiple
                                     onChange={(e) => handleFileChange(e)}
-
                                 />
+                                {/* </div> */}
+
                                 {/* {console.log("docFile::", documentFile && documentFile.name)} */}
                                 {documentError && (<span style={{ color: "red", fontSize: "11px" }}>{documentError}</span>)}
                             </Col>

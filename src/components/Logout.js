@@ -8,6 +8,19 @@ const Logout = () => {
   const cookies = new Cookies();
   // const history = useHistory();
   useEffect(() => {
+
+    // cookies.getAll().map((cookie) => {
+    //   debugger;
+    //   cookies.remove(cookie.name);
+    // });
+
+    const allCookies = cookies.getAll()
+
+    for (let key in allCookies) {
+      cookies.remove(key)
+
+    }
+
     cookies.remove("refresh_token", { path: '/' });
     cookies.remove("currentUser", { path: '/' });
     cookies.remove("access_token", { path: '/' });

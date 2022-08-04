@@ -22,9 +22,17 @@ import { useHistory } from 'react-router';
 const Availability = () => {
   const [value, setValue] = useState([]);
   const [count, setCount] = useState(1);
+
+  const initialStartTime = new Date();
+  initialStartTime.setHours(10, 0, 0, 0);
+
+  const initialEndTime = new Date();
+  initialEndTime.setHours(10, 0, 0, 0);
+
+
   const [state, setState] = useState({
-    startTime: moment(),
-    endTime: moment(),
+    startTime: moment(initialStartTime),
+    endTime: moment(initialEndTime),
   });
   const [times, setTimes] = useState({ time: [], days: [] });
   const [timesOfRecur, setTimesOfRecur] = useState({ time: [], days: [] });
@@ -170,7 +178,7 @@ const Availability = () => {
     } else {
       const res = await addRecurringSLot(dataForRecurSlot);
       const afterSuccessOrFailEvent = async () => {
-        setState({ startTime: moment(), endTime: moment() });
+        setState({ startTime: moment(initialStartTime), endTime: moment(initialEndTime) });
         loadRecurSlots();
         setTimeout(() => {
           history.go(0);
@@ -179,7 +187,7 @@ const Availability = () => {
 
       if (res.data.status === false) {
         toast.error(res.data.message);
-        afterSuccessOrFailEvent();
+        //afterSuccessOrFailEvent();
       } else {
         toast.success('Recurring Slot Added');
         afterSuccessOrFailEvent();
@@ -220,7 +228,7 @@ const Availability = () => {
 
     }
   };
-  const handleCloseSlot = (timeData) => {
+  const handleCloseSlot = () => {
     setTimes({ ...times, time: [], days: [] })
   };
   const clearTick = () => {
@@ -470,24 +478,41 @@ const Availability = () => {
                 <h5>Select Time Slots</h5>
                 <div className="selected-time-container">
                   {times.time.map((timeData, timeIndex) => (
-                    <div className="selected_time">
-                      <div className="select-time-wrap">
-                        <div className="select-time-font">
-                          <h6 className="select-time-font">
-                            {timeData.startTime}
-                          </h6>
-                          <h6 className="select-time-font pl-2 pr-2">to</h6>
-                          <h6 className="select-time-font">{timeData.endTime}</h6>
+                    <>
+                      <div className="selected_time">
+                        <div className="select-time-wrap">
+                          <div className="select-time-font">
+                            <h6 className="select-time-font">
+                              {timeData.startTime}
+                            </h6>
+                            <h6 className="select-time-font pl-2 pr-2">to</h6>
+                            <h6 className="select-time-font">{timeData.endTime}</h6>
+                          </div>
                         </div>
                       </div>
-                      <div className="close-btn-select">
+                      {/* <div className="selected_time" style={{marginLeft: '5px'}}>
+                        <div className="select-time-wrap">
+                          <div className="select-time-font">
+                            <h6 className="select-time-font">
+                              <img
+                                src={closeBtn}
+                                alt="close button"
+                                onClick={() => handleCloseSlot(timeData)}
+                              />
+                              Delete All
+                            </h6>
+                          </div>
+                        </div>
+                      </div> */}
+                      {/* <div className="close-btn-select">
                         <img
                           src={closeBtn}
                           alt="close button"
                           onClick={() => handleCloseSlot(timeData)}
                         />
-                      </div>
-                    </div>
+                        Delete All
+                      </div> */}
+                    </>
                   ))}
                 </div>
               </div>
@@ -508,9 +533,13 @@ const Availability = () => {
                     <span className="checkmark"></span>
                   </label>
                 ))}
-
-                <div className="available-btn">
-                  <button onClick={addDaySlot}>Add Time Slots</button>
+                <div style={{ display: 'flex' }}>
+                  <div className="available-btn">
+                    <button className="btn btn-primary" onClick={addDaySlot}>Add Time Slots</button>
+                  </div>
+                  <div className="cancel-btn">
+                    <button className="btn btn-secondary" style={{ marginLeft: '2%' }} onClick={() => handleCloseSlot()}>Cancel</button>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -575,7 +604,7 @@ const Availability = () => {
             className="btn btn-primary"
             id="close-btn"
           >
-            Ok
+            OK
           </button>
           <button
             autoFocus
@@ -605,7 +634,7 @@ const Availability = () => {
             className="btn btn-primary"
             id="close-btn"
           >
-            Reschedule
+            Reschedule appointments & disable/delete slot
           </button>
           <button
             autoFocus
@@ -613,7 +642,7 @@ const Availability = () => {
             className="btn btn-secondary"
             id="close-btn"
           >
-            Delete Available Slots
+            Keep appointments and disable/delete slot
           </button>
           <button
             autoFocus

@@ -14,9 +14,9 @@ const ProtectedRoutes = ({  component: Component, role,  ...restOfProps}) => {
     const { authorities = []} = currentUser || [];
 
     const loggedInRolePageRedirection = (props) => {
-        let customRoute = authorities.some((user) => user === role) ? (
+        let customRoute = authorities.every((user) => user === role) ? (
             <Component {...props} />
-          ) : <Redirect to={roleURLMapping[authorities[0]]} />
+          ) : <Redirect to="/signin" />
         return customRoute
     }
 

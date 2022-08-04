@@ -186,12 +186,24 @@ const Profile = () => {
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
-        setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
+
+        const dateBefore18Years = moment(isoDate).isBefore(
+            moment().subtract(18, "years")
+        );
+
+        if (dateBefore18Years === false) {
+            toast.error("Your age entered must be 18 years and above.", {
+                toastId: "ageError",
+            });
+        }
+        else {
+            setCurrentPatient({ ...currentPatient, dateOfBirth: isoDate });
+        }
     };
 
     const handleDetails = async (e) => {
         console.log("profilePicture ::::::", profilePicture);
-        // setTransparentLoading(true);
+        setTransparentLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
         const reqData = { ...currentPatient };
@@ -199,11 +211,13 @@ const Profile = () => {
         bodyFormData.append("profileData", JSON.stringify(reqData));
         bodyFormData.append("profilePicture", profilePicture);
         const response = await updatePatientData(bodyFormData).catch(err => {
+            setTransparentLoading(false);
+            //toast.error("Something went wrong. Please try again.");
             if (err.response.status === 500 || err.response.status === 504) {
                 toast.error("Something went wrong. Please try again.");
-                setTimeout(() => {
-                    history.go(0);
-                }, 1000)
+                // setTimeout(() => {
+                //     history.go(0);
+                // }, 1000) 
             }
         });
 
@@ -239,10 +253,10 @@ const Profile = () => {
     const now = new Date();
     const newDate = now.setDate(now.getDate() - 1);
     const maxDate = {
-        max: moment(newDate).format("YYYY-MM-DD"),
+        max: moment(newDate).format('YYYY-MM-DD'),
         min: moment(now)
-            .subtract(400, "years")
-            .format("YYYY-MM-DD"),
+            .subtract(100, 'years')
+            .format('YYYY-MM-DD'),
     };
 
     const showBloodGroup = (bg) => {
@@ -308,7 +322,7 @@ const Profile = () => {
                                                             icon={calendarIcon}
                                                             title="Date of Birth"
                                                             value={moment(currentPatient.dateOfBirth).format(
-                                                                "DD/MM/YY"
+                                                                "DD/MM/YYYY"
                                                             )}
                                                         />
                                                         <ProfileRow

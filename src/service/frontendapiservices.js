@@ -485,7 +485,7 @@ export const handleChangePassword = async (passwordData) => {
     method: "post",
     mode: "no-cors",
     data: passwordData,
-    url: `/api/account/change-password/`,
+    url: `/api/mobile/account/change-password/`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
@@ -1421,14 +1421,15 @@ export const getHealthAssessmentPdf = async (patientId) => {
   return response;
 }
 
-export const callRejectApi = async (channelId) => {
+export const callRejectApi = async (channelId, message) => {
   var payload = {
     method: 'post',
     mode: 'no-cors',
     url: `/api/v2/reject-call-user/${channelId}`,
+    data: message,
     headers: {
       'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/html'
     }
   };
   const response = await axios(payload).then(res => {
@@ -1522,6 +1523,21 @@ export const getSearchDataAndFilter = (data, offset, limit, patientId) => { //pa
     mode: "no-cors",
     data: data,
     url: `/api/mobile/tab/doctors?sort=id,desc&page=${offset}&size=${limit}&patientId=${patientId}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
+};
+
+export const getAvailableSlotTimings = (data, type) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    data: data,
+    url: `/api/v2/appointments/availableslots?type=${type}`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",

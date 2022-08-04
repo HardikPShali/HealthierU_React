@@ -49,6 +49,11 @@ import creditCardIcon from "../../images/svg/credit-card-icon.svg";
 import chatButtonIcon from "../../images/svg/chat-button-icon.svg";
 import callButtonIcon from "../../images/svg/video-call-icon.svg";
 import { toast } from "react-toastify";
+import infoIcon from '../../images/svg/info-i-icon.svg';
+import bloodGroupIcon from "../../../src/images/svg/blood-group-icon.svg";
+import heightIcon from "../../../src/images/svg/height-icon.svg";
+import weightIcon from "../../../src/images/svg/weight-icon.svg";
+import bloodPressureIcon from "../../../src/images/svg/blood-pressure-icon.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -296,10 +301,10 @@ const Myappointment = (props) => {
         setTomorrowAppointment(tomoArray);
         setTimeout(() => setLoading(false), 1000);
         setTimeout(() => setTransparentLoading(false), 1000);
-        const tourState = cookies.get("appointmentTour");
-        if (!tourState) {
-          setIsTourOpen(true);
-        }
+        // const tourState = cookies.get("appointmentTour");
+        // if (!tourState) {
+        //   setIsTourOpen(true);
+        // }
       }
     }
     if (event === "today") {
@@ -344,10 +349,10 @@ const Myappointment = (props) => {
         setTodayAppointment(todayArray);
         setTimeout(() => setLoading(false), 1000);
         setTimeout(() => setTransparentLoading(false), 1000);
-        const tourState = cookies.get("appointmentTour");
-        if (!tourState) {
-          setIsTourOpen(true);
-        }
+        // const tourState = cookies.get("appointmentTour");
+        // if (!tourState) {
+        //   setIsTourOpen(true);
+        // }
       }
     }
     if (event === "upcoming") {
@@ -391,10 +396,10 @@ const Myappointment = (props) => {
         setUpcomingAppointment(upcomingArray);
         setTimeout(() => setLoading(false), 1000);
         setTimeout(() => setTransparentLoading(false), 1000);
-        const tourState = cookies.get("appointmentTour");
-        if (!tourState) {
-          setIsTourOpen(true);
-        }
+        // const tourState = cookies.get("appointmentTour");
+        // if (!tourState) {
+        //   setIsTourOpen(true);
+        // }
       }
     }
   }
@@ -406,7 +411,7 @@ const Myappointment = (props) => {
     console.log("tomorrowAppointment", tomorrowAppointment);
   }, [tomorrowAppointment]);
   const newStartDate = new Date().setDate(new Date().getDate() - 30);
-  const newEndDate = new Date().setDate(new Date().getDate() + 25);
+  const newEndDate = new Date().setDate(new Date().getDate() + 28);
   const loadAppointment = async (startTime, endTime, doctorId) => {
     const docId = cookies.get("profileDetails");
 
@@ -468,9 +473,7 @@ const Myappointment = (props) => {
             title:
               value.status === "AVAILABLE"
                 ? "Slot Available"
-                : `This is ${value?.patient?.firstName} have ${value.urgency ? value.urgency : "no"
-                } urgency, comments : ${value.remarks ? value.remarks : "no comments"
-                }`,
+                : `This is ${value?.patient?.firstName}`, // have ${value.urgency ? value.urgency : "no"} urgency, comments : ${value.remarks ? value.remarks : "no comments"
             remarks: value.remarks,
             status: value.status,
             doctorId: value.doctorId,
@@ -506,10 +509,10 @@ const Myappointment = (props) => {
       setAcceptedAppointment(acceptedArray);
       setTimeout(() => setLoading(false), 1000);
       setTimeout(() => setTransparentLoading(false), 1000);
-      const tourState = cookies.get("appointmentTour");
-      if (!tourState) {
-        setIsTourOpen(true);
-      }
+      // const tourState = cookies.get("appointmentTour");
+      // if (!tourState) {
+      //   setIsTourOpen(true);
+      // }
     }
     if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
       //setLoading(false);
@@ -540,10 +543,10 @@ const Myappointment = (props) => {
       console.log("todayArray", todayArray);
       setTimeout(() => setLoading(false), 1000);
       setTimeout(() => setTransparentLoading(false), 1000);
-      const tourState = cookies.get("appointmentTour");
-      if (!tourState) {
-        setIsTourOpen(true);
-      }
+      // const tourState = cookies.get("appointmentTour");
+      // if (!tourState) {
+      //   setIsTourOpen(true);
+      // }
     }
   };
 
@@ -632,13 +635,13 @@ const Myappointment = (props) => {
         });
       if (
         slots[0].toISOString() >
-        new Date(new Date().setDate(new Date().getDate() + 21)).toISOString()
+        new Date(new Date().setDate(new Date().getDate() + 28)).toISOString()
       ) {
         duplicateFlag = 1;
         setWarningMsg({
           ...warningMsg,
           message:
-            "You cannot make the slots available for booking more than 21 days from current day!",
+            "You cannot make the slots available for booking more than 28 days from current day!",
         });
       }
       if (duplicateFlag === 0) {
@@ -692,8 +695,10 @@ const Myappointment = (props) => {
       type: "DR",
       status: "UNAVAILABLE",
       remarks: selectedAppointmentData.remarks,
-      startTime: new Date(selectedAppointmentData.startTime).toISOString(),
-      endTime: new Date(selectedAppointmentData.endTime).toISOString(),
+      // startTime: new Date(selectedAppointmentData.startTime).toISOString(),
+      // endTime: new Date(selectedAppointmentData.endTime).toISOString(),
+      startTime: null,
+      endTime: null,
       timeZone: timeZone,
     };
     const res = await deleteAvailableAppointment(payload).catch((err) => {
@@ -809,10 +814,10 @@ const Myappointment = (props) => {
                 patientId: value.patientId,
                 doctorId: value.doctorId,
                 doctor: value.doctor,
-                title: `Appointment booked with Dr. ${value?.doctor?.firstName
-                  } with ${value.urgency ? value.urgency : "no"
-                  } urgency, comments : ${value.remarks ? value.remarks : "no comments"
-                  }`,
+                title: `Appointment booked with Dr. ${value?.doctor?.firstName}`,
+                // with ${value.urgency ? value.urgency : "no"
+                //   } urgency, comments : ${value.remarks ? value.remarks : "no comments"
+                //   }`,
                 startTime: new Date(value.startTime),
                 endTime: new Date(reversedAppointments[index + 1].endTime),
                 remarks: value.remarks,
@@ -872,61 +877,61 @@ const Myappointment = (props) => {
 
   // React Tour code
 
-  const [isTourOpen, setIsTourOpen] = useState(false);
+  // const [isTourOpen, setIsTourOpen] = useState(false);
 
-  const disableBody = (target) => disableBodyScroll(target);
-  const enableBody = (target) => enableBodyScroll(target);
+  // const disableBody = (target) => disableBodyScroll(target);
+  // const enableBody = (target) => enableBodyScroll(target);
 
-  const closeTour = () => {
-    cookies.set("appointmentTour", false);
-    setIsTourOpen(false);
-    window.scrollTo(0, 0);
-  };
+  // const closeTour = () => {
+  //   cookies.set("appointmentTour", false);
+  //   setIsTourOpen(false);
+  //   window.scrollTo(0, 0);
+  // };
 
   // const accentColor = "#5cb7b7";
 
-  const tourConfig = [
-    {
-      selector: ".rbc-calendar",
-      content: `This Calendar is used to create appointment slots for patients.`,
-    },
-    {
-      selector: ".rbc-today .rbc-time-slot:nth-child(1)",
-      content: `Click here to create an appointment slot for patient as per your current time.`,
-    },
-    {
-      selector: ".rbc-toolbar",
-      content: `Navigate the Calendar as per your requirement, change the view and check your agenda for the week, month etc.`,
-    },
-    {
-      selector: ".calendar-color",
-      content: `These color combinations used for displaying appointment types on calendar.`,
-    },
-    {
-      selector: ".available",
-      content: `Here, you can see the list of appointment slots which are avilable for booking.`,
-    },
-    {
-      selector: ".booked",
-      content: () => (
-        <div>
-          <p>
-            Here, you can see the list of appointment slots which are booked as
-            Followup or Consultation.
-          </p>
-          <button className="btn btn-primary" onClick={() => closeTour()}>
-            Got it
-          </button>
-        </div>
-      ),
-    },
-  ];
+  // const tourConfig = [
+  //   {
+  //     selector: ".rbc-calendar",
+  //     content: `This Calendar is used to create appointment slots for patients.`,
+  //   },
+  //   {
+  //     selector: ".rbc-today .rbc-time-slot:nth-child(1)",
+  //     content: `Click here to create an appointment slot for patient as per your current time.`,
+  //   },
+  //   {
+  //     selector: ".rbc-toolbar",
+  //     content: `Navigate the Calendar as per your requirement, change the view and check your agenda for the week, month etc.`,
+  //   },
+  //   {
+  //     selector: ".calendar-color",
+  //     content: `These color combinations used for displaying appointment types on calendar.`,
+  //   },
+  //   {
+  //     selector: ".available",
+  //     content: `Here, you can see the list of appointment slots which are available for booking.`,
+  //   },
+  //   {
+  //     selector: ".booked",
+  //     content: () => (
+  //       <div>
+  //         <p>
+  //           Here, you can see the list of appointment slots which are booked as
+  //           Followup or Consultation.
+  //         </p>
+  //         <button className="btn btn-primary" onClick={() => closeTour()}>
+  //           Got it
+  //         </button>
+  //       </div>
+  //     ),
+  //   },
+  // ];
 
-  if (isTourOpen) {
-    document.body.style.color = "#00000080";
-  } else {
-    document.body.style.color = "unset";
-  }
+  // if (isTourOpen) {
+  //   document.body.style.color = "#00000080";
+  // } else {
+  //   document.body.style.color = "unset";
+  // }
 
   const TouchCellWrapper = ({ children, value, handleSelect }) =>
     React.cloneElement(React.Children.only(children), {
@@ -936,7 +941,41 @@ const Myappointment = (props) => {
   const handleTabSelection = (event) => {
     // loadAppointment();
   };
+  //More Info about Patient
+  const [morePatientInfo, setMorePatientInfo] = useState(false);
+  const openMorePatientInfo = () => {
+    setMorePatientInfo(true);
+  };
 
+  const closeMorePatientInfo = () => {
+    setMorePatientInfo(false);
+  };
+  const showBloodGroup = (bg) => {
+    if (bg === "APOS") {
+      return "A +ve";
+    }
+    if (bg === "ANEG") {
+      return "A -ve";
+    }
+    if (bg === "BPOS") {
+      return "B +ve";
+    }
+    if (bg === "BNEG") {
+      return "B -ve";
+    }
+    if (bg === "OPOS") {
+      return "O +ve";
+    }
+    if (bg === "ONEG") {
+      return "O -ve";
+    }
+    if (bg === "ABPOS") {
+      return "AB +ve";
+    }
+    if (bg === "ABNEG") {
+      return "AB -ve";
+    }
+  };
   return (
     <div>
       {loading && <Loader />}
@@ -1015,11 +1054,11 @@ const Myappointment = (props) => {
                 </Row>
                 <br />
                 <div className="calendar-color">
-                  <span className="followupColor">Follow up Appointment</span>
+                  {/* <span className="followupColor">Follow up Appointment</span> */}
                   <span className="consultationColor">
-                    Consultation Appointment
+                    Available Slots
                   </span>
-                  <span className="availableColor">Available Appointment</span>
+                  <span className="availableColor">Consultation/Follow Up Appointments</span>
                   <br />
                 </div>
                 <hr />
@@ -1076,7 +1115,7 @@ const Myappointment = (props) => {
                 </Row>
                 {/* List of Appointments End */}
                 <br />
-                <Tour
+                {/* <Tour
                   onRequestClose={() => closeTour()}
                   startAt={0}
                   steps={tourConfig}
@@ -1087,7 +1126,7 @@ const Myappointment = (props) => {
                   //accentColor={accentColor}
                   onAfterOpen={disableBody}
                   onBeforeClose={enableBody}
-                />
+                /> */}
 
               </Tab>
               <Tab eventKey="setAvailability" title="Set Recurring Availability">
@@ -1530,7 +1569,7 @@ const Myappointment = (props) => {
                           state: selectedAppointment?.patient,
                         }}
                       >
-                        <div style={{ display: "flex", alignItem: "center" }}>
+                        <div className="firefox-helper" style={{ display: "flex", alignItem: "center" }}>
                           <div style={{ width: "100%" }}>
                             <img
                               width="40"
@@ -1549,6 +1588,23 @@ const Myappointment = (props) => {
                           />
                         </div>
                       </Link>
+                      <div style={{ display: "flex", alignItem: "center", cursor: 'pointer' }}>
+                        <div style={{ width: "100%" }} onClick={() => openMorePatientInfo()}>
+                          <img
+                            width="40"
+                            height="40"
+                            src={infoIcon}
+                            alt=""
+                            style={{ marginLeft: "5%", marginRight: "5%" }}
+                          />
+                          More Info About Patient
+                        </div>
+                        <img
+                          src={rightIcon}
+                          alt="right-icon"
+                          style={{ marginRight: "15px" }}
+                        />
+                      </div>
                     </div>
                     <hr />
                   </div>
@@ -1603,7 +1659,7 @@ const Myappointment = (props) => {
                 className="btn btn-primary"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
             </DialogActions>
           </Dialog>
@@ -1625,7 +1681,7 @@ const Myappointment = (props) => {
                 className="btn btn-primary"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
               <button
                 autoFocus
@@ -1655,7 +1711,7 @@ const Myappointment = (props) => {
                 className="btn btn-primary"
                 id="close-btn"
               >
-                Ok
+                OK
               </button>
               <button
                 autoFocus
@@ -1707,8 +1763,7 @@ const Myappointment = (props) => {
             open={alertVideo}
           >
             <DialogTitle id="customized-dialog-title" onClose={alertVideoClose}>
-              Video call is possible only starting 2 Minutes before the
-              Appointment Time
+              Video call is possible only 5 minutes before the appointment time and 10 minutes after the appointment end time.
             </DialogTitle>
             <DialogActions>
               <button
@@ -1716,6 +1771,117 @@ const Myappointment = (props) => {
                 onClick={alertVideoClose}
                 className="btn btn-primary"
                 id="close-btn"
+              >
+                OK
+              </button>
+            </DialogActions>
+          </Dialog>
+          {/* More Info about Patient */}
+          <Dialog
+            onClose={closeMorePatientInfo}
+            aria-labelledby="customized-dialog-title"
+            open={morePatientInfo}
+            style={{ width: "100%" }}
+          >
+            <DialogTitle
+              id="customized-dialog-title"
+              onClose={closeMorePatientInfo}
+            >
+              Patient Info
+            </DialogTitle>
+            <DialogContent dividers>
+              {console.log("selectedAppointment", selectedAppointment)}
+              {selectedAppointment && selectedAppointment.patient && (
+                <div className="details-container">
+                  <div className="details-wrapper">
+                    <div className="details-content">
+                      {selectedAppointment.patient.picture ? (
+                        <img src={selectedAppointment.patient.picture} alt="" />
+                      ) : (
+                        <Avatar
+                          name={
+                            selectedAppointment.patient.firstName +
+                            " " +
+                            (selectedAppointment.patient.lastName || "")
+                          }
+                          className="my-patient-modal__avatar"
+                        />
+                      )}
+                      <h2>
+                        {selectedAppointment.patient.firstName}{" "}
+                        {selectedAppointment.patient.lastName || ""}
+                      </h2>
+                    </div>
+                    <div className="details-body">
+                      <span>Medical</span>
+
+
+                      <div className="details-body__appointment">
+                        <div className="details-body__appointment-time-row" style={{ marginRight: '50px' }}>
+                          <img
+                            src={heightIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span">
+                            <b> Height (CM) : </b>{selectedAppointment.patient.height}
+                          </span>
+                        </div>
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={weightIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span">
+                            <b> Weight (KG) : </b>{selectedAppointment.patient.weight}
+                          </span>
+                        </div>
+                      </div>
+                      <br />
+                      <div className="details-body__appointment">
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={bloodGroupIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span">
+                            <b> Blood Group : </b> {showBloodGroup(selectedAppointment.patient.bloodGroup) || "No data found"}
+                          </span>
+                        </div>
+                      </div>
+
+                      <br />
+                      <span>Blood Pressure</span>
+                      <div className="details-body__payment">
+                        <div className="details-body__appointment-time-row" style={{ marginRight: '50px' }}>
+                          <img
+                            src={bloodPressureIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span"><b> High (mmHg) : </b>{selectedAppointment.patient.highBp}</span>
+                        </div>
+                        <div className="details-body__appointment-time-row">
+                          <img
+                            src={bloodPressureIcon}
+                            className="details-body__appointment-time-row-image"
+                          />
+                          <span className="details-body__common-span">
+                            <b> Low (mmHg) : </b> {selectedAppointment.patient.lowBp}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </DialogContent>
+            <DialogActions>
+              <button
+                onClick={closeMorePatientInfo}
+                className="btn btn-primary"
+                id="close-btn"
+                style={{
+                  alignSelf: 'center',
+                }}
               >
                 OK
               </button>
