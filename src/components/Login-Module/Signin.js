@@ -204,7 +204,9 @@ const Signin = () => {
       currentUserInformation.data.role.email =
         currentUserInformation.data.userInfo.email;
     }
-    cookies.set("profileDetails", currentUserInformation.data.role);
+    cookies.set("profileDetails", currentUserInformation.data.role, {
+      path: "/"
+    });
     if (
       authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER")
     ) {

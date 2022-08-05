@@ -74,7 +74,9 @@ const Header = (props) => {
     const userId = user.userId;
     const res = await getLoggedInUserDataByUserId(userId);
     if (res && res.data) {
-      cookies.set("profileDetails", res.data[0])
+      cookies.set("profileDetails", res.data[0], {
+        path: "/"
+      })
     }
   };
   //MARK AS READ NOTIFICATION LOGIC
