@@ -303,10 +303,7 @@ const Profile = ({ currentDoctor }) => {
         bodyFormData.append('profilePicture', profilePicture);
         const response = await updateDoctorData(bodyFormData).catch(err => {
             setLoading(false);
-            //.error("Something went wrong.Please try again!")
-            if (err.response.status === 500 || err.response.status === 504) {
-                toast.error("Something went wrong.Please try again!")
-            }
+            toast.error("Something went wrong.Please try again!")
         });
         if (documentInfo.document && documentInfo.licenseNumber && documentInfo.certifyingBody && documentInfo.referencePhoneNumber) {
             const user = cookies.get("profileDetails");
@@ -320,10 +317,7 @@ const Profile = ({ currentDoctor }) => {
             }
             res = await updateDoctorDocumentNew(info).catch(err => {
                 setLoading(false);
-                //toast.error("Something went wrong.Please try again!")
-                if (err.response.status === 500 || err.response.status === 504) {
-                    toast.error("Something went wrong.Please try again!")
-                }
+                toast.error("Something went wrong.Please try again!")
             });
             if (response.status === 200 || response.status === 201 && res.status === 200) {
                 cookies.set('profileDetails', response.data.data);
@@ -332,8 +326,11 @@ const Profile = ({ currentDoctor }) => {
             }
         }
         else {
-            toast.error("Please add license/registration number and subsequent documents")
+            toast.error("Please add valid license/registration number and subsequent documents")
             setLoading(false);
+            setTimeout(() => {
+                history.go(0)
+            }, 3000)
         }
     }
 
@@ -829,6 +826,9 @@ const Profile = ({ currentDoctor }) => {
                                                                 onChange={(e) => handleInputChange(e)}
                                                                 value={experience}
                                                                 variant="filled"
+                                                                validators={['required',
+                                                                    'minNumber:0', 'maxNumber:50']}
+                                                                errorMessages={['This field is required', 'Invalid Experience', 'Invalid Experience']}
                                                             />
                                                         </Col>
                                                     </Row>
