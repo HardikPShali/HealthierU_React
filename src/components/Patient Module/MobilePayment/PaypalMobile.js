@@ -33,6 +33,7 @@ const PaypalMobile = () => {
     let appointmentModeParams = searchParams.get('aM');
     let rateParams = searchParams.get('r');
     let halfRateParams = searchParams.get('hR');
+    let notificationId = searchParams.get('nId');
 
     let os = searchParams.get('os');
 
@@ -40,23 +41,6 @@ const PaypalMobile = () => {
 
     const bookAppointment = async (orderData) => {
         setLoading(true);
-
-        // window.android.onPaymentStatusChange(true);
-        // orderData.slotId = appointmentIdParams;
-
-        // const data = JSON.stringify(orderData);
-
-        //object for query params
-        // const orderObject = {
-        //     userIdParams,
-        //     firstnameParams,
-        //     lastnameParams,
-        //     emailParams,
-        //     // appointmentIdParams, Not needed
-        //     appointmentModeParams,
-        //     rateParams,
-        //     halfRateParams,
-        // }
 
         const setAppointmentMode = (appMode) => {
             if (appMode === 'First Consultation' || appMode === 'FIRST_CONSULTATION') return "FIRST_CONSULTATION";
@@ -68,15 +52,15 @@ const PaypalMobile = () => {
             type: setAppointmentMode(appointmentModeParams),
             paymentsAppointmentsDTO: orderData,
         };
-        //Book appt api
-        // const newPaymentData = {
-        //     appointmentDTO: orderObject,
-        //     paymentsAppointmentsDTO: orderData
-        // }
+
+        if (notificationId) {
+            orderObject.notificationId = notificationId;
+        }
 
         const newPaymentData = {
             ...orderObject,
         };
+
 
         const newPaymentApi = {
             method: 'post',
@@ -103,6 +87,16 @@ const PaypalMobile = () => {
             }
         };
 
+        const apiResponseMessages = (response) => {
+            if (os === 'ios') {
+                console.log({ responseMessage: JSON.stringify(response) })
+                window.webkit.messageHandlers.sendResponseMessages.postMessage(response);
+            } else {
+                console.log({ responseMessage: JSON.stringify(response) })
+                window.android.sendResponseMessages(response);
+            }
+        }
+
 
 
         try {
@@ -112,14 +106,18 @@ const PaypalMobile = () => {
                 console.log("PAYMENT SUCCESS", JSON.stringify(response))
                 successEventOnPayment(true);
                 setLoading(false);
+                apiResponseMessages(response.data.message);
             } else {
                 console.log("PAYMENT API FAILED", JSON.stringify(response))
+                apiResponseMessages(response.data.message);
             }
 
         } catch (error) {
             console.log("PAYMENT API FAILED", JSON.stringify(error))
+            const errorMessage = error.response.data.message;
             successEventOnPayment(false);
             setLoading(false);
+            apiResponseMessages(errorMessage);
         }
     };
 
