@@ -320,7 +320,9 @@ const Profile = ({ currentDoctor }) => {
                 toast.error("Something went wrong.Please try again!")
             });
             if (response.status === 200 || response.status === 201 && res.status === 200) {
-                cookies.set('profileDetails', response.data.data);
+                cookies.set('profileDetails', response.data.data, {
+                    path: "/"
+                });
                 toast.success("Profile Data Updated")
                 history.go(`doctor/profile`);
             }
