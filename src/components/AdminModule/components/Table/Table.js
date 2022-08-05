@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, MemoryRouter } from "react-router-dom";
 import editIcon from "../../../../images/icons used/edit icon_40 pxl.svg";
 import deleteIcon from "../../../../images/icons used/delete_icon_40 pxl.svg";
@@ -8,127 +8,113 @@ import PropTypes from 'prop-types';
 import { toggleCoupon, manageCouponDetails } from '../../../../service/frontendapiservices'
 import { toast } from 'react-toastify'
 const Table = (props) => {
-  const { headers, data, isLoading, editLink, handleDelete, id, pagination } = props;
-  const [isChecked, setIsChecked] = useState(false)
-  const handleToggle = async (e, datas) => {
-    const info = {
-      patientId: datas.patientId,
-      //couponId: '2',
-      toggle: e.target.checked
-    }
-    const res = await toggleCoupon(info).catch(err => {
-      toast.error("Something went wrong.Please try again!")
-    })
-    if (res) {
-      if (res.data.message === "Successfully mapped patients and coupon") {
-        setIsChecked(true)
-      }
-    }
-  }
+  const { headers, data, isLoading, editLink, handleDelete, id, pagination,toggle } = props;
+  //  const [isChecked, setIsChecked] = useState(false)
+
   return (
-      <table className="table shadow">
-        <thead className="thead-dark">
-          <tr>
-            {headers.map((header) => {
-              return (
-                <th key={header.key} scope="col">
-                  {header.label}
-                </th>
-              );
-            })}
-            {/* <th scope="col">Sr.</th>
+    <table className="table shadow">
+      <thead className="thead-dark">
+        <tr>
+          {headers.map((header) => {
+            return (
+              <th key={header.key} scope="col">
+                {header.label}
+              </th>
+            );
+          })}
+          {/* <th scope="col">Sr.</th>
         <th scope="col">Category</th>
         <th scope="col">Has Subcategory</th>
         <th scope="col" className="Questionnaire-Action-Area-padding">Action</th> */}
-          </tr>
-        </thead>
-        <tbody>
-          {!isLoading
-            ? data.map((datas) => (
-              <tr key={datas.id}>
-                {headers.map((header) => {
-                  if (header.key === "action") {
-                    return (
-                      <td key="action">
-                        <div>
-                          <MemoryRouter>
-                            <Link
-                              to={{
-                                pathname: `${editLink}${datas.id}`,
+        </tr>
+      </thead>
+      <tbody>
+        {!isLoading
+          ? data.map((datas) => (
+            <tr key={datas.id}>
+              {headers.map((header) => {
+                if (header.key === "action") {
+                  return (
+                    <td key="action">
+                      <div>
+                        <MemoryRouter>
+                          <Link
+                            to={{
+                              pathname: `${editLink}${datas.id}`,
 
-                              }}
-                            >
+                            }}
+                          >
 
-                              <img
-                                width="15"
-                                height="15"
-                                src={editIcon}
-                                onClick='${pathname}'
-                                alt=""
-                                style={{ marginLeft: "5%", marginRight: "5%" }
-                                }
-                              />
-                            </Link>
-                          </MemoryRouter>
-
-
-                          <img
-                            width="15"
-                            height="15"
-                            src={deleteIcon}
-                            onClick={() => handleDelete(datas.id)}
-                            className="delete-icon"
-                            alt=""
-                            style={{ marginLeft: "5%", marginRight: "5%" }}
-                          />
-                        </div>
-                      </td>
-                    );
-                  }
-                  else if (header.key === 'toggle') {
-                    return (
-                      <td key="toggle">
-                        <div className="selected-users-toggle">
-                          <label className="toggle-switch">
-                            <input
-                              checked={isChecked}
-                              id="toggleSlots"
-                              type="checkbox"
-                              onChange={(e) => handleToggle(e, datas)}
+                            <img
+                              width="15"
+                              height="15"
+                              src={editIcon}
+                              onClick='${pathname}'
+                              alt=""
+                              style={{ marginLeft: "5%", marginRight: "5%" }
+                              }
                             />
-                            <span className="toggle-slider round"></span>
-                          </label>
-                        </div>
-                      </td>
-                    );
-                  }
-                  else {
-                    return <td key="category">{datas[header.key]}</td>;
-                  }
-                })}
-              </tr>
-            ))
-            : [...Array(4).keys()].map((dummyData) => {
-              return (<tr>
-                <td>
-                  <ContentLoader viewBox="0 0 250 20" width={250} height={20}>
-                    <rect x="0" y="0" rx="4" ry="4" width="250" height="20" />
-                  </ContentLoader>
-                </td>
-                <td>
-                  <ContentLoader viewBox="0 0 250 20" width={250} height={20}>
-                    <rect x="0" y="0" rx="4" ry="4" width="250" height="20" />
-                  </ContentLoader>
-                </td>
-                <td>
-                  <ContentLoader viewBox="0 0 250 20" width={250} height={20}>
-                    <rect x="0" y="0" rx="4" ry="4" width="250" height="20" />
-                  </ContentLoader>
-                </td>
-              </tr>)
-            })}
-        </tbody>
-      </table>
+                          </Link>
+                        </MemoryRouter>
+
+
+                        <img
+                          width="15"
+                          height="15"
+                          src={deleteIcon}
+                          onClick={() => handleDelete(datas.id)}
+                          className="delete-icon"
+                          alt=""
+                          style={{ marginLeft: "5%", marginRight: "5%" }}
+                        />
+                      </div>
+                    </td>
+                  );
+                }
+                else if (header.key === 'toggle') {
+                  return (
+                    <td key="toggle">
+                      <div className="selected-users-toggle">
+                        <label className="toggle-switch">
+                          <input
+                            checked={datas.couponToggle}
+                            id="toggleSlots"
+                            type="checkbox"
+                            onChange={(e) => toggle(e, datas)}
+                          />
+                          <span className="toggle-slider round"></span>
+                        </label>
+                      </div>
+                    </td>
+                  );
+                }
+                else {
+                  return <td key="category">{datas[header.key]}</td>;
+                }
+              })}
+            </tr>
+          ))
+          : [...Array(4).keys()].map((dummyData) => {
+            return (<tr>
+              <td>
+                <ContentLoader viewBox="0 0 250 20" width={250} height={20}>
+                  <rect x="0" y="0" rx="4" ry="4" width="250" height="20" />
+                </ContentLoader>
+              </td>
+              <td>
+                <ContentLoader viewBox="0 0 250 20" width={250} height={20}>
+                  <rect x="0" y="0" rx="4" ry="4" width="250" height="20" />
+                </ContentLoader>
+              </td>
+              <td>
+                <ContentLoader viewBox="0 0 250 20" width={250} height={20}>
+                  <rect x="0" y="0" rx="4" ry="4" width="250" height="20" />
+                </ContentLoader>
+              </td>
+            </tr>)
+          })}
+      </tbody>
+    </table>
   );
 };
 

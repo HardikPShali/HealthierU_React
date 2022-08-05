@@ -1,41 +1,29 @@
 import React, { useState } from 'react'
 import Table from '../components/Table/Table';
 import { PROMOCODE_USER_TABLE_HEADERS } from './tableConstants';
-import Pagination from "react-bootstrap/Pagination";
-const PromocodeUsers = ({ data, pagination }) => {
+const PromocodeUsers = ({ data,toggle }) => {
     const [isLoading, setIsLoading] = useState(false);
     const tableHeaders = PROMOCODE_USER_TABLE_HEADERS;
-
     return (
         <div className='promocode-listing-view'>
             <div className='row'>
                 <div className='col-md-12'>
-                    <Table
-                        headers={tableHeaders}
-                        data={data}
-                        isLoading={isLoading}
-                    //handleToggle={(e) => handleToggle(e, data.id)}
-                    ></Table>
-                    <Pagination size="sm" style={{ float: "right" }}>
-                        {pagination?.totalPages ? (
-                            Array.from(
-                                Array(pagination.totalPages),
-                                (e, i) => {
-                                    return (
-                                        <Pagination.Item
-                                            key={i + 1}
-                                        //active={i + 1 === currentPageNumber ? true : false}
-                                        // onClick={(e) => clickPagination(i + 1)}
-                                        >
-                                            {i + 1}
-                                        </Pagination.Item>
-                                    );
-                                }
-                            )
-                        ) : (
-                            <span></span>
-                        )}
-                    </Pagination>
+                    {data.length > 0 ?
+                        <Table
+                            headers={tableHeaders}
+                            data={data}
+                            isLoading={isLoading}
+                            toggle={toggle}
+                        ></Table>
+                        : (
+                            <div
+                                className="col-12 ml-2"
+                                style={{ textShadow: "none", color: "#3e4543", textAlign: 'center', marginTop: '15%' }}
+                            >
+                                No Data Found
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </div>

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from '../components/Table/Table';
 import { PROMOCODE_LISTING_TABLE_HEADERS } from './tableConstants';
-const PromocodeListing = ({ data }) => {
+import Pagination from "react-bootstrap/Pagination";
+const PromocodeListing = ({ data, pagination }) => {
     const [isLoading, setIsLoading] = useState(false);
     const tableHeaders = PROMOCODE_LISTING_TABLE_HEADERS;
-
     return (
         <div className='promocode-listing-view'>
             <div className='row'>

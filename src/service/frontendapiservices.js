@@ -1548,11 +1548,11 @@ export const getAvailableSlotTimings = (data, type) => {
 };
 //Promocode-APIs
 // List Coupon Usage details
-export const getPromocodeListing = () => {
+export const getPromocodeListing = (size, page, searchKeyword) => {
   var payload = {
     method: "post",
     mode: "no-cors",
-    url: `/api/v2/coupon/usage?size=10&number=0`,
+    url: `/api/v2/coupon/usage?size=${size}&page=${page}&searchKeyword=${searchKeyword}`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
@@ -1562,11 +1562,11 @@ export const getPromocodeListing = () => {
   return axios(payload);
 };
 // Manage Coupon  details
-export const manageCouponDetails = () => {
+export const manageCouponDetails = (size, page, searchKeyword) => {
   var payload = {
     method: "get",
     mode: "no-cors",
-    url: `/api/v2/coupon/patients/all?number=0&size=10`,
+    url: `/api/v2/coupon/patients/all?size=${size}&page=${page}&searchKeyword=${searchKeyword}`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
