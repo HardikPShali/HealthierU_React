@@ -522,7 +522,9 @@ const RescheduleAppointment = (props) => {
                 getAppointmentMode(appointment.appointmentMode)
         })
     }, [oldAppointmentID]);
+
     const bookappointment = async (orderData) => {
+        console.log({ appMode: appointment.appointmentMode })
         setLoading(true);
         let oldAppID = 0;
         oldAppID = params.id;
@@ -531,24 +533,6 @@ const RescheduleAppointment = (props) => {
         // let tempSlotConsultationId = '';
         const finalAppointmentDataArray = [];
         if (appointment.appointmentMode === 'First Consultation') {
-            // combinedSlots &&
-            //     combinedSlots.map((slotData) => {
-            //         if (combinedSlotId === slotData.slotId) {
-            //             tempSlotConsultationId =
-            //                 slotData.slot1.id + '-' + slotData.slot2.id;
-            //             // !orderData.appointmentId &&
-            //             //     (orderData.appointmentId = tempSlotConsultationId);
-            //             finalAppointmentDataArray.push({
-            //                 doctorId: appointment.doctorId,
-            //                 patientId: appointment.patientId,
-            //                 id: slotData.slot1.id,
-            //                 unifiedAppointment:
-            //                     params.unifiedAppt +
-            //                     '#' +
-            //                     getAppointmentMode(appointment.appointmentMode),
-            //             });
-            //         }
-            //     });
 
             finalAppointmentDataArray.push({
                 doctorId: appointment.doctorId,
