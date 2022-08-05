@@ -435,6 +435,7 @@ const EditUser = (props) => {
                   <ImageCropper
                     setProfilePicture={setProfilePicture}
                     imageUrl={user.picture}
+                    prevention={true}
                   />
                 </Row>
               )}
