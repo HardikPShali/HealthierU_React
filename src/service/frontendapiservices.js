@@ -1552,7 +1552,7 @@ export const getPromocodeListing = () => {
   var payload = {
     method: "post",
     mode: "no-cors",
-    url: `/api/v2/coupon/usage?size=0&number=10`,
+    url: `/api/v2/coupon/usage?size=10&number=0`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
@@ -1566,7 +1566,7 @@ export const manageCouponDetails = () => {
   var payload = {
     method: "get",
     mode: "no-cors",
-    url: `/api/v2/coupon/patients/all?number=0&size=2`,
+    url: `/api/v2/coupon/patients/all?number=0&size=10`,
     headers: {
       Authorization: "Bearer " + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",

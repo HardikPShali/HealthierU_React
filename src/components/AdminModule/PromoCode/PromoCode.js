@@ -7,35 +7,37 @@ import PromocodeListing from './PromocodeListing'
 import PromocodeUsers from './PromocodeUsers'
 import { getPromocodeListing, manageCouponDetails } from '../../../service/frontendapiservices'
 import { toast } from 'react-toastify'
+import moment from 'moment';
 const PromoCode = () => {
-    const [promoCodeListingDataRes, setPromocodeListingDataRes] = useState([])
+    const [promoCodeListingData, setPromoCodeListingData] = useState([])
     const [manageCouponDetailsData, setManageCouponDetailsData] = useState([])
-    const promoCodeListingData = LISTING_DATA;
+    const [promoCodeListingDataPagination, setPromoCodeListingDataPagination] = useState([])
+    const [manageCouponDetailsDataPagination, setManageCouponDetailsDataPagination] = useState([])
     useEffect(() => {
         promoCodeListingDataFunction()
         manageCouponDetailsFunction()
     }, [])
-    const promocodeUsersData = USER_DATA;
     const promoCodeListingDataFunction = async () => {
         const res = await getPromocodeListing().catch(err => {
             toast.error("Something went wrong.Please try again!")
         })
         if (res) {
             const dataForPromocodeListing = res.data.data.content
+            setPromoCodeListingDataPagination(res.data.data)
             const promocodeListingArray = []
             dataForPromocodeListing.map((data) => {
                 promocodeListingArray.push({
-                    id: data.id,
+                    id: data.slNo,
                     patientName: data.patientName,
                     patientId: data.patientId,
-                    promocodeType: data.promocodeType,
+                    promocodeType: data.promoCodeType,
                     doctorName: data.doctorName,
                     appointmentType: data.appointmentType,
-                    appointmentDate: data.appointmentDate,
-                    startTime: data.startTime,
+                    appointmentDate: moment(data.appointmentDate).format("DD-MM-YYYY"),
+                    startTime: moment(data.appointmentDate).format("HH:MM"),
                 })
             })
-            setPromocodeListingDataRes(promocodeListingArray)
+            setPromoCodeListingData(promocodeListingArray)
         }
     }
     const manageCouponDetailsFunction = async () => {
@@ -44,10 +46,11 @@ const PromoCode = () => {
         })
         if (res) {
             const dataForManageCoupon = res.data.data.content
+            setManageCouponDetailsDataPagination(res.data.data)
             const manageCouponDataArray = []
-            dataForManageCoupon.map((data) => {
+            dataForManageCoupon.map((data, index) => {
                 manageCouponDataArray.push({
-                    // id: data.id,
+                    id: index + 1,
                     patientName: data.firstName,
                     patientId: data.id,
                     couponToggle: data.couponToggle
@@ -70,11 +73,11 @@ const PromoCode = () => {
                             id="uncontrolled-tab-example"
                         >
                             <Tab eventKey="listing" title="Promocode Listing">
-                                <PromocodeListing data={promoCodeListingData} />
+                                <PromocodeListing data={promoCodeListingData} pagination={promoCodeListingDataPagination} />
                             </Tab>
 
                             <Tab eventKey="users" title="Manage Users">
-                                <PromocodeUsers data={manageCouponDetailsData} />
+                                <PromocodeUsers data={manageCouponDetailsData} pagination={manageCouponDetailsDataPagination} />
                             </Tab>
                         </Tabs>
                     </div>

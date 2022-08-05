@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import Table from '../components/Table/Table';
 import { PROMOCODE_USER_TABLE_HEADERS } from './tableConstants';
-const PromocodeUsers = ({ data }) => {
+import Pagination from "react-bootstrap/Pagination";
+const PromocodeUsers = ({ data, pagination }) => {
     const [isLoading, setIsLoading] = useState(false);
     const tableHeaders = PROMOCODE_USER_TABLE_HEADERS;
 
@@ -13,8 +14,28 @@ const PromocodeUsers = ({ data }) => {
                         headers={tableHeaders}
                         data={data}
                         isLoading={isLoading}
-                        //handleToggle={(e) => handleToggle(e, data.id)}
+                    //handleToggle={(e) => handleToggle(e, data.id)}
                     ></Table>
+                    <Pagination size="sm" style={{ float: "right" }}>
+                        {pagination?.totalPages ? (
+                            Array.from(
+                                Array(pagination.totalPages),
+                                (e, i) => {
+                                    return (
+                                        <Pagination.Item
+                                            key={i + 1}
+                                        //active={i + 1 === currentPageNumber ? true : false}
+                                        // onClick={(e) => clickPagination(i + 1)}
+                                        >
+                                            {i + 1}
+                                        </Pagination.Item>
+                                    );
+                                }
+                            )
+                        ) : (
+                            <span></span>
+                        )}
+                    </Pagination>
                 </div>
             </div>
         </div>

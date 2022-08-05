@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Table from '../components/Table/Table';
 import { PROMOCODE_LISTING_TABLE_HEADERS } from './tableConstants';
-
 const PromocodeListing = ({ data }) => {
     const [isLoading, setIsLoading] = useState(false);
     const tableHeaders = PROMOCODE_LISTING_TABLE_HEADERS;

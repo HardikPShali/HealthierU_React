@@ -1,6 +1,6 @@
 export const PROMOCODE_LISTING_TABLE_HEADERS = [
     {
-        label: "Slot Id",
+        label: "Sl No",
         key: "id",
     },
     {
@@ -35,7 +35,7 @@ export const PROMOCODE_LISTING_TABLE_HEADERS = [
 
 export const PROMOCODE_USER_TABLE_HEADERS = [
     {
-        label: "Slot Id",
+        label: "Sl No",
         key: "id",
     },
     {
@@ -47,7 +47,7 @@ export const PROMOCODE_USER_TABLE_HEADERS = [
         key: "patientId",
     },
     {
-        label: "Toggle",
+        label: "Enable/Disable Patient",
         key: "toggle",
     }
 ]
