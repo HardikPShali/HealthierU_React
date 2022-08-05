@@ -4589,11 +4589,17 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   background: #efefef;
 }
 
+.promo-code-input {
+  width: 73%;
+  font-size: 14px !important;
+}
+
 .promo-code-button {
   font-size: 12px;
   background: #00d0cc;
   border-radius: 10px;
   color: #fff;
+  width: 95px;
 }
 /* promo code css in My doctors--> end */
 

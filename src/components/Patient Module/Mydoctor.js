@@ -55,6 +55,7 @@ import {
   getSearchDataAndFilter,
   getAvailableSlotTimings,
   getAvailableCouponsByPatientId,
+  verifyCouponSelectedBypatient,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -532,7 +533,6 @@ const MyDoctor = (props) => {
     loadSpeciality();
     loadCountry();
     loadLanguage();
-    getAvailableCoupons();
   }, []);
 
   useEffect(() => {
@@ -1409,13 +1409,89 @@ const MyDoctor = (props) => {
   };
 
 
-  // Promocode Apis
+  // Promocode Logics
+  const [promoCodeEnteredText, setPromoCodeEnteredText] = useState('');
+  const [promoCodeApplied, setPromoCodeApplied] = useState(false);
+  const [couponsFromApi, setCouponsFromApi] = useState([]);
+  const [discountApplied, setDiscountApplied] = useState(0);
+
+  const handlePromoEnteredText = (e) => {
+    setPromoCodeEnteredText(e.target.value);
+  }
+
   const getAvailableCoupons = async () => {
     const patientIdForPromoCode = cookies.get('profileDetails')?.id
     const couponResponse = await getAvailableCouponsByPatientId(patientIdForPromoCode).catch(err => console.log({ err }))
-    console.log({ couponResponse })
+
+    const couponDetailsFromRes = couponResponse.data.data?.map((couponDets) => {
+      return couponDets;
+    })
+
+    setCouponsFromApi(couponDetailsFromRes);
   }
 
+  const discountCalculationHandler = (discount, apptMode) => {
+    if (apptMode === 'Follow Up') {
+      return (doctor.halfRate * (1 - discount)).toFixed(2);
+    }
+    else if (apptMode === 'First Consultation') {
+      return (doctor.rate * (1 - discount)).toFixed(2);
+    }
+    else {
+      return discount;
+    }
+  }
+
+  const applyPromoCodeHandler = async (apptMode) => {
+    const textEntered = promoCodeEnteredText;
+    const coupons = couponsFromApi;
+
+    const couponExtractedFromEnteredPromoCode = coupons.find((coupon) => {
+      return coupon.couponDetails.couponCode === textEntered;
+    })
+
+    console.log({ couponExtractedFromEnteredPromoCode });
+
+    const couponId = couponExtractedFromEnteredPromoCode?.couponDetails.id;
+    const patientIdForPromoCode = cookies.get('profileDetails')?.id;
+    const doctorIdForPromoCode = doctor.id;
+
+    console.log({ couponId, patientIdForPromoCode, doctorIdForPromoCode });
+
+    const data = {
+      couponId: couponId,
+      patientId: patientIdForPromoCode,
+      doctorId: doctorIdForPromoCode,
+    }
+
+    const verifyResponse = await verifyCouponSelectedBypatient(data).catch(err => {
+      console.log({ err })
+      if (err.response.status === 500 && err.response.data.message === 'Coupon not applicable for selected Doctor') {
+        toast.error(err.response.data.message);
+        setPromoCodeApplied(false);
+      }
+      else {
+        toast.error('Invalid Promo Code. Please try again.');
+        setPromoCodeApplied(false);
+      }
+
+    })
+    console.log({ verifyResponse })
+
+    if (verifyResponse?.data.status === true) {
+      const discountOffered = couponExtractedFromEnteredPromoCode?.couponDetails.offer;
+      const discountCalculated = discountCalculationHandler(discountOffered, apptMode);
+      setPromoCodeApplied(true);
+      setDiscountApplied(discountCalculated);
+      toast.success('Promo Code Applied Successfully', {
+        toastId: 'promoCodeSuccess',
+      });
+    }
+  }
+
+  useEffect(() => {
+    getAvailableCoupons();
+  }, [])
 
   return (
     <div>
@@ -3051,15 +3127,31 @@ const MyDoctor = (props) => {
               </p>
               <div id="calendar-list">
                 <div id="price-box">
-                  <span className="price">
-                    $
-                    {appointment.appointmentMode === 'First Consultation' ||
-                      appointment.appointmentMode === ''
-                      ? doctor && doctor.rate
-                      : appointment.appointmentMode === 'Follow Up'
-                        ? doctor && doctor.halfRate
-                        : ''}
-                  </span>
+
+                  {
+                    promoCodeApplied ? (
+                      <span className="price">
+                        $
+                        {appointment.appointmentMode === 'First Consultation' ||
+                          appointment.appointmentMode === ''
+                          ? doctor && discountApplied
+                          : appointment.appointmentMode === 'Follow Up'
+                            ? doctor && discountApplied
+                            : ''}
+                      </span>
+                    ) : (
+                      <span className="price">
+                        $
+                        {appointment.appointmentMode === 'First Consultation' ||
+                          appointment.appointmentMode === ''
+                          ? doctor && doctor.rate
+                          : appointment.appointmentMode === 'Follow Up'
+                            ? doctor && doctor.halfRate
+                            : ''}
+                      </span>
+                    )
+                  }
+
                   <br />
                   <span>
                     USD /{' '}
@@ -3111,15 +3203,24 @@ const MyDoctor = (props) => {
 
                       {disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
+                          {/* PROMO CODE CODE GOES HERE */}
                           <div className='promo-code-listing'>
                             <input
                               id="standard-basic"
                               type="text"
-                              name="promocode"
-                              onChange={(e) => handleInputChange(e)}
+                              name="promoCodeEnteredText"
+                              onChange={(e) => handlePromoEnteredText(e)}
                               placeholder="Enter Promo Code"
+                              value={promoCodeEnteredText}
+                              className='promo-code-input'
                             />
-                            <button className='btn promo-code-button'>
+                            <button
+                              className='btn promo-code-button'
+                              onClick={() => {
+                                applyPromoCodeHandler(appointment.appointmentMode);
+                              }}
+
+                            >
                               Apply Promo Code
                             </button>
                           </div>

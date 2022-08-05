@@ -1565,3 +1565,18 @@ export const getAvailableCouponsByPatientId = async (patientId) => {
   });
   return response;
 }
+
+export const verifyCouponSelectedBypatient = async (data) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    data: data,
+    url: `/api/v2/coupon/patient/verify`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
+}
