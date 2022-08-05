@@ -886,7 +886,6 @@ const MyDoctor = (props) => {
         paymentsAppointmentsDTO: orderData,
       };
     }
-
     const newPaymentData = {
       ...finalAppointmentDataArray,
       // paymentsAppointmentsDTO: orderData,
@@ -1413,6 +1412,7 @@ const MyDoctor = (props) => {
   const [promoCodeEnteredText, setPromoCodeEnteredText] = useState('');
   const [promoCodeApplied, setPromoCodeApplied] = useState(false);
   const [couponsFromApi, setCouponsFromApi] = useState([]);
+  const [couponIdState, setCouponIdState] = useState('');
   const [discountApplied, setDiscountApplied] = useState(0);
 
   const handlePromoEnteredText = (e) => {
@@ -1456,7 +1456,7 @@ const MyDoctor = (props) => {
     const patientIdForPromoCode = cookies.get('profileDetails')?.id;
     const doctorIdForPromoCode = doctor.id;
 
-    console.log({ couponId, patientIdForPromoCode, doctorIdForPromoCode });
+    setCouponIdState(couponId);
 
     const data = {
       couponId: couponId,
@@ -1476,7 +1476,7 @@ const MyDoctor = (props) => {
       }
 
     })
-    console.log({ verifyResponse })
+    // console.log({ verifyResponse })
 
     if (verifyResponse?.data.status === true) {
       const discountOffered = couponExtractedFromEnteredPromoCode?.couponDetails.offer;
@@ -1488,6 +1488,9 @@ const MyDoctor = (props) => {
       });
     }
   }
+
+  console.log({ couponIdState })
+  console.log({ promoCodeApplied })
 
   useEffect(() => {
     getAvailableCoupons();
@@ -3171,31 +3174,6 @@ const MyDoctor = (props) => {
 
                 {/* <span id="promo-code">Have a promo code?</span><br /><br /> */}
                 <div id="payment-form" style={{ marginLeft: '15px' }}>
-                  {/* <Row>
-                    <Col
-                      md={12}
-                      style={{ display: 'flex', alignItems: 'flex-end' }}
-                    >
-                      <p style={{ fontSize: 9, marginBottom: 0 }}>
-                        You can cancel your appointment before 2 days or else it
-                        will be deducted
-                        <br />
-                      </p>
-                    </Col>
-                  </Row> */}
-
-                  {/* <Row>
-                    <Col
-                      md={12}
-                      style={{ display: 'flex', alignItems: 'flex-end' }}
-                    >
-                      <p style={{ fontSize: 9, marginBottom: 0 }}>
-                        Appointment is 95% reimbursed if cancelled 24h before
-                        the start time.
-                      </p>
-                    </Col>
-                  </Row>
-                  <br /> */}
                   {!profilepID.activated ? (
                     <Row>
                       {/* <Col md={1}></Col> */}
@@ -3247,8 +3225,12 @@ const MyDoctor = (props) => {
                             lastName={props.currentPatient.lastName}
                             email={props.currentPatient.email}
                             userId={props.currentPatient.userId}
-                            rate={doctor.rate}
-                            halfRate={doctor.halfRate}
+                            rate={
+                              promoCodeApplied ? discountApplied : doctor.rate
+                            }
+                            halfRate={
+                              promoCodeApplied ? discountApplied : doctor.halfRate
+                            }
                           />
                         </Col>
                       )}
