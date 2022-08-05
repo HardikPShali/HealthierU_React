@@ -60,12 +60,14 @@ const Header = (props) => {
           handleSubmit(value.id, systemTimeZone);
         }
         else {
-          cookies.set("profileDetails", value)
+          cookies.set("profileDetails", value, {
+            path: "/"
+          })
         }
         //return value;
       });
     }
-   //return res;
+    //return res;
   };
   // const handleClickOpen = () => {
   //   setTimezone({

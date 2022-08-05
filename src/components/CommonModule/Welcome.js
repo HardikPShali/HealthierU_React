@@ -434,7 +434,9 @@ const Welcome = ({ currentuserInfo }) => {
                 });
                 console.log("response", response);
                 if (response && (response.status === 200 || response.status === 201)) {
-                    cookies.set("profileDetails", response.data.data);
+                    cookies.set("profileDetails", response.data.data, {
+                        path: "/"
+                      });
                     updateCurrentUserData();
                 }
             }
