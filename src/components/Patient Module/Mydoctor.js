@@ -886,18 +886,30 @@ const MyDoctor = (props) => {
         paymentsAppointmentsDTO: orderData,
       };
     }
+
+    if (promoCodeApplied === true) {
+      finalAppointmentDataArray.couponId = couponIdState;
+    }
     const newPaymentData = {
       ...finalAppointmentDataArray,
-      // paymentsAppointmentsDTO: orderData,
     };
 
-    // console.log({ newPaymentData });
+    console.log({ newPaymentData });
+
+    const paymentUrlToBeUsed = () => {
+      if (promoCodeApplied === true) {
+        return '/api/v2/appointments/payment/bulk/coupon';
+      }
+      else {
+        return '/api/v2/appointments/payment/bulk';
+      }
+    }
 
     const newPaymentApi = {
       method: 'post',
       mode: 'no-cors',
       data: newPaymentData,
-      url: `/api/v2/appointments/payment/bulk`,
+      url: paymentUrlToBeUsed(),
       headers: {
         Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
         'Content-Type': 'application/json',
@@ -1417,6 +1429,9 @@ const MyDoctor = (props) => {
 
   const handlePromoEnteredText = (e) => {
     setPromoCodeEnteredText(e.target.value);
+    if (e.target.value === '') {
+      setPromoCodeApplied(false);
+    }
   }
 
   const getAvailableCoupons = async () => {
@@ -1427,6 +1442,7 @@ const MyDoctor = (props) => {
       return couponDets;
     })
 
+    console.log({ couponDetailsFromRes })
     setCouponsFromApi(couponDetailsFromRes);
   }
 
@@ -1489,8 +1505,8 @@ const MyDoctor = (props) => {
     }
   }
 
-  console.log({ couponIdState })
-  console.log({ promoCodeApplied })
+  // console.log({ couponIdState })
+  // console.log({ promoCodeApplied })
 
   useEffect(() => {
     getAvailableCoupons();
@@ -3202,6 +3218,7 @@ const MyDoctor = (props) => {
                               Apply Promo Code
                             </button>
                           </div>
+
                           <button
                             className="btn btn-primary"
                             style={{ width: '100%' }}
@@ -3215,8 +3232,11 @@ const MyDoctor = (props) => {
                       )}
 
                       {!disable.payment && (
+
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           {/* {console.log({ appointmentId: appointment.id })} */}
+                          {console.log({ promoCodeApplied })}
+                          {console.log({ discountApplied })}
                           <Paypal
                             // appointmentId={appointment.id}
                             appointmentMode={appointment.appointmentMode}
@@ -3226,10 +3246,10 @@ const MyDoctor = (props) => {
                             email={props.currentPatient.email}
                             userId={props.currentPatient.userId}
                             rate={
-                              promoCodeApplied ? discountApplied : doctor.rate
+                              promoCodeApplied === true ? discountApplied : doctor.rate
                             }
                             halfRate={
-                              promoCodeApplied ? discountApplied : doctor.halfRate
+                              promoCodeApplied === true ? discountApplied : doctor.halfRate
                             }
                           />
                         </Col>
