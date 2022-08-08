@@ -29,7 +29,7 @@ const PromoCodeForPatient = ({
             patientIdForPromoCode
         ).catch((err) => console.log({ err }));
 
-        const couponDetailsFromRes = couponResponse.data.data?.map((couponDets) => {
+        const couponDetailsFromRes = couponResponse?.data?.data?.map((couponDets) => {
             return couponDets;
         });
 
@@ -51,7 +51,7 @@ const PromoCodeForPatient = ({
         const textEntered = promoCodeEnteredText;
         const coupons = couponsFromApi;
 
-        const couponExtractedFromEnteredPromoCode = coupons.find((coupon) => {
+        const couponExtractedFromEnteredPromoCode = coupons?.find((coupon) => {
             return coupon.couponDetails.couponCode === textEntered;
         });
 
