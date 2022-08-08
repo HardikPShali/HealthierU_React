@@ -58,7 +58,11 @@ const CancelledByPatient = ({ notification, index }) => {
                             {notification.data.appointmentDetails.patient?.firstName} is
                             cancelled for the time{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
-                                'DD-MM-YYYY HH:mm'
+                                'HH:mm'
+                            )}{' '}
+                            on{' '}
+                            {moment(notification.data.appointmentDetails.startTime).format(
+                                'DD-MM-YYYY'
                             )}
                         </span>
                         <span style={{
