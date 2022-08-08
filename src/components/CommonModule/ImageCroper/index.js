@@ -15,7 +15,6 @@ import previewImg from '../../../images/default_image.jpg';
 
 const ImageCropper = (props) => {
     const { imageUrl, setProfilePicture, classes } = props;
-
     const [transparentLoading, setTransparentLoading] = useState(false);
     const [crop, setCrop] = useState({ x: 0, y: 0 })
     const [zoom, setZoom] = useState(1)
@@ -99,7 +98,13 @@ const ImageCropper = (props) => {
 
             <div className="small-12 medium-2 large-2 columns m-auto">
                 <label htmlFor={uniqueId}>
-                    <div className="circle upload-button" style={{ cursor: 'pointer' }}>
+                    <div className="circle upload-button" style={{ cursor: 'pointer' }}
+                        onClick={(e) => {
+                            if (props.prevention === true) {
+                                e.preventDefault();
+                            }
+                        }}
+                    >
                         {/* <!-- User Profile Image --> */}
                         <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
                     </div>

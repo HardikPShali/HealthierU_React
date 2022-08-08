@@ -134,7 +134,6 @@ const EditUser = (props) => {
   }, []);
   // const userState = props.location.state;
   const currentUserAuthorities = cookies.get('authorities');
-  // console.log("currentUserAuthorities", currentUserAuthorities);
   const authorityName =
     currentUserAuthorities === 'ROLE_DOCTOR'
       ? 'doctors'
@@ -144,7 +143,6 @@ const EditUser = (props) => {
 
   const getCurrentUser = async () => {
     const res = await getUserByUserId(authorityName, selectedId);
-    // console.log("res", res);
     if (res && res.data) {
       if (authorityName === 'patients') {
         setUser(res.data[0]);
@@ -226,7 +224,6 @@ const EditUser = (props) => {
     //  }
     //};
     const res = await getLanguageList();
-    // console.log("language", res);
     if (res && res.data) {
       setLanguage({ languageOptions: res.data.data });
       setTimeout(() => setLoading(false), 1000);
@@ -375,7 +372,6 @@ const EditUser = (props) => {
   const now = new Date();
   const newDate = now.setDate(now.getDate() - 1);
   let maxDate;
-  // console.log(user)
   const role = cookies.get('authorities');
   if (role === 'ROLE_DOCTOR') {
     maxDate = {
@@ -402,8 +398,6 @@ const EditUser = (props) => {
     list[index][name] = value;
     setEducationList(list);
     setUser({ ...user, educationalQualifications: list });
-    console.log('educationList', educationList);
-    console.log("user", user)
   };
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
@@ -417,28 +411,27 @@ const EditUser = (props) => {
     list.push({ institution: '', educationalQualification: '' })
     setUser({ ...user, educationalQualifications: list });
   };
-
   return (
     <div>
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
       <Navbar pageTitle="home" />
-      <div className="container">
+      <div className="container" style={{ maxWidth: "100%" }}>
         <button className="btn btn-primary" onClick={() => history.goBack()}>
           Browse Back
         </button>
         <div className="w-75 mx-auto shadow p-5 edit-box">
-          <ValidatorForm onSubmit={handleClickOpen}>
+          <Row style={{ justifyContent: 'center', flexDirection: "column" }}>
             {currentUserAuthorities &&
               currentUserAuthorities === 'ROLE_DOCTOR' && (
-                <Row style={{ justifyContent: 'center' }}>
-                  <ImageCropper
-                    setProfilePicture={setProfilePicture}
-                    imageUrl={user.picture}
-                    prevention={true}
-                  />
-                </Row>
+                <ImageCropper
+                  setProfilePicture={setProfilePicture}
+                  imageUrl={user.picture}
+                  prevention={true}
+                />
               )}
+          </Row>
+          <ValidatorForm onSubmit={handleClickOpen}>
             <h2 className="text-center mb-4">
               Edit {firstName} {lastName}
             </h2>
