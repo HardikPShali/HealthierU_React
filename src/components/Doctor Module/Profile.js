@@ -865,7 +865,7 @@ const Profile = ({ currentDoctor }) => {
                                         <br />
                                         <div className='edit-profile__button-wrapper'>
                                             <button
-                                                className="btn btn-primary continue-btn"
+                                                className="btn btn-primary continue-btn-profile-doctor"
                                                 onClick={() => {
                                                     // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
                                                     setToggleProfile({ ...toggleProfile, editProfile: false });
@@ -875,7 +875,7 @@ const Profile = ({ currentDoctor }) => {
                                             </button>
 
                                             <button
-                                                className="btn btn-primary continue-btn"
+                                                className="btn btn-primary continue-btn-profile-doctor"
                                                 type="submit"
                                             >
                                                 Update Profile
