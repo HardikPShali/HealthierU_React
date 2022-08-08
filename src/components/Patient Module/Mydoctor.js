@@ -1455,6 +1455,111 @@ const MyDoctor = (props) => {
     }
   }, [doctor, appointment]);
 
+  const handleFreeCouponTransactions = async () => {
+    let finalAppointmentDataArray = {};
+    if (promoCodeApplied === true && promoCodeEntered === 'HEALTHIERUAE' && appointment.appointmentMode === 'First Consultation') {
+      finalAppointmentDataArray = {
+        id: appointment.id,
+        type: "FIRST_CONSULTATION",
+        paymentsAppointmentsDTO: {
+          appointmentMode: "First Consultation",
+          intent: "CAPTURE",
+          payerId: "44MRCR555FJEA",
+          paymentId: "8CY307745J947952L",
+          paymentmethod: "paypal website",
+          state: "COMPLETED",
+          transactionAmount: "0.00",
+          transactionCurrency: "USD",
+          transactionId: "100%DISCOUNT_COUPON" + Math.floor(Math.random() * 1000000),
+          userName: "John Doe",
+          userId: 1478
+        },
+        couponId: couponIdState,
+
+      };
+    } else if (promoCodeApplied === true && promoCodeEntered === 'HEALTHIERUAE' && appointment.appointmentMode === 'Follow Up') {
+      finalAppointmentDataArray = {
+        id: appointment.id,
+        type: 'FOLLOW_UP',
+        paymentsAppointmentsDTO: {
+          appointmentMode: "Follow Up",
+          intent: "CAPTURE",
+          payerId: "44MRCR555FJEA",
+          paymentId: "8CY307745J947952L",
+          paymentmethod: "paypal website",
+          state: "COMPLETED",
+          transactionAmount: "0.00",
+          transactionCurrency: "USD",
+          transactionId: "100%DISCOUNT_COUPON" + Math.floor(Math.random() * 1000000),
+          userName: "John Doe",
+          userId: 1478
+        },
+        couponId: couponIdState
+      };
+    }
+    console.log({ finalAppointmentDataArray })
+
+    const freePaymentPayload = {
+      ...finalAppointmentDataArray,
+    }
+
+    const freePaymentApi = {
+      method: 'post',
+      mode: 'no-cors',
+      data: freePaymentPayload,
+      url: "/api/v2/appointments/payment/bulk/coupon",
+      headers: {
+        Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
+
+    // console.log({ newPaymentApi });
+
+    try {
+      // await api call
+      const freePaymentResponse = await axios(freePaymentApi);
+      console.log({ freePaymentResponse });
+
+      //success logic
+      if (
+        freePaymentResponse.status === 200 ||
+        freePaymentResponse.status === 201
+      ) {
+        props.history.push('/patient/myappointment');
+        console.log({ freePaymentResponse });
+      }
+    } catch (err) {
+      //error logic
+      // console.log({ err });
+      const errorMessage = err.response.data.message;
+      const errorStatus = err.response.status;
+
+      if (errorStatus === 500 && errorMessage) {
+        setLoading(false);
+        // FOR MODAL
+        // setPaymentErrorModal(true);
+
+        // FOR TOAST
+        toast.error(`${errorMessage}. Please try again.`, {
+          hideProgressBar: true,
+        });
+      } else {
+        setLoading(false);
+        // FOR MODAL
+        // setPaymentErrorModal(true);
+
+        // FOR TOAST
+        toast.error(`Payment failed. Please try again.`, {
+          hideProgressBar: true,
+        });
+      }
+    }
+
+
+  }
+
   return (
     <div>
       {loading && <Loader />}
@@ -3164,6 +3269,11 @@ const MyDoctor = (props) => {
                             style={{ width: '100%' }}
                             onClick={() => {
                               setDisable({ ...disable, payment: false });
+                              if (promoCodeEntered === 'HEALTHIERUAE') {
+                                handleFreeCouponTransactions();
+                                setDisable({ ...disable, payment: true });
+                              }
+
                             }}
                           >
                             Pay Now

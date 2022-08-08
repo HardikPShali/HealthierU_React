@@ -101,6 +101,7 @@ const PromoCodeForPatient = ({
             toast.success('Promo Code Applied Successfully', {
                 toastId: 'promoCodeSuccess',
                 hideProgressBar: true,
+                autoClose: 1000,
             });
         }
     };
