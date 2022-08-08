@@ -76,8 +76,9 @@ import {
   doctorListLimit,
   doctorListLimitNonPaginated,
 } from '../../util/configurations';
-import lodash from 'lodash';
+import lodash, { isObject } from 'lodash';
 import { convertCompilerOptionsFromJson } from 'typescript';
+import PromoCodeForPatient from './PromoCodeForPatient/PromoCodeForPatient';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
@@ -943,14 +944,18 @@ const MyDoctor = (props) => {
         // setPaymentErrorModal(true);
 
         // FOR TOAST
-        toast.error(`${errorMessage}. Please try again.`);
+        toast.error(`${errorMessage}. Please try again.`, {
+          hideProgressBar: true,
+        });
       } else {
         setLoading(false);
         // FOR MODAL
         // setPaymentErrorModal(true);
 
         // FOR TOAST
-        toast.error(`Payment failed. Please try again.`);
+        toast.error(`Payment failed. Please try again.`, {
+          hideProgressBar: true,
+        });
       }
     }
   };
@@ -1419,98 +1424,36 @@ const MyDoctor = (props) => {
     );
   };
 
-
-  // Promocode Logics
-  const [promoCodeEnteredText, setPromoCodeEnteredText] = useState('');
+  //promo-code states
   const [promoCodeApplied, setPromoCodeApplied] = useState(false);
-  const [couponsFromApi, setCouponsFromApi] = useState([]);
-  const [couponIdState, setCouponIdState] = useState('');
-  const [discountApplied, setDiscountApplied] = useState(0);
+  const [couponIdState, setCouponIdState] = useState(null);
+  const [discountApplied, setDiscountApplied] = useState(false);
+  const [promoCodeObject, setPromoCodeObject] = useState({});
+  const [promoCodeEntered, setPromoCodeEntered] = useState('');
 
-  const handlePromoEnteredText = (e) => {
-    setPromoCodeEnteredText(e.target.value);
-    if (e.target.value === '') {
-      setPromoCodeApplied(false);
-    }
-  }
-
-  const getAvailableCoupons = async () => {
-    const patientIdForPromoCode = cookies.get('profileDetails')?.id
-    const couponResponse = await getAvailableCouponsByPatientId(patientIdForPromoCode).catch(err => console.log({ err }))
-
-    const couponDetailsFromRes = couponResponse.data.data?.map((couponDets) => {
-      return couponDets;
-    })
-
-    console.log({ couponDetailsFromRes })
-    setCouponsFromApi(couponDetailsFromRes);
-  }
-
-  const discountCalculationHandler = (discount, apptMode) => {
-    if (apptMode === 'Follow Up') {
-      return (doctor.halfRate * (1 - discount)).toFixed(2);
-    }
-    else if (apptMode === 'First Consultation') {
-      return (doctor.rate * (1 - discount)).toFixed(2);
+  const handlePromoCodeStates = (promoCodeData) => {
+    if (!promoCodeData) {
+      setPromoCodeApplied(false)
     }
     else {
-      return discount;
-    }
-  }
-
-  const applyPromoCodeHandler = async (apptMode) => {
-    const textEntered = promoCodeEnteredText;
-    const coupons = couponsFromApi;
-
-    const couponExtractedFromEnteredPromoCode = coupons.find((coupon) => {
-      return coupon.couponDetails.couponCode === textEntered;
-    })
-
-    console.log({ couponExtractedFromEnteredPromoCode });
-
-    const couponId = couponExtractedFromEnteredPromoCode?.couponDetails.id;
-    const patientIdForPromoCode = cookies.get('profileDetails')?.id;
-    const doctorIdForPromoCode = doctor.id;
-
-    setCouponIdState(couponId);
-
-    const data = {
-      couponId: couponId,
-      patientId: patientIdForPromoCode,
-      doctorId: doctorIdForPromoCode,
-    }
-
-    const verifyResponse = await verifyCouponSelectedBypatient(data).catch(err => {
-      console.log({ err })
-      if (err.response.status === 500 && err.response.data.message === 'Coupon not applicable for selected Doctor') {
-        toast.error(err.response.data.message);
-        setPromoCodeApplied(false);
-      }
-      else {
-        toast.error('Invalid Promo Code. Please try again.');
-        setPromoCodeApplied(false);
-      }
-
-    })
-    // console.log({ verifyResponse })
-
-    if (verifyResponse?.data.status === true) {
-      const discountOffered = couponExtractedFromEnteredPromoCode?.couponDetails.offer;
-      const discountCalculated = discountCalculationHandler(discountOffered, apptMode);
       setPromoCodeApplied(true);
-      setDiscountApplied(discountCalculated);
-      toast.success('Promo Code Applied Successfully', {
-        toastId: 'promoCodeSuccess',
-      });
+      setCouponIdState(promoCodeData.couponId);
+      setDiscountApplied(promoCodeData.discountApplied);
+      setPromoCodeEntered(promoCodeData.promoCodeTextEntered);
     }
   }
-
-  // console.log({ couponIdState })
-  // console.log({ promoCodeApplied })
 
   useEffect(() => {
-    getAvailableCoupons();
-  }, [])
+    if (appointment.appointmentMode !== "" && isObject(doctor)) {
+      setPromoCodeObject({
+        doctorId: doctor.id,
+        patientId: cookies.get('profileDetails')?.id,
+        rate: doctor.rate,
+        halfRate: doctor.halfRate,
+        apptMode: appointment.appointmentMode,
+      })
+    }
+  }, [doctor, appointment]);
 
   return (
     <div>
@@ -2849,6 +2792,11 @@ const MyDoctor = (props) => {
                       doctor: 'block',
                       appointment: 'none',
                     });
+                    setDiscountApplied(false);
+                    setCouponIdState(null);
+                    setPromoCodeApplied(false);
+                    setPromoCodeEntered(false);
+                    console.log({ promoCodeEntered })
                     setDisable({ ...disable, payment: true });
                   }}
                 >
@@ -3198,26 +3146,18 @@ const MyDoctor = (props) => {
                       {disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           {/* PROMO CODE CODE GOES HERE */}
-                          <div className='promo-code-listing'>
-                            <input
-                              id="standard-basic"
-                              type="text"
-                              name="promoCodeEnteredText"
-                              onChange={(e) => handlePromoEnteredText(e)}
-                              placeholder="Enter Promo Code"
-                              value={promoCodeEnteredText}
-                              className='promo-code-input'
-                            />
-                            <button
-                              className='btn promo-code-button'
-                              onClick={() => {
-                                applyPromoCodeHandler(appointment.appointmentMode);
-                              }}
+                          {
+                            Object.keys(promoCodeObject).length > 0 && (
+                              <PromoCodeForPatient
+                                // doctor={doctor}
+                                // patientId={cookies.get('profileDetails')?.id}
+                                // appointment={appointment}
+                                onPromoCodeChange={handlePromoCodeStates}
+                                promoCodeData={promoCodeObject}
+                              />
+                            )
+                          }
 
-                            >
-                              Apply Promo Code
-                            </button>
-                          </div>
 
                           <button
                             className="btn btn-primary"

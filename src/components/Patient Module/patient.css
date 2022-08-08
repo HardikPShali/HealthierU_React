@@ -4577,32 +4577,6 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   }
 }
 
-/* promo code css in My doctors--> start */
-.promo-code-listing {
-  display: flex;
-  margin: 35px auto;
-  /* box-shadow: 3px 3px 15px #cecece, -18px -18px 15px #f2f2f2; */
-  padding: 5px;
-  border-radius: 10px;
-  justify-content: space-between;
-  width: 98%;
-  background: #efefef;
-}
-
-.promo-code-input {
-  width: 73%;
-  font-size: 14px !important;
-}
-
-.promo-code-button {
-  font-size: 12px;
-  background: #00d0cc;
-  border-radius: 10px;
-  color: #fff;
-  width: 95px;
-}
-/* promo code css in My doctors--> end */
-
 .specialitiesTags {
   border: 1px solid none;
   padding: 5px 10px;
