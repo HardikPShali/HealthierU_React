@@ -38,7 +38,9 @@ const CustomPushNotifications = ({ payload }) => {
                             Your appointment with {apptDetailsJson.patient.firstName} is
                             successfully booked on{' '}
                             {moment(apptDetailsJson.startTimeAsString).format(
-                                'DD-MM-YYYY HH:mm'
+                                'DD-MM-YYYY'
+                            )} at {moment(apptDetailsJson.startTimeAsString).format(
+                                'HH:mm'
                             )}{' '}
                         </span>
                     );
@@ -49,6 +51,8 @@ const CustomPushNotifications = ({ payload }) => {
                             successfully booked on{' '}
                             {moment(apptDetailsJson.startTimeAsString).format(
                                 'DD-MM-YYYY HH:mm'
+                            )} at {moment(apptDetailsJson.startTimeAsString).format(
+                                'HH:mm'
                             )}{' '}
                         </span>
                     );
