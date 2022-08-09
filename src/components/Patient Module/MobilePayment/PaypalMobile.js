@@ -74,6 +74,10 @@ const PaypalMobile = () => {
             paymentsAppointmentsDTO: orderData,
         };
 
+        if (notificationId) {
+            orderObject.notificationId = notificationId;
+        }
+
         if (promoCodeApplied === true) {
             orderObject.couponId = couponIdState;
         }
