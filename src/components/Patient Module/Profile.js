@@ -428,6 +428,7 @@ const Profile = () => {
                                         <ImageCropper
                                             setProfilePicture={setProfilePicture}
                                             imageUrl={currentPatient.picture}
+                                            role={'Patient'}
                                         />
                                     </Row>
 

@@ -562,7 +562,7 @@ const Profile = ({ currentDoctor }) => {
                             <div id="editProfile-col">
                                 <>
                                     <Row style={{ justifyContent: 'center', flexDirection: "column" }} >
-                                        <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} />
+                                        <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} role={'Doctor'} />
                                     </Row>
                                     <ValidatorForm onSubmit={handleDetails}>
 
