@@ -131,7 +131,6 @@ const PromoCodeForPatient = ({
     };
 
     useEffect(() => {
-        window.ptoken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJwYXRpZW50YWN0aXZhdGlvbmNoZWNrIiwic2NvcGUiOlsib3BlbmlkIl0sImV4cCI6MTY2MDExNDc3NiwiaWF0IjoxNjYwMDI4Mzc2LCJhdXRob3JpdGllcyI6WyJST0xFX1BBVElFTlQiXSwianRpIjoiZmY5OTFmZmUtMjBkZi00NWZjLTg5NzQtMTdjYzM5ZTExODA0IiwiY2xpZW50X2lkIjoid2ViX2FwcCJ9.azOi-n5pjp-tbB52Sji1LNk0nIWM7NMm_-vV-oRf1mAcN59I41WQXBFLhCbFx7ostjaJ4UpVbHTBWBRo5mzJwRYt3mscaQtwCKVCVDEUz8EgwC4Nd5-YOg80JtXpaN7H6ufgjCSkpoM-g02M4pwd0TPOBI02YP3j7A4rVBeFTrkQ8XXQNtamWSc3iLvpXd-YFssWDlikr7ZJ-73ANgbFWrmI6gdNVwiJVWRuv8ls5u0DAZWWrfr5eaoNP0k3JoDMFHJQY8l9PdJoijtgLT4d2Ikft724W0Mo80mgyUIdfm78pEbXxwmn4qq3J9vpHnUvOjufiLIsoYPhxelaITQTTw'
         getAvailableCoupons();
     }, []);
 
