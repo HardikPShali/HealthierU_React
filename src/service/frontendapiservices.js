@@ -1620,4 +1620,5 @@ export const verifyCouponSelectedBypatient = async (data, token = false) => {
       "Access-Control-Allow-Origin": "*",
     },
   }
+  return axios(payload);
 }

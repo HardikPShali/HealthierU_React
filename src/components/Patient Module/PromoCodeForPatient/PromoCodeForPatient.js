@@ -54,7 +54,6 @@ const PromoCodeForPatient = ({
     };
 
     const applyPromoCodeHandler = async (apptMode) => {
-        console.log({ token: window.ptoken })
         const textEntered = promoCodeEnteredText;
         const coupons = couponsFromApi;
 

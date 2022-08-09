@@ -3261,9 +3261,6 @@ const MyDoctor = (props) => {
                           {
                             Object.keys(promoCodeObject).length > 0 && (
                               <PromoCodeForPatient
-                                // doctor={doctor}
-                                // patientId={cookies.get('profileDetails')?.id}
-                                // appointment={appointment}
                                 onPromoCodeChange={handlePromoCodeStates}
                                 promoCodeData={promoCodeObject}
                               />
