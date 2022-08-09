@@ -17,7 +17,6 @@ import { getUnreadNotificationsCount, putMarkAsReadFromNotificationMenu } from '
 
 const NextAppointmentNotifications = ({ notification, index }) => {
     const [clickModal, setClickModal] = useState(false);
-    // const [paymentConfirmed, setPaymentConfirmed] = useState(false);
     const cookies = new Cookies();
     const currentPatient = cookies.get('profileDetails');
 
@@ -29,10 +28,29 @@ const NextAppointmentNotifications = ({ notification, index }) => {
     const halfRate = notification.data.appointmentDetails.doctor.halfRate;
     const appointmentId = notification.data.appointmentDetails.id;
     const appointmentMode = notification.data.appointmentDetails.appointmentMode;
+    const notificationIdForPayment = notification.id;
+    const paymentStatus = notification.data.appointmentDetails.paymentStatus;
 
     const onClickPayNowModalHandler = () => {
         setClickModal(true);
     };
+
+    const onPaymentStatusTrueHandler = () => {
+        toast.error('Payment already done for this notification.', {
+            toastId: 'paymentAlreadyDone',
+        });
+    }
+
+
+    const onClickHandler = () => {
+        if (paymentStatus === false) {
+            onClickPayNowModalHandler();
+        }
+        else {
+            onPaymentStatusTrueHandler();
+        }
+    }
+
 
     const setNextAppointmentHandler = async (orderData) => {
         let setNextAppointmentDataArray = {};
@@ -40,8 +58,9 @@ const NextAppointmentNotifications = ({ notification, index }) => {
             id: appointmentId,
             type: getAppointmentMode(appointmentMode),
             paymentsAppointmentsDTO: orderData,
+            notificationId: notificationIdForPayment
         };
-        // console.log({ setNextAppointmentDataArray });
+        console.log({ setNextAppointmentDataArray });
 
         const setNextApptApi = {
             method: 'post',
@@ -67,7 +86,7 @@ const NextAppointmentNotifications = ({ notification, index }) => {
             ) {
                 //   props.history.push('/patient/myappointment');
                 setClickModal(false);
-                toast.success('Appointment has been set successfully');
+                // toast.success('Appointment has been set successfully');
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000)
@@ -97,10 +116,6 @@ const NextAppointmentNotifications = ({ notification, index }) => {
         }
     };
 
-    // useEffect(() => {
-    //     setPaymentConfirmed(false);
-    // }, [paymentConfirmed])
-
     //MARK AS READ NOTIFICATION LOGIC
     const markAsReadFromNotificationMenuHandler = async () => {
         const notificationId = notification.id;
@@ -127,9 +142,11 @@ const NextAppointmentNotifications = ({ notification, index }) => {
     return (
         <div key={index} className='set-next-appt' >
             <div className="notif-section" onClick={() => {
-                onClickPayNowModalHandler();
+                onClickHandler();
                 markAsReadFromNotificationMenuHandler();
             }}>
+
+
                 <div className="profile-img col-md-3">
                     {notification.data.appointmentDetails?.doctor?.picture ? (
                         <img

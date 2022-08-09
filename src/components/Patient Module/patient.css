@@ -1760,7 +1760,12 @@ div#multiselectContainerReact div {
 .list--tags > li:first-child:before {
   content: normal;
 }
-
+.list--tags-speciality > li:before {
+  content: '\0000a0'; /* Non-breaking space */
+}
+.list--tags-speciality > li {
+  display: block;
+}
 /*
     Calendar CSS
 */
@@ -4572,21 +4577,21 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   }
 }
 
-/* promo code css in My doctors */
-.promo-code-listing {
-  display: flex;
-  margin: 35px auto;
-  /* box-shadow: 3px 3px 15px #cecece, -18px -18px 15px #f2f2f2; */
-  padding: 5px;
-  border-radius: 10px;
-  justify-content: space-between;
-  width: 98%;
-  background: #efefef;
+.specialitiesTags {
+  border: 1px solid none;
+  padding: 5px 10px;
+  border-radius: 12px;
+  background-color: #ecf8f7;
+  margin: 5px;
 }
-
-.promo-code-button {
-  font-size: 12px;
-  background: #00d0cc;
-  border-radius: 10px;
-  color: #fff;
+.doctor-info-new {
+  color: var(--text-primary);
+  font-weight: normal;
+  text-align: left;
+}
+.ul-helper {
+  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }

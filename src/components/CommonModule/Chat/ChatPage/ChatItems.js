@@ -22,18 +22,28 @@ const ChatItems = ({
         />{" "}
         <img src={SearchIcon}></img>
       </div>
-      {chat.map((item) => {
-        console.log(item);
-        return (
-          <ChatItem
-            messageDateFormat={messageDateFormat}
-            onChatChange={onChatChange}
-            key={item.id}
-            item={item}
-            selectedChatItem={selectedChatItem}
-          />
-        );
-      })}
+      {chat.length > 0 ?
+        (
+          chat.map((item) => {
+            return (
+              <ChatItem
+                messageDateFormat={messageDateFormat}
+                onChatChange={onChatChange}
+                key={item.id}
+                item={item}
+                selectedChatItem={selectedChatItem}
+              />
+            );
+          })
+        )
+        :
+        <div
+          className="col-12 ml-2"
+          style={{ textShadow: 'none', color: '#3e4543', padding: '20px' }}
+        >
+          No Data Found
+        </div>
+      }
     </div>
   );
 };

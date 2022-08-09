@@ -188,8 +188,8 @@ const ChatDetails = ({
       <h2 className="chating_with">
         {selectedItem[selectedItem.userKey] &&
           selectedItem[selectedItem.userKey]?.firstName +
-            " " +
-            selectedItem[selectedItem.userKey]?.lastName}
+          " " +
+          (selectedItem[selectedItem.userKey]?.lastName || "")}
       </h2>
       <div className="chat-section">
         <div className="chat_detail-body">
@@ -214,7 +214,7 @@ const ChatDetails = ({
                     <div className="row">
                       {!message.myMessage && (
                         <div
-                      
+
                           className="received_chat-msg-wrap my-2"
                         >
                           <div className="received_chat-msg">
@@ -229,7 +229,7 @@ const ChatDetails = ({
                       )}
                       {message.myMessage && (
                         <div
-                        
+
                           className="sent_chat-msg-wrap my-2"
                         >
                           <div className="sent_chat-msg">
@@ -252,7 +252,7 @@ const ChatDetails = ({
                 </Fragment>
               );
             })}
-            
+
             <div style={{ float: "left", clear: "both" }} ref={endRef}></div>
           </div>
         </div>
@@ -292,7 +292,7 @@ const ChatDetails = ({
             <button
               onClick={handleNoteToggle}
               className="notes-btn"
-              // disabled={!enableChat}
+            // disabled={!enableChat}
             >
               <img src={ChatIcon} alt="chat-icon" />
             </button>
