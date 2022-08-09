@@ -1346,6 +1346,7 @@ const MyDoctor = (props) => {
   const [disableButton, setDisableButton] = useState(false);
   const setNextAppointment = async () => {
     setDisableButton(true);
+    setLoading(true);
     const stateData = [];
     stateData.push(nextAppDetails);
     const app = [];
@@ -1386,9 +1387,13 @@ const MyDoctor = (props) => {
       }
     });
     if (res) {
-      toast.success('Next Appointment is Set Successfully.');
+      // toast.success('Next Appointment is Set Successfully.');
+      setDisableButton(false);
+      setLoading(false);
       props.history.push({ pathname: `/doctor/my-appointments` });
     }
+    setLoading(false);
+
   };
 
   // AVAILABLE SLOTS OF A DOCTOR

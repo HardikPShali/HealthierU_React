@@ -185,7 +185,6 @@ const Welcome = ({ currentuserInfo }) => {
             Setoption({ countryList: res.data.data })
             setTimeout(() => setLoading(false), 1000);
         }
-        console.log("countryList", countryList)
     }
     const loadSpeciality = async () => {
         const res = await getSpecialityList().catch(err => {
@@ -342,8 +341,6 @@ const Welcome = ({ currentuserInfo }) => {
         list[index][name] = value;
         setEducationList(list);
         setstate({ ...state, educationalQualifications: list });
-        console.log("educationList", educationList)
-        console.log("state", state)
     };
     // handle click event of the Remove button
     const handleRemoveClick = (index) => {
@@ -432,9 +429,10 @@ const Welcome = ({ currentuserInfo }) => {
 
                     }
                 });
-                console.log("response", response);
                 if (response && (response.status === 200 || response.status === 201)) {
-                    cookies.set("profileDetails", response.data.data);
+                    cookies.set("profileDetails", response.data.data, {
+                        path: "/"
+                      });
                     updateCurrentUserData();
                 }
             }
@@ -449,8 +447,6 @@ const Welcome = ({ currentuserInfo }) => {
             }
             else {
                 setTransparentLoading(true);
-                console.log("doctorPayload", JSON.stringify(doctorPayload))
-
                 bodyFormDataDoctor.append('profileData', new Blob([JSON.stringify(doctorPayload)], {
                     type: "application/json"
                 }));
@@ -465,10 +461,7 @@ const Welcome = ({ currentuserInfo }) => {
                     }
                 });
                 if (response && (response.status === 200 || response.status === 201)) {
-                    console.log("email", response.data.data.email)
-                    console.log("firebasePwd", response.data.data.firebasePwd)
                     const res = await getCurrentDoctorInfo(currentuserInfo.id, currentuserInfo.login);
-
                     if (res) {
                         setCurrentDoctor(res.data);
                         updateCurrentUserData();
@@ -502,14 +495,9 @@ const Welcome = ({ currentuserInfo }) => {
     const handleUploadClose = () => {
         setUploadOpen(false);
     }
-
     const [phoneError, setPhoneError] = useState();
     const [formError, setFormError] = useState();
     const [displaydocumentForm, setDisplayDocumentForm] = useState(false);
-
-
-    console.log("currentUserInfo ::", currentuserInfo);
-
     const logoutLogic = () => {
         cookies.remove("refresh_token", { path: '/' });
         cookies.remove("currentUser", { path: '/' });

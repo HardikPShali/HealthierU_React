@@ -36,6 +36,7 @@ const PaypalMobile = () => {
     let appointmentModeParams = searchParams.get('aM');
     let rateParams = searchParams.get('r');
     let halfRateParams = searchParams.get('hR');
+    let notificationId = searchParams.get('nId');
 
     let doctorId = searchParams.get('dId');
 
@@ -81,15 +82,6 @@ const PaypalMobile = () => {
             ...orderObject,
         };
 
-        const paymentUrlToBeUsed = () => {
-            if (promoCodeApplied === true) {
-                return '/api/v2/appointments/payment/bulk/coupon';
-            }
-            else {
-                return '/api/v2/appointments/payment/bulk';
-            }
-        }
-
         const newPaymentApi = {
             method: 'post',
             mode: 'no-cors',
@@ -115,6 +107,18 @@ const PaypalMobile = () => {
             }
         };
 
+        const apiResponseMessages = (response) => {
+            if (os === 'ios') {
+                console.log({ responseMessage: JSON.stringify(response) })
+                window.webkit.messageHandlers.sendResponseMessages.postMessage(response);
+            } else {
+                console.log({ responseMessage: JSON.stringify(response) })
+                window.android.sendResponseMessages(response);
+            }
+        }
+
+
+
         try {
             const response = await axios(newPaymentApi);
             console.log({ response: JSON.stringify(response) });
@@ -122,13 +126,17 @@ const PaypalMobile = () => {
                 console.log('PAYMENT SUCCESS', JSON.stringify(response));
                 successEventOnPayment(true);
                 setLoading(false);
+                apiResponseMessages(response.data.message);
             } else {
-                console.log('PAYMENT API FAILED', JSON.stringify(response));
+                console.log("PAYMENT API FAILED", JSON.stringify(response))
+                apiResponseMessages(response.data.message);
             }
         } catch (error) {
-            console.log('PAYMENT API FAILED', JSON.stringify(error));
+            console.log("PAYMENT API FAILED", JSON.stringify(error))
+            const errorMessage = error.response.data.message;
             successEventOnPayment(false);
             setLoading(false);
+            apiResponseMessages(errorMessage);
         }
     };
 
