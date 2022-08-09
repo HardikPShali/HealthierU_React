@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, MemoryRouter } from "react-router-dom";
 import editIcon from "../../../../images/icons used/edit icon_40 pxl.svg";
 import deleteIcon from "../../../../images/icons used/delete_icon_40 pxl.svg";
 import ContentLoader from "react-content-loader";
 import "./Table.css";
 import PropTypes from 'prop-types';
-
+import { toggleCoupon, manageCouponDetails } from '../../../../service/frontendapiservices'
+import { toast } from 'react-toastify'
 const Table = (props) => {
-  const { headers, data, isLoading, editLink, handleDelete, id, handleToggle } = props;
+  const { headers, data, isLoading, editLink, handleDelete, id, pagination,toggle } = props;
+  //  const [isChecked, setIsChecked] = useState(false)
 
   return (
     <table className="table shadow">
@@ -75,10 +77,10 @@ const Table = (props) => {
                       <div className="selected-users-toggle">
                         <label className="toggle-switch">
                           <input
-                            // checked={datas.active}
+                            checked={datas.couponToggle}
                             id="toggleSlots"
                             type="checkbox"
-                          // onChange={(e) => handleToggle(e)}
+                            onChange={(e) => toggle(e, datas)}
                           />
                           <span className="toggle-slider round"></span>
                         </label>

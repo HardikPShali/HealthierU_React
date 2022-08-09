@@ -1,30 +1,29 @@
 import React, { useState } from 'react'
 import Table from '../components/Table/Table';
 import { PROMOCODE_USER_TABLE_HEADERS } from './tableConstants';
-
-const PromocodeUsers = ({ data }) => {
+const PromocodeUsers = ({ data,toggle }) => {
     const [isLoading, setIsLoading] = useState(false);
     const tableHeaders = PROMOCODE_USER_TABLE_HEADERS;
-
-    // const handleToggle = (e, eachTimes) => {
-    //     eachTimes.active = e.target.checked;
-    //     const data = {
-    //         id: eachTimes.id,
-    //         active: e.target.checked
-    //     }
-    //     console.log({ data });
-    // }
-
     return (
         <div className='promocode-listing-view'>
             <div className='row'>
                 <div className='col-md-12'>
-                    <Table
-                        headers={tableHeaders}
-                        data={data}
-                        isLoading={isLoading}
-                    // handleToggle={(e) => handleToggle(e)}
-                    ></Table>
+                    {data.length > 0 ?
+                        <Table
+                            headers={tableHeaders}
+                            data={data}
+                            isLoading={isLoading}
+                            toggle={toggle}
+                        ></Table>
+                        : (
+                            <div
+                                className="col-12 ml-2"
+                                style={{ textShadow: "none", color: "#3e4543", textAlign: 'center', marginTop: '15%' }}
+                            >
+                                No Data Found
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </div>
