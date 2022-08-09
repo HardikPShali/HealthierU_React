@@ -210,7 +210,7 @@ const ChatPage = () => {
 
   //CALL-TOPIC CODE
   const callUser = async (channelId) => {
-    
+
     const response = await getCallUserApi(channelId).catch((err) =>
       console.log({ err })
     );
@@ -323,7 +323,7 @@ const ChatPage = () => {
           message: msg,
         };
         await sendMessage(messageData);
-      } catch (error) {}
+      } catch (error) { }
     }
   };
 
@@ -352,7 +352,7 @@ const ChatPage = () => {
 
         return (
           person.firstName?.toLowerCase()?.includes(searchedText) ||
-          person.lastName?.toLowerCase()?.includes(searchedText)
+          (person.lastName?.toLowerCase()?.includes(searchedText) || "")
         );
       });
 
@@ -417,7 +417,7 @@ const ChatPage = () => {
         {openVideoCall && (
           <Meeting
             onClose={(dontTriggerReject = false) => {
-              if(!dontTriggerReject) {
+              if (!dontTriggerReject) {
                 callRejectHandler(selectedChatItem.id, "call-end");
               }
 

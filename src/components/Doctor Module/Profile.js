@@ -320,7 +320,9 @@ const Profile = ({ currentDoctor }) => {
                 toast.error("Something went wrong.Please try again!")
             });
             if (response.status === 200 || response.status === 201 && res.status === 200) {
-                cookies.set('profileDetails', response.data.data);
+                cookies.set('profileDetails', response.data.data, {
+                    path: "/"
+                });
                 toast.success("Profile Data Updated")
                 history.go(`doctor/profile`);
             }
@@ -560,7 +562,7 @@ const Profile = ({ currentDoctor }) => {
                             <div id="editProfile-col">
                                 <>
                                     <Row style={{ justifyContent: 'center', flexDirection: "column" }} >
-                                        <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} />
+                                        <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} role={'Doctor'} />
                                     </Row>
                                     <ValidatorForm onSubmit={handleDetails}>
 
@@ -863,7 +865,7 @@ const Profile = ({ currentDoctor }) => {
                                         <br />
                                         <div className='edit-profile__button-wrapper'>
                                             <button
-                                                className="btn btn-primary continue-btn"
+                                                className="btn btn-primary continue-btn-profile-doctor"
                                                 onClick={() => {
                                                     // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
                                                     setToggleProfile({ ...toggleProfile, editProfile: false });
@@ -873,7 +875,7 @@ const Profile = ({ currentDoctor }) => {
                                             </button>
 
                                             <button
-                                                className="btn btn-primary continue-btn"
+                                                className="btn btn-primary continue-btn-profile-doctor"
                                                 type="submit"
                                             >
                                                 Update Profile

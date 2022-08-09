@@ -165,11 +165,10 @@ const PatientChat = (props) => {
 
   const currentDoctorDetails = doctorDetailsList[currentSelectedGroup];
   const currentDoctorFullName = currentDoctorDetails
-    ? `${currentDoctorDetails.firstName} ${
-        currentDoctorDetails.middleName
-          ? currentDoctorDetails.middleName + " "
-          : ""
-      }${currentDoctorDetails.lastName}`
+    ? `${currentDoctorDetails.firstName} ${currentDoctorDetails.middleName
+      ? currentDoctorDetails.middleName + " "
+      : ""
+    }${currentDoctorDetails.lastName || ""}`
     : "";
   const { chatButton, videoButton } = activeButton;
 

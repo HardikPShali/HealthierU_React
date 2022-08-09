@@ -228,7 +228,9 @@ const Profile = () => {
             // setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture + '?' + Math.random() } });
             // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
             // setTransparentLoading(false);
-            cookies.set('profileDetails', response.data);
+            cookies.set('profileDetails', response.data, {
+                path: "/"
+              });
 
             toast.success("Profile updated successfully");
 
@@ -426,6 +428,7 @@ const Profile = () => {
                                         <ImageCropper
                                             setProfilePicture={setProfilePicture}
                                             imageUrl={currentPatient.picture}
+                                            role={'Patient'}
                                         />
                                     </Row>
 
