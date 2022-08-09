@@ -1470,15 +1470,15 @@ const MyDoctor = (props) => {
         paymentsAppointmentsDTO: {
           appointmentMode: "First Consultation",
           intent: "CAPTURE",
-          payerId: "44MRCR555FJEA",
-          paymentId: "8CY307745J947952L",
+          payerId: "100%DISCOUNT_COUPON",
+          paymentId: "100%DISCOUNT_COUPON",
           paymentmethod: "paypal website",
           state: "COMPLETED",
           transactionAmount: "0.00",
           transactionCurrency: "USD",
           transactionId: "100%DISCOUNT_COUPON" + Math.floor(Math.random() * 1000000),
-          userName: "John Doe",
-          userId: 1478
+          userName: "Jane Doe",
+          userId: 1500
         },
         couponId: couponIdState,
 
@@ -1490,15 +1490,15 @@ const MyDoctor = (props) => {
         paymentsAppointmentsDTO: {
           appointmentMode: "Follow Up",
           intent: "CAPTURE",
-          payerId: "44MRCR555FJEA",
-          paymentId: "8CY307745J947952L",
+          payerId: "100%DISCOUNT_COUPON",
+          paymentId: "100%DISCOUNT_COUPON",
           paymentmethod: "paypal website",
           state: "COMPLETED",
           transactionAmount: "0.00",
           transactionCurrency: "USD",
           transactionId: "100%DISCOUNT_COUPON" + Math.floor(Math.random() * 1000000),
-          userName: "John Doe",
-          userId: 1478
+          userName: "Jane Doe",
+          userId: 1500
         },
         couponId: couponIdState
       };
