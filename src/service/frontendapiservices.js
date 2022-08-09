@@ -1590,3 +1590,34 @@ export const toggleCoupon = (data) => {
   };
   return axios(payload);
 };
+export const getAvailableCouponsByPatientId = async (patientId, token = false) => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/coupon/patients/${patientId}`,
+    headers: {
+      'Authorization': token ? token : ('Bearer ' + LocalStorageService.getAccessToken()),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
+
+export const verifyCouponSelectedBypatient = async (data, token = false) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    data: data,
+    url: `/api/v2/coupon/patient/verify`,
+    headers: {
+      Authorization: token ? token : ('Bearer ' + LocalStorageService.getAccessToken()),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  }
+}
