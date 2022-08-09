@@ -7,12 +7,12 @@ import Typography from '@material-ui/core/Typography'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import Slider from '@material-ui/core/Slider'
 import { withStyles } from '@material-ui/core/styles'
-
 import getCroppedImg from './cropImage'
 import { styles } from './styles'
 import TransparentLoader from '../../Loader/transparentloader';
 import previewImg from '../../../images/default_image.jpg';
-
+import profileEdit from '../../../images/icons used/profile_edit.svg'
+import '../../CommonModule/landing.css'
 const ImageCropper = (props) => {
     const { imageUrl, setProfilePicture, classes } = props;
     const [transparentLoading, setTransparentLoading] = useState(false);
@@ -93,37 +93,59 @@ const ImageCropper = (props) => {
 
 
     return (
-
         <>
-
             <div className="small-12 medium-2 large-2 columns m-auto">
+                <div className="circle upload-button" style={{ cursor: 'pointer' }}>
+                    {/* <!-- User Profile Image --> */}
+                    <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
+                </div>
+            </div>
+            {props.role === 'Doctor' ? <div className='profile-edit-icon-doctor'>
                 <label htmlFor={uniqueId}>
-                    <div className="circle upload-button" style={{ cursor: 'pointer' }}
-                        onClick={(e) => {
-                            if (props.prevention === true) {
-                                e.preventDefault();
-                            }
-                        }}
-                    >
-                        {/* <!-- User Profile Image --> */}
-                        <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
-                    </div>
-
-                    <span className="p-image" onClick={(e) => {
-                        if (props.prevention === true) {
-                            e.preventDefault();
-                        }
-                    }}>
-                        <AddAPhotoIcon className="upload-button" />
+                    <span className="p-image">
+                        <img src={profileEdit} />
+                        {/* <AddAPhotoIcon className="upload-button" /> */}
                         <input id={uniqueId} className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
                             variant="filled" onClick={(e) => e.stopPropagation()} />
                     </span>
                 </label>
             </div>
+                :
+                props.role === 'Admin' ? <div className='profile-edit-icon-admin'>
+                    <label htmlFor={uniqueId}>
+                        <span className="p-image">
+                            <img src={profileEdit} />
+                            {/* <AddAPhotoIcon className="upload-button" /> */}
+                            <input id={uniqueId} className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
+                                variant="filled" onClick={(e) => e.stopPropagation()} />
+                        </span>
+                    </label>
+                </div>
+                :
+                props.role === 'Patient' ? <div className='profile-edit-icon-patient'>
+                    <label htmlFor={uniqueId}>
+                        <span className="p-image">
+                            <img src={profileEdit} />
+                            {/* <AddAPhotoIcon className="upload-button" /> */}
+                            <input id={uniqueId} className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
+                                variant="filled" onClick={(e) => e.stopPropagation()} />
+                        </span>
+                    </label>
+                </div>
+                    :
+                    <div className='profile-edit-icon-welcome'>
+                        <label htmlFor={uniqueId}>
+                            <span className="p-image">
+                                <img src={profileEdit} />
+                                {/* <AddAPhotoIcon className="upload-button" /> */}
+                                <input id={uniqueId} className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
+                                    variant="filled" onClick={(e) => e.stopPropagation()} />
+                            </span>
+                        </label>
+                    </div>}
 
             <div style={{ fontSize: '12px', color: 'red', textAlign: 'center' }}>{msg}</div>
             <br />
-
             <Modal dialogClassName={classes.top} show={show} onHide={() => setModel(false)}>
                 {transparentLoading && (
                     <TransparentLoader />

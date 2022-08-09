@@ -416,7 +416,7 @@ const EditUser = (props) => {
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
       <Navbar pageTitle="home" />
-      <div className="container" style={{ maxWidth: "100%" }}>
+      <div className="container">
         <button className="btn btn-primary" onClick={() => history.goBack()}>
           Browse Back
         </button>
@@ -427,7 +427,7 @@ const EditUser = (props) => {
                 <ImageCropper
                   setProfilePicture={setProfilePicture}
                   imageUrl={user.picture}
-                  prevention={true}
+                  role={'Admin'}
                 />
               )}
           </Row>
