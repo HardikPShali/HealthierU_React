@@ -1461,6 +1461,7 @@ const MyDoctor = (props) => {
   }, [doctor, appointment]);
 
   const handleFreeCouponTransactions = async () => {
+    setLoading(true);
     let finalAppointmentDataArray = {};
     if (promoCodeApplied === true && promoCodeEntered === 'HEALTHIERUAE' && appointment.appointmentMode === 'First Consultation') {
       finalAppointmentDataArray = {
@@ -1532,6 +1533,7 @@ const MyDoctor = (props) => {
         freePaymentResponse.status === 200 ||
         freePaymentResponse.status === 201
       ) {
+        setLoading(false)
         props.history.push('/patient/myappointment');
         console.log({ freePaymentResponse });
       }

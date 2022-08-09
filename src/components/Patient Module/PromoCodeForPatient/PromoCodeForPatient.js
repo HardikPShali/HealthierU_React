@@ -20,13 +20,19 @@ const PromoCodeForPatient = ({
         setPromoCodeEnteredText(e.target.value);
         if (e.target.value === '') {
             onPromoCodeChange(false);
+            onPromoCodeChange({
+                discountApplied: rate || halfRate,
+                couponId: 0,
+                promoCodeTextEntered: '',
+            })
         }
     };
 
     const getAvailableCoupons = async () => {
         const patientIdForPromoCode = patientId;
         const couponResponse = await getAvailableCouponsByPatientId(
-            patientIdForPromoCode
+            patientIdForPromoCode,
+            window.ptoken
         ).catch((err) => console.log({ err }));
 
         const couponDetailsFromRes = couponResponse?.data?.data?.map((couponDets) => {
@@ -48,6 +54,7 @@ const PromoCodeForPatient = ({
     };
 
     const applyPromoCodeHandler = async (apptMode) => {
+        console.log({ token: window.ptoken })
         const textEntered = promoCodeEnteredText;
         const coupons = couponsFromApi;
 
@@ -67,7 +74,7 @@ const PromoCodeForPatient = ({
             doctorId: doctorIdForPromoCode,
         };
 
-        const verifyResponse = await verifyCouponSelectedBypatient(data).catch(
+        const verifyResponse = await verifyCouponSelectedBypatient(data, window.ptoken).catch(
             (err) => {
                 console.log({ err });
                 if (
@@ -75,10 +82,27 @@ const PromoCodeForPatient = ({
                     err.response.data.message ===
                     'Coupon not applicable for selected Doctor'
                 ) {
-                    toast.error(err.response.data.message);
+                    toast.error(err.response.data.message, {
+                        hideProgressBar: true,
+                        autoClose: 2000,
+                        toastId: 'promoInvalid'
+                    });
                     onPromoCodeChange(false);
-                } else {
-                    toast.error('Invalid Promo Code. Please try again.');
+                }
+                else if (err.response.status === 401) {
+                    toast.error(err.response.data.error_description, {
+                        hideProgressBar: true,
+                        autoClose: 2000,
+                        toastId: 'promoInvalid'
+                    });
+                    onPromoCodeChange(false);
+                }
+                else {
+                    toast.error('Invalid Promo Code. Please try again.', {
+                        hideProgressBar: true,
+                        autoClose: 2000,
+                        toastId: 'promoInvalid'
+                    });
                     onPromoCodeChange(false);
                 }
             }
@@ -107,6 +131,7 @@ const PromoCodeForPatient = ({
     };
 
     useEffect(() => {
+        window.ptoken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJwYXRpZW50YWN0aXZhdGlvbmNoZWNrIiwic2NvcGUiOlsib3BlbmlkIl0sImV4cCI6MTY2MDExNDc3NiwiaWF0IjoxNjYwMDI4Mzc2LCJhdXRob3JpdGllcyI6WyJST0xFX1BBVElFTlQiXSwianRpIjoiZmY5OTFmZmUtMjBkZi00NWZjLTg5NzQtMTdjYzM5ZTExODA0IiwiY2xpZW50X2lkIjoid2ViX2FwcCJ9.azOi-n5pjp-tbB52Sji1LNk0nIWM7NMm_-vV-oRf1mAcN59I41WQXBFLhCbFx7ostjaJ4UpVbHTBWBRo5mzJwRYt3mscaQtwCKVCVDEUz8EgwC4Nd5-YOg80JtXpaN7H6ufgjCSkpoM-g02M4pwd0TPOBI02YP3j7A4rVBeFTrkQ8XXQNtamWSc3iLvpXd-YFssWDlikr7ZJ-73ANgbFWrmI6gdNVwiJVWRuv8ls5u0DAZWWrfr5eaoNP0k3JoDMFHJQY8l9PdJoijtgLT4d2Ikft724W0Mo80mgyUIdfm78pEbXxwmn4qq3J9vpHnUvOjufiLIsoYPhxelaITQTTw'
         getAvailableCoupons();
     }, []);
 

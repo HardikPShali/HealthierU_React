@@ -1,6 +1,7 @@
 import axios from "axios";
 import LocalStorageService from "../util/LocalStorageService";
 import { commonUtilFunction } from "../util";
+import { TokenClass } from "typescript";
 
 export const updateUserAccount = async (userInfo) => {
   var payload = {
@@ -1548,13 +1549,13 @@ export const getAvailableSlotTimings = (data, type) => {
 };
 
 // PROMO-CODE APIS
-export const getAvailableCouponsByPatientId = async (patientId) => {
+export const getAvailableCouponsByPatientId = async (patientId, token = false) => {
   var payload = {
     method: 'get',
     mode: 'no-cors',
     url: `/api/v2/coupon/patients/${patientId}`,
     headers: {
-      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Authorization': token ? token : ('Bearer ' + LocalStorageService.getAccessToken()),
       'Content-Type': 'application/json'
     }
   };
@@ -1566,14 +1567,14 @@ export const getAvailableCouponsByPatientId = async (patientId) => {
   return response;
 }
 
-export const verifyCouponSelectedBypatient = async (data) => {
+export const verifyCouponSelectedBypatient = async (data, token = false) => {
   var payload = {
     method: "post",
     mode: "no-cors",
     data: data,
     url: `/api/v2/coupon/patient/verify`,
     headers: {
-      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      Authorization: token ? token : ('Bearer ' + LocalStorageService.getAccessToken()),
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
