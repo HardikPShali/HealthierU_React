@@ -86,6 +86,15 @@ const PaypalMobile = () => {
             ...orderObject,
         };
 
+        const paymentUrlToBeUsed = () => {
+            if (promoCodeApplied === true) {
+                return '/api/v2/appointments/payment/bulk/coupon';
+            }
+            else {
+                return '/api/v2/appointments/payment/bulk';
+            }
+        }
+
         const newPaymentApi = {
             method: 'post',
             mode: 'no-cors',
