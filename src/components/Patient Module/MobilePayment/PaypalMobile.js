@@ -36,6 +36,7 @@ const PaypalMobile = () => {
     let appointmentModeParams = searchParams.get('aM');
     let rateParams = searchParams.get('r');
     let halfRateParams = searchParams.get('hR');
+
     let doctorId = searchParams.get('dId');
 
     let os = searchParams.get('os');
