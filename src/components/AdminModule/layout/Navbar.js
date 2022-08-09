@@ -251,6 +251,15 @@ const Navbar = (props) => {
           </ListItem>
         </Link>
         <Divider variant="middle" />
+        <Link to="/admin/promocode-management" style={{ textDecoration: 'none' }}>
+          <ListItem
+            button
+            className={props.pageTitle === 'promocode' ? 'active' : ''}
+          >
+            <ListItemText primary={'Promocode Management'} />
+          </ListItem>
+        </Link>
+        <Divider variant="middle" />
       </List>
     </>
   );

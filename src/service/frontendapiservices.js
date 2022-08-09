@@ -1546,3 +1546,79 @@ export const getAvailableSlotTimings = (data, type) => {
   };
   return axios(payload);
 };
+//Promocode-APIs
+// List Coupon Usage details
+export const getPromocodeListing = (size, page, searchKeyword) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    url: `/api/v2/coupon/usage?size=${size}&page=${page}&searchKeyword=${searchKeyword}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
+};
+// Manage Coupon  details
+export const manageCouponDetails = (size, page, searchKeyword) => {
+  var payload = {
+    method: "get",
+    mode: "no-cors",
+    url: `/api/v2/coupon/patients/all?size=${size}&page=${page}&searchKeyword=${searchKeyword}`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
+};
+// Toggle API
+export const toggleCoupon = (data) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    data: data,
+    url: `/api/v2/coupon/patients/toggle`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios(payload);
+};
+export const getAvailableCouponsByPatientId = async (patientId, token = false) => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/coupon/patients/${patientId}`,
+    headers: {
+      'Authorization': token ? token : ('Bearer ' + LocalStorageService.getAccessToken()),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
+
+export const verifyCouponSelectedBypatient = async (data, token = false) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    data: data,
+    url: `/api/v2/coupon/patient/verify`,
+    headers: {
+      Authorization: token ? token : ('Bearer ' + LocalStorageService.getAccessToken()),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  }
+  return axios(payload);
+}
