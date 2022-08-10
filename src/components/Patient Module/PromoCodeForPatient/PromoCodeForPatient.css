@@ -19,7 +19,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  box-shadow: #fdd6f1 0px 5px 15px;
+  /* box-shadow: #fdd6f1 0px 5px 15px; */
 }
 
 .promo-code-input {
@@ -44,6 +44,10 @@
   width: 95px;
 }
 
+.promo-code-cancel {
+  cursor: pointer;
+}
+
 .promo-code-applied-text {
   margin: -15px 10px 30px 10px;
   font-size: 14px;
@@ -54,6 +58,26 @@
   margin: -15px 10px 30px 10px;
   font-size: 14px;
   color: #ff0000;
+}
+
+@media (min-width: 300px) and (max-width: 500px) {
+  .promo-code-listing {
+    align-items: center;
+  }
+  .promo-code-input-field {
+    width: 245px;
+    height: 51px;
+    margin: 5px;
+  }
+  .promo-code-button {
+    width: 95px;
+    height: 53px;
+    font-size: 11px;
+    padding: 1px;
+  }
+  .promo-code-cancel {
+    width: 18px;
+  }
 }
 
 /* promo code css in My doctors--> end */

@@ -29,6 +29,7 @@ const PromoCodeForPatient = ({
                 discountApplied: rate || halfRate,
                 couponId: 0,
                 promoCodeTextEntered: '',
+                promoCodeAdded: false,
             })
             setAppliedText('');
             setErrorText('');
@@ -114,6 +115,7 @@ const PromoCodeForPatient = ({
                 discountApplied: discountCalculated,
                 couponId: couponId,
                 promoCodeTextEntered: textEntered,
+                promoCodeAdded: true
             });
             setDisableInput(true);
             setErrorText('');
@@ -124,14 +126,15 @@ const PromoCodeForPatient = ({
     const clearPromoCodeInput = () => {
         setPromoCodeEnteredText('');
         onPromoCodeChange(false);
-        onPromoCodeChange({
-            discountApplied: rate || halfRate,
-            couponId: 0,
-            promoCodeTextEntered: '',
-        })
         setAppliedText('');
         setErrorText('');
         setDisableInput(false);
+        onPromoCodeChange({
+            discountApplied: 0,
+            couponId: 0,
+            promoCodeTextEntered: '',
+            promoCodeAdded: false,
+        });
     }
 
     useEffect(() => {
@@ -149,12 +152,12 @@ const PromoCodeForPatient = ({
                         placeholder="Enter Promo Code"
                         value={promoCodeEnteredText}
                         className="promo-code-input"
-                        autoComplete='off'
+                        // autoComplete='off'
                         disabled={disableInput}
                     />
                     {
                         disableInput === true && (
-                            <span onClick={clearPromoCodeInput} style={{ cursor: 'pointer' }}>
+                            <span onClick={clearPromoCodeInput} className='promo-code-cancel'>
                                 <CancelIcon />
                             </span>
                         )
