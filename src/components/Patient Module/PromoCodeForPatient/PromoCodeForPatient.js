@@ -152,7 +152,7 @@ const PromoCodeForPatient = ({
                         placeholder="Enter Promo Code"
                         value={promoCodeEnteredText}
                         className="promo-code-input"
-                        // autoComplete='off'
+                        autoComplete='off'
                         disabled={disableInput}
                     />
                     {
