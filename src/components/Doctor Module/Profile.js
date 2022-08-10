@@ -562,7 +562,7 @@ const Profile = ({ currentDoctor }) => {
                             <div id="editProfile-col">
                                 <>
                                     <Row style={{ justifyContent: 'center', flexDirection: "column" }} >
-                                        <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} />
+                                        <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} role={'Doctor'} />
                                     </Row>
                                     <ValidatorForm onSubmit={handleDetails}>
 
@@ -865,7 +865,7 @@ const Profile = ({ currentDoctor }) => {
                                         <br />
                                         <div className='edit-profile__button-wrapper'>
                                             <button
-                                                className="btn btn-primary continue-btn"
+                                                className="btn btn-primary continue-btn-profile-doctor"
                                                 onClick={() => {
                                                     // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
                                                     setToggleProfile({ ...toggleProfile, editProfile: false });
@@ -875,7 +875,7 @@ const Profile = ({ currentDoctor }) => {
                                             </button>
 
                                             <button
-                                                className="btn btn-primary continue-btn"
+                                                className="btn btn-primary continue-btn-profile-doctor"
                                                 type="submit"
                                             >
                                                 Update Profile

@@ -3861,3 +3861,13 @@ input:checked + .slider:before {
 .admin-review-dialog {
   background: #fff;
 }
+
+button.continue-btn-profile-doctor {
+  background-color: var(--primary) !important;
+  width: 35% !important;
+  border-radius: 30px;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 1rem !important;
+}

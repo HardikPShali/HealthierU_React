@@ -1,0 +1,103 @@
+/* promo code css in My doctors--> start */
+.promo-code-listing {
+  display: flex;
+  margin: 35px 0px 30px 5px;
+  /* box-shadow: 3px 3px 15px #cecece, -18px -18px 15px #f2f2f2; */
+  padding: 5px;
+  border-radius: 10px;
+  justify-content: space-between;
+  width: 98%;
+  background: #efefef;
+}
+
+.promo-code-input-field {
+  width: 300px;
+  height: 55px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  /* box-shadow: #fdd6f1 0px 5px 15px; */
+}
+
+.promo-code-input {
+  /* width: 73%;
+  font-size: 14px !important;
+  border-radius: 5px;
+  padding: 10px; */
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: hidden;
+  outline: none;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.promo-code-button {
+  font-size: 12px;
+  background: #00d0cc;
+  border-radius: 10px;
+  color: #fff;
+  width: 95px;
+}
+
+.promo-code-cancel {
+  cursor: pointer;
+}
+
+.promo-code-applied-text {
+  margin: -15px 10px 30px 10px;
+  font-size: 14px;
+  color: #00d0cc;
+}
+
+.promo-code-error-text {
+  margin: -15px 10px 30px 10px;
+  font-size: 14px;
+  color: #ff0000;
+}
+
+@media (min-width: 300px) and (max-width: 500px) {
+  .promo-code-listing {
+    align-items: center;
+  }
+  .promo-code-input-field {
+    width: 245px;
+    height: 51px;
+    margin: 5px;
+  }
+  .promo-code-button {
+    width: 95px;
+    height: 53px;
+    font-size: 11px;
+    padding: 1px;
+  }
+  .promo-code-cancel {
+    width: 18px;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 800px) {
+  .promo-code-listing {
+    align-items: center;
+  }
+  .promo-code-input-field {
+    width: 245px;
+    height: 51px;
+    margin: 5px;
+  }
+  .promo-code-button {
+    width: 95px;
+    height: 53px;
+    font-size: 11px;
+    padding: 1px;
+  }
+  .promo-code-cancel {
+    width: 18px;
+  }
+}
+
+/* promo code css in My doctors--> end */

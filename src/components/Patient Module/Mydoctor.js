@@ -54,6 +54,8 @@ import {
   getUnreadNotificationsCount,
   getSearchDataAndFilter,
   getAvailableSlotTimings,
+  getAvailableCouponsByPatientId,
+  verifyCouponSelectedBypatient,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -74,8 +76,9 @@ import {
   doctorListLimit,
   doctorListLimitNonPaginated,
 } from '../../util/configurations';
-import lodash from 'lodash';
+import lodash, { isObject } from 'lodash';
 import { convertCompilerOptionsFromJson } from 'typescript';
+import PromoCodeForPatient from './PromoCodeForPatient/PromoCodeForPatient';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
@@ -885,18 +888,29 @@ const MyDoctor = (props) => {
       };
     }
 
+    if (promoCodeApplied === true) {
+      finalAppointmentDataArray.couponId = couponIdState;
+    }
     const newPaymentData = {
       ...finalAppointmentDataArray,
-      // paymentsAppointmentsDTO: orderData,
     };
 
-    // console.log({ newPaymentData });
+    console.log({ newPaymentData });
+
+    const paymentUrlToBeUsed = () => {
+      if (promoCodeApplied === true) {
+        return '/api/v2/appointments/payment/bulk/coupon';
+      }
+      else {
+        return '/api/v2/appointments/payment/bulk';
+      }
+    }
 
     const newPaymentApi = {
       method: 'post',
       mode: 'no-cors',
       data: newPaymentData,
-      url: `/api/v2/appointments/payment/bulk`,
+      url: paymentUrlToBeUsed(),
       headers: {
         Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
         'Content-Type': 'application/json',
@@ -930,14 +944,18 @@ const MyDoctor = (props) => {
         // setPaymentErrorModal(true);
 
         // FOR TOAST
-        toast.error(`${errorMessage}. Please try again.`);
+        toast.error(`${errorMessage}. Please try again.`, {
+          hideProgressBar: true,
+        });
       } else {
         setLoading(false);
         // FOR MODAL
         // setPaymentErrorModal(true);
 
         // FOR TOAST
-        toast.error(`Payment failed. Please try again.`);
+        toast.error(`Payment failed. Please try again.`, {
+          hideProgressBar: true,
+        });
       }
     }
   };
@@ -1411,6 +1429,146 @@ const MyDoctor = (props) => {
     );
   };
 
+  //promo-code states
+  const [promoCodeApplied, setPromoCodeApplied] = useState(false);
+  const [couponIdState, setCouponIdState] = useState(null);
+  const [discountApplied, setDiscountApplied] = useState(false);
+  const [promoCodeObject, setPromoCodeObject] = useState({});
+  const [promoCodeEntered, setPromoCodeEntered] = useState('');
+
+  const handlePromoCodeStates = (promoCodeData) => {
+    console.log({ promoCodeData });
+    if (!promoCodeData || promoCodeData === false) {
+      setPromoCodeApplied(promoCodeData.promoCodeAdded)
+    }
+    else {
+      setPromoCodeApplied(promoCodeData.promoCodeAdded);
+      setCouponIdState(promoCodeData.couponId);
+      setDiscountApplied(promoCodeData.discountApplied);
+      setPromoCodeEntered(promoCodeData.promoCodeTextEntered);
+    }
+  }
+
+  useEffect(() => {
+    if (appointment.appointmentMode !== "" && isObject(doctor)) {
+      setPromoCodeObject({
+        doctorId: doctor.id,
+        patientId: cookies.get('profileDetails')?.id,
+        rate: doctor.rate,
+        halfRate: doctor.halfRate,
+        apptMode: appointment.appointmentMode,
+      })
+    }
+  }, [doctor, appointment]);
+
+  const handleFreeCouponTransactions = async () => {
+    setLoading(true);
+    console.log({ promoCodeApplied });
+    let finalAppointmentDataArray = {};
+    if (promoCodeApplied === true && promoCodeEntered === 'HEALTHIERUAE' && appointment.appointmentMode === 'First Consultation') {
+      finalAppointmentDataArray = {
+        id: appointment.id,
+        type: "FIRST_CONSULTATION",
+        paymentsAppointmentsDTO: {
+          appointmentMode: "First Consultation",
+          intent: "CAPTURE",
+          payerId: "100%DISCOUNT_COUPON",
+          paymentId: "100%DISCOUNT_COUPON",
+          paymentmethod: "paypal website",
+          state: "COMPLETED",
+          transactionAmount: "0.00",
+          transactionCurrency: "USD",
+          transactionId: "100%DISCOUNT_COUPON" + Math.floor(Math.random() * 1000000),
+          userName: "Jane Doe",
+          userId: 1500
+        },
+        couponId: couponIdState,
+
+      };
+    } else if (promoCodeApplied === true && promoCodeEntered === 'HEALTHIERUAE' && appointment.appointmentMode === 'Follow Up') {
+      finalAppointmentDataArray = {
+        id: appointment.id,
+        type: 'FOLLOW_UP',
+        paymentsAppointmentsDTO: {
+          appointmentMode: "Follow Up",
+          intent: "CAPTURE",
+          payerId: "100%DISCOUNT_COUPON",
+          paymentId: "100%DISCOUNT_COUPON",
+          paymentmethod: "paypal website",
+          state: "COMPLETED",
+          transactionAmount: "0.00",
+          transactionCurrency: "USD",
+          transactionId: "100%DISCOUNT_COUPON" + Math.floor(Math.random() * 1000000),
+          userName: "Jane Doe",
+          userId: 1500
+        },
+        couponId: couponIdState
+      };
+    }
+    console.log({ finalAppointmentDataArray })
+
+    const freePaymentPayload = {
+      ...finalAppointmentDataArray,
+    }
+
+    const freePaymentApi = {
+      method: 'post',
+      mode: 'no-cors',
+      data: freePaymentPayload,
+      url: "/api/v2/appointments/payment/bulk/coupon",
+      headers: {
+        Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
+
+    // console.log({ newPaymentApi });
+
+    try {
+      // await api call
+      const freePaymentResponse = await axios(freePaymentApi);
+      console.log({ freePaymentResponse });
+
+      //success logic
+      if (
+        freePaymentResponse.status === 200 ||
+        freePaymentResponse.status === 201
+      ) {
+        setLoading(false)
+        props.history.push('/patient/myappointment');
+        console.log({ freePaymentResponse });
+      }
+    } catch (err) {
+      //error logic
+      // console.log({ err });
+      const errorMessage = err.response.data.message;
+      const errorStatus = err.response.status;
+
+      if (errorStatus === 500 && errorMessage) {
+        setLoading(false);
+        // FOR MODAL
+        // setPaymentErrorModal(true);
+
+        // FOR TOAST
+        toast.error(`${errorMessage}. Please try again.`, {
+          hideProgressBar: true,
+        });
+      } else {
+        setLoading(false);
+        // FOR MODAL
+        // setPaymentErrorModal(true);
+
+        // FOR TOAST
+        toast.error(`Payment failed. Please try again.`, {
+          hideProgressBar: true,
+        });
+      }
+    }
+
+
+  }
+
   return (
     <div>
       {loading && <Loader />}
@@ -1788,7 +1946,7 @@ const MyDoctor = (props) => {
                                 />
                               )}
                               {user.picture ? (
-                                <img src={user.picture} alt="" />
+                                <img src={user.picture} alt="" className='profile-in-gridlist' />
                               ) : (
                                 <Avatar
                                   name={user.firstName + ' ' + user.lastName}
@@ -2748,6 +2906,11 @@ const MyDoctor = (props) => {
                       doctor: 'block',
                       appointment: 'none',
                     });
+                    setDiscountApplied(false);
+                    setCouponIdState(null);
+                    setPromoCodeApplied(false);
+                    setPromoCodeEntered(false);
+                    console.log({ promoCodeEntered })
                     setDisable({ ...disable, payment: true });
                   }}
                 >
@@ -3045,15 +3208,31 @@ const MyDoctor = (props) => {
               </p>
               <div id="calendar-list">
                 <div id="price-box">
-                  <span className="price">
-                    $
-                    {appointment.appointmentMode === 'First Consultation' ||
-                      appointment.appointmentMode === ''
-                      ? doctor && doctor.rate
-                      : appointment.appointmentMode === 'Follow Up'
-                        ? doctor && doctor.halfRate
-                        : ''}
-                  </span>
+
+                  {
+                    promoCodeApplied ? (
+                      <span className="price">
+                        $
+                        {appointment.appointmentMode === 'First Consultation' ||
+                          appointment.appointmentMode === ''
+                          ? doctor && discountApplied
+                          : appointment.appointmentMode === 'Follow Up'
+                            ? doctor && discountApplied
+                            : ''}
+                      </span>
+                    ) : (
+                      <span className="price">
+                        $
+                        {appointment.appointmentMode === 'First Consultation' ||
+                          appointment.appointmentMode === ''
+                          ? doctor && doctor.rate
+                          : appointment.appointmentMode === 'Follow Up'
+                            ? doctor && doctor.halfRate
+                            : ''}
+                      </span>
+                    )
+                  }
+
                   <br />
                   <span>
                     USD /{' '}
@@ -3073,31 +3252,6 @@ const MyDoctor = (props) => {
 
                 {/* <span id="promo-code">Have a promo code?</span><br /><br /> */}
                 <div id="payment-form" style={{ marginLeft: '15px' }}>
-                  {/* <Row>
-                    <Col
-                      md={12}
-                      style={{ display: 'flex', alignItems: 'flex-end' }}
-                    >
-                      <p style={{ fontSize: 9, marginBottom: 0 }}>
-                        You can cancel your appointment before 2 days or else it
-                        will be deducted
-                        <br />
-                      </p>
-                    </Col>
-                  </Row> */}
-
-                  {/* <Row>
-                    <Col
-                      md={12}
-                      style={{ display: 'flex', alignItems: 'flex-end' }}
-                    >
-                      <p style={{ fontSize: 9, marginBottom: 0 }}>
-                        Appointment is 95% reimbursed if cancelled 24h before
-                        the start time.
-                      </p>
-                    </Col>
-                  </Row>
-                  <br /> */}
                   {!profilepID.activated ? (
                     <Row>
                       {/* <Col md={1}></Col> */}
@@ -3105,11 +3259,27 @@ const MyDoctor = (props) => {
 
                       {disable.payment && (
                         <Col md={12} style={{ paddingLeft: 0 }}>
+                          {/* PROMO CODE CODE GOES HERE */}
+                          {
+                            Object.keys(promoCodeObject).length > 0 && (
+                              <PromoCodeForPatient
+                                onPromoCodeChange={handlePromoCodeStates}
+                                promoCodeData={promoCodeObject}
+                              />
+                            )
+                          }
+
+
                           <button
                             className="btn btn-primary"
                             style={{ width: '100%' }}
                             onClick={() => {
                               setDisable({ ...disable, payment: false });
+                              if (promoCodeEntered === 'HEALTHIERUAE') {
+                                handleFreeCouponTransactions();
+                                setDisable({ ...disable, payment: true });
+                              }
+
                             }}
                           >
                             Pay Now
@@ -3118,8 +3288,11 @@ const MyDoctor = (props) => {
                       )}
 
                       {!disable.payment && (
+
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           {/* {console.log({ appointmentId: appointment.id })} */}
+                          {console.log({ promoCodeApplied })}
+                          {console.log({ discountApplied })}
                           <Paypal
                             // appointmentId={appointment.id}
                             appointmentMode={appointment.appointmentMode}
@@ -3128,8 +3301,12 @@ const MyDoctor = (props) => {
                             lastName={props.currentPatient.lastName}
                             email={props.currentPatient.email}
                             userId={props.currentPatient.userId}
-                            rate={doctor.rate}
-                            halfRate={doctor.halfRate}
+                            rate={
+                              promoCodeApplied === true ? discountApplied : doctor.rate
+                            }
+                            halfRate={
+                              promoCodeApplied === true ? discountApplied : doctor.halfRate
+                            }
                           />
                         </Col>
                       )}
