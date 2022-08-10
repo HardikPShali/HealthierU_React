@@ -50,7 +50,7 @@ const CustomPushNotifications = ({ payload }) => {
                             Your appointment with {apptDetailsJson.doctor.firstName} is
                             successfully booked on{' '}
                             {moment(apptDetailsJson.startTimeAsString).format(
-                                'DD-MM-YYYY HH:mm'
+                                'DD-MM-YYYY'
                             )} at {moment(apptDetailsJson.startTimeAsString).format(
                                 'HH:mm'
                             )}{' '}
