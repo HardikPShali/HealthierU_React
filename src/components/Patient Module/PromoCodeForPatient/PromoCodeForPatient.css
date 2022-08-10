@@ -80,4 +80,24 @@
   }
 }
 
+@media (min-width: 501px) and (max-width: 800px) {
+  .promo-code-listing {
+    align-items: center;
+  }
+  .promo-code-input-field {
+    width: 245px;
+    height: 51px;
+    margin: 5px;
+  }
+  .promo-code-button {
+    width: 95px;
+    height: 53px;
+    font-size: 11px;
+    padding: 1px;
+  }
+  .promo-code-cancel {
+    width: 18px;
+  }
+}
+
 /* promo code css in My doctors--> end */
