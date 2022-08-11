@@ -1,59 +1,93 @@
-import React, { useState } from 'react'
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
-import Navbar from '../layout/Navbar'
-import { Row, Col } from "react-bootstrap";
-import './VersionList.css'
-
+import React, { useState, useeffect, useEffect } from 'react';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import Navbar from '../layout/Navbar';
+import { Row, Col } from 'react-bootstrap';
+import './VersionList.css';
+import { getLatestVersions, saveLatestVersions } from '../../../service/frontendapiservices';
+import Loader from '../../Loader/Loader';
 
 const VersionList = () => {
-
+    const [isLoading, setIsLoading] = useState(false);
     const [version, setVersion] = useState({
-        minIos: '',
-        standardIos: '',
-        minAndroid: '',
-        standardAndroid: '',
-    })
+        minimumIosVersion: '',
+        stableIosVersion: '',
+        minimumAndroidVersion: '',
+        stableAndroidVersion: '',
+    });
 
-    const { minIos, standardIos, minAndroid, standardAndroid } = version
+    const { minimumIosVersion, stableIosVersion, minimumAndroidVersion, stableAndroidVersion } = version;
 
     const handleInputChange = (e) => {
-        // e.preventDefault();
-        console.log(e.target.name, e.target.value)
-        // setCurrentPatient({ ...currentPatient, [e.target.name]: e.target.value });
         setVersion({ ...version, [e.target.name]: e.target.value });
     };
 
-    const saveVersionHandler = (e) => {
+    const getLatestVersionsFromApi = async () => {
+        setIsLoading(true);
+        const response = await getLatestVersions().catch((err) => {
+            console.log(err);
+        });
+        // console.log({ response });
+        if (response.data.status === true) {
+            setIsLoading(false);
+            setVersion({
+                minimumIosVersion: response.data.data.minimumIosVersion,
+                stableIosVersion: response.data.data.stableIosVersion,
+                minimumAndroidVersion: response.data.data.minimumAndroidVersion,
+                stableAndroidVersion: response.data.data.stableAndroidVersion,
+            });
+        }
+    };
+
+    const saveVersionHandler = async (e) => {
         e.preventDefault();
-        console.log({ version })
-    }
+        setIsLoading(true);
+        console.log({ version });
+        const response = await saveLatestVersions(version).catch((err) => {
+            console.log(err);
+        });
+        console.log({ response });
+        if (response.data.status === true) {
+            setIsLoading(false);
+            setVersion({
+                minimumIosVersion: response.data.data.minimumIosVersion,
+                stableIosVersion: response.data.data.stableIosVersion,
+                minimumAndroidVersion: response.data.data.minimumAndroidVersion,
+                stableAndroidVersion: response.data.data.stableAndroidVersion,
+            });
+        }
+    };
 
-
+    useEffect(() => {
+        getLatestVersionsFromApi();
+    }, []);
 
     return (
         <div>
+            {isLoading && <Loader />}
             <Navbar pageTitle="versioning" />
-            <div className='container'>
-                <div className='row'>
-
-                    <div className="col-md-12 col-sm-12 custom-margin"><h1>Version Management</h1></div>
-                    <div className='col-md-2'></div>
-                    <div className='col-md-8'>
-                        <div className='version-container'>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12 col-sm-12 custom-margin">
+                        <h1>Version Management</h1>
+                    </div>
+                    <div className="col-md-2"></div>
+                    <div className="col-md-8">
+                        <div className="version-container">
                             <ValidatorForm onSubmit={(e) => saveVersionHandler(e)}>
                                 <Row>
                                     <Col md={12}>
-                                        <p className='common-p-tags'>
-                                            Minimum iOS version
-                                        </p>
+                                        <p className="common-p-tags">Minimum iOS version</p>
                                         <TextValidator
                                             id="standard-basic"
                                             type="text"
-                                            name="minIos"
+                                            name="minimumIosVersion"
                                             onChange={(e) => handleInputChange(e)}
-                                            value={minIos}
-                                            validators={["required", "matchRegexp:^[0-9]*\.[0-9]{1}$"]}
-                                            errorMessages={["This field is required", "Please enter a valid version"]}
+                                            value={minimumIosVersion}
+                                            validators={['required', 'matchRegexp:^[0-9]*.[0-9]{1}$']}
+                                            errorMessages={[
+                                                'This field is required',
+                                                'Please enter a valid version',
+                                            ]}
                                             variant="filled"
                                         />
                                     </Col>
@@ -61,36 +95,18 @@ const VersionList = () => {
                                 <br />
                                 <Row>
                                     <Col md={12}>
-                                        <p className='common-p-tags'>
-                                            Standard iOS version
-                                        </p>
+                                        <p className="common-p-tags">Stable iOS version</p>
                                         <TextValidator
                                             id="standard-basic"
                                             type="text"
-                                            name="standardIos"
+                                            name="stableIosVersion"
                                             onChange={(e) => handleInputChange(e)}
-                                            value={standardIos}
-                                            validators={["required", "matchRegexp:^[0-9]*\.[0-9]{1}$"]}
-                                            errorMessages={["This field is required", "Please enter a valid version"]}
-                                            variant="filled"
-                                        />
-                                    </Col>
-                                </Row>
-                                <br />
-
-                                <Row>
-                                    <Col md={12}>
-                                        <p className='common-p-tags'>
-                                            Minimum Android version
-                                        </p>
-                                        <TextValidator
-                                            id="standard-basic"
-                                            type="text"
-                                            name="minAndroid"
-                                            onChange={(e) => handleInputChange(e)}
-                                            value={minAndroid}
-                                            validators={["required", "matchRegexp:^[0-9]*\.[0-9]{1}$"]}
-                                            errorMessages={["This field is required", "Please enter a valid version"]}
+                                            value={stableIosVersion}
+                                            validators={['required', 'matchRegexp:^[0-9]*.[0-9]{1}$']}
+                                            errorMessages={[
+                                                'This field is required',
+                                                'Please enter a valid version',
+                                            ]}
                                             variant="filled"
                                         />
                                     </Col>
@@ -99,17 +115,38 @@ const VersionList = () => {
 
                                 <Row>
                                     <Col md={12}>
-                                        <p className='common-p-tags'>
-                                            Standard Android version
-                                        </p>
+                                        <p className="common-p-tags">Minimum Android version</p>
                                         <TextValidator
                                             id="standard-basic"
                                             type="text"
-                                            name="standardAndroid"
+                                            name="minimumAndroidVersion"
                                             onChange={(e) => handleInputChange(e)}
-                                            value={standardAndroid}
-                                            validators={["required", "matchRegexp:^[0-9]*\.[0-9]{1}$"]}
-                                            errorMessages={["This field is required", "Please enter a valid version"]}
+                                            value={minimumAndroidVersion}
+                                            validators={['required', 'matchRegexp:^[0-9]*.[0-9]{1}$']}
+                                            errorMessages={[
+                                                'This field is required',
+                                                'Please enter a valid version',
+                                            ]}
+                                            variant="filled"
+                                        />
+                                    </Col>
+                                </Row>
+                                <br />
+
+                                <Row>
+                                    <Col md={12}>
+                                        <p className="common-p-tags">Stable Android version</p>
+                                        <TextValidator
+                                            id="standard-basic"
+                                            type="text"
+                                            name="stableAndroidVersion"
+                                            onChange={(e) => handleInputChange(e)}
+                                            value={stableAndroidVersion}
+                                            validators={['required', 'matchRegexp:^[0-9]*.[0-9]{1}$']}
+                                            errorMessages={[
+                                                'This field is required',
+                                                'Please enter a valid version',
+                                            ]}
                                             variant="filled"
                                         />
                                     </Col>
@@ -124,14 +161,13 @@ const VersionList = () => {
                                     </button>
                                 </div>
                             </ValidatorForm>
-
                         </div>
                     </div>
-                    <div className='col-md-2'></div>
+                    <div className="col-md-2"></div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default VersionList
+export default VersionList;

@@ -1622,3 +1622,38 @@ export const verifyCouponSelectedBypatient = async (data, token = false) => {
   }
   return axios(payload);
 }
+
+
+//VERSIONS API FOR ADMIN
+export const getLatestVersions = async () => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/version`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
+
+export const saveLatestVersions = async (data) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    data: data,
+    url: `/api/v2/version`,
+    headers: {
+      Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  }
+  return axios(payload);
+}
