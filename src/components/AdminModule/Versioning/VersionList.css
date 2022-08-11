@@ -2,11 +2,41 @@
   margin: 20px 10px 15px 10px;
 }
 
-.form-section {
+.version-container {
   margin: 25px auto;
 }
 
 .common-p-tags {
   margin-bottom: 5px;
   font-size: 16px;
+}
+
+.version-mgmt__button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-dets-btn {
+  background-color: var(--primary) !important;
+  width: 25% !important;
+  border-radius: 30px;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  font-size: 1rem !important;
+  margin: 15px 175px;
+}
+
+@media (min-width: 300px) and (max-width: 500px) {
+  .save-dets-btn {
+    width: 45% !important;
+    margin: 15px 80px;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 800px) {
+  .save-dets-btn {
+    width: 50% !important;
+    margin: 15px 45px;
+  }
 }
