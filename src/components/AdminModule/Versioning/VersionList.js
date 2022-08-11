@@ -44,7 +44,7 @@ const VersionList = () => {
                                 <Row>
                                     <Col md={12}>
                                         <p className='common-p-tags'>
-                                            Minimum IOS version
+                                            Minimum iOS version
                                         </p>
                                         <TextValidator
                                             id="standard-basic"
@@ -52,8 +52,8 @@ const VersionList = () => {
                                             name="minIos"
                                             onChange={(e) => handleInputChange(e)}
                                             value={minIos}
-                                            // validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                            // errorMessages={["This field is required", "First Name cannot have any numeric values"]}
+                                            validators={["required", "matchRegexp:^[0-9]*\.[0-9]{1}$"]}
+                                            errorMessages={["This field is required", "Please enter a valid version"]}
                                             variant="filled"
                                         />
                                     </Col>
@@ -62,7 +62,7 @@ const VersionList = () => {
                                 <Row>
                                     <Col md={12}>
                                         <p className='common-p-tags'>
-                                            Standard IOS version
+                                            Standard iOS version
                                         </p>
                                         <TextValidator
                                             id="standard-basic"
@@ -70,8 +70,8 @@ const VersionList = () => {
                                             name="standardIos"
                                             onChange={(e) => handleInputChange(e)}
                                             value={standardIos}
-                                            // validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                            // errorMessages={["This field is required", "First Name cannot have any numeric values"]}
+                                            validators={["required", "matchRegexp:^[0-9]*\.[0-9]{1}$"]}
+                                            errorMessages={["This field is required", "Please enter a valid version"]}
                                             variant="filled"
                                         />
                                     </Col>
@@ -89,8 +89,8 @@ const VersionList = () => {
                                             name="minAndroid"
                                             onChange={(e) => handleInputChange(e)}
                                             value={minAndroid}
-                                            // validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                            // errorMessages={["This field is required", "First Name cannot have any numeric values"]}
+                                            validators={["required", "matchRegexp:^[0-9]*\.[0-9]{1}$"]}
+                                            errorMessages={["This field is required", "Please enter a valid version"]}
                                             variant="filled"
                                         />
                                     </Col>
@@ -108,8 +108,8 @@ const VersionList = () => {
                                             name="standardAndroid"
                                             onChange={(e) => handleInputChange(e)}
                                             value={standardAndroid}
-                                            // validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                            // errorMessages={["This field is required", "First Name cannot have any numeric values"]}
+                                            validators={["required", "matchRegexp:^[0-9]*\.[0-9]{1}$"]}
+                                            errorMessages={["This field is required", "Please enter a valid version"]}
                                             variant="filled"
                                         />
                                     </Col>
