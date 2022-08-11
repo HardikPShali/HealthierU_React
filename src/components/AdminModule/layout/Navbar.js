@@ -260,6 +260,15 @@ const Navbar = (props) => {
           </ListItem>
         </Link>
         <Divider variant="middle" />
+        <Link to="/admin/versioning" style={{ textDecoration: 'none' }}>
+          <ListItem
+            button
+            className={props.pageTitle === 'versioning' ? 'active' : ''}
+          >
+            <ListItemText primary={'Version Management'} />
+          </ListItem>
+        </Link>
+        <Divider variant="middle" />
       </List>
     </>
   );
