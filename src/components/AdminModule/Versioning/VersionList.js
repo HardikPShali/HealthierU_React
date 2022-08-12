@@ -25,6 +25,7 @@ const VersionList = () => {
         setIsLoading(true);
         const response = await getLatestVersions().catch((err) => {
             console.log(err);
+            setIsLoading(false);
         });
         // console.log({ response });
         if (response.data.status === true) {
@@ -36,6 +37,7 @@ const VersionList = () => {
                 stableAndroidVersion: response.data.data.stableAndroidVersion,
             });
         }
+        setIsLoading(false);
     };
 
     const saveVersionHandler = async (e) => {

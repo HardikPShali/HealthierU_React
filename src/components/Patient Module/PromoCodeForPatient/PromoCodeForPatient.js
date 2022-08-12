@@ -47,7 +47,7 @@ const PromoCodeForPatient = ({
             return couponDets;
         });
 
-        console.log({ couponDetailsFromRes });
+        console.log("RESPONSE FROM AVAILABLE COUPONS API", JSON.stringify(couponDetailsFromRes));
         setCouponsFromApi(couponDetailsFromRes);
     };
 
@@ -83,7 +83,7 @@ const PromoCodeForPatient = ({
 
         const verifyResponse = await verifyCouponSelectedBypatient(data, window.ptoken).catch(
             (err) => {
-                console.log({ err });
+                console.log("ERROR CAUGHT FROM VERIFY COUPON API", JSON.stringify(err));
                 if (
                     err.response.status === 500 &&
                     err.response.data.message ===
@@ -102,7 +102,7 @@ const PromoCodeForPatient = ({
                 }
             }
         );
-        // console.log({ verifyResponse })
+        console.log('RESPONSE FROM VERIFY COUPON API', JSON.stringify(verifyResponse))
 
         if (verifyResponse?.data.status === true) {
             const discountOffered =
