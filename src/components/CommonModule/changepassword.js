@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 // import axios from "axios";
 // import { Link } from "react-router-dom";
 import './landing.css';
@@ -50,18 +50,44 @@ const ChangePassword = (props) => {
       return true;
     }
   });
-
+  const changePassRef = useRef(confirmPassword);
+  // const handleChange = (e) => {
+  //   setChangePassword({ ...changePassword, [e.target.name]: e.target.value });
+  // };
   const handleChange = (e) => {
+    e.preventDefault();
     setChangePassword({ ...changePassword, [e.target.name]: e.target.value });
+    if (e.target.name === "newPassword") {
+      const passvalue = e.target.value;
+      if (confirmPassword === passvalue) {
+        changePassRef.current.resetValidations()
+      }
+      // setpasswordValidity({
+      //   minchar: passvalue.length >= 8 ? true : false,
+      //   num: passvalue.match(isnum) ? true : false,
+      //   lowcase: passvalue.match(islow) ? true : false,
+      //   upcase: passvalue.match(isup) ? true : false,
+      // });
+    } else if (e.target.name === "confirmPassword") {
+      ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
+        if (value !== newPassword) {
+          return false;
+        } else if (value === newPassword) {
+          return true;
+        }
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     const changePasswordObj = {
       currentPassword: currentPassword,
       newPassword: newPassword,
     };
     const response = await handleChangePassword(changePasswordObj).catch(
       (err) => {
+        setLoading(false)
         if (err && err.response.status === 400 || err.response.status === 500) {
           // setChangePassword({
           //   ...changePassword,
@@ -72,6 +98,7 @@ const ChangePassword = (props) => {
       }
     );
     if (response) {
+      setLoading(false)
       if (response.status === 200 || response.status === 201) {
         handleChangePasswordOpen();
       }
@@ -108,6 +135,7 @@ const ChangePassword = (props) => {
                 <ValidatorForm
                   className="changepass-form"
                   onSubmit={() => handleSubmit()}
+                  ref={changePassRef}
                 >
                   <Row>
                     <Col md={12}>
