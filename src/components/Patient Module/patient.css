@@ -4720,6 +4720,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
     margin-right: -5px;
   }
 }
+<<<<<<< HEAD
 
 .specialitiesTags {
   border          : 1px solid none;
@@ -4740,4 +4741,27 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   display        : flex;
   flex-wrap      : wrap;
   justify-content: flex-start;
+}
+.specialitiesTags {
+  border: 1px solid none;
+  padding: 5px 10px;
+  border-radius: 12px;
+  background-color: #ecf8f7;
+  margin: 5px;
+}
+.doctor-info-new {
+  color: var(--text-primary);
+  font-weight: normal;
+  text-align: left;
+}
+.ul-helper {
+  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.profile-in-gridlist {
+  bottom: 20px;
+  padding: 20px;
 }

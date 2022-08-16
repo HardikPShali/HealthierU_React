@@ -5,6 +5,7 @@ import {
 } from '../../../service/frontendapiservices';
 import { toast } from 'react-toastify';
 import './PromoCodeForPatient.css';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 const PromoCodeForPatient = ({
     promoCodeData,
@@ -15,8 +16,12 @@ const PromoCodeForPatient = ({
 
     const [promoCodeEnteredText, setPromoCodeEnteredText] = useState('');
     const [couponsFromApi, setCouponsFromApi] = useState([]);
+    const [appliedText, setAppliedText] = useState('');
+    const [errorText, setErrorText] = useState('');
+    const [disableInput, setDisableInput] = useState(false);
 
     const handlePromoEnteredText = (e) => {
+        setErrorText('');
         setPromoCodeEnteredText(e.target.value);
         if (e.target.value === '') {
             onPromoCodeChange(false);
@@ -24,7 +29,10 @@ const PromoCodeForPatient = ({
                 discountApplied: rate || halfRate,
                 couponId: 0,
                 promoCodeTextEntered: '',
+                promoCodeAdded: false,
             })
+            setAppliedText('');
+            setErrorText('');
         }
     };
 
@@ -39,7 +47,7 @@ const PromoCodeForPatient = ({
             return couponDets;
         });
 
-        console.log({ couponDetailsFromRes });
+        console.log("RESPONSE FROM AVAILABLE COUPONS API", JSON.stringify(couponDetailsFromRes));
         setCouponsFromApi(couponDetailsFromRes);
     };
 
@@ -53,7 +61,7 @@ const PromoCodeForPatient = ({
         }
     };
 
-    const applyPromoCodeHandler = async (apptMode) => {
+    const applyPromoCodeHandler = async (e, apptMode) => {
         const textEntered = promoCodeEnteredText;
         const coupons = couponsFromApi;
 
@@ -75,38 +83,26 @@ const PromoCodeForPatient = ({
 
         const verifyResponse = await verifyCouponSelectedBypatient(data, window.ptoken).catch(
             (err) => {
-                console.log({ err });
+                console.log("ERROR CAUGHT FROM VERIFY COUPON API", JSON.stringify(err));
                 if (
                     err.response.status === 500 &&
                     err.response.data.message ===
                     'Coupon not applicable for selected Doctor'
                 ) {
-                    toast.error(err.response.data.message, {
-                        hideProgressBar: true,
-                        autoClose: 2000,
-                        toastId: 'promoInvalid'
-                    });
+                    setErrorText(err.response.data.message);
                     onPromoCodeChange(false);
                 }
                 else if (err.response.status === 401) {
-                    toast.error(err.response.data.error_description, {
-                        hideProgressBar: true,
-                        autoClose: 2000,
-                        toastId: 'promoInvalid'
-                    });
+                    setErrorText(err.response.data.error_description);
                     onPromoCodeChange(false);
                 }
                 else {
-                    toast.error('Invalid Promo Code. Please try again.', {
-                        hideProgressBar: true,
-                        autoClose: 2000,
-                        toastId: 'promoInvalid'
-                    });
+                    setErrorText('Invalid Promo Code. Please try again.');
                     onPromoCodeChange(false);
                 }
             }
         );
-        // console.log({ verifyResponse })
+        console.log('RESPONSE FROM VERIFY COUPON API', JSON.stringify(verifyResponse))
 
         if (verifyResponse?.data.status === true) {
             const discountOffered =
@@ -119,40 +115,77 @@ const PromoCodeForPatient = ({
                 discountApplied: discountCalculated,
                 couponId: couponId,
                 promoCodeTextEntered: textEntered,
+                promoCodeAdded: true
             });
-            // setDiscountApplied(discountCalculated);
-            toast.success('Promo Code Applied Successfully', {
-                toastId: 'promoCodeSuccess',
-                hideProgressBar: true,
-                autoClose: 1000,
-            });
+            setDisableInput(true);
+            setErrorText('');
+            setAppliedText(`${textEntered} offer applied on bill`);
         }
     };
+
+    const clearPromoCodeInput = () => {
+        setPromoCodeEnteredText('');
+        onPromoCodeChange(false);
+        setAppliedText('');
+        setErrorText('');
+        setDisableInput(false);
+        onPromoCodeChange({
+            discountApplied: 0,
+            couponId: 0,
+            promoCodeTextEntered: '',
+            promoCodeAdded: false,
+        });
+    }
 
     useEffect(() => {
         getAvailableCoupons();
     }, []);
 
     return (
-        <div className="promo-code-listing">
-            <input
-                id="standard-basic"
-                type="text"
-                name="promoCodeEnteredText"
-                onChange={(e) => handlePromoEnteredText(e)}
-                placeholder="Enter Promo Code"
-                value={promoCodeEnteredText}
-                className="promo-code-input"
-            />
-            <button
-                className="btn promo-code-button"
-                onClick={() => {
-                    applyPromoCodeHandler(apptMode);
-                }}
-            >
-                Apply Promo Code
-            </button>
-        </div>
+        <>
+            <div className="promo-code-listing">
+                <div className='promo-code-input-field'>
+                    <input
+                        type="text"
+                        name="promoCodeEnteredText"
+                        onChange={(e) => handlePromoEnteredText(e)}
+                        placeholder="Enter Promo Code"
+                        value={promoCodeEnteredText}
+                        className="promo-code-input"
+                        autoComplete='off'
+                        disabled={disableInput}
+                    />
+                    {
+                        disableInput === true && (
+                            <span onClick={clearPromoCodeInput} className='promo-code-cancel'>
+                                <CancelIcon />
+                            </span>
+                        )
+                    }
+
+                </div>
+
+                <button
+                    className="btn promo-code-button"
+                    onClick={(e) => {
+                        applyPromoCodeHandler(e, apptMode);
+                    }}
+                >
+                    Apply Promo Code
+                </button>
+
+            </div>
+            {
+                appliedText && (
+                    <div className="promo-code-applied-text">{appliedText}</div>
+                )
+            }
+            {
+                errorText && (
+                    <div className="promo-code-error-text">{errorText}</div>
+                )
+            }
+        </>
     );
 };
 

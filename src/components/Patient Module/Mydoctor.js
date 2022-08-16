@@ -1440,11 +1440,12 @@ const MyDoctor = (props) => {
   const [promoCodeEntered, setPromoCodeEntered] = useState('');
 
   const handlePromoCodeStates = (promoCodeData) => {
-    if (!promoCodeData) {
-      setPromoCodeApplied(false)
+    console.log({ promoCodeData });
+    if (!promoCodeData || promoCodeData === false) {
+      setPromoCodeApplied(promoCodeData.promoCodeAdded)
     }
     else {
-      setPromoCodeApplied(true);
+      setPromoCodeApplied(promoCodeData.promoCodeAdded);
       setCouponIdState(promoCodeData.couponId);
       setDiscountApplied(promoCodeData.discountApplied);
       setPromoCodeEntered(promoCodeData.promoCodeTextEntered);
@@ -1465,6 +1466,7 @@ const MyDoctor = (props) => {
 
   const handleFreeCouponTransactions = async () => {
     setLoading(true);
+    console.log({ promoCodeApplied });
     let finalAppointmentDataArray = {};
     if (promoCodeApplied === true && promoCodeEntered === 'HEALTHIERUAE' && appointment.appointmentMode === 'First Consultation') {
       finalAppointmentDataArray = {
@@ -1947,7 +1949,7 @@ const MyDoctor = (props) => {
                                 />
                               )}
                               {user.picture ? (
-                                <img src={user.picture} alt="" />
+                                <img src={user.picture} alt="" className='profile-in-gridlist' />
                               ) : (
                                 <Avatar
                                   name={user.firstName + ' ' + user.lastName}
