@@ -52,7 +52,7 @@
 .received_chat-msg {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
 }
 .received_chat-time {
   color: #999999;
@@ -103,7 +103,7 @@
 .sent_chat-time-tick-wrap {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   margin-left: 15px;
 }
 .sent_chat-time {

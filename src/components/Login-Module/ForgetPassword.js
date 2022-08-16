@@ -63,6 +63,7 @@ const ForgetPassword = () => {
     }
 
     const handleEmailVerification = async () => {
+        setLoading(true)
         // if (captchaVerify) {
         var payload = {
             method: 'post',
@@ -75,6 +76,7 @@ const ForgetPassword = () => {
             }
         };
         axios(payload).then(response => {
+            setLoading(false)
             // console.log({ response });
             if (response.data.message === 'your account block for some time' && response.data.status === false) {
                 setErrMsg('Your account is blocked. Please try again after some time.')

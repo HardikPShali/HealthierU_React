@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -64,17 +64,17 @@ const CreatePassword = () => {
     lowcase: false,
     num: false,
   });
-  //useEffect(() => {
-  //  setTimeout(() => setLoading(false), 1000);
-  //}, []);
   const { newPassword, confirmPassword } = user;
+  const createPassRef = useRef(confirmPassword);
   const { minchar, upcase, lowcase, num } = passwordValidity;
-
   const handleInputchange = (e) => {
     e.preventDefault();
     setUser({ ...user, [e.target.name]: e.target.value });
     if (e.target.name === "newPassword") {
       const passvalue = e.target.value;
+      if (confirmPassword === passvalue) {
+        createPassRef.current.resetValidations()
+      }
       setpasswordValidity({
         minchar: passvalue.length >= 8 ? true : false,
         num: passvalue.match(isnum) ? true : false,
@@ -248,6 +248,7 @@ const CreatePassword = () => {
               <div className="sign-box">
                 <ValidatorForm
                   onSubmit={(e) => handleCreatePassword(e)}
+                  ref={createPassRef}
                 >
                   <p>
                     New Password<sup>*</sup>
