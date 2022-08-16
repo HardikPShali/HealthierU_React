@@ -414,6 +414,9 @@ const Welcome = ({ currentuserInfo }) => {
             if (languages.length === 0) {
                 setLanguageError(true);
             }
+            else if (state.phone === "") {
+                setPhoneError("This field is required")
+            }
             else {
                 setTransparentLoading(true);
                 bodyFormData.append('profileData', JSON.stringify(patientPayload));
@@ -422,7 +425,6 @@ const Welcome = ({ currentuserInfo }) => {
                     setTransparentLoading(false);
                     if (err.response.status === 400 && state.phone === "") {
                         setPhoneError(err.response.data.title);
-
                     }
                     else if (err.response.status === 400 && state.phone !== "") {
                         setFormError(err.response.data.title);
@@ -458,6 +460,9 @@ const Welcome = ({ currentuserInfo }) => {
                     else if (err.response.status === 400 && state.phone !== "") {
                         setFormError(err.response.data.title);
 
+                    }
+                    else if (err.response.status === 500 && state.phone === "") {
+                        setPhoneError("This field is required")
                     }
                 });
                 if (response && (response.status === 200 || response.status === 201)) {

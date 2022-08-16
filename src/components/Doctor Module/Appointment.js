@@ -408,14 +408,12 @@ const Myappointment = (props) => {
   }, []);
   useEffect(() => {
     clickTabEvent();
-    console.log("tomorrowAppointment", tomorrowAppointment);
   }, [tomorrowAppointment]);
   const newStartDate = new Date().setDate(new Date().getDate() - 30);
   const newEndDate = new Date().setDate(new Date().getDate() + 28);
   const loadAppointment = async (startTime, endTime, doctorId) => {
     const docId = cookies.get("profileDetails");
-
-    //setLoading(true);
+    setTransparentLoading(true);
     const today = new Date();
     // to return the date number(1-31) for the specified date
     let tomorrow = new Date();
@@ -450,16 +448,17 @@ const Myappointment = (props) => {
         setTransparentLoading(false);
       }
     });
-    const resToday = await getAppointmentsForHomepage(startTime = new Date(starttime).toISOString(),
-      endTime = new Date(endtime).toISOString(),
-      doctorId = docId.id).catch((err) => {
-        if (err.response.status === 500 || err.response.status === 504) {
-          setLoading(false);
-          setTransparentLoading(false);
-        }
-      });
+    // const resToday = await getAppointmentsForHomepage(startTime = new Date(starttime).toISOString(),
+    //   endTime = new Date(endtime).toISOString(),
+    //   doctorId = docId.id).catch((err) => {
+    //     if (err.response.status === 500 || err.response.status === 504) {
+    //       setLoading(false);
+    //       setTransparentLoading(false);
+    //     }
+    //   });
     if (res && res.data) {
-      //setLoading(false);
+      setLoading(false);
+      setTransparentLoading(false)
       const updateArray = [];
       const acceptedArray = [];
       res.data.reverse();
@@ -507,47 +506,40 @@ const Myappointment = (props) => {
       //setState({ ...state, data: updateArray });
       setState(updateArray);
       setAcceptedAppointment(acceptedArray);
-      setTimeout(() => setLoading(false), 1000);
-      setTimeout(() => setTransparentLoading(false), 1000);
+      // setTimeout(() => setLoading(false), 1000);
+      // setTimeout(() => setTransparentLoading(false), 1000);
       // const tourState = cookies.get("appointmentTour");
       // if (!tourState) {
       //   setIsTourOpen(true);
       // }
     }
-    if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
-      //setLoading(false);
-      //const updateArray = [];
-      const todayArray = [];
-      //resToday.data.data.appointmentsBetweenGivenDates.reverse();
-      //console.log("res.data : ", res.data);
-      resToday.data.data.appointmentsBetweenGivenDates.map((value, index) => {
-        if (
-          value.status === "ACCEPTED"
-        ) {
-          todayArray.push({
-            id: value.id,
-            startTime: new Date(value.startTime),
-            endTime: new Date(value.endTime),
-            remarks: value.remarks,
-            status: value.status,
-            doctorId: value.doctorId,
-            patientId: value.patientId,
-            patient: value.patient,
-            appointmentMode: value.appointmentMode,
-            unifiedAppointment: value.unifiedAppointment,
-          });
-        }
-        return value;
-      });
-      setTodayAppointment(todayArray);
-      console.log("todayArray", todayArray);
-      setTimeout(() => setLoading(false), 1000);
-      setTimeout(() => setTransparentLoading(false), 1000);
-      // const tourState = cookies.get("appointmentTour");
-      // if (!tourState) {
-      //   setIsTourOpen(true);
-      // }
-    }
+    // if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
+    //   setLoading(false);
+    //   setTransparentLoading(false)
+    //   const todayArray = [];
+    //   resToday.data.data.appointmentsBetweenGivenDates.map((value, index) => {
+    //     if (
+    //       value.status === "ACCEPTED"
+    //     ) {
+    //       todayArray.push({
+    //         id: value.id,
+    //         startTime: new Date(value.startTime),
+    //         endTime: new Date(value.endTime),
+    //         remarks: value.remarks,
+    //         status: value.status,
+    //         doctorId: value.doctorId,
+    //         patientId: value.patientId,
+    //         patient: value.patient,
+    //         appointmentMode: value.appointmentMode,
+    //         unifiedAppointment: value.unifiedAppointment,
+    //       });
+    //     }
+    //     return value;
+    //   });
+    //   setTodayAppointment(todayArray);
+    //   setTimeout(() => setLoading(false), 1000);
+    //   setTimeout(() => setTransparentLoading(false), 1000);
+    // }
   };
 
   ////console.log("UTC string :::", new Date(new Date().toUTCString()).toISOString())

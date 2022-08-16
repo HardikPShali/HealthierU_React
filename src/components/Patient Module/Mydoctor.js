@@ -159,7 +159,6 @@ const MyDoctor = (props) => {
     if (profilepID.activated) {
       setNextAppDetails(props.location.state);
       const patientInfo = props.location.state;
-      console.log('stateData', patientInfo);
       if (patientInfo) {
         setCurrentPatient({ ...currentPatient, id: patientInfo.patient.id });
         loadUsers(patientInfo.patient.id);
@@ -269,7 +268,8 @@ const MyDoctor = (props) => {
         // getInValidAppointments(docId);
         setFilterData(result.data.data.doctors);
         //setTimeout(() => searchNutritionDoctor(), 3000);
-        setTimeout(() => setLoading(false), 1000);
+        // setTimeout(() => setLoading(false), 1000);
+        setLoading(false)
         const tourState = cookies.get('tour');
         if (!tourState) {
           setIsTourOpen(true);
@@ -316,7 +316,8 @@ const MyDoctor = (props) => {
         }
         setTransparentLoading(false);
       } else {
-        setTimeout(() => setLoading(false), 1000);
+        // setTimeout(() => setLoading(false), 1000);
+        setLoading(false)
       }
     } else {
       setOffset(1);
@@ -331,7 +332,8 @@ const MyDoctor = (props) => {
       // getInValidAppointments(docId);
       setFilterData(doctorInfo);
       //setTimeout(() => searchNutritionDoctor(), 3000);
-      setTimeout(() => setLoading(false), 1000);
+      // setTimeout(() => setLoading(false), 1000);
+      setLoading(false)
       const tourState = cookies.get('tour');
       if (!tourState) {
         setIsTourOpen(false);
@@ -546,7 +548,7 @@ const MyDoctor = (props) => {
   useEffect(() => {
     const timerFn = setTimeout(() => {
       setSearchText(debouncedSearchText);
-    }, 2000);
+    }, 1000);
     return () => {
       clearTimeout(timerFn);
     };
@@ -567,7 +569,8 @@ const MyDoctor = (props) => {
       setDisplay({ ...display, suggestion: 'none' });
     } else {
       setSearchText(searchValue);
-      setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
+      // setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
+      setDisplay({ ...display, suggestion: 'block' })
       //searchData(searchValue);
     }
   };

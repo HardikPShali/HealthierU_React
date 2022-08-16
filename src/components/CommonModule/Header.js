@@ -54,6 +54,7 @@ const Header = () => {
                             vertical: 'top',
                             horizontal: 'center',
                         }}
+                        style={{ top: '25px' }}
                     >
                         {authorities.length > 0 && authorities.some((user) => user === "ROLE_PATIENT") && (
                             <Link to="/patient/logout" onClick={handleSignOut} style={{ textDecoration: "none" }}><MenuItem>Logout</MenuItem></Link>

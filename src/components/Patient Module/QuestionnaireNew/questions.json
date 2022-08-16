@@ -11,7 +11,7 @@
   {
     "questionId": 2,
     "questionTitle": "Do you eat healthy?",
-    "choices": ["Never", "Occasionnally", "Regularly"],
+    "choices": ["Never", "Occasionally", "Regularly"],
     "type": "radio",
     "answers": "",
     "mapScore": [0, 1, 1],
