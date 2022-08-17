@@ -3301,7 +3301,7 @@ const MyDoctor = (props) => {
                             appointmentMode={appointment.appointmentMode}
                             bookappointment={bookappointment}
                             firstName={props.currentPatient.firstName}
-                            lastName={props.currentPatient.lastName}
+                            // lastName={props.currentPatient.lastName}
                             email={props.currentPatient.email}
                             userId={props.currentPatient.userId}
                             rate={

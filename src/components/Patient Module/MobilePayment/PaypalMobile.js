@@ -333,7 +333,7 @@ const PaypalMobile = () => {
                                 appointmentMode={appointmentModeParams}
                                 bookappointment={bookAppointment}
                                 firstName={firstnameParams}
-                                lastName={lastnameParams}
+                                // lastName={lastnameParams}
                                 email={emailParams}
                                 userId={userIdParams}
                                 rate={rateParams}
