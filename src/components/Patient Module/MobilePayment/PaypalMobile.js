@@ -39,6 +39,7 @@ const PaypalMobile = () => {
     let notificationId = searchParams.get('nId');
 
     let doctorId = searchParams.get('dId');
+    let patientId = searchParams.get('pId');
 
     let os = searchParams.get('os');
 
@@ -237,13 +238,13 @@ const PaypalMobile = () => {
         if (appointmentModeParams !== '') {
             setPromoCodeObject({
                 doctorId: doctorId,
-                patientId: userIdParams,
+                patientId: patientId,
                 rate: rateParams,
                 halfRate: halfRateParams,
                 apptMode: appointmentModeParams,
             });
         }
-    }, [doctorId, appointmentModeParams]);
+    }, [doctorId, patientId, appointmentModeParams]);
 
     return (
         <div className="container">
@@ -333,7 +334,7 @@ const PaypalMobile = () => {
                                 appointmentMode={appointmentModeParams}
                                 bookappointment={bookAppointment}
                                 firstName={firstnameParams}
-                                lastName={lastnameParams}
+                                // lastName={lastnameParams}
                                 email={emailParams}
                                 userId={userIdParams}
                                 rate={rateParams}
