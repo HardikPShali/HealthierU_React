@@ -141,13 +141,13 @@ const PromoCodeForPatient = ({
         getAvailableCoupons();
     }, []);
 
-    // useEffect(() => {
-    //     // console.log("INSIDE 2ND USE EFFECT");
-    //     if (window.ptoken) {
-    //         getAvailableCoupons();
-    //     }
-    //     getAvailableCoupons();
-    // }, [window.ptoken]);
+    useEffect(() => {
+        // console.log("INSIDE 2ND USE EFFECT");
+        if (window.ptoken) {
+            getAvailableCoupons();
+        }
+        // getAvailableCoupons();
+    }, [window.ptoken]);
 
     return (
         <>
