@@ -2,6 +2,7 @@
   color: var(--text-primary);
   font-weight: normal;
   text-align: left;
+  list-style: none;
 }
 
 .profile-column-title {
