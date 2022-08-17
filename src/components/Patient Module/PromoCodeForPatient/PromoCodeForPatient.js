@@ -146,7 +146,7 @@ const PromoCodeForPatient = ({
         if (window.ptoken) {
             getAvailableCoupons();
         }
-        getAvailableCoupons();
+        // getAvailableCoupons();
     }, [window.ptoken]);
 
     return (
