@@ -141,6 +141,14 @@ const PromoCodeForPatient = ({
         getAvailableCoupons();
     }, []);
 
+    useEffect(() => {
+        // console.log("INSIDE 2ND USE EFFECT");
+        if (window.ptoken) {
+            getAvailableCoupons();
+        }
+        // getAvailableCoupons();
+    }, [window.ptoken]);
+
     return (
         <>
             <div className="promo-code-listing">
