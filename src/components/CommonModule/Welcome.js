@@ -915,7 +915,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 </Row>
                                                 <br />
                                                 <Row>
-                                                    <Col md={12}>
+                                                    <Col md={6}>
                                                         <p>Affiliation<sup>*</sup></p>
                                                         <TextValidator id="standard-basic" type="text" name="affiliation"
                                                             onChange={e => handleInputChange(e)}
@@ -930,6 +930,28 @@ const Welcome = ({ currentuserInfo }) => {
                                                             ]}
                                                             variant="filled"
                                                             placeholder='Affiliation' />
+
+
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Salutation<sup>*</sup></p>
+                                                        <FormControl>
+                                                            <Select
+                                                                id="demo-controlled-open-select"
+                                                                variant="filled"
+                                                                // name="salutation"
+                                                                // value={salutation}
+                                                                displayEmpty
+                                                                required
+                                                                inputProps={{ required: true }}
+                                                                onChange={e => handleInputChange(e)}
+                                                            >
+                                                                <MenuItem value="">Select</MenuItem>
+                                                                <MenuItem value="Doc">Doctors/Medical</MenuItem>
+                                                                <MenuItem value="Non-doc">Health and Wellness/Non-Medical</MenuItem>
+
+                                                            </Select>
+                                                        </FormControl>
 
 
                                                     </Col>
