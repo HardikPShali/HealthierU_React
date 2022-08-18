@@ -2058,7 +2058,8 @@ const MyDoctor = (props) => {
                                 display: 'flex',
                                 //textAlign: 'center',
                                 flexWrap: 'wrap',
-                                justifyContent: 'flex-start'
+                                justifyContent: 'center',
+                                marginLeft: '-30px'
                               }}
                               className="list--tags-speciality"
                             >
@@ -2287,7 +2288,8 @@ const MyDoctor = (props) => {
                               display: 'flex',
                               //textAlign: 'center',
                               flexWrap: 'wrap',
-                              justifyContent: 'flex-start'
+                              justifyContent: 'center',
+                              marginLeft: '-30px'
                             }}
                             className="list--tags-speciality"
                           >
@@ -2941,7 +2943,8 @@ const MyDoctor = (props) => {
                           display: 'flex',
                           //textAlign: 'center',
                           flexWrap: 'wrap',
-                          justifyContent: 'flex-start'
+                          justifyContent: 'center',
+                          marginLeft: '-30px'
                         }}
                         className="list--tags-speciality"
                       >
@@ -3090,7 +3093,8 @@ const MyDoctor = (props) => {
                             display: 'flex',
                             //textAlign: 'center',
                             flexWrap: 'wrap',
-                            justifyContent: 'flex-start'
+                            justifyContent: 'center',
+                            marginLeft: '-30px'
                           }}
                           className="list--tags-speciality"
                         >
@@ -3379,7 +3383,7 @@ const MyDoctor = (props) => {
               </DialogActions>
             </Dialog> */}
           </Col>
-        </Row>
+        </Row >
 
         {/* <Tour
           onRequestClose={() => closeTour()}
@@ -3394,7 +3398,7 @@ const MyDoctor = (props) => {
           onBeforeClose={enableBody}
         />
          */}
-        <Tour
+        < Tour
           onRequestClose={() => closeAppointmentTour()}
           startAt={0}
           steps={appointmentTypeTour}
@@ -3406,9 +3410,9 @@ const MyDoctor = (props) => {
           onAfterOpen={disableBody}
           onBeforeClose={enableBody}
         />
-      </Container>
+      </Container >
       {/* <Footer /> */}
-    </div>
+    </div >
   );
 };
 
