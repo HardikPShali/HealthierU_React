@@ -934,7 +934,7 @@ const Welcome = ({ currentuserInfo }) => {
 
                                                     </Col>
                                                     <Col md={6}>
-                                                        <p>Salutation<sup>*</sup></p>
+                                                        <p>Professional Type<sup>*</sup></p>
                                                         <FormControl>
                                                             <Select
                                                                 id="demo-controlled-open-select"
@@ -947,7 +947,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 onChange={e => handleInputChange(e)}
                                                             >
                                                                 <MenuItem value="">Select</MenuItem>
-                                                                <MenuItem value="Doc">Doctors/Medical</MenuItem>
+                                                                <MenuItem value="Doc">Doctor/Medical</MenuItem>
                                                                 <MenuItem value="Non-doc">Health and Wellness/Non-Medical</MenuItem>
 
                                                             </Select>
