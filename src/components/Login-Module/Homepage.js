@@ -215,7 +215,7 @@ const Homepage = () => {
                 <MDBMask overlay="black-slight" />
               </MDBView>
               <MDBCarouselCaption>
-                <Container>
+                <Container style={{ marginBottom: '50px' }}>
                   <h3 className="text-primary-clr">
                     Take Charge of your Health
                   </h3>
@@ -415,7 +415,7 @@ const Homepage = () => {
                 {/* <img className="mr-4" src={Edge1} alt=""></img> */}
                 <img src={phone} alt=""></img>
               </Col>
-              
+
               {/* WIELCORNELL REMOVED */}
             </Row>
           </Container>
@@ -813,7 +813,7 @@ export default Homepage;
                     <img src={CornelMedicine} alt="" />
                   </div>
                   {/* <div className="our_partners-vr-line"></div> */}
-                  {/* <div className="reem-logo">
+{/* <div className="reem-logo">
                     <img src={ReemHospital} alt="" />
                   </div> 
                 </div>
