@@ -58,6 +58,10 @@ const UpcomingAppointmentCard = ({ appointment }) => {
       <div className="col-md-9">
         <div className="upcoming-appointment-card__card-details">
           <h5 className="upcoming-appointment-card__doctor-name">
+            {
+              appointmentPersonKey === "doctor" &&
+              appointment[appointmentPersonKey].salutation + " "
+            }
             {appointment[appointmentPersonKey] &&
               appointment[appointmentPersonKey].firstName +
               " " +

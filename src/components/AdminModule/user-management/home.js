@@ -68,6 +68,7 @@ const Home = () => {
   const handleClickOpen = async (userData) => {
     setSelectedUserData(userData);
     const currentUserData = await getDoctorByUserID(userData);
+    console.log({ currentUserData });
     setSelectedUser(currentUserData.doctors[0]);
     if (
       currentUserData &&
@@ -185,6 +186,7 @@ const Home = () => {
     // setTransparentLoading(true);
     userData.approved = true;
     const response = await approveDoctorByAdmin(userData);
+    console.log({ response });
     if (response.status === 200 || response.status === 201) {
       okClickOnActivateDoctor()
       history.go(0);
@@ -194,8 +196,13 @@ const Home = () => {
 
   const handleDetails = async (e) => {
     var bodyFormData = new FormData();
-    bodyFormData.append("profileData", JSON.stringify(selectedUser));
+    const updatedSelectedUser = { ...selectedUser };
+    // delete updatedSelectedUser.salutation;
+    bodyFormData.append("profileData", JSON.stringify(updatedSelectedUser));
+    // console.log({ formData: [...bodyFormData] });
+    // delete bodyFormData.salutation;
     const response = await updateApprovedDoctorRRate(bodyFormData);
+    console.log({ response })
     if (response.status === 200 || response.status === 201) {
       approveDoctor(selectedUserData);
     }
@@ -284,7 +291,6 @@ const Home = () => {
     // history.go(0);
     toast.success('Doctor Approved');
   }
-
 
   return (
     <div>

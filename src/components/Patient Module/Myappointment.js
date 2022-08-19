@@ -597,6 +597,8 @@ const Myappointment = (props) => {
                                           <div className="col-md-9">
                                             <div className="my-appointments-card__card-details">
                                               <h5 className="my-appointments-card__doctor-name">
+                                                {appointment.doctor.salutation}
+                                                {" "}
                                                 {appointment.doctor.firstName +
                                                   ' ' +
                                                   (appointment.doctor
@@ -707,6 +709,8 @@ const Myappointment = (props) => {
                                         <div className="col-md-9">
                                           <div className="my-appointments-card__card-details">
                                             <h5 className="my-appointments-card__doctor-name">
+                                              {appointment.doctor.salutation}
+                                              {" "}
                                               {appointment.doctor.firstName}
                                             </h5>
                                             <span className="my-appointments-card__specality">
@@ -813,6 +817,8 @@ const Myappointment = (props) => {
                                         <div className="col-md-9">
                                           <div className="my-appointments-card__card-details">
                                             <h5 className="my-appointments-card__doctor-name">
+                                              {appointment.doctor.salutation}
+                                              {" "}
                                               {appointment.doctor.firstName +
                                                 ' ' +
                                                 (appointment.doctor.lastName ||
@@ -962,6 +968,8 @@ const Myappointment = (props) => {
 
                       )}
                       <h2 className="my-appointments__header-names">
+                        {selectedAppointment.doctor.salutation}
+                        {" "}
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ''}
                       </h2>
@@ -1182,6 +1190,8 @@ const Myappointment = (props) => {
                         // />
                       )}
                       <h2 className="my-appointments__header-names">
+                        {selectedAppointment.doctor.salutation}
+                        {" "}
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ''}
                       </h2>
@@ -1684,12 +1694,28 @@ const Myappointment = (props) => {
                     <div className="details-content__doc-info">
                       {/* {console.log("selectedAPP", selectedAppointment)} */}
                       {selectedAppointment.doctor.picture ? (
-                        <img src={selectedAppointment.doctor.picture} alt="" />
+                        <div className='safari-helper'>
+                          <img src={selectedAppointment.doctor.picture} alt="" />
+                        </div>
+
                       ) : (
-                        <img src={defaultDoctorImage} alt="" />
+                        <div className='safari-helper'>
+                          <Avatar
+                            round={true}
+                            name={
+                              selectedAppointment.doctor.firstName +
+                              ' ' +
+                              (selectedAppointment.doctor.lastName || '')
+                            }
+                            size={60}
+                            className="doctor-info-avatar"
+                          />
+                        </div>
                       )}
 
                       <h2 className="my-appointments__header-names">
+                        {selectedAppointment.doctor.salutation}
+                        {" "}
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ''}
                       </h2>

@@ -5,7 +5,7 @@ const Pagination = (props) => {
     const handlePagination = (current) => {
         props.pagination(current);
     };
-    console.log("props inside pagination::", props)
+    // console.log("props inside pagination::", props)
     return (
         <div>
             {/* <nav aria-label="Page navigation example"> */}
@@ -18,7 +18,7 @@ const Pagination = (props) => {
                         onClick={() => handlePagination(props.current - 1)}
                     >
                         &laquo;
-            </a>
+                    </a>
                 </li>
                 {props.total < 7 ? (
                     <>
@@ -52,16 +52,16 @@ const Pagination = (props) => {
                                 onClick={() => handlePagination(1)}
                             >
                                 1
-                </a>
+                            </a>
                         </li>
                         <li key="2" className="page-item">
                             <a className="page-link disabled"
                                 href="#!"
                             >
                                 ...
-                </a>
+                            </a>
                         </li>
-                        <li key={props.current-1} className="page-item">
+                        <li key={props.current - 1} className="page-item">
                             <a
                                 className="page-link"
                                 href="#!"
@@ -93,7 +93,7 @@ const Pagination = (props) => {
                                 href="#!"
                             >
                                 ...
-                </a>
+                            </a>
                         </li>
                         <li key={props.total} className="page-item">
                             <a
@@ -116,14 +116,14 @@ const Pagination = (props) => {
                                 onClick={() => handlePagination(1)}
                             >
                                 1
-                </a>
+                            </a>
                         </li>
                         <li key="2" className="page-item">
                             <a className="page-link disabled"
                                 href="#!"
                             >
                                 ...
-                </a>
+                            </a>
                         </li>
                         <li
                             className={`page-item ${props.current === props.total - 3 ? "active" : ""
@@ -141,7 +141,7 @@ const Pagination = (props) => {
                         <li
                             className={`page-item ${props.current === props.total - 2 ? "active" : ""
                                 }`}
-                                key={props.total - 2}
+                            key={props.total - 2}
                         >
                             <a
                                 className="page-link"
@@ -154,7 +154,7 @@ const Pagination = (props) => {
                         <li
                             className={`page-item ${props.current === props.total - 1 ? "active" : ""
                                 }`}
-                                key={props.total - 1}
+                            key={props.total - 1}
                         >
                             <a
                                 className="page-link"
@@ -167,7 +167,7 @@ const Pagination = (props) => {
                         <li
                             className={`page-item ${props.current === props.total ? "active" : ""
                                 }`}
-                                key={props.total}
+                            key={props.total}
                         >
                             <a
                                 className="page-link"
@@ -203,7 +203,7 @@ const Pagination = (props) => {
                                 href="#!"
                             >
                                 ...
-                </a>
+                            </a>
                         </li>
                         <li className="page-item"
                             key={props.total}
@@ -221,16 +221,16 @@ const Pagination = (props) => {
                 <li className="page-item" key="next">
                     <a
                         className={`page-link ${props.current === props.total
-                                ? "disabled"
-                                : props.current < props.total
-                                    ? ""
-                                    : ""
+                            ? "disabled"
+                            : props.current < props.total
+                                ? ""
+                                : ""
                             }`}
                         href="#!"
                         onClick={() => handlePagination(props.current + 1)}
                     >
                         &raquo;
-            </a>
+                    </a>
                 </li>
             </ul>
             {/*</nav>*/}
