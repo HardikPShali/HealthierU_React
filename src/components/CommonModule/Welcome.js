@@ -1121,12 +1121,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                                         inputProps={{ required: true }}
                                                                         onChange={(e) => handleInputChange(e)}
                                                                     >
-                                                                        <MenuItem value="">Select</MenuItem>
-                                                                        <MenuItem value="Dr.">
-                                                                            Doctor/Medical
-                                                                        </MenuItem>
                                                                         <MenuItem value={emptyStringForMenuItem}>
                                                                             Health and Wellness/Non-Medical
+                                                                        </MenuItem>
+                                                                        <MenuItem value="Dr.">
+                                                                            Doctor/Medical
                                                                         </MenuItem>
                                                                     </Select>
                                                                 </FormControl>
