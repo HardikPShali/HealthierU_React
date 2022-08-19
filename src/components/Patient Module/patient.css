@@ -20,8 +20,8 @@ body {
 
 nav#navbar {
   background-color: var(--primary);
-  padding-top     : 30px;
-  padding-bottom  : 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 a.nav-link.active {
@@ -29,25 +29,25 @@ a.nav-link.active {
 }
 
 #navbar a {
-  color          : #fff;
-  margin-right   : 0;
-  margin-left    : 12px;
-  display        : flex;
-  align-items    : center;
+  color: #fff;
+  margin-right: 0;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  font-size      : 17px;
-  font-weight    : 500;
+  font-size: 17px;
+  font-weight: 500;
 }
 
 #navbar a.dropdown-item {
-  color      : #3e4543 !important;
+  color: #3e4543 !important;
   margin-left: 0;
   font-weight: 300;
 }
 
 #navbar a.dropdown-item:hover {
   background-color: #f5f5f5 !important;
-  color           : var(--primary) !important;
+  color: var(--primary) !important;
 }
 
 #navbar button {
@@ -56,14 +56,14 @@ a.nav-link.active {
 
 #navbar a.dropdown-item.active {
   background-color: #f5f5f5 !important;
-  color           : var(--primary) !important;
+  color: var(--primary) !important;
 }
 
 .patient-card_how-healthy-wrap {
-  display        : flex;
-  flex-direction : column;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items    : center;
+  align-items: center;
 }
 
 .patient-card_how-healthy-wrap h3 {
@@ -74,13 +74,13 @@ a.nav-link.active {
   margin: 0;
 }
 
-.headerNavbar>button {
-  color      : #fff;
-  font-size  : 17px;
+.headerNavbar > button {
+  color: #fff;
+  font-size: 17px;
   font-weight: 500;
 }
 
-.headerNavbar>button:hover {
+.headerNavbar > button:hover {
   color: #fff;
 }
 
@@ -89,10 +89,10 @@ a.nav-link.active {
 }
 
 .header-btn {
-  border       : 2px solid #fff !important;
+  border: 2px solid #fff !important;
   border-radius: 22px;
-  padding      : 2px 60px;
-  margin-right : 10px;
+  padding: 2px 60px;
+  margin-right: 10px;
 }
 
 .nav-border {
@@ -104,14 +104,13 @@ a.nav-link.active {
 }
 
 svg#search-icon {
-  color : #fff;
+  color: #fff;
   margin: 4px 5px;
 }
 
 @media (max-width: 992px) {
-
   #navbar a,
-  .headerNavbar>button {
+  .headerNavbar > button {
     padding: 10px 20px;
   }
 
@@ -135,7 +134,7 @@ svg#search-icon {
 
 .navbar-collapse {
   justify-content: flex-end;
-  align-items    : center;
+  align-items: center;
 }
 
 /*
@@ -144,10 +143,10 @@ svg#search-icon {
 
 #footer {
   background-color: var(--primary);
-  color           : #fff;
-  padding         : 20px 60px 20px;
-  display         : flex;
-  align-items     : flex-end;
+  color: #fff;
+  padding: 20px 60px 20px;
+  display: flex;
+  align-items: flex-end;
 }
 
 footer .row {
@@ -155,16 +154,16 @@ footer .row {
 }
 
 a#footer-link {
-  display        : block;
-  color          : #fff !important;
+  display: block;
+  color: #fff !important;
   text-decoration: none !important;
-  font-size      : 15px;
-  margin-bottom  : 15px;
+  font-size: 15px;
+  margin-bottom: 15px;
 }
 
 div#active-user {
   font-size: 18px;
-  color    : var(--primarysecond) !important;
+  color: var(--primarysecond) !important;
 }
 
 #active-user b {
@@ -177,30 +176,30 @@ div#active-user {
 
 b#right-border {
   padding-right: 15px !important;
-  border-right : 1px solid;
-  padding      : 15px 0 0;
+  border-right: 1px solid;
+  padding: 15px 0 0;
 }
 
 #footer-input {
-  width                     : 53%;
-  border                    : none !important;
-  border-radius             : 22px;
-  padding                   : 10px 20px;
-  outline                   : none;
-  box-shadow                : none;
+  width: 53%;
+  border: none !important;
+  border-radius: 22px;
+  padding: 10px 20px;
+  outline: none;
+  box-shadow: none;
   border-bottom-right-radius: 0;
-  border-top-right-radius   : 0;
+  border-top-right-radius: 0;
 }
 
 input.btn.submit-btn {
-  padding         : 10px 20px;
+  padding: 10px 20px;
   background-color: #f6ceb4 !important;
-  color           : #fff;
-  border-radius   : 22px;
-  width           : 30%;
-  position        : relative;
-  right           : 3.5%;
-  bottom          : 1px;
+  color: #fff;
+  border-radius: 22px;
+  width: 30%;
+  position: relative;
+  right: 3.5%;
+  bottom: 1px;
 }
 
 #last-col {
@@ -209,8 +208,8 @@ input.btn.submit-btn {
 
 p#download-statement {
   font-size: 12px;
-  margin   : 20px 0;
-  color    : #fff;
+  margin: 20px 0;
+  color: #fff;
 }
 
 img#store-icon {
@@ -218,40 +217,40 @@ img#store-icon {
 }
 
 a#copy-link {
-  color          : white;
+  color: white;
   text-decoration: none;
-  font-size      : 12px !important;
-  margin         : 0 20px 0 0;
+  font-size: 12px !important;
+  margin: 0 20px 0 0;
 }
 
 a#copy-link:hover {
-  cursor         : pointer;
+  cursor: pointer;
   text-decoration: none;
-  color          : #3e4543;
+  color: #3e4543;
 }
 
 div#copyright {
-  padding         : 15px 0;
+  padding: 15px 0;
   background-color: var(--primary);
 }
 
 p#copyright-text {
-  margin   : 15px 0 0;
+  margin: 15px 0 0;
   font-size: 12px !important;
-  color    : white;
+  color: white;
 }
 
 p#lang-select {
   font-size: 12px;
-  color    : white;
+  color: white;
 }
 
 #lang-select select {
-  border       : none;
+  border: none;
   border-bottom: 1px solid;
-  outline      : none;
-  box-shadow   : none;
-  margin-left  : 0.5rem;
+  outline: none;
+  box-shadow: none;
+  margin-left: 0.5rem;
 }
 
 div#social-icon {
@@ -271,7 +270,7 @@ div#social-icon {
 }
 
 .footer-store-icons {
-  display        : flex;
+  display: flex;
   justify-content: flex-end;
 }
 
@@ -281,7 +280,7 @@ img#store-icon {
 
 @media screen and (max-width: 768px) {
   .footer-store-icons {
-    display        : flex;
+    display: flex;
     justify-content: center;
   }
 
@@ -291,12 +290,12 @@ img#store-icon {
 
   .tab-align {
     align-items: center;
-    text-align : center;
+    text-align: center;
   }
 
   .footer-wellnes {
     text-align: center;
-    font-size : 1rem;
+    font-size: 1rem;
   }
 
   .padding-mobile {
@@ -313,33 +312,33 @@ img#store-icon {
 */
 
 div#dorctor-list {
-  padding      : 30px 10px;
-  margin       : 50px 0;
-  background   : #fff;
+  padding: 30px 10px;
+  margin: 50px 0;
+  background: #fff;
   border-radius: 10px;
-  min-height   : 600px;
-  height       : 576px;
+  min-height: 600px;
+  height: 576px;
 }
 
 .no-result {
-  height         : 550px;
-  display        : flex;
+  height: 550px;
+  display: flex;
   justify-content: center;
-  align-items    : center;
+  align-items: center;
 }
 
 #card-list {
   overflow-y: scroll;
-  height    : 377px !important;
+  height: 377px !important;
 }
 
 .Togglebar {
-  width            : 100%;
+  width: 100%;
   /* background    : #efefef; */
-  display          : flex;
-  flex-direction   : row-reverse;
-  justify-content  : space-between;
-  border-radius    : 25px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  border-radius: 25px;
   /* text-align    : right; */
   -webkit-scrollbar: var(--reactour-accent);
 }
@@ -349,79 +348,79 @@ div#dorctor-list {
 }
 
 .MuiBottomNavigation-root {
-  height          : 66px !important;
-  display         : flex;
-  justify-content : center;
+  height: 66px !important;
+  display: flex;
+  justify-content: center;
   background-color: #eee !important;
-  position        : fixed;
-  bottom          : 0;
-  width           : 100%;
-  padding         : 10px 0;
-  font-family     : var(--font-primary);
-  z-index         : 1;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+  font-family: var(--font-primary);
+  z-index: 1;
 }
 
 .MuiBottomNavigationAction-root {
-  border : none !important;
+  border: none !important;
   outline: none !important;
 }
 
 .MuiBottomNavigationAction-wrapper img {
   padding: 0;
-  width  : 25px;
-  height : 25px;
+  width: 25px;
+  height: 25px;
 }
 
 .MuiBottomNavigationAction-label {
   font-family: var(--font-primary) !important;
-  font-size  : 12px !important;
+  font-size: 12px !important;
   font-weight: 700;
 }
 
 .content {
   padding-bottom: 66px;
-  padding-top   : 125px;
+  padding-top: 125px;
 }
 
 .doc-content {
   padding-bottom: 66px;
-  padding-top   : 125px;
+  padding-top: 125px;
 }
 
 .MuiIconButton-label svg.MuiSvgIcon-root {
-  width : 26px !important;
+  width: 26px !important;
   height: 26px !important;
-  fill  : #3e4543;
+  fill: #3e4543;
 }
 
 .MuiAppBar-root {
-  min-height      : 100px !important;
-  position        : fixed !important;
-  top             : 0;
+  min-height: 100px !important;
+  position: fixed !important;
+  top: 0;
   background-color: var(--primary) !important;
 }
 
 .menu-tab {
   position: relative;
-  left    : calc(100% - 320px);
+  left: calc(100% - 320px);
 }
 
 span.emergency {
-  font-size    : 9px;
-  font-weight  : 700;
-  background   : #ff4500;
-  padding      : 2px 10px 4px;
+  font-size: 9px;
+  font-weight: 700;
+  background: #ff4500;
+  padding: 2px 10px 4px;
   border-radius: 10px;
 }
 
 .nav-divider {
-  display                : block;
-  width                  : 100%;
-  height                 : 40px;
-  position               : relative;
-  top                    : 15px;
-  background             : #fff;
-  border-top-left-radius : 30px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  position: relative;
+  top: 15px;
+  background: #fff;
+  border-top-left-radius: 30px;
   border-top-right-radius: 30px;
 }
 
@@ -430,10 +429,10 @@ span.emergency {
 }
 
 .user-name {
-  font-size : 10px;
+  font-size: 10px;
   text-align: left;
-  position  : relative;
-  top       : 20px;
+  position: relative;
+  top: 20px;
 }
 
 .user-name p {
@@ -442,104 +441,104 @@ span.emergency {
 
 img.profile-icon {
   padding-right: 0 !important;
-  height       : 30px;
-  width        : 30px;
+  height: 30px;
+  width: 30px;
   border-radius: 5px;
 }
 
 button.MuiButtonBase-root {
-  border : none !important;
+  border: none !important;
   outline: none !important;
 }
 
 .MuiBadge-badge {
-  height     : 15px !important;
-  min-width  : 15px !important;
-  padding    : 0px 0px !important;
-  font-size  : 10px !important;
-  transform  : scale(1) translate(0%, -15%) !important;
+  height: 15px !important;
+  min-width: 15px !important;
+  padding: 0px 0px !important;
+  font-size: 10px !important;
+  transform: scale(1) translate(0%, -15%) !important;
   font-weight: 700 !important;
 }
 
 .card-deck {
-  display        : flex;
+  display: flex;
   justify-content: center;
-  margin         : 0 20px;
+  margin: 0 20px;
 }
 
 .card-deck .card {
-  margin       : 10px 10px !important;
-  height       : 115px;
-  background   : #efefef;
-  border       : none;
+  margin: 10px 10px !important;
+  height: 115px;
+  background: #efefef;
+  border: none;
   border-radius: 15px;
-  width        : 140px;
+  width: 140px;
 }
 
 .card-deck .card:hover {
   background: var(--primary);
-  color     : #fff;
+  color: #fff;
   transition: 0.3s;
-  cursor    : pointer;
+  cursor: pointer;
 }
 
 .card-body {
-  padding    : 1.2rem 10px !important;
+  padding: 1.2rem 10px !important;
   align-items: flex-end;
-  display    : flex;
-  font-size  : 17px;
+  display: flex;
+  font-size: 17px;
   font-weight: 700;
 }
 
 .dot-container {
-  display        : flex;
+  display: flex;
   justify-content: center;
-  position       : fixed;
-  bottom         : 85px;
-  width          : 100%;
+  position: fixed;
+  bottom: 85px;
+  width: 100%;
 }
 
 .dot {
-  height          : 15px;
-  width           : 15px;
+  height: 15px;
+  width: 15px;
   background-color: transparent;
-  border-radius   : 50%;
-  border          : 1px solid var(--primary);
-  display         : inline-block;
-  margin          : 5px;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  display: inline-block;
+  margin: 5px;
 }
 
 span.dot.active {
-  background   : var(--primary) !important;
-  width        : 25px;
+  background: var(--primary) !important;
+  width: 25px;
   border-radius: 22px;
 }
 
 #card {
   /* margin: 0 10%; */
-  background   : var(--primary);
-  color        : #fff;
-  border       : none;
+  background: var(--primary);
+  color: #fff;
+  border: none;
   border-radius: 10px !important;
-  height       : 45px;
+  height: 45px;
 }
 
 #card .card-body {
-  padding      : 10px !important;
+  padding: 10px !important;
   border-radius: 10px;
-  position     : unset;
+  position: unset;
 }
 
 #arrowright {
-  position  : absolute;
-  width     : 100%;
+  position: absolute;
+  width: 100%;
   text-align: right;
-  right     : 16px;
+  right: 16px;
 }
 
 #menuLinks {
   text-decoration: none;
-  color          : var(--primary);
+  color: var(--primary);
 }
 
 #menuLinks:hover #card {
@@ -547,7 +546,7 @@ span.dot.active {
 }
 
 #menuLinks:hover {
-  color     : #fff;
+  color: #fff;
   transition: 0.5s;
 }
 
@@ -557,16 +556,16 @@ span.dot.active {
 
 svg#fav-icon {
   position: absolute;
-  right   : 10px;
-  top     : 10px;
-  z-index : 1;
-  cursor  : pointer;
-  color   : #fff;
+  right: 10px;
+  top: 10px;
+  z-index: 1;
+  cursor: pointer;
+  color: #fff;
 }
 
 .MuiGridListTile-tile {
   border-radius: 10px;
-  background   : #efefef;
+  background: #efefef;
 }
 
 li.MuiGridListTile-root {
@@ -579,13 +578,13 @@ ul.MuiGridList-root {
 
 .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
   background: var(--primary);
-  cursor    : pointer;
+  cursor: pointer;
 }
 
 .MuiGridListTileBar-titleWrap {
-  color      : #fff !important;
+  color: #fff !important;
   font-weight: 700;
-  font-size  : 10px;
+  font-size: 10px;
 }
 
 .MuiGridListTileBar-title {
@@ -597,12 +596,12 @@ ul.MuiGridList-root {
 }
 
 #dorctor-list .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
-  width        : 100%;
-  display      : inline-flex;
+  width: 100%;
+  display: inline-flex;
   border-radius: 27px;
   /* box-shadow: none !important; */
-  background   : #f8f8f8;
-  box-shadow   : 0px 1px 5px rgb(0 0 0 / 8%);
+  background: #f8f8f8;
+  box-shadow: 0px 1px 5px rgb(0 0 0 / 8%);
 }
 
 div.MuiPaper-elevation1 button.MuiButtonBase-root.MuiIconButton-root {
@@ -618,9 +617,9 @@ input#doctor-search :focus {
 }
 
 #appointment-card {
-  margin       : 0 6%;
-  background   : #efefef;
-  border       : none;
+  margin: 0 6%;
+  background: #efefef;
+  border: none;
   border-radius: 10px;
 }
 
@@ -634,25 +633,25 @@ input#doctor-search :focus {
 
 #appointment-card .card-body #arrowright {
   position: relative;
-  left    : calc(100% - 160px);
+  left: calc(100% - 160px);
 }
 
 a.back-btn {
-  width  : 8%;
+  width: 8%;
   display: flex;
-  margin : 0px 10% 10px;
+  margin: 0px 10% 10px;
 }
 
 svg#back {
-  background   : #efefef;
+  background: #efefef;
   border-radius: 50%;
-  padding      : 2px;
-  width        : 28px;
-  height       : 26px;
+  padding: 2px;
+  width: 28px;
+  height: 26px;
 }
 
 li#doctor-pro-pic {
-  width     : 100% !important;
+  width: 100% !important;
   text-align: center;
 }
 
@@ -665,12 +664,12 @@ div#doctor-name {
 }
 
 .cal-view {
-  width : 90%;
+  width: 90%;
   margin: 0 5% !important;
 }
 
 .appointment-list {
-  margin     : 20px 0px;
+  margin: 20px 0px;
   font-weight: 700;
 }
 
@@ -679,29 +678,29 @@ span.MuiRating-root {
 }
 
 span.price {
-  color    : var(--primary);
+  color: var(--primary);
   font-size: 35px;
 }
 
 button.continue-btn {
   background-color: var(--primary) !important;
-  width           : 100% !important;
-  border-radius   : 30px;
-  border-color    : var(--primary) !important;
-  outline         : none !important;
-  box-shadow      : none !important;
-  font-size       : 13px;
-  margin-top      : 20px;
+  width: 100% !important;
+  border-radius: 30px;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  margin-top: 20px;
 }
 
 button.continue-btn-profile {
   background-color: var(--primary) !important;
-  width           : 35% !important;
-  border-radius   : 30px;
-  border-color    : var(--primary) !important;
-  outline         : none !important;
-  box-shadow      : none !important;
-  font-size       : 1rem !important;
+  width: 35% !important;
+  border-radius: 30px;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 1rem !important;
 }
 
 .MuiBottomNavigationAction-root.MuiBottomNavigationAction-iconOnly {
@@ -709,7 +708,7 @@ button.continue-btn-profile {
 }
 
 .MuiBottomNavigationAction-label.MuiBottomNavigationAction-iconOnly {
-  opacity         : 1 !important;
+  opacity: 1 !important;
   transition-delay: 0.2s !important;
 }
 
@@ -719,25 +718,25 @@ span.MuiBottomNavigationAction-wrapper {
 
 .doc-img {
   /* height: 140px; */
-  display         : flex;
-  justify-content : center;
+  display: flex;
+  justify-content: center;
   /* border-radius: 22px; */
   /* background   : #f8f8f8; */
-  overflow        : hidden;
-  padding         : 10px;
+  overflow: hidden;
+  padding: 10px;
 }
 
-.doc-img>img {
+.doc-img > img {
   border-radius: 50% !important;
-  height       : 130px !important;
-  width        : 130px !important;
-  border       : 2px solid #00d0cc;
+  height: 130px !important;
+  width: 130px !important;
+  border: 2px solid #00d0cc;
 }
 
 p.doc-name {
-  color      : var(--primary) !important;
-  font-size  : 20px;
-  text-align : center;
+  color: var(--primary) !important;
+  font-size: 20px;
+  text-align: center;
   font-weight: 600;
 }
 
@@ -746,7 +745,7 @@ p.doc-name {
 }
 
 #menuLinks li.MuiGridListTile-root {
-  width     : 100% !important;
+  width: 100% !important;
   text-align: center;
 }
 
@@ -754,13 +753,18 @@ p.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
-  color     : #fff;
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
+  .MuiGridListTileBar-title {
+  color: #fff;
   transition: 0.5s;
 }
 
@@ -775,7 +779,7 @@ p.doc-name {
 
 #card-list::-webkit-scrollbar-track,
 #calendar-list::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
@@ -783,7 +787,7 @@ p.doc-name {
 
 #card-list::-webkit-scrollbar-thumb,
 #calendar-list::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -799,9 +803,9 @@ div#doc-row {
 }
 
 div#doc-details {
-  display        : flex;
+  display: flex;
   justify-content: center;
-  padding        : 10px 30px;
+  padding: 10px 30px;
 }
 
 .blue {
@@ -809,20 +813,20 @@ div#doc-details {
 }
 
 div#price-box {
-  padding      : 20px;
-  background   : #efefef;
+  padding: 20px;
+  background: #efefef;
   border-radius: 22px;
-  text-align   : center;
-  position     : relative;
+  text-align: center;
+  position: relative;
 }
 
 div#price-box:before {
-  content         : '';
-  position        : absolute;
-  top             : 100%;
-  left            : 46%;
-  z-index         : 1;
-  border          : solid 15px transparent;
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 46%;
+  z-index: 1;
+  border: solid 15px transparent;
   border-top-color: #efefef;
 }
 
@@ -831,14 +835,14 @@ div#price-box:before {
 }
 
 #promo-code {
-  font-size : 12px;
+  font-size: 12px;
   text-align: right;
-  position  : relative;
-  top       : -4px;
+  position: relative;
+  top: -4px;
 }
 
 #payment-form .MuiFormControl-root.MuiTextField-root {
-  width        : 100%;
+  width: 100%;
   margin-bottom: 10px;
 }
 
@@ -847,12 +851,12 @@ div#price-box:before {
 }
 
 #payment-form input#standard-basic {
-  padding      : 10px;
-  border       : none !important;
+  padding: 10px;
+  border: none !important;
   border-radius: 10px;
-  font-size    : 12px;
-  color        : #3e4543;
-  font-weight  : 600;
+  font-size: 12px;
+  color: #3e4543;
+  font-weight: 600;
 }
 
 #payment-form .MuiFilledInput-underline:after {
@@ -867,12 +871,12 @@ div#price-box:before {
 * Card
 */
 #patient-card {
-  border-radius   : 22px !important;
+  border-radius: 22px !important;
   background-color: #ffffff;
-  height          : 100%;
-  display         : flex;
-  align-items     : center;
-  justify-content : flex-end;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .health-assess-bg__wrapper {
@@ -885,20 +889,20 @@ div#price-box:before {
 
 .health-assess-bg {
   height: 100%;
-  width : 100%;
+  width: 100%;
 }
 
 .patient-card_text {
   height: 100%;
-  top   : 36%;
-  left  : 16px;
+  top: 36%;
+  left: 16px;
 }
 
 #patient-card .card-title.h5 {
   /* font-size: 22px;
   font-weight: 400; */
-  font-size  : 30px !important;
-  color      : #f5f5f5;
+  font-size: 30px !important;
+  color: #f5f5f5;
   font-weight: 500;
   text-shadow: 1px 1px 4px #6c6a6a;
 }
@@ -906,7 +910,7 @@ div#price-box:before {
 #patient-card .card,
 img.card-img-top {
   border-radius: 20px;
-  border       : none !important;
+  border: none !important;
 }
 
 #patient-card .card-body {
@@ -918,21 +922,21 @@ img.card-img-top {
   height: 130px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px; */
-  position                  : relative !important;
-  bottom                    : 0;
-  color                     : #eee9df;
-  background-color          : transparent !important;
-  width                     : 100%;
-  height                    : 130px;
-  border-bottom-left-radius : 20px;
+  position: relative !important;
+  bottom: 0;
+  color: #eee9df;
+  background-color: transparent !important;
+  width: 100%;
+  height: 130px;
+  border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  transform                 : translate(4%, 88%) !important;
+  transform: translate(4%, 88%) !important;
 }
 
 #patient-card p.card-text {
-  font-size  : 12px;
+  font-size: 12px;
   font-weight: 400;
-  color      : #fff;
+  color: #fff;
 }
 
 #patient-card button.health-assessment-btn {
@@ -945,13 +949,13 @@ img.card-img-top {
   background-color: transparent !important;
   color: #fff !important;
   border-color: 1px solid #fff; */
-  position        : relative;
-  border-radius   : 22px;
-  padding         : 10px 35px;
-  font-size       : 15px;
+  position: relative;
+  border-radius: 22px;
+  padding: 10px 35px;
+  font-size: 15px;
   background-color: var(--primary) !important;
-  color           : #fff !important;
-  text-align      : left;
+  color: #fff !important;
+  text-align: left;
 }
 
 /* #patient-card button.assessment-btn:hover {
@@ -961,8 +965,8 @@ img.card-img-top {
 } */
 
 #patient-card .card-body {
-  padding    : 1.25rem !important;
-  display    : unset;
+  padding: 1.25rem !important;
+  display: unset;
   align-items: unset;
 }
 
@@ -985,19 +989,19 @@ img.card-img-top {
   }
 
   .specialities-header {
-    font-size : 1.5rem !important;
-    padding   : 1.2rem !important;
+    font-size: 1.5rem !important;
+    padding: 1.2rem !important;
     text-align: center !important;
   }
 
   .speciality-icon {
-    width : 40px !important;
+    width: 40px !important;
     height: 40px !important;
   }
 
   .speciality-name {
     white-space: normal !important;
-    font-size  : 0.8rem !important;
+    font-size: 0.8rem !important;
   }
 
   #patient-card button.assessment-btn {
@@ -1034,7 +1038,7 @@ img.card-img-top {
 
   div#social-icon {
     justify-content: center;
-    margin-top     : 1rem !important;
+    margin-top: 1rem !important;
   }
 
   #footer {
@@ -1059,47 +1063,47 @@ img.card-img-top {
 /* SPECIALITIES SECTION */
 
 .specialities {
-  margin          : -8px auto;
+  margin: -8px auto;
   background-color: #ffffff;
-  height          : 100%;
-  border-radius   : 22px;
+  height: 100%;
+  border-radius: 22px;
 }
 
 .specialities-header {
-  margin-top : 10px;
-  font-size  : 2rem;
+  margin-top: 10px;
+  font-size: 2rem;
   font-weight: 400;
-  color      : #344767;
-  padding    : 20px 0px 15px 40px;
+  color: #344767;
+  padding: 20px 0px 15px 40px;
 }
 
 .specialities-profile {
-  padding      : 15px 6px;
-  cursor       : pointer;
+  padding: 15px 6px;
+  cursor: pointer;
   /* background: #fff; */
-  transition   : all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .specialities-profile:hover img {
-  transform : scale(1.08);
+  transform: scale(1.08);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .speciality-icon {
-  width        : 60px;
-  height       : 60px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   margin-bottom: 10px;
-  transition   : all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   /* border    : 2px solid var(--primary); */
 }
 
 .speciality-name {
-  font-size  : clamp(1rem, 1.5vw, 1.1rem);
-  padding    : 0 1rem;
-  text-align : center;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  padding: 0 1rem;
+  text-align: center;
   white-space: nowrap;
-  color      : #3e4543;
+  color: #3e4543;
   font-weight: 300;
 }
 
@@ -1108,48 +1112,48 @@ img.card-img-top {
 */
 
 div.card-box {
-  display      : flex;
-  flex-wrap    : wrap;
-  height       : 300px;
-  background   : #efefef;
+  display: flex;
+  flex-wrap: wrap;
+  height: 300px;
+  background: #efefef;
   border-radius: 22px;
-  align-items  : flex-end;
-  padding      : 1.25rem;
-  color        : #fff;
-  font-weight  : 700 !important;
-  font-size    : 20px !important;
-  text-shadow  : 0px 0px 15px #000;
-  overflow     : auto;
+  align-items: flex-end;
+  padding: 1.25rem;
+  color: #fff;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  text-shadow: 0px 0px 15px #000;
+  overflow: auto;
 }
 
 #Box1 {
   background-image: url(../../images/nutrition.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box2 {
   background-image: url(../../images/workout.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box3 {
   background-image: url(../../images/lifestyle.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box4 {
   background-image: url(../../images/shop.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box5 {
   background-image: url(../../images/articles.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box6 {
   background-image: url(../../images/educate.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 .MuiSelect-filled.MuiSelect-filled {
@@ -1157,12 +1161,12 @@ div.card-box {
 }
 
 .react-tel-input .form-control {
-  width           : 100% !important;
-  border          : none !important;
+  width: 100% !important;
+  border: none !important;
   background-color: rgba(0, 0, 0, 0.09) !important;
-  padding         : 8px 10px 8px 48px !important;
-  height          : auto !important;
-  border-radius   : 10px !important;
+  padding: 8px 10px 8px 48px !important;
+  height: auto !important;
+  border-radius: 10px !important;
 }
 
 #profile-form {
@@ -1180,8 +1184,8 @@ div.card-box {
 }
 
 #profile-form input#standard-basic {
-  padding      : 10px;
-  border       : none !important;
+  padding: 10px;
+  border: none !important;
   border-radius: 10px;
 }
 
@@ -1194,55 +1198,55 @@ div.card-box {
 }
 
 h2#signin-title {
-  font-size  : 2rem;
+  font-size: 2rem;
   font-weight: 500;
-  color      : var(--primary);
-  text-align : left;
+  color: var(--primary);
+  text-align: left;
   margin-left: 1rem;
 }
 
 #profile-form p {
   margin-bottom: 5px;
-  font-size    : 12px;
+  font-size: 12px;
 }
 
 p.forget-text {
   text-align: right;
-  font-size : 12px;
+  font-size: 12px;
 }
 
 input.btn.sign-btn {
-  width           : 100%;
-  border-radius   : 22px;
-  margin-top      : 20px;
+  width: 100%;
+  border-radius: 22px;
+  margin-top: 20px;
   background-color: var(--primary);
-  border-color    : var(--primary);
-  color           : #fff;
+  border-color: var(--primary);
+  color: #fff;
 }
 
 p.signup-text {
   margin-top: 30px;
   text-align: center;
-  font-size : 12px;
+  font-size: 12px;
 }
 
 button.btn.btn-outline-primary.sign-btn {
-  width        : 50%;
-  margin       : 0 25% 20px;
+  width: 50%;
+  margin: 0 25% 20px;
   border-radius: 22px;
-  border       : 2px solid var(--primary);
-  color        : var(--primary);
+  border: 2px solid var(--primary);
+  color: var(--primary);
 }
 
 button.btn.btn-outline-primary.sign-btn:hover {
-  border-color    : var(--primary);
+  border-color: var(--primary);
   background-color: var(--primary);
-  color           : #fff;
+  color: #fff;
 }
 
 #welcome-bg {
-  background-image   : url(../../images/welcomebg.png);
-  background-size    : cover;
+  background-image: url(../../images/welcomebg.png);
+  background-size: cover;
   background-position: center;
 }
 
@@ -1255,19 +1259,19 @@ div#gender-radio {
 }
 
 h2#welcome-title {
-  font-size  : 40px;
+  font-size: 40px;
   font-weight: 700;
-  color      : var(--primary);
+  color: var(--primary);
 }
 
 .timeSlot {
-  padding      : 10px 5%;
-  font-size    : 13px;
-  text-align   : center;
-  background   : var(--primary);
-  color        : #fff;
+  padding: 10px 5%;
+  font-size: 13px;
+  text-align: center;
+  background: var(--primary);
+  color: #fff;
   border-radius: 22px;
-  cursor       : pointer;
+  cursor: pointer;
   margin-bottom: 7px;
 }
 
@@ -1276,8 +1280,8 @@ h2#welcome-title {
 */
 
 div#appointment-calendar {
-  width           : 100%;
-  border-radius   : 0px;
+  width: 100%;
+  border-radius: 0px;
   background-color: transparent;
 }
 
@@ -1285,7 +1289,7 @@ div#appointment-calendar {
 #appointment-calendar .Cell-dayOfMonth-45,
 #appointment-calendar .Cell-dayOfWeek-44 {
   background-color: var(--primary);
-  color           : #fff;
+  color: #fff;
 }
 
 .makeStyles-stickyElement-27 {
@@ -1294,25 +1298,25 @@ div#appointment-calendar {
 
 #appointment-calendar .TodayButtonBase-button-10:first-child {
   background: var(--primary) !important;
-  color     : #fff;
+  color: #fff;
 }
 
 #appointment-calendar .NavigationButton-button-12 {
   background: var(--primary) !important;
-  color     : #fff;
-  padding   : 5px;
-  margin    : 0 5px;
+  color: #fff;
+  padding: 5px;
+  margin: 0 5px;
 }
 
 .OpenButton-textButton-13 {
   background: var(--primary) !important;
-  color     : #fff !important;
+  color: #fff !important;
 }
 
 #appointment-calendar .MuiSelect-select.MuiSelect-select {
   background: var(--primary);
-  color     : #fff;
-  border    : none;
+  color: #fff;
+  border: none;
 }
 
 #appointment-calendar .MuiToolbar-gutters {
@@ -1328,9 +1332,9 @@ div#appointment-calendar {
 }
 
 #appointment-calendar .makeStyles-appointment-1299 {
-  display        : flex;
-  align-items    : center;
-  font-size      : 10px;
+  display: flex;
+  align-items: center;
+  font-size: 10px;
   justify-content: center;
 }
 
@@ -1352,36 +1356,36 @@ button.btn.timeSlot:hover {
 }
 
 .sb-avatar__text {
-  width           : 138px !important;
-  height          : 150px !important;
-  line-height     : initial !important;
-  text-align      : center !important;
-  color           : var(--secondary) !important;
+  width: 138px !important;
+  height: 150px !important;
+  line-height: initial !important;
+  text-align: center !important;
+  color: var(--secondary) !important;
   /* background   : var(--primarysecond) !important; */
-  border-radius   : 15px;
+  border-radius: 15px;
   background-color: #fff !important;
   /* outline      : 2px solid #00d0cc; */
 }
 
-.doc-img>.sb-avatar--text>.sb-avatar__text {
-  width           : 126px !important;
-  height          : 126px !important;
-  line-height     : initial !important;
-  text-align      : center !important;
-  color           : var(--secondary) !important;
+.doc-img > .sb-avatar--text > .sb-avatar__text {
+  width: 126px !important;
+  height: 126px !important;
+  line-height: initial !important;
+  text-align: center !important;
+  color: var(--secondary) !important;
   /* background   : var(--primarysecond) !important; */
-  border-radius   : 50%;
+  border-radius: 50%;
   background-color: #fff !important;
-  border          : 2px solid #00d0cc;
+  border: 2px solid #00d0cc;
 }
 
 #card-list .sb-avatar__text {
-  width        : 100% !important;
-  height       : 150px !important;
-  line-height  : initial !important;
-  text-align   : center !important;
-  color        : var(--secondary) !important;
-  background   : #f8f8f8 !important;
+  width: 100% !important;
+  height: 150px !important;
+  line-height: initial !important;
+  text-align: center !important;
+  color: var(--secondary) !important;
+  background: #f8f8f8 !important;
   border-radius: 0px !important;
 }
 
@@ -1390,10 +1394,10 @@ button.btn.timeSlot:hover {
 }
 
 .doc-img div {
-  height         : 140px !important;
+  height: 140px !important;
   justify-content: center;
-  border-radius  : 22px;
-  width          : 140px !important;
+  border-radius: 22px;
+  width: 140px !important;
 }
 
 .appointment-box {
@@ -1409,8 +1413,8 @@ button.btn.timeSlot:hover {
 }
 
 .appointment-box input#standard-basic {
-  padding      : 10px;
-  border       : none !important;
+  padding: 10px;
+  border: none !important;
   border-radius: 10px;
 }
 
@@ -1424,14 +1428,14 @@ button.btn.timeSlot:hover {
 
 .appointment-box p {
   margin-bottom: 5px;
-  font-size    : 16px;
-  font-weight  : 600;
-  color        : var(--primary);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary);
 }
 
 div#multiselectContainerReact div {
-  background   : rgba(0, 0, 0, 0.09);
-  border       : none;
+  background: rgba(0, 0, 0, 0.09);
+  border: none;
   border-radius: 10px;
 }
 
@@ -1440,38 +1444,38 @@ div#multiselectContainerReact div:hover {
 }
 
 #questionnaire-view-bg {
-  background-image     : url(../../images/shutterstock_390236386.jpg);
+  background-image: url(../../images/shutterstock_390236386.jpg);
   background-attachment: fixed;
 }
 
 #questionnaire-bg {
-  background-image   : url(../../images/home-2.png);
-  background-size    : cover;
+  background-image: url(../../images/home-2.png);
+  background-size: cover;
   background-position: center;
 }
 
 .questionnaire-container {
-  width           : 100%;
-  display         : flex;
-  flex-direction  : column;
-  align-items     : center;
-  justify-content : center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #f5f5f5 !important;
-  color           : var(--text-primary);
+  color: var(--text-primary);
 }
 
 .question-box {
-  width           : 100%;
+  width: 100%;
   background-color: #fff;
-  display         : flex;
-  flex-direction  : column;
-  align-items     : stretch;
-  margin          : 10px;
-  border-radius   : 20px !important;
-  padding         : 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 10px;
+  border-radius: 20px !important;
+  padding: 20px 10px;
   /* height       : 500px; */
-  overflow-x      : hidden;
-  box-shadow      : 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+  overflow-x: hidden;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
 }
 
 .error-field .col-form-label {
@@ -1488,33 +1492,33 @@ div#multiselectContainerReact div:hover {
 }
 
 .input-place {
-  display    : flex;
+  display: flex;
   align-items: baseline;
 }
 
 .col-form-label {
-  font-size  : 16px;
+  font-size: 16px;
   font-weight: bold;
-  text-align : left;
+  text-align: left;
 }
 
 #prescription-list {
-  padding      : 10px;
-  background   : white;
+  padding: 10px;
+  background: white;
   border-radius: 22px;
-  box-shadow   : 2px 2px 1rem #dedede;
-  border       : 1px solid #dedede;
+  box-shadow: 2px 2px 1rem #dedede;
+  border: 1px solid #dedede;
 }
 
 #prescription-list tbody {
   overflow-y: scroll;
-  height    : 200px;
-  display   : block;
+  height: 200px;
+  display: block;
 }
 
 #prescription-list table {
-  width     : 100%;
-  font-size : 12px;
+  width: 100%;
+  font-size: 12px;
   text-align: left;
   word-break: break-word;
 }
@@ -1524,7 +1528,7 @@ div#multiselectContainerReact div:hover {
 }
 
 #prescription-list tr {
-  display      : block;
+  display: block;
   margin-bottom: 15px;
 }
 
@@ -1545,7 +1549,7 @@ div#multiselectContainerReact div:hover {
 #report-result::-webkit-scrollbar-track,
 #ques-result::-webkit-scrollbar-track,
 #appointment-calendar .makeStyles-container-26::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
@@ -1555,7 +1559,7 @@ div#multiselectContainerReact div:hover {
 #report-result::-webkit-scrollbar-thumb,
 #ques-result::-webkit-scrollbar-thumb,
 #appointment-calendar .makeStyles-container-26::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -1570,7 +1574,7 @@ div#multiselectContainerReact div:hover {
 
 .react-calendar__tile:disabled {
   background-color: #f0f0f0 !important;
-  color           : lightgray !important;
+  color: lightgray !important;
 }
 
 /*
@@ -1578,92 +1582,92 @@ div#multiselectContainerReact div:hover {
 */
 
 div#profile-col-1 {
-  padding      : 20px;
-  margin       : 60px -10px 40px 0px;
+  padding: 20px;
+  margin: 60px -10px 40px 0px;
   border-radius: 22px;
-  text-align   : center;
-  height       : 320px;
+  text-align: center;
+  height: 320px;
 }
 
 div#profile-col-2 {
-  padding      : 20px;
-  margin       : 0 -10px 50px 0px;
+  padding: 20px;
+  margin: 0 -10px 50px 0px;
   border-radius: 22px;
-  text-align   : center;
-  height       : 500px;
+  text-align: center;
+  height: 500px;
 }
 
 img#profile-pic {
-  height               : 140px;
-  width                : 140px;
+  height: 140px;
+  width: 140px;
   -webkit-border-radius: 50%;
-  -khtml-border-radius : 50%;
-  -moz-border-radius   : 50%;
-  border-radius        : 50%;
-  border               : 5px solid var(--primary);
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 5px solid var(--primary);
 }
 
 .avatar-profile {
-  border-radius   : 50% !important;
-  border          : 1px solid #00d0cc;
+  border-radius: 50% !important;
+  border: 1px solid #00d0cc;
   background-color: #fff !important;
 }
 
-.my-doctor-avatar>.sb-avatar__text {
-  width                : 100px !important;
-  height               : 100px !important;
+.my-doctor-avatar > .sb-avatar__text {
+  width: 100px !important;
+  height: 100px !important;
   -webkit-border-radius: 50%;
-  -khtml-border-radius : 50%;
-  -moz-border-radius   : 50%;
-  border-radius        : 50%;
-  margin-left          : 21px;
-  background-color     : #fff !important;
-  border               : 1px solid #00d0cc;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  margin-left: 21px;
+  background-color: #fff !important;
+  border: 1px solid #00d0cc;
 }
 
 .icon-tabs {
-  height       : 40px;
-  width        : 40px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
-  margin-right : 10px;
-  padding      : 5px;
+  margin-right: 10px;
+  padding: 5px;
 }
 
 @media (max-width: 480px) {
   img#profile-pic {
     height: 80%;
-    width : auto;
+    width: auto;
   }
 }
 
 #name {
-  color      : var(--primary);
-  font-size  : 25px;
+  color: var(--primary);
+  font-size: 25px;
   line-height: 20px;
-  margin-top : 30px;
+  margin-top: 30px;
 }
 
 #name span {
-  color    : #3e4543;
+  color: #3e4543;
   font-size: 15px;
 }
 
 p#description {
-  font-size : 14px;
+  font-size: 14px;
   margin-top: 8px;
-  color     : var(--text-primary);
+  color: var(--text-primary);
 }
 
 button.request-edit {
-  border-radius   : 22px;
-  min-width       : 150px;
-  font-size       : 15px;
+  border-radius: 22px;
+  min-width: 150px;
+  font-size: 15px;
   background-color: var(--primary) !important;
-  border-color    : var(--primary) !important;
+  border-color: var(--primary) !important;
 }
 
 table#user-info {
-  width     : 100%;
+  width: 100%;
   text-align: left;
 }
 
@@ -1677,20 +1681,20 @@ table#user-info {
 }
 
 #user-info tr {
-  display      : flex;
+  display: flex;
   margin-bottom: 20px;
-  align-items  : center;
+  align-items: center;
 }
 
 /* TABS IN PROFILE PAGE */
 .record-tabs {
-  justify-content    : space-around;
-  align-items        : center;
-  border-radius      : 20px;
-  border-bottom      : 0 !important;
-  height             : 3.5em !important;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+  border-bottom: 0 !important;
+  height: 3.5em !important;
   /* background-color: #fff !important; */
-  width              : 100%;
+  width: 100%;
 }
 
 .record-tabs.nav-tabs .nav-link {
@@ -1699,42 +1703,42 @@ table#user-info {
 }
 
 .record-tabs .nav-link {
-  border-radius  : 30px !important;
-  width          : 170px;
-  color          : #00d0ce;
-  font-weight    : bold;
-  padding-top    : 5px;
-  display        : flex;
+  border-radius: 30px !important;
+  width: 170px;
+  color: #00d0ce;
+  font-weight: bold;
+  padding-top: 5px;
+  display: flex;
   justify-content: center;
-  align-items    : center;
+  align-items: center;
 }
 
-.record-tabs>.nav-link:hover {
-  color          : #495057 !important;
+.record-tabs > .nav-link:hover {
+  color: #495057 !important;
   text-decoration: none;
-  outline        : none;
+  outline: none;
 }
 
-.record-tabs>.nav-link.active {
-  color           : #fff !important;
+.record-tabs > .nav-link.active {
+  color: #fff !important;
   background-color: #00d0ce !important;
-  border-color    : #00d0ce !important;
+  border-color: #00d0ce !important;
 }
 
 .general-tab {
   background-color: #fff;
-  color           : #00d0cc;
-  padding         : 30px;
-  border-radius   : 20px;
-  height          : 380px;
-  overflow-x      : scroll;
+  color: #00d0cc;
+  padding: 30px;
+  border-radius: 20px;
+  height: 380px;
+  overflow-x: scroll;
 }
 
 .general-medical-tab {
   background-color: #fff;
-  color           : #00d0cc;
-  padding         : 20px;
-  border-radius   : 20px;
+  color: #00d0cc;
+  padding: 20px;
+  border-radius: 20px;
 }
 
 /*
@@ -1742,11 +1746,11 @@ table#user-info {
 */
 
 .profile-pic {
-  width        : 120px;
-  height       : 120px;
-  display      : block;
+  width: 120px;
+  height: 120px;
+  display: block;
   border-radius: 50%;
-  border       : 6px solid #eee;
+  border: 6px solid #eee;
 }
 
 .file-upload {
@@ -1754,13 +1758,13 @@ table#user-info {
 }
 
 .p-image {
-  position   : relative;
-  bottom     : 70px;
-  left       : 48px;
-  color      : #3e4543;
+  position: relative;
+  bottom: 70px;
+  left: 48px;
+  color: #3e4543;
   text-shadow: 0px 0px 5px #fff;
-  cursor     : pointer;
-  transition : all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .p-image:hover {
@@ -1773,12 +1777,12 @@ table#user-info {
 
 .upload-button:hover {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  color     : #999;
+  color: #999;
 }
 
 .multiselect div {
-  border       : none;
-  background   : #e8e8e8;
+  border: none;
+  background: #e8e8e8;
   border-radius: 10px;
 }
 
@@ -1797,8 +1801,8 @@ table#user-info {
 }
 
 #profile-form input#standard-basic {
-  padding      : 10px;
-  border       : none !important;
+  padding: 10px;
+  border: none !important;
   border-radius: 10px;
 }
 
@@ -1811,20 +1815,20 @@ table#user-info {
 }
 
 h2#signin-title {
-  font-size  : 40px;
+  font-size: 40px;
   font-weight: 500;
-  color      : var(--primary);
+  color: var(--primary);
 }
 
 #profile-form p {
   margin-bottom: 5px;
-  font-size    : 12px;
+  font-size: 12px;
 }
 
 div#editProfile-col {
-  background   : #eeeeee !important;
-  padding      : 20px;
-  margin       : 50px 0px 50px -10px;
+  background: #eeeeee !important;
+  padding: 20px;
+  margin: 50px 0px 50px -10px;
   border-radius: 22px;
 }
 
@@ -1837,29 +1841,29 @@ div#multiselectContainerReact div {
 */
 
 .list--tags {
-  padding-left  : 0;
+  padding-left: 0;
   text-transform: capitalize;
 }
 
-.list--tags>li {
+.list--tags > li {
   display: inline;
 }
 
-.list--tags>li:before {
+.list--tags > li:before {
   content: ',\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags>li:first-child:before {
+.list--tags > li:first-child:before {
   content: normal;
 }
 
-.list--tags-speciality>li:before {
+.list--tags-speciality > li:before {
   content: '\0000a0';
   /* Non-breaking space */
 }
 
-.list--tags-speciality>li {
+.list--tags-speciality > li {
   display: block;
 }
 
@@ -1868,18 +1872,18 @@ div#multiselectContainerReact div {
 */
 
 .react-calendar__month-view__days {
-  display        : flex;
-  flex-wrap      : wrap;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
 button.react-calendar__tile.react-calendar__month-view__days__day {
   border-radius: 22px;
-  margin       : 2px 2px 10px;
-  max-width    : 41px !important;
-  height       : 41px;
-  background   : var(--primary);
-  color        : #fff !important;
+  margin: 2px 2px 10px;
+  max-width: 41px !important;
+  height: 41px;
+  background: var(--primary);
+  color: #fff !important;
 }
 
 button.react-calendar__tile.react-calendar__month-view__days__day:hover {
@@ -1887,12 +1891,12 @@ button.react-calendar__tile.react-calendar__month-view__days__day:hover {
 }
 
 button.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button {
-  border-top-left-radius   : 22px;
+  border-top-left-radius: 22px;
   border-bottom-left-radius: 22px;
 }
 
 button.react-calendar__navigation__arrow.react-calendar__navigation__next2-button {
-  border-top-right-radius   : 22px;
+  border-top-right-radius: 22px;
   border-bottom-right-radius: 22px;
 }
 
@@ -1902,11 +1906,11 @@ button.react-calendar__navigation__arrow.react-calendar__navigation__next2-butto
 
 .react-calendar__navigation button {
   background: var(--primary) !important;
-  color     : #fff;
+  color: #fff;
 }
 
 .react-calendar {
-  border    : none !important;
+  border: none !important;
   background: transparent;
 }
 
@@ -1923,51 +1927,51 @@ button.react-calendar__navigation__arrow.react-calendar__navigation__next2-butto
 */
 
 div#videoChat-box {
-  background   : #f4f4f4;
+  background: #f4f4f4;
   border-radius: 10px;
-  padding      : 20px;
+  padding: 20px;
 }
 
 div#message-box {
-  background   : #f4f4f4;
+  background: #f4f4f4;
   border-radius: 10px;
-  padding      : 10px;
+  padding: 10px;
 }
 
 div#Chat-box {
-  background   : #f4f4f4;
+  background: #f4f4f4;
   border-radius: 10px;
-  padding      : 10px;
+  padding: 10px;
 }
 
 div#call-box {
-  background   : #bababa;
-  display      : block;
-  padding      : 10px;
+  background: #bababa;
+  display: block;
+  padding: 10px;
   border-radius: 10px;
-  height       : 350px;
+  height: 350px;
 }
 
 span.live-indicator {
-  background   : red;
-  color        : #fff;
-  padding      : 0 7px;
-  font-size    : 12px;
-  font-weight  : 700;
+  background: red;
+  color: #fff;
+  padding: 0 7px;
+  font-size: 12px;
+  font-weight: 700;
   border-radius: 4px;
 }
 
 span.time-indicator {
-  background   : #000;
-  color        : #fff;
-  font-size    : 12px;
-  padding      : 0 5px;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  padding: 0 5px;
   border-radius: 4px;
-  margin-left  : 5px;
+  margin-left: 5px;
 }
 
 .user-img {
-  display    : flex;
+  display: flex;
   align-items: center;
 }
 
@@ -1976,28 +1980,28 @@ span.time-indicator {
 }
 
 div#callBtn-group {
-  display        : flex;
-  align-items    : center;
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 
 button.call-end {
-  background   : red;
-  color        : #fff;
-  border       : none;
+  background: red;
+  color: #fff;
+  border: none;
   border-radius: 5px;
-  padding      : 2px 5px;
-  outline      : none;
+  padding: 2px 5px;
+  outline: none;
 }
 
 button.call {
-  background   : var(--primary);
-  color        : #fff;
-  border       : none;
+  background: var(--primary);
+  color: #fff;
+  border: none;
   border-radius: 5px;
-  padding      : 2px 5px;
-  outline      : none;
-  margin-left  : 5px;
+  padding: 2px 5px;
+  outline: none;
+  margin-left: 5px;
 }
 
 .call-btn svg {
@@ -2006,7 +2010,7 @@ button.call {
 
 #chat-heads {
   align-items: center;
-  padding    : 10px 0;
+  padding: 10px 0;
 }
 
 hr.hr {
@@ -2015,21 +2019,21 @@ hr.hr {
 }
 
 textarea.input-text {
-  width        : 100%;
+  width: 100%;
   border-radius: 10px !important;
-  outline      : none;
-  padding      : 5px;
-  border       : none;
+  outline: none;
+  padding: 5px;
+  border: none;
 }
 
 .message-area {
-  padding : 0 10px;
+  padding: 0 10px;
   position: relative;
-  bottom  : 0;
+  bottom: 0;
 }
 
 .chat-panel {
-  height    : 370px;
+  height: 370px;
   overflow-y: scroll;
 }
 
@@ -2042,14 +2046,14 @@ textarea.input-text {
 /* Track */
 
 .chat-panel::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
 /* Handle */
 
 .chat-panel::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -2064,13 +2068,13 @@ textarea.input-text {
 }
 
 div.sent .messageBody {
-  background   : #efefef;
-  padding      : 10px;
+  background: #efefef;
+  padding: 10px;
   border-radius: 10px;
 }
 
 div.sent .messageBody p {
-  font-size    : 11px;
+  font-size: 11px;
   margin-bottom: 5px;
 }
 
@@ -2083,20 +2087,20 @@ div.sent .messageBody span.messageTime {
 }
 
 div.reply .messageBody {
-  background   : var(--primary);
-  padding      : 10px;
+  background: var(--primary);
+  padding: 10px;
   border-radius: 10px;
 }
 
 div.reply .messageBody p {
-  font-size    : 11px;
+  font-size: 11px;
   margin-bottom: 5px;
-  color        : #fff;
+  color: #fff;
 }
 
 div.reply .messageBody span.messageTime {
   font-size: 10px;
-  color    : #fff;
+  color: #fff;
 }
 
 .reply .col-md-2 {
@@ -2105,28 +2109,28 @@ div.reply .messageBody span.messageTime {
 
 #chat-name {
   font-size: 8px;
-  padding  : 3px;
+  padding: 3px;
 }
 
 span#chat-time {
   font-size: 10px;
-  color    : #999;
+  color: #999;
 }
 
 #chat-buttons #active-video-icon {
-  width : 25px !important;
+  width: 25px !important;
   height: 25px !important;
-  color : var(--primary);
+  color: var(--primary);
 }
 
 #chat-buttons #inactive-video-icon {
-  width : 25px !important;
+  width: 25px !important;
   height: 25px !important;
-  color : #00d1cd;
+  color: #00d1cd;
 }
 
 #chat-buttons #inactive-video-icon:hover {
-  color     : var(--primarysecond);
+  color: var(--primarysecond);
   transition: all 0.3s;
 }
 
@@ -2138,11 +2142,11 @@ span#chat-time {
 }
 
 #nutrition-col {
-  padding      : 20px 15px;
-  margin       : 30px 0;
-  background   : var(--primarybg) !important;
+  padding: 20px 15px;
+  margin: 30px 0;
+  background: var(--primarybg) !important;
   border-radius: 22px;
-  height       : 450px;
+  height: 450px;
 }
 
 #nutrition-col-3 {
@@ -2151,70 +2155,70 @@ span#chat-time {
 }
 
 div.nutrition-card-box {
-  display      : flex;
-  height       : 100px;
-  background   : #efefef;
+  display: flex;
+  height: 100px;
+  background: #efefef;
   border-radius: 22px;
-  align-items  : flex-end;
-  padding      : 1rem;
-  color        : #fff;
-  text-shadow  : 0px 0px 15px #000;
-  cursor       : pointer;
+  align-items: flex-end;
+  padding: 1rem;
+  color: #fff;
+  text-shadow: 0px 0px 15px #000;
+  cursor: pointer;
 }
 
 #nutrition-col h4 {
-  color    : var(--primary);
+  color: var(--primary);
   font-size: 20px;
 }
 
 #nutrition-col-3 h4 {
-  color    : var(--primary);
+  color: var(--primary);
   font-size: 20px;
 }
 
 .bmi-cal-box {
   background-color: var(--primary) !important;
-  border-color    : var(--primary) !important;
-  width           : 100%;
-  border-radius   : 22px;
-  padding         : 10px;
-  margin-bottom   : 10px;
+  border-color: var(--primary) !important;
+  width: 100%;
+  border-radius: 22px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .bmi-cal {
   background-color: var(--primary) !important;
-  border-color    : var(--primary) !important;
-  width           : 100%;
-  border-radius   : 22px;
-  padding-top     : 2px;
-  padding-bottom  : 2px;
+  border-color: var(--primary) !important;
+  width: 100%;
+  border-radius: 22px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .bmi-cal-box select {
-  background   : none;
-  border       : none;
+  background: none;
+  border: none;
   border-bottom: 1px solid #fff;
-  width        : 100%;
-  color        : #fff;
-  outline      : none;
+  width: 100%;
+  color: #fff;
+  outline: none;
 }
 
 .bmi-cal-box option {
   background-color: #00d1cd;
-  color           : #fff;
+  color: #fff;
 }
 
 div#bmi-age {
-  color    : #fff;
+  color: #fff;
   font-size: 14px;
 }
 
 div#bmi-age input {
-  background   : #efefef;
-  border       : none;
+  background: #efefef;
+  border: none;
   border-radius: 22px;
-  width        : 100%;
-  outline      : none;
+  width: 100%;
+  outline: none;
 }
 
 div#bmi-age small {
@@ -2222,12 +2226,12 @@ div#bmi-age small {
 }
 
 div#bmi-gender {
-  color    : #fff;
+  color: #fff;
   font-size: 14px;
 }
 
 div#bmi-gender .MuiFormControlLabel-root {
-  margin-left : -5px !important;
+  margin-left: -5px !important;
   margin-right: 10px !important;
 }
 
@@ -2236,9 +2240,9 @@ div#bmi-gender .MuiIconButton-root {
 }
 
 div#bmi-gender .MuiIconButton-label svg.MuiSvgIcon-root {
-  width : 15px !important;
+  width: 15px !important;
   height: 15px !important;
-  color : #fff;
+  color: #fff;
 }
 
 div#bmi-gender svg.MuiSvgIcon-root.PrivateRadioButtonIcon-layer-6 {
@@ -2250,23 +2254,23 @@ div#bmi-gender .MuiTypography-body1 {
 }
 
 div#bmi-mass {
-  color    : #fff;
+  color: #fff;
   font-size: 14px;
 }
 
 div#bmi-mass input {
-  background   : #efefef;
-  border       : none;
+  background: #efefef;
+  border: none;
   border-radius: 22px;
-  width        : 100%;
-  outline      : none;
+  width: 100%;
+  outline: none;
 }
 
 #nutrition-col .react-calendar {
-  border    : none;
+  border: none;
   background: none;
-  color     : #999;
-  width     : 100%;
+  color: #999;
+  width: 100%;
 }
 
 #nutrition-col .react-calendar .calendar-footer,
@@ -2276,8 +2280,8 @@ div#bmi-mass input {
 
 #nutrition-col .react-calendar__tile--active {
   background-color: transparent !important;
-  color           : var(--primary) !important;
-  font-weight     : 700 !important;
+  color: var(--primary) !important;
+  font-weight: 700 !important;
 }
 
 #nutrition-col .react-calendar__month-view__weekdays {
@@ -2290,16 +2294,16 @@ div#bmi-mass input {
 
 .calories-info {
   background-color: var(--primary);
-  color           : #fff;
-  text-align      : center;
-  font-size       : 12px;
-  padding         : 2px 0;
-  border-radius   : 22px;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  padding: 2px 0;
+  border-radius: 22px;
 }
 
 .info-title {
   text-align: center;
-  font-size : 12px;
+  font-size: 12px;
 }
 
 .nutrition-info span {
@@ -2308,52 +2312,52 @@ div#bmi-mass input {
 
 b.nut-value {
   font-size: 30px;
-  float    : right;
+  float: right;
 }
 
 .nutrition-info-row {
   border-radius: 10px;
-  background   : var(--primarysecond);
+  background: var(--primarysecond);
 }
 
 svg.nutrition-chart {
-  height : 100px;
+  height: 100px;
   display: flex;
-  width  : 32%;
-  margin : 0 auto;
+  width: 32%;
+  margin: 0 auto;
 }
 
 .chart-info {
-  font-size      : 12px;
-  text-align     : center;
-  margin-top     : 10px;
-  display        : flex;
-  align-items    : center;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
 span.dot1 {
-  height          : 15px;
-  width           : 15px;
+  height: 15px;
+  width: 15px;
   background-color: var(--secondary);
-  border-radius   : 50%;
-  display         : inline-block;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 span.dot2 {
-  height          : 15px;
-  width           : 15px;
+  height: 15px;
+  width: 15px;
   background-color: var(--primarysecond);
-  border-radius   : 50%;
-  display         : inline-block;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 span.dot3 {
-  height          : 15px;
-  width           : 15px;
+  height: 15px;
+  width: 15px;
   background-color: var(--primary);
-  border-radius   : 50%;
-  display         : inline-block;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 /*
@@ -2361,76 +2365,76 @@ span.dot3 {
 */
 
 .loader-one {
-  background   : #efefef;
-  height       : 20px;
-  width        : 100%;
+  background: #efefef;
+  height: 20px;
+  width: 100%;
   border-radius: 22px;
-  display      : block;
-  overflow     : hidden;
+  display: block;
+  overflow: hidden;
   margin-bottom: 10px;
 }
 
 .loader-two {
-  background   : #efefef;
-  height       : 20px;
-  width        : 100%;
+  background: #efefef;
+  height: 20px;
+  width: 100%;
   border-radius: 22px;
-  display      : block;
-  overflow     : hidden;
+  display: block;
+  overflow: hidden;
 }
 
 .loader-one .progress {
-  background               : var(--primary);
-  border-top-left-radius   : 12px;
+  background: var(--primary);
+  border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
-  height                   : 20px;
-  color                    : #fff;
-  display                  : block;
-  transition               : 0.5s;
+  height: 20px;
+  color: #fff;
+  display: block;
+  transition: 0.5s;
 }
 
 .loader-one .progress b {
   margin-left: 10px;
-  margin-top : 10px;
-  font-size  : 12px;
+  margin-top: 10px;
+  font-size: 12px;
 }
 
 .loader-two .progress {
-  background               : var(--primarysecond);
-  border-top-left-radius   : 12px;
+  background: var(--primarysecond);
+  border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
-  height                   : 20px;
-  color                    : #fff;
-  display                  : block;
-  transition               : 0.5s;
+  height: 20px;
+  color: #fff;
+  display: block;
+  transition: 0.5s;
 }
 
 .loader-two .progress b {
   margin-left: 10px;
-  margin-top : 10px;
-  font-size  : 12px;
+  margin-top: 10px;
+  font-size: 12px;
 }
 
 .loader-one p {
-  font-size  : 12px;
+  font-size: 12px;
   font-weight: 700;
-  position   : relative;
-  left       : 65%;
-  bottom     : 18px;
+  position: relative;
+  left: 65%;
+  bottom: 18px;
 }
 
 .loader-two p {
-  font-size  : 12px;
+  font-size: 12px;
   font-weight: 700;
-  position   : relative;
-  left       : 65%;
-  bottom     : 18px;
+  position: relative;
+  left: 65%;
+  bottom: 18px;
 }
 
 #panel-header {
-  background   : var(--primary);
-  color        : #fff;
-  margin       : 0 !important;
+  background: var(--primary);
+  color: #fff;
+  margin: 0 !important;
   border-radius: 12px;
 }
 
@@ -2444,10 +2448,10 @@ span.dot3 {
 
 .MuiAccordionDetails-root {
   background-color: var(--primarybg);
-  border-radius   : 12px !important;
-  height          : 385px;
-  padding         : 20px 15px !important;
-  display         : block !important;
+  border-radius: 12px !important;
+  height: 385px;
+  padding: 20px 15px !important;
+  display: block !important;
 }
 
 .MuiAccordionSummary-content {
@@ -2455,10 +2459,10 @@ span.dot3 {
 }
 
 #nutrition-col-3 .react-calendar {
-  border    : none;
+  border: none;
   background: none;
-  color     : #999;
-  width     : 100%;
+  color: #999;
+  width: 100%;
 }
 
 #nutrition-col-3 .react-calendar .calendar-footer,
@@ -2468,8 +2472,8 @@ span.dot3 {
 
 #nutrition-col-3 .react-calendar__tile--active {
   background-color: transparent !important;
-  color           : var(--primary) !important;
-  font-weight     : 700 !important;
+  color: var(--primary) !important;
+  font-weight: 700 !important;
 }
 
 #nutrition-col-3 .react-calendar__month-view__weekdays {
@@ -2482,7 +2486,7 @@ span.dot3 {
 
 .nutrition-list {
   overflow-y: scroll;
-  height    : 270px;
+  height: 270px;
 }
 
 /* width */
@@ -2494,14 +2498,14 @@ span.dot3 {
 /* Track */
 
 .nutrition-list::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
 /* Handle */
 
 .nutrition-list::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -2516,50 +2520,52 @@ ul.MuiGridList-root {
 }
 
 #nutrition-col-3 .nutrition-list .MuiGridListTileBar-title {
-  font-size      : 20px !important;
-  font-weight    : 700;
+  font-size: 20px !important;
+  font-weight: 700;
   text-decoration: underline;
 }
 
 #nutrition-col-3 .nutrition-list .MuiGridListTileBar-titleWrap {
-  color      : var(--primary) !important;
+  color: var(--primary) !important;
   font-weight: 700;
-  position   : absolute;
-  top        : -145px;
-  left       : 0 !important;
-  width      : 100%;
-  margin     : 0 !important;
-  padding    : 20px;
+  position: absolute;
+  top: -145px;
+  left: 0 !important;
+  width: 100%;
+  margin: 0 !important;
+  padding: 20px;
 }
 
 #nutrition-col-3 .nutrition-list .MuiGridListTileBar-subtitle ul {
   padding-left: 17px;
-  font-size   : 13px !important;
-  text-indent : 1px;
-  margin      : 10px 0;
+  font-size: 13px !important;
+  text-indent: 1px;
+  margin: 10px 0;
 }
 
 #nutrition-col-3 .nutrition-list .MuiGridListTileBar-subtitle ul li {
-  margin     : 5px 0;
+  margin: 5px 0;
   white-space: normal;
-  float      : left;
+  float: left;
 }
 
-#nutrition-col-3 .nutrition-list .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
+#nutrition-col-3
+  .nutrition-list
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
   background: none !important;
-  cursor    : default !important;
+  cursor: default !important;
 }
 
 #nutrition-col-3 svg#fav-icon {
-  position     : absolute;
-  right        : 10px;
-  top          : 10px;
-  z-index      : 1;
-  background   : #fff;
-  color        : var(--primary);
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 1;
+  background: #fff;
+  color: var(--primary);
   border-radius: 50%;
-  padding      : 3px;
-  cursor       : pointer;
+  padding: 3px;
+  cursor: pointer;
 }
 
 #nutrition-col-3 .nutrition-list li.MuiGridListTile-root {
@@ -2567,41 +2573,41 @@ ul.MuiGridList-root {
 }
 
 #nutrition-col-3 span.calories {
-  width        : 80px !important;
-  height       : 22px !important;
-  background   : var(--primary);
-  color        : #fff;
-  text-align   : center;
+  width: 80px !important;
+  height: 22px !important;
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
   border-radius: 22px;
-  margin-right : 10px;
-  margin-left  : 10px;
-  font-size    : 12px;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 12px;
 }
 
 #nutrition-col-3 span.time {
-  width        : 80px !important;
-  height       : 22px !important;
-  background   : #00d1cd;
-  color        : #fff;
-  text-align   : center;
+  width: 80px !important;
+  height: 22px !important;
+  background: #00d1cd;
+  color: #fff;
+  text-align: center;
   border-radius: 22px;
-  margin-right : 10px;
-  font-size    : 12px;
+  margin-right: 10px;
+  font-size: 12px;
 }
 
 #nutrition-col-3 span.type {
-  width        : 80px !important;
-  height       : 22px !important;
-  background   : #3d3d3d;
-  color        : #fff;
-  text-align   : center;
+  width: 80px !important;
+  height: 22px !important;
+  background: #3d3d3d;
+  color: #fff;
+  text-align: center;
   border-radius: 22px;
-  margin-right : 10px;
-  font-size    : 12px;
+  margin-right: 10px;
+  font-size: 12px;
 }
 
 #nutrition-col-3 .doc-img img {
-  width        : 100% !important;
+  width: 100% !important;
   border-radius: 22px;
 }
 
@@ -2610,12 +2616,12 @@ ul.MuiGridList-root {
 }
 
 #nutrition-col-3 button.book-appointment {
-  width           : 100%;
-  border-radius   : 30px;
-  height          : 40px;
+  width: 100%;
+  border-radius: 30px;
+  height: 40px;
   background-color: var(--primary) !important;
-  border-color    : var(--primary) !important;
-  outline         : none !important;
+  border-color: var(--primary) !important;
+  outline: none !important;
 }
 
 /*
@@ -2623,11 +2629,11 @@ ul.MuiGridList-root {
 */
 
 #shop-col {
-  padding      : 20px 15px;
-  margin       : 30px 0;
-  background   : #f8f8f8;
+  padding: 20px 15px;
+  margin: 30px 0;
+  background: #f8f8f8;
   border-radius: 22px;
-  height       : 450px;
+  height: 450px;
 }
 
 #shop-col-1 {
@@ -2637,16 +2643,16 @@ ul.MuiGridList-root {
 
 #shop-col-1 .MuiAccordionDetails-root {
   background-color: #f8f8f8;
-  border-radius   : 12px !important;
-  height          : 320px;
-  padding         : 20px 15px !important;
-  display         : block !important;
+  border-radius: 12px !important;
+  height: 320px;
+  padding: 20px 15px !important;
+  display: block !important;
 }
 
 #shop-col-1 #panel-header {
-  background   : var(--primary);
-  color        : #fff;
-  margin       : 10px 0 0 !important;
+  background: var(--primary);
+  color: #fff;
+  margin: 10px 0 0 !important;
   border-radius: 12px;
 }
 
@@ -2655,99 +2661,99 @@ ul.MuiGridList-root {
 }
 
 #shop-col-1 #panel1d-content .MuiAccordionDetails-root {
-  background-image   : url(../../images/shop/wearable.jpg);
-  background-size    : cover;
+  background-image: url(../../images/shop/wearable.jpg);
+  background-size: cover;
   background-position: center;
 }
 
 #shop-col-1 #panel2d-content .MuiAccordionDetails-root {
-  background-image   : url(../../images/shop/suppliments.jpg);
-  background-size    : cover;
+  background-image: url(../../images/shop/suppliments.jpg);
+  background-size: cover;
   background-position: 75% 50%;
 }
 
 #shop-col-1 #panel3d-content .MuiAccordionDetails-root {
-  background-image   : url(../../images/shop/offers.jpg);
-  background-size    : cover;
+  background-image: url(../../images/shop/offers.jpg);
+  background-size: cover;
   background-position: center;
 }
 
 #shop-col-1 .MuiAccordionDetails-root div {
-  position                  : absolute;
-  bottom                    : 0;
-  left                      : 0;
-  width                     : 100%;
-  padding                   : 10px;
-  height                    : 65px;
-  background                : linear-gradient(180deg, transparent, #00000080);
-  border-bottom-left-radius : 12px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  height: 65px;
+  background: linear-gradient(180deg, transparent, #00000080);
+  border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  color                     : #fff;
-  font-size                 : 18px;
-  align-items               : flex-end;
-  display                   : flex;
+  color: #fff;
+  font-size: 18px;
+  align-items: flex-end;
+  display: flex;
 }
 
 #shop-col .MuiCard-root {
   background: no-repeat;
-  border    : none;
+  border: none;
 }
 
 #shop-col .MuiCardContent-root {
-  padding      : 0 !important;
+  padding: 0 !important;
   border-radius: 22px !important;
-  overflow     : hidden;
-  height       : 75px;
+  overflow: hidden;
+  height: 75px;
 }
 
 #shop-col .MuiCardContent-root .product-info {
   background-color: #fff;
-  color           : var(--primary);
+  color: var(--primary);
 }
 
 #shop-col .MuiCardContent-root:hover .product-info {
   background-color: var(--primary) !important;
-  color           : #fff !important;
-  transition      : 0.5s;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root .active {
   background-color: var(--primary) !important;
-  color           : #fff !important;
-  transition      : 0.5s;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root p.product-name {
-  font-size   : 13px;
-  margin      : 10px 0 0;
+  font-size: 13px;
+  margin: 10px 0 0;
   padding-left: 10px;
-  cursor      : pointer;
-  color       : var(--primary);
+  cursor: pointer;
+  color: var(--primary);
 }
 
 #shop-col .MuiCardContent-root .active p.product-name {
-  color     : #fff !important;
+  color: #fff !important;
   transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root span.MuiRating-root {
-  color       : var(--primary);
-  font-size   : 13px;
+  color: var(--primary);
+  font-size: 13px;
   padding-left: 10px;
 }
 
 #shop-col .MuiCardContent-root .active span.MuiRating-root {
-  color     : #fff !important;
+  color: #fff !important;
   transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root:hover .product-info span.MuiRating-root {
-  color     : #fff !important;
+  color: #fff !important;
   transition: 0.5s;
 }
 
 #shop-col .MuiCardContent-root:hover .product-info p.product-name {
-  color     : #fff !important;
+  color: #fff !important;
   transition: 0.5s;
 }
 
@@ -2760,8 +2766,8 @@ ul.MuiGridList-root {
 }
 
 div#product-list {
-  overflow-y   : scroll;
-  height       : 410px;
+  overflow-y: scroll;
+  height: 410px;
   padding-right: 5px;
 }
 
@@ -2774,14 +2780,14 @@ div#product-list {
 /* Track */
 
 #product-list::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
 /* Handle */
 
 #product-list::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -2793,7 +2799,7 @@ div#product-list {
 
 #product-list .product-icons {
   text-align: end;
-  padding   : 8px 20px 8px 0px;
+  padding: 8px 20px 8px 0px;
 }
 
 #product-list .product-icons .MuiIconButton-root {
@@ -2801,32 +2807,41 @@ div#product-list {
 }
 
 #product-list .product-icons .MuiIconButton-label svg.MuiSvgIcon-root {
-  width : 18px !important;
+  width: 18px !important;
   height: 18px !important;
-  color : var(--primary);
+  color: var(--primary);
 }
 
-#shop-col .MuiCardContent-root:hover .product-icons .MuiIconButton-label svg.MuiSvgIcon-root {
-  color     : #fff !important;
+#shop-col
+  .MuiCardContent-root:hover
+  .product-icons
+  .MuiIconButton-label
+  svg.MuiSvgIcon-root {
+  color: #fff !important;
   transition: 0.5s;
 }
 
-#shop-col .MuiCardContent-root .active .product-icons .MuiIconButton-label svg.MuiSvgIcon-root {
-  color     : #fff !important;
+#shop-col
+  .MuiCardContent-root
+  .active
+  .product-icons
+  .MuiIconButton-label
+  svg.MuiSvgIcon-root {
+  color: #fff !important;
   transition: 0.5s;
 }
 
 #shop-col .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
-  width        : 68%;
-  display      : inline-flex;
+  width: 68%;
+  display: inline-flex;
   border-radius: 27px;
-  box-shadow   : none !important;
-  background   : var(--primary);
-  height       : 32px !important;
+  box-shadow: none !important;
+  background: var(--primary);
+  height: 32px !important;
 }
 
 #shop-col .ForwardRef-root-1 {
-  display        : flex;
+  display: flex;
   justify-content: space-between;
 }
 
@@ -2835,9 +2850,9 @@ div#product-list {
 }
 
 #shop-col #toggle-icons button svg.MuiSvgIcon-root {
-  width : 20px !important;
+  width: 20px !important;
   height: 20px !important;
-  color : var(--primary);
+  color: var(--primary);
 }
 
 #shop-col input#product-search {
@@ -2845,7 +2860,7 @@ div#product-list {
 }
 
 #shop-col li.MuiGridListTile-root {
-  width : 25% !important;
+  width: 25% !important;
   height: 150px !important;
 }
 
@@ -2854,24 +2869,24 @@ div#product-list {
 }
 
 #shop-col .MuiGridListTileBar-rootSubtitle {
-  height     : 50px;
+  height: 50px;
   align-items: flex-start;
 }
 
 #shop-col svg#fav-icon {
   z-index: 1;
-  color  : #fff;
-  width  : 16px;
-  height : 16px;
-  top    : 5px;
-  right  : 5px;
-  cursor : pointer;
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
 }
 
 button#back-button {
   background: var(--primary);
-  color     : #fff;
-  padding   : 6px;
+  color: #fff;
+  padding: 6px;
 }
 
 .awssld__controls button span {
@@ -2890,54 +2905,54 @@ button#back-button {
 
 .awssld__wrapper {
   border-radius: 22px !important;
-  margin       : 10px 0 !important;
+  margin: 10px 0 !important;
 }
 
 h3.product-name {
-  color    : var(--primary);
+  color: var(--primary);
   font-size: 16px;
 }
 
 span.product-price {
-  color    : var(--primary);
+  color: var(--primary);
   font-size: 20px;
 }
 
 p.product-desc {
   font-size: 10px;
-  margin   : 0;
+  margin: 0;
 }
 
 button.quantity-button {
   background: #fff;
-  color     : #3e4543;
-  padding   : 4px;
-  margin    : 10px;
+  color: #3e4543;
+  padding: 4px;
+  margin: 10px;
 }
 
 button.quantity-button svg.MuiSvgIcon-root {
-  width : 20px !important;
+  width: 20px !important;
   height: 20px !important;
 }
 
 span.quantity-value {
-  color         : var(--primary);
-  font-size     : 33px;
+  color: var(--primary);
+  font-size: 33px;
   vertical-align: middle;
-  width         : 26px !important;
+  width: 26px !important;
 }
 
 button.cart-button {
-  background   : var(--primary) !important;
-  color        : #fff;
-  width        : 100%;
+  background: var(--primary) !important;
+  color: #fff;
+  width: 100%;
   border-radius: 33px;
-  padding      : 6px;
+  padding: 6px;
 }
 
 #sale-product-list {
   overflow-y: scroll;
-  height    : 410px;
+  height: 410px;
 }
 
 /* width */
@@ -2949,14 +2964,14 @@ button.cart-button {
 /* Track */
 
 #sale-product-list::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
 /* Handle */
 
 #sale-product-list::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -2967,7 +2982,7 @@ button.cart-button {
 }
 
 #shop-col #sale-product-list li.MuiGridListTile-root {
-  width : 50% !important;
+  width: 50% !important;
   height: 200px !important;
 }
 
@@ -2976,56 +2991,56 @@ button.cart-button {
 }
 
 #shop-col #sale-product-list .MuiGridListTileBar-rootSubtitle {
-  height     : 50px;
+  height: 50px;
   align-items: flex-start;
 }
 
 #shop-col #sale-product-list svg#fav-icon {
   z-index: 1;
-  color  : #fff;
-  width  : 16px;
-  height : 16px;
-  top    : 5px;
-  right  : 5px;
-  cursor : pointer;
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
 }
 
 button.product-discount {
-  z-index        : 1;
-  position       : absolute;
-  top            : 134px;
-  display        : flex;
-  font-size      : 9px;
-  text-align     : end;
-  right          : 2px;
-  height         : 36px;
-  background     : url('../../images/shop/offer-back.png');
-  border         : none;
+  z-index: 1;
+  position: absolute;
+  top: 134px;
+  display: flex;
+  font-size: 9px;
+  text-align: end;
+  right: 2px;
+  height: 36px;
+  background: url('../../images/shop/offer-back.png');
+  border: none;
   background-size: cover;
-  color          : #fff;
-  width          : 40px;
-  align-items    : center;
+  color: #fff;
+  width: 40px;
+  align-items: center;
   justify-content: flex-end;
-  outline        : none !important;
+  outline: none !important;
 }
 
 button.single-product-discount {
-  background     : url('../../images/shop/offer-back.png');
-  z-index        : 2;
-  position       : relative;
-  display        : flex;
-  font-size      : 15px;
-  bottom         : 19px;
-  right          : 30%;
-  height         : 50px;
-  border         : none;
+  background: url('../../images/shop/offer-back.png');
+  z-index: 2;
+  position: relative;
+  display: flex;
+  font-size: 15px;
+  bottom: 19px;
+  right: 30%;
+  height: 50px;
+  border: none;
   background-size: cover;
-  color          : #fff;
-  width          : 60px;
-  align-items    : center;
+  color: #fff;
+  width: 60px;
+  align-items: center;
   justify-content: flex-end;
-  outline        : none !important;
-  padding        : 10px;
+  outline: none !important;
+  padding: 10px;
 }
 
 a {
@@ -3041,68 +3056,68 @@ a {
 */
 
 ul.react-tabs__tab-list {
-  border       : none !important;
-  background   : #eee !important;
+  border: none !important;
+  background: #eee !important;
   border-radius: 22px !important;
-  list-style   : none;
-  padding      : 0;
-  height       : 35px;
+  list-style: none;
+  padding: 0;
+  height: 35px;
 }
 
 li.react-tabs__tab {
-  width      : 33.33% !important;
-  text-align : center !important;
-  display    : inline-block;
-  height     : 35px;
-  padding    : 5px;
+  width: 33.33% !important;
+  text-align: center !important;
+  display: inline-block;
+  height: 35px;
+  padding: 5px;
   font-weight: 700;
-  cursor     : pointer;
+  cursor: pointer;
 }
 
 .react-tabs__tab--selected {
   border-radius: 22px !important;
-  border       : none !important;
-  bottom       : 0 !important;
-  background   : var(--primary) !important;
-  color        : #fff !important;
+  border: none !important;
+  bottom: 0 !important;
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 
 div#dashboard {
-  background   : var(--primarybg);
-  width        : 100%;
-  height       : 520px;
+  background: var(--primarybg);
+  width: 100%;
+  height: 520px;
   margin-bottom: 30px;
   border-radius: 22px;
-  padding      : 20px;
+  padding: 20px;
 }
 
 div#my-workout {
-  background   : var(--primarybg);
-  width        : 100%;
-  height       : 520px;
+  background: var(--primarybg);
+  width: 100%;
+  height: 520px;
   margin-bottom: 30px;
   border-radius: 22px;
-  padding      : 20px;
+  padding: 20px;
 }
 
 div#membership {
-  background   : var(--primarybg);
-  width        : 100%;
-  height       : 520px;
+  background: var(--primarybg);
+  width: 100%;
+  height: 520px;
   margin-bottom: 30px;
   border-radius: 22px;
-  padding      : 20px;
+  padding: 20px;
 }
 
 #dashboard iframe {
   border-radius: 22px;
-  box-shadow   : 0px 0px 10px #00000060;
-  width        : 100%;
-  height       : 475px;
+  box-shadow: 0px 0px 10px #00000060;
+  width: 100%;
+  height: 475px;
 }
 
 div#all-workout-list {
-  height    : 475px;
+  height: 475px;
   overflow-y: scroll;
 }
 
@@ -3117,7 +3132,7 @@ div#all-workout-list {
 
 #all-workout-list::-webkit-scrollbar-track,
 #my-workout-list::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
@@ -3125,7 +3140,7 @@ div#all-workout-list {
 
 #all-workout-list::-webkit-scrollbar-thumb,
 #my-workout-list::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -3137,7 +3152,7 @@ div#all-workout-list {
 }
 
 #all-workout-list li.MuiGridListTile-root {
-  width : 33.33% !important;
+  width: 33.33% !important;
   height: 170px !important;
 }
 
@@ -3145,94 +3160,96 @@ div#all-workout-list {
   margin: 0 5px;
 }
 
-#all-workout-list .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
+#all-workout-list
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
   height: 50px;
 }
 
 #all-workout-list svg#fav-icon {
   font-size: 16px;
-  z-index  : 1;
-  cursor   : pointer;
+  z-index: 1;
+  cursor: pointer;
 }
 
 #all-workout-list .video-time {
-  position       : absolute;
-  z-index        : 1;
-  color          : #fff;
-  font-size      : 11px;
-  font-weight    : 600;
-  top            : 86%;
-  right          : 5px;
-  display        : flex;
+  position: absolute;
+  z-index: 1;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  top: 86%;
+  right: 5px;
+  display: flex;
   justify-content: center;
-  align-items    : flex-end;
+  align-items: flex-end;
 }
 
 #all-workout-list .video-time img {
-  filter       : invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(250%) contrast(100%);
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(250%)
+    contrast(100%);
   padding-right: 3px;
 }
 
 #my-workout .desc-bar {
-  color        : #fff;
-  background   : var(--primary);
+  color: #fff;
+  background: var(--primary);
   border-radius: 22px;
-  padding      : 5px 10px;
-  display      : flex;
-  font-size    : 13px;
-  align-items  : center;
+  padding: 5px 10px;
+  display: flex;
+  font-size: 13px;
+  align-items: center;
 }
 
 #my-workout .save-btn {
-  border-color : var(--primary) !important;
-  border       : 2px solid var(--primary) !important;
+  border-color: var(--primary) !important;
+  border: 2px solid var(--primary) !important;
   border-radius: 22px;
-  color        : #3e4543 !important;
+  color: #3e4543 !important;
 }
 
 #my-workout .save-btn:hover {
   background-color: transparent !important;
-  border-radius   : 22px;
+  border-radius: 22px;
 }
 
 div#my-workout-list {
-  height    : 380px;
+  height: 380px;
   overflow-y: scroll;
 }
 
 #my-workout-list .MuiCard-root {
   background: no-repeat;
-  border    : none;
+  border: none;
 }
 
 #my-workout-list .MuiCardContent-root {
-  padding      : 0 !important;
+  padding: 0 !important;
   border-radius: 22px !important;
-  overflow     : hidden;
-  height       : 75px;
+  overflow: hidden;
+  height: 75px;
 }
 
 #my-workout-list .MuiCardContent-root .product-info {
   background-color: #efefef;
-  color           : var(--primary);
+  color: var(--primary);
 }
 
 #my-workout-list .MuiCardContent-root .active {
   background-color: var(--primary) !important;
-  color           : #fff !important;
-  transition      : 0.5s;
+  color: #fff !important;
+  transition: 0.5s;
 }
 
 #my-workout-list .MuiCardContent-root p.product-name {
-  font-size   : 13px;
-  margin      : 0;
+  font-size: 13px;
+  margin: 0;
   padding-left: 10px;
-  cursor      : pointer;
+  cursor: pointer;
 }
 
 #my-workout-list .MuiCardContent-root span.MuiRating-root {
-  color       : var(--primary);
-  font-size   : 13px;
+  color: var(--primary);
+  font-size: 13px;
   padding-left: 10px;
 }
 
@@ -3245,12 +3262,12 @@ div#my-workout-list {
 }
 
 #my-workout-list .my-video-time {
-  z-index        : 1;
-  font-size      : 11px;
-  font-weight    : 600;
-  display        : flex;
+  z-index: 1;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
   justify-content: center;
-  align-items    : flex-end;
+  align-items: flex-end;
 }
 
 #my-workout-list .my-video-time img {
@@ -3259,71 +3276,71 @@ div#my-workout-list {
 
 #my-workout iframe {
   border-radius: 22px;
-  box-shadow   : 0px 0px 10px #00000060;
-  width        : 100%;
-  height       : 410px;
+  box-shadow: 0px 0px 10px #00000060;
+  width: 100%;
+  height: 410px;
 }
 
 .workout-tabs ul.react-tabs__tab-list {
-  border       : none !important;
-  background   : #00d1cd !important;
-  color        : #fff;
-  font-size    : 11px;
+  border: none !important;
+  background: #00d1cd !important;
+  color: #fff;
+  font-size: 11px;
   border-radius: 22px !important;
-  list-style   : none;
-  padding      : 0;
-  height       : 40px;
+  list-style: none;
+  padding: 0;
+  height: 40px;
   margin-bottom: 20px;
-  width        : 100%;
+  width: 100%;
 }
 
 .workout-tabs li.react-tabs__tab {
-  width      : 33.33% !important;
-  text-align : center !important;
-  display    : inline-block;
-  height     : 40px;
-  padding    : 12px 0;
+  width: 33.33% !important;
+  text-align: center !important;
+  display: inline-block;
+  height: 40px;
+  padding: 12px 0;
   font-weight: 700;
-  cursor     : pointer;
+  cursor: pointer;
 }
 
 .workout-tabs .react-tabs__tab--selected {
   border-radius: 22px !important;
-  border       : none !important;
-  bottom       : 0 !important;
-  background   : var(--primary) !important;
-  color        : #fff !important;
+  border: none !important;
+  bottom: 0 !important;
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 
 .desc-text {
   margin-bottom: 5px;
-  font-size    : 12px;
+  font-size: 12px;
 }
 
 #my-workout .fav-fill-icon {
-  background   : #00d1cd;
-  color        : #fff;
-  padding      : 10px;
-  height       : 40px;
-  width        : 40px;
+  background: #00d1cd;
+  color: #fff;
+  padding: 10px;
+  height: 40px;
+  width: 40px;
   border-radius: 22px;
-  margin-left  : 5px;
+  margin-left: 5px;
 }
 
 .cal-button {
-  border-radius   : 22px;
+  border-radius: 22px;
   background-color: var(--primary) !important;
-  border-color    : var(--primary) !important;
-  font-size       : 12px;
-  width           : 25%;
+  border-color: var(--primary) !important;
+  font-size: 12px;
+  width: 25%;
 }
 
 .workout-button {
-  border-radius   : 22px;
+  border-radius: 22px;
   background-color: #00d1cd !important;
-  border-color    : #00d1cd !important;
-  font-size       : 12px;
-  width           : 75%;
+  border-color: #00d1cd !important;
+  font-size: 12px;
+  width: 75%;
 }
 
 #membership-list li.MuiGridListTile-root {
@@ -3335,32 +3352,33 @@ div#my-workout-list {
 }
 
 #membership-card li.MuiGridListTile-root {
-  width : 100% !important;
+  width: 100% !important;
   height: 480px !important;
 }
 
-#membership-card .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
+#membership-card
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
   height: 150px;
 }
 
 #membership-card .MuiGridListTileBar-title {
-  font-size  : 30px !important;
-  margin     : 0 10px;
+  font-size: 30px !important;
+  margin: 0 10px;
   line-height: normal;
 }
 
 #membership-card .MuiGridListTileBar-subtitle li {
-  margin   : 6px 0;
+  margin: 6px 0;
   font-size: 12px;
 }
 
 select#workout-select {
-  border       : none !important;
-  background   : #00d1cd;
+  border: none !important;
+  background: #00d1cd;
   border-radius: 20px;
   margin-bottom: 20px;
-  padding      : 10px 15px;
-  color        : #fff !important;
+  padding: 10px 15px;
+  color: #fff !important;
 }
 
 #workoutCategory-select .MuiInput-underline:before {
@@ -3376,13 +3394,13 @@ select#workout-select {
 }
 
 #workoutCategory-select option:focus {
-  color           : #fff;
+  color: #fff;
   background-color: var(--primary) !important;
 }
 
 #workoutCategory-select svg.MuiSvgIcon-root.MuiSelect-icon {
   color: #fff;
-  top  : 10px;
+  top: 10px;
   right: 10px;
 }
 
@@ -3391,11 +3409,11 @@ select#workout-select {
 }
 
 #my-workout-list svg#fav-icon {
-  position : absolute;
-  right    : 5px;
-  top      : 5px;
-  z-index  : 1;
-  cursor   : pointer;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 1;
+  cursor: pointer;
   font-size: 16px;
 }
 
@@ -3404,22 +3422,22 @@ global search
 */
 
 .suggestion-text {
-  position     : absolute;
-  text-align   : center;
-  width        : 87%;
-  padding      : 5px;
-  background   : #00d1cd;
-  color        : #fff;
-  z-index      : 1;
+  position: absolute;
+  text-align: center;
+  width: 87%;
+  padding: 5px;
+  background: #00d1cd;
+  color: #fff;
+  z-index: 1;
   border-radius: 10px;
-  transition   : 0.5s;
-  box-shadow   : 0px 8px 5px -5px #00000080;
-  top          : 18%;
-  left         : 6%;
+  transition: 0.5s;
+  box-shadow: 0px 8px 5px -5px #00000080;
+  top: 18%;
+  left: 6%;
 }
 
 div#global-list {
-  height    : 430px;
+  height: 430px;
   overflow-y: scroll;
 }
 
@@ -3432,14 +3450,14 @@ div#global-list {
 /* Track */
 
 #global-list::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
 /* Handle */
 
 #global-list::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -3450,16 +3468,16 @@ div#global-list {
 }
 
 #global-list li.MuiGridListTile-root {
-  width : 25% !important;
+  width: 25% !important;
   height: 272px !important;
 }
 
 .global-Togglebar {
-  width        : 100%;
-  background   : #efefef;
-  display      : inline-block;
+  width: 100%;
+  background: #efefef;
+  display: inline-block;
   border-radius: 25px;
-  text-align   : right;
+  text-align: right;
 }
 
 .global-Togglebar .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
@@ -3467,12 +3485,12 @@ div#global-list {
 }
 
 #global-list .sb-avatar.sb-avatar--text {
-  width : 100% !important;
+  width: 100% !important;
   height: 80% !important;
 }
 
 #global-list .sb-avatar__text {
-  width : 100% !important;
+  width: 100% !important;
   height: 100% !important;
 }
 
@@ -3480,30 +3498,30 @@ div#global-list {
 
 input.choseSlotInput {
   margin-right: 10px;
-  margin-top  : 25px;
+  margin-top: 25px;
 }
 
-input.choseSlotInput:checked~label {
+input.choseSlotInput:checked ~ label {
   /* border-color: #4062F6; */
   background-color: #f6ceb4;
-  color           : #fff;
+  color: #fff;
 }
 
 label.choseSlotLable {
-  width           : 90%;
-  padding         : 15px 20px;
-  border-radius   : 6px;
-  border          : 2px solid transparent;
+  width: 90%;
+  padding: 15px 20px;
+  border-radius: 6px;
+  border: 2px solid transparent;
   background-color: rgba(0, 0, 0, 0.09);
-  transition      : all 300ms ease-in;
+  transition: all 300ms ease-in;
 }
 
-label.choseSlotLable>p {
+label.choseSlotLable > p {
   font-size: 16px;
 }
 
-label.choseSlotLable>p:first-child {
-  font-weight  : bold;
+label.choseSlotLable > p:first-child {
+  font-weight: bold;
   margin-bottom: 0px;
 }
 
@@ -3512,11 +3530,11 @@ label.choseSlotLable:hover {
 }
 
 input.appointmentDate {
-  width        : 100%;
-  border       : 0;
-  padding      : 8px;
+  width: 100%;
+  border: 0;
+  padding: 8px;
   border-radius: 14px;
-  outline      : 0;
+  outline: 0;
 }
 
 .dateGroup {
@@ -3525,9 +3543,9 @@ input.appointmentDate {
 
 .dateGroup p {
   margin-bottom: 5px;
-  font-size    : 16px;
-  font-weight  : 600;
-  color        : var(--primary);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary);
 }
 
 .dateGroup .MuiFilledInput-underline:after {
@@ -3550,12 +3568,12 @@ input.appointmentDate {
 
 .MuiChip-root.consultation {
   background: #3157a3 !important;
-  color     : #fff !important;
+  color: #fff !important;
 }
 
 .MuiChip-root.followup {
   background: #4f80e2 !important;
-  color     : #fff !important;
+  color: #fff !important;
 }
 
 .MuiChip-deleteIcon {
@@ -3568,7 +3586,7 @@ input.appointmentDate {
 
 .notification-Navbar {
   margin-right: 5px;
-  margin-left : -10px;
+  margin-left: -10px;
 }
 
 @media (max-width: 992px) {
@@ -3584,24 +3602,24 @@ input.appointmentDate {
 }
 
 .notification-Menu {
-  width     : 16rem;
+  width: 16rem;
   max-height: 315px;
   overflow-y: auto;
 }
 
 .notification-Menu .dropdown-title {
-  font-weight   : 700;
-  font-size     : 0.825rem;
-  line-height   : 1.25rem;
-  padding       : 0.5rem 0.75rem;
+  font-weight: 700;
+  font-size: 0.825rem;
+  line-height: 1.25rem;
+  padding: 0.5rem 0.75rem;
   text-transform: uppercase;
 }
 
 .notification-Menu a {
-  color       : inherit !important;
+  color: inherit !important;
   margin-right: inherit !important;
-  align-items : inherit !important;
-  font-size   : inherit !important;
+  align-items: inherit !important;
+  font-size: inherit !important;
 }
 
 .notification-Menu a:hover {
@@ -3614,51 +3632,51 @@ input.appointmentDate {
 
 .helper {
   --reactour-accent: #5cb7b7 !important;
-  line-height      : 1.3;
-  color            : #2d2323;
+  line-height: 1.3;
+  color: #2d2323;
 }
 
 button.howToBtn {
   border-radius: 22px;
-  position     : absolute;
-  right        : 30px;
-  top          : -28px;
-  background   : var(--primary);
-  color        : #fff;
-  border       : 0;
-  padding      : 5px 20px;
+  position: absolute;
+  right: 30px;
+  top: -28px;
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  padding: 5px 20px;
 }
 
 sup {
-  color    : red;
+  color: red;
   font-size: 15px;
-  top      : -1px !important;
-  left     : 2px;
+  top: -1px !important;
+  left: 2px;
 }
 
 .price sup {
-  color    : var(--primary);
+  color: var(--primary);
   font-size: 35px;
-  top      : -15px !important;
-  left     : 0 !important;
+  top: -15px !important;
+  left: 0 !important;
 }
 
 /* Filter Box */
 
 .filter-box {
-  background   : #fff;
+  background: #fff;
   border-radius: 22px;
-  padding      : 20px 5px;
-  position     : absolute;
-  width        : 87% !important;
-  z-index      : 2;
-  display      : block;
-  margin-top   : 60px;
-  text-align   : left;
+  padding: 20px 5px;
+  position: absolute;
+  width: 87% !important;
+  z-index: 2;
+  display: block;
+  margin-top: 60px;
+  text-align: left;
 
   box-shadow: 0px 0px 10px #ddd;
-  height    : 73%;
-  overflow  : scroll;
+  height: 73%;
+  overflow: scroll;
   overflow-x: hidden;
 }
 
@@ -3670,15 +3688,15 @@ sup {
   /* thumb and track color */
   scrollbar-width: thin !important;
   -moz-appearance: none !important;
-  border-radius  : 2px;
+  border-radius: 2px;
 }
 
 .scroller-cardlist::-webkit-scrollbar,
 .filter-box::-webkit-scrollbar,
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
-  width          : 7px;
-  height         : 7px;
+  width: 7px;
+  height: 7px;
   -moz-appearance: none !important;
 }
 
@@ -3686,7 +3704,7 @@ sup {
 .filter-box::-webkit-scrollbar-track,
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
-  background     : white;
+  background: white;
   -moz-appearance: none !important;
 }
 
@@ -3694,62 +3712,62 @@ sup {
 .filter-box::-webkit-scrollbar-thumb,
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
-  background     : #00d0cc;
-  border-right   : 1px solid white;
+  background: #00d0cc;
+  border-right: 1px solid white;
   -moz-appearance: none !important;
 }
 
 /* Css for overlay */
 #overlay {
-  position        : fixed;
+  position: fixed;
   /* Sit on top of the page content */
-  display         : none;
+  display: none;
   /* Hidden by default */
-  width           : 100%;
+  width: 100%;
   /* Full width (cover the whole page) */
-  height          : 100%;
+  height: 100%;
   /* Full height (cover the whole page) */
-  top             : 0;
-  left            : 0;
-  right           : 0;
-  bottom          : 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   /* Black background with opacity */
-  z-index         : 2;
+  z-index: 2;
   /* Specify a stack order in case you're using a different order for other elements */
-  cursor          : pointer;
+  cursor: pointer;
   /* Add a pointer on hover */
 }
 
 #text {
-  position     : absolute;
-  top          : 50%;
-  left         : 50%;
-  font-size    : 50px;
-  color        : white;
-  transform    : translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
 
 button.apply-btn {
   background-color: #f6ceb4 !important;
-  width           : 100%;
-  border-radius   : 30px;
-  border-color    : var(--primarysecond) !important;
-  color           : var(--secondary) !important;
-  outline         : none !important;
-  box-shadow      : none !important;
-  font-size       : 13px;
+  width: 100%;
+  border-radius: 30px;
+  border-color: var(--primarysecond) !important;
+  color: var(--secondary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
 }
 
 button.reset-btn {
   background-color: #00d1cd !important;
-  width           : 100%;
-  border-radius   : 30px;
-  border-color    : #00d1cd !important;
-  outline         : none !important;
-  box-shadow      : none !important;
-  font-size       : 13px;
+  width: 100%;
+  border-radius: 30px;
+  border-color: #00d1cd !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
 }
 
 .filter-box .MuiFilledInput-underline:after {
@@ -3762,23 +3780,23 @@ button.reset-btn {
 
 .filter-box .MuiInputBase-formControl {
   border-radius: 5px;
-  text-align   : left;
+  text-align: left;
   margin-bottom: 5px;
 }
 
 .filter-box .MuiFilledInput-input {
-  padding  : 10px 10px !important;
+  padding: 10px 10px !important;
   font-size: 14px;
 }
 
 .filter-body p {
-  margin   : 0 !important;
+  margin: 0 !important;
   font-size: 14px;
 }
 
 .filter-multiselect div {
-  border       : none;
-  background   : #e8e8e8;
+  border: none;
+  background: #e8e8e8;
   border-radius: 5px !important;
   margin-bottom: 5px;
 }
@@ -3787,7 +3805,7 @@ button.reset-btn {
 
 .btn-primary {
   background-color: var(--primary) !important;
-  border-color    : var(--primary) !important;
+  border-color: var(--primary) !important;
 }
 
 button a {
@@ -3796,16 +3814,16 @@ button a {
 
 .record-tabs.nav-tabs .nav-link.active {
   background-color: var(--primary) !important;
-  color           : #fff;
+  color: #fff;
 }
 
 .record-tabs.nav-tabs .nav-link {
   background-color: #fff !important;
-  color           : var(--primary);
-  padding         : 6px;
-  flex            : 1 1 auto;
-  width           : auto;
-  box-shadow      : 1px 1px 2px #dedede;
+  color: var(--primary);
+  padding: 6px;
+  flex: 1 1 auto;
+  width: auto;
+  box-shadow: 1px 1px 2px #dedede;
 }
 
 .record-tabs.nav-tabs .nav-link:not(:last-child) {
@@ -3817,9 +3835,9 @@ button a {
 }
 
 .pagination .page-item.active .page-link {
-  color           : #fff;
+  color: #fff;
   background-color: var(--primary) !important;
-  border-color    : var(--primary) !important;
+  border-color: var(--primary) !important;
 }
 
 .pagination .page-link {
@@ -3832,7 +3850,7 @@ button a {
 
 .MuiMenu-paper li.MuiButtonBase-root:hover {
   background-color: #f5f5f5 !important;
-  color           : var(--primary) !important;
+  color: var(--primary) !important;
 }
 
 .MuiFormControlLabel-root span {
@@ -3861,131 +3879,131 @@ button a {
 
 .searchForwardIcon {
   position: absolute !important;
-  right   : 160px;
-  color   : #fff !important;
+  right: 160px;
+  color: #fff !important;
 }
 
 /* Questionnaire css */
 
 .button-container button {
-  width           : 50%;
+  width: 50%;
   background-color: #eee9df !important;
-  border-color    : #eee9df !important;
-  color           : var(--primary) !important;
-  border-radius   : 10px;
-  box-shadow      : none !important;
+  border-color: #eee9df !important;
+  color: var(--primary) !important;
+  border-radius: 10px;
+  box-shadow: none !important;
 }
 
 /* Hide the browser's default checkbox */
 .checkbox-container input {
   position: absolute;
-  opacity : 0;
-  cursor  : pointer;
-  height  : 0;
-  width   : 0;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 /* Create a custom checkbox */
 .checkmark {
-  position           : absolute;
+  position: absolute;
   /* top             : 0;
   left               : 0; */
-  height             : 20px;
-  width              : 20px;
+  height: 20px;
+  width: 20px;
   /* background-color: #eee;
   border             : 1px solid #00000060; */
 }
 
 /* On mouse-over, add a grey background color */
-.checkbox-container:hover input~.checkmark {
+.checkbox-container:hover input ~ .checkmark {
   background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.checkbox-container input:checked~.checkmark {
+.checkbox-container input:checked ~ .checkmark {
   background-color: #00d0cc;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content : '';
+  content: '';
   position: absolute;
-  display : none;
+  display: none;
 }
 
 /* Show the checkmark when checked */
-.container input:checked~.checkmark:after {
+.container input:checked ~ .checkmark:after {
   display: block;
 }
 
 /* Style the checkmark/indicator */
 .checkbox-container .checkmark:after {
-  left             : 6px;
-  top              : 3px;
-  width            : 5px;
-  height           : 10px;
-  border           : solid white;
-  border-width     : 0 3px 3px 0;
+  left: 6px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
-  -ms-transform    : rotate(45deg);
-  transform        : rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .checkbox-container {
-  display            : block;
-  position           : relative;
+  display: block;
+  position: relative;
   /* padding-left    : 30px; */
   /* margin-bottom   : 12px; */
   /* cursor          : pointer; */
   -webkit-user-select: none;
-  -moz-user-select   : none;
-  -ms-user-select    : none;
-  user-select        : none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* mydoctor calendar */
 
 button.react-calendar__tile--active.react-calendar__tile.react-calendar__month-view__days__day {
   background: #f6ceb4 !important;
-  border    : 1px solid #fff !important;
+  border: 1px solid #fff !important;
 }
 
 button.react-calendar__tile--active.react-calendar__tile.react-calendar__month-view__days__day:disabled {
   background-color: #f0f0f0 !important;
-  border          : none !important;
+  border: none !important;
 }
 
 ul.react-tabs__tab-list {
-  border       : none !important;
-  background   : var(--primarysecond) !important;
+  border: none !important;
+  background: var(--primarysecond) !important;
   border-radius: 22px !important;
 }
 
 li.react-tabs__tab {
-  width     : 33.33% !important;
+  width: 33.33% !important;
   text-align: center !important;
 }
 
 .react-tabs__tab--selected {
   border-radius: 22px !important;
-  border       : none !important;
-  bottom       : 0 !important;
-  background   : var(--primary) !important;
-  color        : #fff !important;
+  border: none !important;
+  bottom: 0 !important;
+  background: var(--primary) !important;
+  color: #fff !important;
 }
 
 .location-details p {
   font-size: 14px;
-  margin   : 0;
+  margin: 0;
 }
 
 .location .sb-avatar__text {
-  width      : auto !important;
-  height     : 150px !important;
+  width: auto !important;
+  height: 150px !important;
   line-height: initial !important;
-  text-align : center !important;
-  color      : var(--primary) !important;
-  background : #eee !important;
+  text-align: center !important;
+  color: var(--primary) !important;
+  background: #eee !important;
 }
 
 .location .sb-avatar__text span {
@@ -3993,18 +4011,18 @@ li.react-tabs__tab {
 }
 
 .fulldetails h5 {
-  color      : var(--primary);
-  font-size  : 20px;
+  color: var(--primary);
+  font-size: 20px;
   font-weight: 700;
 }
 
 #foot-icon svg {
-  color        : #fff;
-  background   : #00d0cc;
+  color: #fff;
+  background: #00d0cc;
   border-radius: 50%;
-  padding      : 4px;
-  font-size    : 30px !important;
-  margin       : 2px 0 0 10px;
+  padding: 4px;
+  font-size: 30px !important;
+  margin: 2px 0 0 10px;
 }
 
 /* BMI Calculator Radio Button */
@@ -4014,12 +4032,12 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 /* BUG HU067 resolved */
 .filter-box .filterDate .MuiFilledInput-input {
-  padding  : 5px 2px !important;
+  padding: 5px 2px !important;
   font-size: 14px;
 }
 
 .searchBox {
-  width     : 100%;
+  width: 100%;
   max-height: 50px;
 }
 
@@ -4035,7 +4053,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .rbc-time-content::-webkit-scrollbar-track,
 .rbc-agenda-view::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
@@ -4043,7 +4061,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .rbc-time-content::-webkit-scrollbar-thumb,
 .rbc-agenda-view::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -4055,28 +4073,28 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .edit-profile__button-wrapper {
-  display        : flex;
-  align-items    : center;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
 /* MY APPOINTMENTS NEW CSS */
 .my-appointments__card-box {
   border-radius: 22px;
-  color        : #fff;
-  font-weight  : 700 !important;
-  font-size    : 20px !important;
-  text-shadow  : 0px 0px 15px #000;
+  color: #fff;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  text-shadow: 0px 0px 15px #000;
 }
 
 .my-appointments-card:hover {
-  transform : translateY(-2px);
+  transform: translateY(-2px);
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 .my-appointments--main-header {
   margin-left: 5px;
-  color      : var(--text-primary);
+  color: var(--text-primary);
   font-weight: 700;
   text-shadow: none;
 }
@@ -4086,112 +4104,112 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .my-appointments-card {
-  position        : relative;
-  display         : flex;
-  flex-direction  : column;
-  min-width       : 0;
-  word-wrap       : break-word;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
   background-color: #fff;
-  background-clip : border-box;
-  border          : 1px solid rgba(0, 0, 0, 0.125);
-  border-radius   : 22px;
-  filter          : drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
-  border-left     : 3px solid var(--primarysecond);
-  transition      : all 0.2s;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 22px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+  border-left: 3px solid var(--primarysecond);
+  transition: all 0.2s;
 }
 
 .my-appointments-card__completed {
-  position        : relative;
-  display         : flex;
-  flex-direction  : column;
-  min-width       : 0;
-  word-wrap       : break-word;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
   background-color: #fff;
-  background-clip : border-box;
-  border          : 1px solid rgba(0, 0, 0, 0.125);
-  border-radius   : 22px;
-  filter          : drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
-  border-left     : 3px solid #5fccc8;
-  transition      : all 0.2s;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 22px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+  border-left: 3px solid #5fccc8;
+  transition: all 0.2s;
 }
 
 .my-appointments-card__cancelled {
-  position        : relative;
-  display         : flex;
-  flex-direction  : column;
-  min-width       : 0;
-  word-wrap       : break-word;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
   background-color: #fff;
-  background-clip : border-box;
-  border          : 1px solid rgba(0, 0, 0, 0.125);
-  border-radius   : 22px;
-  filter          : drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
-  border-left     : 3px solid #ff7e7c;
-  transition      : all 0.2s;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 22px;
+  filter: drop-shadow(0px 9px 12px rgba(0, 0, 0, 0.08));
+  border-left: 3px solid #ff7e7c;
+  transition: all 0.2s;
 }
 
 .my-appointments-card:hover,
 .my-appointments-card__completed:hover,
 .my-appointments-card__cancelled:hover {
-  transform : translateY(-2px);
-  cursor    : pointer;
+  transform: translateY(-2px);
+  cursor: pointer;
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 .my-appointments-card__img-wrapper {
-  padding   : 20px;
+  padding: 20px;
   text-align: center;
 }
 
 .img-circle {
   -webkit-border-radius: 50%;
-  -khtml-border-radius : 50%;
-  -moz-border-radius   : 50%;
-  border-radius        : 50%;
-  width                : 70px;
-  height               : 70px;
-  border               : 2px solid #00d0cc;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  border: 2px solid #00d0cc;
 }
 
 .my-appointments-card__card-details {
   margin: 10px;
-  color : #3e4543;
+  color: #3e4543;
 }
 
 .my-appointments-card__doctor-name {
-  text-shadow   : none;
-  font-size     : 18px;
-  font-weight   : bold;
-  margin-bottom : 2px;
+  text-shadow: none;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 2px;
   text-transform: capitalize;
 }
 
 .my-appointments-card__common-span {
-  font-size      : 12px;
+  font-size: 12px;
   text-decoration: none;
-  text-shadow    : none;
-  font-weight    : bold;
+  text-shadow: none;
+  font-weight: bold;
 }
 
 .my-appointments-card__specality {
-  color          : var(--text-secondary);
-  font-size      : 12px;
+  color: var(--text-secondary);
+  font-size: 12px;
   text-decoration: none;
-  text-shadow    : none;
-  display        : block;
-  font-weight    : none;
-  margin-left    : 2px;
+  text-shadow: none;
+  display: block;
+  font-weight: none;
+  margin-left: 2px;
 }
 
 .my-appointments-card__card-details--date-div {
-  display    : flex;
+  display: flex;
   align-items: center;
-  margin-top : 15px;
+  margin-top: 15px;
 }
 
-.my-appointments-card__card-time-row>img {
-  width       : 28px;
-  height      : 28px;
+.my-appointments-card__card-time-row > img {
+  width: 28px;
+  height: 28px;
   margin-right: 4px;
 }
 
@@ -4206,16 +4224,16 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .calender_container {
-  box-shadow   : 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
   border-radius: 18px;
-  padding      : 2rem;
+  padding: 2rem;
 }
 
 /* Track */
 
 .doctor-list-new::-webkit-scrollbar-track,
 #calendar-list::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
@@ -4223,7 +4241,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .doctor-list-new::-webkit-scrollbar-thumb,
 #calendar-list::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -4261,16 +4279,16 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 /* APPOINTMENT DETAILS CSS */
 .details-container {
-  margin    : 0 auto;
+  margin: 0 auto;
   text-align: center;
 }
 
 .details-wrapper {
   /* max-width: 420px; */
   background-color: #fff;
-  border-radius   : 15px;
-  overflow        : hidden;
-  margin          : 1rem;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 1rem;
 }
 
 .details-content {
@@ -4280,106 +4298,106 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .details-content__doc-info {
   padding-bottom: 20px;
-  padding-top   : 54px;
+  padding-top: 54px;
 }
 
 .details-content img,
 .details-content__doc-info img {
-  width        : 100px;
-  height       : 100px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   /* border    : 4px solid #fff; */
-  margin-top   : -52px;
+  margin-top: -52px;
   margin-bottom: 20px;
 }
 
 .details-content h2 {
-  color        : hsl(229, 23%, 23%);
-  font-size    : 18px;
-  font-weight  : 700;
+  color: hsl(229, 23%, 23%);
+  font-size: 18px;
+  font-weight: 700;
   margin-bottom: 10px;
 }
 
 .details-content h2 span {
-  color      : hsl(227, 10%, 46%);
+  color: hsl(227, 10%, 46%);
   font-weight: 400;
 }
 
 .details-body {
   text-align: left;
-  margin    : 0 15px;
+  margin: 0 15px;
 }
 
 .details-body__appointment,
 .details-body__payment {
-  display        : flex;
+  display: flex;
   justify-content: space-between;
-  margin-top     : 10px;
-  align-items    : flex-start;
+  margin-top: 10px;
+  align-items: flex-start;
 }
 
 .details-body__appointment-time-row-image {
-  height      : 30px;
-  width       : 30px;
+  height: 30px;
+  width: 30px;
   margin-right: 10px;
 }
 
 .details-links {
-  display       : flex;
+  display: flex;
   flex-direction: column;
-  align-items   : stretch;
-  text-align    : left;
+  align-items: stretch;
+  text-align: left;
 }
 
-.details-links>a,
-.details-links>div {
+.details-links > a,
+.details-links > div {
   border-radius: 10px;
-  text-align   : justify;
-  color        : #3e4543;
-  font-weight  : 600;
+  text-align: justify;
+  color: #3e4543;
+  font-weight: 600;
 }
 
-.details-links>a:hover,
-.details-links>div:hover {
+.details-links > a:hover,
+.details-links > div:hover {
   text-decoration: none;
-  transform      : translateY(-2px);
-  color          : #00d0cc;
+  transform: translateY(-2px);
+  color: #00d0cc;
 }
 
 .doctor-info-icon-title {
-  display    : flex;
+  display: flex;
   align-items: center;
 }
 
 .doctor-info-value {
-  color      : var(--text-primary);
+  color: var(--text-primary);
   font-weight: normal;
-  text-align : left;
+  text-align: left;
   margin-left: 60px;
 }
 
 .doctor-info-title {
   font-size: 16px;
-  color    : var(--text-primary);
+  color: var(--text-primary);
 }
 
 .doctor-info-icon {
-  height       : 50px;
-  width        : 50px;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
-  margin-right : 10px;
-  padding      : 5px;
+  margin-right: 10px;
+  padding: 5px;
 }
 
 /* QUESTIONNAIRE ASSESSMENT MODAL */
 .score-text {
-  display       : flex;
+  display: flex;
   flex-direction: column;
-  align-items   : center;
+  align-items: center;
 }
 
 .score-modal-btn-wrapper {
-  margin     : 0 auto;
+  margin: 0 auto;
   align-items: center;
 }
 
@@ -4396,56 +4414,56 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   /* thumb and track color */
   scrollbar-width: thin !important;
   -moz-appearance: none !important;
-  border-radius  : 2px;
+  border-radius: 10px;
 }
 
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
-  width          : 7px;
+  width: 7px;
   -moz-appearance: none !important;
 }
 
 .MuiDialogContent-dividers::-webkit-scrollbar,
 .MuiDialogContent-root::-webkit-scrollbar {
-  background     : white;
+  background: white;
   -moz-appearance: none !important;
 }
 
-.MuiDialogContent-dividers::-webkit-scrollbar,
-.MuiDialogContent-root::-webkit-scrollbar {
-  background     : #00d0cc;
-  border-right   : 1px solid white;
+.MuiDialogContent-dividers::-webkit-scrollbar-thumb,
+.MuiDialogContent-root::-webkit-scrollbar-thumb {
+  background: #00d0cc;
+  border-right: 1px solid white;
   -moz-appearance: none !important;
 }
 
 /* MY DOCTOR AVAILABLE SLOTS CSS */
 .availability-card-holder {
-  display        : flex;
+  display: flex;
   justify-content: flex-start;
-  align-items    : center;
-  overflow-x     : scroll;
+  align-items: center;
+  overflow-x: scroll;
 }
 
 .availability-card {
-  display       : flex;
+  display: flex;
   flex-direction: column;
-  box-sizing    : border-box;
-  align-items   : flex-start;
-  padding       : 10px 14px 10px 12px;
-  width         : 120px;
-  height        : 56px;
-  background    : #eef4f4;
-  border-radius : 8px;
-  flex          : none;
-  order         : 0;
-  flex-grow     : 0;
-  font-size     : 12px;
-  margin-right  : 10px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  padding: 10px 14px 10px 12px;
+  width: 120px;
+  height: 56px;
+  background: #eef4f4;
+  border-radius: 8px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  font-size: 12px;
+  margin-right: 10px;
 }
 
 .slot-display {
   overflow-y: scroll;
-  height    : 380px;
+  height: 380px;
 }
 
 /* SCROLL-BAR CSS FOR SLOT DISPLAY */
@@ -4455,17 +4473,17 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   /* thumb and track color */
   scrollbar-width: thin !important;
   -moz-appearance: none !important;
-  border-radius  : 2px;
-  width          : 5px;
+  border-radius: 2px;
+  width: 5px;
 }
 
 .slot-display::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
 .slot-display::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -4479,51 +4497,51 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   /* thumb and track color */
   scrollbar-width: thin !important;
   -moz-appearance: none !important;
-  border-radius  : 1px !important;
-  height         : 5px !important;
+  border-radius: 1px !important;
+  height: 5px !important;
 }
 
 .availability-card-holder::-webkit-scrollbar-track {
-  height         : 4px !important;
+  height: 4px !important;
   -moz-appearance: none !important;
 }
 
 .availability-card-holder::-webkit-scrollbar-thumb {
-  background     : #e5e5e5 !important;
+  background: #e5e5e5 !important;
   -moz-appearance: none !important;
 }
 
 .availability-card-holder::-webkit-scrollbar-thumb:hover {
-  background     : #00d0cc !important;
-  border-right   : 1px solid white;
+  background: #00d0cc !important;
+  border-right: 1px solid white;
   -moz-appearance: none !important;
 }
 
 .doc-img div {
-  height         : 120px !important;
+  height: 120px !important;
   justify-content: center;
-  border-radius  : 50%;
-  width          : 120px !important;
+  border-radius: 50%;
+  width: 120px !important;
 }
 
 @media screen and (max-width: 990px) {
-  .navbar>.container {
+  .navbar > .container {
     display: flex;
   }
 }
 
 /* NOTIFICATION_MENU */
 .notif-section {
-  display    : flex;
+  display: flex;
   align-items: center;
-  font-size  : 12px;
-  margin-top : 10px;
+  font-size: 12px;
+  margin-top: 10px;
 }
 
 .message-notif {
-  display       : flex;
+  display: flex;
   flex-direction: column;
-  margin        : 2px 10px;
+  margin: 2px 10px;
 }
 
 .notification-Menu::-webkit-scrollbar {
@@ -4533,14 +4551,14 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 /* Track */
 
 .notification-Menu::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
 /* Handle */
 
 .notification-Menu::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -4550,30 +4568,30 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   background: #375eaa;
 }
 
-.notifications-avatar>.sb-avatar__text {
-  width : 50px !important;
+.notifications-avatar > .sb-avatar__text {
+  width: 50px !important;
   height: 50px !important;
   border: 2px solid #00d0cc;
 }
 
-.my-appointment-avatar>.sb-avatar__text {
-  width : 70px !important;
+.my-appointment-avatar > .sb-avatar__text {
+  width: 70px !important;
   height: 70px !important;
 }
 
-.my-appointments-avatar>.sb-avatar__text {
-  width : 70px !important;
+.my-appointments-avatar > .sb-avatar__text {
+  width: 70px !important;
   height: 70px !important;
   margin: 15px !important;
   border: 2px solid #00d0cc;
 }
 
 .set-next-notif__button {
-  height       : 50px;
-  width        : 70px;
+  height: 50px;
+  width: 70px;
   border-radius: 10px;
-  padding      : 2px;
-  font-size    : 14px;
+  padding: 2px;
+  font-size: 14px;
 }
 
 /* .set-next-appt {
@@ -4583,28 +4601,28 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .set-next-appt:hover {
   /* background: #ebe4e4; */
-  color     : #343a40;
-  cursor    : pointer;
-  transform : translateY(-2px);
+  color: #343a40;
+  cursor: pointer;
+  transform: translateY(-2px);
   box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
 }
 
 .navlink-hover:hover {
   background: #fff !important;
-  color     : #343a40;
-  cursor    : pointer;
-  transform : translateY(-2px);
+  color: #343a40;
+  cursor: pointer;
+  transform: translateY(-2px);
   box-shadow: 4px 4px 14px rgb(0 0 0 / 9%);
 }
 
 .card-list__grid-list-tile:hover {
-  cursor       : pointer;
+  cursor: pointer;
   /* border    : none;
   background   : none; */
-  transition   : all 0.2s ease-in;
-  transform    : translateY(-4px);
+  transition: all 0.2s ease-in;
+  transform: translateY(-4px);
   /* box-shadow: 4px 4px 14px rgb(0 0 0 / 9%); */
-  filter       : drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.2));
 }
 
 .card-list__grid-list-tile--selected {
@@ -4616,10 +4634,10 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .card-border {
-  border       : 0px solid black;
+  border: 0px solid black;
   border-radius: 10px !important;
-  background   : #e0e0e0;
-  box-shadow   : inset -25px -235px 50px var(--primarysecond),
+  background: #e0e0e0;
+  box-shadow: inset -25px -235px 50px var(--primarysecond),
     inset 25px 25px 50px var(--primarysecond);
 }
 
@@ -4627,10 +4645,17 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   border: 1px solid black;
 }
 
-.my-appointments__modal-avatar>.sb-avatar__text {
-  width : 70px !important;
+.my-appointments__modal-avatar > .sb-avatar__text {
+  width: 70px !important;
   height: 70px !important;
   margin: 7px -5px !important;
+  border: 2px solid #00d0cc;
+}
+
+.doctor-info-avatar > .sb-avatar__text {
+  width: 100px !important;
+  height: 100px !important;
+  margin: -40px -25px !important;
   border: 2px solid #00d0cc;
 }
 
@@ -4648,14 +4673,14 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   left: 1300px !important;
 } */
 
-.profile-menu>.MuiMenu-paper {
-  top : 80px !important;
+.profile-menu > .MuiMenu-paper {
+  top: 80px !important;
   left: 1175px !important;
 }
 
 @media (max-width: 1180px) {
-  .profile-menu>.MuiMenu-paper {
-    top : 10% !important;
+  .profile-menu > .MuiMenu-paper {
+    top: 10% !important;
     left: 83% !important;
   }
 }
@@ -4668,14 +4693,14 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 } */
 
 @media screen and (max-width: 990px) {
-  .profile-menu>.MuiMenu-paper {
-    top : 25% !important;
+  .profile-menu > .MuiMenu-paper {
+    top: 25% !important;
     left: 10% !important;
   }
 }
 
 .firefox-helper {
-  margin-bottom        : 5%;
+  margin-bottom: 5%;
   -webkit-margin-bottom: 5%;
 }
 
@@ -4688,26 +4713,26 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .my-patient__common-span {
-  font-size      : 14px;
+  font-size: 14px;
   text-decoration: none;
-  text-shadow    : none;
-  color          : #000;
-  margin-left    : 5px;
+  text-shadow: none;
+  color: #000;
+  margin-left: 5px;
 }
 
 .safari-helper {
   -webkit-border-radius: 50%;
-  -khtml-border-radius : 50%;
-  -moz-border-radius   : 50%;
-  border-radius        : 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
 }
 
 .grid-image-mydoctor {
   /* top: 10% !important; */
-  width    : 100%;
-  position : relative;
+  width: 100%;
+  position: relative;
   transform: translateY(-50%);
-  height   : 100%;
+  height: 100%;
 }
 
 /* CALENDAR CUSTOM CSS */
@@ -4722,36 +4747,36 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .specialitiesTags {
-  border          : 1px solid none;
-  padding         : 5px 10px;
-  border-radius   : 12px;
-  background-color: #ECF8F7;
-  margin          : 5px
+  border: 1px solid none;
+  padding: 5px 10px;
+  border-radius: 12px;
+  background-color: #ecf8f7;
+  margin: 5px;
 }
 
 .doctor-info-new {
-  color      : var(--text-primary);
+  color: var(--text-primary);
   font-weight: normal;
-  text-align : left;
+  text-align: left;
 }
 
 .ul-helper {
-  font-size      : 14px;
-  display        : flex;
-  flex-wrap      : wrap;
+  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  margin-left    : -50px;
+  margin-left: -50px;
 }
 
 .specialitiesTags {
-  border          : 1px solid none;
-  padding         : 5px 10px;
-  border-radius   : 12px;
+  border: 1px solid none;
+  padding: 5px 10px;
+  border-radius: 12px;
   background-color: #ecf8f7;
-  margin          : 5px;
+  margin: 5px;
 }
 
 .profile-in-gridlist {
-  bottom : 20px;
+  bottom: 20px;
   padding: 20px;
 }
