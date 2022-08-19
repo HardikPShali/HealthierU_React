@@ -525,6 +525,10 @@ const Welcome = ({ currentuserInfo }) => {
                 setSpecialityError(true);
             } else {
                 setTransparentLoading(true);
+                if (doctorPayload.salutation === 'non-doc') {
+                    doctorPayload.salutation = '';
+                }
+                console.log({ doctorPayload });
                 bodyFormDataDoctor.append(
                     'profileData',
                     new Blob([JSON.stringify(doctorPayload)], {
@@ -1116,12 +1120,13 @@ const Welcome = ({ currentuserInfo }) => {
                                                                         variant="filled"
                                                                         name="salutation"
                                                                         value={salutation}
-                                                                        displayEmpty
+                                                                        displayEmpty={true}
                                                                         required
-                                                                        inputProps={{ required: true }}
+                                                                        // inputProps={{ required: true }}
                                                                         onChange={(e) => handleInputChange(e)}
                                                                     >
-                                                                        <MenuItem value={emptyStringForMenuItem}>
+                                                                        <MenuItem value="">Select</MenuItem>
+                                                                        <MenuItem value='non-doc'>
                                                                             Health and Wellness/Non-Medical
                                                                         </MenuItem>
                                                                         <MenuItem value="Dr.">
