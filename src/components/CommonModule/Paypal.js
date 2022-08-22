@@ -7,7 +7,15 @@ import { useHistory } from 'react-router';
 import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 
 const Paypal = (props) => {
-  const { bookappointment, email, firstName, rate, halfRate, userId, appointmentMode } = props; //lastName,
+  const {
+    bookappointment,
+    email,
+    firstName,
+    rate,
+    halfRate,
+    userId,
+    appointmentMode,
+  } = props; //lastName,
   // const { appointmentMode, id: appointmentId } = appointment;
   // const {
   //   // address,
@@ -22,12 +30,12 @@ const Paypal = (props) => {
   const paypalButton = useRef();
 
   // ON CANCEL FALLBACK---- STARTS
-  const history = useHistory()
+  const history = useHistory();
   const [cancelSelect, setCancelSelect] = useState(false);
 
   const handleCancel = () => {
     setCancelSelect(true);
-  }
+  };
   // ON CANCEL FALLBACK---- ENDS
 
   useEffect(() => {
@@ -43,7 +51,7 @@ const Paypal = (props) => {
           //   size: 'responsive',
           // },
           createOrder: function (data, actions, err) {
-            console.log('CreateOrder accessed')
+            console.log('CreateOrder accessed');
             return actions.order.create({
               intent: 'CAPTURE',
               payer: {
@@ -69,7 +77,8 @@ const Paypal = (props) => {
                   amount: {
                     currency_code: 'USD',
                     value:
-                      appointmentMode === 'First Consultation' || appointmentMode === 'FIRST_CONSULTATION'
+                      appointmentMode === 'First Consultation' ||
+                        appointmentMode === 'FIRST_CONSULTATION'
                         ? rate
                         : halfRate,
                   },
@@ -81,8 +90,12 @@ const Paypal = (props) => {
             });
           },
           onApprove: async (data, actions, a) => {
-            console.log('OnApprove accessed')
-            const order = await actions.order.capture();
+            console.log('OnApprove accessed');
+            console.log('data', data);
+            const order = await actions.order.capture().then(function (details) {
+              console.log('details', details);
+              return details;
+            });
             const {
               id: paymentId,
               intent,
@@ -109,13 +122,18 @@ const Paypal = (props) => {
                 payer_id: payerId,
               },
             } = order;
+            console.log('paymentmethod', paymentmethod);
             const orderData = {
               // appointmentId,
               appointmentMode,
               intent,
               payerId,
               paymentId,
-              paymentmethod: paymentmethod || 'paypal website',
+              paymentmethod:
+                paymentmethod === 'PAYPAL *JOHNDOESTES' ||
+                  paymentmethod === 'PAYPAL *TEST STORE'
+                  ? 'Card'
+                  : 'paypal website',
               state,
               transactionAmount,
               transactionCurrency,
@@ -123,6 +141,7 @@ const Paypal = (props) => {
               userName: `${given_name}`,
               userId,
             };
+            console.log('paymentmethod', paymentmethod);
             bookappointment(orderData);
           },
           onCancel: (data) => {
@@ -134,7 +153,9 @@ const Paypal = (props) => {
               window.android.sendOrderData(false);
             }
             if (window.webkit) {
-              window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
+              window.webkit.messageHandlers.onPaymentStatusChange.postMessage(
+                false
+              );
               window.webkit.messageHandlers.sendOrderData.postMessage(false);
             }
           },
@@ -145,9 +166,10 @@ const Paypal = (props) => {
               window.android.sendOrderData(false);
             }
             if (window.webkit) {
-              window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
+              window.webkit.messageHandlers.onPaymentStatusChange.postMessage(
+                false
+              );
               window.webkit.messageHandlers.sendOrderData.postMessage(false);
-
             }
           },
         })
@@ -177,13 +199,13 @@ const Paypal = (props) => {
               if (window.android) {
                 window.android.onPaymentStatusChange(false);
                 window.android.sendOrderData(false);
-              }
-              else if (window.webkit) {
-                window.webkit.messageHandlers.onPaymentStatusChange.postMessage(false);
+              } else if (window.webkit) {
+                window.webkit.messageHandlers.onPaymentStatusChange.postMessage(
+                  false
+                );
                 window.webkit.messageHandlers.sendOrderData.postMessage(false);
-              }
-              else {
-                history.go(0)
+              } else {
+                history.go(0);
               }
             }}
             className="btn btn-primary"
