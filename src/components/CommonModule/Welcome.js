@@ -908,7 +908,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                 <br />
                                                 <Row>
                                                     <Col md={6}>
-                                                        <p>High BP(mmHg)<sup>*</sup></p>
+                                                        <p>Systolic/High (mmHg)<sup>*</sup></p>
                                                         <TextValidator id="standard-basic" type="number" name="highbp"
                                                             onChange={e => handleInputChange(e)}
                                                             value={highbp === 0 ? '' : highbp}
@@ -928,7 +928,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                             placeholder='High BP' />
                                                     </Col>
                                                     <Col md={6}>
-                                                        <p>Low BP(mmHg)<sup>*</sup></p>
+                                                        <p>Diastolic/Low (mmHg)<sup>*</sup></p>
                                                         <TextValidator id="standard-basic" type="number" name="lowbp"
                                                             onChange={e => handleInputChange(e)}
                                                             value={lowbp === 0 ? '' : lowbp}
