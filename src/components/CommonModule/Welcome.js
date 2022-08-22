@@ -818,189 +818,142 @@ const Welcome = ({ currentuserInfo }) => {
                                                 </Col>
                                             </Row>
                                             <br />
-                                            {currentuserInfo &&
-                                                currentuserInfo.authorities.some(
-                                                    (user) => user === 'ROLE_PATIENT'
-                                                ) && (
-                                                    <>
-                                                        <Row>
-                                                            <Col md={12}>
-                                                                <p>
-                                                                    Allergies<sup>*</sup>
-                                                                </p>
-                                                                <TextValidator
-                                                                    id="standard-basic"
-                                                                    type="text"
-                                                                    name="allergies"
-                                                                    onChange={(e) => handleInputChange(e)}
-                                                                    value={allergies}
-                                                                    variant="filled"
-                                                                    required
-                                                                    placeholder="Allergies"
-                                                                    inputProps={{
-                                                                        title: 'Make it comma (,) separated.',
-                                                                    }}
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                        <br />
-                                                        <Row>
-                                                            <Col md={12}>
-                                                                <p>
-                                                                    Marital Status<sup>*</sup>
-                                                                </p>
-                                                                <FormControl>
-                                                                    <Select
-                                                                        id="demo-controlled-open-select"
-                                                                        variant="filled"
-                                                                        name="maritalstatus"
-                                                                        value={maritalstatus}
-                                                                        displayEmpty
-                                                                        required
-                                                                        inputProps={{ required: true }}
-                                                                        onChange={(e) => handleInputChange(e)}
-                                                                    >
-                                                                        <MenuItem value="">Select</MenuItem>
-                                                                        <MenuItem value="MARRIED">Married</MenuItem>
-                                                                        <MenuItem value="SINGLE">Single</MenuItem>
-                                                                        <MenuItem value="DIVORCED">
-                                                                            Divorced
-                                                                        </MenuItem>
-                                                                        <MenuItem value="WIDOWED">Widowed</MenuItem>
-                                                                        <MenuItem value="OTHER">Other</MenuItem>
-                                                                    </Select>
-                                                                </FormControl>
-                                                            </Col>
-                                                        </Row>
-                                                        <br />
-                                                        <Row>
-                                                            <Col md={6}>
-                                                                <p>
-                                                                    Height(CM)<sup>*</sup>
-                                                                </p>
-                                                                <TextValidator
-                                                                    id="standard-basic"
-                                                                    type="number"
-                                                                    name="height"
-                                                                    onChange={(e) => handleInputChange(e)}
-                                                                    value={height === 0 ? '' : height}
-                                                                    validators={[
-                                                                        'required',
-                                                                        'matchRegexp:(^[0-9]{0,3}(.[0-9]{1,2})?$)',
-                                                                    ]}
-                                                                    errorMessages={[
-                                                                        'This field is required',
-                                                                        'Please Enter Valid Height',
-                                                                    ]}
-                                                                    variant="filled"
-                                                                    inputProps={{
-                                                                        min: 30,
-                                                                        max: 250,
-                                                                        step: 0.1,
-                                                                    }}
-                                                                    required
-                                                                    placeholder="Height"
-                                                                />
-                                                            </Col>
-                                                            <Col md={6}>
-                                                                <p>
-                                                                    Weight(KG)<sup>*</sup>
-                                                                </p>
-                                                                <TextValidator
-                                                                    id="standard-basic"
-                                                                    type="number"
-                                                                    name="weight"
-                                                                    onChange={(e) => handleInputChange(e)}
-                                                                    value={weight === 0 ? '' : weight}
-                                                                    validators={[
-                                                                        'required',
-                                                                        'matchRegexp:(^[0-9]{0,3}(.[0-9]{1,2})?$)',
-                                                                    ]}
-                                                                    errorMessages={[
-                                                                        'This field is required',
-                                                                        'Please Enter Valid Weight',
-                                                                    ]}
-                                                                    variant="filled"
-                                                                    inputProps={{
-                                                                        min: 5.0,
-                                                                        max: 999.0,
-                                                                        step: 0.1,
-                                                                    }}
-                                                                    required
-                                                                    placeholder="Weight"
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                        <br />
-                                                        <Row>
-                                                            <Col md={6}>
-                                                                <p>
-                                                                    High BP(mmHg)<sup>*</sup>
-                                                                </p>
-                                                                <TextValidator
-                                                                    id="standard-basic"
-                                                                    type="number"
-                                                                    name="highbp"
-                                                                    onChange={(e) => handleInputChange(e)}
-                                                                    value={highbp === 0 ? '' : highbp}
-                                                                    validators={[
-                                                                        'required',
-                                                                        'matchRegexp:(^[0-9]{0,3}(.[0-9]{1,2})?$)',
-                                                                    ]}
-                                                                    errorMessages={[
-                                                                        'This field is required',
-                                                                        'Please Enter Valid High BP Rate',
-                                                                    ]}
-                                                                    variant="filled"
-                                                                    inputProps={{
-                                                                        min: 50,
-                                                                        max: 300,
-                                                                        step: 0.1,
-                                                                    }}
-                                                                    required
-                                                                    placeholder="High BP"
-                                                                />
-                                                            </Col>
-                                                            <Col md={6}>
-                                                                <p>
-                                                                    Low BP(mmHg)<sup>*</sup>
-                                                                </p>
-                                                                <TextValidator
-                                                                    id="standard-basic"
-                                                                    type="number"
-                                                                    name="lowbp"
-                                                                    onChange={(e) => handleInputChange(e)}
-                                                                    value={lowbp === 0 ? '' : lowbp}
-                                                                    validators={[
-                                                                        'required',
-                                                                        'matchRegexp:(^[0-9]{0,3}(.[0-9]{1,2})?$)',
-                                                                    ]}
-                                                                    errorMessages={[
-                                                                        'This field is required',
-                                                                        'Please Enter Valid Low BP Rate',
-                                                                    ]}
-                                                                    variant="filled"
-                                                                    inputProps={{
-                                                                        min: 50,
-                                                                        max: 200,
-                                                                        step: 0.1,
-                                                                    }}
-                                                                    required
-                                                                    placeholder="Low BP"
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                        <br />
-                                                    </>
-                                                )}
-                                            {currentuserInfo &&
-                                                Object.keys(currentuserInfo).length > 0 &&
-                                                currentuserInfo.authorities.some(
-                                                    (user) => user === 'ROLE_DOCTOR'
-                                                ) && (
-                                                    <>
-                                                        {/* <Row> */}
-                                                        {/* <Col md={12}>
+                                            {currentuserInfo && currentuserInfo.authorities.some((user) => user === "ROLE_PATIENT") && (<>
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <p>Allergies<sup>*</sup></p>
+                                                        <TextValidator id="standard-basic" type="text" name="allergies"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={allergies}
+                                                            variant="filled"
+                                                            required
+                                                            placeholder="Allergies"
+                                                            inputProps={{
+                                                                title: "Make it comma (,) separated."
+                                                            }} />
+                                                    </Col>
+
+                                                </Row>
+                                                <br />
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <p>Marital Status<sup>*</sup></p>
+                                                        <FormControl>
+                                                            <Select
+                                                                id="demo-controlled-open-select"
+                                                                variant="filled"
+                                                                name="maritalstatus"
+                                                                value={maritalstatus}
+                                                                displayEmpty
+                                                                required
+                                                                inputProps={{ required: true }}
+                                                                onChange={e => handleInputChange(e)}
+                                                            >
+                                                                <MenuItem value="">Select</MenuItem>
+                                                                <MenuItem value="MARRIED">Married</MenuItem>
+                                                                <MenuItem value="SINGLE">Single</MenuItem>
+                                                                <MenuItem value="DIVORCED">Divorced</MenuItem>
+                                                                <MenuItem value="WIDOWED">Widowed</MenuItem>
+                                                                <MenuItem value="OTHER">Other</MenuItem>
+                                                            </Select>
+                                                        </FormControl>
+
+                                                    </Col>
+
+
+                                                </Row>
+                                                <br />
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Height(CM)<sup>*</sup></p>
+                                                        <TextValidator id="standard-basic" type="number" name="height"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={height === 0 ? '' : height}
+                                                            validators={[
+                                                                "required",
+                                                                "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
+                                                            ]}
+                                                            errorMessages={['This field is required',
+                                                                "Please Enter Valid Height"]}
+                                                            variant="filled"
+                                                            inputProps={{
+                                                                min: 30,
+                                                                max: 250,
+                                                                step: 0.1,
+                                                            }}
+                                                            required
+                                                            placeholder='Height' />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Weight(KG)<sup>*</sup></p>
+                                                        <TextValidator id="standard-basic" type="number" name="weight"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={weight === 0 ? '' : weight}
+                                                            validators={[
+                                                                "required",
+                                                                "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
+                                                            ]}
+                                                            errorMessages={['This field is required',
+                                                                "Please Enter Valid Weight"]}
+                                                            variant="filled"
+                                                            inputProps={{
+                                                                min: 5.0,
+                                                                max: 999.0,
+                                                                step: 0.1,
+                                                            }}
+                                                            required
+                                                            placeholder='Weight' />
+                                                    </Col>
+                                                </Row>
+                                                <br />
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>Systolic/High (mmHg)<sup>*</sup></p>
+                                                        <TextValidator id="standard-basic" type="number" name="highbp"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={highbp === 0 ? '' : highbp}
+                                                            validators={[
+                                                                "required",
+                                                                "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
+                                                            ]}
+                                                            errorMessages={['This field is required',
+                                                                "Please Enter Valid High BP Rate"]}
+                                                            variant="filled"
+                                                            inputProps={{
+                                                                min: 50,
+                                                                max: 300,
+                                                                step: 0.1,
+                                                            }}
+                                                            required
+                                                            placeholder='High BP' />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>Diastolic/Low (mmHg)<sup>*</sup></p>
+                                                        <TextValidator id="standard-basic" type="number" name="lowbp"
+                                                            onChange={e => handleInputChange(e)}
+                                                            value={lowbp === 0 ? '' : lowbp}
+                                                            validators={[
+                                                                "required",
+                                                                "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
+                                                            ]}
+                                                            errorMessages={['This field is required',
+                                                                "Please Enter Valid Low BP Rate"]}
+                                                            variant="filled"
+                                                            inputProps={{
+                                                                min: 50,
+                                                                max: 200,
+                                                                step: 0.1,
+                                                            }}
+                                                            required
+                                                            placeholder='Low BP' />
+                                                    </Col>
+                                                </Row>
+                                                <br />
+
+                                            </>)}
+                                            {currentuserInfo && Object.keys(currentuserInfo).length > 0 && currentuserInfo.authorities.some((user) => user === "ROLE_DOCTOR") && (<>
+                                                {/* <Row> */}
+                                                {/* <Col md={12}>
                                                 <p>Bio</p>
                                                 <TextValidator id="standard-basic" type="text" name="bio"
                                                     onChange={e => handleInputChange(e)}

@@ -47,7 +47,7 @@ export const Input = ({ question, followQuestion, isError }) => {
                     onChange={handleChange}
                     id={question.questionId}
                     required='required'
-                    maxLength={4}
+                    maxLength={2}
                     onKeyPress={onlyNumberKey}
                 ></input>
                 {/* <span style={{ marginLeft: '20px' }}>Drinks</span> */}

@@ -1,8 +1,8 @@
 .subscription-message {
-  display: flex;
+  display        : flex;
   justify-content: flex-start;
-  margin-top: 5px;
-  color: var(--primarysecond);
-  font-weight: 600;
-  margin-left: 60px;
+  margin-top     : 5px;
+  color          : red;
+  font-weight    : 400;
+  margin-left    : 15px;
 }

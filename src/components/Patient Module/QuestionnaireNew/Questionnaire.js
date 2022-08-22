@@ -23,7 +23,6 @@ const Questionnaire = ({ match }) => {
   const [continueClick, setContinueClick] = useState(false);
   const [totalscore, settotalScore] = useState(0);
   const [healthAssess, setHealthAssess] = useState("");
-
   const cookies = new Cookies();
 
   const currentPatient = cookies.get("profileDetails");
@@ -109,42 +108,48 @@ const Questionnaire = ({ match }) => {
     });
     console.log(response);
     settotalScore(submitData.totalScore);
-
-    // toast.success(`You are ${healthBehavior}`, {
-    //   position: 'top-right',
-    //   autoClose: 2000,
-    //   hideProgressBar: true,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    // });
   };
 
   const healthBehaviorOnScore = (score) => {
-    if (score <= 3) {
+    setHealthAssess('');
+    if (score === 0) {
+      setHealthAssess('');
+      return healthAssess;
+    }
+    else if (score > 0 && score <= 3) {
       setHealthAssess("not Healthy");
       console.log("not healthy", healthAssess);
+
       return healthAssess;
+
 
       // return 'not Healthy';
     } else if (score > 3 && score <= 7) {
       setHealthAssess("moderately Healthy");
       console.log("mod healthy", healthAssess);
+
       return healthAssess;
+
+      // return healthAssess;
 
       // return 'moderately Healthy';
     } else {
       setHealthAssess("Healthy");
       console.log(" healthy", healthAssess);
+
       return healthAssess;
+
+      // return healthAssess;
 
       // return 'Healthy';
     }
   };
 
   useEffect(() => {
-    healthBehaviorOnScore(totalscore);
+    setTimeout(() => {
+      healthBehaviorOnScore(totalscore);
+    }, 2000)
+
   }, [totalscore]);
 
   const onContinue = async () => {
@@ -212,6 +217,9 @@ const Questionnaire = ({ match }) => {
 
   useEffect(() => {
     console.log("Something");
+    questions.forEach((question) => {
+      question.isError = false
+    })
   }, [questions]);
 
   const closeDialog = () => {
@@ -290,7 +298,10 @@ const Questionnaire = ({ match }) => {
             >
               {/* You scored {totalscore} */}
             </span>
-            <h5>You are {healthAssess}</h5>
+            {
+              healthAssess ? <h5>You are {healthAssess}</h5> : <h6>Loading assessment...</h6>
+            }
+
           </div>
         </DialogContent>
 
