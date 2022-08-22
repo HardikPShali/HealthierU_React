@@ -127,7 +127,7 @@ export const AUTH_CODE = "d2ViX2FwcDpjaGFuZ2VpdA==";
 // Encryption and Decryption
 export const SECRET_KEY = "healthyU42123456";
 
-export const doctorListLimit = 15;
+export const doctorListLimit = 14;
 
 export const doctorListLimitNonPaginated = 5000;
 

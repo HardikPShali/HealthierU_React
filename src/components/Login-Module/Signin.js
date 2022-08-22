@@ -263,7 +263,7 @@ const Signin = () => {
       if (err.response && err.response.status === 400) {
         setUser({
           ...user,
-          msg: "Invalid email and password combination. Please try again",
+          msg: "Invalid email or password combination. Please try again",
         });
         setLoader(false);
       } else if (err.response && err.response.status === 401) {
@@ -298,7 +298,7 @@ const Signin = () => {
       setLoader(false);
       setUser({
         ...user,
-        msg: "Invalid email and password combination. Please try again",
+        msg: "Invalid email or password combination. Please try again",
       })
     }
     else {

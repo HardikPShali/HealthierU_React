@@ -23,7 +23,6 @@ const Questionnaire = ({ match }) => {
   const [continueClick, setContinueClick] = useState(false);
   const [totalscore, settotalScore] = useState(0);
   const [healthAssess, setHealthAssess] = useState("");
-
   const cookies = new Cookies();
 
   const currentPatient = cookies.get("profileDetails");
@@ -218,6 +217,9 @@ const Questionnaire = ({ match }) => {
 
   useEffect(() => {
     console.log("Something");
+    questions.forEach((question) => {
+      question.isError = false
+    })
   }, [questions]);
 
   const closeDialog = () => {

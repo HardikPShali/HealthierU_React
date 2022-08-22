@@ -63,7 +63,7 @@ const Footer = () => {
                                     <span>128</span> Expert Doctors
                                         </b>
                             </div><br />*/}
-              <div style={{ width: "100%", textAlign: "center" }}>
+              <div style={{ width: "100%" }}>
                 <Newsletter />
               </div>
             </Col>

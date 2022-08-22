@@ -356,7 +356,7 @@ const AddPrescription = (props) => {
                                                             className="form-control"
                                                             onChange={(e) => handleInputChange(e, i)}
                                                             value={x.duration}
-                                                            placeholder="Duration"
+                                                            placeholder="Duration(Week/Month)"
                                                             required
                                                             variant="filled"
                                                         />
