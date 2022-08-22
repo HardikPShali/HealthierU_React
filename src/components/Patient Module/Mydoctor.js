@@ -1555,7 +1555,7 @@ const MyDoctor = (props) => {
     <div>
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
-      <Container className="my-doctor pt-5">
+      <Container className="my-doctor pt-4">
         {/* /mobile-payment?firstName="nithi"&lastName="raj" */}
         {/* <Link
           to={`/mobile-payment?uId=${currentPatient.userId}&fN=${currentPatient.firstName}&lN=${currentPatient.lastName}&em=${currentPatient.email}&r=${doctor.rate}&hR=${doctor.halfrate}&aId=${appointmentId}&aM=${appointentMode}`}
@@ -1936,7 +1936,7 @@ const MyDoctor = (props) => {
                               )}
                               <GridListTileBar
                                 style={{ cursor: 'pointer' }}
-                                title={<span>Dr. {user.firstName}</span>}
+                                title={<span>{user.salutation} {user.firstName}</span>}
                                 subtitle={
                                   <ul className="list--tags">
                                     {user.specialities &&

@@ -39,7 +39,7 @@ const PatientPrescriptionCard = (props) => {
             </div>
             <div className='col-md-3'>
                 <h5 className='prescription-lab-card__common-name1'><b>{props.name}</b></h5>
-                <span className='prescription-lab-card__common-span1'><b>Dr.{props.docName}</b></span>
+                <span className='prescription-lab-card__common-span1'><b>{props.salutation} {props.docName}</b></span>
 
             </div>
             <div style={{ textAlign: "center", paddingTop: '15px' }} className='col-md-3'>
