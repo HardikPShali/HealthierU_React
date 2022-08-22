@@ -808,7 +808,7 @@ const PatientDocument = (props) => {
                                 <button
                                     type="button"
                                     className="btn btn-primary"
-                                    style={{ fontSize: "0.65rem" }}
+                                    style={{ fontSize: "0.85rem" }}
                                     onClick={handleUploadLabResultShow}
                                 >
                                     Add Lab Result
