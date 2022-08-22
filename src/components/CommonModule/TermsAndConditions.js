@@ -320,7 +320,7 @@ const TermsAndConditions = ({ currentuserInfo }) => {
                         <Row>
                           <Col md={12}>
                             <h5>
-                              <strong> Product oders </strong>{' '}
+                              <strong> Product orders </strong>{' '}
                             </h5>{' '}
                             <p className="static-pages">
                               If you purchase a Product with us, we will send

@@ -222,7 +222,10 @@ const MyDoctor = (props) => {
 
   const [offset, setOffset] = useState(0);
   const [likedOffset, setLikedOffset] = useState(0);
-
+  const [totalDoctors, setTotalDoctors] = useState(0)
+  function checkActivated(activated) {
+    return activated == false
+  }
   const loadUsers = async (patientId) => {
     if (!profilepID.activated) {
       const data = {
@@ -266,6 +269,7 @@ const MyDoctor = (props) => {
           doctorId: docId,
         });
         // getInValidAppointments(docId);
+        setTotalDoctors(result.data.data.totalItems)
         setFilterData(result.data.data.doctors);
         //setTimeout(() => searchNutritionDoctor(), 3000);
         // setTimeout(() => setLoading(false), 1000);
@@ -322,7 +326,6 @@ const MyDoctor = (props) => {
     } else {
       setOffset(1);
       const doctorInfo = profilepID;
-      console.log('doctorInfo', doctorInfo);
       setUser(doctorInfo.id);
       setdoctor(doctorInfo.id);
       //const currentSelectedDate = new Date();
@@ -687,7 +690,6 @@ const MyDoctor = (props) => {
 
   //console.log("combinedSlots :: ", combinedSlots);
   const createConsultationSlots = (slots) => {
-    console.log(slots, 'in slots');
     const updatedArray = [];
     const combinedArray = [];
     if (slots && slots.length > 0) {
@@ -695,7 +697,6 @@ const MyDoctor = (props) => {
         // if (slots[i + 1] && slots[i + 1].startTime === slot.endTime) {
         const endTime = moment(slot.endTime).add('0.5', 'hours').utc().format();
         // const endTimeInOneHour = endTime.add(30, 'minutes');
-        console.log({ endTime, });
         updatedArray.push({
           ...slot,
           // startTime: slot.startTime,
@@ -715,7 +716,6 @@ const MyDoctor = (props) => {
       });
     }
     // setCombinedSlots(combinedArray);
-    console.log({ updatedArray })
     return updatedArray;
   };
 
@@ -822,7 +822,6 @@ const MyDoctor = (props) => {
 
         setTransparentLoading(false);
       }
-      console.log('DisabledDates', { disabledDates });
     }
   };
   const getInValidAppointments = async (doctorId) => {
@@ -866,7 +865,6 @@ const MyDoctor = (props) => {
       endTime: slot.endTime,
       id: appointmentSlot[index].id,
     });
-    console.log('appointment', appointmentSlot[index].id);
     setDisable({ ...disable, continue: false });
   };
 
@@ -897,9 +895,6 @@ const MyDoctor = (props) => {
     const newPaymentData = {
       ...finalAppointmentDataArray,
     };
-
-    console.log({ newPaymentData });
-
     const paymentUrlToBeUsed = () => {
       if (promoCodeApplied === true) {
         return '/api/v2/appointments/payment/bulk/coupon';
@@ -926,8 +921,6 @@ const MyDoctor = (props) => {
     try {
       // await api call
       const newPaymentResponse = await axios(newPaymentApi);
-      console.log({ newPaymentResponse });
-
       //success logic
       if (
         newPaymentResponse.status === 200 ||
@@ -1290,15 +1283,12 @@ const MyDoctor = (props) => {
       if (endTime === 'undefined') {
         data.docEndTime = null;
       }
-
-      console.log({ startTime, endTime });
       const result = await getSearchDataAndFilter(
         data,
         0,
         doctorListLimitNonPaginated,
         patientIdForFilter
       ).catch((err) => {
-        console.log(err);
         if (err.response.status === 500 || err.response.status === 504) {
           toast.error('Something went wrong. Please try again', {
             toastId: 'filterErrorToast',
@@ -1306,9 +1296,6 @@ const MyDoctor = (props) => {
           setTransparentLoading(false);
         }
       });
-
-      console.log({ result })
-
       if (result && (result.status === 200 || result.status === 204)) {
         if (
           result.data.data &&
@@ -1354,7 +1341,6 @@ const MyDoctor = (props) => {
     stateData.push(nextAppDetails);
     const app = [];
     app.push(appointment);
-    console.log('app', app);
     const data = [];
 
     {
@@ -1379,7 +1365,6 @@ const MyDoctor = (props) => {
         });
       });
     }
-    console.log('data', data);
     // const data = {
     //   ...data1[0],
     //   ...data2[0]
@@ -1440,7 +1425,6 @@ const MyDoctor = (props) => {
   const [promoCodeEntered, setPromoCodeEntered] = useState('');
 
   const handlePromoCodeStates = (promoCodeData) => {
-    console.log({ promoCodeData });
     if (!promoCodeData || promoCodeData === false) {
       setPromoCodeApplied(promoCodeData.promoCodeAdded)
     }
@@ -1466,7 +1450,6 @@ const MyDoctor = (props) => {
 
   const handleFreeCouponTransactions = async () => {
     setLoading(true);
-    console.log({ promoCodeApplied });
     let finalAppointmentDataArray = {};
     if (promoCodeApplied === true && promoCodeEntered === 'HEALTHIERUAE' && appointment.appointmentMode === 'First Consultation') {
       finalAppointmentDataArray = {
@@ -1508,8 +1491,6 @@ const MyDoctor = (props) => {
         couponId: couponIdState
       };
     }
-    console.log({ finalAppointmentDataArray })
-
     const freePaymentPayload = {
       ...finalAppointmentDataArray,
     }
@@ -1531,7 +1512,6 @@ const MyDoctor = (props) => {
     try {
       // await api call
       const freePaymentResponse = await axios(freePaymentApi);
-      console.log({ freePaymentResponse });
 
       //success logic
       if (
@@ -1540,7 +1520,6 @@ const MyDoctor = (props) => {
       ) {
         setLoading(false)
         props.history.push('/patient/myappointment');
-        console.log({ freePaymentResponse });
       }
     } catch (err) {
       //error logic
@@ -1997,15 +1976,16 @@ const MyDoctor = (props) => {
                       <center>No Doctor Found ...</center>
                     </div>
                   )}
-                  {filterData && filterData.length > doctorListLimit - 1 && (
+                  {filterData && filterData.length !== totalDoctors && (
                     <>
                       <div
                         className="text-center"
-                        style={{ display: display.unlike }}
+                        style={{ display: display.unlike, marginTop: '5px' }}
                       >
                         <button
                           className="btn btn-outline-secondary"
                           onClick={loadMore}
+                          style={{ boxShadow: 'none' }}
                         >
                           Load More
                         </button>
@@ -2915,7 +2895,6 @@ const MyDoctor = (props) => {
                     setCouponIdState(null);
                     setPromoCodeApplied(false);
                     setPromoCodeEntered(false);
-                    console.log({ promoCodeEntered })
                     setDisable({ ...disable, payment: true });
                   }}
                 >
@@ -3298,8 +3277,6 @@ const MyDoctor = (props) => {
 
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           {/* {console.log({ appointmentId: appointment.id })} */}
-                          {console.log({ promoCodeApplied })}
-                          {console.log({ discountApplied })}
                           <Paypal
                             // appointmentId={appointment.id}
                             appointmentMode={appointment.appointmentMode}
