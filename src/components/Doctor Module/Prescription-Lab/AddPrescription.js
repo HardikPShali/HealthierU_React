@@ -183,7 +183,7 @@ const AddPrescription = (props) => {
                 intervalData = p.interval
             })
 
-            if (medicineData === '' || doseData === '' || durationData === '' || noOfDaysData === '' || intervalData === '') {
+            if (medicineData === '' || doseData === '' || noOfDaysData === '' || intervalData === '') {
                 { !prescriptionResult.prescriptionDocument && toast.error("All Fields are Required!") }
             }
             else {
