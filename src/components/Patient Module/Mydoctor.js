@@ -1976,7 +1976,7 @@ const MyDoctor = (props) => {
                       <center>No Doctor Found ...</center>
                     </div>
                   )}
-                  {filterData && filterData.length !== totalDoctors && (
+                  {filterData && filterData.length !== totalDoctors || filterData.length !== '0' && (
                     <>
                       <div
                         className="text-center"
