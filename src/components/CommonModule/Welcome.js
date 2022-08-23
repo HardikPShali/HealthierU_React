@@ -917,7 +917,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
                                                             ]}
                                                             errorMessages={['This field is required',
-                                                                "Please Enter Valid High BP Rate"]}
+                                                                "Please Enter Valid Systolic/High Rate"]}
                                                             variant="filled"
                                                             inputProps={{
                                                                 min: 50,
@@ -925,7 +925,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 step: 0.1,
                                                             }}
                                                             required
-                                                            placeholder='High BP' />
+                                                            placeholder='Systolic/High' />
                                                     </Col>
                                                     <Col md={6}>
                                                         <p>Diastolic/Low (mmHg)<sup>*</sup></p>
@@ -937,7 +937,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
                                                             ]}
                                                             errorMessages={['This field is required',
-                                                                "Please Enter Valid Low BP Rate"]}
+                                                                "Please Enter Valid Diastolic/Low Rate"]}
                                                             variant="filled"
                                                             inputProps={{
                                                                 min: 50,
@@ -945,7 +945,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 step: 0.1,
                                                             }}
                                                             required
-                                                            placeholder='Low BP' />
+                                                            placeholder='Diastolic/Low' />
                                                     </Col>
                                                 </Row>
                                                 <br />
