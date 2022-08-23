@@ -755,7 +755,7 @@ const PatientDocument = (props) => {
                                                                 docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
-                                                                salutation={dataItem.doctor.salutation}
+                                                                salutation={dataItem.doctor?.salutation}
                                                                 download={(e) => showDocument(dataItem)}
                                                             />
                                                         </div>

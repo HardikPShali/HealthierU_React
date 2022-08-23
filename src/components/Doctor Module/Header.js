@@ -101,6 +101,7 @@ const Header = (props) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        toastId: 'time-zone-toast'
       });
     }
   };
