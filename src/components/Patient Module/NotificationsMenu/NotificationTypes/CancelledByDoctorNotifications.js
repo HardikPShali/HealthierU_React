@@ -58,7 +58,7 @@ const CancelledByDoctorNotifications = ({ notification, index }) => {
                         <span>
                             {notification.data.message}{' '}
                             {moment
-                                .utc(notification.data.appointmentDetails.startTime)
+                                (notification.data.appointmentDetails.startTime)
                                 .format('DD-MM-YYYY HH:mm')}
                         </span>
                         <span style={{
