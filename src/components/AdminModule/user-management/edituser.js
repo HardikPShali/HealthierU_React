@@ -103,6 +103,7 @@ const EditUser = (props) => {
     // education: '',
     educationalQualifications: [],
     specialities: [],
+    salutation: '',
     experience: '',
     languages: [],
     certificates: '',
@@ -126,12 +127,20 @@ const EditUser = (props) => {
   const [documentUpdateFile, setDocumentUpdateFile] = useState()
   const [doctorId, setDoctorId] = useState(0)
   const [checkDoctorDocument, setCheckDoctorDocument] = useState(false)
+
   useEffect(() => {
     getCurrentUser();
     loadOptions();
     loadSpeciality();
     loadLanguage();
+
   }, []);
+
+  useEffect(() => {
+    if (user.salutation === '') {
+      setUser({ ...user, salutation: 'non-doc' })
+    }
+  }, [user]);
   // const userState = props.location.state;
   const currentUserAuthorities = cookies.get('authorities');
   const authorityName =
@@ -149,9 +158,11 @@ const EditUser = (props) => {
       } else if (authorityName === 'doctors') {
         setUser(res.data.doctors[0]);
         setDoctorId(res.data.doctors[0])
+
       }
       setTimeout(() => setTransparentLoading(false), 1000);
     }
+
   };
   const loadOptions = async () => {
     const res = await getCountryList();
@@ -181,6 +192,7 @@ const EditUser = (props) => {
     // halfRate,
     //picture,
     specialities,
+    salutation,
     experience,
     languages,
     certificates,
@@ -326,6 +338,11 @@ const EditUser = (props) => {
     }
     if (currentUserAuthorities === 'ROLE_DOCTOR') {
       let res;
+
+      if (user.salutation === 'non-doc') {
+        user.salutation = ''
+      }
+
       bodyFormData.append('profileData', JSON.stringify(user));
       bodyFormData.append('profilePicture', profilePicture);
       const response = await updateRoleDoctor(bodyFormData).catch((err) => {
@@ -352,7 +369,7 @@ const EditUser = (props) => {
         });
 
         if (response.status === 200 || response.status === 201 && res.status === 200) {
-          history.push('/admin/doctorlist');
+          history.push('/admin');
           toast.success("Profile Data Updated")
         }
         if (!documentUpdateFile && !documentInfo) {
@@ -530,6 +547,20 @@ const EditUser = (props) => {
               </Col>
             </Row>
             <br />
+            <Row>
+              <Col md={12}>
+                <p>Address</p>
+                <TextValidator
+                  id="standard-basic"
+                  type="text"
+                  name="address"
+                  onChange={(e) => handleInputChange(e)}
+                  value={address ? address : ''}
+                  variant="filled"
+                />
+              </Col>
+            </Row>
+            <br />
             {currentUserAuthorities === 'ROLE_DOCTOR' && (
               <>
                 <Row>
@@ -573,20 +604,6 @@ const EditUser = (props) => {
                 <br />
               </>
             )}
-            <Row>
-              <Col md={12}>
-                <p>Address</p>
-                <TextValidator
-                  id="standard-basic"
-                  type="text"
-                  name="address"
-                  onChange={(e) => handleInputChange(e)}
-                  value={address ? address : ''}
-                  variant="filled"
-                />
-              </Col>
-            </Row>
-
             <br />
             {currentUserAuthorities === 'ROLE_PATIENT' && (
               <>
@@ -769,83 +786,33 @@ const EditUser = (props) => {
                   </Col>
                 </Row>
                 <br />
-                {user?.educationalQualifications.map((x, i) => {
-                  return (
-                    <div key={i}>
-                      <Row>
-                        <Col md={6}>
-                          <p>
-                            Education<sup>*</sup>
-                          </p>
-                          <TextValidator
-                            id="standard-basic"
-                            type="text"
-                            name="educationalQualification"
-                            onChange={(e) =>
-                              handleEducationDetailsInputChange(e, i)
-                            }
-                            value={x.educationalQualification}
-                            validators={['required']}
-                            errorMessages={['This field is required']}
-                            variant="filled"
-                            placeholder="Education"
-                          />
-                        </Col>
-                        <Col md={6}>
-                          <p>
-                            Institution<sup>*</sup>
-                          </p>
-                          <TextValidator
-                            id="standard-basic"
-                            type="text"
-                            name="institution"
-                            onChange={(e) =>
-                              handleEducationDetailsInputChange(e, i)
-                            }
-                            value={x.institution}
-                            validators={['required']}
-                            errorMessages={['This field is required']}
-                            variant="filled"
-                            placeholder="Institution"
-                          />
-                        </Col>
-                      </Row>
-                      <br />
-                      <div className="btn-box" style={{ marginLeft: '12px' }}>
-                        {user?.educationalQualifications.length !== 1 && (
-                          <Button
-                            variant="secondary"
-                            onClick={() => handleRemoveClick(i)}
-                          >
-                            Remove
-                          </Button>
-                        )}
-                        {user?.educationalQualifications.length - 1 === i && (
-                          <Button
-                            className="medicineButton"
-                            variant="primary"
-                            onClick={handleAddClick}
-                          >
-                            Add Education
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
+                <Row>
+                  <Col md={6}>
+                    <p>Salutation</p>
+                    <FormControl>
+                      <Select
+                        id="demo-controlled-open-select"
+                        variant="filled"
+                        name="salutation"
+                        value={salutation ? salutation : ''}
+                        displayEmpty
+                        inputProps={{ required: true }}
+                        onChange={e => handleInputChange(e)}
+                      >
+
+                        <MenuItem value='non-doc'>
+                          Health and Wellness/Non-Medical
+                        </MenuItem>
+                        <MenuItem value='Dr.'>
+                          Doctor/Medical
+                        </MenuItem>
+
+                      </Select>
+                    </FormControl>
+                  </Col>
+                </Row>
                 <br />
                 <Row>
-                  {/* <Col md={6}>
-                    <p>Education</p>
-                    <TextValidator
-                      id="standard-basic"
-                      type="text"
-                      name="education"
-                      onChange={(e) => handleInputChange(e)}
-                      value={education ? education : ''}
-                      variant="filled"
-                    />
-                  </Col> */}
                   <Col md={6}>
                     <p>Years of experience</p>
                     <TextValidator id="standard-basic" type="number" name="experience"
@@ -948,51 +915,70 @@ const EditUser = (props) => {
                   </Col>
                 </Row>
                 <br />
-                {/* <Row>
-                  <Col md={6}>
-                    <p>License Number<sup>*</sup></p>
-                    <TextValidator id="standard-basic" type="text" name="licenseNumber"
-                      onChange={(e) => handleInputChange(e)}
-                      value={licenseNumber}
-                      validators={['required']}
-                      errorMessages={['This field is required']}
-                      variant="filled"
-                      placeholder='License Number' />
-
-                  </Col>
-                  <Col md={6}>
-                    <p>Certifying Body<sup>*</sup></p>
-                    <TextValidator id="standard-basic" type="text" name="certifyingBody"
-                      onChange={(e) => handleInputChange(e)}
-                      value={certifyingBody}
-                      validators={['required']}
-                      errorMessages={['This field is required']}
-                      variant="filled"
-                      placeholder='Certifying Body' />
-
-                  </Col>
-
-                </Row>
-                <br />
-                <Row>
-                  <Col md={12}>
-                    <p>Reference Phone Number<sup>*</sup></p>
-                    <PhoneInput
-                      inputProps={{
-                        name: 'referencePhoneNumber',
-                        required: true,
-                        maxLength: 20,
-                        minLength: 12
-                      }}
-                      country={'us'}
-                      value={referencePhoneNumber}
-                      onChange={e => handleRefPhone(e)}
-                      variant="filled"
-                      required
-                    />
-                  </Col>
-                </Row>
-                <br /> */}
+                {user?.educationalQualifications.map((x, i) => {
+                  return (
+                    <div key={i}>
+                      <Row>
+                        <Col md={6}>
+                          <p>
+                            Education<sup>*</sup>
+                          </p>
+                          <TextValidator
+                            id="standard-basic"
+                            type="text"
+                            name="educationalQualification"
+                            onChange={(e) =>
+                              handleEducationDetailsInputChange(e, i)
+                            }
+                            value={x.educationalQualification}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            variant="filled"
+                            placeholder="Education"
+                          />
+                        </Col>
+                        <Col md={6}>
+                          <p>
+                            Institution<sup>*</sup>
+                          </p>
+                          <TextValidator
+                            id="standard-basic"
+                            type="text"
+                            name="institution"
+                            onChange={(e) =>
+                              handleEducationDetailsInputChange(e, i)
+                            }
+                            value={x.institution}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            variant="filled"
+                            placeholder="Institution"
+                          />
+                        </Col>
+                      </Row>
+                      <br />
+                      <div className="btn-box" style={{ marginLeft: '12px' }}>
+                        {user?.educationalQualifications.length !== 1 && (
+                          <Button
+                            variant="secondary"
+                            onClick={() => handleRemoveClick(i)}
+                          >
+                            Remove
+                          </Button>
+                        )}
+                        {user?.educationalQualifications.length - 1 === i && (
+                          <Button
+                            className="medicineButton"
+                            variant="primary"
+                            onClick={handleAddClick}
+                          >
+                            Add Education
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
                 <br />
                 <DoctorDocumentUpload currentDoctor={user} isDoctor={false} setDocumentinfo={setDocumentinfo} setDocumentUpdateFile={setDocumentUpdateFile} />
               </>
