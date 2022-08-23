@@ -71,7 +71,7 @@ const DoctorRoute = () => {
   const getCurrentDoctor = async () => {
     const currentDoctor = cookies.get('profileDetails');
     setCurrentDoctor(currentDoctor);
-    const res = await getDoctorByUserId(currentDoctor.userId);
+    const res = await getDoctorByUserId(currentDoctor?.userId);
     if (res && res.data) {
       res.data.doctors.map((value, index) => {
         setCurrentDoctor(value);
