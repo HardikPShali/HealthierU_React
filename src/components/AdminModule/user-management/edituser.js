@@ -137,6 +137,7 @@ const EditUser = (props) => {
   }, []);
 
   useEffect(() => {
+
     if (user.salutation === '') {
       setUser({ ...user, salutation: 'non-doc' })
     }
