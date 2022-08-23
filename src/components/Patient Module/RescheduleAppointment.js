@@ -1691,7 +1691,7 @@ const RescheduleAppointment = (props) => {
                       <Col xs={12} id="doc-details">
                         <div>
                           <p className="doc-name">
-                            {doctor.firstName} {doctor.lastName}
+                            {doctor.salutation}{' '}{doctor.firstName} {doctor.lastName}
                           </p>
                           <ul
                             style={{
@@ -1912,7 +1912,7 @@ const RescheduleAppointment = (props) => {
                       <Col xs={12} id="doc-details">
                         <div>
                           <p className="doc-name">
-                            {doctor.firstName} {doctor.lastName}
+                            {doctor.salutation}{' '}{doctor.firstName} {doctor.lastName}
                           </p>
                           <ul
                             style={{
@@ -2528,7 +2528,7 @@ const RescheduleAppointment = (props) => {
                   <Col xs={12} id="doc-details">
                     <div>
                       <p className="doc-name">
-                        {doctor.firstName} {doctor.lastName}
+                        {doctor.salutation}{' '}{doctor.firstName} {doctor.lastName}
                       </p>
                       <ul
                         style={{
@@ -2677,7 +2677,7 @@ const RescheduleAppointment = (props) => {
                     <Col xs={12} id="doc-details">
                       <div>
                         <p className="doc-name">
-                          {doctor.firstName} {doctor.lastName}
+                          {doctor.salutation}{' '}{doctor.firstName} {doctor.lastName}
                         </p>
                         <ul
                           style={{
