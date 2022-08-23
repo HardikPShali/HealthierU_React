@@ -201,7 +201,7 @@ const Header = (props) => {
             </>
           )}
           <NavLink to="#">
-            {currentUser.picture ? (
+            {currentUser?.picture ? (
               <img
                 id="profilePicId"
                 src={currentUser.picture}
