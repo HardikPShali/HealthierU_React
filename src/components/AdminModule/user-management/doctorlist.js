@@ -175,7 +175,7 @@ const DoctorList = () => {
   };
 
   const setCookies = (authority) => {
-    cookies.set('authorities', 'ROLE_DOCTOR');
+    cookies.set('authorities', 'ROLE_DOCTOR', { path: '/' });
   };
 
   const [display, setDisplay] = useState({

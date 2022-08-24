@@ -260,7 +260,7 @@ const Signupform = () => {
             }
           }
         );
-        cookies.set("currentUser", currentUserInformation.data.userInfo);
+        cookies.set("currentUser", currentUserInformation.data.userInfo, { path: '/' });
         const currentLoggedInUser = cookies.get("currentUser");
         const { authorities = [] } = currentLoggedInUser || {};
 

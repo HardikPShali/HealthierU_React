@@ -1001,7 +1001,9 @@ const MyDoctor = (props) => {
   const enableBody = (target) => enableBodyScroll(target);
 
   const closeTour = () => {
-    cookies.set('tour', false);
+    cookies.set('tour', false, {
+      path: "/"
+    });
     setIsTourOpen(false);
   };
 
@@ -1123,6 +1125,8 @@ const MyDoctor = (props) => {
     languageRef.current.resetSelectedValues();
     loadSpeciality();
     setTransparentLoading(false);
+    loadUsers()
+    setIsFiltered(false)
   };
 
   const handleCheckbox = (checked) => {
@@ -1230,7 +1234,7 @@ const MyDoctor = (props) => {
     }
     return startTime + ',' + endTime;
   };
-
+  const [isFiltered, setIsFiltered] = useState(false)
   const handleFilter = async () => {
     setTransparentLoading(true);
     setFilter(false);
@@ -1286,7 +1290,7 @@ const MyDoctor = (props) => {
       const result = await getSearchDataAndFilter(
         data,
         0,
-        doctorListLimit,
+        doctorListLimitNonPaginated,
         patientIdForFilter
       ).catch((err) => {
         if (err.response.status === 500 || err.response.status === 504) {
@@ -1298,6 +1302,7 @@ const MyDoctor = (props) => {
       });
       if (result && (result.status === 200 || result.status === 204)) {
         setTotalDoctors(result.data.data.totalItems)
+        setIsFiltered(true)
         if (
           result.data.data &&
           result.data.data.doctors &&
@@ -1980,7 +1985,7 @@ const MyDoctor = (props) => {
                       <center>No Doctor Found ...</center>
                     </div>
                   )}
-                  {filterData && (filterData.length !== totalDoctors || totalDoctors !== 0) && (
+                  {filterData && (filterData.length !== totalDoctors || totalDoctors !== 0) && !isFiltered && (
                     <>
                       <div
                         className="text-center"

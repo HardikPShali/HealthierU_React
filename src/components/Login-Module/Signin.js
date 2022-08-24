@@ -197,7 +197,7 @@ const Signin = () => {
     // if (!currentUserInformation) {
     //   window.location.assign("/");
     // }
-    cookies.set("currentUser", currentUserInformation.data.userInfo);
+    cookies.set("currentUser", currentUserInformation.data.userInfo, { path: '/' });
     currentUserInformation.data.role.firebasePwd =
       currentUserInformation.data.firebasePwd;
     if (!currentUserInformation.data.role.email) {
@@ -353,7 +353,7 @@ const Signin = () => {
       //if (otpText !== otp) {
       //  setUser({ ...user, msg: "Invalid OTP" });
       //} else if (otpText === otp) {
-      cookies.set("currentUser", currentUser);
+      cookies.set("currentUser", currentUser, { path: '/' });
       history.push("/admin");
     }
   };
@@ -361,8 +361,8 @@ const Signin = () => {
 
   // google signup code to tackle "500 user role reqd." error
   const storeGoogleToken = (response) => {
-    cookies.set("GOOGLE_ACCESS_TOKEN", response.credential);
-    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj);
+    cookies.set("GOOGLE_ACCESS_TOKEN", response.credential, { path: '/' });
+    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj, { path: '/' });
   };
 
 

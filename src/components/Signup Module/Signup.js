@@ -34,15 +34,15 @@ const Signup = () => {
     //console.log(response);
   };
   const storeGoogleToken = (response) => {
-    cookies.set("GOOGLE_ACCESS_TOKEN", response.credential);
-    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj);
+    cookies.set("GOOGLE_ACCESS_TOKEN", response.credential, { path: '/' });
+    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj, { path: '/' });
     history.push("/signupform");
   };
   const responseGoogle = async (response) => {
     console.log(response.tokenId);
     console.log(response.profileObj);
-    cookies.set("GOOGLE_ACCESS_TOKEN", response.tokenId);
-    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj);
+    cookies.set("GOOGLE_ACCESS_TOKEN", response.tokenId, { path: '/' });
+    cookies.set("GOOGLE_PROFILE_DATA", response.profileObj, { path: '/' });
     const googleUserData = {
       token: response.tokenId,
     };
@@ -52,7 +52,7 @@ const Signup = () => {
       LocalStorageService.setToken(googleAccessToken);
 
       const currentUserInformation = await getCurrentUserInfo();
-      cookies.set("currentUser", currentUserInformation.data.userInfo);
+      cookies.set("currentUser", currentUserInformation.data.userInfo, { path: '/' });
       const currentLoggedInUser = cookies.get("currentUser");
       const { authorities = [] } = currentLoggedInUser || {};
 
