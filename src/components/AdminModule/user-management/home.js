@@ -220,11 +220,11 @@ const Home = () => {
   const setCookies = (authority) => {
     authority.some((role) =>
       role === "ROLE_DOCTOR"
-        ? cookies.set("authorities", "ROLE_DOCTOR")
+        ? cookies.set("authorities", "ROLE_DOCTOR", { path: '/' })
         : role === "ROLE_PATIENT"
-          ? cookies.set("authorities", "ROLE_PATIENT")
+          ? cookies.set("authorities", "ROLE_PATIENT", { path: '/' })
           : role === "ROLE_ADMIN"
-            ? cookies.set("authorities", "ROLE_ADMIN")
+            ? cookies.set("authorities", "ROLE_ADMIN", { path: '/' })
             : "ROLE_USER"
     );
   };
