@@ -1657,3 +1657,18 @@ export const saveLatestVersions = async (data) => {
   }
   return axios(payload);
 }
+
+//PAYMENT DETAILS API FOR ADMIN
+export const getAllPaymentDetailsForAdmin = async (page, size) => {
+  var payload = {
+    method: "post",
+    mode: "no-cors",
+    url: `/api/v2/payments/all?page=${page}&size=${size}`,
+    headers: {
+      Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  }
+  return axios(payload);
+}
