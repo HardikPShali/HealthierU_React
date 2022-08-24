@@ -3,6 +3,7 @@ import * as axios from 'axios';
 import { checkAccessToken } from './../src/service/RefreshTokenService';
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import Logout from './../src/components/Logout';
 import './App.css';
 import Cookies from 'universal-cookie';
 
@@ -28,7 +29,7 @@ const errorHandler = (error) => {
   }
 
   if (error.response && (error.response.status === 401)) {
-    var index = error.response.data.error && error.response.data.error_description.includes("Access token expired");
+    var index = error.response.data.error;  //unauthorised
     if (index) {
       checkAccessToken();
     }

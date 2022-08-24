@@ -162,6 +162,11 @@ const VersioningManagement = Loadable({
     loading: () => <div><Loader /></div>
 });
 
+const PaymentsDetails = Loadable({
+    loader: () => import('./PaymentDetails/PaymentDetails'),
+    loading: () => <div></div>
+});
+
 function PageNotFound() {
     return <h1 style={{ textAlign: "center", marginTop: 40 }}>Page not found</h1>;
 
@@ -200,6 +205,7 @@ const AdminRoutes = () => {
         <Route exact path="/admin/newsletter-emails" component={NewsletterEmailsComponent} />
         <Route exact path="/admin/promocode-management" component={PromocodeManagement} />
         <Route exact path="/admin/versioning" component={VersioningManagement} />
+        <Route exact path="/admin/payment-details" component={PaymentsDetails} />
         <Route exact path="/admin/logout" component={Logout} />
         <Route component={PageNotFound} />
     </Switch></>)

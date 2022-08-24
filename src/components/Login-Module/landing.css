@@ -715,7 +715,7 @@ div#demo-simple-select {
 
 .pass-validation span {
   padding-left: 5px;
-  vertical-align: super;
+  vertical-align: 3px;
 }
 
 #spinner {

@@ -2039,7 +2039,7 @@ const MyDoctor = (props) => {
                     <Row>
                       <Col xs={12} id="doc-details">
                         <div>
-                          <p className="doc-name">{doctor.firstName}</p>
+                          <p className="doc-name">{doctor.salutation}{' '}{doctor.firstName}</p>
                           <div>
                             <ul
                               style={{
@@ -2270,7 +2270,7 @@ const MyDoctor = (props) => {
                     <Row>
                       <Col xs={12} id="doc-details">
                         <div>
-                          <p className="doc-name">{doctor.firstName}</p>
+                          <p className="doc-name">{doctor.salutation}{' '}{doctor.firstName}</p>
                           <ul
                             style={{
                               fontSize: 14,
@@ -2924,7 +2924,7 @@ const MyDoctor = (props) => {
                   </Col>
                   <Col xs={12} id="doc-details">
                     <div>
-                      <p className="doc-name">{doctor?.firstName}</p>
+                      <p className="doc-name">{doctor?.salutation}{' '}{doctor?.firstName}</p>
                       <ul
                         style={{
                           fontSize: 14,
@@ -3074,7 +3074,7 @@ const MyDoctor = (props) => {
                     </Col>
                     <Col xs={12} id="doc-details">
                       <div>
-                        <p className="doc-name">{doctor.firstName}</p>
+                        <p className="doc-name">{doctor.salutation}{' '}{doctor.firstName}</p>
                         <ul
                           style={{
                             fontSize: 14,

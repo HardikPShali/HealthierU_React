@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { toggleCoupon, manageCouponDetails } from '../../../../service/frontendapiservices'
 import { toast } from 'react-toastify'
 const Table = (props) => {
-  const { headers, data, isLoading, editLink, handleDelete, id, pagination,toggle } = props;
+  const { headers, data, isLoading, editLink, handleDelete, id, pagination, toggle } = props;
   //  const [isChecked, setIsChecked] = useState(false)
 
   return (
