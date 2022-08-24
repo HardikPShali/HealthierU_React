@@ -1,20 +1,21 @@
 import { Switch, Route } from 'react-router-dom';
 import React from "react";
 import Loadable from 'react-loadable';
+import Loader from '../Loader/Loader';
 //import Cookies from 'universal-cookie';
 const Home = Loadable({
     loader: () => import('./user-management/home'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const AdminDocument = Loadable({
     loader: () => import('./user-management/fille-upload/AdminDocument'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const AddUser = Loadable({
     loader: () => import('./user-management/adduser'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 //const Users = Loadable({
 //   loader: () => import('./user-management/user'),
@@ -22,143 +23,143 @@ const AddUser = Loadable({
 //});
 const EditUser = Loadable({
     loader: () => import('./user-management/edituser'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 const Logout = Loadable({
     loader: () => import('../Logout'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 
 const HomeQuestionnaire = Loadable({
     loader: () => import('./questionnaire/Home'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const AddQuestionnaire = Loadable({
     loader: () => import('./questionnaire/AddQuestionnaire'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const EditQuestionnaire = Loadable({
     loader: () => import('./questionnaire/EditQuestionnaire'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const HomeShop = Loadable({
     loader: () => import('./shop/Home'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const AddShop = Loadable({
     loader: () => import('./shop/AddShop'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const EditShop = Loadable({
     loader: () => import('./shop/EditShop'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const EditSubCategory = Loadable({
     loader: () => import('./shop/Editsubcategory'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 })
 
 const HomeArticle = Loadable({
     loader: () => import('./article/Home'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const AddArticle = Loadable({
     loader: () => import('./article/AddArticle'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 
 const EditArticle = Loadable({
     loader: () => import('./article/EditArticle'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 
 const PatientChatNew = Loadable({
     loader: () => import('../Patient Module/PatientChatNew'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 const ServiceProvider = Loadable({
     loader: () => import('./user-management/addservice-provider'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const GlobalSearch = Loadable({
     loader: () => import('./globalsearch'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const WorkoutHome = Loadable({
     loader: () => import('./workout/home'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const AddWorkout = Loadable({
     loader: () => import('./workout/addworkout'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const EditWorkout = Loadable({
     loader: () => import('./workout/editworkout'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const ChangeAccountPassword = Loadable({
     loader: () => import('./changepassword'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const DoctorList = Loadable({
     loader: () => import('./user-management/doctorlist'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const PatientList = Loadable({
     loader: () => import('./user-management/patientlist'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const ServiceProvidersHome = Loadable({
     loader: () => import('./service-provider/home'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const AddServiceProvider = Loadable({
     loader: () => import('./service-provider/AddServiceProvider'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const EditServiceProvider = Loadable({
     loader: () => import('./service-provider/EditServiceProvider'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const ServiceCategory = Loadable({
     loader: () => import('./service-provider/ServiceCategory'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const NewsletterEmailsComponent = Loadable({
     loader: () => import('./Newsletter/NewsletterEmails'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 })
 
 const PromocodeManagement = Loadable({
     loader: () => import('./PromoCode/PromoCode'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 const VersioningManagement = Loadable({
     loader: () => import('./Versioning/VersionList'),
-    loading: () => <div></div>
+    loading: () => <div><Loader /></div>
 });
 
 function PageNotFound() {
