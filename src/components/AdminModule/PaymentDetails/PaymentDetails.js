@@ -32,8 +32,8 @@ const PaymentDetails = () => {
                     return paymentDetail;
                 })
                 const totalPages = response.data.data.totalPages;
-                console.log({ totalPages })
-                console.log({ paymentDetailsFromresponse })
+                // console.log({ totalPages })
+                // console.log({ paymentDetailsFromresponse })
                 setPaymentDetailsData(paymentDetailsFromresponse);
                 setTotalPagesData(totalPages);
                 setIsLoading(false);
@@ -54,34 +54,9 @@ const PaymentDetails = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const clickPaginationHandler = async (pageNumber) => {
         setCurrentPage(pageNumber);
-        // let page = pageNumber - 1;
         const size = 10;
-        console.log({ pageNumber })
+        // console.log({ pageNumber })
         getPaymentDetailsHandler(pageNumber, size);
-        // const response = await getAllPaymentDetailsForAdmin(pageNumber, size).catch(err => {
-        //     console.log(err);
-        // })
-        // console.log({ response });
-        // if (response.status === 200) {
-        //     if (response.data.status === true) {
-        //         const paymentDetailsFromresponse = response.data.data.content.map(paymentDetail => {
-        //             paymentDetail.startTime = moment(paymentDetail.startTime).format('DD-MM-YYYY HH:mm');
-        //             return paymentDetail;
-        //         })
-        //         const totalPages = response.data.data.totalPages;
-        //         setPaymentDetailsData(paymentDetailsFromresponse);
-        //         setTotalPagesData(totalPages);
-        //         setIsLoading(false);
-        //     }
-        //     if (response.data.status === false) {
-        //         toast.info(`${response.data.message} after this page`, {
-        //             toastId: 'endOfPages',
-        //             hideProgressBar: true,
-        //         });
-
-        //     }
-        // }
-        // setIsLoading(false);
     }
 
     useEffect(() => {
