@@ -339,7 +339,7 @@ const Welcome = ({ currentuserInfo }) => {
             currentuserInfo.authorities.some((user) => user === 'ROLE_PATIENT')
         ) {
             const currentUserInformation = await getUpdatedUserData();
-            cookies.set('currentUser', currentUserInformation.data);
+            cookies.set('currentUser', currentUserInformation.data, { path: '/' });
             setCurrentUserDataAfterApproval(currentUserInformation.data);
             if (
                 currentUserInformation &&
@@ -356,7 +356,7 @@ const Welcome = ({ currentuserInfo }) => {
         ) {
             if (documentInfo && documentUpdateFile) {
                 const currentUserInformation = await getUpdatedUserData();
-                cookies.set('currentUser', currentUserInformation.data);
+                cookies.set('currentUser', currentUserInformation.data, { path: '/' });
                 cookies.remove('userProfileCompleted');
                 setCurrentUserDataAfterApproval(currentUserInformation.data);
                 if (
@@ -392,7 +392,7 @@ const Welcome = ({ currentuserInfo }) => {
                 currentuserInfo.authorities.some((user) => user === 'ROLE_DOCTOR')
             ) {
                 const currentUserInformation = await getUpdatedUserData();
-                cookies.set('userProfileCompleted', true);
+                cookies.set('userProfileCompleted', true, { path: '/' });
                 setCurrentUserDataAfterApproval(currentUserInformation.data);
                 setDisplayDocumentForm(true);
                 setTransparentLoading(false);

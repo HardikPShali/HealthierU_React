@@ -1001,7 +1001,9 @@ const MyDoctor = (props) => {
   const enableBody = (target) => enableBodyScroll(target);
 
   const closeTour = () => {
-    cookies.set('tour', false);
+    cookies.set('tour', false, {
+      path: "/"
+    });
     setIsTourOpen(false);
   };
 
@@ -1123,6 +1125,8 @@ const MyDoctor = (props) => {
     languageRef.current.resetSelectedValues();
     loadSpeciality();
     setTransparentLoading(false);
+    loadUsers()
+    setIsFiltered(false)
   };
 
   const handleCheckbox = (checked) => {
@@ -1230,7 +1234,7 @@ const MyDoctor = (props) => {
     }
     return startTime + ',' + endTime;
   };
-
+  const [isFiltered, setIsFiltered] = useState(false)
   const handleFilter = async () => {
     setTransparentLoading(true);
     setFilter(false);
@@ -1297,6 +1301,8 @@ const MyDoctor = (props) => {
         }
       });
       if (result && (result.status === 200 || result.status === 204)) {
+        setTotalDoctors(result.data.data.totalItems)
+        setIsFiltered(true)
         if (
           result.data.data &&
           result.data.data.doctors &&
@@ -1305,6 +1311,7 @@ const MyDoctor = (props) => {
           setOffset(1);
           setAvailability([]);
           setAppointmentSlot([]);
+          setTotalDoctors(result.data.data.totalItems)
           setFilterData(result.data.data.doctors);
           setTransparentLoading(false);
         } else {
@@ -1867,6 +1874,8 @@ const MyDoctor = (props) => {
                 </div>
                 <br />
                 <div id="card-list" className="scroller-cardlist">
+                  {console.log("filterData", filterData.length)}
+                  {console.log("totalDoctors", totalDoctors)}
                   {filterData && filterData.length > 0 ? (
                     <GridList cellHeight={220}>
                       <GridListTile
@@ -1976,7 +1985,7 @@ const MyDoctor = (props) => {
                       <center>No Doctor Found ...</center>
                     </div>
                   )}
-                  {filterData && filterData.length !== totalDoctors || filterData.length !== '0' && (
+                  {filterData && (filterData.length !== totalDoctors || totalDoctors !== 0) && !isFiltered && (
                     <>
                       <div
                         className="text-center"

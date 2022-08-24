@@ -116,11 +116,11 @@ const GlobalSearch = () => {
 
     const setCookies = (authority) => {
         return authority === 'ROLE_DOCTOR'
-            ? cookies.set('authorities', 'ROLE_DOCTOR')
+            ? cookies.set('authorities', 'ROLE_DOCTOR', { path: '/' })
             : authority === 'ROLE_PATIENT'
-                ? cookies.set('authorities', 'ROLE_PATIENT')
+                ? cookies.set('authorities', 'ROLE_PATIENT', { path: '/' })
                 : authority === 'ROLE_ADMIN'
-                    ? cookies.set('authorities', 'ROLE_ADMIN')
+                    ? cookies.set('authorities', 'ROLE_ADMIN', { path: '/' })
                     : 'ROLE_USER';
     };
 
