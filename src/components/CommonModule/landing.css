@@ -1496,6 +1496,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
 /* SAFARI ONLY CSS */
 ::i-block-chrome,
 .profile-edit-icon-doctor {
+  margin: 100px 0 0 338px;
   -webkit-margin-before: 103px;
   -webkit-margin-start: 274px;
 }
