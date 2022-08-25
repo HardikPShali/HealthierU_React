@@ -28,7 +28,7 @@ const PaymentDetails = () => {
             if (response.data.status === true) {
                 const paymentDetailsFromresponse = response.data.data.content.map(paymentDetail => {
                     paymentDetail.startTime = moment(paymentDetail.startTime).format('DD-MM-YYYY HH:mm');
-                    paymentDetail.id = paymentDetail.appointmentId;
+                    // paymentDetail.id = paymentDetail.appointmentId;
                     return paymentDetail;
                 })
                 const totalPages = response.data.data.totalPages;

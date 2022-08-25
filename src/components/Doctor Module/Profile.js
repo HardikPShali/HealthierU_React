@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import './doctor.css';
 import { Button } from 'react-bootstrap';
 // import '../Patient Module/patient.css';
@@ -14,7 +14,7 @@ import {
     uploadDoctorDocument,
     getDoctorDocument,
     updateDoctorData,
-    updateDoctorDocumentNew
+    updateDoctorDocumentNew,
 } from '../../service/frontendapiservices';
 import TransparentLoader from '../Loader/transparentloader';
 import DoctorDocumentUpload from '../CommonModule/doctordocumentupload';
@@ -45,8 +45,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ImageCropper from '../CommonModule/ImageCroper';
 import ProfileRow from '../CommonModule/Profile/ProfileRow/ProfileRow';
-import Cookies from "universal-cookie";
-import { MDBInput } from "mdbreact";
+import Cookies from 'universal-cookie';
+import { MDBInput } from 'mdbreact';
 import { toast } from 'react-toastify';
 import { DH_UNABLE_TO_CHECK_GENERATOR } from 'constants';
 
@@ -72,7 +72,9 @@ const Profile = ({ currentDoctor }) => {
     });
     const [profilePicture, setProfilePicture] = useState({});
 
-    const [currentDoctorData, setCurrentDoctorData] = useState(JSON.parse(JSON.stringify(currentDoctor)));
+    const [currentDoctorData, setCurrentDoctorData] = useState(
+        JSON.parse(JSON.stringify(currentDoctor))
+    );
     const [language, setLanguage] = useState({
         languageOptions: [],
     });
@@ -98,9 +100,8 @@ const Profile = ({ currentDoctor }) => {
         educationalQualifications,
         experience,
         specialities,
-        bio
+        bio,
     } = currentDoctorData ? currentDoctorData : currentDoctor;
-
 
     const { languageOptions } = language;
 
@@ -148,12 +149,12 @@ const Profile = ({ currentDoctor }) => {
             setTimeout(() => setLoading(false), 1000);
         }
     };
-    const [documentInfo, setDocumentinfo] = useState({})
-    const [documentUpdateFile, setDocumentUpdateFile] = useState()
-    const [currentdocumentData, setCurrentDocumentData] = useState([])
-    const [licenseNumber, setLicenseNumber] = useState()
-    const [certifyingBody, setCertifyingBody] = useState()
-    const [referencePhoneNumber, setReferencePhoneNumber] = useState()
+    const [documentInfo, setDocumentinfo] = useState({});
+    const [documentUpdateFile, setDocumentUpdateFile] = useState();
+    const [currentdocumentData, setCurrentDocumentData] = useState([]);
+    const [licenseNumber, setLicenseNumber] = useState();
+    const [certifyingBody, setCertifyingBody] = useState();
+    const [referencePhoneNumber, setReferencePhoneNumber] = useState();
     //LOAD DOCUMENT LIST
     const loadDoctorDocument = async () => {
         const doctorId = currentDoctor.id;
@@ -161,7 +162,9 @@ const Profile = ({ currentDoctor }) => {
         if (res && res.status === 200) {
             setLicenseNumber(res.data.documentsDocumentsList[0].licenseNumber);
             setCertifyingBody(res.data.documentsDocumentsList[0].certifyingBody);
-            setReferencePhoneNumber(res.data.documentsDocumentsList[0].referencePhoneNumber);
+            setReferencePhoneNumber(
+                res.data.documentsDocumentsList[0].referencePhoneNumber
+            );
             setLoading(false);
         } else if (res && res.status === 204) {
             // setDoctorDocumentData([]);
@@ -170,7 +173,7 @@ const Profile = ({ currentDoctor }) => {
     };
     // const { licenseNumber, referencePhoneNumber, certifyingBody } = currentdocumentData ? currentdocumentData : documentData;
     useEffect(() => {
-        loadDoctorDocument()
+        loadDoctorDocument();
         loadOptions();
         loadLanguage();
         loadSpeciality();
@@ -213,17 +216,19 @@ const Profile = ({ currentDoctor }) => {
     const handleInputChange = (e) => {
         // e.preventDefault();
         console.log(e.target.value);
-        setCurrentDoctorData({ ...currentDoctorData, [e.target.name]: e.target.value });
+        setCurrentDoctorData({
+            ...currentDoctorData,
+            [e.target.name]: e.target.value,
+        });
     };
 
     const handleLanguages = (selectedItem) => {
         selectedItem.forEach((e) => {
-            const index = languages.findIndex((x) => x.name == e.name)
+            const index = languages.findIndex((x) => x.name == e.name);
             if (index == -1) {
                 languages.push(e);
             }
-
-        })
+        });
 
         setCurrentDoctorData({ ...currentDoctorData, languages: languages });
     };
@@ -243,19 +248,17 @@ const Profile = ({ currentDoctor }) => {
             .format('YYYY-MM-DD'),
     };
 
-
     const handleDateChange = (e) => {
         const d = new Date(e.target.value);
         const isoDate = d.toISOString();
         const dateBefore18Years = moment(isoDate).isBefore(
             moment().subtract(18, 'years')
-        )
+        );
         if (dateBefore18Years === false) {
-            toast.error("Your age entered must be 18 years and above.", {
-                toastId: "ageError",
+            toast.error('Your age entered must be 18 years and above.', {
+                toastId: 'ageError',
             });
-        }
-        else {
+        } else {
             setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
         }
         // setCurrentDoctorData({ ...currentDoctorData, dateOfBirth: isoDate });
@@ -271,18 +274,17 @@ const Profile = ({ currentDoctor }) => {
 
     const handleSpecialities = (selectedItem) => {
         selectedItem.forEach((e) => {
-            const index = specialities.findIndex((x) => x.name == e.name)
+            const index = specialities.findIndex((x) => x.name == e.name);
             if (index == -1) {
                 specialities.push(e);
             }
-
-        })
+        });
         // specialities.push({ id: selectedItem.id, name: selectedItem.name });
         setSpecialityError(false);
     };
 
     const removeSpecialities = (removedItem) => {
-        console.log({ removedItem })
+        console.log({ removedItem });
         // var array = specialities;
         // var index = array.findIndex(removedItem); // Let's say it's Bob.
         // array.splice(index, 1);
@@ -290,10 +292,10 @@ const Profile = ({ currentDoctor }) => {
     };
 
     // EDIT PROFILE HANDLER ON SUBMIT
-    const handleDetails = async e => {
+    const handleDetails = async (e) => {
         let res;
-        console.log("Doctor Profile Data", currentDoctorData);
-        console.log("profilePicture ::::::", profilePicture);
+        console.log('Doctor Profile Data', currentDoctorData);
+        console.log('profilePicture ::::::', profilePicture);
         setLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
@@ -301,68 +303,85 @@ const Profile = ({ currentDoctor }) => {
         reqBody.lastName = '';
         bodyFormData.append('profileData', JSON.stringify(reqBody));
         bodyFormData.append('profilePicture', profilePicture);
-        const response = await updateDoctorData(bodyFormData).catch(err => {
+        const response = await updateDoctorData(bodyFormData).catch((err) => {
             setLoading(false);
-            toast.error("Something went wrong.Please try again!")
+            toast.error('Something went wrong.Please try again!');
         });
-        if (documentInfo.document && documentInfo.licenseNumber && documentInfo.certifyingBody && documentInfo.referencePhoneNumber) {
-            const user = cookies.get("profileDetails");
+        if (
+            documentInfo.document &&
+            documentInfo.licenseNumber &&
+            documentInfo.certifyingBody &&
+            documentInfo.referencePhoneNumber
+        ) {
+            const user = cookies.get('profileDetails');
             const info = {
                 doctorId: user.id,
                 //doctor_email: user.email,
                 // documentName: documentName,
                 licenseNumber: documentInfo.licenseNumber,
                 referencePhoneNumber: documentInfo.referencePhoneNumber,
-                certifyingBody: documentInfo.certifyingBody
-            }
-            res = await updateDoctorDocumentNew(info).catch(err => {
+                certifyingBody: documentInfo.certifyingBody,
+            };
+            res = await updateDoctorDocumentNew(info).catch((err) => {
                 setLoading(false);
-                toast.error("Something went wrong.Please try again!")
+                toast.error('Something went wrong.Please try again!');
             });
-            if (response.status === 200 || response.status === 201 && res.status === 200) {
+            if (
+                response.status === 200 ||
+                (response.status === 201 && res.status === 200)
+            ) {
                 cookies.set('profileDetails', response.data.data, {
-                    path: "/"
+                    path: '/',
                 });
-                toast.success("Profile Data Updated")
+                toast.success('Profile Data Updated');
                 history.go(`doctor/profile`);
             }
-        }
-        else {
-            toast.error("Please add valid license/registration number and subsequent documents")
+        } else {
+            toast.error(
+                'Please add valid license/registration number and subsequent documents'
+            );
             setLoading(false);
             setTimeout(() => {
-                history.go(0)
-            }, 3000)
+                history.go(0);
+            }, 3000);
         }
-    }
+    };
 
-    const [educationList, setEducationList] = useState([{ institution: '', educationalQualification: '' }]);
+    const [educationList, setEducationList] = useState([
+        { institution: '', educationalQualification: '' },
+    ]);
     // handle input change
     const handleEducationDetailsInputChange = (e, index) => {
         const { name, value } = e.target;
         const list = [...currentDoctorData.educationalQualifications];
         list[index][name] = value;
         //setEducationList(list);
-        setCurrentDoctorData({ ...currentDoctorData, educationalQualifications: list });
-        console.log("state", currentDoctorData)
+        setCurrentDoctorData({
+            ...currentDoctorData,
+            educationalQualifications: list,
+        });
+        console.log('state', currentDoctorData);
     };
     // handle click event of the Remove button
     const handleRemoveClick = (index) => {
         const list = [...currentDoctorData.educationalQualifications];
         list.splice(index, 1);
         //setEducationList(list);
-        setCurrentDoctorData({ ...currentDoctorData, educationalQualifications: list })
+        setCurrentDoctorData({
+            ...currentDoctorData,
+            educationalQualifications: list,
+        });
     };
-
 
     // handle click event of the Add button
     const handleAddClick = () => {
         const list = [...currentDoctorData.educationalQualifications];
-        list.push({ institution: '', educationalQualification: '' })
-        setCurrentDoctorData({ ...currentDoctorData, educationalQualifications: list });
-
+        list.push({ institution: '', educationalQualification: '' });
+        setCurrentDoctorData({
+            ...currentDoctorData,
+            educationalQualifications: list,
+        });
     };
-
 
     return (
         <div>
@@ -377,20 +396,16 @@ const Profile = ({ currentDoctor }) => {
                                 ) : (
                                     <Avatar
                                         className="avatar-profile"
-                                        name={
-                                            currentDoctor.firstName
-                                        }
+                                        name={currentDoctor.firstName}
                                         size={145}
                                         style={{
                                             width: 137,
-                                            height: 150
+                                            height: 150,
                                         }}
                                     />
                                 )}
                                 <br />
-                                <div id="name">
-                                    {currentDoctor.firstName}
-                                </div>
+                                <div id="name">{currentDoctor.firstName}</div>
                                 <p id="description">{currentDoctor.email}</p>
                                 <br />
                                 <div className="col-md-12 text-center mt-3">
@@ -454,15 +469,13 @@ const Profile = ({ currentDoctor }) => {
                                                                 )
                                                             }
                                                         />
-                                                        {
-                                                            currentDoctor && currentDoctor.bio && (
-                                                                <ProfileRow
-                                                                    icon={aboutIcon}
-                                                                    title="About Me"
-                                                                    value={currentDoctor.bio}
-                                                                />
-                                                            )
-                                                        }
+                                                        {currentDoctor && currentDoctor.bio && (
+                                                            <ProfileRow
+                                                                icon={aboutIcon}
+                                                                title="About Me"
+                                                                value={currentDoctor.bio}
+                                                            />
+                                                        )}
                                                         <ProfileRow
                                                             icon={experienceIcon}
                                                             title="License Number"
@@ -494,14 +507,16 @@ const Profile = ({ currentDoctor }) => {
                                                                 currentDoctor.educationalQualifications.map(
                                                                     (edu, index) => (
                                                                         <div>
-                                                                            <li key={index}>{edu.educationalQualification}</li>
-
+                                                                            <li key={index}>
+                                                                                {edu.educationalQualification}
+                                                                            </li>
                                                                         </div>
                                                                     )
                                                                 )
                                                             }
                                                         //value={currentDoctor.education}
-                                                        /> <ProfileRow
+                                                        />{' '}
+                                                        <ProfileRow
                                                             icon={institutionIcon}
                                                             title="Institution"
                                                             value={
@@ -561,11 +576,19 @@ const Profile = ({ currentDoctor }) => {
 
                             <div id="editProfile-col">
                                 <>
-                                    <Row style={{ justifyContent: 'center', flexDirection: "column" }} >
-                                        <ImageCropper setProfilePicture={setProfilePicture} imageUrl={currentDoctor.picture} role={'Doctor'} />
-                                    </Row>
                                     <ValidatorForm onSubmit={handleDetails}>
-
+                                        <Row
+                                            style={{
+                                                justifyContent: 'center',
+                                                flexDirection: 'column',
+                                            }}
+                                        >
+                                            <ImageCropper
+                                                setProfilePicture={setProfilePicture}
+                                                imageUrl={currentDoctor.picture}
+                                                role={'Doctor'}
+                                            />
+                                        </Row>
 
                                         <Tabs
                                             defaultActiveKey="general"
@@ -585,8 +608,14 @@ const Profile = ({ currentDoctor }) => {
                                                                 name="firstName"
                                                                 onChange={(e) => handleInputChange(e)}
                                                                 value={firstName}
-                                                                validators={["required", "matchRegexp:^[a-zA-Z ]+$"]}
-                                                                errorMessages={["This field is required", "First Name cannot have any numeric values"]}
+                                                                validators={[
+                                                                    'required',
+                                                                    'matchRegexp:^[a-zA-Z ]+$',
+                                                                ]}
+                                                                errorMessages={[
+                                                                    'This field is required',
+                                                                    'First Name cannot have any numeric values',
+                                                                ]}
                                                                 variant="filled"
                                                             />
                                                         </Col>
@@ -610,9 +639,7 @@ const Profile = ({ currentDoctor }) => {
                                                     <br />
                                                     <Row>
                                                         <Col md={12}>
-                                                            <p>
-                                                                About
-                                                            </p>
+                                                            <p>About</p>
                                                             {/* <textarea
                                                             id="standard-basic"
                                                             type="text"
@@ -625,7 +652,9 @@ const Profile = ({ currentDoctor }) => {
                                                             cols={50}
                                                         ></textarea> */}
 
-                                                            <MDBInput type="textarea" rows="5"
+                                                            <MDBInput
+                                                                type="textarea"
+                                                                rows="5"
                                                                 id="standard-basic"
                                                                 name="bio"
                                                                 onChange={(e) => handleInputChange(e)}
@@ -693,7 +722,10 @@ const Profile = ({ currentDoctor }) => {
                                                                     </MenuItem>
                                                                     {countryList &&
                                                                         countryList.map((option) => (
-                                                                            <MenuItem value={option.id} key={option.id}>
+                                                                            <MenuItem
+                                                                                value={option.id}
+                                                                                key={option.id}
+                                                                            >
                                                                                 {option.name}
                                                                             </MenuItem>
                                                                         ))}
@@ -720,13 +752,11 @@ const Profile = ({ currentDoctor }) => {
                                                                         value="MALE"
                                                                         control={<Radio color="primary" />}
                                                                         label="Male"
-
                                                                     />
                                                                     <FormControlLabel
                                                                         value="OTHER"
                                                                         control={<Radio color="primary" />}
                                                                         label="Other"
-
                                                                     />
                                                                 </RadioGroup>
                                                             </FormControl>
@@ -765,58 +795,88 @@ const Profile = ({ currentDoctor }) => {
 
                                             <Tab eventKey="education" title="Education">
                                                 <div className="general-medical-tab">
-                                                    {currentDoctorData?.educationalQualifications.map((x, i) => {
-                                                        return (
-                                                            <div key={i}>
-                                                                <Row>
-                                                                    <Col md={6}>
-                                                                        <p>Education<sup>*</sup></p>
-                                                                        <TextValidator id="standard-basic" type="text" name="educationalQualification"
-                                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
-                                                                            value={x.educationalQualification}
-                                                                            validators={['required']}
-                                                                            errorMessages={['This field is required']}
-                                                                            variant="filled"
-                                                                            placeholder='Education' />
-
-                                                                    </Col>
-                                                                    <Col md={6}>
-                                                                        <p>Institution<sup>*</sup></p>
-                                                                        <TextValidator id="standard-basic" type="text" name="institution"
-                                                                            onChange={(e) => handleEducationDetailsInputChange(e, i)}
-                                                                            value={x.institution}
-                                                                            validators={['required']}
-                                                                            errorMessages={['This field is required']}
-                                                                            variant="filled"
-                                                                            placeholder='Institution' />
-
-                                                                    </Col>
-                                                                </Row>
-                                                                <br />
-                                                                <div className="btn-box">
-                                                                    {currentDoctorData?.educationalQualifications.length !== 1 && (
-                                                                        <Button
-                                                                            className="medicineRemoveButton"
-                                                                            variant="secondary"
-                                                                            onClick={() => handleRemoveClick(i)}
-                                                                        >
-                                                                            Remove
-                                                                        </Button>
-                                                                    )}
-                                                                    {currentDoctorData?.educationalQualifications.length - 1 === i && (
-                                                                        <Button
-
-                                                                            className="medicineButton"
-                                                                            variant="primary"
-                                                                            onClick={handleAddClick}
-                                                                        >
-                                                                            Add Education
-                                                                        </Button>
-                                                                    )}
+                                                    {currentDoctorData?.educationalQualifications.map(
+                                                        (x, i) => {
+                                                            return (
+                                                                <div key={i}>
+                                                                    <Row>
+                                                                        <Col md={6}>
+                                                                            <p>
+                                                                                Education<sup>*</sup>
+                                                                            </p>
+                                                                            <TextValidator
+                                                                                id="standard-basic"
+                                                                                type="text"
+                                                                                name="educationalQualification"
+                                                                                onChange={(e) =>
+                                                                                    handleEducationDetailsInputChange(
+                                                                                        e,
+                                                                                        i
+                                                                                    )
+                                                                                }
+                                                                                value={x.educationalQualification}
+                                                                                validators={['required']}
+                                                                                errorMessages={[
+                                                                                    'This field is required',
+                                                                                ]}
+                                                                                variant="filled"
+                                                                                placeholder="Education"
+                                                                            />
+                                                                        </Col>
+                                                                        <Col md={6}>
+                                                                            <p>
+                                                                                Institution<sup>*</sup>
+                                                                            </p>
+                                                                            <TextValidator
+                                                                                id="standard-basic"
+                                                                                type="text"
+                                                                                name="institution"
+                                                                                onChange={(e) =>
+                                                                                    handleEducationDetailsInputChange(
+                                                                                        e,
+                                                                                        i
+                                                                                    )
+                                                                                }
+                                                                                value={x.institution}
+                                                                                validators={['required']}
+                                                                                errorMessages={[
+                                                                                    'This field is required',
+                                                                                ]}
+                                                                                variant="filled"
+                                                                                placeholder="Institution"
+                                                                            />
+                                                                        </Col>
+                                                                    </Row>
+                                                                    <br />
+                                                                    <div className="btn-box">
+                                                                        {currentDoctorData
+                                                                            ?.educationalQualifications.length !==
+                                                                            1 && (
+                                                                                <Button
+                                                                                    className="medicineRemoveButton"
+                                                                                    variant="secondary"
+                                                                                    onClick={() => handleRemoveClick(i)}
+                                                                                >
+                                                                                    Remove
+                                                                                </Button>
+                                                                            )}
+                                                                        {currentDoctorData
+                                                                            ?.educationalQualifications.length -
+                                                                            1 ===
+                                                                            i && (
+                                                                                <Button
+                                                                                    className="medicineButton"
+                                                                                    variant="primary"
+                                                                                    onClick={handleAddClick}
+                                                                                >
+                                                                                    Add Education
+                                                                                </Button>
+                                                                            )}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        );
-                                                    })}
+                                                            );
+                                                        }
+                                                    )}
                                                     <br />
                                                     <Row>
                                                         <Col md={12}>
@@ -828,9 +888,16 @@ const Profile = ({ currentDoctor }) => {
                                                                 onChange={(e) => handleInputChange(e)}
                                                                 value={experience}
                                                                 variant="filled"
-                                                                validators={['required',
-                                                                    'minNumber:0', 'maxNumber:50']}
-                                                                errorMessages={['This field is required', 'Invalid Experience', 'Invalid Experience']}
+                                                                validators={[
+                                                                    'required',
+                                                                    'minNumber:0',
+                                                                    'maxNumber:50',
+                                                                ]}
+                                                                errorMessages={[
+                                                                    'This field is required',
+                                                                    'Invalid Experience',
+                                                                    'Invalid Experience',
+                                                                ]}
                                                             />
                                                         </Col>
                                                     </Row>
@@ -863,12 +930,15 @@ const Profile = ({ currentDoctor }) => {
                                         </Tabs>
 
                                         <br />
-                                        <div className='edit-profile__button-wrapper'>
+                                        <div className="edit-profile__button-wrapper">
                                             <button
                                                 className="btn btn-primary continue-btn-profile-doctor"
                                                 onClick={() => {
                                                     // setDisplay({ ...display, profile: 'block', editProfile: 'none' })
-                                                    setToggleProfile({ ...toggleProfile, editProfile: false });
+                                                    setToggleProfile({
+                                                        ...toggleProfile,
+                                                        editProfile: false,
+                                                    });
                                                 }}
                                             >
                                                 Go Back
@@ -881,7 +951,6 @@ const Profile = ({ currentDoctor }) => {
                                                 Update Profile
                                             </button>
                                         </div>
-
                                     </ValidatorForm>
                                 </>
                             </div>

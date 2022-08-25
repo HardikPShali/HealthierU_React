@@ -4777,6 +4777,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .profile-in-gridlist {
-  bottom: 20px;
-  padding: 20px;
+  bottom: 10px;
+  padding: 5px;
+  border-radius: 10px;
 }
