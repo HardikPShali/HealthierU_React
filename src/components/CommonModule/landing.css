@@ -1,8 +1,8 @@
 :root {
-  --primary       : #00d0cc;
-  --primarysecond : #f6ceb4;
-  --secondary     : #ff6563;
-  --text-primary  : #3e4543;
+  --primary: #00d0cc;
+  --primarysecond: #f6ceb4;
+  --secondary: #ff6563;
+  --text-primary: #3e4543;
   --text-secondary: #999999;
 }
 
@@ -12,8 +12,8 @@
 
 nav#navbar {
   background-color: var(--primary);
-  padding-top     : 30px;
-  padding-bottom  : 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 a.nav-link.active {
@@ -25,20 +25,20 @@ a.nav-link.active {
 }
 
 #navbar a {
-  color          : #fff;
+  color: #fff;
   /* margin-right: 18px; */
-  display        : flex;
-  align-items    : center;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  font-size      : 17px;
-  font-weight    : 500;
+  font-size: 17px;
+  font-weight: 500;
 }
 
 .header-btn {
-  border       : 2px solid #fff !important;
+  border: 2px solid #fff !important;
   border-radius: 22px;
-  padding      : 2px 60px;
-  margin-right : 10px;
+  padding: 2px 60px;
+  margin-right: 10px;
 }
 
 /* .nav-border {
@@ -50,7 +50,7 @@ a.nav-link.active {
 }
 
 svg#search-icon {
-  color : #fff;
+  color: #fff;
   margin: 4px 5px;
 }
 
@@ -60,10 +60,10 @@ svg#search-icon {
 
 #footer {
   background-color: var(--primary);
-  color           : #fff;
-  padding         : 20px 60px 20px;
-  display         : flex;
-  align-items     : flex-end;
+  color: #fff;
+  padding: 20px 60px 20px;
+  display: flex;
+  align-items: flex-end;
 }
 
 footer .row {
@@ -71,16 +71,16 @@ footer .row {
 }
 
 a#footer-link {
-  display        : flex;
-  color          : #fff !important;
+  display: flex;
+  color: #fff !important;
   text-decoration: none !important;
-  font-size      : 15px;
-  margin-bottom  : 15px;
+  font-size: 15px;
+  margin-bottom: 15px;
 }
 
 div#active-user {
   font-size: 18px;
-  color    : #fff;
+  color: #fff;
 }
 
 #active-user b {
@@ -93,30 +93,30 @@ div#active-user {
 
 b#right-border {
   padding-right: 15px !important;
-  border-right : 1px solid;
-  padding      : 15px 0 0;
+  border-right: 1px solid;
+  padding: 15px 0 0;
 }
 
 #footer-input {
-  width                     : 53%;
-  border                    : none !important;
-  border-radius             : 22px;
-  padding                   : 10px 20px;
-  outline                   : none;
-  box-shadow                : none;
+  width: 53%;
+  border: none !important;
+  border-radius: 22px;
+  padding: 10px 20px;
+  outline: none;
+  box-shadow: none;
   border-bottom-right-radius: 0;
-  border-top-right-radius   : 0;
+  border-top-right-radius: 0;
 }
 
 input.btn.submit-btn {
-  padding         : 10px 20px;
+  padding: 10px 20px;
   background-color: var(--primarysecond) !important;
-  color           : #fff;
-  border-radius   : 22px;
-  width           : 30%;
-  position        : relative;
-  right           : 3.5%;
-  bottom          : 1px;
+  color: #fff;
+  border-radius: 22px;
+  width: 30%;
+  position: relative;
+  right: 3.5%;
+  bottom: 1px;
 }
 
 #last-col {
@@ -125,8 +125,8 @@ input.btn.submit-btn {
 
 p#download-statement {
   font-size: 12px;
-  margin   : 20px 0;
-  color    : #fff;
+  margin: 20px 0;
+  color: #fff;
 }
 
 img#store-icon {
@@ -134,16 +134,16 @@ img#store-icon {
 }
 
 a#copy-link {
-  color          : white;
+  color: white;
   text-decoration: none;
-  font-size      : 12px;
-  margin         : 0 20px 0 0;
+  font-size: 12px;
+  margin: 0 20px 0 0;
 }
 
 a#copy-link:hover {
-  cursor         : pointer;
+  cursor: pointer;
   text-decoration: none;
-  color          : #3e4543;
+  color: #3e4543;
 }
 
 div#copyright {
@@ -151,22 +151,22 @@ div#copyright {
 }
 
 p#copyright-text {
-  margin   : 15px 0 0;
+  margin: 15px 0 0;
   font-size: 12px;
-  color    : white;
+  color: white;
 }
 
 p#lang-select {
   font-size: 12px;
-  color    : white;
+  color: white;
 }
 
 #lang-select select {
-  border       : none;
+  border: none;
   border-bottom: 1px solid;
-  outline      : none;
-  box-shadow   : none;
-  margin-left  : 0.5rem;
+  outline: none;
+  box-shadow: none;
+  margin-left: 0.5rem;
 }
 
 div#social-icon {
@@ -182,7 +182,7 @@ div#social-icon {
 }
 
 .footer-store-icons {
-  display        : flex;
+  display: flex;
   justify-content: flex-end;
 }
 
@@ -192,7 +192,7 @@ img#store-icon {
 
 @media screen and (max-width: 768px) {
   .footer-store-icons {
-    display        : flex;
+    display: flex;
     justify-content: center;
   }
 
@@ -202,7 +202,7 @@ img#store-icon {
 
   .footer-wellnes {
     text-align: center;
-    font-size : 1rem;
+    font-size: 1rem;
   }
 
   p#download-statement {
@@ -228,96 +228,96 @@ img#store-icon {
 
 #card-list {
   overflow-y: scroll;
-  height    : 460px;
+  height: 460px;
 }
 
 #shop-col .Togglebar {
-  width        : 100%;
-  background   : #efefef;
-  display      : inline-block;
+  width: 100%;
+  background: #efefef;
+  display: inline-block;
   border-radius: 25px;
-  text-align   : right;
+  text-align: right;
 }
 
 .MuiBottomNavigation-root {
-  height          : 66px !important;
-  display         : flex;
-  justify-content : center;
+  height: 66px !important;
+  display: flex;
+  justify-content: center;
   background-color: #eee !important;
-  position        : fixed;
-  bottom          : 0;
-  width           : 100%;
-  padding         : 10px 0;
-  font-family     : 'Avenir', sans-serif;
-  z-index         : 1;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+  font-family: 'Avenir', sans-serif;
+  z-index: 1;
 }
 
 .MuiBottomNavigationAction-root {
-  border : none !important;
+  border: none !important;
   outline: none !important;
 }
 
 .MuiBottomNavigationAction-wrapper img {
   padding: 0;
-  width  : 25px;
-  height : 25px;
+  width: 25px;
+  height: 25px;
 }
 
 .MuiBottomNavigationAction-label {
   font-family: var(--font-primary);
-  font-size  : 12px !important;
+  font-size: 12px !important;
   font-weight: 700;
 }
 
 .content-static {
   padding-bottom: 66px;
-  padding-top   : 60px;
+  padding-top: 60px;
 }
 
 .content {
   padding-bottom: 66px;
-  padding-top   : 125px;
+  padding-top: 125px;
 }
 
 .doc-content {
   padding-bottom: 66px;
-  padding-top   : 125px;
+  padding-top: 125px;
 }
 
 .MuiIconButton-label svg.MuiSvgIcon-root {
-  width : 26px !important;
+  width: 26px !important;
   height: 26px !important;
-  fill  : #3e4543;
+  fill: #3e4543;
 }
 
 .MuiAppBar-root {
-  min-height      : 100px !important;
-  position        : fixed !important;
-  top             : 0;
+  min-height: 100px !important;
+  position: fixed !important;
+  top: 0;
   background-color: var(--primary) !important;
 }
 
 .menu-tab {
   position: relative;
-  left    : calc(100% - 320px);
+  left: calc(100% - 320px);
 }
 
 span.emergency {
-  font-size    : 9px;
-  font-weight  : 700;
-  background   : #ff4500;
-  padding      : 2px 10px 4px;
+  font-size: 9px;
+  font-weight: 700;
+  background: #ff4500;
+  padding: 2px 10px 4px;
   border-radius: 10px;
 }
 
 .nav-divider {
-  display                : block;
-  width                  : 100%;
-  height                 : 40px;
-  position               : relative;
-  top                    : 15px;
-  background             : #fff;
-  border-top-left-radius : 30px;
+  display: block;
+  width: 100%;
+  height: 40px;
+  position: relative;
+  top: 15px;
+  background: #fff;
+  border-top-left-radius: 30px;
   border-top-right-radius: 30px;
 }
 
@@ -326,10 +326,10 @@ span.emergency {
 }
 
 .user-name {
-  font-size : 10px;
+  font-size: 10px;
   text-align: left;
-  position  : relative;
-  top       : 20px;
+  position: relative;
+  top: 20px;
 }
 
 .user-name p {
@@ -341,78 +341,78 @@ img.profile-icon {
 }
 
 button.MuiButtonBase-root {
-  border : none !important;
+  border: none !important;
   outline: none !important;
 }
 
 .MuiBadge-badge {
-  height     : 15px !important;
-  min-width  : 15px !important;
-  padding    : 0px 0px !important;
-  font-size  : 10px !important;
-  transform  : scale(1) translate(0%, -15%) !important;
+  height: 15px !important;
+  min-width: 15px !important;
+  padding: 0px 0px !important;
+  font-size: 10px !important;
+  transform: scale(1) translate(0%, -15%) !important;
   font-weight: 700 !important;
 }
 
 .card-deck {
-  display        : flex;
+  display: flex;
   justify-content: center;
-  margin         : 0 20px;
+  margin: 0 20px;
 }
 
 .card-deck .card {
-  margin       : 10px 10px !important;
-  height       : 115px;
-  background   : #efefef;
-  border       : none;
+  margin: 10px 10px !important;
+  height: 115px;
+  background: #efefef;
+  border: none;
   border-radius: 15px;
-  width        : 140px;
+  width: 140px;
 }
 
 .card-deck .card:hover {
   background: var(--primary);
-  color     : #fff;
+  color: #fff;
   transition: 0.3s;
-  cursor    : pointer;
+  cursor: pointer;
 }
 
 .card-body {
-  padding    : 1.2rem 10px !important;
+  padding: 1.2rem 10px !important;
   align-items: flex-end;
-  display    : flex;
-  font-size  : 17px;
+  display: flex;
+  font-size: 17px;
   font-weight: 700;
 }
 
 .dot-container {
-  display        : flex;
+  display: flex;
   justify-content: center;
-  position       : fixed;
-  bottom         : 85px;
-  width          : 100%;
+  position: fixed;
+  bottom: 85px;
+  width: 100%;
 }
 
 .dot {
-  height          : 15px;
-  width           : 15px;
+  height: 15px;
+  width: 15px;
   background-color: transparent;
-  border-radius   : 50%;
-  border          : 1px solid var(--primary);
-  display         : inline-block;
-  margin          : 5px;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  display: inline-block;
+  margin: 5px;
 }
 
 span.dot.active {
-  background   : var(--primary) !important;
-  width        : 25px;
+  background: var(--primary) !important;
+  width: 25px;
   border-radius: 22px;
 }
 
 #card {
-  margin       : 0 0%;
-  background   : var(--primary);
-  color        : #fff;
-  border       : none;
+  margin: 0 0%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
   border-radius: 10px;
 }
 
@@ -427,15 +427,15 @@ span.dot.active {
 }
 
 #arrowright {
-  position  : absolute;
-  width     : 100%;
+  position: absolute;
+  width: 100%;
   text-align: right;
-  right     : 16px;
+  right: 16px;
 }
 
 #menuLinks {
   text-decoration: none;
-  color          : var(--primary);
+  color: var(--primary);
 }
 
 #menuLinks:hover #card {
@@ -443,19 +443,19 @@ span.dot.active {
 }
 
 #menuLinks:hover {
-  color     : #fff;
+  color: #fff;
   transition: 0.5s;
 }
 
 svg#fav-icon {
   position: absolute;
-  right   : 10px;
-  top     : 10px;
+  right: 10px;
+  top: 10px;
 }
 
 .MuiGridListTile-tile {
   border-radius: 10px;
-  background   : #efefef;
+  background: #efefef;
 }
 
 li.MuiGridListTile-root {
@@ -468,13 +468,13 @@ ul.MuiGridList-root {
 
 .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom.MuiGridListTileBar-rootSubtitle {
   background: var(--primary);
-  cursor    : pointer;
+  cursor: pointer;
 }
 
 .MuiGridListTileBar-titleWrap {
-  color      : #fff !important;
+  color: #fff !important;
   font-weight: 700;
-  font-size  : 10px;
+  font-size: 10px;
 }
 
 .MuiGridListTileBar-title {
@@ -486,11 +486,11 @@ ul.MuiGridList-root {
 }
 
 .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
-  width        : 100%;
-  display      : inline-flex;
+  width: 100%;
+  display: inline-flex;
   border-radius: 27px;
-  box-shadow   : none !important;
-  background   : #f8f8f8;
+  box-shadow: none !important;
+  background: #f8f8f8;
 }
 
 @media (min-width: 481px) and (max-width: 1200px) {
@@ -508,9 +508,9 @@ input#doctor-search {
 }
 
 #appointment-card {
-  margin       : 0 6%;
-  background   : #efefef;
-  border       : none;
+  margin: 0 6%;
+  background: #efefef;
+  border: none;
   border-radius: 10px;
 }
 
@@ -524,25 +524,25 @@ input#doctor-search {
 
 #appointment-card .card-body #arrowright {
   position: relative;
-  left    : calc(100% - 160px);
+  left: calc(100% - 160px);
 }
 
 a.back-btn {
-  width  : 8%;
+  width: 8%;
   display: flex;
-  margin : 0px 10% 10px;
+  margin: 0px 10% 10px;
 }
 
 svg#back {
-  background   : #efefef;
+  background: #efefef;
   border-radius: 50%;
-  padding      : 2px;
-  width        : 28px;
-  height       : 26px;
+  padding: 2px;
+  width: 28px;
+  height: 26px;
 }
 
 li#doctor-pro-pic {
-  width     : 100% !important;
+  width: 100% !important;
   text-align: center;
 }
 
@@ -555,12 +555,12 @@ div#doctor-name {
 }
 
 .cal-view {
-  width : 90%;
+  width: 90%;
   margin: 0 5% !important;
 }
 
 .appointment-list {
-  margin     : 20px 0px;
+  margin: 20px 0px;
   font-weight: 700;
 }
 
@@ -569,19 +569,19 @@ span.MuiRating-root {
 }
 
 span.price {
-  color    : var(--primary);
+  color: var(--primary);
   font-size: 35px;
 }
 
 button.continue-btn {
   background-color: var(--primary) !important;
-  width           : 100% !important;
-  border-radius   : 30px;
-  border-color    : var(--primary) !important;
-  outline         : none !important;
-  box-shadow      : none !important;
-  font-size       : 13px;
-  margin-top      : 20px;
+  width: 100% !important;
+  border-radius: 30px;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  margin-top: 20px;
 }
 
 .MuiBottomNavigationAction-root.MuiBottomNavigationAction-iconOnly {
@@ -589,7 +589,7 @@ button.continue-btn {
 }
 
 .MuiBottomNavigationAction-label.MuiBottomNavigationAction-iconOnly {
-  opacity         : 1 !important;
+  opacity: 1 !important;
   transition-delay: 0.2s !important;
 }
 
@@ -598,20 +598,20 @@ span.MuiBottomNavigationAction-wrapper {
 }
 
 .doc-img {
-  height         : 140px;
-  display        : flex;
+  height: 140px;
+  display: flex;
   justify-content: center;
-  border-radius  : 22px;
-  background     : #f8f8f8;
+  border-radius: 22px;
+  background: #f8f8f8;
 }
 
 .doc-img img {
-  width        : 140px;
+  width: 140px;
   border-radius: 22px;
 }
 
 b.doc-name {
-  color    : var(--primary);
+  color: var(--primary);
   font-size: 15px;
 }
 
@@ -620,7 +620,7 @@ b.doc-name {
 }
 
 #menuLinks li.MuiGridListTile-root {
-  width     : 100% !important;
+  width: 100% !important;
   text-align: center;
 }
 
@@ -628,13 +628,18 @@ b.doc-name {
   background-color: var(--primary);
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom {
   background: var(--primary);
   transition: 0.5s;
 }
 
-#menuLinks:hover li .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom .MuiGridListTileBar-title {
-  color     : #fff;
+#menuLinks:hover
+  li
+  .MuiGridListTileBar-root.MuiGridListTileBar-titlePositionBottom
+  .MuiGridListTileBar-title {
+  color: #fff;
   transition: 0.5s;
 }
 
@@ -649,7 +654,7 @@ b.doc-name {
 
 #card-list::-webkit-scrollbar-track,
 #calendar-list::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
@@ -657,7 +662,7 @@ b.doc-name {
 
 #card-list::-webkit-scrollbar-thumb,
 #calendar-list::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -673,7 +678,7 @@ div#doc-row {
 }
 
 div#doc-details {
-  display    : flex;
+  display: flex;
   align-items: center;
 }
 
@@ -682,20 +687,20 @@ div#doc-details {
 }
 
 div#price-box {
-  padding      : 20px;
-  background   : #efefef;
+  padding: 20px;
+  background: #efefef;
   border-radius: 22px;
-  text-align   : center;
-  position     : relative;
+  text-align: center;
+  position: relative;
 }
 
 div#price-box:before {
-  content         : '';
-  position        : absolute;
-  top             : 100%;
-  left            : 46%;
-  z-index         : 1;
-  border          : solid 15px transparent;
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 46%;
+  z-index: 1;
+  border: solid 15px transparent;
   border-top-color: #efefef;
 }
 
@@ -704,14 +709,14 @@ div#price-box:before {
 }
 
 #promo-code {
-  font-size : 12px;
+  font-size: 12px;
   text-align: right;
-  position  : relative;
-  top       : -4px;
+  position: relative;
+  top: -4px;
 }
 
 #payment-form .MuiFormControl-root.MuiTextField-root {
-  width        : 100%;
+  width: 100%;
   margin-bottom: 10px;
 }
 
@@ -720,12 +725,12 @@ div#price-box:before {
 }
 
 #payment-form input#standard-basic {
-  padding      : 10px;
-  border       : none !important;
+  padding: 10px;
+  border: none !important;
   border-radius: 10px;
-  font-size    : 12px;
-  color        : #3e4543;
-  font-weight  : 600;
+  font-size: 12px;
+  color: #3e4543;
+  font-weight: 600;
 }
 
 #payment-form .MuiFilledInput-underline:after {
@@ -748,45 +753,45 @@ div#price-box:before {
 }
 
 #patient-card .card-title.h5 {
-  font-size  : 22px;
+  font-size: 22px;
   font-weight: 400;
 }
 
 #patient-card .card,
 img.card-img-top {
   border-radius: 20px;
-  border       : none !important;
+  border: none !important;
 }
 
 #patient-card .card-body {
-  position                  : absolute;
-  bottom                    : 0;
-  color                     : #eee9df;
-  background-color          : var(--primary);
-  width                     : 100%;
-  height                    : 130px;
-  border-bottom-left-radius : 20px;
+  position: absolute;
+  bottom: 0;
+  color: #eee9df;
+  background-color: var(--primary);
+  width: 100%;
+  height: 130px;
+  border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
 
 #patient-card p.card-text {
-  font-size  : 12px;
+  font-size: 12px;
   font-weight: 400;
 }
 
 #patient-card .card-body {
-  padding    : 1.25rem !important;
-  display    : unset;
+  padding: 1.25rem !important;
+  display: unset;
   align-items: unset;
 }
 
 @media (min-width: 481px) and (max-width: 990px) {
   #patient-card .card-body {
     position: relative;
-    height  : auto;
+    height: auto;
   }
 
-  .card-body>p.card-text {
+  .card-body > p.card-text {
     min-height: 40px;
   }
 
@@ -802,21 +807,21 @@ img.card-img-top {
 @media (max-width: 480px) {
   #patient-card .card-body {
     position: relative;
-    height  : auto;
+    height: auto;
   }
 
-  .card-body>p.card-text {
+  .card-body > p.card-text {
     min-height: 40px;
   }
 
   #patient-card .card-title.h5,
-  .card-body>p.card-text {
+  .card-body > p.card-text {
     min-height: auto;
   }
 
   #patient-card button.assessment-btn {
     position: static;
-    padding : 6px 12px;
+    padding: 6px 12px;
   }
 }
 
@@ -825,44 +830,44 @@ img.card-img-top {
 */
 
 div.card-box {
-  display      : flex;
-  height       : 200px;
-  background   : #efefef;
+  display: flex;
+  height: 200px;
+  background: #efefef;
   border-radius: 22px;
-  align-items  : flex-end;
-  padding      : 1.25rem;
-  color        : #fff;
-  text-shadow  : 0px 0px 15px #000;
+  align-items: flex-end;
+  padding: 1.25rem;
+  color: #fff;
+  text-shadow: 0px 0px 15px #000;
 }
 
 #Box1 {
   background-image: url(../../images/nutrition.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box2 {
   background-image: url(../../images/workout.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box3 {
   background-image: url(../../images/lifestyle.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box4 {
   background-image: url(../../images/shop.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box5 {
   background-image: url(../../images/articles.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box6 {
   background-image: url(../../images/educate.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 .MuiSelect-filled.MuiSelect-filled {
@@ -870,18 +875,18 @@ div.card-box {
 }
 
 .react-tel-input .form-control {
-  width           : 100% !important;
-  border          : none !important;
+  width: 100% !important;
+  border: none !important;
   background-color: rgba(0, 0, 0, 0.09) !important;
-  padding         : 8px 10px 8px 48px !important;
-  height          : auto !important;
-  border-radius   : 10px !important;
+  padding: 8px 10px 8px 48px !important;
+  height: auto !important;
+  border-radius: 10px !important;
 }
 
 .sign-box {
-  background   : #fff;
+  background: #fff;
   border-radius: 22px;
-  padding      : 13px 25px 23px 25px;
+  padding: 13px 25px 23px 25px;
 }
 
 .sign-box .MuiFormControl-root.MuiTextField-root {
@@ -893,8 +898,8 @@ div.card-box {
 }
 
 .sign-box input#standard-basic {
-  padding      : 10px;
-  border       : none !important;
+  padding: 10px;
+  border: none !important;
   border-radius: 10px;
 }
 
@@ -907,62 +912,62 @@ div.card-box {
 }
 
 .patient-card_how-healthy-wrap {
-  display        : flex;
-  flex-direction : column;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items    : center;
+  align-items: center;
 }
 
 h2#signin-title {
-  font-size  : 2rem;
+  font-size: 2rem;
   font-weight: 500;
-  color      : var(--primary);
-  text-align : left;
+  color: var(--primary);
+  text-align: left;
   margin-left: 1rem;
 }
 
 .sign-box p {
   margin-bottom: 5px;
-  font-size    : 0.9rem;
+  font-size: 0.9rem;
 }
 
 p.forget-text {
   text-align: right;
-  font-size : 12px;
+  font-size: 12px;
 }
 
 input.btn.sign-btn {
-  width           : 100%;
-  border-radius   : 22px;
-  margin-top      : 20px;
+  width: 100%;
+  border-radius: 22px;
+  margin-top: 20px;
   background-color: var(--primary);
-  border-color    : var(--primary);
-  color           : #fff;
+  border-color: var(--primary);
+  color: #fff;
 }
 
 p.signup-text {
   margin-top: 30px;
   text-align: center;
-  font-size : 12px;
+  font-size: 12px;
 }
 
 button.btn.btn-outline-primary.sign-btn {
-  width        : 50%;
-  margin       : 0 25% 20px;
+  width: 50%;
+  margin: 0 25% 20px;
   border-radius: 22px;
-  border       : 2px solid var(--primary);
-  color        : var(--primary);
+  border: 2px solid var(--primary);
+  color: var(--primary);
 }
 
 button.btn.btn-outline-primary.sign-btn:hover {
-  border-color    : var(--primary);
+  border-color: var(--primary);
   background-color: var(--primary);
-  color           : #fff;
+  color: #fff;
 }
 
 #welcome-bg {
-  background-image   : url(../../images/welcomebg.png);
-  background-size    : cover;
+  background-image: url(../../images/welcomebg.png);
+  background-size: cover;
   background-position: center;
 }
 
@@ -975,30 +980,30 @@ div#gender-radio {
 }
 
 h2#welcome-title {
-  font-size  : 40px;
+  font-size: 40px;
   font-weight: 700;
-  color      : var(--primary);
+  color: var(--primary);
 }
 
 select#coutry-select {
-  width                : 100% !important;
-  border               : none !important;
-  background-color     : rgba(0, 0, 0, 0.09) !important;
-  padding              : 8px 10px 8px 10px !important;
-  height               : auto !important;
-  border-radius        : 10px !important;
-  -webkit-appearance   : none;
-  -moz-appearance      : none;
-  background           : transparent;
-  background-image     : url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-  background-repeat    : no-repeat;
+  width: 100% !important;
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0.09) !important;
+  padding: 8px 10px 8px 10px !important;
+  height: auto !important;
+  border-radius: 10px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
   background-position-x: 98%;
   background-position-y: 8px;
-  outline              : none !important;
+  outline: none !important;
 }
 
 @media (max-width: 700px) {
-  #footer .row>div {
+  #footer .row > div {
     margin-bottom: 40px;
   }
 
@@ -1016,11 +1021,11 @@ select#coutry-select {
   }
 
   div#copyright {
-    text-align      : center !important;
+    text-align: center !important;
     background-color: var(--primary);
   }
 
-  #copyright .row>div {
+  #copyright .row > div {
     margin-bottom: 20px;
   }
 
@@ -1034,8 +1039,8 @@ select#coutry-select {
 
   .header-btn {
     font-size: 11px;
-    padding  : 2px 9px !important;
-    width    : 130px;
+    padding: 2px 9px !important;
+    width: 130px;
   }
 }
 
@@ -1044,11 +1049,11 @@ select#coutry-select {
 */
 
 .profile-pic {
-  width        : 120px;
-  height       : 120px;
-  display      : block;
+  width: 120px;
+  height: 120px;
+  display: block;
   border-radius: 50%;
-  border       : 6px solid #eee;
+  border: 6px solid #eee;
 }
 
 .file-upload {
@@ -1056,13 +1061,13 @@ select#coutry-select {
 }
 
 .p-image {
-  position   : relative;
-  bottom     : 70px;
-  left       : 48px;
-  color      : #3e4543;
+  position: relative;
+  bottom: 70px;
+  left: 48px;
+  color: #3e4543;
   text-shadow: 0px 0px 5px #fff;
-  cursor     : pointer;
-  transition : all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .p-image:hover {
@@ -1075,80 +1080,80 @@ select#coutry-select {
 
 .upload-button:hover {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  color     : #999;
+  color: #999;
 }
 
 .multiselect div {
-  border       : none;
-  background   : #e8e8e8;
+  border: none;
+  background: #e8e8e8;
   border-radius: 10px;
 }
 
 div.card-box {
-  display      : flex;
-  height       : 200px;
-  background   : #efefef;
+  display: flex;
+  height: 200px;
+  background: #efefef;
   border-radius: 22px;
-  align-items  : flex-end;
-  padding      : 1.25rem;
-  color        : #fff;
-  text-shadow  : 0px 0px 15px #000;
+  align-items: flex-end;
+  padding: 1.25rem;
+  color: #fff;
+  text-shadow: 0px 0px 15px #000;
 }
 
 #Box1 {
   background-image: url(../../images/nutrition.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box2 {
   background-image: url(../../images/workout.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box3 {
   background-image: url(../../images/lifestyle.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box4 {
   background-image: url(../../images/shop.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box5 {
   background-image: url(../../images/articles.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #Box6 {
   background-image: url(../../images/educate.png);
-  background-size : cover;
+  background-size: cover;
 }
 
 #nutrition-col {
-  padding      : 20px 15px;
-  margin       : 30px 0;
-  background   : #f8f8f8;
+  padding: 20px 15px;
+  margin: 30px 0;
+  background: #f8f8f8;
   border-radius: 22px;
-  height       : 450px;
-  overflow     : hidden;
-  overflow-y   : scroll;
+  height: 450px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 div.nutrition-card-box {
-  display      : flex;
-  height       : 100px;
-  background   : #efefef;
+  display: flex;
+  height: 100px;
+  background: #efefef;
   border-radius: 22px;
-  align-items  : flex-end;
-  padding      : 1rem;
-  color        : #fff;
-  text-shadow  : 0px 0px 15px #000;
-  cursor       : pointer;
+  align-items: flex-end;
+  padding: 1rem;
+  color: #fff;
+  text-shadow: 0px 0px 15px #000;
+  cursor: pointer;
 }
 
 #nutrition-col h4 {
-  color    : var(--primary);
+  color: var(--primary);
   font-size: 20px;
 }
 
@@ -1161,14 +1166,14 @@ div.nutrition-card-box {
 /* Track */
 
 #nutrition-col::-webkit-scrollbar-track {
-  box-shadow   : inset 0 0 15px #fff;
+  box-shadow: inset 0 0 15px #fff;
   border-radius: 10px;
 }
 
 /* Handle */
 
 #nutrition-col::-webkit-scrollbar-thumb {
-  background   : var(--primary);
+  background: var(--primary);
   border-radius: 10px;
 }
 
@@ -1186,82 +1191,82 @@ div.nutrition-card-box {
 
 .react-multiple-carousel__arrow::before {
   font-size: 23px !important;
-  color    : var(--primary) !important;
+  color: var(--primary) !important;
 }
 
 .react-multiple-carousel__arrow--right {
-  right     : 1px !important;
+  right: 1px !important;
   background: #fff !important;
-  color     : var(--primary) !important;
+  color: var(--primary) !important;
   box-shadow: -2px 2px 4px #00000045;
-  outline   : none !important;
+  outline: none !important;
 }
 
 .react-multiple-carousel__arrow--left {
-  left      : 1px !important;
+  left: 1px !important;
   background: #fff !important;
-  color     : var(--primary) !important;
+  color: var(--primary) !important;
   box-shadow: 2px 2px 4px #00000045;
-  outline   : none !important;
+  outline: none !important;
 }
 
 h2#Article-title {
-  font-size  : 35px;
+  font-size: 35px;
   font-weight: 600;
-  color      : var(--primary);
+  color: var(--primary);
 }
 
 div#article-card-body {
-  position  : unset;
-  height    : auto;
+  position: unset;
+  height: auto;
   background: #fff;
-  color     : #3e4543;
-  height    : 200px;
-  display   : block !important;
-  padding   : 2rem 1.25rem !important;
+  color: #3e4543;
+  height: 200px;
+  display: block !important;
+  padding: 2rem 1.25rem !important;
 }
 
 #article-card-body .card-title.h5 {
   font-size: 17px;
-  color    : var(--primary);
+  color: var(--primary);
 }
 
 #article-card-body button.assessment-btn {
   position: relative;
-  right   : 0;
+  right: 0;
 }
 
 p#button-cover {
   text-align: right;
-  margin    : 0;
-  position  : absolute;
-  right     : 10px;
-  bottom    : 15px;
+  margin: 0;
+  position: absolute;
+  right: 10px;
+  bottom: 15px;
 }
 
 img#article-card-img {
-  border-bottom-left-radius : 0;
+  border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  height                    : 200px;
+  height: 200px;
 }
 
 #article-row .card {
-  border       : 1px solid #efefef !important;
+  border: 1px solid #efefef !important;
   border-radius: 20px !important;
 }
 
 .card-body {
-  position                  : absolute;
-  bottom                    : 0;
-  color                     : #fff;
-  background-color          : var(--primary);
-  width                     : 100%;
-  height                    : 130px;
-  border-bottom-left-radius : 20px;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  background-color: var(--primary);
+  width: 100%;
+  height: 130px;
+  border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  display                   : block !important;
-  padding-top               : 1.25rem !important;
-  font-weight               : normal !important;
+  display: block !important;
+  padding-top: 1.25rem !important;
+  font-weight: normal !important;
 }
 
 p.card-text {
@@ -1286,8 +1291,8 @@ p.card-text {
 }
 
 #profile-form input#standard-basic {
-  padding      : 10px;
-  border       : none !important;
+  padding: 10px;
+  border: none !important;
   border-radius: 10px;
 }
 
@@ -1300,58 +1305,58 @@ p.card-text {
 }
 
 h2#signin-title {
-  font-size  : 40px;
+  font-size: 40px;
   font-weight: 500;
-  color      : var(--primary);
+  color: var(--primary);
 }
 
 #profile-form p {
   margin-bottom: 5px;
-  font-size    : 12px;
+  font-size: 12px;
 }
 
 p.forget-text {
   text-align: right;
-  font-size : 12px;
+  font-size: 12px;
 }
 
 .sign-btn {
-  width           : 100%;
-  border-radius   : 22px;
-  margin-top      : 20px;
+  width: 100%;
+  border-radius: 22px;
+  margin-top: 20px;
   background-color: var(--primary) !important;
-  border-color    : var(--primary) !important;
-  color           : #fff !important;
+  border-color: var(--primary) !important;
+  color: #fff !important;
 }
 
 p.signup-text {
   margin-top: 30px;
   text-align: center;
-  font-size : 12px;
+  font-size: 12px;
 }
 
 button.btn.btn-outline-primary.sign-btn {
-  width        : 50%;
-  margin       : 0 25% 20px;
+  width: 50%;
+  margin: 0 25% 20px;
   border-radius: 22px;
-  border       : 2px solid var(--primary);
-  color        : var(--primary);
+  border: 2px solid var(--primary);
+  color: var(--primary);
 }
 
 button.btn.btn-outline-primary.sign-btn:hover {
-  border-color    : var(--primary);
+  border-color: var(--primary);
   background-color: var(--primary);
-  color           : #fff;
+  color: #fff;
 }
 
 .closeButton {
-  position        : absolute !important;
-  top             : 10px !important;
-  right           : 10px !important;
-  outline         : none !important;
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  outline: none !important;
   background-color: unset !important;
-  border-radius   : 0px !important;
-  border          : 0px !important;
+  border-radius: 0px !important;
+  border: 0px !important;
 }
 
 .modal-content {
@@ -1372,12 +1377,12 @@ button.btn.btn-outline-primary.sign-btn:hover {
 }
 
 #foot-icon svg {
-  color        : #fff;
-  background   : #00d0cc;
+  color: #fff;
+  background: #00d0cc;
   border-radius: 50%;
-  padding      : 4px;
-  font-size    : 30px !important;
-  margin       : 2px 0 0 10px;
+  padding: 4px;
+  font-size: 30px !important;
+  margin: 2px 0 0 10px;
 }
 
 .multiselect .highlight.option,
@@ -1387,20 +1392,22 @@ button.btn.btn-outline-primary.sign-btn:hover {
 
 .fc_quickfixcal {
   background-color: rgba(180, 127, 127, 0.09) !important;
-  border-radius   : 10px !important;
-  height          : 39px !important;
-  width           : 100% !important;
-  margin-bottom   : 5px !important;
+  border-radius: 10px !important;
+  height: 39px !important;
+  width: 100% !important;
+  margin-bottom: 5px !important;
 }
 
 .fc_quickfixcal .react-date-picker__wrapper {
-  border          : 0 !important;
+  border: 0 !important;
   background-color: #e8e8e8 !important;
-  border-radius   : 10px;
+  border-radius: 10px;
 }
 
-.fc_quickfixcal .react-date-picker__calendar-button.react-date-picker__button svg {
-  height      : 16px !important;
+.fc_quickfixcal
+  .react-date-picker__calendar-button.react-date-picker__button
+  svg {
+  height: 16px !important;
   margin-right: 8px;
 }
 
@@ -1423,22 +1430,22 @@ button.btn.btn-outline-primary.sign-btn:hover {
 .react-calendar.fc_quickfixcalendar {
   /* width: 91%; */
   background-color: #dadce0;
-  border-radius   : 10px;
-  padding         : 15px;
-  position        : relative;
-  top             : 100px;
+  border-radius: 10px;
+  padding: 15px;
+  position: relative;
+  top: 100px;
 }
 
 /* STATIC PAGES */
 .static-pages {
-  font-size : 14px !important;
+  font-size: 14px !important;
   text-align: justify !important;
 }
 
 .helper_forgot-password {
-  background   : #f4f4f4 !important;
-  padding      : 0 20px 0 20px;
-  margin-top   : 20px;
+  background: #f4f4f4 !important;
+  padding: 0 20px 0 20px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -1470,18 +1477,26 @@ button.btn.btn-outline-primary.sign-btn:hover {
 
 .profile-edit-icon-admin {
   position: absolute;
-  margin  : 200px 0 0 335px;
+  margin: 200px 0 0 335px;
 }
 
 .profile-edit-icon-welcome {
   position: absolute;
-  margin  : 200px 0 0 280px;
+  margin: 200px 0 0 280px;
 }
 .profile-edit-icon-doctor {
   position: absolute;
-  margin  : 195px 0 0 345px;
+  margin: 195px 0 0 345px;
 }
 .profile-edit-icon-patient {
   position: absolute;
-  margin  : 145px 0 0 -15px;
+  margin: 145px 0 0 -15px;
+}
+
+/* SAFARI ONLY CSS */
+::i-block-chrome,
+.profile-edit-icon-doctor {
+  margin: 100px 0 0 338px;
+  -webkit-margin-before: 103px;
+  -webkit-margin-start: 274px;
 }

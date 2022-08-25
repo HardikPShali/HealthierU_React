@@ -199,7 +199,7 @@ const Welcome = ({ currentuserInfo }) => {
         });
         if (res && res.data) {
             Setoption({ countryList: res.data.data });
-            setTimeout(() => setLoading(false), 1000);
+            setTimeout(() => setLoading(false), 500);
         }
     };
     const loadSpeciality = async () => {
@@ -212,7 +212,7 @@ const Welcome = ({ currentuserInfo }) => {
         if (res && res.data) {
             setSpeciality({ specialityOptions: res.data.data });
 
-            setTimeout(() => setLoading(false), 1000);
+            setTimeout(() => setLoading(false), 500);
         }
     };
 
@@ -273,7 +273,7 @@ const Welcome = ({ currentuserInfo }) => {
         });
         if (res && res.data) {
             setLanguage({ languageOptions: res.data.data });
-            setTimeout(() => setLoading(false), 1000);
+            setTimeout(() => setLoading(false), 500);
         }
     };
 

@@ -1,7 +1,7 @@
 export const PAYMENT_DETAILS_TABLE_HEADERS = [
     {
-        label: 'Sl. No.',
-        key: 'id',
+        label: 'Appointment Id',
+        key: 'appointmentId',
     },
     {
         label: "Patient Name",
@@ -12,20 +12,12 @@ export const PAYMENT_DETAILS_TABLE_HEADERS = [
         key: "doctorName",
     },
     {
-        label: "Appointment Id",
-        key: "appointmentId",
-    },
-    {
         label: "Appointment Type",
         key: "appointmentType",
     },
     {
         label: "Appointment Start Time",
         key: "startTime",
-    },
-    {
-        label: "Payment Mode",
-        key: "appointmentType",
     },
     {
         label: "Payment Fees",

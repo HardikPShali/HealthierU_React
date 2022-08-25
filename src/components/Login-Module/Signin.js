@@ -81,7 +81,7 @@ const Signin = () => {
     const width = document.getElementById("signinbtn").clientWidth;
     setGoogleBtnWidth(width);
 
-    setTimeout(() => setLoading(false), 1000);
+    setTimeout(() => setLoading(false), 500);
     const activationkey = qs.parse(window.location.search, {
       ignoreQueryPrefix: true,
     }).activationkey;
