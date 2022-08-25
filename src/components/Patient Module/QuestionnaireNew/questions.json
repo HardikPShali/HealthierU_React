@@ -133,7 +133,7 @@
   },
   {
     "questionId": 13,
-    "questionTitle": "How long have you been smoking?",
+    "questionTitle": "How long have you been smoking (in months)?",
     "type": "text",
     "answers": "",
     "choices": [],
@@ -170,7 +170,7 @@
   },
   {
     "questionId": 10,
-    "questionTitle": "How long have you been drinking?",
+    "questionTitle": "How long have you been drinking (in months)?",
     "type": "text",
     "answers": "",
     "choices": [],
