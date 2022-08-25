@@ -1615,7 +1615,7 @@ export const verifyCouponSelectedBypatient = async (data, token = false) => {
     data: data,
     url: `/api/v2/coupon/patient/verify`,
     headers: {
-      Authorization: token ? token : ('Bearer ' + LocalStorageService.getAccessToken()),
+      "Authorization": token ? token : ('Bearer ' + LocalStorageService.getAccessToken()),
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
