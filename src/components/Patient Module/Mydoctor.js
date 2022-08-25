@@ -177,7 +177,7 @@ const MyDoctor = (props) => {
       }
     }
   };
-
+  const [likedDoctors, setLikedDoctors] = useState(0)
   const getAllLikedDoctors = async () => {
     // console.log("getAllLikedDoctors trigerred");
     setTransparentLoading(true);
@@ -198,6 +198,8 @@ const MyDoctor = (props) => {
           }
         });
       setFilterData(doctorArray);
+      setLikedDoctors(doctorArray.length)
+      setIsFiltered(true)
       // setdoctor(doctorArray.length > 0 && doctorArray[0]);
       setLikedOffset(likedOffset + 1);
       //const currentSelectedDate = new Date();
@@ -561,6 +563,7 @@ const MyDoctor = (props) => {
     //console.log("searchValue :::::::", searchValue);
     if (searchValue === '') {
       setSearchText('');
+      setIsFiltered(false)
       setFilterData(users);
       // setdoctor(users[0]);
       //const currentSelectedDate = new Date();
@@ -572,6 +575,7 @@ const MyDoctor = (props) => {
       setDisplay({ ...display, suggestion: 'none' });
     } else {
       setSearchText(searchValue);
+      setIsFiltered(true)
       // setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
       setDisplay({ ...display, suggestion: 'block' })
       //searchData(searchValue);

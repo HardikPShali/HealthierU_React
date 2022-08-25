@@ -959,7 +959,7 @@ const PatientDocument = (props) => {
                                             className="form-control"
                                             onChange={(e) => handlePrescriptionChange(e)}
                                             placeholder="Document"
-                                            accept="application/pdf"
+                                            //accept="application/pdf"
                                             required={prescriptionResult?.id ? false : true}
                                         ></input>
                                     )}
@@ -977,7 +977,7 @@ const PatientDocument = (props) => {
                                                 className="form-control"
                                                 onChange={(e) => handlePrescriptionChange(e)}
                                                 placeholder="Document"
-                                                accept="application/pdf"
+                                                //accept="application/pdf"
                                                 required={prescriptionResult?.id ? false : true}
                                             ></input>
                                         </div>
@@ -1269,7 +1269,7 @@ const PatientDocument = (props) => {
                                             className="form-control"
                                             onChange={(e) => handleLabResultChange(e)}
                                             placeholder="Document"
-                                            accept="application/pdf"
+                                            //accept="application/pdf"
                                             required={labResult?.id ? false : true}
                                         ></input>
                                         /* <input type="file" id="labResultDocument" name="labResultDocument"
@@ -1292,7 +1292,7 @@ const PatientDocument = (props) => {
                                                 className="form-control"
                                                 onChange={(e) => handleLabResultChange(e)}
                                                 placeholder="Document"
-                                                accept="application/pdf"
+                                                //accept="application/pdf"
                                                 required={labResult?.id ? false : true}
                                             ></input>
                                         </div>
