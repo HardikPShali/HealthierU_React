@@ -269,6 +269,15 @@ const Navbar = (props) => {
           </ListItem>
         </Link>
         <Divider variant="middle" />
+        <Link to="/admin/payment-details" style={{ textDecoration: 'none' }}>
+          <ListItem
+            button
+            className={props.pageTitle === 'paymentDets' ? 'active' : ''}
+          >
+            <ListItemText primary={'Payment Details'} />
+          </ListItem>
+        </Link>
+        <Divider variant="middle" />
       </List>
     </>
   );

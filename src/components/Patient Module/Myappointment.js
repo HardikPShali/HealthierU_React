@@ -1437,6 +1437,8 @@ const Myappointment = (props) => {
 
                       )}
                       <h2 className="my-appointments__header-names">
+                        {selectedAppointment.doctor.salutation}
+                        {" "}
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ''}
                       </h2>
