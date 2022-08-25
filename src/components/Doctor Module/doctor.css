@@ -1069,6 +1069,7 @@ img#profile-pic {
   width: 70px !important;
   height: 70px !important;
   margin: 15px !important;
+  border: 1px solid #00d0cc;
 }
 
 .profile-pic {
