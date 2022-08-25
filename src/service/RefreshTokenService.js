@@ -1,8 +1,10 @@
 import axios from 'axios';
+import React from 'react';
 import LocalStorageService from '../util/LocalStorageService';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
-export const checkAccessToken = (isReload=true) => {
+import Logout from '../components/Logout';
+export const checkAccessToken = (isReload = true) => {
 
     const cookies = new Cookies();
 
@@ -26,10 +28,12 @@ export const checkAccessToken = (isReload=true) => {
         console.log('new token', response);
         if (response && response.data) {
             LocalStorageService.setToken(response.data);
-            if(isReload){
+            if (isReload) {
                 window.location.reload()
             }
-            
         }
+    }).catch(error => {
+        //redirect to logout
+        return <Logout />
     })
 }

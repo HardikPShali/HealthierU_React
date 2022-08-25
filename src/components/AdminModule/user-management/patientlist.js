@@ -95,7 +95,7 @@ const PatientList = () => {
   };
 
   const setCookies = (authority) => {
-    cookies.set("authorities", "ROLE_PATIENT")
+    cookies.set("authorities", "ROLE_PATIENT", { path: '/' })
   };
 
   const [display, setDisplay] = useState({
