@@ -28,7 +28,7 @@ const Homepage = ({ currentuserInfo }) => {
     //const [currentUser, setCurrentUser] = useState(currentuserInfo)
     useEffect(() => {
         if (currentuserInfo) {
-            setTimeout(() => setLoading(false), 1000);
+            setTimeout(() => setLoading(false), 200);
         }
     }, [currentuserInfo]);
     // const getCurrentuser = async () => {

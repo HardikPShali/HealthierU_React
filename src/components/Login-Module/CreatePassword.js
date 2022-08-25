@@ -109,22 +109,27 @@ const CreatePassword = () => {
         "Access-Control-Allow-Origin": "*",
       },
     };
-    axios(payload).then((response) => {
-      if (response.status === 200 || response.status === 201) {
-        handleClickOpen();
-      }
-    }).catch(error => {
-      console.log(error);
-      if (error.response.data.message === 'No user was found for this reset key') {
-        setErrorMessage('Incorrect OTP entered. Please try again');
-        setTimeout(() => {
-          history.go(0);
-        }, 3000)
-      }
-      if (error.response.status === 400 || error.response.status === 500) {
-        toast.error(error.response.data.message)
-      }
-    });
+    if (newPassword !== confirmPassword) {
+      toast.error("New password and confirm passowrd should be same")
+    }
+    else {
+      axios(payload).then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          handleClickOpen();
+        }
+      }).catch(error => {
+        console.log(error);
+        if (error.response.data.message === 'No user was found for this reset key') {
+          setErrorMessage('Incorrect OTP entered. Please try again');
+          setTimeout(() => {
+            history.go(0);
+          }, 3000)
+        }
+        if (error.response.status === 400 || error.response.status === 500) {
+          toast.error(error.response.data.message)
+        }
+      });
+    }
   };
 
   const [passwordShown, setPasswordShown] = useState(false);
