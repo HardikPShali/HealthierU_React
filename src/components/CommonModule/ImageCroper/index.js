@@ -100,7 +100,7 @@ const ImageCropper = (props) => {
                     <img className="profile-pic" src={preview ? preview : imageUrl ? imageUrl : previewImg} alt="" />
                 </div>
             </div>
-            {props.role === 'Doctor' ? <div className='profile-edit-icon-doctor'>
+            {props.role === 'Doctor' ? <div className='profile-edit-icon-doctor profile-edit-icon-doctor-safari'>
                 <label htmlFor={uniqueId}>
                     <span className="p-image">
                         <img src={profileEdit} />
@@ -121,19 +121,8 @@ const ImageCropper = (props) => {
                         </span>
                     </label>
                 </div>
-                :
-                props.role === 'Patient' ? <div className='profile-edit-icon-patient'>
-                    <label htmlFor={uniqueId}>
-                        <span className="p-image">
-                            <img src={profileEdit} />
-                            {/* <AddAPhotoIcon className="upload-button" /> */}
-                            <input id={uniqueId} className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
-                                variant="filled" onClick={(e) => e.stopPropagation()} />
-                        </span>
-                    </label>
-                </div>
                     :
-                    <div className='profile-edit-icon-welcome'>
+                    props.role === 'Patient' ? <div className='profile-edit-icon-patient'>
                         <label htmlFor={uniqueId}>
                             <span className="p-image">
                                 <img src={profileEdit} />
@@ -142,7 +131,18 @@ const ImageCropper = (props) => {
                                     variant="filled" onClick={(e) => e.stopPropagation()} />
                             </span>
                         </label>
-                    </div>}
+                    </div>
+                        :
+                        <div className='profile-edit-icon-welcome'>
+                            <label htmlFor={uniqueId}>
+                                <span className="p-image">
+                                    <img src={profileEdit} />
+                                    {/* <AddAPhotoIcon className="upload-button" /> */}
+                                    <input id={uniqueId} className="file-upload" type="file" accept="image/*" onChange={e => handleImageChange(e)}
+                                        variant="filled" onClick={(e) => e.stopPropagation()} />
+                                </span>
+                            </label>
+                        </div>}
 
             <div style={{ fontSize: '12px', color: 'red', textAlign: 'center' }}>{msg}</div>
             <br />

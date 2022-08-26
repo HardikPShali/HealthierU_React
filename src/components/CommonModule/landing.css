@@ -1495,8 +1495,19 @@ button.btn.btn-outline-primary.sign-btn:hover {
 
 /* SAFARI ONLY CSS */
 ::i-block-chrome,
-.profile-edit-icon-doctor {
+.profile-edit-icon-doctor-safari {
   margin: 100px 0 0 338px;
   -webkit-margin-before: 103px;
   -webkit-margin-start: 274px;
+}
+
+/* Safari 10.1+ (alternate method) */
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .profile-edit-icon-doctor-safari {
+      margin: 100px 0 0 338px;
+      -webkit-margin-before: 103px;
+      -webkit-margin-start: 274px;
+    }
+  }
 }

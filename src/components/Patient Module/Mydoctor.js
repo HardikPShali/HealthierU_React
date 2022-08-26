@@ -3264,6 +3264,7 @@ const MyDoctor = (props) => {
                               <PromoCodeForPatient
                                 onPromoCodeChange={handlePromoCodeStates}
                                 promoCodeData={promoCodeObject}
+                                mobile={false}
                               />
                             )
                           }

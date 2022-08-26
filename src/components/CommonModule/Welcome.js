@@ -913,10 +913,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                             onChange={e => handleInputChange(e)}
                                                             value={highbp === 0 ? '' : highbp}
                                                             validators={[
-                                                                "required",
+                                                                //"required",
                                                                 "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
                                                             ]}
-                                                            errorMessages={['This field is required',
+                                                            errorMessages={[
+                                                                //'This field is required',
                                                                 "Please Enter Valid Systolic/High Rate"]}
                                                             variant="filled"
                                                             inputProps={{
@@ -924,7 +925,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 max: 300,
                                                                 step: 0.1,
                                                             }}
-                                                            required
+                                                            //required
                                                             placeholder='Systolic/High' />
                                                     </Col>
                                                     <Col md={6}>
@@ -933,10 +934,11 @@ const Welcome = ({ currentuserInfo }) => {
                                                             onChange={e => handleInputChange(e)}
                                                             value={lowbp === 0 ? '' : lowbp}
                                                             validators={[
-                                                                "required",
+                                                                //"required",
                                                                 "matchRegexp:(^[0-9]{0,3}(\.[0-9]{1,2})?$)",
                                                             ]}
-                                                            errorMessages={['This field is required',
+                                                            errorMessages={[
+                                                                //'This field is required',
                                                                 "Please Enter Valid Diastolic/Low Rate"]}
                                                             variant="filled"
                                                             inputProps={{
@@ -944,7 +946,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 max: 200,
                                                                 step: 0.1,
                                                             }}
-                                                            required
+                                                            //required
                                                             placeholder='Diastolic/Low' />
                                                     </Col>
                                                 </Row>
@@ -961,61 +963,61 @@ const Welcome = ({ currentuserInfo }) => {
                                                     variant="filled"
                                                     placeholder='Bio' />
                                             </Col> */}
-                                                        {/* </Row> */}
+                                                {/* </Row> */}
 
-                                                        <Row>
-                                                            <Col md={6}>
-                                                                <p>
-                                                                    Years of experience<sup>*</sup>
-                                                                </p>
-                                                                <TextValidator
-                                                                    id="standard-basic"
-                                                                    type="number"
-                                                                    name="experience"
-                                                                    onChange={(e) => handleInputChange(e)}
-                                                                    value={experience}
-                                                                    validators={[
-                                                                        'required',
-                                                                        'minNumber:0',
-                                                                        'maxNumber:50',
-                                                                    ]}
-                                                                    errorMessages={[
-                                                                        'This field is required',
-                                                                        'Invalid Experience',
-                                                                        'Invalid Experience',
-                                                                    ]}
-                                                                    variant="filled"
-                                                                    required
-                                                                    placeholder="Years of experience"
-                                                                />
-                                                            </Col>
-                                                            <Col md={6}>
-                                                                <p>
-                                                                    Mode of Employment<sup>*</sup>
-                                                                </p>
-                                                                <FormControl>
-                                                                    <Select
-                                                                        id="demo-controlled-open-select"
-                                                                        variant="filled"
-                                                                        name="modeOfEmployment"
-                                                                        value={modeOfEmployment}
-                                                                        displayEmpty
-                                                                        required
-                                                                        inputProps={{ required: true }}
-                                                                        onChange={(e) => handleInputChange(e)}
-                                                                    >
-                                                                        <MenuItem value="">Select</MenuItem>
-                                                                        <MenuItem value="Self - Employed">
-                                                                            Self - Employed
-                                                                        </MenuItem>
-                                                                        <MenuItem value="Employed">
-                                                                            Employed
-                                                                        </MenuItem>
-                                                                    </Select>
-                                                                </FormControl>
-                                                            </Col>
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>
+                                                            Years of experience<sup>*</sup>
+                                                        </p>
+                                                        <TextValidator
+                                                            id="standard-basic"
+                                                            type="number"
+                                                            name="experience"
+                                                            onChange={(e) => handleInputChange(e)}
+                                                            value={experience}
+                                                            validators={[
+                                                                'required',
+                                                                'minNumber:0',
+                                                                'maxNumber:50',
+                                                            ]}
+                                                            errorMessages={[
+                                                                'This field is required',
+                                                                'Invalid Experience',
+                                                                'Invalid Experience',
+                                                            ]}
+                                                            variant="filled"
+                                                            required
+                                                            placeholder="Years of experience"
+                                                        />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>
+                                                            Mode of Employment<sup>*</sup>
+                                                        </p>
+                                                        <FormControl>
+                                                            <Select
+                                                                id="demo-controlled-open-select"
+                                                                variant="filled"
+                                                                name="modeOfEmployment"
+                                                                value={modeOfEmployment}
+                                                                displayEmpty
+                                                                required
+                                                                inputProps={{ required: true }}
+                                                                onChange={(e) => handleInputChange(e)}
+                                                            >
+                                                                <MenuItem value="">Select</MenuItem>
+                                                                <MenuItem value="Self - Employed">
+                                                                    Self - Employed
+                                                                </MenuItem>
+                                                                <MenuItem value="Employed">
+                                                                    Employed
+                                                                </MenuItem>
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Col>
 
-                                                            {/* <Col md={4}>
+                                                    {/* <Col md={4}>
                                                 <p>Rate<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="rate"
                                                     onChange={e => handleInputChange(e)}
@@ -1037,85 +1039,85 @@ const Welcome = ({ currentuserInfo }) => {
                                                     placeholder='HalfRate' />
 
                                             </Col> */}
-                                                        </Row>
-                                                        <br />
-                                                        <Row>
-                                                            <Col md={6}>
-                                                                <p>
-                                                                    Affiliation<sup>*</sup>
-                                                                </p>
-                                                                <TextValidator
-                                                                    id="standard-basic"
-                                                                    type="text"
-                                                                    name="affiliation"
-                                                                    onChange={(e) => handleInputChange(e)}
-                                                                    value={affiliation}
-                                                                    required
-                                                                    validators={[
-                                                                        'required',
-                                                                        'matchRegexp:(^[a-zA-Z ]*$)',
-                                                                    ]}
-                                                                    errorMessages={[
-                                                                        'This field is required',
-                                                                        'Please Enter Valid Affiliation',
-                                                                    ]}
-                                                                    variant="filled"
-                                                                    placeholder="Affiliation"
-                                                                />
-                                                            </Col>
-                                                            <Col md={6}>
-                                                                <p>
-                                                                    Professional Type<sup>*</sup>
-                                                                </p>
-                                                                <FormControl>
-                                                                    <Select
-                                                                        id="demo-controlled-open-select"
-                                                                        variant="filled"
-                                                                        name="salutation"
-                                                                        value={salutation}
-                                                                        displayEmpty={true}
-                                                                        required
-                                                                        // inputProps={{ required: true }}
-                                                                        onChange={(e) => handleInputChange(e)}
-                                                                    >
-                                                                        <MenuItem value="">Select</MenuItem>
-                                                                        <MenuItem value='non-doc'>
-                                                                            Health and Wellness/Non-Medical
-                                                                        </MenuItem>
-                                                                        <MenuItem value="Dr.">
-                                                                            Doctor/Medical
-                                                                        </MenuItem>
-                                                                    </Select>
-                                                                </FormControl>
-                                                            </Col>
-                                                        </Row>
-                                                        <br />
+                                                </Row>
+                                                <br />
+                                                <Row>
+                                                    <Col md={6}>
+                                                        <p>
+                                                            Affiliation<sup>*</sup>
+                                                        </p>
+                                                        <TextValidator
+                                                            id="standard-basic"
+                                                            type="text"
+                                                            name="affiliation"
+                                                            onChange={(e) => handleInputChange(e)}
+                                                            value={affiliation}
+                                                            required
+                                                            validators={[
+                                                                'required',
+                                                                'matchRegexp:(^[a-zA-Z ]*$)',
+                                                            ]}
+                                                            errorMessages={[
+                                                                'This field is required',
+                                                                'Please Enter Valid Affiliation',
+                                                            ]}
+                                                            variant="filled"
+                                                            placeholder="Affiliation"
+                                                        />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <p>
+                                                            Professional Type<sup>*</sup>
+                                                        </p>
+                                                        <FormControl>
+                                                            <Select
+                                                                id="demo-controlled-open-select"
+                                                                variant="filled"
+                                                                name="salutation"
+                                                                value={salutation}
+                                                                displayEmpty={true}
+                                                                required
+                                                                // inputProps={{ required: true }}
+                                                                onChange={(e) => handleInputChange(e)}
+                                                            >
+                                                                <MenuItem value="">Select</MenuItem>
+                                                                <MenuItem value='non-doc'>
+                                                                    Health and Wellness/Non-Medical
+                                                                </MenuItem>
+                                                                <MenuItem value="Dr.">
+                                                                    Doctor/Medical
+                                                                </MenuItem>
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Col>
+                                                </Row>
+                                                <br />
 
-                                                        <Row>
-                                                            <Col md={12}>
-                                                                <p>
-                                                                    Specialization<sup>*</sup>
-                                                                </p>
-                                                                <FormControl>
-                                                                    <div className="multiselect">
-                                                                        <Multiselect
-                                                                            options={specialityOptions}
-                                                                            onSelect={handleSpecialities}
-                                                                            onRemove={removeSpecialities}
-                                                                            displayValue="name"
-                                                                            required
-                                                                        />
-                                                                    </div>
-                                                                </FormControl>
-                                                                {specialityError && (
-                                                                    <p style={{ color: 'red' }}>
-                                                                        This field is required.
-                                                                    </p>
-                                                                )}
-                                                            </Col>
-                                                        </Row>
-                                                        <br />
-                                                        {/* <Row>
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <p>
+                                                            Specialization<sup>*</sup>
+                                                        </p>
+                                                        <FormControl>
+                                                            <div className="multiselect">
+                                                                <Multiselect
+                                                                    options={specialityOptions}
+                                                                    onSelect={handleSpecialities}
+                                                                    onRemove={removeSpecialities}
+                                                                    displayValue="name"
+                                                                    required
+                                                                />
+                                                            </div>
+                                                        </FormControl>
+                                                        {specialityError && (
+                                                            <p style={{ color: 'red' }}>
+                                                                This field is required.
+                                                            </p>
+                                                        )}
+                                                    </Col>
+                                                </Row>
+                                                <br />
+                                                {/* <Row>
 
                                             <Col md={12}>
                                                 <p>Address<sup>*</sup></p>
@@ -1127,7 +1129,7 @@ const Welcome = ({ currentuserInfo }) => {
                                             </Col>
                                         </Row> */}
 
-                                                        {/* <Row>
+                                                {/* <Row>
                                             <Col md={6}>
                                                 <p>Other Certifications (optional)</p>
                                                 <TextValidator id="standard-basic" type="text" name="certificates"
@@ -1157,7 +1159,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         </Row>
                                         <br />
                                         <br /> */}
-                                                        {/* <Row>
+                                                {/* <Row>
                                             <Col md={6}>
                                                 <p>License Number<sup>*</sup></p>
                                                 <TextValidator id="standard-basic" type="text" name="licenseNumber"
@@ -1202,95 +1204,95 @@ const Welcome = ({ currentuserInfo }) => {
                                                 {phoneError && (<span style={{ color: "red", fontSize: "11px" }}>{phoneError}</span>)}
                                             </Col>
                                         </Row> */}
-                                                        <br />
-                                                        {educationList.map((x, i) => {
-                                                            return (
-                                                                <div key={i}>
-                                                                    <Row>
-                                                                        <Col md={6}>
-                                                                            <p>
-                                                                                Education<sup>*</sup>
-                                                                            </p>
-                                                                            <TextValidator
-                                                                                id="standard-basic"
-                                                                                type="text"
-                                                                                name="educationalQualification"
-                                                                                onChange={(e) =>
-                                                                                    handleEducationDetailsInputChange(
-                                                                                        e,
-                                                                                        i
-                                                                                    )
-                                                                                }
-                                                                                value={x.educationalQualification}
-                                                                                required
-                                                                                validators={[
-                                                                                    'required',
-                                                                                    'matchRegexp:(^[a-zA-Z ]*$)',
-                                                                                ]}
-                                                                                errorMessages={[
-                                                                                    'This field is required',
-                                                                                    'Please Enter Valid Education',
-                                                                                ]}
-                                                                                variant="filled"
-                                                                                placeholder="Education"
-                                                                            />
-                                                                        </Col>
+                                                <br />
+                                                {educationList.map((x, i) => {
+                                                    return (
+                                                        <div key={i}>
+                                                            <Row>
+                                                                <Col md={6}>
+                                                                    <p>
+                                                                        Education<sup>*</sup>
+                                                                    </p>
+                                                                    <TextValidator
+                                                                        id="standard-basic"
+                                                                        type="text"
+                                                                        name="educationalQualification"
+                                                                        onChange={(e) =>
+                                                                            handleEducationDetailsInputChange(
+                                                                                e,
+                                                                                i
+                                                                            )
+                                                                        }
+                                                                        value={x.educationalQualification}
+                                                                        required
+                                                                        validators={[
+                                                                            'required',
+                                                                            'matchRegexp:(^[a-zA-Z ]*$)',
+                                                                        ]}
+                                                                        errorMessages={[
+                                                                            'This field is required',
+                                                                            'Please Enter Valid Education',
+                                                                        ]}
+                                                                        variant="filled"
+                                                                        placeholder="Education"
+                                                                    />
+                                                                </Col>
 
-                                                                        <Col md={6}>
-                                                                            <p>
-                                                                                Institution<sup>*</sup>
-                                                                            </p>
-                                                                            <TextValidator
-                                                                                id="standard-basic"
-                                                                                type="text"
-                                                                                name="institution"
-                                                                                onChange={(e) =>
-                                                                                    handleEducationDetailsInputChange(
-                                                                                        e,
-                                                                                        i
-                                                                                    )
-                                                                                }
-                                                                                value={x.institution}
-                                                                                required
-                                                                                validators={[
-                                                                                    'required',
-                                                                                    'matchRegexp:(^[a-zA-Z ]*$)',
-                                                                                ]}
-                                                                                errorMessages={[
-                                                                                    'This field is required',
-                                                                                    'Please Enter Valid Institution',
-                                                                                ]}
-                                                                                variant="filled"
-                                                                                placeholder="Institution"
-                                                                            />
-                                                                        </Col>
-                                                                    </Row>
-                                                                    <br />
-                                                                    <div className="btn-box">
-                                                                        {educationList.length !== 1 && (
-                                                                            <Button
-                                                                                className="medicineRemoveButton"
-                                                                                variant="secondary"
-                                                                                onClick={() => handleRemoveClick(i)}
-                                                                            >
-                                                                                Remove
-                                                                            </Button>
-                                                                        )}
-                                                                        {educationList.length - 1 === i && (
-                                                                            <Button
-                                                                                className="medicineButton"
-                                                                                variant="primary"
-                                                                                onClick={handleAddClick}
-                                                                            >
-                                                                                Add Education
-                                                                            </Button>
-                                                                        )}
-                                                                    </div>
-                                                                </div>
-                                                            );
-                                                        })}
-                                                    </>
-                                                )}
+                                                                <Col md={6}>
+                                                                    <p>
+                                                                        Institution<sup>*</sup>
+                                                                    </p>
+                                                                    <TextValidator
+                                                                        id="standard-basic"
+                                                                        type="text"
+                                                                        name="institution"
+                                                                        onChange={(e) =>
+                                                                            handleEducationDetailsInputChange(
+                                                                                e,
+                                                                                i
+                                                                            )
+                                                                        }
+                                                                        value={x.institution}
+                                                                        required
+                                                                        validators={[
+                                                                            'required',
+                                                                            'matchRegexp:(^[a-zA-Z ]*$)',
+                                                                        ]}
+                                                                        errorMessages={[
+                                                                            'This field is required',
+                                                                            'Please Enter Valid Institution',
+                                                                        ]}
+                                                                        variant="filled"
+                                                                        placeholder="Institution"
+                                                                    />
+                                                                </Col>
+                                                            </Row>
+                                                            <br />
+                                                            <div className="btn-box">
+                                                                {educationList.length !== 1 && (
+                                                                    <Button
+                                                                        className="medicineRemoveButton"
+                                                                        variant="secondary"
+                                                                        onClick={() => handleRemoveClick(i)}
+                                                                    >
+                                                                        Remove
+                                                                    </Button>
+                                                                )}
+                                                                {educationList.length - 1 === i && (
+                                                                    <Button
+                                                                        className="medicineButton"
+                                                                        variant="primary"
+                                                                        onClick={handleAddClick}
+                                                                    >
+                                                                        Add Education
+                                                                    </Button>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </>
+                                            )}
 
                                             {formError && (
                                                 <span style={{ color: 'red', fontSize: '12px' }}>

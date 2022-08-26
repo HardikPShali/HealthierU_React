@@ -50,7 +50,7 @@ const Paypal = (props) => {
           //   shape: 'pill',
           //   size: 'responsive',
           // },
-          createOrder: function (data, actions, err) {
+          createOrder: (data, actions, err) => {
             console.log('CreateOrder accessed');
             return actions.order.create({
               intent: 'CAPTURE',
