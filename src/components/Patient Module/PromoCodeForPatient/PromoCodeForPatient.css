@@ -60,6 +60,12 @@
   color: #ff0000;
 }
 
+.promo-code-loading {
+  margin: -15px 10px 30px 10px;
+  font-size: 14px;
+  color: #000;
+}
+
 @media (min-width: 300px) and (max-width: 500px) {
   .promo-code-listing {
     align-items: center;

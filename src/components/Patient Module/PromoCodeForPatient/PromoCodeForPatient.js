@@ -6,10 +6,13 @@ import {
 import { toast } from 'react-toastify';
 import './PromoCodeForPatient.css';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { faLaptopHouse, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 
 const PromoCodeForPatient = ({
     promoCodeData,
-    onPromoCodeChange
+    onPromoCodeChange,
+    onPromoCodeLoading = () => { },
+    mobile
 }) => {
     // Promocode Logics
     const { doctorId, patientId, apptMode, rate, halfRate } = promoCodeData
@@ -19,6 +22,8 @@ const PromoCodeForPatient = ({
     const [appliedText, setAppliedText] = useState('');
     const [errorText, setErrorText] = useState('');
     const [disableInput, setDisableInput] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     const handlePromoEnteredText = (e) => {
         setErrorText('');
@@ -52,9 +57,9 @@ const PromoCodeForPatient = ({
     };
 
     const discountCalculationHandler = (discount, apptMode) => {
-        if (apptMode === 'Follow Up') {
+        if (apptMode === 'Follow Up' || apptMode === 'FOLLOW_UP') {
             return (halfRate * (1 - discount)).toFixed(2);
-        } else if (apptMode === 'First Consultation') {
+        } else if (apptMode === 'First Consultation' || apptMode === 'FIRST_CONSULTATION') {
             return (rate * (1 - discount)).toFixed(2);
         } else {
             return discount;
@@ -62,6 +67,7 @@ const PromoCodeForPatient = ({
     };
 
     const applyPromoCodeHandler = async (e, apptMode) => {
+        setLoading(true);
         const textEntered = promoCodeEnteredText;
         const coupons = couponsFromApi;
 
@@ -81,8 +87,11 @@ const PromoCodeForPatient = ({
             doctorId: doctorIdForPromoCode,
         };
 
+        onPromoCodeLoading(true);
+
         const verifyResponse = await verifyCouponSelectedBypatient(data, window.ptoken).catch(
             (err) => {
+                onPromoCodeLoading(false);
                 console.log("ERROR CAUGHT FROM VERIFY COUPON API", JSON.stringify(err));
                 if (
                     err.response.status === 500 &&
@@ -90,15 +99,21 @@ const PromoCodeForPatient = ({
                     'Coupon not applicable for selected Doctor'
                 ) {
                     setErrorText(err.response.data.message);
+                    setLoading(false);
                     onPromoCodeChange(false);
+                    onPromoCodeLoading(false);
                 }
                 else if (err.response.status === 401) {
+                    setLoading(false);
                     setErrorText(err.response.data.error_description);
                     onPromoCodeChange(false);
+                    onPromoCodeLoading(false);
                 }
                 else {
+                    setLoading(false);
                     setErrorText('Invalid Promo Code. Please try again.');
                     onPromoCodeChange(false);
+                    onPromoCodeLoading(false);
                 }
             }
         );
@@ -120,10 +135,15 @@ const PromoCodeForPatient = ({
             setDisableInput(true);
             setErrorText('');
             setAppliedText(`${textEntered} offer applied on bill`);
+            setLoading(false);
         }
     };
 
     const clearPromoCodeInput = () => {
+        onPromoCodeLoading(false);
+        if (mobile === true) {
+            window.location.reload();
+        }
         setPromoCodeEnteredText('');
         onPromoCodeChange(false);
         setAppliedText('');
@@ -191,6 +211,11 @@ const PromoCodeForPatient = ({
             {
                 errorText && (
                     <div className="promo-code-error-text">{errorText}</div>
+                )
+            }
+            {
+                loading && (
+                    <div className="promo-code-loading">Applying Promo Code...</div>
                 )
             }
         </>
