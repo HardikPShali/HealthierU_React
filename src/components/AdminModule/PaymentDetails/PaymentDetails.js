@@ -8,6 +8,7 @@ import { getAllPaymentDetailsForAdmin } from '../../../service/frontendapiservic
 import Pagination from "../../CommonModule/pagination";
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { CSVLink } from 'react-csv';
 
 
 const PaymentDetails = () => {
@@ -63,6 +64,9 @@ const PaymentDetails = () => {
         getPaymentDetailsHandler(0, 10);
     }, []);
 
+    //EXPORT TO CSV LOGIC
+    const csvHeaders = PAYMENT_DETAILS_TABLE_HEADERS;
+
     return (
         <div>
             {/* {isLoading && <Loader />} */}
@@ -75,6 +79,19 @@ const PaymentDetails = () => {
                             <h1>Payment Details Management</h1>
                         </div>
                         {/* <div className="col-md-2"></div> */}
+                        <div className="col-md-12 col-sm-12 pb-2 pr-3" style={{ textAlign: "right" }}>
+                            {/* <button className='btn btn-primary'> */}
+                            <CSVLink
+                                data={paymentDetailsData}
+                                filename={"Payment_Details_HealthierU.csv"}
+                                className="btn btn-primary"
+                                target="_blank"
+                                headers={csvHeaders}
+                            >
+                                Export as CSV
+                            </CSVLink>
+                            {/* </button> */}
+                        </div>
                         <div className="col-md-12">
                             <Table
                                 headers={tableHeaders}
