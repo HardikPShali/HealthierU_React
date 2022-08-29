@@ -1498,7 +1498,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
 .profile-edit-icon-doctor-safari {
   margin: 100px 0 0 338px;
   -webkit-margin-before: 103px;
-  -webkit-margin-start: 274px;
+  -webkit-margin-start: 330px;
 }
 
 /* Safari 10.1+ (alternate method) */
@@ -1507,7 +1507,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
     .profile-edit-icon-doctor-safari {
       margin: 100px 0 0 338px;
       -webkit-margin-before: 103px;
-      -webkit-margin-start: 274px;
+      -webkit-margin-start: 330px;
     }
   }
 }
