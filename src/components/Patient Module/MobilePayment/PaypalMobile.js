@@ -1,3 +1,4 @@
+import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -20,7 +21,6 @@ window.setPToken = (token) => {
 const PaypalMobile = () => {
     const location = useLocation();
     const [loading, setLoading] = useState(false);
-    const [promoCodeObject, setPromoCodeObject] = useState({});
 
     // const sendDataToAndroid = (content) => {
     //     // JSBridge.sendOrderData(content);
@@ -48,15 +48,25 @@ const PaypalMobile = () => {
     const [couponIdState, setCouponIdState] = useState(null);
     const [discountApplied, setDiscountApplied] = useState(false);
     const [promoCodeEntered, setPromoCodeEntered] = useState('');
+    const [promoCodeObject, setPromoCodeObject] = useState({});
+    const [isPromoCodeLoading, setIsPromoCodeLoading] = useState(false);
+
+    const handlePromoCodeLoading = (loading) => {
+        setIsPromoCodeLoading(loading);
+    }
+
 
     const handlePromoCodeStates = (promoCodeData) => {
-        if (!promoCodeData) {
-            setPromoCodeApplied(false);
+        console.log({ promoCodeData })
+        if (!promoCodeData || promoCodeData === false) {
+            setPromoCodeApplied(promoCodeData.promoCodeAdded);
+            handlePromoCodeLoading(true);
         } else {
-            setPromoCodeApplied(true);
+            setPromoCodeApplied(promoCodeData.promoCodeAdded);
             setCouponIdState(promoCodeData.couponId);
             setDiscountApplied(promoCodeData.discountApplied);
             setPromoCodeEntered(promoCodeData.promoCodeTextEntered);
+            handlePromoCodeLoading(false);
         }
     };
 
@@ -70,7 +80,7 @@ const PaypalMobile = () => {
             data: paymentData,
             url: paymentUrl,
             headers: {
-                Authorization: window.ptoken,
+                "Authorization": window.ptoken,
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             },
@@ -191,6 +201,7 @@ const PaypalMobile = () => {
         };
 
         const paymentUrl = paymentUrlToBeUsed();
+        console.log({ paymentUrl });
 
         paymentApiCallhandler(freePaymentPayload, paymentUrl);
     };
@@ -231,6 +242,7 @@ const PaypalMobile = () => {
         };
 
         const paymentUrl = paymentUrlToBeUsed();
+        console.log({ paymentUrl });
         paymentApiCallhandler(newPaymentData, paymentUrl);
     };
 
@@ -279,7 +291,7 @@ const PaypalMobile = () => {
                                             ? rateParams
                                             : appointmentModeParams === 'Follow Up' ||
                                                 appointmentModeParams === 'FOLLOW_UP'
-                                                ? rateParams
+                                                ? halfRateParams
                                                 : ''}
                                     </span>
                                 )}
@@ -310,11 +322,13 @@ const PaypalMobile = () => {
                             <PromoCodeForPatient
                                 onPromoCodeChange={handlePromoCodeStates}
                                 promoCodeData={promoCodeObject}
+                                onPromoCodeLoading={handlePromoCodeLoading}
+                                mobile={true}
                             />
                         )}
                     </Col>
                 </Row>
-                {promoCodeEntered === 'HEALTHIERUAE' ? (
+                {promoCodeEntered === 'HEALTHIERUAE' && (
                     <button
                         className="btn btn-primary"
                         style={{ width: '100%' }}
@@ -326,23 +340,31 @@ const PaypalMobile = () => {
                     >
                         Pay Now
                     </button>
-                ) : (
-                    <Row>
-                        <Col md={12} className="mt-4 text-center">
-                            <Paypal
-                                // appointmentId={appointmentIdParams}
-                                appointmentMode={appointmentModeParams}
-                                bookappointment={bookAppointment}
-                                firstName={firstnameParams}
-                                // lastName={lastnameParams}
-                                email={emailParams}
-                                userId={userIdParams}
-                                rate={rateParams}
-                                halfRate={halfRateParams}
-                            />
-                        </Col>
-                    </Row>
                 )}
+                {
+                    !isPromoCodeLoading && promoCodeEntered !== 'HEALTHIERUAE' && (
+                        <Row>
+                            <Col md={12} className="mt-4 text-center">
+                                <Paypal
+                                    appointmentMode={appointmentModeParams}
+                                    bookappointment={bookAppointment}
+                                    firstName={firstnameParams}
+                                    email={emailParams}
+                                    userId={userIdParams}
+                                    rate={
+                                        promoCodeApplied === true ? discountApplied : rateParams
+                                    }
+                                    halfRate={
+                                        promoCodeApplied === true ? discountApplied : halfRateParams
+                                    }
+                                />
+                            </Col>
+                        </Row>
+                    )
+
+
+                }
+
             </Container>
         </div>
     );
