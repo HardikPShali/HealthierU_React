@@ -265,7 +265,8 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const handlePhone = (e) => {
-        setCurrentDoctorData({ ...currentDoctorData, phone: e });
+        const appendPlus = "+" + e
+        setCurrentDoctorData({ ...currentDoctorData, phone: appendPlus });
     };
 
     const handleCountry = (e) => {
@@ -294,8 +295,6 @@ const Profile = ({ currentDoctor }) => {
     // EDIT PROFILE HANDLER ON SUBMIT
     const handleDetails = async (e) => {
         let res;
-        console.log('Doctor Profile Data', currentDoctorData);
-        console.log('profilePicture ::::::', profilePicture);
         setLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
@@ -307,6 +306,7 @@ const Profile = ({ currentDoctor }) => {
             setLoading(false);
             toast.error('Something went wrong.Please try again!');
         });
+        console.log("documentInfo",documentInfo);
         if (
             documentInfo.document &&
             documentInfo.licenseNumber &&
