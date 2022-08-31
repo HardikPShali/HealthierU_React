@@ -38,8 +38,7 @@ import { useHistory } from "react-router";
 import Cookies from 'universal-cookie';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDocumentUpdateFile }) => {
-
+const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDocumentUpdateFile, documentInfo }) => {
     const [documentData, setDocumentData] = useState([])
     const [currentdocumentData, setCurrentDocumentData] = useState([])
     const [documentName, setDocumentName] = useState();
@@ -463,7 +462,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
     const handleInputChange = (e) => {
         e.preventDefault()
         setstate({ ...state, [e.target.name]: e.target.value });
-        setDocumentinfo({ ...state, [e.target.name]: e.target.value })
+        setDocumentinfo({ ...documentInfo, [e.target.name]: e.target.value })
         // if (!documentFile) {
         //     setTimeout(() => {
         //         toast.error("Please upload file to edit document details", {
@@ -476,8 +475,16 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
     };
 
     const handlePhone = (e) => {
-        setstate({ ...state, referencePhoneNumber: e });
-        setDocumentinfo({ ...state, referencePhoneNumber: e })
+        const appendPlus = "+" + e
+        setstate({ ...state, referencePhoneNumber: appendPlus });
+        setDocumentinfo({ ...documentInfo, referencePhoneNumber: appendPlus })
+        // setDocumentinfo(documentInfo.map((item) => {
+        //     if (item.referencePhoneNumber === referencePhoneNumber) {
+        //         return { ...item, referencePhoneNumber: appendPlus };
+        //     } else {
+        //         return item;
+        //     }
+        // }))
     };
     const { id, licenseNumber, referencePhoneNumber, certifyingBody } = state;
     const [currentPageNumber, setCurrentPageNumber] = useState(1);

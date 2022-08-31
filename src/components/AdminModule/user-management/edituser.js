@@ -277,7 +277,8 @@ const EditUser = (props) => {
   };
 
   const handlePhone = (e) => {
-    setUser({ ...user, phone: e });
+    const appendPlus = "+" + e
+    setUser({ ...user, phone: appendPlus });
   };
   const handleCountry = (e) => {
     setUser({ ...user, countryId: e.target.value });
@@ -332,8 +333,8 @@ const EditUser = (props) => {
         // const userResponse = await updateUserData(user);
         // if (userResponse) {
         //window.location.assign("/admin");
-
-        history.go(0);
+        history.push('/admin');
+        toast.success("Profile Data Updated")
         //}
       }
     }
@@ -981,7 +982,7 @@ const EditUser = (props) => {
                   );
                 })}
                 <br />
-                <DoctorDocumentUpload currentDoctor={user} isDoctor={false} setDocumentinfo={setDocumentinfo} setDocumentUpdateFile={setDocumentUpdateFile} />
+                <DoctorDocumentUpload currentDoctor={user} isDoctor={false} setDocumentinfo={setDocumentinfo} documentInfo={documentInfo} setDocumentUpdateFile={setDocumentUpdateFile} />
               </>
             )}
             <div className="text-center">
