@@ -190,7 +190,7 @@ const Paypal = (props) => {
           id="customized-dialog-title"
           onClose={() => setCancelSelect(true)}
         >
-          You have cancelled you payment. Press OK to go back.
+          You have cancelled your payment. Press OK to go back.
         </DialogTitle>
         <DialogActions>
           <button
