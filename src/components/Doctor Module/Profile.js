@@ -785,6 +785,7 @@ const Profile = ({ currentDoctor }) => {
                                                             <DoctorDocumentUpload
                                                                 currentDoctor={currentDoctor}
                                                                 isDoctor={true}
+                                                                documentInfo={documentInfo}
                                                                 setDocumentinfo={setDocumentinfo}
                                                                 setDocumentUpdateFile={setDocumentUpdateFile}
                                                             />
