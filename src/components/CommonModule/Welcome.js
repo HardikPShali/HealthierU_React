@@ -1338,6 +1338,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         isDoctor={true}
                                         currentDoctor={currentDoctor}
                                         setDocumentinfo={setDocumentinfo}
+                                        documentInfo={documentInfo}
                                         setDocumentUpdateFile={setDocumentUpdateFile}
                                     />
                                     <br />
