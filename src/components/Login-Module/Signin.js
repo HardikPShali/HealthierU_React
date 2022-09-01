@@ -286,10 +286,22 @@ const Signin = () => {
     }
     else if (accountCheckResponse.data.data.registerAgain === true) {
       setLoader(false);
-      toast.error('Your account was not registered properly. Please register again.');
+      toast.error('Your account was not registered properly. Please register again.', {
+        autoClose: 3000,
+        hideProgressBar: true,
+        toastId: "accountNotRegistered",
+      });
       setTimeout(() => {
         history.push('/signup');
       }, 3000);
+    }
+    else if (accountCheckResponse.data.data.registerAgain === false && accountCheckResponse.data.message === "Your account has been deactivated") {
+      setLoader(false);
+      toast.error('Your account has been deactivated. Please contact the administrator.', {
+        autoClose: 5000,
+        hideProgressBar: true,
+        toastId: "accountDeactivated",
+      });
     }
     else if (accountCheckResponse.data.data.profileComplete === true && accountCheckResponse.data.data.approved === false) {
       handleSigninHandler();
@@ -303,7 +315,11 @@ const Signin = () => {
     }
     else {
       setLoader(false);
-      toast.error('Something went wrong. Please try again.');
+      toast.error('Something went wrong. Please try again.', {
+        autoClose: 5000,
+        hideProgressBar: true,
+        toastId: "somethingWentWrong",
+      });
     }
 
     // } else {
