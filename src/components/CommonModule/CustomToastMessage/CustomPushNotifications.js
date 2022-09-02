@@ -143,6 +143,21 @@ const CustomPushNotifications = ({ payload }) => {
                         </span>
                     );
                 }
+
+            case 'APPT_EXPIRED':
+                if (getRoleName() === 'patient') {
+                    return (
+                        <span>
+                            Your appointment with{' '}
+                            {apptDetailsJson.doctor.firstName}{' '}
+                            for time{' '}
+                            {moment(apptDetailsJson.startTimeAsString).format(
+                                'DD-MM-YYYY HH:mm'
+                            )}{' '}
+                            has been expired.
+                        </span>
+                    );
+                }
         }
     };
 
