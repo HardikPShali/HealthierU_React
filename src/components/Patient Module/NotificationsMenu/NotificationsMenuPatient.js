@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'; //useEffect, useState
 import Cookies from 'universal-cookie';
 import { pushNotificationsApi } from '../../../service/frontendapiservices';
 import AcceptedAppointmentsNotification from './NotificationTypes/AcceptedAppointmentsNotification';
+import AppointmentExpiredNotification from './NotificationTypes/AppointmentExpiredNotification';
 import CancelledByDoctorNotifications from './NotificationTypes/CancelledByDoctorNotifications';
 import NextAppointmentNotifications from './NotificationTypes/NextAppointmentNotifications';
 import RescheduleByDoctorNotification from './NotificationTypes/RescheduleByDoctorNotification';
@@ -117,6 +118,17 @@ const NotificationMenuPatient = () => {
                                 return (
                                     <div key={index}>
                                         <NextAppointmentNotifications
+                                            notification={notification}
+                                            index={index}
+                                        />
+                                    </div>
+                                );
+                            }
+
+                            if (notification.type === 'APPT_EXPIRED') {
+                                return (
+                                    <div key={index}>
+                                        <AppointmentExpiredNotification
                                             notification={notification}
                                             index={index}
                                         />
