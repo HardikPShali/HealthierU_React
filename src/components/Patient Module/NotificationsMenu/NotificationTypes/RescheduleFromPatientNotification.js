@@ -3,7 +3,7 @@ import Avatar from 'react-avatar';
 import rightIcon from '../../../../images/svg/right-icon.svg';
 import moment from 'moment';
 
-const RescheduleFromPatientNotification = ({ notification, key }) => {
+const RescheduleFromPatientNotification = ({ notification, key, createdAtDisplayStyle }) => {
     return (
         <div>
             <div key={key}>
@@ -37,10 +37,25 @@ const RescheduleFromPatientNotification = ({ notification, key }) => {
                                     'DD-MM-YYYY HH:mm'
                                 )}{' '}
                             </span>
-                            <span style={{
-                                color: '#bfbfbf',
-                                fontSize: 11,
-                            }}>{moment(notification.createdAt).format('HH:mm')}</span>
+                            <div style={createdAtDisplayStyle}>
+                                <span
+                                    style={{
+                                        color: '#bfbfbf',
+                                        fontSize: 11,
+                                    }}
+                                >
+                                    {moment(notification.createdAt).format('DD MMM YYYY')}
+                                </span>
+                                <span
+                                    style={{
+                                        color: '#bfbfbf',
+                                        fontSize: 11,
+                                        marginLeft: 10,
+                                    }}
+                                >
+                                    {moment(notification.createdAt).format('HH:mm')}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
