@@ -15,7 +15,7 @@ import { getAppointmentMode } from '../../../../util/appointmentModeUtil';
 import { getUnreadNotificationsCount, putMarkAsReadFromNotificationMenu } from '../../../../service/frontendapiservices';
 
 
-const NextAppointmentNotifications = ({ notification, index }) => {
+const NextAppointmentNotifications = ({ notification, index, createdAtDisplayStyle }) => {
     const [clickModal, setClickModal] = useState(false);
     const cookies = new Cookies();
     const currentPatient = cookies.get('profileDetails');
@@ -175,10 +175,25 @@ const NextAppointmentNotifications = ({ notification, index }) => {
                                 'DD-MM-YYYY HH:mm'
                             )} by {notification.data.appointmentDetails?.doctor.firstName}. Click here to pay now.
                         </span>
-                        <span style={{
-                            color: '#bfbfbf',
-                            fontSize: 11,
-                        }}>{moment(notification.createdAt).format('HH:mm')}</span>
+                        <div style={createdAtDisplayStyle}>
+                            <span
+                                style={{
+                                    color: '#bfbfbf',
+                                    fontSize: 11,
+                                }}
+                            >
+                                {moment(notification.createdAt).format('DD MMM YYYY')}
+                            </span>
+                            <span
+                                style={{
+                                    color: '#bfbfbf',
+                                    fontSize: 11,
+                                    marginLeft: 10,
+                                }}
+                            >
+                                {moment(notification.createdAt).format('HH:mm')}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div className="notif-section__arrow">
