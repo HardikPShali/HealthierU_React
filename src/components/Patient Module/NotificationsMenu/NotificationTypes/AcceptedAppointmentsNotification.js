@@ -4,7 +4,7 @@ import rightIcon from '../../../../images/svg/right-icon.svg';
 import moment from 'moment';
 import { getUnreadNotificationsCount, putMarkAsReadFromNotificationMenu } from '../../../../service/frontendapiservices';
 
-const AcceptedAppointmentsNotification = ({ notification, index }) => {
+const AcceptedAppointmentsNotification = ({ notification, index, createdAtDisplayStyle }) => {
 
   //MARK AS READ NOTIFICATION LOGIC
   const markAsReadFromNotificationMenuHandler = async () => {
@@ -64,10 +64,25 @@ const AcceptedAppointmentsNotification = ({ notification, index }) => {
               )}.
             </span>
 
-            <span style={{
-              color: '#bfbfbf',
-              fontSize: 11,
-            }}>{moment(notification.createdAt).format('HH:mm')}</span>
+            <div style={createdAtDisplayStyle}>
+              <span
+                style={{
+                  color: '#bfbfbf',
+                  fontSize: 11,
+                }}
+              >
+                {moment(notification.createdAt).format('DD MMM YYYY')}
+              </span>
+              <span
+                style={{
+                  color: '#bfbfbf',
+                  fontSize: 11,
+                  marginLeft: 10,
+                }}
+              >
+                {moment(notification.createdAt).format('HH:mm')}
+              </span>
+            </div>
           </div>
         </div>
         {/* <div className="notif-section__arrow">

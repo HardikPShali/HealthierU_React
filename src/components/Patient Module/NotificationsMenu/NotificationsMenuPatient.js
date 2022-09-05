@@ -41,6 +41,13 @@ const NotificationMenuPatient = () => {
         return () => clearInterval(interval);
     }, []);
 
+    // INLINE STYLE FOR NOTIFICATION CREATED TIME
+    const createdAtDisplayStyle = {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+    }
+
     return (
         <>
             <div className="dropdown-title" style={{ paddingLeft: '10px' }}>
@@ -58,6 +65,7 @@ const NotificationMenuPatient = () => {
                                         <RescheduleByDoctorNotification
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -69,6 +77,7 @@ const NotificationMenuPatient = () => {
                                         <RescheduleFromPatientNotification
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -80,6 +89,7 @@ const NotificationMenuPatient = () => {
                                         <StringNotifications
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -90,6 +100,7 @@ const NotificationMenuPatient = () => {
                                         <CancelledByDoctorNotifications
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -100,6 +111,7 @@ const NotificationMenuPatient = () => {
                                         <CancelledByDoctorNotifications
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -110,6 +122,7 @@ const NotificationMenuPatient = () => {
                                         <AcceptedAppointmentsNotification
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -120,6 +133,7 @@ const NotificationMenuPatient = () => {
                                         <NextAppointmentNotifications
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -131,6 +145,7 @@ const NotificationMenuPatient = () => {
                                         <AppointmentExpiredNotification
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
