@@ -16,6 +16,7 @@ import { getUnreadNotificationsCount, putMarkAsReadFromNotificationMenu } from '
 
 
 const NextAppointmentNotifications = ({ notification, index, createdAtDisplayStyle }) => {
+    // console.log({ notification })
     const [clickModal, setClickModal] = useState(false);
     const cookies = new Cookies();
     const currentPatient = cookies.get('profileDetails');
@@ -30,6 +31,9 @@ const NextAppointmentNotifications = ({ notification, index, createdAtDisplaySty
     const appointmentMode = notification.data.appointmentDetails.appointmentMode;
     const notificationIdForPayment = notification.id;
     const paymentStatus = notification.data.appointmentDetails.paymentStatus;
+    const appointmentExpired = notification.data.appointmentDetails.appointmentExpired;
+
+    console.log({ appointmentExpired })
 
     const onClickPayNowModalHandler = () => {
         setClickModal(true);
@@ -38,12 +42,25 @@ const NextAppointmentNotifications = ({ notification, index, createdAtDisplaySty
     const onPaymentStatusTrueHandler = () => {
         toast.error('Payment already done for this notification.', {
             toastId: 'paymentAlreadyDone',
+            hideProgressBar: true,
+            autoClose: 3000,
+        });
+    }
+
+    const onExpiredAppointmentHandler = () => {
+        toast.error('This appointment is expired.', {
+            toastId: 'expiredAppointment',
+            hideProgressBar: true,
+            autoClose: 3000,
         });
     }
 
 
     const onClickHandler = () => {
-        if (paymentStatus === false) {
+        if (paymentStatus === false && (appointmentExpired === true || appointmentExpired === null)) {
+            onExpiredAppointmentHandler();
+        }
+        else if (paymentStatus === false) {
             onClickPayNowModalHandler();
         }
         else {
@@ -86,7 +103,11 @@ const NextAppointmentNotifications = ({ notification, index, createdAtDisplaySty
             ) {
                 //   props.history.push('/patient/myappointment');
                 setClickModal(false);
-                // toast.success('Appointment has been set successfully');
+                toast.success('Appointment has been set successfully', {
+                    toastId: 'nextAppointmentSet',
+                    hideProgressBar: true,
+                    autoClose: 2000,
+                });
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000)
