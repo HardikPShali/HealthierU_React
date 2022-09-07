@@ -16,16 +16,17 @@ const PaymentDetails = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [paymentDetailsData, setPaymentDetailsData] = useState([]);
     const [totalPagesData, setTotalPagesData] = useState(0);
+    const [search, setSearch] = useState('');
 
     // GET PAYMENT DETAILS ON PAGE LOAD
-    const getPaymentDetailsHandler = async () => {
+    const getPaymentDetailsHandler = async (searchText, filter = {}) => {
         setIsLoading(true);
         const todayDate = moment()
             .startOf('month')
             .toISOString();
-        const dayBeforeOneMonth = moment()
+        const dayBeforeFiveMonths = moment()
             .clone()
-            .subtract(1, 'months')
+            .subtract(5, 'months')
             .startOf('month')
             .toISOString();
 
@@ -33,9 +34,23 @@ const PaymentDetails = () => {
             page: 0,
             size: 10,
             search: null,
-            startTime: dayBeforeOneMonth, //2022-07-30T08:56:39Z
-            endTime: todayDate, //'2022-07-30T10:56:39Z'
+            startTime: dayBeforeFiveMonths, //2022-07-30T08:56:39Z  //dayBeforeOneMonth
+            endTime: todayDate, //'2022-07-30T10:56:39Z'  //todayDate
         };
+
+        if (searchText && searchText !== "") {
+            data.search = searchText
+        }
+
+        if (filter.patientStartTime && filter.patientStartTime !== '') {
+            data.startTime = filter.patientStartTime.toISOString();
+        }
+        if (filter.patientEndTime && filter.patientEndTime !== '') {
+            const endtime = new Date(filter.patientEndTime);
+            endtime.setHours(23, 59, 59);
+            data.endTime = endtime.toISOString();
+        }
+
         const response = await getAllPaymentDetailsForAdmin(data).catch((err) => {
             console.log(err);
         });
@@ -70,6 +85,27 @@ const PaymentDetails = () => {
         setIsLoading(false);
     };
 
+    //SEARCH BY DOC
+    const handleSearchInputChange = async (searchValue) => {
+        //console.log("searchValue :::::::", searchValue);
+        if (searchValue === '') {
+            console.log('blank searchValue is | in SearchBarComponent', searchValue);
+            setSearch('');
+            getPaymentDetailsHandler(searchValue);
+        } else {
+            setSearch(searchValue);
+            getPaymentDetailsHandler(searchValue);
+            // console.log("searchValue is | in SearchBarComponent", searchValue);
+        }
+    };
+
+    //FILTER BY APPOINTMENT START TIME
+    const handleFilterChange = (filter) => {
+        getPaymentDetailsHandler(search, filter);
+    };
+
+    console.log({ search });
+
     //PAGINATION
     const [currentPage, setCurrentPage] = useState(0);
     const clickPaginationHandler = async (pageNumber) => {
@@ -99,11 +135,14 @@ const PaymentDetails = () => {
                         </div>
                         {/* <div className="col-md-2"></div> */}
                         <div className="d-flex ml-4 justify-content-between ">
-                            <SearchBarComponent className="shadow p-1 mb-3 bg-white rounded" />{' '}
-                            {/* updatedSearch={handleSearchInputChange} */}
+                            <SearchBarComponent
+                                className="shadow p-1 mb-3 bg-white rounded"
+                                updatedSearch={handleSearchInputChange}
+                            />{' '}
+
                         </div>
                         <div className="ml-2">
-                            <FilterPatientDetails usedIn="admin" />{' '}
+                            <FilterPatientDetails updatedFilter={handleFilterChange} />{' '}
                             {/* updatedFilter={handleFilterChange} */}
                         </div>
 

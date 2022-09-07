@@ -14,36 +14,16 @@ const FilterPatientDetails = (props) => {
     const [filter, setFilter] = useState(false);
 
     const [filterValues, setFilterValues] = useState({
-        patientSlot: '',
         patientStartTime: '',
         patientEndTime: '',
     });
 
-    const { patientSlot, patientStartTime, patientEndTime } = filterValues;
+    const { patientStartTime, patientEndTime } = filterValues;
 
     const [endtimeChecked, setEndTimeChecked] = useState(false);
 
     const toggleFilterBox = () => {
         setFilter(filter ? false : true);
-    };
-
-    const handleAppoitnmentType = (e) => {
-        if (e.target.value === 'First Consultation') {
-            console.log('CONSULTATION| selected', e.target.value);
-            setFilterValues({
-                ...filterValues,
-                patientSlot: e.target.value,
-            });
-        } else if (e.target.value === 'Follow Up') {
-            console.log('FOLLOW UP| selected', e.target.value);
-            setFilterValues({
-                ...filterValues,
-                patientSlot: e.target.value,
-            });
-        } else if (e.target.value === '') {
-            // setAppointmentSlot([]);
-        }
-        //   setDisable({ ...disable, continue: true });
     };
 
     const handleCheckbox = (checked) => {
