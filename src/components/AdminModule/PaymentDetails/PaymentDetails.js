@@ -24,18 +24,18 @@ const PaymentDetails = () => {
         const todayDate = moment()
             .startOf('month')
             .toISOString();
-        const dayBeforeFiveMonths = moment()
+        const dayBeforeOneMonths = moment()
             .clone()
-            .subtract(5, 'months')
+            .subtract(1, 'months')
             .startOf('month')
             .toISOString();
 
         const data = {
             page: 0,
             size: 10,
-            search: null,
-            startTime: dayBeforeFiveMonths, //2022-07-30T08:56:39Z  //dayBeforeOneMonth
-            endTime: todayDate, //'2022-07-30T10:56:39Z'  //todayDate
+            search: "",
+            startTime: '2022-07-31T18:30:00.000Z', //2022-07-31T18:30:00.000Z  //dayBeforeOneMonths
+            endTime: '2022-08-01T18:30:00.000Z', //'2022-08-01T18:30:00.000Z'  //todayDate
         };
 
         if (searchText && searchText !== "") {
