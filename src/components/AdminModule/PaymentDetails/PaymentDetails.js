@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../layout/Navbar';
 import Table from '../components/Table/Table';
-import {
-    PAYMENT_DETAILS_TABLE_HEADERS,
-} from './tableConstants';
+import { PAYMENT_DETAILS_TABLE_HEADERS } from './tableConstants';
 import { getAllPaymentDetailsForAdmin } from '../../../service/frontendapiservices';
-import Pagination from "../../CommonModule/pagination";
+import Pagination from '../../CommonModule/pagination';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import { CSVLink } from 'react-csv';
 import SearchBarComponent from '../../CommonModule/SearchAndFilter/SearchBarComponent';
-import FilterComponent from '../../CommonModule/SearchAndFilter/FilterComponent';
+import FilterPatientDetails from './FilterPatientDetails';
 
 const PaymentDetails = () => {
     const tableHeaders = PAYMENT_DETAILS_TABLE_HEADERS;
@@ -22,27 +20,37 @@ const PaymentDetails = () => {
     // GET PAYMENT DETAILS ON PAGE LOAD
     const getPaymentDetailsHandler = async () => {
         setIsLoading(true);
-        const todayDate = moment().startOf('month').toISOString();
-        const dayBeforeOneMonth = moment().clone().subtract(1, 'months').startOf('month').toISOString();
+        const todayDate = moment()
+            .startOf('month')
+            .toISOString();
+        const dayBeforeOneMonth = moment()
+            .clone()
+            .subtract(1, 'months')
+            .startOf('month')
+            .toISOString();
 
         const data = {
             page: 0,
-            size: 2,
+            size: 10,
             search: null,
             startTime: dayBeforeOneMonth, //2022-07-30T08:56:39Z
-            endTime: todayDate  //'2022-07-30T10:56:39Z'
-        }
-        const response = await getAllPaymentDetailsForAdmin(data).catch(err => {
+            endTime: todayDate, //'2022-07-30T10:56:39Z'
+        };
+        const response = await getAllPaymentDetailsForAdmin(data).catch((err) => {
             console.log(err);
-        })
+        });
         console.log({ response });
         if (response.status === 200) {
             if (response.data.status === true) {
-                const paymentDetailsFromresponse = response.data.data.content.map(paymentDetail => {
-                    paymentDetail.startTime = moment(paymentDetail.startTime).format('DD-MM-YYYY HH:mm');
-                    // paymentDetail.id = paymentDetail.appointmentId;
-                    return paymentDetail;
-                })
+                const paymentDetailsFromresponse = response.data.data.content.map(
+                    (paymentDetail) => {
+                        paymentDetail.startTime = moment(paymentDetail.startTime).format(
+                            'DD-MM-YYYY HH:mm'
+                        );
+                        // paymentDetail.id = paymentDetail.appointmentId;
+                        return paymentDetail;
+                    }
+                );
                 const totalPages = response.data.data.totalPages;
                 // console.log({ totalPages })
                 // console.log({ paymentDetailsFromresponse })
@@ -57,11 +65,10 @@ const PaymentDetails = () => {
                     hideProgressBar: true,
                     autoClose: 2000,
                 });
-
             }
         }
         setIsLoading(false);
-    }
+    };
 
     //PAGINATION
     const [currentPage, setCurrentPage] = useState(0);
@@ -70,7 +77,7 @@ const PaymentDetails = () => {
         const size = 10;
         // console.log({ pageNumber })
         getPaymentDetailsHandler(pageNumber, size);
-    }
+    };
 
     useEffect(() => {
         getPaymentDetailsHandler();
@@ -91,11 +98,22 @@ const PaymentDetails = () => {
                             <h1>Payment Details Management</h1>
                         </div>
                         {/* <div className="col-md-2"></div> */}
+                        <div className="d-flex ml-4 justify-content-between ">
+                            <SearchBarComponent className="shadow p-1 mb-3 bg-white rounded" />{' '}
+                            {/* updatedSearch={handleSearchInputChange} */}
+                        </div>
+                        <div className="ml-2">
+                            <FilterPatientDetails usedIn="admin" />{' '}
+                            {/* updatedFilter={handleFilterChange} */}
+                        </div>
 
-                        <div className="col-md-8 col-sm-8 pb-2 pr-3 ml-4 mt-1" style={{ textAlign: "right" }}>
+                        <div
+                            className="col-md-8 col-sm-8 pb-2 pr-3 mt-1"
+                            style={{ textAlign: 'right' }}
+                        >
                             <CSVLink
                                 data={paymentDetailsData}
-                                filename={"Payment_Details_HealthierU.csv"}
+                                filename={'Payment_Details_HealthierU.csv'}
                                 className="btn btn-primary"
                                 target="_blank"
                                 headers={csvHeaders}
@@ -103,11 +121,6 @@ const PaymentDetails = () => {
                                 Export as CSV
                             </CSVLink>
                         </div>
-                        <div className="d-flex ml-4 justify-content-between ">
-                            <SearchBarComponent className='shadow p-1 mb-3 bg-white rounded' />  {/* updatedSearch={handleSearchInputChange} */}
-                            <FilterComponent /> {/* updatedFilter={handleFilterChange} */}
-                        </div>
-
 
                         <div className="col-md-12">
                             <Table
