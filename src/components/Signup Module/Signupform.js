@@ -36,7 +36,7 @@ import jwtDecode from "jwt-decode";
 import DialogContent from "@material-ui/core/DialogContent";
 import { activateOtp } from '../../service/AccountService';
 import Typography from "@material-ui/core/Typography";
-import { ifError } from "assert";
+import './loginCode.css';
 
 
 const isnum = "(?=.*[0-9]|.*[~`!@#$%^&*()--+={}\[\]|\\:;\"\'<>,.?/_₹])";
@@ -137,6 +137,14 @@ const Signupform = () => {
       handleSignup();
     }
   };
+
+  const [showLoginCode, setShowLoginCode] = useState(false);
+  const [loginCode, setLoginCode] = useState("");
+
+  const handleLoginCodeInput = (e) => {
+    setLoginCode(e.target.value);
+  }
+
   const handlePatientClick = () => {
     const value = "ROLE_PATIENT";
     setUser({ ...user, authorities: [] });
@@ -148,9 +156,27 @@ const Signupform = () => {
       authorities.length > 0 &&
       authorities.some((role) => role === "ROLE_PATIENT")
     ) {
-      handleSignup();
+      // SHOW LOGIN CODE MODAL
+      setShowLoginCode(true);
     }
   };
+
+  //TODO: to verify login code
+  const handlePatientClickAfterLoginCode = () => {
+    //verify if login code mathced
+    if (loginCode === 'SomeCode') {
+      console.log('login code matched');
+      // if mathced then call handleSignup
+      //SIGNUP LOGIC
+      // handleSignup();
+    }
+    else {
+      // if not matched then show error
+      console.log('login code not matched');
+      setLoginCode("");
+    }
+  }
+
   const handlePhysicaltrainerClick = () => {
     //const value = "UNKNOWN";
     //setUser({ ...user, authorities: [value] })
@@ -784,7 +810,38 @@ const Signupform = () => {
             </Link>
           </DialogActions>
         </Dialog>
+
       </Container>
+      <Dialog aria-labelledby="customized-dialog-title" open={showLoginCode} onClose={e => setShowLoginCode(false)}>
+        <DialogTitle id="customized-dialog-title">
+          Enter Login Code
+        </DialogTitle>
+        <DialogContent dividers>
+
+          <input
+            type="text"
+            name="loginCode"
+            onChange={(e) => handleLoginCodeInput(e)}
+            placeholder="Enter Login Code"
+            value={loginCode}
+            className="login-code-input"
+            autoComplete='off'
+          // disabled={disableInput}
+          />
+
+        </DialogContent>
+        <DialogActions>
+          <div>
+            <button
+              autoFocus
+              onClick={handlePatientClickAfterLoginCode}
+              className="btn btn-primary sign-btn"
+            >
+              OK
+            </button>
+          </div>
+        </DialogActions>
+      </Dialog>
 
       <Footer />
       <Dialog aria-labelledby="customized-dialog-title" open={comingSoon}>
