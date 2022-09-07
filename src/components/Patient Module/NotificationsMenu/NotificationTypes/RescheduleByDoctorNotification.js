@@ -8,7 +8,7 @@ import {
     putMarkAsReadFromNotificationMenu,
 } from '../../../../service/frontendapiservices';
 
-const RescheduleByDoctorNotification = ({ notification, key }) => {
+const RescheduleByDoctorNotification = ({ notification, key, createdAtDisplayStyle }) => {
     const setDoctorIdInSession = (doctorId) => {
         // console.log({ doctorId });
         sessionStorage.setItem('doctorId', doctorId);
@@ -85,10 +85,25 @@ const RescheduleByDoctorNotification = ({ notification, key }) => {
                                     ).format('DD-MM-YYYY HH:mm')}{' '}
                                     . Click here to reschedule
                                 </span>
-                                <span style={{
-                                    color: '#bfbfbf',
-                                    fontSize: 11,
-                                }}>{moment(notification.createdAt).format('HH:mm')}</span>
+                                <div style={createdAtDisplayStyle}>
+                                    <span
+                                        style={{
+                                            color: '#bfbfbf',
+                                            fontSize: 11,
+                                        }}
+                                    >
+                                        {moment(notification.createdAt).format('DD MMM YYYY')}
+                                    </span>
+                                    <span
+                                        style={{
+                                            color: '#bfbfbf',
+                                            fontSize: 11,
+                                            marginLeft: 10,
+                                        }}
+                                    >
+                                        {moment(notification.createdAt).format('HH:mm')}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div className="notif-section__arrow">

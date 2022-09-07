@@ -51,6 +51,13 @@ const NotificationMenuDoctor = (props) => {
 
     // messageHandle();
 
+    // INLINE STYLE FOR NOTIFICATION CREATED TIME
+    const createdAtDisplayStyle = {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+    }
+
     return (
         <>
             <div className="dropdown-title" style={{ paddingLeft: '10px' }}>
@@ -69,6 +76,7 @@ const NotificationMenuDoctor = (props) => {
                                         <RescheduleAppointment
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -77,7 +85,11 @@ const NotificationMenuDoctor = (props) => {
                             if (notification.type === 'APPT_CANCELLED_BY_PATIENT') {
                                 return (
                                     <div key={index}>
-                                        <CancelledByPatient notification={notification} index={index} />
+                                        <CancelledByPatient
+                                            notification={notification}
+                                            index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
+                                        />
                                     </div>
                                 );
                             }
@@ -85,7 +97,11 @@ const NotificationMenuDoctor = (props) => {
                             if (notification.type === 'APPT_ACCEPTED') {
                                 return (
                                     <div key={index}>
-                                        <AcceptedAppointment notification={notification} index={index} />
+                                        <AcceptedAppointment
+                                            notification={notification}
+                                            index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
+                                        />
                                     </div>
                                 );
                             }

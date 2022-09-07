@@ -301,7 +301,8 @@ const Welcome = ({ currentuserInfo }) => {
         setstate({ ...state, [e.target.name]: e.target.value });
     };
     const handlePhone = (e) => {
-        setstate({ ...state, phone: e });
+        const appendPlus = "+" + e
+        setstate({ ...state, phone: appendPlus });
     };
     const handleRefPhone = (e) => {
         setstate({ ...state, referencePhoneNumber: e });
@@ -1337,6 +1338,7 @@ const Welcome = ({ currentuserInfo }) => {
                                         isDoctor={true}
                                         currentDoctor={currentDoctor}
                                         setDocumentinfo={setDocumentinfo}
+                                        documentInfo={documentInfo}
                                         setDocumentUpdateFile={setDocumentUpdateFile}
                                     />
                                     <br />

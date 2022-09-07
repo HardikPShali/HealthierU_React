@@ -5,7 +5,7 @@ import { getUnreadNotificationsCount, putMarkAsReadFromNotificationMenu } from '
 import moment from 'moment';
 
 
-const StringNotifications = ({ notification, index }) => {
+const StringNotifications = ({ notification, index, createdAtDisplayStyle }) => {
 
     //MARK AS READ NOTIFICATION LOGIC
     const markAsReadFromNotificationMenuHandler = async () => {
@@ -60,20 +60,27 @@ const StringNotifications = ({ notification, index }) => {
                 <div className="notif-section__message">
                     <div className="message-notif">
                         <span>{notification.data.message}</span>
-                        <span style={{
-                            color: '#bfbfbf',
-                            fontSize: 11,
-                        }}>{moment(notification.createdAt).format('HH:mm')}</span>
+                        <div style={createdAtDisplayStyle}>
+                            <span
+                                style={{
+                                    color: '#bfbfbf',
+                                    fontSize: 11,
+                                }}
+                            >
+                                {moment(notification.createdAt).format('DD MMM YYYY')}
+                            </span>
+                            <span
+                                style={{
+                                    color: '#bfbfbf',
+                                    fontSize: 11,
+                                    marginLeft: 10,
+                                }}
+                            >
+                                {moment(notification.createdAt).format('HH:mm')}
+                            </span>
+                        </div>
                     </div>
                 </div>
-                {/* <div className="notif-section__arrow">
-                    <img
-                        src={rightIcon}
-                        alt="right-icon"
-                        style={{ marginRight: '15px' }}
-                        className="ml-2"
-                    />
-                </div> */}
             </div>
             <hr />
         </div>

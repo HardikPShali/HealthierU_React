@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'; //useEffect, useState
 import Cookies from 'universal-cookie';
 import { pushNotificationsApi } from '../../../service/frontendapiservices';
 import AcceptedAppointmentsNotification from './NotificationTypes/AcceptedAppointmentsNotification';
+import AppointmentExpiredNotification from './NotificationTypes/AppointmentExpiredNotification';
 import CancelledByDoctorNotifications from './NotificationTypes/CancelledByDoctorNotifications';
 import NextAppointmentNotifications from './NotificationTypes/NextAppointmentNotifications';
 import RescheduleByDoctorNotification from './NotificationTypes/RescheduleByDoctorNotification';
@@ -40,6 +41,13 @@ const NotificationMenuPatient = () => {
         return () => clearInterval(interval);
     }, []);
 
+    // INLINE STYLE FOR NOTIFICATION CREATED TIME
+    const createdAtDisplayStyle = {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+    }
+
     return (
         <>
             <div className="dropdown-title" style={{ paddingLeft: '10px' }}>
@@ -57,6 +65,7 @@ const NotificationMenuPatient = () => {
                                         <RescheduleByDoctorNotification
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -68,6 +77,7 @@ const NotificationMenuPatient = () => {
                                         <RescheduleFromPatientNotification
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -79,6 +89,7 @@ const NotificationMenuPatient = () => {
                                         <StringNotifications
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -89,6 +100,7 @@ const NotificationMenuPatient = () => {
                                         <CancelledByDoctorNotifications
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -99,6 +111,7 @@ const NotificationMenuPatient = () => {
                                         <CancelledByDoctorNotifications
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -109,6 +122,7 @@ const NotificationMenuPatient = () => {
                                         <AcceptedAppointmentsNotification
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );
@@ -119,6 +133,19 @@ const NotificationMenuPatient = () => {
                                         <NextAppointmentNotifications
                                             notification={notification}
                                             index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
+                                        />
+                                    </div>
+                                );
+                            }
+
+                            if (notification.type === 'APPT_EXPIRED') {
+                                return (
+                                    <div key={index}>
+                                        <AppointmentExpiredNotification
+                                            notification={notification}
+                                            index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
                                         />
                                     </div>
                                 );

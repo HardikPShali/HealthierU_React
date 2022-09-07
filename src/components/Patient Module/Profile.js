@@ -177,7 +177,8 @@ const Profile = () => {
     };
 
     const handlePhone = (e) => {
-        setCurrentPatient({ ...currentPatient, phone: e });
+        const appendPlus = "+" + e
+        setCurrentPatient({ ...currentPatient, phone: appendPlus });
     };
     const handleCountry = (e) => {
         setCurrentPatient({ ...currentPatient, countryId: e.target.value });
@@ -202,7 +203,6 @@ const Profile = () => {
     };
 
     const handleDetails = async (e) => {
-        console.log("profilePicture ::::::", profilePicture);
         setTransparentLoading(true);
         e.preventDefault();
         var bodyFormData = new FormData();
@@ -220,9 +220,6 @@ const Profile = () => {
                 // }, 1000) 
             }
         });
-
-        console.log({ response })
-
         if (response.status === 200 || response.status === 201) {
             // location.reload();
             // setCurrentPatient({ ...currentPatient, ...{ picture: response.data.picture + '?' + Math.random() } });
@@ -230,7 +227,7 @@ const Profile = () => {
             // setTransparentLoading(false);
             cookies.set('profileDetails', response.data, {
                 path: "/"
-              });
+            });
 
             toast.success("Profile updated successfully");
 

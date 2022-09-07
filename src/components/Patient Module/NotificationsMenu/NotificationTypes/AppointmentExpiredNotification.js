@@ -1,13 +1,13 @@
 import React from 'react';
 import Avatar from 'react-avatar';
 import rightIcon from '../../../../images/svg/right-icon.svg';
-import moment from 'moment';
 import {
     getUnreadNotificationsCount,
     putMarkAsReadFromNotificationMenu,
 } from '../../../../service/frontendapiservices';
+import moment from 'moment';
 
-const CancelledByDoctorNotifications = ({ notification, index, createdAtDisplayStyle }) => {
+const AppointmentExpiredNotification = ({ notification, index, createdAtDisplayStyle }) => {
     //MARK AS READ NOTIFICATION LOGIC
     const markAsReadFromNotificationMenuHandler = async () => {
         const notificationId = notification.id;
@@ -56,10 +56,13 @@ const CancelledByDoctorNotifications = ({ notification, index, createdAtDisplayS
                 <div className="notif-section__message">
                     <div className="message-notif">
                         <span>
-                            {notification.data.message}{' '}
-                            {moment
-                                (notification.data.appointmentDetails.startTime)
-                                .format('DD-MM-YYYY HH:mm')}
+                            Your appointment with{' '}
+                            {notification.data.appointmentDetails?.doctor.firstName}{' '}
+                            for time{' '}
+                            {moment(notification.data.appointmentDetails.startTime).format(
+                                'DD-MM-YYYY HH:mm'
+                            )}{' '}
+                            has been expired. Please book a new appointment.
                         </span>
                         <div style={createdAtDisplayStyle}>
                             <span
@@ -80,20 +83,21 @@ const CancelledByDoctorNotifications = ({ notification, index, createdAtDisplayS
                                 {moment(notification.createdAt).format('HH:mm')}
                             </span>
                         </div>
+
                     </div>
                 </div>
                 {/* <div className="notif-section__arrow">
-                    <img
-                        src={rightIcon}
-                        alt="right-icon"
-                        style={{ marginRight: '15px' }}
-                        className="ml-2"
-                    />
-                </div> */}
+                <img
+                    src={rightIcon}
+                    alt="right-icon"
+                    style={{ marginRight: '15px' }}
+                    className="ml-2"
+                />
+            </div> */}
             </div>
             <hr />
         </div>
     );
 };
 
-export default CancelledByDoctorNotifications;
+export default AppointmentExpiredNotification;
