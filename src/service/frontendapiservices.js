@@ -1659,13 +1659,13 @@ export const saveLatestVersions = async (data) => {
 }
 
 //PAYMENT DETAILS API FOR ADMIN
-export const getAllPaymentDetailsForAdmin = async (page, size) => {
+export const getAllPaymentDetailsForAdmin = async (data) => {
   var payload = {
     method: "post",
     mode: "no-cors",
-    url: `/api/v2/payments/all?page=${page}&size=${size}`,
+    url: `/api/v2/payments/all?page=${data.page}&size=${data.size}&search=${data.search}&startTime=${data.startTime}&endTime=${data.endTime}`,
     headers: {
-      Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+      "Authorization": 'Bearer ' + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },

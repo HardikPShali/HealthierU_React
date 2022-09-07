@@ -9,7 +9,8 @@ import Pagination from "../../CommonModule/pagination";
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import { CSVLink } from 'react-csv';
-
+import SearchBarComponent from '../../CommonModule/SearchAndFilter/SearchBarComponent';
+import FilterComponent from '../../CommonModule/SearchAndFilter/FilterComponent';
 
 const PaymentDetails = () => {
     const tableHeaders = PAYMENT_DETAILS_TABLE_HEADERS;
@@ -19,9 +20,19 @@ const PaymentDetails = () => {
     const [totalPagesData, setTotalPagesData] = useState(0);
 
     // GET PAYMENT DETAILS ON PAGE LOAD
-    const getPaymentDetailsHandler = async (page, size) => {
+    const getPaymentDetailsHandler = async () => {
         setIsLoading(true);
-        const response = await getAllPaymentDetailsForAdmin(page, size).catch(err => {
+        const todayDate = moment().startOf('month').toISOString();
+        const dayBeforeOneMonth = moment().clone().subtract(1, 'months').startOf('month').toISOString();
+
+        const data = {
+            page: 0,
+            size: 2,
+            search: null,
+            startTime: dayBeforeOneMonth, //2022-07-30T08:56:39Z
+            endTime: todayDate  //'2022-07-30T10:56:39Z'
+        }
+        const response = await getAllPaymentDetailsForAdmin(data).catch(err => {
             console.log(err);
         })
         console.log({ response });
@@ -44,6 +55,7 @@ const PaymentDetails = () => {
                 toast.info(`${response.data.message} after this page`, {
                     toastId: 'endOfPages',
                     hideProgressBar: true,
+                    autoClose: 2000,
                 });
 
             }
@@ -61,7 +73,7 @@ const PaymentDetails = () => {
     }
 
     useEffect(() => {
-        getPaymentDetailsHandler(0, 10);
+        getPaymentDetailsHandler();
     }, []);
 
     //EXPORT TO CSV LOGIC
@@ -79,8 +91,8 @@ const PaymentDetails = () => {
                             <h1>Payment Details Management</h1>
                         </div>
                         {/* <div className="col-md-2"></div> */}
-                        <div className="col-md-12 col-sm-12 pb-2 pr-3" style={{ textAlign: "right" }}>
-                            {/* <button className='btn btn-primary'> */}
+
+                        <div className="col-md-8 col-sm-8 pb-2 pr-3 ml-4 mt-1" style={{ textAlign: "right" }}>
                             <CSVLink
                                 data={paymentDetailsData}
                                 filename={"Payment_Details_HealthierU.csv"}
@@ -90,8 +102,13 @@ const PaymentDetails = () => {
                             >
                                 Export as CSV
                             </CSVLink>
-                            {/* </button> */}
                         </div>
+                        <div className="d-flex ml-4 justify-content-between ">
+                            <SearchBarComponent className='shadow p-1 mb-3 bg-white rounded' />  {/* updatedSearch={handleSearchInputChange} */}
+                            <FilterComponent /> {/* updatedFilter={handleFilterChange} */}
+                        </div>
+
+
                         <div className="col-md-12">
                             <Table
                                 headers={tableHeaders}
