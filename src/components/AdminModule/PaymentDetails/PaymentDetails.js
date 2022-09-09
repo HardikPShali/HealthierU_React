@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../layout/Navbar';
 import Table from '../components/Table/Table';
 import { PAYMENT_DETAILS_TABLE_HEADERS } from './tableConstants';
-import { getAllPaymentDetailsForAdmin } from '../../../service/frontendapiservices';
+import { consultationHistory, getAllPaymentDetailsForAdmin } from '../../../service/frontendapiservices';
 import Pagination from '../../CommonModule/pagination';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import { CSVLink } from 'react-csv';
 import SearchBarComponent from '../../CommonModule/SearchAndFilter/SearchBarComponent';
 import FilterPatientDetails from './FilterPatientDetails';
+import { FrontEndPagination } from './FrontEndPagination';
 
 const PaymentDetails = () => {
     const tableHeaders = PAYMENT_DETAILS_TABLE_HEADERS;
@@ -24,17 +25,17 @@ const PaymentDetails = () => {
         const todayDate = moment()
             // .startOf('month')
             .toISOString();
-        const dayBeforeTwoWeeks = moment()
+        const dayBeforeOneMonth = moment()
             .clone()
-            .subtract(2, 'weeks')
-            // .startOf('month')
+            .subtract(1, 'months')
+            .startOf('month')
             .toISOString();
 
         const data = {
             page: 0,
             size: 10,
             search: "",
-            startTime: dayBeforeTwoWeeks, //2022-07-31T18:30:00.000Z  //dayBeforeTwoWeeks
+            startTime: dayBeforeOneMonth, //2022-07-31T18:30:00.000Z  //dayBeforeOneMonth
             endTime: todayDate, //'2022-08-01T18:30:00.000Z'  //todayDate
         };
 
@@ -59,7 +60,7 @@ const PaymentDetails = () => {
             if (response.data.status === true) {
                 const paymentDetailsFromresponse = response.data.data.content.map(
                     (paymentDetail) => {
-                        paymentDetail.startTime = moment(paymentDetail.startTime).format(
+                        paymentDetail.appointmentStartTime = moment(paymentDetail.appointmentStartTime).format(
                             'DD-MM-YYYY HH:mm'
                         );
                         // paymentDetail.id = paymentDetail.appointmentId;
@@ -105,12 +106,15 @@ const PaymentDetails = () => {
     };
 
     //PAGINATION
-    const [currentPage, setCurrentPage] = useState(0);
-    const clickPaginationHandler = async (pageNumber) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [dataPerPage, setDataPerPage] = useState(15);
+
+    const indexOfLastData = currentPage * dataPerPage;
+    const indexOfFirstData = indexOfLastData - dataPerPage;
+    const currentData = paymentDetailsData.slice(indexOfFirstData, indexOfLastData);
+
+    const clickPaginationHandler = (pageNumber) => {
         setCurrentPage(pageNumber);
-        const size = 10;
-        // console.log({ pageNumber })
-        getPaymentDetailsHandler(pageNumber, size);
     };
 
     useEffect(() => {
@@ -132,7 +136,7 @@ const PaymentDetails = () => {
                             <h1>Payment Details Management</h1>
                         </div>
                         {/* <div className="col-md-2"></div> */}
-                        <div className="d-flex ml-4 justify-content-between ">
+                        <div className="d-flex justify-content-between ">
                             <SearchBarComponent
                                 className="shadow p-1 mb-3 bg-white rounded"
                                 updatedSearch={handleSearchInputChange}
@@ -145,11 +149,11 @@ const PaymentDetails = () => {
                         </div>
 
                         <div
-                            className="col-md-8 col-sm-8 pb-2 pr-3 mt-1"
+                            className="col-md-8 col-sm-8 pb-2 ml-4 mt-1"
                             style={{ textAlign: 'right' }}
                         >
                             <CSVLink
-                                data={paymentDetailsData}
+                                data={currentData}
                                 filename={'Payment_Details_HealthierU.csv'}
                                 className="btn btn-primary"
                                 target="_blank"
@@ -162,7 +166,7 @@ const PaymentDetails = () => {
                         <div className="col-md-12">
                             <Table
                                 headers={tableHeaders}
-                                data={paymentDetailsData}
+                                data={currentData}
                                 isLoading={isLoading}
                             ></Table>
                         </div>
@@ -173,6 +177,16 @@ const PaymentDetails = () => {
                         current={currentPage + 1}
                         pagination={(currPage) => clickPaginationHandler(currPage - 1)}
                     /> */}
+                    <div style={{
+                        marginLeft: 15
+                    }}>
+                        <FrontEndPagination
+                            totalData={paymentDetailsData.length}
+                            dataPerPage={dataPerPage}
+                            paginate={clickPaginationHandler}
+                        />
+                    </div>
+
                 </div>
             </div>
         </div>
