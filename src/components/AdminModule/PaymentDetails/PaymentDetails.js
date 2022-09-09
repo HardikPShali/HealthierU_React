@@ -22,20 +22,20 @@ const PaymentDetails = () => {
     const getPaymentDetailsHandler = async (searchText, filter = {}) => {
         setIsLoading(true);
         const todayDate = moment()
-            .startOf('month')
+            // .startOf('month')
             .toISOString();
-        const dayBeforeOneMonths = moment()
+        const dayBeforeTwoWeeks = moment()
             .clone()
-            .subtract(1, 'months')
-            .startOf('month')
+            .subtract(2, 'weeks')
+            // .startOf('month')
             .toISOString();
 
         const data = {
             page: 0,
             size: 10,
             search: "",
-            startTime: '2022-07-31T18:30:00.000Z', //2022-07-31T18:30:00.000Z  //dayBeforeOneMonths
-            endTime: '2022-08-01T18:30:00.000Z', //'2022-08-01T18:30:00.000Z'  //todayDate
+            startTime: dayBeforeTwoWeeks, //2022-07-31T18:30:00.000Z  //dayBeforeTwoWeeks
+            endTime: todayDate, //'2022-08-01T18:30:00.000Z'  //todayDate
         };
 
         if (searchText && searchText !== "") {
@@ -104,8 +104,6 @@ const PaymentDetails = () => {
         getPaymentDetailsHandler(search, filter);
     };
 
-    console.log({ search });
-
     //PAGINATION
     const [currentPage, setCurrentPage] = useState(0);
     const clickPaginationHandler = async (pageNumber) => {
@@ -170,11 +168,11 @@ const PaymentDetails = () => {
                         </div>
                         {/* <div className="col-md-2"></div> */}
                     </div>
-                    <Pagination
+                    {/* <Pagination
                         total={totalPagesData}
                         current={currentPage + 1}
                         pagination={(currPage) => clickPaginationHandler(currPage - 1)}
-                    />
+                    /> */}
                 </div>
             </div>
         </div>
