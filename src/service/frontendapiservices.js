@@ -1672,3 +1672,16 @@ export const getAllPaymentDetailsForAdmin = async (page, size) => {
   }
   return axios(payload);
 }
+
+// GET PRE-LOGIN ACCESS CODE FOR SIGNUP
+export const getPreLoginAccessCode = async () => {
+
+  return {
+    "status": true,
+    "message": "Pre-login Authentication",
+    "data": {
+      "isPreLoginAuthicationEnabled": true,
+      "preLoginCode": "SAMPLECODE"
+    }
+  }
+}
