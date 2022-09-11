@@ -33,8 +33,6 @@ const NextAppointmentNotifications = ({ notification, index, createdAtDisplaySty
     const paymentStatus = notification.data.appointmentDetails.paymentStatus;
     const appointmentExpired = notification.data.appointmentDetails.appointmentExpired;
 
-    console.log({ appointmentExpired })
-
     const onClickPayNowModalHandler = () => {
         setClickModal(true);
     };
