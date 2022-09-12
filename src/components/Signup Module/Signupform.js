@@ -537,7 +537,7 @@ const Signupform = () => {
       res.data.status === true
     ) {
       setOtpBox(new Array(4).fill(''));
-      toast.success('Account activated successfully. Please Log In.');
+      toast.success('Account activated successfully. Please log in.');
       clearEveryCookie();
       history.push('/signin');
     } else {

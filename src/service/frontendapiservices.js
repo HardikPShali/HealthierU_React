@@ -1679,8 +1679,8 @@ export const getPreLoginAccessCode = async () => {
     mode: 'no-cors',
     url: `/api/v2/pre-login`,
     headers: {
-      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     }
   };
   const response = await axios(payload).then(res => {
