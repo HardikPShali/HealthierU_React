@@ -21,7 +21,6 @@ const AcceptedAppointment = ({ notification, index, createdAtDisplayStyle }) => 
             data,
             userId
         ).catch((err) => console.log({ err }));
-        console.log({ markAsReadFromNotificationMenuHandler: response });
 
         if (response.data.status === true) {
             //   setBadgeCount(0);

@@ -7,10 +7,6 @@ import Avatar from 'react-avatar';
 
 const ChatItem = ({ item, onChatChange, messageDateFormat, selectedChatItem }) => {
 
-  console.log({ item });
-  console.log({ item: item[item.userKey]?.firstName });
-
-
   const avatarPic = (
     <Avatar
       round={true}

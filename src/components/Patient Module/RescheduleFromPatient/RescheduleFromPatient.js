@@ -503,33 +503,24 @@ const RescheduleAppointment = (props) => {
             endTime: slot.endTime,
             id: appointmentSlot[index].id,
         });
-        console.log('appointment', appointmentSlot[index].id);
         setDisable({ ...disable, continue: false });
     };
 
     let params = useParams();
-    console.log({ params })
+
 
 
 
     const oldAppointmentID = params.id;
 
     useEffect(() => {
-        console.log('oldAppointmentID', oldAppointmentID);
-        console.log({
-            unified: params.unifiedAppt +
-                '#' +
-                getAppointmentMode(appointment.appointmentMode)
-        })
     }, [oldAppointmentID]);
 
     const bookappointment = async (orderData) => {
-        console.log({ appMode: appointment.appointmentMode })
         setLoading(true);
         let oldAppID = 0;
         oldAppID = params.id;
         // setOldAppointmentID(params.id);
-        console.log({ oldAppointmentID });
         // let tempSlotConsultationId = '';
         const finalAppointmentDataArray = [];
         if (appointment.appointmentMode === 'First Consultation') {
@@ -842,7 +833,6 @@ const RescheduleAppointment = (props) => {
                 setLoading(false);
             }
         });
-        console.log('Country List', res);
         if (res && res.data.data) {
             setCountryList(res.data.data);
         }
@@ -948,7 +938,6 @@ const RescheduleAppointment = (props) => {
         stateData.push(nextAppDetails);
         const app = [];
         app.push(appointment);
-        console.log('app', app);
         const data = [];
         {
             app.map((a) => {
@@ -972,7 +961,6 @@ const RescheduleAppointment = (props) => {
                 });
             });
         }
-        console.log('data', data);
         // const data = {
         //   ...data1[0],
         //   ...data2[0]
@@ -993,7 +981,6 @@ const RescheduleAppointment = (props) => {
     const [rescheduleMode, setRescheduleMode] = useState('');
     const getAvailableSlotsOfDoctors = async (id, type) => {
         const state = params.type;
-        console.log('state', state);
         setRescheduleMode(state);
         if (id) {
             const response = await getAvailableSlotsForMyDoctors(
@@ -1002,7 +989,6 @@ const RescheduleAppointment = (props) => {
             ).catch((err) => console.log({ err }));
             // console.log({ response })
             setAvailableSlotsDisplay(response.data);
-            console.log('availableSlotsDisplay', { availableSlotsDisplay });
 
             const enableDatesFromRes = response.data.data?.map((n) => {
                 return new Date(n.instantDate);

@@ -27,6 +27,8 @@ import {
   updateApprovedDoctorRRate,
   changeDoctorStatusOnUserTable,
   changeDoctorStatusOnDoctorTable,
+  changePatientStatusOnUserTable,
+  changePatientStatusOnPatientTable
 } from "../../../service/adminbackendservices";
 import EditIcon from "@material-ui/icons/Edit";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
@@ -68,7 +70,6 @@ const Home = () => {
   const handleClickOpen = async (userData) => {
     setSelectedUserData(userData);
     const currentUserData = await getDoctorByUserID(userData);
-    console.log({ currentUserData });
     setSelectedUser(currentUserData.doctors[0]);
     if (
       currentUserData &&
@@ -186,7 +187,6 @@ const Home = () => {
     // setTransparentLoading(true);
     userData.approved = true;
     const response = await approveDoctorByAdmin(userData);
-    console.log({ response });
     if (response.status === 200 || response.status === 201) {
       okClickOnActivateDoctor()
       history.go(0);
@@ -202,7 +202,6 @@ const Home = () => {
     // console.log({ formData: [...bodyFormData] });
     // delete bodyFormData.salutation;
     const response = await updateApprovedDoctorRRate(bodyFormData);
-    console.log({ response })
     if (response.status === 200 || response.status === 201) {
       approveDoctor(selectedUserData);
     }
@@ -276,6 +275,58 @@ const Home = () => {
     if (response?.status === 200) {
       const doctorTableResponse = await changeDoctorStatusOnDoctorTable(
         doctorData
+      );
+      if (doctorTableResponse?.status === 200) {
+        setStatusMsg(
+          `${selectedUser.firstName} ${selectedUser.lastName} with email : ${selectedUser.email} is deactivated.`
+        );
+        setTransparentLoading(false);
+        setActiveDialog(true);
+      }
+    }
+  };
+  //Patient activation-deactivation
+  const activatePatient = async (selectedUser) => {
+    setTransparentLoading(true);
+    const patientData = {
+      userId: selectedUser.id,
+      isActive: true,
+    };
+
+    const data = {
+      email: selectedUser.email,
+      activated: true,
+    };
+    const response = await changePatientStatusOnUserTable(data);
+
+    if (response?.status === 200) {
+      const doctorTableResponse = await changePatientStatusOnPatientTable(
+        patientData
+      );
+      if (doctorTableResponse?.status === 200) {
+        setStatusMsg(
+          `${selectedUser.firstName}  ${selectedUser.lastName} with email : ${selectedUser.email} is activated.`
+        );
+        setTransparentLoading(false);
+        setActiveDialog(true);
+      }
+    }
+  };
+
+  const deactivatePatient = async (selectedUser) => {
+    setTransparentLoading(true);
+    const patientData = {
+      userId: selectedUser.id,
+      isActive: false,
+    };
+    const data = {
+      email: selectedUser.email,
+      activated: false,
+    };
+    const response = await changePatientStatusOnUserTable(data);
+    if (response?.status === 200) {
+      const doctorTableResponse = await changePatientStatusOnPatientTable(
+        patientData
       );
       if (doctorTableResponse?.status === 200) {
         setStatusMsg(
@@ -469,7 +520,7 @@ const Home = () => {
                         ) &&
                           user.approved &&
                           user.profileCompleted &&
-                          user.activated && (
+                          user.isA && (
                             <button
                               className="btn btn-danger ml-0 mr-2 py-2 px-3"
                               data-title="Deactivate"
@@ -490,6 +541,36 @@ const Home = () => {
                               onClick={() => activateDoctor(user)}
                             >
                               Activate
+                            </button>
+                          )}
+                        {user.authorities.some(
+                          (userRole) => userRole === "ROLE_PATIENT"
+                        ) &&
+
+                          user.profileCompleted &&
+                          !user.activated &&
+                          (
+                            <button
+                              className="btn btn-success ml-0 mr-2 py-2 px-3"
+                              data-title="Activate"
+                              onClick={() => activatePatient(user)}
+                            >
+                              Activate
+                            </button>
+                          )}
+                        {user.authorities.some(
+                          (userRole) => userRole === "ROLE_PATIENT"
+                        ) &&
+
+                          user.profileCompleted &&
+                          user.activated &&
+                          (
+                            <button
+                              className="btn btn-danger ml-0 mr-2 py-2 px-3"
+                              data-title="Deactivate"
+                              onClick={() => deactivatePatient(user)}
+                            >
+                              Deactivate
                             </button>
                           )}
                       </div>

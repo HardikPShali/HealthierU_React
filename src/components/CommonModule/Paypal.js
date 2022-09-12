@@ -51,7 +51,6 @@ const Paypal = (props) => {
           //   size: 'responsive',
           // },
           createOrder: (data, actions, err) => {
-            console.log('CreateOrder accessed');
             return actions.order.create({
               intent: 'CAPTURE',
               payer: {
@@ -90,10 +89,7 @@ const Paypal = (props) => {
             });
           },
           onApprove: async (data, actions, a) => {
-            console.log('OnApprove accessed');
-            console.log('data', data);
             const order = await actions.order.capture().then(function (details) {
-              console.log('details', details);
               return details;
             });
             const {
@@ -122,7 +118,6 @@ const Paypal = (props) => {
                 payer_id: payerId,
               },
             } = order;
-            console.log('paymentmethod', paymentmethod);
             const orderData = {
               // appointmentId,
               appointmentMode,
@@ -141,12 +136,10 @@ const Paypal = (props) => {
               userName: `${given_name}`,
               userId,
             };
-            console.log('paymentmethod', paymentmethod);
             bookappointment(orderData);
           },
           onCancel: (data) => {
             // Show a cancel page, or return to MyDoctors
-            console.log(data);
             handleCancel();
             if (window.android) {
               window.android.onPaymentStatusChange(false);

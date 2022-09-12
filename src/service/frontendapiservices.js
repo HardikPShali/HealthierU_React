@@ -776,7 +776,6 @@ export const uploadDoctorDocument = async (files, info) => {
       type: "application/json",
     })
   );
-  console.log("doctorDocumentInfo", info);
   var payload = {
     method: "post",
     mode: "no-cors",

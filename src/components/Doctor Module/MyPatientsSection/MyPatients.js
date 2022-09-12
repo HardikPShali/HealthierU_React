@@ -50,7 +50,6 @@ const MyPatients = (props) => {
     };
 
     const handleConsultationClick = (slot, slot1EndTime) => {
-        console.log("slot1EndTime", slot1EndTime);
         slot.endTime = slot1EndTime;
         setSelectedPatient(slot);
         // getNotesData(slot.patient.id)
@@ -168,7 +167,6 @@ const MyPatients = (props) => {
                         }
                     }
                 });
-                console.log('updateArray | My Patient', updateArray);
                 setAppointmentDets(updateArray.reverse());
             }
         }
@@ -177,7 +175,6 @@ const MyPatients = (props) => {
     const handleSearchInputChange = async (searchValue) => {
         //console.log("searchValue :::::::", searchValue);
         if (searchValue === '') {
-            console.log('blank searchValue is | in SearchBarComponent', searchValue);
             // loadPatient(currentDoctor.id);
             getGlobalAppointments(searchValue);
 

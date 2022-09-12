@@ -74,10 +74,8 @@ const Signupform = () => {
   let googleProfileData = {};
 
   if (googleAccessToken) {
-    console.log('googleAccessToken', googleAccessToken);
     googleProfileData = jwtDecode(googleAccessToken);
     //console.log("googleAccessToken :::::", googleAccessToken);
-    console.log('googleProfileData ::::::', googleProfileData);
   }
 
   // let history = useHistory();
@@ -366,16 +364,9 @@ const Signupform = () => {
 
       const response = await signupWithEmail(user).catch((error) => {
         setTransparentLoading(false);
-        setDisplay({ ...display, signupForm: 'block', whoyouAre: 'none' });
-        console.log('Error', error);
-        console.log('Error.response', error.response);
+        setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
 
-        if (
-          error.response &&
-          error.response.status === 500 &&
-          error.response.data.message === 'Login name already used!'
-        ) {
-          console.log('Error Message', error.response.data.message);
+        if (error.response && error.response.status === 500 && error.response.data.message === "Login name already used!") {
           setErrorMsg({
             ...errorMsg,
             userNameExistance:
@@ -395,7 +386,6 @@ const Signupform = () => {
         }
       });
 
-      console.log('Response', response);
 
       if (response && response.status === 200) {
         setTransparentLoading(false);
@@ -459,16 +449,15 @@ const Signupform = () => {
 
   // cookie removal function ----> 25072022
   const clearEveryCookie = () => {
-    cookies.remove('refresh_token', { path: '/' });
-    cookies.remove('currentUser', { path: '/' });
-    cookies.remove('access_token', { path: '/' });
-    cookies.remove('GOOGLE_ACCESS_TOKEN', { path: '/' });
-    cookies.remove('GOOGLE_PROFILE_DATA', { path: '/' });
-    cookies.remove('authorities', { path: '/' });
-    cookies.remove('userProfileCompleted', { path: '/' });
-    cookies.remove('profileDetails', { path: '/' });
-    console.log('Cleared all cookies');
-  };
+    cookies.remove("refresh_token", { path: '/' });
+    cookies.remove("currentUser", { path: '/' });
+    cookies.remove("access_token", { path: '/' });
+    cookies.remove("GOOGLE_ACCESS_TOKEN", { path: '/' });
+    cookies.remove("GOOGLE_PROFILE_DATA", { path: '/' });
+    cookies.remove("authorities", { path: '/' });
+    cookies.remove("userProfileCompleted", { path: '/' });
+    cookies.remove("profileDetails", { path: '/' });
+  }
 
   //CODSE FOR OTP PART
   //LOGIC FOR OTP BOXES

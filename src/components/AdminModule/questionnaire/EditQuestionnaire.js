@@ -112,7 +112,6 @@ const EditQuestionnaire = (props) => {
 
     return (
         <div>
-            {console.log(questions)}
             <Navbar pageTitle="questionnaire" />
             <br />
             <div className="container Questionnaire-Edit-Div-Border" >
