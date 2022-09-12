@@ -46,16 +46,12 @@ const Meeting = (props) => {
   let shareStream = null;
   let mainId;
   let mainStream;
-
-  console.log("props", props)
-
   const globalLog = logger.init("global", "blue");
   const shareLog = logger.init("share", "yellow");
   const localLog = logger.init("local", "green");
 
   const cookies = new UniversalCookies();
   const currentLoggedInUser = cookies.get("currentUser");
-  console.log("currentLoggedInUser :::::", currentLoggedInUser);
   //const { authorities = [] } = currentLoggedInUser || {}
 
   // Initialize the options from cookies (set from index.js and precall.js)

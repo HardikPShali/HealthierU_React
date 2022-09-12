@@ -65,7 +65,6 @@ const ServiceProvidersHome = () => {
             d.active = String(d.active).toUpperCase()
             return d;
         })
-        console.log(serviceproviderData);
         setServiceProvider(serviceproviderData);
         setIsLoading(false);
         // if (response) {
@@ -75,7 +74,6 @@ const ServiceProvidersHome = () => {
 
     const handleDeleteModal = remove => {
         setSelectedServiceProvider(remove);
-        console.log(remove);
         // setShowDelete(true);
         ModalService.open(DeleteModal);
     }

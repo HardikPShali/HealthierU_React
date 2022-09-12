@@ -68,8 +68,6 @@ const AddServiceProvider = () => {
     const [preview, setPreview] = useState()
     const { msg } = errorMsg;
 
-    console.log(user);
-
     useEffect(() => {
         getLocation();
     }, []);

@@ -25,7 +25,6 @@ export const checkAccessToken = (isReload = true) => {
     }
     return axios(config).then(response => {
         // const history =useHistory();
-        console.log('new token', response);
         if (response && response.data) {
             LocalStorageService.setToken(response.data);
             if (isReload) {

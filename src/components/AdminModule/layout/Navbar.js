@@ -278,6 +278,15 @@ const Navbar = (props) => {
           </ListItem>
         </Link>
         <Divider variant="middle" />
+        <Link to="/admin/PreLoginAuthentication" style={{ textDecoration: 'none' }}>
+          <ListItem
+            button
+            className={props.pageTitle === 'PreLoginAuthentication' ? 'active' : ''}
+          >
+            <ListItemText primary={'Pre-Login Authentication'} />
+          </ListItem>
+        </Link>
+        <Divider variant="middle" />
       </List>
     </>
   );

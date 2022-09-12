@@ -236,7 +236,6 @@ const Workout = () => {
                                                                 />
                                                             )}
                                                             {/* <div className="video-time"><img src={Timer} /> 5 min</div> */}
-                                                            {console.log(workoutData)}
                                                             <img src={`https://img.youtube.com/vi/${getVideoKey(workoutData.video_link && workoutData.video_link)}/0.jpg`} alt={workoutData.title} />
                                                             <GridListTileBar
                                                                 title={<span>{workoutData.title}</span>}
@@ -296,7 +295,6 @@ const Workout = () => {
                                                 {/* <br/> */}
                                                 {/* <p className="desc-text">No equipment required for this workout</p> */}
                                                 <div id="my-workout-list">
-                                                    {console.log("LikedWorkout::", likedWorkout)}
                                                     {likedWorkout && likedWorkout.map((workoutData, index) => (
                                                         workoutData.workout && (
                                                             <Card variant="outlined" className="mb-2" key={index} onClick={() => handleVideoClick(workoutData.workout)}>

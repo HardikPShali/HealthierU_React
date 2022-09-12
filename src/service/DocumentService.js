@@ -195,7 +195,6 @@ export const postDocument = async (data) => {
   formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
     type: "application/json"
   }));
-  console.log("medicalDocumentInfo", medicalDocumentInfo)
   formData.append("file", data.get("prescriptionDocument"));
 
   var config = {
