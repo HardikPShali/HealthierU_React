@@ -1671,15 +1671,16 @@ export const getAllPaymentDetailsForAdmin = async (page, size) => {
   }
   return axios(payload);
 }
-//Pre-Login-Authentication
+
+// GET PRE-LOGIN ACCESS CODE FOR SIGNUP
 export const getPreLoginAccessCode = async () => {
   var payload = {
     method: 'get',
     mode: 'no-cors',
     url: `/api/v2/pre-login`,
     headers: {
-      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     }
   };
   const response = await axios(payload).then(res => {
