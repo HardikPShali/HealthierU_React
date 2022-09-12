@@ -1675,13 +1675,19 @@ export const getAllPaymentDetailsForAdmin = async (page, size) => {
 
 // GET PRE-LOGIN ACCESS CODE FOR SIGNUP
 export const getPreLoginAccessCode = async () => {
-
-  return {
-    "status": true,
-    "message": "Pre-login Authentication",
-    "data": {
-      "isPreLoginAuthicationEnabled": true,
-      "preLoginCode": "SAMPLECODE"
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/pre-login`,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     }
-  }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
 }
