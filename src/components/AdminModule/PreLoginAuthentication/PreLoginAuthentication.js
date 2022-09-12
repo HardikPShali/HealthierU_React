@@ -2,13 +2,16 @@ import React, { useState, useeffect, useEffect } from 'react';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Navbar from '../layout/Navbar';
 import { Row, Col } from 'react-bootstrap';
-import { getPreLoginAccessCode } from '../../../service/frontendapiservices';
+import { getPreLoginAccessCode, editPreLoginAccessCode, addPreLoginAccessCode } from '../../../service/frontendapiservices';
 import Loader from '../../Loader/Loader';
 import "./PreLoginAuthetication.css";
+import { toast } from 'react-toastify';
 const PreLoginAuthentication = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [isPreLoginAuthicationEnabled, setIsPreLoginAuthicationEnabled] = useState(true)
+    const [isToggle, setToggle] = useState(true);
+    const [isPreLoginAuthicationEnabled, setIsPreLoginAuthicationEnabled] = useState(false)
     const [preLoginAuthicationCode, setPreLoginAuthicationCode] = useState('')
+    const [preLoginAuthicationCodeID, setPreLoginAuthicationCodeID] = useState(0)
     const handleInputChange = (e) => {
         setPreLoginAuthicationCode(e.target.value);
     };
@@ -18,35 +21,60 @@ const PreLoginAuthentication = () => {
             console.log(err);
             setIsLoading(false);
         });
-        if (response.status === true) {
+        if (response.data.status === true) {
             setIsLoading(false);
-            setIsPreLoginAuthicationEnabled(response.data.isPreLoginAuthicationEnabled);
-            setPreLoginAuthicationCode(response.data.preLoginCode)
+            setPreLoginAuthicationCodeID(response.data.data.id)
+            setIsPreLoginAuthicationEnabled(response.data.data.isPreLoginAuthenticationEnabled);
+            setPreLoginAuthicationCode(response.data.data.preLoginCode)
         }
         setIsLoading(false);
     };
 
     //Toggle
-    const handleToggle = async (e, eachTimes) => {
+    const handleToggle = async (e) => {
+        setToggle(e.target.checked)
         const data = {
+            id: preLoginAuthicationCodeID,
             preLoginCode: preLoginAuthicationCode,
-            isPreLoginAuthicationEnabled: e.target.checked,
+            isPreLoginAuthenticationEnabled: e.target.checked,
         };
-        // const res = await toggleRecurSlots(data);
-        // if (res) {
-        // }
+        const res = await editPreLoginAccessCode(data);
+        if (res) {
+            setPreLoginAuthicationCodeID(res.data.data.id)
+            setIsPreLoginAuthicationEnabled(res.data.data.isPreLoginAuthenticationEnabled);
+            setPreLoginAuthicationCode(res.data.data.preLoginCode)
+        }
     };
     const savePreLoginAuthenticationHandler = async (e) => {
         e.preventDefault();
-        // setIsLoading(true);
-        // const response = await saveLatestVersions(preLoginAuthicationCode).catch((err) => {
-        //     console.log(err);
-        // });
-        // if (response.status === true) {
-        //     setIsLoading(false);
-        //     setIsPreLoginAuthicationEnabled(response.data.isPreLoginAuthicationEnabled);
-        //     setPreLoginAuthicationCode(response.data.preLoginCode)
-        // }
+        setIsLoading(true);
+        const data = {
+            id: preLoginAuthicationCodeID,
+            preLoginCode: preLoginAuthicationCode,
+            isPreLoginAuthenticationEnabled: isToggle,
+        };
+        const res = await editPreLoginAccessCode(data);
+        if (res) {
+            setIsLoading(false);
+            setPreLoginAuthicationCodeID(res.data.data.id)
+            setIsPreLoginAuthicationEnabled(res.data.data.isPreLoginAuthenticationEnabled);
+            setPreLoginAuthicationCode(res.data.data.preLoginCode)
+        }
+        if (!preLoginAuthicationCode) {
+            const data = {
+                preLoginCode: preLoginAuthicationCode,
+                isPreLoginAuthenticationEnabled: isToggle
+            }
+            const response = await addPreLoginAccessCode(data).catch((err) => {
+                console.log(err);
+            });
+            if (response) {
+                setIsLoading(false);
+                setPreLoginAuthicationCodeID(response.data.data.id)
+                setIsPreLoginAuthicationEnabled(response.data.data.isPreLoginAuthenticationEnabled);
+                setPreLoginAuthicationCode(response.data.data.preLoginCode)
+            }
+        }
     };
 
     useEffect(() => {
@@ -81,24 +109,26 @@ const PreLoginAuthentication = () => {
                                             </label>
                                         </div>
                                     </Col>
-                                    {isPreLoginAuthicationEnabled === true &&
-                                        <Col md={6}>
-                                            <p className="PreLoginAuthentication-common-p-tags">Pre-Login Code</p>
-                                            <TextValidator
-                                                id="standard-basic"
-                                                type="text"
-                                                name="preLoginCode"
-                                                onChange={(e) => handleInputChange(e)}
-                                                value={preLoginAuthicationCode}
-                                                // validators={['required', 'matchRegexp:^[0-9]*.[0-9]{1}$']}
-                                                // errorMessages={[
-                                                //     'This field is required',
+                                    {/* {isPreLoginAuthicationEnabled === true && */}
+                                    <Col md={6}>
+                                        <p className="PreLoginAuthentication-common-p-tags">Pre-Login Code</p>
+                                        <TextValidator
+                                            id="standard-basic"
+                                            type="text"
+                                            name="preLoginCode"
+                                            onChange={(e) => handleInputChange(e)}
+                                            value={preLoginAuthicationCode}
+                                            validators={['required',
+                                                // 'matchRegexp:^[0-9]*.[0-9]{1}$'
+                                            ]}
+                                            errorMessages={[
+                                                'This field is required',
                                                 //     'Please enter a valid code',
-                                                // ]}
-                                                variant="filled"
-                                            />
-                                        </Col>
-                                    }
+                                            ]}
+                                            variant="filled"
+                                        />
+                                    </Col>
+                                    {/* } */}
                                 </Row>
                                 <br />
                                 <div className="PreLoginAuthentication-mgmt__button-wrapper">
