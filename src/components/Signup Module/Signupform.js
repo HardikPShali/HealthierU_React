@@ -145,7 +145,6 @@ const Signupform = () => {
   };
 
   const [showLoginCode, setShowLoginCode] = useState(false);
-  // const [codeDetailsFromApi, setCodeDetailsFromApi] = useState([]);
   const [loginCode, setLoginCode] = useState('');
   const [preLoginAuthicationEnabled, setPreLoginAuthicationEnabled] = useState(
     false
@@ -157,31 +156,20 @@ const Signupform = () => {
   const handleLoginCodeInput = (e) => {
     setLoginCode(e.target.value);
     setLoginCodeError(false);
+    setLoginCodeMatch(false);
   };
 
   const preLoginCodeDetailsHandler = async () => {
     const response = await getPreLoginAccessCode();
-    console.log({ response });
+
     if (response.status === 200 && response.data.status === true) {
-
-      const loginCode = response.data.data.map((item) => item.preLoginCode);
-
-      const authenticationEnabledCheck = response.data.data.map((item) => item.isPreLoginAuthenticationEnabled);
-
-      // const codeDetails = response.data.data.map((item) => item);
-
-      // setCodeDetailsFromApi(codeDetails);
-      setLoginCodeFromApi(loginCode);
-      setPreLoginAuthicationEnabled(authenticationEnabledCheck);
+      setLoginCodeFromApi(response.data.data.preLoginCode);
+      setPreLoginAuthicationEnabled(response.data.data.isPreLoginAuthenticationEnabled);
+    }
+    else {
+      setPreLoginAuthicationEnabled(false);
     }
   };
-
-  console.log({
-    // codeDetails: codeDetailsFromApi,
-    // codeDetailsLength: codeDetailsFromApi.length,
-    code: loginCodeFromApi[0],
-    enabled: preLoginAuthicationEnabled[0],
-  });
 
   const handlePatientClick = () => {
     const value = 'ROLE_PATIENT';
@@ -194,31 +182,41 @@ const Signupform = () => {
       authorities.some((role) => role === 'ROLE_PATIENT')
     ) {
       // if isPreLoginAuthicationEnabled is true, enable modal popup
-      if (preLoginAuthicationEnabled[0] === true) {
+      if (preLoginAuthicationEnabled === true) {
+        setUser({ ...user, authorities: [] });
+        // if authorities>0 is there then pop the array and push the new value
+        authorities.push(value);
         setShowLoginCode(true);
-      } else {
+
+      } else if (preLoginAuthicationEnabled === false) {
         console.log('handleSignup Reached');
         setShowLoginCode(false);
         // if isPreLoginAuthicationEnabled is false, call handleSignup
-        // handleSignup();
+        handleSignup();
       }
     }
   };
 
   //TODO: to verify login code
   const handlePatientClickAfterLoginCode = () => {
+    const value = 'ROLE_PATIENT';
     //verify if login code mathced
-    if (loginCode === loginCodeFromApi[0]) {
+    if (loginCode === loginCodeFromApi) {
       console.log('login code matched');
       setLoginCodeMatch(true);
+      setUser({ ...user, authorities: [] });
+      // if authorities>0 is there then pop the array and push the new value
+      authorities.push(value);
       // if matched then call handleSignup
-      //SIGNUP LOGIC
-      // handleSignup();
+      handleSignup();
     } else {
       // if not matched then show error
       setLoginCodeError(true);
       console.log('login code not matched');
+      setUser({ ...user, authorities: [] });
+
       setLoginCode('');
+      setLoginCodeMatch(false);
     }
   };
 
@@ -311,6 +309,7 @@ const Signupform = () => {
 
   const handleSignup = async () => {
     //if (captchaVerify) {
+    setShowLoginCode(false);
     setTransparentLoading(true);
     if (googleAccessToken) {
       const googleUserData = {
@@ -385,6 +384,9 @@ const Signupform = () => {
           });
         }
       });
+
+      console.log({ response });
+      console.log({ authorities })
 
 
       if (response && response.status === 200) {
@@ -535,7 +537,7 @@ const Signupform = () => {
       res.data.status === true
     ) {
       setOtpBox(new Array(4).fill(''));
-      toast.success('Account Activated Successfully!. Please Log In.');
+      toast.success('Account activated successfully. Please Log In.');
       clearEveryCookie();
       history.push('/signin');
     } else {
@@ -895,7 +897,7 @@ const Signupform = () => {
             value={loginCode}
             className="login-code-input"
             autoComplete="off"
-          // disabled={disableInput}
+            disabled={loginCodeMatch === true}
           />
           {loginCodeError && (
             <span style={{ color: 'red', fontSize: '14px' }}>
