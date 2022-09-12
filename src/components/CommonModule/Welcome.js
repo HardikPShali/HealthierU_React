@@ -529,7 +529,6 @@ const Welcome = ({ currentuserInfo }) => {
                 if (doctorPayload.salutation === 'non-doc') {
                     doctorPayload.salutation = '';
                 }
-                console.log({ doctorPayload });
                 bodyFormDataDoctor.append(
                     'profileData',
                     new Blob([JSON.stringify(doctorPayload)], {

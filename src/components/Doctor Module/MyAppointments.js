@@ -341,7 +341,6 @@ const MyAppointments = (props) => {
         setLoading(false);
       }
     });
-    console.log({ responseTwo })
     if (responseTwo.status === 200 || responseTwo.status === 201) {
       if (responseTwo && responseTwo.data) {
         setLoading(false);
@@ -400,7 +399,6 @@ const MyAppointments = (props) => {
   const handleSearchInputChange = async (searchValue) => {
     //console.log("searchValue :::::::", searchValue);
     if (searchValue === "") {
-      console.log("blank searchValue is | in SearchBarComponent", searchValue);
       // loadPatient(currentDoctor.id);
       getGlobalAppointments(searchValue);
 
@@ -814,7 +812,6 @@ const MyAppointments = (props) => {
                         <Row style={{ alignItems: "center", marginTop: "5px" }}>
                           <Col xs={4} style={{ textAlign: "center" }}>
                             <div id="req-name">
-                              {console.log(SelectedPatient)}
                               <b>
                                 {SelectedPatient &&
                                   SelectedPatient.patient &&

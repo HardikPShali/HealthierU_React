@@ -263,7 +263,6 @@ const DoctorList = () => {
                     e.keyCode === 13 ? handleSearchData() : ''
                   }
                 />
-                {console.log('searchText', searchText)}
                 {/* {searchText !== '' && (
                   <IconButton
                     onClick={() => handleSearchData()}

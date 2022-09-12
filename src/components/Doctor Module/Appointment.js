@@ -71,7 +71,6 @@ const Myappointment = (props) => {
   const [open, setOpen] = useState(false);
   const timeZone = momentTz.tz.guess();
   const { timeZone: currentTimezone, currentDoctor } = props;
-  console.log(currentTimezone);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -181,7 +180,6 @@ const Myappointment = (props) => {
     );
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        console.log("response.data", response.data);
         setAppointment(response.data.data)
       }
     }
@@ -764,7 +762,6 @@ const Myappointment = (props) => {
     );
     if (response.status === 200 || response.status === 201) {
       if (response && response.data) {
-        console.log("response.data", response.data);
         setAppointment(response.data.data)
       }
     }
@@ -1782,7 +1779,6 @@ const Myappointment = (props) => {
               Patient Info
             </DialogTitle>
             <DialogContent dividers>
-              {console.log("selectedAppointment", selectedAppointment)}
               {selectedAppointment && selectedAppointment.patient && (
                 <div className="details-container">
                   <div className="details-wrapper">

@@ -39,8 +39,6 @@ const Signup = () => {
     history.push("/signupform");
   };
   const responseGoogle = async (response) => {
-    console.log(response.tokenId);
-    console.log(response.profileObj);
     cookies.set("GOOGLE_ACCESS_TOKEN", response.tokenId, { path: '/' });
     cookies.set("GOOGLE_PROFILE_DATA", response.profileObj, { path: '/' });
     const googleUserData = {
@@ -48,7 +46,6 @@ const Signup = () => {
     };
     const googleAccessToken = await handleGoogleAuth(googleUserData, history);
     if (googleAccessToken) {
-      console.log("googleAccessToken  :: ", googleAccessToken);
       LocalStorageService.setToken(googleAccessToken);
 
       const currentUserInformation = await getCurrentUserInfo();
