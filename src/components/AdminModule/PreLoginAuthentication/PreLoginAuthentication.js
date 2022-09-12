@@ -18,8 +18,8 @@ const PreLoginAuthentication = () => {
     const getPreLoginAuthenticationCode = async () => {
         setIsLoading(true);
         const response = await getPreLoginAccessCode().catch((err) => {
-            console.log(err);
             setIsLoading(false);
+            toast.error("Something went wrong.Please try again!")
         });
         if (response.data.status === true) {
             setIsLoading(false);
@@ -27,7 +27,6 @@ const PreLoginAuthentication = () => {
             setIsPreLoginAuthicationEnabled(response.data.data.isPreLoginAuthenticationEnabled);
             setPreLoginAuthicationCode(response.data.data.preLoginCode)
         }
-        setIsLoading(false);
     };
 
     //Toggle
@@ -38,7 +37,10 @@ const PreLoginAuthentication = () => {
             preLoginCode: preLoginAuthicationCode,
             isPreLoginAuthenticationEnabled: e.target.checked,
         };
-        const res = await editPreLoginAccessCode(data);
+        const res = await editPreLoginAccessCode(data).catch((err) => {
+            setIsLoading(false);
+            toast.error("Something went wrong.Please try again!")
+        });
         if (res) {
             setPreLoginAuthicationCodeID(res.data.data.id)
             setIsPreLoginAuthicationEnabled(res.data.data.isPreLoginAuthenticationEnabled);
@@ -53,20 +55,24 @@ const PreLoginAuthentication = () => {
             preLoginCode: preLoginAuthicationCode,
             isPreLoginAuthenticationEnabled: isToggle,
         };
-        const res = await editPreLoginAccessCode(data);
+        const res = await editPreLoginAccessCode(data).catch((err) => {
+            setIsLoading(false);
+            toast.error("Something went wrong.Please try again!")
+        });
         if (res) {
             setIsLoading(false);
             setPreLoginAuthicationCodeID(res.data.data.id)
             setIsPreLoginAuthicationEnabled(res.data.data.isPreLoginAuthenticationEnabled);
             setPreLoginAuthicationCode(res.data.data.preLoginCode)
         }
-        if (!preLoginAuthicationCode) {
+        if (!preLoginAuthicationCodeID) {
             const data = {
                 preLoginCode: preLoginAuthicationCode,
                 isPreLoginAuthenticationEnabled: isToggle
             }
             const response = await addPreLoginAccessCode(data).catch((err) => {
-                console.log(err);
+                setIsLoading(false);
+                toast.error("Something went wrong.Please try again!")
             });
             if (response) {
                 setIsLoading(false);

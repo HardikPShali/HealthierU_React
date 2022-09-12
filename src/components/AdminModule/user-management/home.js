@@ -520,7 +520,7 @@ const Home = () => {
                         ) &&
                           user.approved &&
                           user.profileCompleted &&
-                          user.isA && (
+                          user.activated && (
                             <button
                               className="btn btn-danger ml-0 mr-2 py-2 px-3"
                               data-title="Deactivate"
@@ -546,7 +546,6 @@ const Home = () => {
                         {user.authorities.some(
                           (userRole) => userRole === "ROLE_PATIENT"
                         ) &&
-
                           user.profileCompleted &&
                           !user.activated &&
                           (
@@ -561,7 +560,6 @@ const Home = () => {
                         {user.authorities.some(
                           (userRole) => userRole === "ROLE_PATIENT"
                         ) &&
-
                           user.profileCompleted &&
                           user.activated &&
                           (

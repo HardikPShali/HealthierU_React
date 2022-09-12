@@ -130,13 +130,20 @@ const Signin = () => {
         }
       }
     );
-
     if (googleAccessToken) {
-
       //console.log("googleAccessToken  :: ", googleAccessToken);
       LocalStorageService.setToken(googleAccessToken);
       getCurrentUserData();
       // triggerFcmTokenHandler();
+    }
+    else {
+      history.push('/signin')
+      toast.error('Your account has been deactivated. Please contact the administrator.', {
+        autoClose: 500,
+        hideProgressBar: true,
+        position: toast.POSITION.TOP_LEFT,
+        toastId: "accountDeactivatedone",
+      });
     }
   };
 
