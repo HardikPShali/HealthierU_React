@@ -139,8 +139,9 @@ const Signin = () => {
     else {
       history.push('/signin')
       toast.error('Your account has been deactivated. Please contact the administrator.', {
-        autoClose: 5000,
+        autoClose: 500,
         hideProgressBar: true,
+        position: toast.POSITION.TOP_LEFT,
         toastId: "accountDeactivatedone",
       });
     }
