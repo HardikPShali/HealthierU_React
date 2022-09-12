@@ -30,7 +30,6 @@ const PaypalCheckoutButton = (props) => {
                 //     size: 'responsive',
                 // }}
                 onClick={(data, actions) => {
-                    console.log('data', data);
                     return actions.resolve();
                 }}
                 createOrder={(data, actions) => {
@@ -118,7 +117,6 @@ const PaypalCheckoutButton = (props) => {
                     bookappointment(orderData);
                 }}
                 onCancel={(data) => {
-                    console.log(data);
                 }}
                 onError={(err) => {
                     console.log(err);

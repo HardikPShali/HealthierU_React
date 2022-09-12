@@ -60,7 +60,6 @@ const NextAppointmentNotifications = ({ notification, index, createdAtDisplaySty
             paymentsAppointmentsDTO: orderData,
             notificationId: notificationIdForPayment
         };
-        console.log({ setNextAppointmentDataArray });
 
         const setNextApptApi = {
             method: 'post',

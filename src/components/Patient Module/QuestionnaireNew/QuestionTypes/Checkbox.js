@@ -6,7 +6,6 @@ export const Checkbox = ({ question, followQuestion, isError }) => {
 
     const handleCheckboxChange = (e) => {
 
-        console.log('Event', e);
 
         // setAnswer(!answer);
         const index = answers.indexOf(e);

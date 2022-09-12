@@ -1,0 +1,107 @@
+/* TOGGLE BUTTON CSS */
+/* The switch - the box around the slider */
+.PreLoginAuthentication-toggle-switch {
+    position: relative;
+    display : inline-block;
+    width   : 60px;
+    height  : 34px;
+    margin  : 0;
+}
+
+/* Hide default HTML checkbox */
+.PreLoginAuthentication-toggle-switch input {
+    opacity: 0;
+    width  : 0;
+    height : 0;
+}
+
+/* The slider */
+.PreLoginAuthentication-toggle-slider {
+    position        : absolute;
+    cursor          : pointer;
+    top             : 0;
+    left            : 0;
+    right           : 0;
+    bottom          : 0;
+    background-color: #b1b6b5;
+    transition      : 0.4s;
+}
+
+.PreLoginAuthentication-toggle-slider:before {
+    position        : absolute;
+    content         : '';
+    height          : 23px;
+    width           : 24px;
+    left            : 0px;
+    bottom          : 1px;
+    background-color: white;
+    transition      : 0.4s;
+}
+
+input:checked+.PreLoginAuthentication-toggle-slider {
+    background-color: var(--primary);
+}
+
+input:focus+.PreLoginAuthentication-toggle-slider {
+    box-shadow: 0 0 1px var(--primary);
+}
+
+input:checked+.PreLoginAuthentication-toggle-slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform    : translateX(26px);
+    transform        : translateX(26px);
+}
+
+/* Rounded sliders */
+.PreLoginAuthentication-toggle-slider.round {
+    border-radius: 34px;
+    height       : 25px;
+    width        : 51px;
+}
+
+.PreLoginAuthentication-toggle-slider.round:before {
+    border-radius: 50%;
+}
+
+.PreLoginAuthentication-custom-margin {
+    margin: 20px 10px 15px 10px;
+}
+
+.PreLoginAuthentication-container {
+    margin: 25px auto;
+}
+
+.PreLoginAuthentication-common-p-tags {
+    margin-bottom: 5px;
+    font-size    : 16px;
+}
+
+.PreLoginAuthentication-mgmt__button-wrapper {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+}
+
+.PreLoginAuthentication-save-dets-btn {
+    background-color: var(--primary) !important;
+    width           : 25% !important;
+    border-radius   : 30px;
+    border-color    : var(--primary) !important;
+    outline         : none !important;
+    font-size       : 1rem !important;
+    margin          : 15px 175px;
+}
+
+@media (min-width: 300px) and (max-width: 500px) {
+    .PreLoginAuthentication-save-dets-btn {
+        width : 45% !important;
+        margin: 15px 80px;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 800px) {
+    .PreLoginAuthentication-save-dets-btn {
+        width : 50% !important;
+        margin: 15px 45px;
+    }
+}

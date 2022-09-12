@@ -23,7 +23,6 @@ const PaymentDetails = () => {
         const response = await getAllPaymentDetailsForAdmin(page, size).catch(err => {
             console.log(err);
         })
-        console.log({ response });
         if (response.status === 200) {
             if (response.data.status === true) {
                 const paymentDetailsFromresponse = response.data.data.content.map(paymentDetail => {
