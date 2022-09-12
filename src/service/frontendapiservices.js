@@ -1679,8 +1679,8 @@ export const getPreLoginAccessCode = async () => {
     mode: 'no-cors',
     url: `/api/v2/pre-login`,
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
     }
   };
   const response = await axios(payload).then(res => {
@@ -1690,3 +1690,41 @@ export const getPreLoginAccessCode = async () => {
   });
   return response;
 }
+export const addPreLoginAccessCode = async (data) => {
+  var payload = {
+    method: "post",
+    data: data,
+    mode: "no-cors",
+    url: `/api/v2/pre-login`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
+export const editPreLoginAccessCode = async (data) => {
+  var payload = {
+    method: "put",
+    data: data,
+    mode: "no-cors",
+    url: `/api/v2/pre-login`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
