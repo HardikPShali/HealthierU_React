@@ -436,6 +436,42 @@ export const changeDoctorStatusOnDoctorTable = async (data) => {
     return response;
 }
 
+export const changePatientStatusOnUserTable = async (data) => {
+    var payload = {
+        method: 'post',
+        url: `/api/account/activate-deactivate`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
+export const changePatientStatusOnPatientTable = async (data) => {
+    var payload = {
+        method: 'post',
+        url: `/api/mobile/patients/activate-deactivate`,
+        data: data,
+        headers: {
+            'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await axios(payload).then(res => {
+        if (res) {
+            return res;
+        }
+    });
+    return response;
+}
+
 export const getServiceProviders = async () => {
     var payload = {
         method: 'get',

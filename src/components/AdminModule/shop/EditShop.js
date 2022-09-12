@@ -68,7 +68,6 @@ const EditShop = (props) => {
         })
         setsubCatShop(data);
         setisLoading(false);
-        console.log(data)
     }
 
     const handleSubmit = async (event) => {

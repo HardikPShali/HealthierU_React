@@ -23,7 +23,6 @@ export const handleAgoraAccessToken = async (pId, dId, openVideo) => {
                 cookies.set('channel', response.data.data.channelName, { path: '/' });
                 openVideo(response.data.data)
             }
-            console.log('Agora response', response);
         }
     }
     axios(payload).then(res => {

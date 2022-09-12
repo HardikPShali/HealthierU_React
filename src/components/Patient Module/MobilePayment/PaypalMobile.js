@@ -14,7 +14,6 @@ import PromoCodeForPatient from '../PromoCodeForPatient/PromoCodeForPatient';
 // }
 
 window.setPToken = (token) => {
-    console.log('setBearerToken', token);
     window.ptoken = token;
 };
 
@@ -57,7 +56,6 @@ const PaypalMobile = () => {
 
 
     const handlePromoCodeStates = (promoCodeData) => {
-        console.log({ promoCodeData })
         if (!promoCodeData || promoCodeData === false) {
             setPromoCodeApplied(promoCodeData.promoCodeAdded);
             handlePromoCodeLoading(true);
@@ -71,8 +69,6 @@ const PaypalMobile = () => {
     };
 
     const paymentApiCallhandler = async (paymentData, paymentUrl) => {
-        console.log('paymentData', paymentData);
-        console.log('paymentUrl', paymentUrl);
 
         const newPaymentApi = {
             method: 'post',
@@ -90,41 +86,33 @@ const PaypalMobile = () => {
         //on success, send true in postmessage & sendorderData
         const successEventOnPayment = (data) => {
             if (os === 'ios') {
-                console.log({ data: JSON.stringify(data) });
                 window.webkit.messageHandlers.sendOrderData.postMessage(data);
             } else {
-                console.log({ data: JSON.stringify(data) });
                 window.android.sendOrderData(data);
             }
         };
 
         const apiResponseMessages = (response) => {
             if (os === 'ios') {
-                console.log({ responseMessage: JSON.stringify(response) });
                 window.webkit.messageHandlers.sendResponseMessages.postMessage(
                     response
                 );
             } else {
-                console.log({ responseMessage: JSON.stringify(response) });
                 window.android.sendResponseMessages(response);
             }
         };
 
         try {
             const response = await axios(newPaymentApi);
-            console.log({ response: JSON.stringify(response) });
             if (response.status === 200 || response.status === 201) {
-                console.log('PAYMENT SUCCESS', JSON.stringify(response));
                 successEventOnPayment(true);
                 setLoading(false);
                 apiResponseMessages(response.data.message);
             } else {
-                console.log('PAYMENT API FAILED', JSON.stringify(response));
                 apiResponseMessages(response.data.message);
                 setLoading(false);
             }
         } catch (error) {
-            console.log('PAYMENT API FAILED', JSON.stringify(error));
             const errorMessage = error.response.data.message;
             successEventOnPayment(false);
             setLoading(false);
@@ -186,7 +174,6 @@ const PaypalMobile = () => {
                 couponId: couponIdState,
             };
         }
-        console.log({ finalAppointmentDataArray });
 
         const freePaymentPayload = {
             ...finalAppointmentDataArray,
@@ -201,7 +188,6 @@ const PaypalMobile = () => {
         };
 
         const paymentUrl = paymentUrlToBeUsed();
-        console.log({ paymentUrl });
 
         paymentApiCallhandler(freePaymentPayload, paymentUrl);
     };
@@ -242,7 +228,6 @@ const PaypalMobile = () => {
         };
 
         const paymentUrl = paymentUrlToBeUsed();
-        console.log({ paymentUrl });
         paymentApiCallhandler(newPaymentData, paymentUrl);
     };
 

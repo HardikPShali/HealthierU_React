@@ -115,7 +115,6 @@ const PatientDocument = (props) => {
         if (e.target.type === "file") {
             const file = e.target.files[0]
             const fileSize = e.target.files[0].size;
-            console.log("fileSize ::", fileSize);
             const maxSize = 10000000;
             if (e.target.files[0].size > maxSize) {
                 document.getElementById("labResultDocument").value = "";
@@ -137,7 +136,6 @@ const PatientDocument = (props) => {
         if (e.target.type === "file") {
             const file = e.target.files[0]
             const fileSize = e.target.files[0].size;
-            console.log("fileSize ::", fileSize);
             const maxSize = 10000000;
             if (e.target.files[0].size > maxSize) {
                 document.getElementById("prescriptionDocument").value = "";
@@ -635,7 +633,6 @@ const PatientDocument = (props) => {
     };
     const handleSearchInputChangePrescription = (searchValue) => {
         if (searchValue === "") {
-            console.log("blank searchValue is | in SearchBarComponent", searchValue);
             getGlobalPrescriptions(searchValue);
         } else {
             getGlobalPrescriptions(searchValue);

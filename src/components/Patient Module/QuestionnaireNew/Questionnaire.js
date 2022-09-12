@@ -27,7 +27,6 @@ const Questionnaire = ({ match }) => {
 
   const currentPatient = cookies.get("profileDetails");
   const patientID = currentPatient.id;
-  console.log(patientID);
 
   const history = useHistory();
 
@@ -98,7 +97,6 @@ const Questionnaire = ({ match }) => {
         0
       ),
     };
-    console.log("submitData.totalScore", submitData.totalScore);
     const response = await postHealthAssessment(
       isNew === "new" ? "post" : "put",
       submitData,
@@ -106,7 +104,6 @@ const Questionnaire = ({ match }) => {
     ).catch((err) => {
       console.log(err);
     });
-    console.log(response);
     settotalScore(submitData.totalScore);
   };
 
@@ -118,7 +115,6 @@ const Questionnaire = ({ match }) => {
     }
     else if (score > 0 && score <= 3) {
       setHealthAssess("not Healthy");
-      console.log("not healthy", healthAssess);
 
       return healthAssess;
 
@@ -126,7 +122,6 @@ const Questionnaire = ({ match }) => {
       // return 'not Healthy';
     } else if (score > 3 && score <= 7) {
       setHealthAssess("moderately Healthy");
-      console.log("mod healthy", healthAssess);
 
       return healthAssess;
 
@@ -135,7 +130,6 @@ const Questionnaire = ({ match }) => {
       // return 'moderately Healthy';
     } else {
       setHealthAssess("Healthy");
-      console.log(" healthy", healthAssess);
 
       return healthAssess;
 
@@ -168,7 +162,6 @@ const Questionnaire = ({ match }) => {
       return;
     }
 
-    console.log(questions);
     if (questions.length > 0) {
       handleAssessmentSubmit();
       setContinueClick(true);
@@ -191,7 +184,6 @@ const Questionnaire = ({ match }) => {
   };
 
   const handleFollowQuestionsCondition = () => {
-    console.log("Something");
     questions.forEach((question) => {
       if (question.condition) {
         const previousQuestion = questions.find(
@@ -199,7 +191,6 @@ const Questionnaire = ({ match }) => {
         );
         if (previousQuestion.answers) {
           if (previousQuestion.answers === question.condition.answer) {
-            console.log("HIDDEN");
             question.hidden = true;
           } else {
             question.hidden = false;
@@ -216,7 +207,6 @@ const Questionnaire = ({ match }) => {
   }, []);
 
   useEffect(() => {
-    console.log("Something");
     questions.forEach((question) => {
       question.isError = false
     })

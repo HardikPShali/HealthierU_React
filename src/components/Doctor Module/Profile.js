@@ -208,20 +208,13 @@ const Profile = ({ currentDoctor }) => {
             setUploadOpen(false);
         }
     };
-
-    // const currentLoggedInUser = cookies.get("profileDetails");
-    // console.log('currentLoggedInUser', currentLoggedInUser);
-
     // HANDLERS FOR EDIT PAGE
     const handleInputChange = (e) => {
-        // e.preventDefault();
-        console.log(e.target.value);
         setCurrentDoctorData({
             ...currentDoctorData,
             [e.target.name]: e.target.value,
         });
     };
-
     const handleLanguages = (selectedItem) => {
         selectedItem.forEach((e) => {
             const index = languages.findIndex((x) => x.name == e.name);
@@ -229,7 +222,6 @@ const Profile = ({ currentDoctor }) => {
                 languages.push(e);
             }
         });
-
         setCurrentDoctorData({ ...currentDoctorData, languages: languages });
     };
     const removeLanguages = (removedItem) => {
@@ -285,7 +277,6 @@ const Profile = ({ currentDoctor }) => {
     };
 
     const removeSpecialities = (removedItem) => {
-        console.log({ removedItem });
         // var array = specialities;
         // var index = array.findIndex(removedItem); // Let's say it's Bob.
         // array.splice(index, 1);
@@ -306,7 +297,6 @@ const Profile = ({ currentDoctor }) => {
             setLoading(false);
             toast.error('Something went wrong.Please try again!');
         });
-        console.log("documentInfo",documentInfo);
         if (
             documentInfo.document &&
             documentInfo.licenseNumber &&
@@ -360,7 +350,6 @@ const Profile = ({ currentDoctor }) => {
             ...currentDoctorData,
             educationalQualifications: list,
         });
-        console.log('state', currentDoctorData);
     };
     // handle click event of the Remove button
     const handleRemoveClick = (index) => {

@@ -66,10 +66,8 @@ const Signupform = () => {
   let googleProfileData = {}
 
   if (googleAccessToken) {
-    console.log("googleAccessToken", googleAccessToken);
     googleProfileData = jwtDecode(googleAccessToken);
     //console.log("googleAccessToken :::::", googleAccessToken);
-    console.log("googleProfileData ::::::", googleProfileData);
   }
 
   // let history = useHistory();
@@ -287,11 +285,8 @@ const Signupform = () => {
       const response = await signupWithEmail(user).catch((error) => {
         setTransparentLoading(false);
         setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
-        console.log("Error", error);
-        console.log("Error.response", error.response);
 
         if (error.response && error.response.status === 500 && error.response.data.message === "Login name already used!") {
-          console.log("Error Message", error.response.data.message);
           setErrorMsg({
             ...errorMsg,
             userNameExistance: 'User name already used. Please try with different user name.',
@@ -308,7 +303,6 @@ const Signupform = () => {
         }
       });
 
-      console.log("Response", response);
 
       if (response && response.status === 200) {
         setTransparentLoading(false);
@@ -368,7 +362,6 @@ const Signupform = () => {
     cookies.remove("authorities", { path: '/' });
     cookies.remove("userProfileCompleted", { path: '/' });
     cookies.remove("profileDetails", { path: '/' });
-    console.log('Cleared all cookies');
   }
 
   //CODSE FOR OTP PART

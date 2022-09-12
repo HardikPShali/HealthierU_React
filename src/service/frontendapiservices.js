@@ -776,7 +776,6 @@ export const uploadDoctorDocument = async (files, info) => {
       type: "application/json",
     })
   );
-  console.log("doctorDocumentInfo", info);
   var payload = {
     method: "post",
     mode: "no-cors",
@@ -1671,4 +1670,16 @@ export const getAllPaymentDetailsForAdmin = async (page, size) => {
     },
   }
   return axios(payload);
+}
+//Pre-Login-Authentication
+export const getPreLoginAccessCode = async () => {
+
+  return {
+    "status": true,
+    "message": "Pre-login Authentication",
+    "data": {
+      "isPreLoginAuthicationEnabled": true,
+      "preLoginCode": "SAMPLECODE"
+    }
+  }
 }
