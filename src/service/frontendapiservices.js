@@ -1673,13 +1673,57 @@ export const getAllPaymentDetailsForAdmin = async (page, size) => {
 }
 //Pre-Login-Authentication
 export const getPreLoginAccessCode = async () => {
-
-  return {
-    "status": true,
-    "message": "Pre-login Authentication",
-    "data": {
-      "isPreLoginAuthicationEnabled": true,
-      "preLoginCode": "SAMPLECODE"
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/pre-login`,
+    headers: {
+      'Authorization': 'Bearer ' + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json'
     }
-  }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
 }
+export const addPreLoginAccessCode = async (data) => {
+  var payload = {
+    method: "post",
+    data: data,
+    mode: "no-cors",
+    url: `/api/v2/pre-login`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
+export const editPreLoginAccessCode = async (data) => {
+  var payload = {
+    method: "put",
+    data: data,
+    mode: "no-cors",
+    url: `/api/v2/pre-login`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
