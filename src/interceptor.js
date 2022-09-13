@@ -49,10 +49,14 @@ const errorHandler = (error) => {
     cookies.remove("userProfileCompleted", { path: '/' });
     cookies.remove("profileDetails", { path: '/' });
     deleteTokenHandler().then(() => {
-      window.location.href = "/";
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
     }).catch(err => {
       localStorage.clear();
-      window.location.href = "/";
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
     });
     toast.error('Your account has been deactivated. Please contact the administrator.', {
       autoClose: 5000,
