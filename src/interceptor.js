@@ -6,7 +6,8 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import Logout from './../src/components/Logout';
 import './App.css';
 import Cookies from 'universal-cookie';
-
+import { deleteTokenHandler } from "../src/util";
+import { toast } from 'react-toastify';
 axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
 
 const errorHandler = (error) => {
@@ -33,6 +34,31 @@ const errorHandler = (error) => {
     if (index) {
       checkAccessToken();
     }
+  }
+  if (error.response && (error.response.status === 403)) {
+    const allCookies = cookies.getAll()
+    for (let key in allCookies) {
+      cookies.remove(key)
+    }
+    cookies.remove("refresh_token", { path: '/' });
+    cookies.remove("currentUser", { path: '/' });
+    cookies.remove("access_token", { path: '/' });
+    cookies.remove("GOOGLE_ACCESS_TOKEN", { path: '/' });
+    cookies.remove("GOOGLE_PROFILE_DATA", { path: '/' });
+    cookies.remove("authorities", { path: '/' });
+    cookies.remove("userProfileCompleted", { path: '/' });
+    cookies.remove("profileDetails", { path: '/' });
+    deleteTokenHandler().then(() => {
+      window.location.href = "/";
+    }).catch(err => {
+      localStorage.clear();
+      window.location.href = "/";
+    });
+    toast.error('Your account has been deactivated. Please contact the administrator.', {
+      autoClose: 5000,
+      hideProgressBar: true,
+      toastId: "accountDeactivated",
+    });
   }
   //console.log("status ::: in error", error.response.status);
   if (error.response && (error.response.status === 504 || error.response.status === 500)) {
