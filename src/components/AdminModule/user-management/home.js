@@ -253,7 +253,7 @@ const Home = () => {
       );
       if (doctorTableResponse?.status === 200) {
         setStatusMsg(
-          `${selectedUser.firstName}  ${selectedUser.lastName} with email : ${selectedUser.email} is activated.`
+          `${selectedUser.firstName} with email : ${selectedUser.email} is activated.`
         );
         setTransparentLoading(false);
         setActiveDialog(true);
@@ -278,7 +278,7 @@ const Home = () => {
       );
       if (doctorTableResponse?.status === 200) {
         setStatusMsg(
-          `${selectedUser.firstName} ${selectedUser.lastName} with email : ${selectedUser.email} is deactivated.`
+          `${selectedUser.firstName} with email : ${selectedUser.email} is deactivated.`
         );
         setTransparentLoading(false);
         setActiveDialog(true);
