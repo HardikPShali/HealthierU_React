@@ -187,11 +187,17 @@ const NextAppointmentNotifications = ({ notification, index, createdAtDisplaySty
                 </div>
                 <div className="notif-section__message">
                     <div className="message-notif">
-                        <span>
+                        {/* <span>
                             Your next appointment is confirmed for{' '}
                             {moment(notification.data.appointmentDetails.startTime).format(
                                 'DD-MM-YYYY HH:mm'
                             )} by {notification.data.appointmentDetails?.doctor.firstName}. Click here to pay now.
+                        </span> */}
+                        <span>
+                            {notification.data.message}{' '}
+                            {moment(notification.data.appointmentDetails.startTime).format(
+                                'DD-MM-YYYY HH:mm'
+                            )}{' '}. Click here to pay now.
                         </span>
                         <div style={createdAtDisplayStyle}>
                             <span
