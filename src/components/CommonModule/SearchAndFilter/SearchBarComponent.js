@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import SearchBar from "material-ui-search-bar";
 
-const SearchBarComponent = ({ updatedSearch }) => {
+const SearchBarComponent = ({ updatedSearch, className }) => {
 
     const [searchText, setSearchText] = useState('');
 
@@ -20,7 +20,7 @@ const SearchBarComponent = ({ updatedSearch }) => {
                 autoComplete='off'
                 onChange={(value) => handleSearchInputChange(value)}
                 onCancelSearch={() => handleSearchInputChange("")}
-
+                className={className}
             />
         </div>
     )

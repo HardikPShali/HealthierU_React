@@ -5,7 +5,7 @@ import { LISTING_DATA, USER_DATA } from './demodata'
 import './PromoCode.styles.css'
 import PromocodeListing from './PromocodeListing'
 import PromocodeUsers from './PromocodeUsers'
-import { getPromocodeListing, manageCouponDetails,toggleCoupon } from '../../../service/frontendapiservices'
+import { getPromocodeListing, manageCouponDetails, toggleCoupon } from '../../../service/frontendapiservices'
 import { toast } from 'react-toastify'
 import moment from 'moment';
 import SearchBarComponent from '../../CommonModule/SearchAndFilter/SearchBarComponent';
@@ -19,7 +19,7 @@ const PromoCode = () => {
     const [manageCouponDetailsDataPagination, setManageCouponDetailsDataPagination] = useState([])
     useEffect(() => {
         promoCodeListingDataFunction()
-       // manageCouponDetailsFunction()
+        // manageCouponDetailsFunction()
     }, [])
     const promoCodeListingDataFunction = async (size, page, searchKeyword) => {
         setIsLoading(true)
@@ -55,7 +55,7 @@ const PromoCode = () => {
         setIsLoading(true)
         setSearch('')
         setCurrentPageNumber(1)
-        let size,page,searchKeyword
+        let size, page, searchKeyword
         const res = await manageCouponDetails(size = '10', page = '0', searchKeyword = '').catch(err => {
             toast.error("Something went wrong.Please try again!")
             setIsLoading(false)
@@ -209,16 +209,16 @@ const PromoCode = () => {
     //Toggle
     const handleToggle = async (e, data) => {
         const info = {
-          patientId: data.patientId,
-          //couponId: '2',
-          toggle: e.target.checked
+            patientId: data.patientId,
+            //couponId: '2',
+            toggle: e.target.checked
         }
         data.couponToggle = e.target.checked
         setManageCouponDetailsData([...manageCouponDetailsData])
         const res = await toggleCoupon(info).catch(err => {
-          toast.error("Something went wrong.Please try again!")
+            toast.error("Something went wrong.Please try again!")
         })
-      }
+    }
     return (
         <div>
             {isLoading && (
@@ -231,7 +231,10 @@ const PromoCode = () => {
                 <div className='row'>
                     <div className="col-md-12 col-sm-12 margin-large"><h1>Promocode Management</h1></div>
                     <div className="row md-1" style={{ paddingLeft: '70%' }}>
-                        <SearchBarComponent updatedSearch={handleSearchInputChange} />
+                        <SearchBarComponent
+                            className="shadow p-1 mb-3 bg-white rounded"
+                            updatedSearch={handleSearchInputChange}
+                        />
                     </div>
                     <div className='col-md-12 col-sm-12'>
                         <br />
@@ -242,7 +245,7 @@ const PromoCode = () => {
                             onSelect={clickTabEvent}
                         >
                             <Tab eventKey="listing" title="Promocode Listing">
-                                <PromocodeListing data={promoCodeListingData} pagination={promoCodeListingDataPagination}  />
+                                <PromocodeListing data={promoCodeListingData} pagination={promoCodeListingDataPagination} />
                             </Tab>
 
                             <Tab eventKey="users" title="Manage Users">

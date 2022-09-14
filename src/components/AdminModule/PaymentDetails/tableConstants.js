@@ -17,7 +17,7 @@ export const PAYMENT_DETAILS_TABLE_HEADERS = [
     },
     {
         label: "Appointment Start Time",
-        key: "startTime",
+        key: "appointmentStartTime",
     },
     {
         label: "Payment Fees",
