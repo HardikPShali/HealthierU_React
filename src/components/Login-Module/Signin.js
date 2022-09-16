@@ -136,15 +136,7 @@ const Signin = () => {
       getCurrentUserData();
       // triggerFcmTokenHandler();
     }
-    else {
-      history.push('/signin')
-      toast.error('Your account has been deactivated. Please contact the administrator.', {
-        autoClose: 500,
-        hideProgressBar: true,
-        position: toast.POSITION.TOP_LEFT,
-        toastId: "accountDeactivatedone",
-      });
-    }
+    setLoader(false);
   };
 
   const handleActivateUser = async () => {
