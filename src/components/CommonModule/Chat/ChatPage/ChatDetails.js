@@ -271,12 +271,12 @@ const ChatDetails = ({
               disabled={!enableChat}
             />
           </div>
-          {enableVideo && (
+          {enableVideo && roles.some((role) => role === ROLES.ROLE_DOCTOR) && (
             <IconButton onClick={handleVideo}>
               <VideocamIcon id="active-video-icon" />
             </IconButton>
           )}
-          {!enableVideo && (
+          {!enableVideo && roles.some((role) => role === ROLES.ROLE_DOCTOR) && (
             <IconButton id="inactive-video-button">
               <VideocamOffIcon id="inactive-video-icon" />
             </IconButton>
