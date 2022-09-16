@@ -165,7 +165,7 @@ const GlobalSearch = () => {
                                                         <img src={user.picture} alt="" />
                                                     ) : (
                                                         <Avatar
-                                                            name={user.firstName + ' ' + user.lastName}
+                                                            name={user.firstName}
                                                         />
                                                     )}
                                                     <Link
@@ -176,7 +176,7 @@ const GlobalSearch = () => {
                                                         <GridListTileBar
                                                             title={
                                                                 <span>
-                                                                    Dr. {user.firstName} {user.lastName}
+                                                                    Dr. {user.firstName}
                                                                 </span>
                                                             }
                                                             subtitle={
@@ -211,7 +211,7 @@ const GlobalSearch = () => {
                                                         <img src={user.picture} alt="" />
                                                     ) : (
                                                         <Avatar
-                                                            name={user.firstName + ' ' + user.lastName}
+                                                            name={user.firstName}
                                                         />
                                                     )}
                                                     <Link
@@ -222,7 +222,7 @@ const GlobalSearch = () => {
                                                         <GridListTileBar
                                                             title={
                                                                 <span>
-                                                                    {user.firstName} {user.lastName}
+                                                                    {user.firstName}
                                                                 </span>
                                                             }
                                                             subtitle={

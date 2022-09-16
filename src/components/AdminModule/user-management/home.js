@@ -185,9 +185,17 @@ const Home = () => {
   // };
   const approveDoctor = async (userData) => {
     // setTransparentLoading(true);
+    console.log(userData);
     userData.approved = true;
+    const doctorData = {
+      userId: userData.id,
+      activated: true,
+    };
     const response = await approveDoctorByAdmin(userData);
-    if (response.status === 200 || response.status === 201) {
+    const doctorTableResponse = await changeDoctorStatusOnDoctorTable(
+      doctorData
+    );
+    if (response.status === 200 || response.status === 201 || doctorTableResponse === 200) {
       okClickOnActivateDoctor()
       history.go(0);
 
@@ -405,7 +413,7 @@ const Home = () => {
                         ? index + 1
                         : index + 1 + currentPageNumber * 20}
                     </th>
-                    <td>{user.firstName + ' ' + (user.lastName || "")}</td>
+                    <td>{user.firstName}</td>
                     {/* <td>{user.lastName}</td> */}
                     <td>{user.email}</td>
                     <td>
