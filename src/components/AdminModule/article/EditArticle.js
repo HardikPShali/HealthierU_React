@@ -27,7 +27,6 @@ const EditArticle = () => {
 
     const handleArticleChange = e => {
         if (e.target.name === "articlePicture") {
-            console.log(e.target.files)
             setImageError("");
             const file = e.target.files[0];
             if (file && file.size > 10000000) {
@@ -65,9 +64,6 @@ const EditArticle = () => {
         //picture,
         published
     } = article;
-
-    console.log("article::", article)
-
     const handleRedirect = (e) => {
         if (e) {
             history.push('/admin/article/home');

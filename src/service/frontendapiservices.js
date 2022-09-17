@@ -776,7 +776,6 @@ export const uploadDoctorDocument = async (files, info) => {
       type: "application/json",
     })
   );
-  console.log("doctorDocumentInfo", info);
   var payload = {
     method: "post",
     mode: "no-cors",
@@ -1659,16 +1658,73 @@ export const saveLatestVersions = async (data) => {
 }
 
 //PAYMENT DETAILS API FOR ADMIN
-export const getAllPaymentDetailsForAdmin = async (page, size) => {
+export const getAllPaymentDetailsForAdmin = async (data) => {
   var payload = {
     method: "post",
     mode: "no-cors",
-    url: `/api/v2/payments/all?page=${page}&size=${size}`,
+    url: `/api/v2/payments/all?page=${data.page}&size=${data.size}&search=${data.search}&startTime=${data.startTime}&endTime=${data.endTime}`,
     headers: {
-      Authorization: 'Bearer ' + LocalStorageService.getAccessToken(),
+      "Authorization": 'Bearer ' + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
   }
   return axios(payload);
 }
+
+// GET PRE-LOGIN ACCESS CODE FOR SIGNUP
+export const getPreLoginAccessCode = async () => {
+  var payload = {
+    method: 'get',
+    mode: 'no-cors',
+    url: `/api/v2/pre-login`,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  };
+  const response = await axios(payload).then(res => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+}
+export const addPreLoginAccessCode = async (data) => {
+  var payload = {
+    method: "post",
+    data: data,
+    mode: "no-cors",
+    url: `/api/v2/pre-login`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};
+export const editPreLoginAccessCode = async (data) => {
+  var payload = {
+    method: "put",
+    data: data,
+    mode: "no-cors",
+    url: `/api/v2/pre-login`,
+    headers: {
+      Authorization: "Bearer " + LocalStorageService.getAccessToken(),
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const response = await axios(payload).then((res) => {
+    if (res) {
+      return res;
+    }
+  });
+  return response;
+};

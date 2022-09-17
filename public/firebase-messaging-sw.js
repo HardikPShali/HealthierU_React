@@ -50,20 +50,17 @@ const messaging = firebase.messaging();
 // });
 
 messaging.onBackgroundMessage((payload) => {
-  console.log({ payload });
-
   const notificationTitle = payload.data.title;
   const notificationOptions = {
-   body: payload.data.title,
-   data: payload.data,
+    body: payload.data.title,
+    data: payload.data,
   }
 
 
-  self.clients.matchAll({includeUncontrolled: true}).then((clients) => {
-    console.log(clients); 
+  self.clients.matchAll({ includeUncontrolled: true }).then((clients) => {
     //you can see your main window client in this list.
     clients.forEach((client) => {
-        client.postMessage(payload);
+      client.postMessage(payload);
     })
   })
   // console.log(payload.data, notificationOptions, "options")

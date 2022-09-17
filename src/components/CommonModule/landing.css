@@ -1482,7 +1482,8 @@ button.btn.btn-outline-primary.sign-btn:hover {
 
 .profile-edit-icon-welcome {
   position: absolute;
-  margin: 200px 0 0 280px;
+  /* margin: 200px 0 0 280px; */
+  margin: 210px 0 0 315px;
 }
 .profile-edit-icon-doctor {
   position: absolute;

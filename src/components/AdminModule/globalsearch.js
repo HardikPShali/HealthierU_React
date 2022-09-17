@@ -93,11 +93,9 @@ const GlobalSearch = () => {
         // console.log({ filterText })
         if (filterText === '' || filterText === 'doctor') {
             const searchResult = await getDoctorBySearch(lowercasedValue);
-            console.log("searchResult  :::: ", searchResult)
             setFilterData(searchResult);
         } else if (filterText === 'patient') {
             const searchResult = await getPatientBySearch(lowercasedValue);
-            console.log("searchResult  :::: ", searchResult)
             setFilterData(searchResult);
         }
     };
@@ -111,7 +109,6 @@ const GlobalSearch = () => {
             loadDoctors();
         }
         setFilterText(e.target.value);
-        console.log(filterData);
     };
 
     const setCookies = (authority) => {
@@ -168,7 +165,7 @@ const GlobalSearch = () => {
                                                         <img src={user.picture} alt="" />
                                                     ) : (
                                                         <Avatar
-                                                            name={user.firstName + ' ' + user.lastName}
+                                                            name={user.firstName}
                                                         />
                                                     )}
                                                     <Link
@@ -179,7 +176,7 @@ const GlobalSearch = () => {
                                                         <GridListTileBar
                                                             title={
                                                                 <span>
-                                                                    Dr. {user.firstName} {user.lastName}
+                                                                    Dr. {user.firstName}
                                                                 </span>
                                                             }
                                                             subtitle={
@@ -206,7 +203,6 @@ const GlobalSearch = () => {
                             )}
                             {filterText === 'patient' && (
                                 <div id="global-list">
-                                    {console.log('FilterData', filterData)}
                                     <GridList cellHeight={220}>
                                         {filterData &&
                                             filterData.map((user, index) => (
@@ -215,7 +211,7 @@ const GlobalSearch = () => {
                                                         <img src={user.picture} alt="" />
                                                     ) : (
                                                         <Avatar
-                                                            name={user.firstName + ' ' + user.lastName}
+                                                            name={user.firstName}
                                                         />
                                                     )}
                                                     <Link
@@ -226,7 +222,7 @@ const GlobalSearch = () => {
                                                         <GridListTileBar
                                                             title={
                                                                 <span>
-                                                                    {user.firstName} {user.lastName}
+                                                                    {user.firstName}
                                                                 </span>
                                                             }
                                                             subtitle={
@@ -245,7 +241,6 @@ const GlobalSearch = () => {
                                                     </Link>
                                                 </GridListTile>
                                             ))}
-                                        {console.log('FilterData', filterData)}
                                         {filterData === '' && (
                                             <center>
                                                 <b>No Result Found</b>

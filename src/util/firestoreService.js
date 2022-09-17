@@ -109,7 +109,6 @@ export const onMessageListener = () => {
 
   if (navigator.serviceWorker) {
     navigator.serviceWorker.addEventListener('message', (event) => {
-      console.log('INSIDE POSTMESSAGE LISTENER');
       toastMessage(event.data);
     });
   }
@@ -140,7 +139,6 @@ let soundCall = new Howl({
 });
 
 const toastMessage = (payload) => {
-  console.log({ payloadInToast: payload });
   // return ({ payloadInToast: payload })
   const topicFromPayload = payload?.data?.topic;
 
@@ -227,7 +225,6 @@ const callRejectToast = (payload) => {
     if (queryParams && queryParams !== "") {
       const queryParamsList = queryParams.split("&");
       channelName = queryParamsList.length ? queryParamsList[0] : "";
-      console.log({ channelName })
     }
 
     if (channelName !== "") {

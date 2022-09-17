@@ -85,7 +85,6 @@ const Header = (props) => {
     const userId = user.userId;
 
     const response = await putMarkAsReadNotification(userId).catch(err => (console.log({ err })));
-    console.log({ response });
 
     if (response.data.status === true) {
       setBadgeCount(0);

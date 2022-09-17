@@ -327,27 +327,20 @@ const RescheduleAppointment = (props) => {
             endTime: slot.endTime,
             id: appointmentSlot[index].id,
         });
-        console.log('appointment', appointmentSlot[index].id);
         setDisable({ ...disable, continue: false });
     };
 
     let params = useParams();
-    console.log({ params });
+
+
+
 
     const oldAppointmentID = params.id;
 
     useEffect(() => {
-        console.log('oldAppointmentID', oldAppointmentID);
-        console.log({
-            unified:
-                params.unifiedAppt +
-                '#' +
-                getAppointmentMode(appointment.appointmentMode),
-        });
     }, [oldAppointmentID]);
 
     const bookappointment = async (orderData) => {
-        console.log({ appMode: appointment.appointmentMode });
         setLoading(true);
         let oldAppID = 0;
         oldAppID = params.id;
@@ -471,7 +464,6 @@ const RescheduleAppointment = (props) => {
     const [rescheduleMode, setRescheduleMode] = useState('');
     const getAvailableSlotsOfDoctors = async (id, type) => {
         const state = params.type;
-        console.log('state', state);
         setRescheduleMode(state);
         if (id) {
             const response = await getAvailableSlotsForMyDoctors(
@@ -480,7 +472,6 @@ const RescheduleAppointment = (props) => {
             ).catch((err) => console.log({ err }));
             // console.log({ response })
             setAvailableSlotsDisplay(response.data);
-            console.log('availableSlotsDisplay', { availableSlotsDisplay });
 
             const enableDatesFromRes = response.data.data?.map((n) => {
                 return new Date(n.instantDate);

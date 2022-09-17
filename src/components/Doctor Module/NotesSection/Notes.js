@@ -9,8 +9,6 @@ import './Notes.css'
 
 const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
-    console.log({ selectedChatNote })
-
     const { patientInfo, doctorInfo, latestAppointment } = selectedChatNote;
 
     const [disableButton, setDisableButton] = useState(false);
@@ -71,7 +69,6 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
             console.log(err);
         })
 
-        console.log(noteResponse);
         if (noteResponse.status === 200) {
             setToastShow(true);
 

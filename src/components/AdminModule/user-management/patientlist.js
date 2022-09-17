@@ -152,7 +152,7 @@ const PatientList = () => {
                 filterData.map((user, index) => (
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
-                    <td>{user.firstName + ' ' + (user.lastName || "")}</td>
+                    <td>{user.firstName}</td>
                     {/* <td>{user.lastName}</td> */}
                     <td>{user.email}</td>
                     <td>

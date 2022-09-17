@@ -89,8 +89,12 @@ const ForgetPassword = () => {
             }
         }).catch(err => {
             // console.log({ err })
+            setLoading(false)
             if (err.response.data.message === "Email address not registered" && err.response.data.status === false) {
                 setErrMsg("Email address not registered. Please provide a registered email address.");
+            }
+            else {
+                setErrMsg(err.response.data.message)
             }
         })
         // }

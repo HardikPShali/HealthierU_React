@@ -210,7 +210,6 @@ const RescheduleAppointment = (props) => {
       user.id,
       getAppointmentModeForAvailabilitySlotsDisplay(e.target.value)
     );
-    console.log(e.target.value);
     // console.log({ appointment })
     if (Availability && Availability.length > 0) {
       if (e.target.value === 'First Consultation') {
@@ -248,7 +247,6 @@ const RescheduleAppointment = (props) => {
 
   //console.log("combinedSlots :: ", combinedSlots);
   const createConsultationSlots = (slots) => {
-    console.log(slots, 'in slots');
     const updatedArray = [];
     const combinedArray = [];
     if (slots && slots.length > 0) {
@@ -323,14 +321,12 @@ const RescheduleAppointment = (props) => {
       endTime: slot.endTime,
       id: appointmentSlot[index].id,
     });
-    console.log('appointment', appointmentSlot[index].id);
     setDisable({ ...disable, continue: false });
   };
 
   let params = useParams();
   const [oldAppointmentID, setOldAppointmentID] = useState(0);
   useEffect(() => {
-    console.log('oldAppointmentID', oldAppointmentID);
   }, [oldAppointmentID]);
 
   const bookappointment = async (orderData) => {
@@ -444,7 +440,6 @@ const RescheduleAppointment = (props) => {
   const [rescheduleMode, setRescheduleMode] = useState('');
   const getAvailableSlotsOfDoctors = async (id, type) => {
     const state = params.type;
-    console.log('state', state);
     setRescheduleMode(state);
     if (id) {
       const response = await getAvailableSlotsForMyDoctors(
@@ -453,7 +448,6 @@ const RescheduleAppointment = (props) => {
       ).catch((err) => console.log({ err }));
       // console.log({ response })
       setAvailableSlotsDisplay(response.data);
-      console.log('availableSlotsDisplay', { availableSlotsDisplay });
 
       const enableDatesFromRes = response.data.data?.map((n) => {
         return new Date(n.instantDate);

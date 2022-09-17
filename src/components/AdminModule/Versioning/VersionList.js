@@ -43,11 +43,9 @@ const VersionList = () => {
     const saveVersionHandler = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        console.log({ version });
         const response = await saveLatestVersions(version).catch((err) => {
             console.log(err);
         });
-        console.log({ response });
         if (response.data.status === true) {
             setIsLoading(false);
             setVersion({

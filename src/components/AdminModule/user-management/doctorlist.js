@@ -203,7 +203,7 @@ const DoctorList = () => {
       );
       if (doctorTableResponse?.status === 200) {
         setStatusMsg(
-          `${selectedUser.firstName}  ${selectedUser.lastName} with email : ${selectedUser.email} is activated.`
+          `${selectedUser.firstName} with email : ${selectedUser.email} is activated.`
         );
         setTransparentLoading(false);
         setActiveDialog(true);
@@ -229,7 +229,7 @@ const DoctorList = () => {
       );
       if (doctorTableResponse?.status === 200) {
         setStatusMsg(
-          `${selectedUser.firstName} ${selectedUser.lastName} with email : ${selectedUser.email} is deactivated.`
+          `${selectedUser.firstName} with email : ${selectedUser.email} is deactivated.`
         );
         setTransparentLoading(false);
         setActiveDialog(true);
@@ -263,7 +263,6 @@ const DoctorList = () => {
                     e.keyCode === 13 ? handleSearchData() : ''
                   }
                 />
-                {console.log('searchText', searchText)}
                 {/* {searchText !== '' && (
                   <IconButton
                     onClick={() => handleSearchData()}
@@ -308,7 +307,7 @@ const DoctorList = () => {
                         ? index + 1
                         : index + 1 + currentPageNumber * 15}
                     </th>
-                    <td>{user.firstName + ' ' + (user.lastName || "")}</td>
+                    <td>{user.firstName}</td>
                     {/* <td>{user.lastName}</td> */}
                     <td>{user.email}</td>
                     <td>

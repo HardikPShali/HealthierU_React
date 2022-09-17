@@ -6,7 +6,6 @@ export const Radio = ({ question, followQuestion, isError }) => {
     const handleRadioChange = (e) => {
         setAnswer(e);
         question.answers = e;
-        console.log('Event', answers);
         question.isError = false;
         followQuestion();
     }

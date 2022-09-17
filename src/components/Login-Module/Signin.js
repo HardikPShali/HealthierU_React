@@ -130,14 +130,13 @@ const Signin = () => {
         }
       }
     );
-
     if (googleAccessToken) {
-
       //console.log("googleAccessToken  :: ", googleAccessToken);
       LocalStorageService.setToken(googleAccessToken);
       getCurrentUserData();
       // triggerFcmTokenHandler();
     }
+    setLoader(false);
   };
 
   const handleActivateUser = async () => {
@@ -295,7 +294,7 @@ const Signin = () => {
         history.push('/signup');
       }, 3000);
     }
-    else if (accountCheckResponse.data.data.registerAgain === false && accountCheckResponse.data.message === "Your account has been deactivated") {
+    else if (accountCheckResponse.data.data.registerAgain === false && accountCheckResponse.data.message === "Your account has been deactivated. Please contact administrator") {
       setLoader(false);
       toast.error('Your account has been deactivated. Please contact the administrator.', {
         autoClose: 5000,

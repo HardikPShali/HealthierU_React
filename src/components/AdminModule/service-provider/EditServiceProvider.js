@@ -42,7 +42,6 @@ import { toast } from 'react-toastify';
 import { set } from "date-fns/fp";
 const EditServiceProvider = props => {
     //let history = useHistory()
-    console.log("props", props);
     const { id } = useParams();
     // const { list } = props.location;
     //let selectedQuestion = null;
@@ -90,8 +89,6 @@ const EditServiceProvider = props => {
         setServiceProvider({ ...serviceProvider, categories: newArray });
 
     };
-    console.log("serviceProvider", serviceProvider);
-
     const onContactInputChange = e => {
         setContactDetails({
             ...contactDetails,
@@ -211,12 +208,8 @@ const EditServiceProvider = props => {
         lat: ""
     });
     const handleDeleteLocationModal = (locationdata) => {
-        console.log("first", selectedLocationId);
-        console.log("3", locationdata.id);
         ModalService.open(DeleteModal);
         setSelectedLocationId(locationdata.id);
-        console.log("second", selectedLocationId);
-
     };
     const handleDeleteLocation = async (e) => {
         setIsLoading(true);

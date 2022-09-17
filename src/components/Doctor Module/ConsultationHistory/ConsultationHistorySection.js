@@ -11,7 +11,6 @@ const ConsulatationHistorySection = () => {
     const cookies = new Cookies();
     let params = useParams()
     const profilepID = cookies.get("profileDetails");
-    console.log("profileDetails", profilepID);
     const [notesData, setNotesData] = useState([])
 
     const getNotesData = async () => {
