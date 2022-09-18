@@ -37,9 +37,6 @@ import experienceIcon from '../../images/svg/experience-yellow-icon.svg';
 import languageIcon from '../../images/svg/languages-yellow-icon.svg';
 import aboutIcon from '../../images/svg/about-icon.svg';
 import rescheduleIcon from '../../images/svg/reschedule-icon.svg';
-import defaultDoctorImage from '../../images/default_image.png';
-
-//import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 import {
   deleteAppointment,
   getAppointmentListByPatientId,
@@ -47,10 +44,7 @@ import {
   getUnreadNotificationsCount,
 } from '../../service/frontendapiservices';
 import momentTz from 'moment-timezone';
-import { firestoreService } from '../../util';
-import { Style } from '@material-ui/icons';
 import { getInbox } from '../../service/chatService';
-import UpcomingAppointments from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments';
 import UpcomingAppointmentCard from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointmentCard';
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
@@ -414,11 +408,14 @@ const Myappointment = (props) => {
     }
   };
 
+  const [appointmentTabLoading, setAppointmentTabLoading] = useState(true);
   const getAppointmentsTabList = async (patientId) => {
+    setAppointmentTabLoading(true);
     const response = await getAppointmentsTablistByStatus(patientId).catch(
       (err) => {
         if (err.response.status === 500 || err.response.status === 504) {
           setLoading(false);
+          setAppointmentTabLoading(false);
         }
       }
     );
@@ -427,6 +424,7 @@ const Myappointment = (props) => {
 
     if (response?.status === 200 || response?.status === 201) {
       if (response && response.data) {
+        setAppointmentTabLoading(false);
         const upcomingArray = response.data.data.upcoming;
 
         setUpcomingAppointment(upcomingArray);
@@ -440,6 +438,7 @@ const Myappointment = (props) => {
         setCancelledAppointment(cancelledAppointmentsArray.reverse());
       }
     }
+    setAppointmentTabLoading(false);
   };
 
   const handleDelete = async (selectedAppointment) => {
@@ -546,6 +545,20 @@ const Myappointment = (props) => {
                       <div className="my-appointments__card-box">
                         <div className="my-appointments__card-holder">
                           <div className="row">
+                            {appointmentTabLoading && (
+                              <div className="col-12 ml-2 empty-message">
+                                <span
+                                  style={{
+                                    textAlign: 'center',
+                                    textShadow: 'none',
+                                    color: '#000000',
+                                    fontSize: 20,
+                                  }}
+                                >
+                                  Loading...
+                                </span>
+                              </div>
+                            )}
                             {UpcomingAppointment &&
                               Array.isArray(UpcomingAppointment) &&
                               UpcomingAppointment.length > 0 &&
@@ -564,19 +577,20 @@ const Myappointment = (props) => {
                                   </div>
                                 </div>
                               ))}
-                            {UpcomingAppointment.length === 0 && (
-                              <div className="col-12 ml-2 empty-message">
-                                <h2
-                                  style={{
-                                    textAlign: 'center',
-                                    textShadow: 'none',
-                                    color: '#f6ceb4',
-                                  }}
-                                >
-                                  No Upcoming Appointments
-                                </h2>
-                              </div>
-                            )}
+                            {UpcomingAppointment.length === 0 &&
+                              appointmentTabLoading === false && (
+                                <div className="col-12 ml-2 empty-message">
+                                  <h2
+                                    style={{
+                                      textAlign: 'center',
+                                      textShadow: 'none',
+                                      color: '#f6ceb4',
+                                    }}
+                                  >
+                                    No Upcoming Appointments
+                                  </h2>
+                                </div>
+                              )}
                           </div>
                         </div>
                       </div>
@@ -586,6 +600,20 @@ const Myappointment = (props) => {
                       <div className="my-appointments__card-box">
                         <div className="my-appointments__card-holder">
                           <div className="row">
+                            {appointmentTabLoading && (
+                              <div className="col-12 ml-2 empty-message">
+                                <span
+                                  style={{
+                                    textAlign: 'center',
+                                    textShadow: 'none',
+                                    color: '#000000',
+                                    fontSize: 20,
+                                  }}
+                                >
+                                  Loading...
+                                </span>
+                              </div>
+                            )}
                             {completedAppointment &&
                               Array.isArray(completedAppointment) &&
                               completedAppointment.length > 0 &&
@@ -594,7 +622,9 @@ const Myappointment = (props) => {
                                   className="col-md-4 mb-2 mt-2"
                                   key={index}
                                   onClick={() =>
-                                    handleCancelledAndCompletedAppointmentInfoOpen(appointment)
+                                    handleCancelledAndCompletedAppointmentInfoOpen(
+                                      appointment
+                                    )
                                   }
                                 >
                                   <div className="upcoming-appointment-card__completed">
@@ -604,18 +634,19 @@ const Myappointment = (props) => {
                                   </div>
                                 </div>
                               ))}
-                            {completedAppointment.length === 0 && (
-                              <div className="col-12 ml-2 empty-message">
-                                <h2
-                                  style={{
-                                    textAlign: 'center',
-                                    textShadow: 'none',
-                                  }}
-                                >
-                                  No Completed Appointments
-                                </h2>
-                              </div>
-                            )}
+                            {completedAppointment.length === 0 &&
+                              appointmentTabLoading === false && (
+                                <div className="col-12 ml-2 empty-message">
+                                  <h2
+                                    style={{
+                                      textAlign: 'center',
+                                      textShadow: 'none',
+                                    }}
+                                  >
+                                    No Completed Appointments
+                                  </h2>
+                                </div>
+                              )}
                           </div>
                         </div>
                       </div>
@@ -625,6 +656,20 @@ const Myappointment = (props) => {
                       <div className="my-appointments__card-box">
                         <div className="my-appointments__card-holder">
                           <div className="row">
+                            {appointmentTabLoading && (
+                              <div className="col-12 ml-2 empty-message">
+                                <span
+                                  style={{
+                                    textAlign: 'center',
+                                    textShadow: 'none',
+                                    color: '#000000',
+                                    fontSize: 20,
+                                  }}
+                                >
+                                  Loading...
+                                </span>
+                              </div>
+                            )}
                             {cancelledAppointment &&
                               Array.isArray(cancelledAppointment) &&
                               cancelledAppointment.length > 0 &&
@@ -633,7 +678,9 @@ const Myappointment = (props) => {
                                   className="col-md-4 mb-2 mt-2"
                                   key={index}
                                   onClick={() =>
-                                    handleCancelledAndCompletedAppointmentInfoOpen(appointment)
+                                    handleCancelledAndCompletedAppointmentInfoOpen(
+                                      appointment
+                                    )
                                   }
                                 >
                                   <div className="upcoming-appointment-card__cancelled">
@@ -643,18 +690,19 @@ const Myappointment = (props) => {
                                   </div>
                                 </div>
                               ))}
-                            {cancelledAppointment.length === 0 && (
-                              <div className="col-12 ml-2 empty-message">
-                                <h2
-                                  style={{
-                                    textAlign: 'center',
-                                    textShadow: 'none',
-                                  }}
-                                >
-                                  No Cancelled Appointments
-                                </h2>
-                              </div>
-                            )}
+                            {cancelledAppointment.length === 0 &&
+                              appointmentTabLoading === false && (
+                                <div className="col-12 ml-2 empty-message">
+                                  <h2
+                                    style={{
+                                      textAlign: 'center',
+                                      textShadow: 'none',
+                                    }}
+                                  >
+                                    No Cancelled Appointments
+                                  </h2>
+                                </div>
+                              )}
                           </div>
                         </div>
                       </div>
