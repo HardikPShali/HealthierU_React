@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-// import Footer from './Footer'
+import '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments.css';
 import './patient.css';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import moment from 'moment';
-//import LocalStorageService from './../../util/LocalStorageService';
-//import axios from 'axios';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Chip from '@material-ui/core/Chip';
@@ -52,6 +50,8 @@ import momentTz from 'moment-timezone';
 import { firestoreService } from '../../util';
 import { Style } from '@material-ui/icons';
 import { getInbox } from '../../service/chatService';
+import UpcomingAppointments from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments';
+import UpcomingAppointmentCard from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointmentCard';
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
@@ -216,38 +216,36 @@ const Myappointment = (props) => {
     // console.log({ result });
     const inbox = result.data.data.filter((item) => {
       return item.doctorInfo.id === docId;
-    })
+    });
     // console.log({ inbox })
     queryChannelId = inbox[0].id;
     // console.log({ queryChannelId })
     history.push(`/patient/chat?channelId=${queryChannelId}`);
   };
 
-
   const handleChat = (selectedAppointment) => {
-
     const currentTime = moment(new Date());
 
-    const appointmentStartTime = moment(new Date(selectedAppointment.startTime));
+    const appointmentStartTime = moment(
+      new Date(selectedAppointment.startTime)
+    );
 
     const appointmentEndTime = moment(new Date(selectedAppointment.endTime));
 
-    const chatEnableTime = appointmentStartTime.clone().subtract(2, "days")
+    const chatEnableTime = appointmentStartTime.clone().subtract(2, 'days');
 
-    const chatDisableTime = appointmentEndTime.clone().add(3, "days")
+    const chatDisableTime = appointmentEndTime.clone().add(3, 'days');
 
     if (
       currentTime.isSameOrAfter(chatEnableTime) &&
       currentTime.isBefore(chatDisableTime)
     ) {
-      console.log("CHAT ENABLED");
+      console.log('CHAT ENABLED');
       handleConfirmChat();
-    }
-    else {
-      console.log("CHAT DISABLED");
+    } else {
+      console.log('CHAT DISABLED');
       handleAlertChat();
     }
-
   };
 
   const eventStyleGetter = (event) => {
@@ -343,7 +341,7 @@ const Myappointment = (props) => {
       }
     });
 
-    console.log("AppointmentList", response);
+    console.log('AppointmentList', response);
 
     if (response?.status === 200 || response?.status === 201) {
       if (response && response.data) {
@@ -484,7 +482,7 @@ const Myappointment = (props) => {
 
   const setDoctorIdInSession = (doctorId) => {
     sessionStorage.setItem('doctorId', doctorId);
-  }
+  };
 
   // console.log("myAppointment ::::::::", myAppointment);
   return (
@@ -551,93 +549,22 @@ const Myappointment = (props) => {
                             {UpcomingAppointment &&
                               Array.isArray(UpcomingAppointment) &&
                               UpcomingAppointment.length > 0 &&
-                              UpcomingAppointment.map((appointment, index) => {
-                                if (
-                                  appointment.status &&
-                                  new Date(appointment.endTime) >= new Date() &&
-                                  appointment.status === 'ACCEPTED'
-                                ) {
-                                  return (
-                                    <div
-                                      className="col-md-6 mb-2 mt-2"
-                                      key={index}
-                                    >
-                                      {/* {console.log(appointment)} */}
-                                      <div className="my-appointments-card">
-                                        <div
-                                          className="row align-items-start mb-2"
-                                          style={{ cursor: 'pointer' }}
-                                          onClick={() =>
-                                            handleAppointmentInfoOpen(
-                                              appointment
-                                            )
-                                          }
-                                        >
-                                          <div className="col-md-3 safari-helper">
-                                            {appointment.doctor.picture ? (
-                                              <img
-                                                src={appointment.doctor.picture}
-                                                alt={`${appointment.doctor.firstName}-image`}
-                                                className="img-circle ml-3 mt-3"
-                                              />
-                                            ) : (
-                                              <Avatar
-                                                round={true}
-                                                name={
-                                                  appointment.doctor.firstName +
-                                                  ' ' +
-                                                  (appointment.doctor
-                                                    .lastName || '')
-                                                }
-                                                size={60}
-                                                className="my-appointments-avatar"
-                                              />
-                                            )}
-                                          </div>
-                                          <div className="col-md-9">
-                                            <div className="my-appointments-card__card-details">
-                                              <h5 className="my-appointments-card__doctor-name">
-                                                {appointment.doctor.salutation}
-                                                {" "}
-                                                {appointment.doctor.firstName +
-                                                  ' ' +
-                                                  (appointment.doctor
-                                                    .lastName || '')}
-                                              </h5>
-                                              <span className="my-appointments-card__specality">
-                                                {appointment.doctor &&
-                                                  appointment.doctor
-                                                    .specialities.length &&
-                                                  appointment.doctor
-                                                    .specialities[0].name}
-                                              </span>
-                                              <div className="my-appointments-card__card-details--date-div">
-                                                <div className="my-appointments-card__card-time-row">
-                                                  <img src={calendarSmall} />
-                                                  <span className="my-appointments-card__common-span">
-                                                    {moment(
-                                                      appointment.startTime
-                                                    ).format('DD/MM/YY')}
-                                                  </span>
-                                                </div>
-                                                <div className="my-appointments-card__card-time-row ml-4">
-                                                  <img src={timeSmall} />
-                                                  <span className="my-appointments-card__common-span">
-                                                    {moment(
-                                                      appointment.startTime
-                                                    ).format('hh:mm A')}
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  );
-                                }
-                              })}
-                            {myAppointment.length === 0 && (
+                              UpcomingAppointment.map((appointment, index) => (
+                                <div
+                                  className="col-md-4 mb-2 mt-2"
+                                  key={index}
+                                  onClick={() =>
+                                    handleAppointmentInfoOpen(appointment)
+                                  }
+                                >
+                                  <div className="upcoming-appointment-card">
+                                    <UpcomingAppointmentCard
+                                      appointment={appointment}
+                                    />
+                                  </div>
+                                </div>
+                              ))}
+                            {UpcomingAppointment.length === 0 && (
                               <div className="col-12 ml-2 empty-message">
                                 <h2
                                   style={{
@@ -662,89 +589,21 @@ const Myappointment = (props) => {
                             {completedAppointment &&
                               Array.isArray(completedAppointment) &&
                               completedAppointment.length > 0 &&
-                              completedAppointment.map((appointment, index) => {
-                                return (
-                                  <div
-                                    className="col-md-6 mb-2 mt-2"
-                                    key={index}
-                                    onClick={
-                                      () =>
-                                        handleCancelledAndCompletedAppointmentInfoOpen(
-                                          appointment
-                                        )
-                                      // handleAppointmentInfoOpen(appointment)
-                                    }
-                                  >
-                                    <div className="my-appointments-card__completed">
-                                      <div
-                                        className="row align-items-start mb-2"
-                                      // style={{ cursor: 'pointer' }}
-                                      >
-                                        <div className="col-md-3 safari-helper">
-                                          {/* <img
-                                            src={appointment.doctor.picture}
-                                            alt={`${appointment.doctor.firstName}-image`}
-                                            className="img-circle ml-3 mt-3"
-                                          /> */}
-                                          {appointment.doctor.picture ? (
-                                            <img
-                                              src={appointment.doctor.picture}
-                                              alt={`${appointment.doctor.firstName}-image`}
-                                              className="img-circle ml-3 mt-3"
-                                            />
-                                          ) : (
-                                            <Avatar
-                                              round={true}
-                                              name={
-                                                appointment.doctor.firstName +
-                                                ' ' +
-                                                (appointment.doctor.lastName ||
-                                                  '')
-                                              }
-                                              size={60}
-                                              className="my-appointments-avatar"
-                                            />
-                                          )}
-                                        </div>
-                                        <div className="col-md-9">
-                                          <div className="my-appointments-card__card-details">
-                                            <h5 className="my-appointments-card__doctor-name">
-                                              {appointment.doctor.salutation}
-                                              {" "}
-                                              {appointment.doctor.firstName}
-                                            </h5>
-                                            <span className="my-appointments-card__specality">
-                                              {appointment.doctor &&
-                                                appointment.doctor.specialities
-                                                  .length &&
-                                                appointment.doctor
-                                                  .specialities[0].name}
-                                            </span>
-                                            <div className="my-appointments-card__card-details--date-div">
-                                              <div className="my-appointments-card__card-time-row">
-                                                <img src={calendarSmall} />
-                                                <span className="my-appointments-card__common-span">
-                                                  {moment(
-                                                    appointment.startTime
-                                                  ).format('DD/MM/YY')}
-                                                </span>
-                                              </div>
-                                              <div className="my-appointments-card__card-time-row ml-4">
-                                                <img src={timeSmall} />
-                                                <span className="my-appointments-card__common-span">
-                                                  {moment(
-                                                    appointment.startTime
-                                                  ).format('hh:mm A')}
-                                                </span>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                              completedAppointment.map((appointment, index) => (
+                                <div
+                                  className="col-md-4 mb-2 mt-2"
+                                  key={index}
+                                  onClick={() =>
+                                    handleCancelledAndCompletedAppointmentInfoOpen(appointment)
+                                  }
+                                >
+                                  <div className="upcoming-appointment-card__completed">
+                                    <UpcomingAppointmentCard
+                                      appointment={appointment}
+                                    />
                                   </div>
-                                );
-                              })}
+                                </div>
+                              ))}
                             {completedAppointment.length === 0 && (
                               <div className="col-12 ml-2 empty-message">
                                 <h2
@@ -769,93 +628,21 @@ const Myappointment = (props) => {
                             {cancelledAppointment &&
                               Array.isArray(cancelledAppointment) &&
                               cancelledAppointment.length > 0 &&
-                              cancelledAppointment.map((appointment, index) => {
-                                return (
-                                  <div
-                                    className="col-md-6 mb-2 mt-2"
-                                    key={index}
-                                    onClick={() =>
-                                      handleCancelledAndCompletedAppointmentInfoOpen(
-                                        appointment
-                                      )
-                                    }
-                                  >
-                                    <div className="my-appointments-card__cancelled">
-                                      <div
-                                        className="row align-items-start mb-2"
-                                      // style={{ cursor: 'pointer' }}
-                                      >
-                                        <div className="col-md-3 safari-helper">
-                                          {/* <img
-                                            src={appointment.doctor.picture}
-                                            alt={`${appointment.doctor.firstName}-image`}
-                                            className="img-circle ml-3 mt-3"
-                                          /> */}
-                                          {appointment.doctor.picture ? (
-
-                                            <img
-                                              src={appointment.doctor.picture}
-                                              alt={`${appointment.doctor.firstName}-image`}
-                                              className="img-circle ml-3 mt-3"
-                                            />
-
-
-                                          ) : (
-                                            <Avatar
-                                              round={true}
-                                              name={
-                                                appointment.doctor.firstName +
-                                                ' ' +
-                                                (appointment.doctor.lastName ||
-                                                  '')
-                                              }
-                                              size={60}
-                                              className="my-appointments-avatar"
-                                            />
-                                          )}
-                                        </div>
-                                        <div className="col-md-9">
-                                          <div className="my-appointments-card__card-details">
-                                            <h5 className="my-appointments-card__doctor-name">
-                                              {appointment.doctor.salutation}
-                                              {" "}
-                                              {appointment.doctor.firstName +
-                                                ' ' +
-                                                (appointment.doctor.lastName ||
-                                                  '')}
-                                            </h5>
-                                            <span className="my-appointments-card__specality">
-                                              {appointment.doctor &&
-                                                appointment.doctor.specialities
-                                                  .length &&
-                                                appointment.doctor
-                                                  .specialities[0].name}
-                                            </span>
-                                            <div className="my-appointments-card__card-details--date-div">
-                                              <div className="my-appointments-card__card-time-row">
-                                                <img src={calendarSmall} />
-                                                <span className="my-appointments-card__common-span">
-                                                  {moment(
-                                                    appointment.startTime
-                                                  ).format('DD/MM/YY')}
-                                                </span>
-                                              </div>
-                                              <div className="my-appointments-card__card-time-row ml-4">
-                                                <img src={timeSmall} />
-                                                <span className="my-appointments-card__common-span">
-                                                  {moment(
-                                                    appointment.startTime
-                                                  ).format('hh:mm A')}
-                                                </span>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                              cancelledAppointment.map((appointment, index) => (
+                                <div
+                                  className="col-md-4 mb-2 mt-2"
+                                  key={index}
+                                  onClick={() =>
+                                    handleCancelledAndCompletedAppointmentInfoOpen(appointment)
+                                  }
+                                >
+                                  <div className="upcoming-appointment-card__cancelled">
+                                    <UpcomingAppointmentCard
+                                      appointment={appointment}
+                                    />
                                   </div>
-                                );
-                              })}
+                                </div>
+                              ))}
                             {cancelledAppointment.length === 0 && (
                               <div className="col-12 ml-2 empty-message">
                                 <h2
@@ -914,10 +701,7 @@ const Myappointment = (props) => {
               >
                 OK
               </button>
-              <button
-                onClick={handleClose}
-                className="btn btn-secondary"
-              >
+              <button onClick={handleClose} className="btn btn-secondary">
                 Cancel
               </button>
             </DialogActions>
@@ -944,16 +728,15 @@ const Myappointment = (props) => {
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
                       {selectedAppointment.doctor.picture ? (
-                        <div className='safari-helper'>
+                        <div className="safari-helper">
                           <img
                             src={selectedAppointment.doctor.picture}
                             alt={`${selectedAppointment.doctor.firstName}-image`}
                             className="img-circle mt-3"
                           />
                         </div>
-
                       ) : (
-                        <div className='safari-helper'>
+                        <div className="safari-helper">
                           <Avatar
                             round={true}
                             name={
@@ -965,11 +748,9 @@ const Myappointment = (props) => {
                             className="my-appointments__modal-avatar"
                           />
                         </div>
-
                       )}
                       <h2 className="my-appointments__header-names">
-                        {selectedAppointment.doctor.salutation}
-                        {" "}
+                        {selectedAppointment.doctor.salutation}{' '}
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ''}
                       </h2>
@@ -982,7 +763,9 @@ const Myappointment = (props) => {
                             selectedAppointment.doctor.specialities &&
                             selectedAppointment.doctor.specialities.map(
                               (speciality, index) => (
-                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
+                                <li className="specialitiesTags" key={index}>
+                                  {speciality.name}{' '}
+                                </li>
                               )
                             )}
                         </ul>
@@ -1049,7 +832,7 @@ const Myappointment = (props) => {
                     </div>
                     <hr />
                     <div className="details-links">
-                      <div className='firefox-helper'>
+                      <div className="firefox-helper">
                         <div
                           style={{
                             display: 'flex',
@@ -1161,16 +944,15 @@ const Myappointment = (props) => {
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
                       {selectedAppointment.doctor.picture ? (
-                        <div className='safari-helper'>
+                        <div className="safari-helper">
                           <img
                             src={selectedAppointment.doctor.picture}
                             alt={`${selectedAppointment.doctor.firstName}-image`}
                             className="img-circle mt-3"
                           />
                         </div>
-
                       ) : (
-                        <div className='safari-helper'>
+                        <div className="safari-helper">
                           <Avatar
                             round={true}
                             name={
@@ -1190,8 +972,7 @@ const Myappointment = (props) => {
                         // />
                       )}
                       <h2 className="my-appointments__header-names">
-                        {selectedAppointment.doctor.salutation}
-                        {" "}
+                        {selectedAppointment.doctor.salutation}{' '}
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ''}
                       </h2>
@@ -1204,7 +985,9 @@ const Myappointment = (props) => {
                             selectedAppointment.doctor.specialities &&
                             selectedAppointment.doctor.specialities.map(
                               (speciality, index) => (
-                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
+                                <li className="specialitiesTags" key={index}>
+                                  {speciality.name}{' '}
+                                </li>
                               )
                             )}
                         </ul>
@@ -1270,17 +1053,23 @@ const Myappointment = (props) => {
                       </div> */}
                     </div>
                     <hr />
-                    <div className="details-links" onClick={() => setDoctorIdInSession(selectedAppointment.doctor.id)}>
+                    <div
+                      className="details-links"
+                      onClick={() =>
+                        setDoctorIdInSession(selectedAppointment.doctor.id)
+                      }
+                    >
                       {/* {console.log({ selectedAppointment })} */}
                       <Link
                         to={{
-                          pathname: `/patient/reschedule-appointment/${selectedAppointment.id}/${selectedAppointment.appointmentMode
-                            .toLowerCase()
-                            .replace(' ', '-')}/${selectedAppointment.unifiedAppointment
+                          pathname: `/patient/reschedule-appointment/${selectedAppointment.id
+                            }/${selectedAppointment.appointmentMode
+                              .toLowerCase()
+                              .replace(' ', '-')}/${selectedAppointment.unifiedAppointment
                             }`,
                         }}
                       >
-                        <div className='firefox-helper'>
+                        <div className="firefox-helper">
                           <div style={{ display: 'flex', alignItem: 'center' }}>
                             <div style={{ width: '100%' }}>
                               <img
@@ -1300,7 +1089,7 @@ const Myappointment = (props) => {
                           </div>
                         </div>
                       </Link>
-                      <div className='firefox-helper'>
+                      <div className="firefox-helper">
                         <div
                           style={{
                             display: 'flex',
@@ -1309,7 +1098,6 @@ const Myappointment = (props) => {
                           }}
                           onClick={() => openMoreDoctorInfo()}
                         >
-
                           <div style={{ width: '100%' }}>
                             <img
                               width="30"
@@ -1413,16 +1201,15 @@ const Myappointment = (props) => {
                       {/* {console.log(selectedAppointment)} */}
                       {/* <img src={selectedAppointment.doctor.picture} alt="" /> */}
                       {selectedAppointment.doctor.picture ? (
-                        <div className='safari-helper'>
+                        <div className="safari-helper">
                           <img
                             src={selectedAppointment.doctor.picture}
                             alt={`${selectedAppointment.doctor.firstName}-image`}
                             className="img-circle mt-3"
                           />
                         </div>
-
                       ) : (
-                        <div className='safari-helper'>
+                        <div className="safari-helper">
                           <Avatar
                             round={true}
                             name={
@@ -1434,11 +1221,9 @@ const Myappointment = (props) => {
                             className="my-appointments__modal-avatar"
                           />
                         </div>
-
                       )}
                       <h2 className="my-appointments__header-names">
-                        {selectedAppointment.doctor.salutation}
-                        {" "}
+                        {selectedAppointment.doctor.salutation}{' '}
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ''}
                       </h2>
@@ -1451,7 +1236,9 @@ const Myappointment = (props) => {
                             selectedAppointment.doctor.specialities &&
                             selectedAppointment.doctor.specialities.map(
                               (speciality, index) => (
-                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
+                                <li className="specialitiesTags" key={index}>
+                                  {speciality.name}{' '}
+                                </li>
                               )
                             )}
                         </ul>
@@ -1518,7 +1305,7 @@ const Myappointment = (props) => {
                     </div>
                     <hr />
                     <div className="details-links">
-                      <div className='firefox-helper'>
+                      <div className="firefox-helper">
                         <div
                           style={{
                             display: 'flex',
@@ -1625,10 +1412,7 @@ const Myappointment = (props) => {
             }
             <DialogActions>
               <div onClick={() => chatClickHandler()}>
-                <button
-                  className="btn btn-primary"
-                  id="close-btn"
-                >
+                <button className="btn btn-primary" id="close-btn">
                   Yes
                 </button>
               </div>
@@ -1665,7 +1449,8 @@ const Myappointment = (props) => {
             open={alertChat}
           >
             <DialogTitle id="customized-dialog-title" onClose={alertChatClose}>
-              Chat can only be initiated 2 days before appointment and upto 3 days after the appointment.
+              Chat can only be initiated 2 days before appointment and upto 3
+              days after the appointment.
             </DialogTitle>
             <DialogActions>
               <button
@@ -1696,12 +1481,14 @@ const Myappointment = (props) => {
                     <div className="details-content__doc-info">
                       {/* {console.log("selectedAPP", selectedAppointment)} */}
                       {selectedAppointment.doctor.picture ? (
-                        <div className='safari-helper'>
-                          <img src={selectedAppointment.doctor.picture} alt="" />
+                        <div className="safari-helper">
+                          <img
+                            src={selectedAppointment.doctor.picture}
+                            alt=""
+                          />
                         </div>
-
                       ) : (
-                        <div className='safari-helper'>
+                        <div className="safari-helper">
                           <Avatar
                             round={true}
                             name={
@@ -1716,8 +1503,7 @@ const Myappointment = (props) => {
                       )}
 
                       <h2 className="my-appointments__header-names">
-                        {selectedAppointment.doctor.salutation}
-                        {" "}
+                        {selectedAppointment.doctor.salutation}{' '}
                         {selectedAppointment.doctor.firstName}{' '}
                         {selectedAppointment.doctor.lastName || ''}
                       </h2>
@@ -1730,7 +1516,9 @@ const Myappointment = (props) => {
                             selectedAppointment.doctor.specialities &&
                             selectedAppointment.doctor.specialities.map(
                               (speciality, index) => (
-                                <li className='specialitiesTags' key={index}>{speciality.name} </li>
+                                <li className="specialitiesTags" key={index}>
+                                  {speciality.name}{' '}
+                                </li>
                               )
                             )}
                         </ul>
@@ -1740,14 +1528,13 @@ const Myappointment = (props) => {
                       <span>About</span>
                       <div className="details-body__payment">
                         <div className="d-flex align-items-start flex-column mb-3">
-                          <div className='doctor-info-icon-title'>
+                          <div className="doctor-info-icon-title">
                             <img
                               src={educationIcon}
                               alt="icons"
                               className="doctor-info-icon"
                             />
                             <div className="doctor-info-title">Education</div>
-
                           </div>
 
                           {/* <div className="d-flex flex-column align-items-start"> */}
@@ -1764,14 +1551,13 @@ const Myappointment = (props) => {
                         </div>
 
                         <div className="d-flex align-items-start flex-column mb-3">
-                          <div className='doctor-info-icon-title'>
+                          <div className="doctor-info-icon-title">
                             <img
                               src={experienceIcon}
                               alt="icons"
                               className="doctor-info-icon"
                             />
                             <div className="doctor-info-title">Experience</div>
-
                           </div>
 
                           {/* <div className="d-flex flex-column align-items-start"> */}
@@ -1784,14 +1570,13 @@ const Myappointment = (props) => {
 
                       <div className="details-body__payment">
                         <div className="d-flex align-items-start flex-column mb-3">
-                          <div className='doctor-info-icon-title'>
+                          <div className="doctor-info-icon-title">
                             <img
                               src={languageIcon}
                               alt="icons"
                               className="doctor-info-icon"
                             />
                             <div className="doctor-info-title">Languages</div>
-
                           </div>
 
                           <div className="doctor-info-value">
@@ -1808,14 +1593,13 @@ const Myappointment = (props) => {
 
                       <div className="details-body__payment">
                         <div className="d-flex align-items-start flex-column mb-3">
-                          <div className='doctor-info-icon-title'>
+                          <div className="doctor-info-icon-title">
                             <img
                               src={aboutIcon}
                               alt="icons"
                               className="doctor-info-icon"
                             />
                             <div className="doctor-info-title">About</div>
-
                           </div>
 
                           <div className="doctor-info-value">

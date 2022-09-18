@@ -4085,6 +4085,34 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   font-weight: 700 !important;
   font-size: 20px !important;
   text-shadow: 0px 0px 15px #000;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 400px;
+}
+
+/* SCROLL-BAR CSS FOR MY APPOINTMENTS */
+.my-appointments__card-box {
+  scrollbar-color: #00d0cc white;
+  /* thumb and track color */
+  scrollbar-width: thin !important;
+  -moz-appearance: none !important;
+  border-radius: 10px;
+}
+
+.my-appointments__card-box::-webkit-scrollbar {
+  width: 7px;
+  -moz-appearance: none !important;
+}
+
+.my-appointments__card-box::-webkit-scrollbar {
+  background: white;
+  -moz-appearance: none !important;
+}
+
+.my-appointments__card-box::-webkit-scrollbar-thumb {
+  background: #00d0cc;
+  border-right: 1px solid white;
+  -moz-appearance: none !important;
 }
 
 .my-appointments-card:hover {
