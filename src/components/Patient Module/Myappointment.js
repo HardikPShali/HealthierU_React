@@ -28,6 +28,7 @@ import { getInbox } from '../../service/chatService';
 import UpcomingAppointmentCard from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointmentCard';
 import AppointmentDetailsModal from './DetailsModals/AppointmentDetailsModal';
 import MoreInfoAboutDoctor from './DetailsModals/MoreInfoAboutDoctor';
+import { AlertChatDialog, ConfirmChatDialog } from './DetailsModals/ChatModals';
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
@@ -779,76 +780,17 @@ const Myappointment = (props) => {
           />
 
           {/* CONFIRM CHAT DIALOG */}
-          <Dialog
-            onClose={confirmChatClose}
-            aria-labelledby="customized-dialog-title"
-            open={confirmChat}
-          >
-            {
-              <DialogTitle
-                id="customized-dialog-title"
-                onClose={confirmChatClose}
-              >
-                Do you want to Start Chat
-              </DialogTitle>
-            }
-            <DialogActions>
-              <div onClick={() => chatClickHandler()}>
-                <button className="btn btn-primary" id="close-btn">
-                  Yes
-                </button>
-              </div>
-              <button
-                onClick={confirmChatClose}
-                className="btn btn-primary"
-                id="close-btn"
-              >
-                No
-              </button>
-            </DialogActions>
-          </Dialog>
-
-          {/* CONFIRM VIDEO DIALOG */}
-          <Dialog
-            onClose={alertVideoClose}
-            aria-labelledby="customized-dialog-title"
-            open={alertVideo}
-          >
-            <DialogTitle id="customized-dialog-title" onClose={alertVideoClose}>
-              Video call is possible only 5 minutes before the appointment time.
-            </DialogTitle>
-            <DialogActions>
-              <button
-                onClick={alertVideoClose}
-                className="btn btn-primary"
-                id="close-btn"
-              >
-                OK
-              </button>
-            </DialogActions>
-          </Dialog>
+          <ConfirmChatDialog
+            confirmChatClose={confirmChatClose}
+            confirmChat={confirmChat}
+            chatClickHandler={chatClickHandler}
+          />
 
           {/* ALERT CHAT DIALOG */}
-          <Dialog
-            onClose={alertChatClose}
-            aria-labelledby="customized-dialog-title"
-            open={alertChat}
-          >
-            <DialogTitle id="customized-dialog-title" onClose={alertChatClose}>
-              Chat can only be initiated 2 days before appointment and upto 3
-              days after the appointment.
-            </DialogTitle>
-            <DialogActions>
-              <button
-                onClick={alertChatClose}
-                className="btn btn-primary"
-                id="close-btn"
-              >
-                OK
-              </button>
-            </DialogActions>
-          </Dialog>
-
+          <AlertChatDialog
+            alertChatClose={alertChatClose}
+            alertChat={alertChat}
+          />
 
         </>
       )}
