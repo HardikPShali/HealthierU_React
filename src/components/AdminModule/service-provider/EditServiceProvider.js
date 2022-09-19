@@ -143,10 +143,11 @@ const EditServiceProvider = props => {
         setIsLoading(false);
     };
 
+    const [selectedContactId, setSelectedContactId] = useState(0);
     useEffect(() => {
         loadServiceProvider();
-
-    }, []);
+        console.log("selectedContactId", selectedContactId);
+    }, [selectedContactId]);
     // Contact Details
 
     const handleContactModal = data => {
@@ -170,10 +171,6 @@ const EditServiceProvider = props => {
         });
         setShowContact(true);
     };
-
-    const [selectedContactId, setSelectedContactId] = useState(0);
-
-
     // const [showDeleteContact, setShowDeleteContact] = useState(false);
 
     const handleDeleteContactModal = async (e, contactData) => {
@@ -273,11 +270,7 @@ const EditServiceProvider = props => {
     });
     const handleDeleteOpeningHoursModal = openingHoursData => {
         setSelectedOpeningHoursId(openingHoursData.id);
-
-
         ModalService.open(DeleteModal);
-
-
     };
     const handleOpeningHoursModal = data => {
         setOpeningHoursDetails({
@@ -1208,38 +1201,15 @@ const EditServiceProvider = props => {
                     </Modal.Footer>
                 </form>
             </Modal>
-
-
             {selectedContactId &&
                 <ModalRoot componentName="Contact" handleDeleteSubmit={(e) => handleDeleteContact(e)} handleState={setClose} />
-
             }
-
             {selectedLocationId &&
-
                 <ModalRoot componentName="Location" handleDeleteSubmit={(e) => handleDeleteLocation(e)} handleState={setClose} />
             }
-
             {selectedOpeningHoursId &&
-
                 <ModalRoot componentName="Opening Hours" handleDeleteSubmit={(e) => handleDeleteOpeningHours(e)} handleState={setClose} />
             }
-
-
-
-
-
-
-            {/* Opening Hours delete modal */}
-            {/* <ModalRoot componentName="Opening Hours" handleDeleteSubmit={handleDeleteOpeningHours} /> */}
-            {/* Location delete modal */}
-            {/* <ModalRoot componentName="Location" handleDeleteSubmit={handleDeleteLocation} /> */}
-            {/* Contact delete modal */}
-            {/* <ModalRoot componentName="Contact" handleDeleteSubmit={handleDeleteContact} /> */}
-
-
-            <br />
-            <br />
         </div >
     );
 };
