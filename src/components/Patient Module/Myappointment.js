@@ -17,26 +17,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
-import Avatar from 'react-avatar';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import ChatIcon from '@material-ui/icons/Chat';
-import IconButton from '@material-ui/core/IconButton';
-import { Link } from 'react-router-dom';
-import calendarSmall from '../../images/svg/calender-beige.svg';
-import calendarIcon from '../../images/svg/calendar-green.svg';
-import timeSmall from '../../images/svg/time-teal.svg';
-import timeBig from '../../images/svg/time-big-icon.svg';
-import rightIcon from '../../images/svg/right-icon.svg';
-import chatButtonIcon from '../../images/svg/chat-button-icon.svg';
-import dollarIcon from '../../images/svg/dollar-icon.svg';
-import creditCardIcon from '../../images/svg/credit-card-icon.svg';
-import infoIcon from '../../images/svg/info-i-icon.svg';
-import helpSupportIcon from '../../images/svg/help-support-icon.svg';
-import educationIcon from '../../images/svg/education-icon.svg';
-import experienceIcon from '../../images/svg/experience-yellow-icon.svg';
-import languageIcon from '../../images/svg/languages-yellow-icon.svg';
-import aboutIcon from '../../images/svg/about-icon.svg';
-import rescheduleIcon from '../../images/svg/reschedule-icon.svg';
 import {
   deleteAppointment,
   getAppointmentListByPatientId,
@@ -47,6 +27,7 @@ import momentTz from 'moment-timezone';
 import { getInbox } from '../../service/chatService';
 import UpcomingAppointmentCard from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointmentCard';
 import AppointmentDetailsModal from './DetailsModals/AppointmentDetailsModal';
+import MoreInfoAboutDoctor from './DetailsModals/MoreInfoAboutDoctor';
 
 // import { handleAgoraAccessToken } from '../../service/agoratokenservice';
 //import { checkAccessToken } from '../../service/RefreshTokenService';
@@ -790,7 +771,14 @@ const Myappointment = (props) => {
             from='completedAndCancelledAppointmentTab'
           />
 
+          {/* MORE INFO ABOUT DOCTOR DIALOG */}
+          <MoreInfoAboutDoctor
+            selectedAppointment={selectedAppointment}
+            moreDoctorInfo={moreDoctorInfo}
+            closeMoreDoctorInfo={closeMoreDoctorInfo}
+          />
 
+          {/* CONFIRM CHAT DIALOG */}
           <Dialog
             onClose={confirmChatClose}
             aria-labelledby="customized-dialog-title"
@@ -819,6 +807,8 @@ const Myappointment = (props) => {
               </button>
             </DialogActions>
           </Dialog>
+
+          {/* CONFIRM VIDEO DIALOG */}
           <Dialog
             onClose={alertVideoClose}
             aria-labelledby="customized-dialog-title"
@@ -837,6 +827,8 @@ const Myappointment = (props) => {
               </button>
             </DialogActions>
           </Dialog>
+
+          {/* ALERT CHAT DIALOG */}
           <Dialog
             onClose={alertChatClose}
             aria-labelledby="customized-dialog-title"
@@ -857,169 +849,7 @@ const Myappointment = (props) => {
             </DialogActions>
           </Dialog>
 
-          <Dialog
-            onClose={closeMoreDoctorInfo}
-            aria-labelledby="customized-dialog-title"
-            open={moreDoctorInfo}
-          >
-            <DialogTitle
-              id="customized-dialog-title"
-              onClose={closeMoreDoctorInfo}
-            >
-              Doctor Info
-            </DialogTitle>
-            <DialogContent>
-              {selectedAppointment && selectedAppointment.doctor && (
-                <div className="details-container">
-                  <div className="details-wrapper">
-                    <div className="details-content__doc-info">
-                      {/* {console.log("selectedAPP", selectedAppointment)} */}
-                      {selectedAppointment.doctor.picture ? (
-                        <div className="safari-helper">
-                          <img
-                            src={selectedAppointment.doctor.picture}
-                            alt=""
-                          />
-                        </div>
-                      ) : (
-                        <div className="safari-helper">
-                          <Avatar
-                            round={true}
-                            name={
-                              selectedAppointment.doctor.firstName +
-                              ' ' +
-                              (selectedAppointment.doctor.lastName || '')
-                            }
-                            size={60}
-                            className="doctor-info-avatar"
-                          />
-                        </div>
-                      )}
 
-                      <h2 className="my-appointments__header-names">
-                        {selectedAppointment.doctor.salutation}{' '}
-                        {selectedAppointment.doctor.firstName}{' '}
-                        {selectedAppointment.doctor.lastName || ''}
-                      </h2>
-                      <span>
-                        <ul
-                          //style={{ fontSize: 12, display: 'block' }}
-                          className="list--tags-speciality ul-helper"
-                        >
-                          {selectedAppointment.doctor &&
-                            selectedAppointment.doctor.specialities &&
-                            selectedAppointment.doctor.specialities.map(
-                              (speciality, index) => (
-                                <li className="specialitiesTags" key={index}>
-                                  {speciality.name}{' '}
-                                </li>
-                              )
-                            )}
-                        </ul>
-                      </span>
-                    </div>
-                    <div className="details-body">
-                      <span>About</span>
-                      <div className="details-body__payment">
-                        <div className="d-flex align-items-start flex-column mb-3">
-                          <div className="doctor-info-icon-title">
-                            <img
-                              src={educationIcon}
-                              alt="icons"
-                              className="doctor-info-icon"
-                            />
-                            <div className="doctor-info-title">Education</div>
-                          </div>
-
-                          {/* <div className="d-flex flex-column align-items-start"> */}
-                          <div className="doctor-info-value">
-                            {selectedAppointment.doctor &&
-                              selectedAppointment.doctor.specialities &&
-                              selectedAppointment.doctor.specialities.map(
-                                (speciality, index) => (
-                                  <li key={index}>{speciality.name} </li>
-                                )
-                              )}
-                          </div>
-                          {/* </div> */}
-                        </div>
-
-                        <div className="d-flex align-items-start flex-column mb-3">
-                          <div className="doctor-info-icon-title">
-                            <img
-                              src={experienceIcon}
-                              alt="icons"
-                              className="doctor-info-icon"
-                            />
-                            <div className="doctor-info-title">Experience</div>
-                          </div>
-
-                          {/* <div className="d-flex flex-column align-items-start"> */}
-                          <div className="doctor-info-value">
-                            {selectedAppointment.doctor.experience}
-                          </div>
-                          {/* </div> */}
-                        </div>
-                      </div>
-
-                      <div className="details-body__payment">
-                        <div className="d-flex align-items-start flex-column mb-3">
-                          <div className="doctor-info-icon-title">
-                            <img
-                              src={languageIcon}
-                              alt="icons"
-                              className="doctor-info-icon"
-                            />
-                            <div className="doctor-info-title">Languages</div>
-                          </div>
-
-                          <div className="doctor-info-value">
-                            {selectedAppointment.doctor &&
-                              selectedAppointment.doctor.languages &&
-                              selectedAppointment.doctor.languages.map(
-                                (language, index) => (
-                                  <li key={index}>{language.name} </li>
-                                )
-                              )}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="details-body__payment">
-                        <div className="d-flex align-items-start flex-column mb-3">
-                          <div className="doctor-info-icon-title">
-                            <img
-                              src={aboutIcon}
-                              alt="icons"
-                              className="doctor-info-icon"
-                            />
-                            <div className="doctor-info-title">About</div>
-                          </div>
-
-                          <div className="doctor-info-value">
-                            {selectedAppointment.doctor.bio}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
-                  </div>
-                </div>
-              )}
-            </DialogContent>
-            <DialogActions>
-              <button
-                onClick={closeMoreDoctorInfo}
-                className="btn btn-primary"
-                id="close-btn"
-                style={{
-                  alignSelf: 'center',
-                }}
-              >
-                OK
-              </button>
-            </DialogActions>
-          </Dialog>
         </>
       )}
     </div>
