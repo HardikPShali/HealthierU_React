@@ -683,15 +683,6 @@ const Myappointment = (props) => {
           <br />
           {/* <Footer /> */}
 
-          {/* CANCEL APPOINTMENT DIALOG */}
-          <ConfirmCancelModal
-            selectedAppointment={selectedAppointment}
-            handleClose={handleClose}
-            open={open}
-            hourDifference={hourDifference}
-            handleDelete={handleDelete}
-          />
-
           {/* APPOINTMENT DETAILS FROM CALENDAR */}
           <AppointmentDetailsModal
             selectedAppointment={selectedAppointment}
@@ -744,6 +735,15 @@ const Myappointment = (props) => {
           <AlertChatDialog
             alertChatClose={alertChatClose}
             alertChat={alertChat}
+          />
+
+          {/* CANCEL APPOINTMENT DIALOG */}
+          <ConfirmCancelModal
+            selectedAppointment={selectedAppointment}
+            handleClose={handleClose}
+            open={open}
+            hourDifference={hourDifference}
+            handleDelete={handleDelete}
           />
 
         </>
