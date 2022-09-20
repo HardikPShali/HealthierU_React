@@ -229,14 +229,12 @@ const NextAppointmentNotifications = ({
         try {
             // await api call
             const newPaymentResponse = await axios(setNextApptApi);
-            // console.log({ newPaymentResponse });
 
             //success logic
             if (
                 newPaymentResponse.status === 200 ||
                 newPaymentResponse.status === 201
             ) {
-                //   props.history.push('/patient/myappointment');
                 setClickModal(false);
                 toast.success('Appointment has been set successfully', {
                     toastId: 'nextAppointmentSet',
@@ -249,23 +247,14 @@ const NextAppointmentNotifications = ({
             }
         } catch (err) {
             //error logic
-            // console.log({ err });
+
             const errorMessage = err.response.data.message;
             const errorStatus = err.response.status;
 
             if (errorStatus === 500 && errorMessage) {
-                //   setLoading(false);
-                // FOR MODAL
-                // setPaymentErrorModal(true);
-
-                // FOR TOAST
                 setClickModal(false);
                 toast.error(`${errorMessage}. Please try again.`);
             } else {
-                //   setLoading(false);
-                // FOR MODAL
-                // setPaymentErrorModal(true);
-                // FOR TOAST
                 setClickModal(false);
                 toast.error(`Payment failed. Please try again.`);
             }
