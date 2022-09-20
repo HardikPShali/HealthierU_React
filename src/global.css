@@ -12,6 +12,7 @@
 * {
   font-family: var(--font-primary);
   scroll-behavior: smooth;
+  text-shadow: none;
 }
 
 body {
