@@ -79,6 +79,7 @@ import {
 import lodash, { isObject } from 'lodash';
 import { convertCompilerOptionsFromJson } from 'typescript';
 import PromoCodeForPatient from './PromoCodeForPatient/PromoCodeForPatient';
+import useRole from '../../custom-hooks/useRole';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
@@ -109,7 +110,6 @@ const MyDoctor = (props) => {
 
   const cookies = new Cookies();
 
-  // const newPatientId = props.currentPatient.id;
 
   const [doctor, setdoctor] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -122,13 +122,6 @@ const MyDoctor = (props) => {
     name: [],
   });
   const { name } = specialityArray;
-  // //console.log("speciality :::", name)
-
-  // const [diseasesList, setDiseasesList] = useState({g
-  //     diseasesOptions: [{ name: "Diabetes" }]
-  // });
-
-  // const { diseasesOptions } = diseasesList
 
   const [appointment, setAppointment] = useState({
     type: 'DR',
@@ -149,14 +142,18 @@ const MyDoctor = (props) => {
   const currentLoggedInUser = cookies.get('currentUser');
   const loggedInUserId = currentLoggedInUser && currentLoggedInUser.id;
   const profilepID = cookies.get('profileDetails');
-  // console.log("profileDetails", profilepID);
-  const pID = profilepID && profilepID.userId;
-  // console.log("currentUser", loggedInUserId);
-  // console.log("pID", pID);
-  // const stateData = props.location.state;
+
+  const role = useRole();
+
+  const getRoleName = () => {
+    return role[0].includes("ROLE_DOCTOR") ? "doctor" : "patient";
+  };
+
+  console.log({ getRoleName: getRoleName() });
+
   const [nextAppDetails, setNextAppDetails] = useState(null);
   const getCurrentPatient = async () => {
-    if (profilepID.activated) {
+    if (getRoleName() === "doctor") {
       setNextAppDetails(props.location.state);
       const patientInfo = props.location.state;
       if (patientInfo) {
@@ -200,12 +197,7 @@ const MyDoctor = (props) => {
       setFilterData(doctorArray);
       setLikedDoctors(doctorArray.length)
       setIsFiltered(true)
-      // setdoctor(doctorArray.length > 0 && doctorArray[0]);
       setLikedOffset(likedOffset + 1);
-      //const currentSelectedDate = new Date();
-      //onDaySelect(currentSelectedDate, res.data.length > 0 && res.data[0].doctorId);
-      // const docId = doctorArray.length > 0 && doctorArray[0].id;
-      // getInValidAppointments(docId);
       setTransparentLoading(false);
     }
   };
@@ -225,11 +217,9 @@ const MyDoctor = (props) => {
   const [offset, setOffset] = useState(0);
   const [likedOffset, setLikedOffset] = useState(0);
   const [totalDoctors, setTotalDoctors] = useState(0)
-  function checkActivated(activated) {
-    return activated == false
-  }
+
   const loadUsers = async (patientId) => {
-    if (!profilepID.activated) {
+    if (getRoleName() === "patient") {
       const data = {
         searchKeyword: '',
         specialitiesId: [],
@@ -755,51 +745,6 @@ const MyDoctor = (props) => {
       setDisplayCalendar(false);
       setDisplaySlot(true);
     }
-
-    // const response = await getFilteredAppointmentData(dataForSelectedDay);
-    // // //console.log(response.status);
-    // if (response.status === 200 || response.status === 201) {
-    //   console.log(response.data, 'in response');
-    //   const arraySlot = [];
-    //   response.data &&
-    //     response.data.map((value) => {
-    //       if (
-    //         new Date(value.startTime) >=
-    //         new Date(moment(new Date()).subtract(0, 'minutes'))
-    //       ) {
-    //         arraySlot.push(value);
-    //       } else {
-    //         arraySlot.push(value);
-    //       }
-    //     });
-    //   setAvailability(arraySlot);
-    //   setDisplayCalendar(true);
-    //   setDisplaySlot(false);
-    //   setTransparentLoading(false);
-    //   if (appointment.appointmentMode) {
-    //     if (appointment.appointmentMode === 'First Consultation') {
-    //       const consultationSlots = createConsultationSlots(arraySlot);
-    //       //console.log("consultationSlots :: ", consultationSlots);
-    //       if (consultationSlots && consultationSlots.length > 0) {
-    //         setAppointmentSlot(consultationSlots);
-    //         document.querySelector('#calendar-list').scrollTo(0, 500);
-    //         setDisplayCalendar(false);
-    //         setDisplaySlot(true);
-    //       } else {
-    //         setAppointmentSlot([]);
-    //         setDisplayCalendar(false);
-    //         setDisplaySlot(true);
-    //       }
-    //     } else if (appointment.appointmentMode === 'Follow Up') {
-    //       setAppointmentSlot(arraySlot);
-    //       document.querySelector('#calendar-list').scrollTo(0, 500);
-    //       setDisplayCalendar(false);
-    //       setDisplaySlot(true);
-    //     }
-    //   } else {
-    //     setIsAppointmentTourOpen(true);
-    //   }
-    // }
   };
 
   const [disabledDates, setDisabledDates] = useState([]);
@@ -1567,14 +1512,8 @@ const MyDoctor = (props) => {
       {loading && <Loader />}
       {transparentLoading && <TransparentLoader />}
       <Container className="my-doctor pt-4">
-        {/* /mobile-payment?firstName="nithi"&lastName="raj" */}
-        {/* <Link
-          to={`/mobile-payment?uId=${currentPatient.userId}&fN=${currentPatient.firstName}&lN=${currentPatient.lastName}&em=${currentPatient.email}&r=${doctor.rate}&hR=${doctor.halfrate}&aId=${appointmentId}&aM=${appointentMode}`}
-        >
-          Pay here
-        </Link> */}
         <Row>
-          {!profilepID.activated && (
+          {getRoleName() === 'patient' && (
             <Col md={6} lg={4} style={{ display: display.doctor }}>
               <div id="dorctor-list">
                 <div className="Togglebar">
@@ -2020,7 +1959,7 @@ const MyDoctor = (props) => {
               </div>
             </Col>
           )}
-          {!profilepID.activated ? (
+          {getRoleName() === 'patient' ? (
             <Col md={6} lg={4} style={{ display: display.doctor }}>
               <div id="dorctor-list" className="doctor-list-new">
                 {doctor && doctor.activated ? (
@@ -2480,7 +2419,7 @@ const MyDoctor = (props) => {
               </div>
             </Col>
           )}
-          {!profilepID.activated ? (
+          {getRoleName() === 'patient' ? (
             <Col md={6} lg={4} style={{ display: display.doctor }}>
               {/* <Tooltip title="Take a Booking appointment tour again." arrow>
                 <button
@@ -2889,7 +2828,7 @@ const MyDoctor = (props) => {
               </div>
             </Col>
           )} */}
-          {!profilepID.activated ? (
+          {getRoleName() === 'patient' ? (
             <Col md={7} style={{ display: display.appointment }}>
               <div id="dorctor-list" className="doctor-list-new">
                 <IconButton
@@ -3251,7 +3190,7 @@ const MyDoctor = (props) => {
 
                 {/* <span id="promo-code">Have a promo code?</span><br /><br /> */}
                 <div id="payment-form" style={{ marginLeft: '15px' }}>
-                  {!profilepID.activated ? (
+                  {getRoleName() === 'patient' ? (
                     <Row>
                       {/* <Col md={1}></Col> */}
                       {/* <Col md={5} style={{ paddingLeft: 0 }}><button type="button" className="btn btn-primary continue-btn" onClick={bookappointment}>Pay by PayPal</button></Col> */}
