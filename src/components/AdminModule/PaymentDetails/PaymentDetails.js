@@ -12,7 +12,7 @@ import moment from 'moment';
 import { CSVLink } from 'react-csv';
 import SearchBarComponent from '../../CommonModule/SearchAndFilter/SearchBarComponent';
 import FilterPatientDetails from './FilterPatientDetails';
-import { FrontEndPagination } from './FrontEndPagination';
+// import { FrontEndPagination } from './FrontEndPagination';
 
 const PaymentDetails = () => {
     const tableHeaders = PAYMENT_DETAILS_TABLE_HEADERS;
@@ -31,12 +31,6 @@ const PaymentDetails = () => {
         page = 0,
         size = 20
     ) => {
-        console.log({
-            searchText: searchText,
-            filter: filter,
-            page: page,
-            size: size,
-        });
         setIsLoading(true);
         const todayDate = moment()
             // .startOf('month')
@@ -71,7 +65,7 @@ const PaymentDetails = () => {
         const response = await getAllPaymentDetailsForAdmin(data).catch((err) => {
             console.log(err);
         });
-        console.log({ response });
+        // console.log({ response });
         if (response.status === 200) {
             if (response.data.status === true) {
                 const paymentDetailsFromresponse = response.data.data.content.map(
@@ -83,9 +77,9 @@ const PaymentDetails = () => {
                         return paymentDetail;
                     }
                 );
-                console.log({
-                    paymentDetailsFromresponse: paymentDetailsFromresponse.length,
-                });
+                // console.log({
+                //     paymentDetailsFromresponse: paymentDetailsFromresponse.length,
+                // });
                 const totalPages = response.data.data.totalPages;
                 // console.log({ totalPages })
                 // console.log({ paymentDetailsFromresponse })
