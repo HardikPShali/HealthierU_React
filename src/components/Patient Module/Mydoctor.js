@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  getAppointmentMode,
   getAppointmentModeForAvailabilitySlotsDisplay,
   getAppointmentModeToDisplayAsLabel,
 } from './../../util/appointmentModeUtil';
@@ -33,29 +32,22 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Paypal from '../CommonModule/Paypal';
+// import Paypal from '../CommonModule/Paypal';
 import TransparentLoader from '../Loader/transparentloader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   getLoggedInUserDataByUserId,
   getLikedDoctorByPatientId,
-  getDoctorListByPatientId,
-  getMoreDoctors,
   getMoreLikedDoctorByPatientId,
   postLikedDoctor,
   postUnlikedDoctor,
-  getFilteredAppointmentData,
   getInvalidDates,
-  getFilteredDoctors,
   getSearchData,
   setNextAppointmentDoctor,
   getAvailableSlotsForMyDoctors,
-  getUnreadNotificationsCount,
   getSearchDataAndFilter,
   getAvailableSlotTimings,
-  getAvailableCouponsByPatientId,
-  verifyCouponSelectedBypatient,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -70,14 +62,12 @@ import Slider from '@material-ui/core/Slider';
 import { Multiselect } from 'multiselect-react-dropdown';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { searchFilterForDoctor } from '../../service/searchfilter';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {
   doctorListLimit,
   doctorListLimitNonPaginated,
 } from '../../util/configurations';
 import lodash, { isObject } from 'lodash';
-import { convertCompilerOptionsFromJson } from 'typescript';
 import PromoCodeForPatient from './PromoCodeForPatient/PromoCodeForPatient';
 import useRole from '../../custom-hooks/useRole';
 import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
