@@ -80,6 +80,7 @@ import lodash, { isObject } from 'lodash';
 import { convertCompilerOptionsFromJson } from 'typescript';
 import PromoCodeForPatient from './PromoCodeForPatient/PromoCodeForPatient';
 import useRole from '../../custom-hooks/useRole';
+import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import { Button, Modal } from 'react-bootstrap';
 // import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
@@ -149,7 +150,7 @@ const MyDoctor = (props) => {
     return role[0].includes("ROLE_DOCTOR") ? "doctor" : "patient";
   };
 
-  console.log({ getRoleName: getRoleName() });
+  // console.log({ getRoleName: getRoleName() });
 
   const [nextAppDetails, setNextAppDetails] = useState(null);
   const getCurrentPatient = async () => {
@@ -1817,8 +1818,8 @@ const MyDoctor = (props) => {
                 </div>
                 <br />
                 <div id="card-list" className="scroller-cardlist">
-                  {console.log("filterData", filterData.length)}
-                  {console.log("totalDoctors", totalDoctors)}
+                  {/* {console.log("filterData", filterData.length)}
+                  {console.log("totalDoctors", totalDoctors)} */}
                   {filterData && filterData.length > 0 ? (
                     <GridList cellHeight={220}>
                       <GridListTile
@@ -3230,12 +3231,25 @@ const MyDoctor = (props) => {
 
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           {/* {console.log({ appointmentId: appointment.id })} */}
-                          <Paypal
+                          {/* <Paypal
                             // appointmentId={appointment.id}
                             appointmentMode={appointment.appointmentMode}
                             bookappointment={bookappointment}
                             firstName={props.currentPatient.firstName}
                             // lastName={props.currentPatient.lastName}
+                            email={props.currentPatient.email}
+                            userId={props.currentPatient.userId}
+                            rate={
+                              promoCodeApplied === true ? discountApplied : doctor.rate
+                            }
+                            halfRate={
+                              promoCodeApplied === true ? discountApplied : doctor.halfRate
+                            }
+                          /> */}
+                          <PaypalCheckoutButton
+                            appointmentMode={appointment.appointmentMode}
+                            bookappointment={bookappointment}
+                            firstName={props.currentPatient.firstName}
                             email={props.currentPatient.email}
                             userId={props.currentPatient.userId}
                             rate={

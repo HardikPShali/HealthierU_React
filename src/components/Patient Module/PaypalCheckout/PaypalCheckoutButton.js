@@ -1,79 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PayPalButtons } from '@paypal/react-paypal-js';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import { useHistory } from 'react-router';
+
 
 const PaypalCheckoutButton = (props) => {
-    // const { appointment, bookappointment, currentPatient, doctor } = props;
-    // const { appointmentMode, id: appointmentId } = appointment;
 
     const { bookappointment, email, firstName, lastName, rate, halfRate, userId, appointmentId, appointmentMode } = props;
-    // console.log({ appointmentId })
-    // const {
-    //     // address,
-    //     email,
-    //     firstName,
-    //     lastName,
-    //     middleName,
-    //     // phone,
-    //     userId,
-    //     // countryName,
-    // } = currentPatient;
+
+    // ON CANCEL FALLBACK---- STARTS
+    const history = useHistory();
+    const [cancelSelect, setCancelSelect] = useState(false);
+
+    const handleCancel = () => {
+        setCancelSelect(true);
+    };
+    // ON CANCEL FALLBACK---- ENDS
 
     return (
         <div>
             <PayPalButtons
-                // style={{
-                //     color: 'gold',
-                //     layout: 'horizontal',
-                //     height: 48,
-                //     tagline: false,
-                //     shape: 'pill',
-                //     size: 'responsive',
+                style={{
+                    color: 'gold',
+                    layout: 'vertical',
+                    height: 48,
+                    tagline: false,
+                    shape: 'rect',
+                    size: 'responsive',
+                }}
+                // onClick={(data, actions) => {
+                //     return actions.resolve();
                 // }}
-                onClick={(data, actions) => {
-                    return actions.resolve();
-                }}
                 createOrder={(data, actions) => {
-                    if (data) {
-                        return actions.order.create({
-                            intent: 'CAPTURE',
 
-                            payer: {
-                                name: {
-                                    given_name: firstName,
-                                    surname: lastName,
-                                },
-                                email_address: email,
-                                // address: {
-                                //   address_line_1: "abudhabi",
-                                //   address_line_2: "23",
-                                //   admin_area_2: countryName,
-                                //   admin_area_1: address,
-                                //   country_code: "AE",
-                                // },
-                                phone_with_type: {
-                                    phone_type: 'MOBILE',
+                    return actions.order.create({
+                        intent: 'CAPTURE',
+
+                        payer: {
+                            name: {
+                                given_name: firstName,
+                                surname: lastName,
+                            },
+                            email_address: email,
+                            phone_with_type: {
+                                phone_type: 'MOBILE',
+                            },
+                        },
+
+                        purchase_units: [
+                            {
+                                amount: {
+                                    currency_code: 'USD',
+                                    value:
+                                        appointmentMode === 'First Consultation'
+                                            ? rate
+                                            : halfRate,
                                 },
                             },
-
-                            purchase_units: [
-                                {
-                                    amount: {
-                                        currency_code: 'USD',
-                                        value:
-                                            appointmentMode === 'First Consultation'
-                                                ? rate
-                                                : halfRate,
-                                    },
-                                },
-                            ],
-                            application_context: {
-                                shipping_preference: 'NO_SHIPPING',
-                            },
-                        });
-                    }
-
+                        ],
+                        application_context: {
+                            shipping_preference: 'NO_SHIPPING',
+                        },
+                    });
                 }}
-                onApprove={async (actions) => {
+                onApprove={async (data, actions) => {
                     const order = await actions.order.capture();
                     const {
                         id: paymentId,
@@ -117,11 +109,61 @@ const PaypalCheckoutButton = (props) => {
                     bookappointment(orderData);
                 }}
                 onCancel={(data) => {
+                    console.log(data);
+                    // Show a cancel page, or return to MyDoctors
+                    handleCancel();
+                    if (window.android) {
+                        window.android.onPaymentStatusChange(false);
+                        window.android.sendOrderData(false);
+                    }
+                    if (window.webkit) {
+                        window.webkit.messageHandlers.onPaymentStatusChange.postMessage(
+                            false
+                        );
+                        window.webkit.messageHandlers.sendOrderData.postMessage(false);
+                    }
                 }}
                 onError={(err) => {
                     console.log(err);
                 }}
             />
+
+            {/* ON CANCEL FALLBACK MODAL---- STARTS */}
+            <Dialog
+                onClose={() => setCancelSelect(true)}
+                aria-labelledby="customized-dialog-title"
+                open={cancelSelect}
+            >
+                <DialogTitle
+                    id="customized-dialog-title"
+                    onClose={() => setCancelSelect(true)}
+                >
+                    You have cancelled your payment. Press OK to go back.
+                </DialogTitle>
+                <DialogActions>
+                    <button
+                        autoFocus={false}
+                        onClick={() => {
+                            if (window.android) {
+                                window.android.onPaymentStatusChange(false);
+                                window.android.sendOrderData(false);
+                            } else if (window.webkit) {
+                                window.webkit.messageHandlers.onPaymentStatusChange.postMessage(
+                                    false
+                                );
+                                window.webkit.messageHandlers.sendOrderData.postMessage(false);
+                            } else {
+                                history.go(0);
+                            }
+                        }}
+                        className="btn btn-primary"
+                        id="close-btn"
+                    >
+                        OK
+                    </button>
+                </DialogActions>
+            </Dialog>
+            {/* ON CANCEL FALLBACK MODAL---- ENDS */}
         </div>
     );
 };
