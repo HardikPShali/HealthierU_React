@@ -1662,7 +1662,7 @@ export const getAllPaymentDetailsForAdmin = async (data) => {
   var payload = {
     method: "post",
     mode: "no-cors",
-    url: `/api/v2/payments/all?page=${data.page}&size=${data.size}&search=${data.search}&startTime=${data.startTime}&endTime=${data.endTime}`,
+    url: `/api/v2/new/payments/all?page=${data.page}&size=${data.size}&search=${data.search}&startTime=${data.startTime}&endTime=${data.endTime}`,
     headers: {
       "Authorization": 'Bearer ' + LocalStorageService.getAccessToken(),
       "Content-Type": "application/json",
