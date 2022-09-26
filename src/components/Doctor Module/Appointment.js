@@ -54,7 +54,7 @@ import bloodGroupIcon from "../../../src/images/svg/blood-group-icon.svg";
 import heightIcon from "../../../src/images/svg/height-icon.svg";
 import weightIcon from "../../../src/images/svg/weight-icon.svg";
 import bloodPressureIcon from "../../../src/images/svg/blood-pressure-icon.svg";
-
+import UpcomingAppointmentCard from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointmentCard'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -243,6 +243,7 @@ const Myappointment = (props) => {
   };
   const [upcomingAppointment, setUpcomingAppointment] = useState([])
   const clickTabEvent = async (event, startTime, endTime, doctorId) => {
+    //setTransparentLoading(true);
     const today = new Date();
     const docId = cookies.get("profileDetails");
     // to return the date number(1-31) for the specified date
@@ -275,6 +276,7 @@ const Myappointment = (props) => {
         }
       );
       if (resTomorrow && resTomorrow.data.data.appointmentsBetweenGivenDates) {
+        setTransparentLoading(false);
         const tomoArray = [];
         //resTomorrow.data.data.appointmentsBetweenGivenDates.reverse();
         resTomorrow.data.data.appointmentsBetweenGivenDates.map((value, index) => {
@@ -297,8 +299,9 @@ const Myappointment = (props) => {
           return value;
         });
         setTomorrowAppointment(tomoArray);
-        setTimeout(() => setLoading(false), 1000);
-        setTimeout(() => setTransparentLoading(false), 1000);
+        setTransparentLoading(false);
+        // setTimeout(() => setLoading(false), 1000);
+        // setTimeout(() => setTransparentLoading(false), 1000);
         // const tourState = cookies.get("appointmentTour");
         // if (!tourState) {
         //   setIsTourOpen(true);
@@ -323,6 +326,7 @@ const Myappointment = (props) => {
           }
         );
       if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
+        setTransparentLoading(false);
         const todayArray = [];
         //resToday.data.data.appointmentsBetweenGivenDates.reverse();
         resToday.data.data.appointmentsBetweenGivenDates.map((value, index) => {
@@ -345,8 +349,9 @@ const Myappointment = (props) => {
           return value;
         });
         setTodayAppointment(todayArray);
-        setTimeout(() => setLoading(false), 1000);
-        setTimeout(() => setTransparentLoading(false), 1000);
+        setTransparentLoading(false);
+        // setTimeout(() => setLoading(false), 1000);
+        // setTimeout(() => setTransparentLoading(false), 1000);
         // const tourState = cookies.get("appointmentTour");
         // if (!tourState) {
         //   setIsTourOpen(true);
@@ -392,8 +397,9 @@ const Myappointment = (props) => {
           return value;
         });
         setUpcomingAppointment(upcomingArray);
-        setTimeout(() => setLoading(false), 1000);
-        setTimeout(() => setTransparentLoading(false), 1000);
+        setTransparentLoading(false);
+        // setTimeout(() => setLoading(false), 1000);
+        // setTimeout(() => setTransparentLoading(false), 1000);
         // const tourState = cookies.get("appointmentTour");
         // if (!tourState) {
         //   setIsTourOpen(true);
@@ -446,14 +452,14 @@ const Myappointment = (props) => {
         setTransparentLoading(false);
       }
     });
-    // const resToday = await getAppointmentsForHomepage(startTime = new Date(starttime).toISOString(),
-    //   endTime = new Date(endtime).toISOString(),
-    //   doctorId = docId.id).catch((err) => {
-    //     if (err.response.status === 500 || err.response.status === 504) {
-    //       setLoading(false);
-    //       setTransparentLoading(false);
-    //     }
-    //   });
+    const resToday = await getAppointmentsForHomepage(startTime = new Date(starttime).toISOString(),
+      endTime = new Date(endtime).toISOString(),
+      doctorId = docId.id).catch((err) => {
+        if (err.response.status === 500 || err.response.status === 504) {
+          setLoading(false);
+          setTransparentLoading(false);
+        }
+      });
     if (res && res.data) {
       setLoading(false);
       setTransparentLoading(false)
@@ -511,33 +517,33 @@ const Myappointment = (props) => {
       //   setIsTourOpen(true);
       // }
     }
-    // if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
-    //   setLoading(false);
-    //   setTransparentLoading(false)
-    //   const todayArray = [];
-    //   resToday.data.data.appointmentsBetweenGivenDates.map((value, index) => {
-    //     if (
-    //       value.status === "ACCEPTED"
-    //     ) {
-    //       todayArray.push({
-    //         id: value.id,
-    //         startTime: new Date(value.startTime),
-    //         endTime: new Date(value.endTime),
-    //         remarks: value.remarks,
-    //         status: value.status,
-    //         doctorId: value.doctorId,
-    //         patientId: value.patientId,
-    //         patient: value.patient,
-    //         appointmentMode: value.appointmentMode,
-    //         unifiedAppointment: value.unifiedAppointment,
-    //       });
-    //     }
-    //     return value;
-    //   });
-    //   setTodayAppointment(todayArray);
-    //   setTimeout(() => setLoading(false), 1000);
-    //   setTimeout(() => setTransparentLoading(false), 1000);
-    // }
+    if (resToday && resToday.data.data.appointmentsBetweenGivenDates) {
+      setLoading(false);
+      setTransparentLoading(false)
+      const todayArray = [];
+      resToday.data.data.appointmentsBetweenGivenDates.map((value, index) => {
+        if (
+          value.status === "ACCEPTED"
+        ) {
+          todayArray.push({
+            id: value.id,
+            startTime: new Date(value.startTime),
+            endTime: new Date(value.endTime),
+            remarks: value.remarks,
+            status: value.status,
+            doctorId: value.doctorId,
+            patientId: value.patientId,
+            patient: value.patient,
+            appointmentMode: value.appointmentMode,
+            unifiedAppointment: value.unifiedAppointment,
+          });
+        }
+        return value;
+      });
+      setTodayAppointment(todayArray);
+      // setTimeout(() => setLoading(false), 1000);
+      // setTimeout(() => setTransparentLoading(false), 1000);
+    }
   };
 
   ////console.log("UTC string :::", new Date(new Date().toUTCString()).toISOString())
@@ -1158,6 +1164,7 @@ const Myappointment = (props) => {
                                                 handleMyAppointmentOpen(appointment)
                                               }}
                                             >
+                                              {/* <UpcomingAppointmentCard appointment={appointment} /> */}
                                               <div className="row align-items-start py-1 mobile-resp">
                                                 <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                   <h5 className="patient-list__common-date">
@@ -1253,6 +1260,9 @@ const Myappointment = (props) => {
                                                 handleMyAppointmentOpen(appointment)
                                               }}
                                             >
+                                              {/* <UpcomingAppointmentCard
+                                                appointment={appointment}
+                                              /> */}
                                               <div className="row align-items-start py-1 mobile-resp">
                                                 <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                   <h5 className="patient-list__common-date">
@@ -1350,6 +1360,9 @@ const Myappointment = (props) => {
                                                 handleMyAppointmentOpen(appointment)
                                               }}
                                             >
+                                              {/* <UpcomingAppointmentCard
+                                                appointment={appointment}
+                                              /> */}
                                               <div className="row align-items-start py-1 mobile-resp">
                                                 <div className="col-md-2  d-flex flex-column mt-3 ml-3">
                                                   <h5 className="patient-list__common-date">
