@@ -108,7 +108,7 @@ img.card-img-top {
   .patient-card_how-healthy-wrap {
     top: 0;
     left: 0;
-    transform: translate(5px, -50px);
+    transform: translate(5px, -40px);
   }
 
   #patient-card button.health-assessment-btn {
