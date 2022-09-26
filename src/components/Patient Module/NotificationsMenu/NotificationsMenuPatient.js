@@ -8,6 +8,7 @@ import NextAppointmentNotifications from './NotificationTypes/NextAppointmentNot
 import RescheduleByDoctorNotification from './NotificationTypes/RescheduleByDoctorNotification';
 import RescheduleNotification from './NotificationTypes/RescheduleByDoctorNotification';
 import RescheduleFromPatientNotification from './NotificationTypes/RescheduleFromPatientNotification';
+import MedicalRecordsNotification from './NotificationTypes/MedicalRecordsNotification'
 import StringNotifications from './NotificationTypes/StringNotifications';
 
 const NotificationMenuPatient = () => {
@@ -55,7 +56,7 @@ const NotificationMenuPatient = () => {
             </div>
             <hr />
             <div className="d-flex flex-column">
-                {/* {console.log(notificationsData)} */}
+                {console.log(notificationsData)}
                 {notificationsData.length > 0 ? (
                     <div>
                         {notificationsData.map((notification, index) => {
@@ -143,6 +144,28 @@ const NotificationMenuPatient = () => {
                                 return (
                                     <div key={index}>
                                         <AppointmentExpiredNotification
+                                            notification={notification}
+                                            index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
+                                        />
+                                    </div>
+                                );
+                            }
+                            if (notification.type === 'PRESCRIPTION') {
+                                return (
+                                    <div key={index}>
+                                        <MedicalRecordsNotification
+                                            notification={notification}
+                                            index={index}
+                                            createdAtDisplayStyle={createdAtDisplayStyle}
+                                        />
+                                    </div>
+                                );
+                            }
+                            if (notification.type === 'RESULT') {
+                                return (
+                                    <div key={index}>
+                                        <MedicalRecordsNotification
                                             notification={notification}
                                             index={index}
                                             createdAtDisplayStyle={createdAtDisplayStyle}
