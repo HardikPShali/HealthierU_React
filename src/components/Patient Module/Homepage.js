@@ -9,6 +9,7 @@ import Loader from './../Loader/Loader';
 import SpecialitiesSection from './SpecialitiesSection';
 import UpcomingAppointments from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments';
 import OurDoctors from './OurDoctorsSections/OurDoctors';
+import TakeAssessmentCard from './TakeAssessmentCard/TakeAssessmentCard';
 // import { getFirebaseToken, getPermissions, onMessageListener } from '../../util';
 // import { getFcmTokenApi } from '../../service/frontendapiservices';
 // import Cookies from 'universal-cookie';
@@ -59,29 +60,7 @@ const patientHomePage = () => {
             <Container>
                 <Row>
                     <Col md={6}>
-                        <div id="patient-card">
-                            <div className="patient-card_text col-md-6">
-                                <div className="patient-card_how-healthy-wrap">
-                                    <h3 style={{ marginLeft: 15 }} className="mb-3">How healthy are you?</h3>
-                                    {cookies.get('currentUser').questionCompleted === true ? <Link to="/patient/questionnaire/existing" style={{ marginRight: 20 }}>
-                                        <button type='button' className="btn btn-primary btn-block health-assessment-btn">
-                                            Take Assessment
-                                        </button>
-                                    </Link> : <Link to="/patient/questionnaire/new" style={{ marginRight: 20 }}>
-                                        <button type='button' className="btn btn-primary btn-block health-assessment-btn">
-                                            Take Assessment
-                                        </button>
-                                    </Link>}
-                                </div>
-                            </div>
-                            <div className='col-md-6 text-center w-100'>
-                                <div className='health-assess-bg__wrapper'>
-                                    <img src={healthAssessmentBg} alt="home-2" className='health-assess-bg' />
-                                </div>
-
-                            </div>
-
-                        </div>
+                        <TakeAssessmentCard />
                     </Col>
                     <Col md={6}>
                         <SpecialitiesSection />
