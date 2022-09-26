@@ -72,7 +72,6 @@ import PromoCodeForPatient from './PromoCodeForPatient/PromoCodeForPatient';
 import useRole from '../../custom-hooks/useRole';
 import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import { Button, Modal } from 'react-bootstrap';
-// import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
