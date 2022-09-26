@@ -177,9 +177,9 @@
     transform: translate(0px, 10px);
   }
   .upcoming-appointment-card__card-time-row > img {
-    width: 18px;
-    height: 18px;
-    margin-right: 24px;
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
   }
 }
 
