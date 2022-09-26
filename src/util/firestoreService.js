@@ -163,7 +163,9 @@ const toastMessage = (payload) => {
     topicFromPayload === 'APPT_RESCHEDULE_BY_DOCTOR' ||
     topicFromPayload === 'APPT_RESCHEDULE_BY_PATIENT' ||
     topicFromPayload === 'SET_NEXT_APPOINTMENT_BY_DR' ||
-    topicFromPayload === 'APPT_EXPIRED'
+    topicFromPayload === 'APPT_EXPIRED' ||
+    topicFromPayload === 'PRESCRIPTION' ||
+    topicFromPayload === 'RESULT'
   ) {
     customPushNotificationToast(payload);
   }
