@@ -37,7 +37,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
               <img
                 src={appointment.doctor.picture}
                 alt={`${appointment.doctor.firstName}-image`}
-                className="img-circle ml-3 mt-3"
+                className="upcoming_img-circle ml-3 mt-3"
               />
             </div>
 

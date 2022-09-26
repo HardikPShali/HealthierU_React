@@ -4100,7 +4100,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 }
 
 .my-appointments__card-box::-webkit-scrollbar {
-  width: 7px;
+  width: 2px;
   -moz-appearance: none !important;
 }
 
