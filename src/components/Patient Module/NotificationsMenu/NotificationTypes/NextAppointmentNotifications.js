@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import Paypal from '../../../CommonModule/Paypal';
+// import Paypal from '../../../CommonModule/Paypal';
 import { Col } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import LocalStorageService from '../../../../util/LocalStorageService';
@@ -18,6 +18,7 @@ import {
     putMarkAsReadFromNotificationMenu,
 } from '../../../../service/frontendapiservices';
 import PromoCodeForPatient from '../../PromoCodeForPatient/PromoCodeForPatient';
+import PaypalCheckoutButton from '../../PaypalCheckout/PaypalCheckoutButton';
 
 const NextAppointmentNotifications = ({
     notification,
@@ -462,7 +463,19 @@ const NextAppointmentNotifications = ({
                     )}
                     {!isPromoCodeLoading && promoCodeEntered !== 'HEALTHIERUAE' && (
                         <Col md={12} className="mt-4 text-center">
-                            <Paypal
+                            {/* <Paypal
+                                appointmentMode={appointmentMode}
+                                bookappointment={setNextAppointmentHandler}
+                                firstName={firstName}
+                                lastName={lastName}
+                                email={email}
+                                userId={userId}
+                                rate={promoCodeApplied === true ? discountApplied : rate}
+                                halfRate={
+                                    promoCodeApplied === true ? discountApplied : halfRate
+                                }
+                            /> */}
+                            <PaypalCheckoutButton
                                 appointmentMode={appointmentMode}
                                 bookappointment={setNextAppointmentHandler}
                                 firstName={firstName}

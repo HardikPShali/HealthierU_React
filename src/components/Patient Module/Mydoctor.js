@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  getAppointmentMode,
   getAppointmentModeForAvailabilitySlotsDisplay,
   getAppointmentModeToDisplayAsLabel,
 } from './../../util/appointmentModeUtil';
@@ -33,29 +32,22 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Paypal from '../CommonModule/Paypal';
+// import Paypal from '../CommonModule/Paypal';
 import TransparentLoader from '../Loader/transparentloader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   getLoggedInUserDataByUserId,
   getLikedDoctorByPatientId,
-  getDoctorListByPatientId,
-  getMoreDoctors,
   getMoreLikedDoctorByPatientId,
   postLikedDoctor,
   postUnlikedDoctor,
-  getFilteredAppointmentData,
   getInvalidDates,
-  getFilteredDoctors,
   getSearchData,
   setNextAppointmentDoctor,
   getAvailableSlotsForMyDoctors,
-  getUnreadNotificationsCount,
   getSearchDataAndFilter,
   getAvailableSlotTimings,
-  getAvailableCouponsByPatientId,
-  verifyCouponSelectedBypatient,
 } from '../../service/frontendapiservices';
 import {
   getSpecialityList,
@@ -70,18 +62,16 @@ import Slider from '@material-ui/core/Slider';
 import { Multiselect } from 'multiselect-react-dropdown';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { searchFilterForDoctor } from '../../service/searchfilter';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {
   doctorListLimit,
   doctorListLimitNonPaginated,
 } from '../../util/configurations';
 import lodash, { isObject } from 'lodash';
-import { convertCompilerOptionsFromJson } from 'typescript';
 import PromoCodeForPatient from './PromoCodeForPatient/PromoCodeForPatient';
 import useRole from '../../custom-hooks/useRole';
+import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import { Button, Modal } from 'react-bootstrap';
-// import PaypalCheckoutButton from './PaypalCheckout/PaypalCheckoutButton';
 // import PaypalMobile from './MobilePayment/PaypalMobile';
 // import Footer from "./Footer";
 // import SearchIcon from "@material-ui/icons/Search";
@@ -149,7 +139,7 @@ const MyDoctor = (props) => {
     return role[0].includes("ROLE_DOCTOR") ? "doctor" : "patient";
   };
 
-  console.log({ getRoleName: getRoleName() });
+  // console.log({ getRoleName: getRoleName() });
 
   const [nextAppDetails, setNextAppDetails] = useState(null);
   const getCurrentPatient = async () => {
@@ -1817,8 +1807,8 @@ const MyDoctor = (props) => {
                 </div>
                 <br />
                 <div id="card-list" className="scroller-cardlist">
-                  {console.log("filterData", filterData.length)}
-                  {console.log("totalDoctors", totalDoctors)}
+                  {/* {console.log("filterData", filterData.length)}
+                  {console.log("totalDoctors", totalDoctors)} */}
                   {filterData && filterData.length > 0 ? (
                     <GridList cellHeight={220}>
                       <GridListTile
@@ -3230,12 +3220,25 @@ const MyDoctor = (props) => {
 
                         <Col md={12} style={{ paddingLeft: 0 }}>
                           {/* {console.log({ appointmentId: appointment.id })} */}
-                          <Paypal
+                          {/* <Paypal
                             // appointmentId={appointment.id}
                             appointmentMode={appointment.appointmentMode}
                             bookappointment={bookappointment}
                             firstName={props.currentPatient.firstName}
                             // lastName={props.currentPatient.lastName}
+                            email={props.currentPatient.email}
+                            userId={props.currentPatient.userId}
+                            rate={
+                              promoCodeApplied === true ? discountApplied : doctor.rate
+                            }
+                            halfRate={
+                              promoCodeApplied === true ? discountApplied : doctor.halfRate
+                            }
+                          /> */}
+                          <PaypalCheckoutButton
+                            appointmentMode={appointment.appointmentMode}
+                            bookappointment={bookappointment}
+                            firstName={props.currentPatient.firstName}
                             email={props.currentPatient.email}
                             userId={props.currentPatient.userId}
                             rate={

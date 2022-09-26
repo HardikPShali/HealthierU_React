@@ -3,9 +3,10 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useLocation } from 'react-router';
-import Paypal from '../../CommonModule/Paypal';
+// import Paypal from '../../CommonModule/Paypal';
 import TransparentLoader from '../../Loader/transparentloader';
 import '../patient.css';
+import PaypalCheckoutButton from '../PaypalCheckout/PaypalCheckoutButton';
 import PromoCodeForPatient from '../PromoCodeForPatient/PromoCodeForPatient';
 
 // const JSBridge = window.JSBridge;
@@ -330,7 +331,20 @@ const PaypalMobile = () => {
                     !isPromoCodeLoading && promoCodeEntered !== 'HEALTHIERUAE' && (
                         <Row>
                             <Col md={12} className="mt-4 text-center">
-                                <Paypal
+                                {/* <Paypal
+                                    appointmentMode={appointmentModeParams}
+                                    bookappointment={bookAppointment}
+                                    firstName={firstnameParams}
+                                    email={emailParams}
+                                    userId={userIdParams}
+                                    rate={
+                                        promoCodeApplied === true ? discountApplied : rateParams
+                                    }
+                                    halfRate={
+                                        promoCodeApplied === true ? discountApplied : halfRateParams
+                                    }
+                                /> */}
+                                <PaypalCheckoutButton
                                     appointmentMode={appointmentModeParams}
                                     bookappointment={bookAppointment}
                                     firstName={firstnameParams}
