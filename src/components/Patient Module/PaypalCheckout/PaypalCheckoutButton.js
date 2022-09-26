@@ -89,7 +89,7 @@ const PaypalCheckoutButton = (props) => {
                             },
                         ],
                         payer: {
-                            name: { given_name, surname },
+                            name: { given_name },
                             payer_id: payerId,
                         },
                     } = order;
