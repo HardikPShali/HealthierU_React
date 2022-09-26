@@ -54,7 +54,8 @@ const PaypalCheckoutButton = (props) => {
                                 amount: {
                                     currency_code: 'USD',
                                     value:
-                                        appointmentMode === 'First Consultation'
+                                        appointmentMode === 'First Consultation' ||
+                                            appointmentMode === 'FIRST_CONSULTATION'
                                             ? rate
                                             : halfRate,
                                 },
@@ -93,17 +94,20 @@ const PaypalCheckoutButton = (props) => {
                         },
                     } = order;
                     const orderData = {
-                        appointmentId,
                         appointmentMode,
                         intent,
                         payerId,
                         paymentId,
-                        paymentmethod: paymentmethod || 'paypal website',
+                        paymentmethod:
+                            paymentmethod === 'PAYPAL *JOHNDOESTES' ||
+                                paymentmethod === 'PAYPAL *TEST STORE'
+                                ? 'Card'
+                                : 'paypal website',
                         state,
                         transactionAmount,
                         transactionCurrency,
                         transactionId,
-                        userName: `${given_name} ${surname}`,
+                        userName: `${given_name}`,
                         userId,
                     };
                     bookappointment(orderData);
