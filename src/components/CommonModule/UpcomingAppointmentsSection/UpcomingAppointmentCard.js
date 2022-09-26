@@ -29,32 +29,66 @@ const UpcomingAppointmentCard = ({ appointment }) => {
     // console.log('UA', appointments)
     <div className="row align-items-start" style={{ cursor: 'pointer' }} onClick={handleClickToAppointmentsPage}>
       {/* {console.log('UA', appointment)} */}
-      <div className="col-md-3">
-        {/* <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" /> */}
-        {
-          appointment.doctor.picture ? (
-            <div className="safari-helper">
-              <img
-                src={appointment.doctor.picture}
-                alt={`${appointment.doctor.firstName}-image`}
-                className="upcoming_img-circle ml-3 mt-3"
-              />
-            </div>
+      {
+        appointmentPersonKey === "doctor" &&
+        <div className="col-md-3">
+          {/* <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" /> */}
 
-          ) : (
-            <Avatar
-              round={true}
-              name={
-                appointment.doctor.firstName +
-                ' ' +
-                (appointment.doctor.lastName || "")
-              }
-              size={60}
-              className="upcoming-appointments-avatar"
-            />
-          )
-        }
-      </div>
+          {
+            appointment.doctor.picture ? (
+              <div className="safari-helper">
+                <img
+                  src={appointment.doctor.picture}
+                  alt={`${appointment.doctor.firstName}-image`}
+                  className="img-circle ml-3 mt-3"
+                />
+              </div>
+
+            ) : (
+              <Avatar
+                round={true}
+                name={
+                  appointment.doctor.firstName +
+                  ' ' +
+                  (appointment.doctor.lastName || "")
+                }
+                size={60}
+                className="my-appointments-avatar"
+              />
+            )
+          }
+        </div>
+      }
+      {
+        appointmentPersonKey === "patient" &&
+        <div className="col-md-3">
+          {/* <img src={appointment.doctor.picture} alt="nutrition" className="img-circle ml-3 mt-3" /> */}
+
+          {
+            appointment.patient.picture ? (
+              <div className="safari-helper">
+                <img
+                  src={appointment.patient.picture}
+                  alt={`${appointment.patient.firstName}-image`}
+                  className="img-circle ml-3 mt-3"
+                />
+              </div>
+
+            ) : (
+              <Avatar
+                round={true}
+                name={
+                  appointment.patient.firstName +
+                  ' ' +
+                  (appointment.patient.lastName || "")
+                }
+                size={60}
+                className="my-appointments-avatar"
+              />
+            )
+          }
+        </div>
+      }
       <div className="col-md-9">
         <div className="upcoming-appointment-card__card-details">
           <h5 className="upcoming-appointment-card__doctor-name">
