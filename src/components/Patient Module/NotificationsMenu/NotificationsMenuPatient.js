@@ -56,7 +56,6 @@ const NotificationMenuPatient = () => {
             </div>
             <hr />
             <div className="d-flex flex-column">
-                {console.log(notificationsData)}
                 {notificationsData.length > 0 ? (
                     <div>
                         {notificationsData.map((notification, index) => {
@@ -158,6 +157,7 @@ const NotificationMenuPatient = () => {
                                             notification={notification}
                                             index={index}
                                             createdAtDisplayStyle={createdAtDisplayStyle}
+                                            defaultTabKey={"prescription"}
                                         />
                                     </div>
                                 );
@@ -169,6 +169,7 @@ const NotificationMenuPatient = () => {
                                             notification={notification}
                                             index={index}
                                             createdAtDisplayStyle={createdAtDisplayStyle}
+                                            defaultTabKey={"labResult"}
                                         />
                                     </div>
                                 );
