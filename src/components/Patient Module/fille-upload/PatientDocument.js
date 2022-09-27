@@ -48,20 +48,13 @@ import PrescriptionLabCardPatient from "../../Doctor Module/Prescription-Lab/Pre
 
 
 const PatientDocument = (props) => {
-    const [defaultKey, setDefaultKey] = useState("");
     useEffect(() => {
         loadDocuments();
         setIsSearch(false)
     }, []);
-    useEffect(() => {
-        getDefaultKey()
-        console.log("defaultKey", defaultKey);
-    }, [defaultKey]);
-    const getDefaultKey = () => {
-        setDefaultKey(props.location.search.split("=")[1])
-    }
     const cookies = new Cookies();
     const [loading, setLoading] = useState(false);
+    const [defaultKey, setDefaultKey] = useState("");
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
     const [doctor, setDoctor] = useState("");
     const [patient, setPatient] = useState(null);
@@ -329,17 +322,27 @@ const PatientDocument = (props) => {
     //     setPrescriptionResult(null);
     //     setDoctor(null);
     // }
-
+    useEffect(() => {
+        getDefaultKey()
+    }, [defaultKey]);
+    const getDefaultKey = () => {
+        setDefaultKey(props.location.search.split("=")[1])
+        if (defaultKey === 'labResult') {
+            clickTabEvent(defaultKey)
+        }
+    }
     const clickTabEvent = async (event) => {
-        //let documents;
-        // setLoading(true);
-        // setMedicalRecordData([])
         if (event === "labResult") {
+            const currentUser = await getCurrentUserInfo();
+            const patientInfo = await getCurrentPatientInfo(
+                currentUser.data.userInfo.id,
+                currentUser.data.userInfo.login
+            );
             let page = 0;
             let size = 3;
             const info = {
                 documentType: "LabResult",
-                patientId: patient.id
+                patientId: patientInfo.data.id
             }
             const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
             if (labDocument.status === 200 || labDocument.status === 201) {
@@ -718,7 +721,7 @@ const PatientDocument = (props) => {
                 <br />
                 <Tabs
                     className="justify-content-center record-tabs"
-                    defaultActiveKey={defaultKey ? defaultKey : "prescription"}
+                    defaultActiveKey={props.location.search.split("=")[1] ? props.location.search.split("=")[1] : "prescription"}
                     id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}
                 >
