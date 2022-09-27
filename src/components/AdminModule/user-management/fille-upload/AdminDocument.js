@@ -190,8 +190,12 @@ const AdminDocument = (props) => {
     const response = await postLabDocument(data).catch((err) => {
       if (err.response.status === 400 || err.response.status === 500) {
         setLoading(false);
-        toast.error("Lab result must have patient email")
-        // setErrorMsg("Please upload the document in PDF format.");
+        if (err.response.data.message === null) {
+          toast.error("Something went wrong! Please try again.")
+        }
+        else {
+          toast.error("Lab result must have patient email")
+        }
       }
     });
     if (response) {
@@ -212,11 +216,15 @@ const AdminDocument = (props) => {
     const response = await postDocument(data).catch((err) => {
       if (err.response.status === 400 || err.response.status === 500) {
         setLoading(false);
-        toast.error("Prescription must have both doctor email and patient email")
-        // setErrorMsg("Please upload the document in PDF format.");
+        if (err.response.data.message === null) {
+          toast.error("Something went wrong! Please try again.")
+        }
+        else {
+          toast.error("Prescription must have both doctor email and patient email")
+        }
       }
     });
-    if (response) {
+    if (response.status === true) {
       toast.success("Document successfully Uploaded.");
       setShowPrescriptionUpload(false);
       setLoading(false);
@@ -255,12 +263,18 @@ const AdminDocument = (props) => {
     const file = defaultPrescriptionDocument;
     formData.append("file", (file))
 
-    const response = await postDocumentAddPrescriptionLabResult(formData);
-    // if (err.response.status === 400) {
-    //     setLoading(false);
-    //     setErrorMsg("Please upload the document in PDF format.");
-    // }
-    if (response) {
+    const response = await postDocumentAddPrescriptionLabResult(formData).catch((err) => {
+      if (err.response.status === 400 || err.response.status === 500) {
+        setLoading(false);
+        if (err.response.data.message === null) {
+          toast.error("Something went wrong! Please try again.")
+        }
+        else {
+          toast.error("Prescription must have both doctor email and patient email")
+        }
+      }
+    });
+    if (response.status === true) {
       toast.success("Document successfully Uploaded.");
       setShowDefaultPrescriptionUpload(false);
       setLoading(false);
