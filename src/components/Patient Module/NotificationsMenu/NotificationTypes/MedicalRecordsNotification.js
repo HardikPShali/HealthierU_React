@@ -8,7 +8,7 @@ import {
 import moment from 'moment';
 import { useHistory } from 'react-router';
 import { NavLink } from 'react-router-dom';
-const MedicalRecordsNotification = ({ notification, index, createdAtDisplayStyle }) => {
+const MedicalRecordsNotification = ({ notification, index, createdAtDisplayStyle, defaultTabKey }) => {
     let history = useHistory()
     //MARK AS READ NOTIFICATION LOGIC
     const markAsReadFromNotificationMenuHandler = async () => {
@@ -34,7 +34,7 @@ const MedicalRecordsNotification = ({ notification, index, createdAtDisplayStyle
     return (
         <>
             <NavLink
-                to={"/patient/document"}
+                to={`/patient/document?defaultTabKey=${defaultTabKey}`}
                 className="d-flex flex-column text-dark navlink-hover"
                 style={{ marginLeft: 0, marginTop: -16, fontWeight: 400 }}
             >

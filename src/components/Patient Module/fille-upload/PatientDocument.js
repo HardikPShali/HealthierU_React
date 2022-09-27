@@ -48,10 +48,18 @@ import PrescriptionLabCardPatient from "../../Doctor Module/Prescription-Lab/Pre
 
 
 const PatientDocument = (props) => {
+    const [defaultKey, setDefaultKey] = useState("");
     useEffect(() => {
         loadDocuments();
         setIsSearch(false)
     }, []);
+    useEffect(() => {
+        getDefaultKey()
+        console.log("defaultKey", defaultKey);
+    }, [defaultKey]);
+    const getDefaultKey = () => {
+        setDefaultKey(props.location.search.split("=")[1])
+    }
     const cookies = new Cookies();
     const [loading, setLoading] = useState(false);
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -229,7 +237,6 @@ const PatientDocument = (props) => {
                 type: "application/json",
             })
         );
-        console.log("medicalDocumentInfo", JSON.stringify(medicalDocumentInfo));
         formData.append("file", labResult?.labResultDocument);
         //console.log(data);
         const response = await postDocumentAddPrescriptionLabResult(formData).catch(
@@ -483,7 +490,6 @@ const PatientDocument = (props) => {
 
     const onChangeHandler = (text) => {
         let matches = [];
-        console.log("onChangehandler");
         if (text.length > 0) {
             matches = user.filter((item) => {
                 const regex = new RegExp(`${text}`, "gi");
@@ -712,7 +718,7 @@ const PatientDocument = (props) => {
                 <br />
                 <Tabs
                     className="justify-content-center record-tabs"
-                    defaultActiveKey="prescription"
+                    defaultActiveKey={defaultKey ? defaultKey : "prescription"}
                     id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}
                 >
