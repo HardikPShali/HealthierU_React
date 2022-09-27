@@ -98,17 +98,6 @@ const DoctorList = () => {
 
   const handleSearch = (searchValue) => {
     if (searchValue === '') {
-      setFilterData(userList);
-      setDisplay({ ...display, suggestion: 'none' });
-    } else {
-      setSearchText(searchValue);
-      searchData(searchValue);
-    }
-    return handleSearch;
-  };
-
-  const handleSearchInputChange = (searchValue) => {
-    if (searchValue === '') {
       setSearchText('');
       setFilterData(userList.doctors);
       setTotalPages(userList.totalPages);
@@ -116,43 +105,44 @@ const DoctorList = () => {
       setCurrentPageNumber(0);
     } else {
       setSearchText(searchValue);
+      searchData(searchValue);
     }
   };
 
-  const handleSearchData = async () => {
-    if (searchText !== '') {
-      // setTransparentLoading(true);
-      setCurrentPageNumber(0);
-      const res = await getSearchData(searchText, 0, doctorListLimit);
-      if (res.status === 200 && res.data?.doctors.length > 0) {
-        setFilterData(res.data.doctors);
-        setTotalPages(res.data.totalPages);
-        setTotalRecords(res.data.totalItems);
-        // setTransparentLoading(false);
-      } else if (res.status === 204) {
-        setFilterData([]);
-        setTotalPages(1);
-        setTotalRecords(0);
-        // setTransparentLoading(false);
-      }
-    }
-  };
-
-  const searchData = (value) => {
+  const searchData = async (value) => {
     const lowercasedValue = value.toLowerCase().trim();
-    const filteredData = userList.filter((item) => {
-      return Object.keys(item).some(
-        (key) =>
-          item[key] &&
-          item[key]
-            .toString()
-            .toLowerCase()
-            .includes(lowercasedValue)
-      );
-    });
-    setFilterData(filteredData);
-    setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
+    // setFilterData(filteredData);
+    const res = await getSearchData(lowercasedValue, 0, doctorListLimit);
+    if (res.status === 200 && res.data?.doctors.length > 0) {
+      setFilterData(res.data.doctors);
+      setTotalPages(res.data.totalPages);
+      setTotalRecords(res.data.totalItems);
+      // setTransparentLoading(false);
+    } else if (res.status === 204) {
+      setFilterData([]);
+      setTotalPages(1);
+      setTotalRecords(0);
+      // setTransparentLoading(false);
+    }
+    // if (filteredData.length == '0') {
+    //   setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
+    // }
   };
+
+  // debouncing search
+  const debounce = (func) => {
+    let timer;
+    return function (...args) {
+      const context = this;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = null;
+        func.apply(context, args);
+      }, 700);
+    };
+  }
+
+  const handleSearchDebounce = debounce(handleSearch);
 
   const loadMore = async () => {
     const result = await getPaginatedDoctorList(offset, doctorListLimit);
@@ -251,17 +241,24 @@ const DoctorList = () => {
             </Col>
             <Col md={4}>
               <div id="admin-search" style={{ textAlign: 'end' }}>
-                <SearchBar
+                {/* <SearchBar
                   type="text"
                   value={searchText}
                   id="doctor-search"
-                  onChange={(value) => { handleSearchInputChange(value); handleSearchData(); }}
+                  onChange={(value) => { handleSearchDebounce(value) }}
                   onCancelSearch={() => handleSearchInputChange('')}
                   onRequestSearch={() => handleSearchData()}
                   cancelOnEscape={true}
                   onKeyDown={(e) =>
                     e.keyCode === 13 ? handleSearchData() : ''
                   }
+                /> */}
+
+                <SearchBar
+                  type="text"
+                  value={searchText}
+                  onChange={(value) => handleSearchDebounce(value)}
+                  onCancelSearch={() => handleSearch('')}
                 />
                 {/* {searchText !== '' && (
                   <IconButton

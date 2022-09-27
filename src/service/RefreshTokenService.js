@@ -4,6 +4,7 @@ import LocalStorageService from '../util/LocalStorageService';
 import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
 import Logout from '../components/Logout';
+import { deleteTokenHandler } from "../util";
 export const checkAccessToken = (isReload = true) => {
 
     const cookies = new Cookies();
@@ -33,6 +34,36 @@ export const checkAccessToken = (isReload = true) => {
         }
     }).catch(error => {
         //redirect to logout
-        return <Logout />
+        // return <Logout />
+        if (error) {
+            const allCookies = cookies.getAll()
+
+            for (let key in allCookies) {
+                cookies.remove(key)
+
+            }
+
+            cookies.remove("refresh_token", { path: '/' });
+            cookies.remove("currentUser", { path: '/' });
+            cookies.remove("access_token", { path: '/' });
+            cookies.remove("GOOGLE_ACCESS_TOKEN", { path: '/' });
+            cookies.remove("GOOGLE_PROFILE_DATA", { path: '/' });
+            cookies.remove("authorities", { path: '/' });
+            cookies.remove("userProfileCompleted", { path: '/' });
+            cookies.remove("profileDetails", { path: '/' });
+
+            deleteTokenHandler().then(() => {
+                localStorage.clear();
+                // history.push("/");
+                // history.go(0);
+                window.location.href = "/";
+            }).catch(err => {
+                localStorage.clear();
+                // history.push("/");
+                // history.go(0);
+                window.location.href = "/";
+            });
+
+        }
     })
 }
