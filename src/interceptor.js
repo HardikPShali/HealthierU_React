@@ -66,7 +66,6 @@ const errorHandler = (error) => {
   }
   //console.log("status ::: in error", error.response.status);
   if (error.response && (error.response.status === 504 || error.response.status === 500)) {
-    console.log("Interceptor", error.response);
     // confirmAlert({
     //   closeOnClickOutside: false,
     //   closeOnEscape: false,
