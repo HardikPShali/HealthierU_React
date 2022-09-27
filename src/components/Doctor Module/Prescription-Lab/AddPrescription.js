@@ -229,11 +229,11 @@ const AddPrescription = (props) => {
                     const response = await postDocumentAddPrescriptionLabResult(
                         formData
                     ).catch((err) => {
-                        // if (err.response.status === 500 || err.response.status === 504) {
-                        //     toast.error("Please Fill Up the Prescription Details!")
-                        // }
+                        if (err.response.data.status === false) {
+                            toast.error("Something went wrong! Please try again.");
+                        }
                     });
-                    if (response) {
+                    if (response.status === true) {
                         toast.success("Document successfully Uploaded.");
                         const patientInfo = params.patientID;
                         const apID = params.apid;
@@ -263,6 +263,9 @@ const AddPrescription = (props) => {
             const response = await postDocumentAddPrescriptionLabResult(
                 formData
             ).catch((err) => {
+                if (err.response.data.status === false) {
+                    toast.error("Something went wrong! Please try again.");
+                }
             });
             if (response) {
                 toast.success("Document successfully Uploaded.");
@@ -545,7 +548,7 @@ const AddPrescription = (props) => {
                                                 className="form-control"
                                                 onChange={(e) => handlePrescriptionChange(e)}
                                                 placeholder="Document"
-                                                //accept="application/pdf"
+                                                accept="application/pdf"
                                                 required={prescriptionResult?.id ? false : true}
                                             ></input>
                                         )}
@@ -561,7 +564,7 @@ const AddPrescription = (props) => {
                                                     className="form-control"
                                                     onChange={(e) => handlePrescriptionChange(e)}
                                                     placeholder="Document"
-                                                    //accept="application/pdf"
+                                                    accept="application/pdf"
                                                     required={prescriptionResult?.id ? false : true}
                                                 ></input>
                                             </div>
