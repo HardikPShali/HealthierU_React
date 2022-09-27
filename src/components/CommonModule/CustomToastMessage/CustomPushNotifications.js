@@ -18,8 +18,8 @@ const CustomPushNotifications = ({ payload }) => {
         if (payload) {
             let profileImage =
                 getRoleName() === 'doctor'
-                    ? payload?.data?.patientPicture
-                    : payload?.data?.doctorPicture;
+                    ? apptDetailsJson.patient?.picture
+                    : apptDetailsJson.doctor?.picture;
             setPicture(profileImage);
         }
     }, [payload]);
@@ -27,7 +27,6 @@ const CustomPushNotifications = ({ payload }) => {
     // console.log({ topicFromPayload: payload.data.topic });
 
     const apptDetailsJson = JSON.parse(payload.data.appointmentDetails);
-    // console.log({ apptDetailsJson });
 
     const messageDisplayHandler = () => {
         switch (payload.data.topic) {
@@ -155,6 +154,23 @@ const CustomPushNotifications = ({ payload }) => {
                                 'DD-MM-YYYY HH:mm'
                             )}{' '}
                             has been expired.
+                        </span>
+                    );
+                }
+            case 'PRESCRIPTION':
+                if (getRoleName() === 'patient') {
+                    return (
+                        <span>
+                            {payload.data.message}
+                        </span>
+                    );
+                }
+
+            case 'RESULT':
+                if (getRoleName() === 'patient') {
+                    return (
+                        <span>
+                            {payload.data.message}
                         </span>
                     );
                 }

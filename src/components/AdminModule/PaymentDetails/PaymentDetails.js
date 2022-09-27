@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../layout/Navbar';
 import Table from '../components/Table/Table';
 import { PAYMENT_DETAILS_TABLE_HEADERS } from './tableConstants';
-import { consultationHistory, getAllPaymentDetailsForAdmin } from '../../../service/frontendapiservices';
+import {
+    consultationHistory,
+    getAllPaymentDetailsForAdmin,
+} from '../../../service/frontendapiservices';
 import Pagination from '../../CommonModule/pagination';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import { CSVLink } from 'react-csv';
 import SearchBarComponent from '../../CommonModule/SearchAndFilter/SearchBarComponent';
 import FilterPatientDetails from './FilterPatientDetails';
-import { FrontEndPagination } from './FrontEndPagination';
+// import { FrontEndPagination } from './FrontEndPagination';
 
 const PaymentDetails = () => {
     const tableHeaders = PAYMENT_DETAILS_TABLE_HEADERS;
@@ -19,28 +22,35 @@ const PaymentDetails = () => {
     const [totalPagesData, setTotalPagesData] = useState(0);
     const [search, setSearch] = useState('');
 
+    const [noDataFound, setNoDataFound] = useState(false);
+
     // GET PAYMENT DETAILS ON PAGE LOAD
-    const getPaymentDetailsHandler = async (searchText, filter = {}) => {
+    const getPaymentDetailsHandler = async (
+        searchText,
+        filter = {},
+        page = 0,
+        size = 20
+    ) => {
         setIsLoading(true);
         const todayDate = moment()
             // .startOf('month')
             .toISOString();
-        const dayBeforeOneMonth = moment()
+        const dayBeforeFourMonth = moment()
             .clone()
-            .subtract(1, 'months')
+            .subtract(4, 'months')
             .startOf('month')
             .toISOString();
 
         const data = {
-            page: 0,
-            size: 10,
-            search: "",
-            startTime: dayBeforeOneMonth, //2022-07-31T18:30:00.000Z  //dayBeforeOneMonth
-            endTime: todayDate, //'2022-08-01T18:30:00.000Z'  //todayDate
+            page: page,
+            size: size,
+            search: '',
+            startTime: dayBeforeFourMonth, //2022-05-31T18:30:00.000Z  //dayBeforeFourMonth
+            endTime: todayDate, //'2022-09-19T18:30:00.000Z'  //todayDate
         };
 
-        if (searchText && searchText !== "") {
-            data.search = searchText
+        if (searchText && searchText !== '') {
+            data.search = searchText;
         }
 
         if (filter.patientStartTime && filter.patientStartTime !== '') {
@@ -55,24 +65,33 @@ const PaymentDetails = () => {
         const response = await getAllPaymentDetailsForAdmin(data).catch((err) => {
             console.log(err);
         });
-        console.log({ response });
+        // console.log({ response });
         if (response.status === 200) {
             if (response.data.status === true) {
                 const paymentDetailsFromresponse = response.data.data.content.map(
                     (paymentDetail) => {
-                        paymentDetail.appointmentStartTime = moment(paymentDetail.appointmentStartTime).format(
-                            'DD-MM-YYYY HH:mm'
-                        );
+                        paymentDetail.appointmentStartTime = moment(
+                            paymentDetail.appointmentStartTime
+                        ).format('DD-MM-YYYY HH:mm');
                         // paymentDetail.id = paymentDetail.appointmentId;
                         return paymentDetail;
                     }
                 );
+                // console.log({
+                //     paymentDetailsFromresponse: paymentDetailsFromresponse.length,
+                // });
                 const totalPages = response.data.data.totalPages;
                 // console.log({ totalPages })
                 // console.log({ paymentDetailsFromresponse })
                 setPaymentDetailsData(paymentDetailsFromresponse);
                 setTotalPagesData(totalPages);
                 setIsLoading(false);
+
+                setNoDataFound(false);
+
+                if (paymentDetailsFromresponse.length === 0) {
+                    setNoDataFound(true);
+                }
             }
 
             if (response.data.status === false) {
@@ -105,16 +124,29 @@ const PaymentDetails = () => {
         getPaymentDetailsHandler(search, filter);
     };
 
-    //PAGINATION
-    const [currentPage, setCurrentPage] = useState(1);
-    const [dataPerPage, setDataPerPage] = useState(15);
+    //PAGINATION FROM FRONTEND
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [dataPerPage, setDataPerPage] = useState(15);
 
-    const indexOfLastData = currentPage * dataPerPage;
-    const indexOfFirstData = indexOfLastData - dataPerPage;
-    const currentData = paymentDetailsData.slice(indexOfFirstData, indexOfLastData);
+    // const indexOfLastData = currentPage * dataPerPage;
+    // const indexOfFirstData = indexOfLastData - dataPerPage;
+    // const currentData = paymentDetailsData.slice(indexOfFirstData, indexOfLastData);
 
-    const clickPaginationHandler = (pageNumber) => {
+    // const clickPaginationHandler = (pageNumber) => {
+    //     setCurrentPage(pageNumber);
+    // };
+
+    // useEffect(() => {
+    //     getPaymentDetailsHandler();
+    // }, []);
+
+    //PAGINATION FROM BACKEND
+    const [currentPage, setCurrentPage] = useState(0);
+    const clickPaginationHandler = async (pageNumber) => {
         setCurrentPage(pageNumber);
+        const size = 10;
+        // console.log({ pageNumber })
+        getPaymentDetailsHandler('', {}, pageNumber, size);
     };
 
     useEffect(() => {
@@ -123,6 +155,12 @@ const PaymentDetails = () => {
 
     //EXPORT TO CSV LOGIC
     const csvHeaders = PAYMENT_DETAILS_TABLE_HEADERS;
+
+    //NO DATA FOUND STYLES
+    const noDataFoundStyle = {
+        fontSize: 18,
+        fontWeight: 500,
+    };
 
     return (
         <div>
@@ -141,7 +179,6 @@ const PaymentDetails = () => {
                                 className="shadow p-1 mb-3 bg-white rounded"
                                 updatedSearch={handleSearchInputChange}
                             />{' '}
-
                         </div>
                         <div className="ml-2">
                             <FilterPatientDetails updatedFilter={handleFilterChange} />{' '}
@@ -153,7 +190,7 @@ const PaymentDetails = () => {
                             style={{ textAlign: 'right' }}
                         >
                             <CSVLink
-                                data={currentData}
+                                data={paymentDetailsData}
                                 filename={'Payment_Details_HealthierU.csv'}
                                 className="btn btn-primary"
                                 target="_blank"
@@ -166,18 +203,26 @@ const PaymentDetails = () => {
                         <div className="col-md-12">
                             <Table
                                 headers={tableHeaders}
-                                data={currentData}
+                                data={paymentDetailsData}
                                 isLoading={isLoading}
                             ></Table>
+                            {noDataFound && (
+                                <div className="text-center">
+                                    <span style={noDataFoundStyle}>No Data Found</span>
+                                </div>
+                            )}
                         </div>
                         {/* <div className="col-md-2"></div> */}
                     </div>
-                    {/* <Pagination
+                    {/* PAGINATION FROM BACKEND */}
+
+                    <Pagination
                         total={totalPagesData}
                         current={currentPage + 1}
                         pagination={(currPage) => clickPaginationHandler(currPage - 1)}
-                    /> */}
-                    <div style={{
+                    />
+                    {/* PAGINATION FROM FRONTEND */}
+                    {/* <div style={{
                         marginLeft: 15
                     }}>
                         <FrontEndPagination
@@ -185,8 +230,7 @@ const PaymentDetails = () => {
                             dataPerPage={dataPerPage}
                             paginate={clickPaginationHandler}
                         />
-                    </div>
-
+                    </div> */}
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@ const ConfirmCancelModal = ({
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                     Are you sure you want to cancel?
                 </DialogTitle>
-                <DialogContent dividers>
+                {/* <DialogContent dividers>
                     <Typography gutterBottom>
                         {hourDifference < 24 && (
                             <span>
@@ -37,7 +37,7 @@ const ConfirmCancelModal = ({
                             </span>
                         )}
                     </Typography>
-                </DialogContent>
+                </DialogContent> */}
                 <DialogActions>
                     <button
                         onClick={() => handleDelete(selectedAppointment)}

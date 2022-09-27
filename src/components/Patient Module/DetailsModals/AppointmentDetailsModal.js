@@ -24,7 +24,6 @@ const AppointmentDetailsModal = ({
     openMoreDoctorInfo,
     from = '',
 }) => {
-    console.log({ from });
     return (
         <div>
             <Dialog
