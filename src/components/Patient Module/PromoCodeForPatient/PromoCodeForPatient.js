@@ -12,7 +12,7 @@ const PromoCodeForPatient = ({
     promoCodeData,
     onPromoCodeChange,
     onPromoCodeLoading = () => { },
-    mobile
+    mobile = false
 }) => {
     // Promocode Logics
     const { doctorId, patientId, apptMode, rate, halfRate } = promoCodeData
@@ -158,7 +158,10 @@ const PromoCodeForPatient = ({
     }
 
     useEffect(() => {
-        getAvailableCoupons();
+        if (!mobile) {
+            getAvailableCoupons();
+        }
+        // getAvailableCoupons();
     }, []);
 
     useEffect(() => {
