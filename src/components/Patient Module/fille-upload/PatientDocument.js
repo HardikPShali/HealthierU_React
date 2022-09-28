@@ -54,6 +54,7 @@ const PatientDocument = (props) => {
     }, []);
     const cookies = new Cookies();
     const [loading, setLoading] = useState(false);
+    const [defaultKey, setDefaultKey] = useState("");
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
     const [doctor, setDoctor] = useState("");
     const [patient, setPatient] = useState(null);
@@ -229,7 +230,6 @@ const PatientDocument = (props) => {
                 type: "application/json",
             })
         );
-        console.log("medicalDocumentInfo", JSON.stringify(medicalDocumentInfo));
         formData.append("file", labResult?.labResultDocument);
         //console.log(data);
         const response = await postDocumentAddPrescriptionLabResult(formData).catch(
@@ -322,17 +322,27 @@ const PatientDocument = (props) => {
     //     setPrescriptionResult(null);
     //     setDoctor(null);
     // }
-
+    useEffect(() => {
+        getDefaultKey()
+    }, [defaultKey]);
+    const getDefaultKey = () => {
+        setDefaultKey(props.location.search.split("=")[1])
+        if (defaultKey === 'labResult') {
+            clickTabEvent(defaultKey)
+        }
+    }
     const clickTabEvent = async (event) => {
-        //let documents;
-        // setLoading(true);
-        // setMedicalRecordData([])
         if (event === "labResult") {
+            const currentUser = await getCurrentUserInfo();
+            const patientInfo = await getCurrentPatientInfo(
+                currentUser.data.userInfo.id,
+                currentUser.data.userInfo.login
+            );
             let page = 0;
             let size = 3;
             const info = {
                 documentType: "LabResult",
-                patientId: patient.id
+                patientId: patientInfo.data.id
             }
             const labDocument = await getGlobalMedicalRecordsSearch(page, size, info);
             if (labDocument.status === 200 || labDocument.status === 201) {
@@ -483,7 +493,6 @@ const PatientDocument = (props) => {
 
     const onChangeHandler = (text) => {
         let matches = [];
-        console.log("onChangehandler");
         if (text.length > 0) {
             matches = user.filter((item) => {
                 const regex = new RegExp(`${text}`, "gi");
@@ -712,7 +721,7 @@ const PatientDocument = (props) => {
                 <br />
                 <Tabs
                     className="justify-content-center record-tabs"
-                    defaultActiveKey="prescription"
+                    defaultActiveKey={props.location.search.split("=")[1] ? props.location.search.split("=")[1] : "prescription"}
                     id="uncontrolled-tab-example"
                     onSelect={clickTabEvent}
                 >

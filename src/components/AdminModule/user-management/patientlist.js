@@ -13,6 +13,7 @@ import Cookies from 'universal-cookie';
 import SearchIcon from '@material-ui/icons/Search';
 import { getPaginatedPatientList } from '../../../service/adminbackendservices';
 import EditIcon from '@material-ui/icons/Edit';
+import { getPatientBySearch } from '../../../service/globalsearchservice';
 // import { MDBDataTableV5 } from 'mdbreact';
 // import LocalStorageService from "../../../util/LocalStorageService";
 // import properties from "../../../properties";
@@ -61,7 +62,7 @@ const PatientList = () => {
     }
   };
 
-  const searchData = (value) => {
+  const searchData = async (value) => {
     const lowercasedValue = value.toLowerCase().trim();
     const filteredData = userList.filter((item) => {
       return Object.keys(item).some(
@@ -73,11 +74,29 @@ const PatientList = () => {
             .includes(lowercasedValue)
       );
     });
-    setFilterData(filteredData);
-    if (filteredData.length == '0') {
-      setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
-    }
+    // setFilterData(filteredData);
+    const searchResult = await getPatientBySearch(lowercasedValue);
+    setFilterData(searchResult);
+    // if (filteredData.length == '0') {
+    //   setTimeout(() => setDisplay({ ...display, suggestion: 'block' }), 1500);
+    // }
   };
+
+  // debouncing search
+  const debounce = (func) => {
+    let timer;
+    return function (...args) {
+      const context = this;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = null;
+        func.apply(context, args);
+      }, 700);
+    };
+  }
+
+  const handleSearchDebounce = debounce(handleSearch);
+
   const loadMore = async () => {
     const result = await getPaginatedPatientList(offset, limit);
     if (result && result.data) {
@@ -118,7 +137,7 @@ const PatientList = () => {
                 <SearchBar
                   type="text"
                   value={searchText}
-                  onChange={(value) => handleSearch(value)}
+                  onChange={(value) => handleSearchDebounce(value)}
                   onCancelSearch={() => handleSearch('')}
                 />
                 <Link to="/admin/search">
