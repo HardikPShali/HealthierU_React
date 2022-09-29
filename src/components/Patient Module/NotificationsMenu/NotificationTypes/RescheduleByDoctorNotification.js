@@ -8,7 +8,11 @@ import {
     putMarkAsReadFromNotificationMenu,
 } from '../../../../service/frontendapiservices';
 
-const RescheduleByDoctorNotification = ({ notification, key, createdAtDisplayStyle }) => {
+const RescheduleByDoctorNotification = ({
+    notification,
+    key,
+    createdAtDisplayStyle,
+}) => {
     const setDoctorIdInSession = (doctorId) => {
         // console.log({ doctorId });
         sessionStorage.setItem('doctorId', doctorId);
@@ -47,7 +51,7 @@ const RescheduleByDoctorNotification = ({ notification, key, createdAtDisplaySty
                 to={`/patient/rescheduleappointment/${notification.data.appointmentDetails.id
                     }/${notification.data.appointmentDetails.appointmentMode
                         .toLowerCase()
-                        .replace(' ', '-')}/${notification.data.appointmentDetails.unifiedAppointment
+                        .replace(' ', '-')}/${notification.data.appointmentDetails.doctorId}/${notification.data.appointmentDetails.unifiedAppointment
                     }`}
                 className="d-flex flex-column text-dark navlink-hover"
                 key={key}
