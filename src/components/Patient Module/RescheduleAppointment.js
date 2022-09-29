@@ -326,8 +326,6 @@ const RescheduleAppointment = (props) => {
 
   let params = useParams();
   const [oldAppointmentID, setOldAppointmentID] = useState(0);
-  useEffect(() => {
-  }, [oldAppointmentID]);
 
   const bookappointment = async (orderData) => {
     setLoading(true);
@@ -338,7 +336,7 @@ const RescheduleAppointment = (props) => {
     const finalAppointmentDataArray = [];
     if (appointment.appointmentMode === 'First Consultation') {
       finalAppointmentDataArray.push({
-        doctorId: appointment.doctorId,
+        doctorId: Number(params.docId),
         patientId: appointment.patientId,
         id: appointment.id,
         unifiedAppointment:
@@ -348,7 +346,7 @@ const RescheduleAppointment = (props) => {
       });
     } else if (appointment.appointmentMode === 'Follow Up') {
       finalAppointmentDataArray.push({
-        doctorId: appointment.doctorId,
+        doctorId: Number(params.docId),
         patientId: appointment.patientId,
         id: appointment.id,
         unifiedAppointment:

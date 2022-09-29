@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react"; //useEffect
 import { Navbar, Container } from "react-bootstrap"; //NavDropdown, Row, Col, Nav
 import { Link, NavLink } from "react-router-dom";
-import logo from "../../images/logo/logo-with-quote.png";
-import "./patient.css";
+import logo from "../../../images/logo/logo-with-quote.png";
+import "./Header.css";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
-import profileicon from "../../images/Icons/profile.svg";
+import profileicon from "../../../images/Icons/profile.svg";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import NotificationMenu from "../CommonModule/NotificationMenu";
 import Cookies from "universal-cookie";
-import NotificationMenuPatient from "./NotificationsMenu/NotificationsMenuPatient";
-import { getUnreadNotificationsCount, getLoggedInUserDataByUserId, pushNotificationsApi, putMarkAsReadNotification } from "../../service/frontendapiservices";
+import NotificationMenuPatient from "../NotificationsMenu/NotificationsMenuPatient";
+import { getUnreadNotificationsCount, getLoggedInUserDataByUserId, pushNotificationsApi, putMarkAsReadNotification } from "../../../service/frontendapiservices";
 import { toast } from "react-toastify";
 // import { updatePatientTimeZone } from '../../service/frontendapiservices';
 // import { toast } from 'react-toastify';

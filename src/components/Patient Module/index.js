@@ -7,7 +7,7 @@ import LocalStorageService from "./../../util/LocalStorageService";
 import { getCurrentPatientInfo } from "../../service/AccountService";
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 //import Cookies from 'universal-cookie';
-import Header from "./Header";
+import Header from "./Header/Header";
 import Footer from "./Footer";
 import { firestoreService, chatAndVideoService, getFirebaseToken, getPermissions, onMessageListener } from "../../util";
 import Loader from '../Loader/Loader'
@@ -148,7 +148,7 @@ const PatientRoute = () => {
       <Switch>
         <Route exact path="/patient" render={(props) => <Homepage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/mydoctor" render={(props) => <Mydoctor currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
-        <Route exact path="/patient/rescheduleappointment/:id/:type/:unifiedAppt" render={(props) => <RescheduleAppointment currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
+        <Route exact path="/patient/rescheduleappointment/:id/:type/:docId/:unifiedAppt" render={(props) => <RescheduleAppointment currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
         <Route exact path="/patient/profile" component={Profile} />
         <Route exact path="/patient/myappointment" render={(props) => <Myappointment currentPatient={currentPatient} doctorDetailsList={doctorDetailsList} {...props} />} />
         <Route exact path="/patient/questionnaire/:new" component={Questionnaire} />
