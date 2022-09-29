@@ -7,7 +7,7 @@ import LocalStorageService from "./../../util/LocalStorageService";
 import { getCurrentPatientInfo } from "../../service/AccountService";
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 //import Cookies from 'universal-cookie';
-import Header from "./Header";
+import Header from "./Header/Header";
 import Footer from "./Footer";
 import { firestoreService, chatAndVideoService, getFirebaseToken, getPermissions, onMessageListener } from "../../util";
 import Loader from '../Loader/Loader'

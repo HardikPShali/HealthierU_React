@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './patient.css';
 import Cookies from 'universal-cookie'
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import healthAssessmentBg from '../../images/svg/health-assessment-bg__compressed.svg';
-import { Link } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
 import Welcome from './../CommonModule/Welcome';
 import Loader from './../Loader/Loader';
-import SpecialitiesSection from './SpecialitiesSection';
+import SpecialitiesSection from './SpecialitiesSection/SpecialitiesSection';
 import UpcomingAppointments from '../CommonModule/UpcomingAppointmentsSection/UpcomingAppointments';
 import OurDoctors from './OurDoctorsSections/OurDoctors';
 import TakeAssessmentCard from './TakeAssessmentCard/TakeAssessmentCard';

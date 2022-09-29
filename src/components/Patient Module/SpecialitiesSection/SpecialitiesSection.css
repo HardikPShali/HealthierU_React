@@ -1,0 +1,46 @@
+/* SPECIALITIES SECTION */
+
+.specialities {
+  margin: -8px auto;
+  background-color: #ffffff;
+  height: 100%;
+  border-radius: 22px;
+}
+
+.specialities-header {
+  margin-top: 10px;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #344767;
+  padding: 20px 0px 15px 40px;
+}
+
+.specialities-profile {
+  padding: 15px 6px;
+  cursor: pointer;
+  /* background: #fff; */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.specialities-profile:hover img {
+  transform: scale(1.08);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.speciality-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* border    : 2px solid var(--primary); */
+}
+
+.speciality-name {
+  font-size: clamp(0.5rem, 1.5vw, 1.1rem);
+  padding: 0 1rem;
+  text-align: center;
+  white-space: nowrap;
+  color: #3e4543;
+  font-weight: 300;
+}
