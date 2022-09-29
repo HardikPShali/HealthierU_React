@@ -102,6 +102,9 @@ const Footer = () => {
                 <Link to="/help-and-support" className="" id="copy-link">
                   Help and Support
                 </Link>
+                <Link to="/faq-page" className="" id="copy-link">
+                  FAQ
+                </Link>
                 {/* <Link to="/licenses" className="" id="copy-link">
                                     HealthierU Licenses
                                 </Link>

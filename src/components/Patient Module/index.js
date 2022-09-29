@@ -49,6 +49,7 @@ const TermsAndConditionsPage = React.lazy(() => import("../CommonModule/TermsAnd
 const HelpAndSupportPage = React.lazy(() => import("../CommonModule/HelpAndSupport"));
 const LicensesPage = React.lazy(() => import("../CommonModule/Licenses"));
 const PartnersPage = React.lazy(() => import("../CommonModule/Partners"));
+const FAQPage = React.lazy(() => import("../CommonModule/FAQ/FAQ"));
 
 const RescheduleFromPatient = React.lazy(() => import("../Patient Module/RescheduleFromPatient/RescheduleFromPatient"));
 
@@ -199,6 +200,7 @@ const PatientRoute = () => {
         <Route exact path="/patient/help-and-support" render={(props) => <HelpAndSupportPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/licenses" render={(props) => <LicensesPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/partners" render={(props) => <PartnersPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/faq-page" render={(props) => <FAQPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/logout" component={Logout} />
       </Switch>
       <Footer />

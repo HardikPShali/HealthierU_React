@@ -185,6 +185,9 @@ const AboutUsMobile = (props) => {
                   <Link to="/terms-and-conditions-mobile" style={{ fontSize: 16 }} className="" id="copy-link">
                     Terms and Conditions
                   </Link>
+                  <Link to="/faq-mobile" style={{ fontSize: 16 }} className="" id="copy-link">
+                    FAQ
+                  </Link>
                 </div>
                 <p id="copyright-text">
                   © 2021 <Link to="/">HealthierU</Link> - All Rights Reserved.

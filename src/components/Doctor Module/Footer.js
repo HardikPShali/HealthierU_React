@@ -102,6 +102,9 @@ const Footer = () => {
                 <Link to="/doctor/help-and-support" className="" id="copy-link">
                   Help and Support
                 </Link>
+                <Link to="/doctor/faq-page" className="" id="copy-link">
+                  FAQ
+                </Link>
                 <a
                   href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@healthieru.ae"
                   target="_blank"

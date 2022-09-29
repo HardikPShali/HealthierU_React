@@ -44,6 +44,8 @@ const LicensesPage = React.lazy(() => import("../CommonModule/Licenses"));
 
 const PartnersPage = React.lazy(() => import("../CommonModule/Partners"));
 
+const FAQPage = React.lazy(() => import("../CommonModule/FAQ/FAQ"));
+
 const MyPatients = React.lazy(() => import("./MyPatientsSection/MyPatients"));
 
 
@@ -129,6 +131,7 @@ const DoctorRoute = () => {
         <Route exact path="/doctor/help-and-support" render={(props) => <HelpAndSupportPage currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/licenses" render={(props) => <LicensesPage currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route exact path="/doctor/partners" render={(props) => <PartnersPage currentuserInfo={currentLoggedInUser} {...props} />} />
+        <Route exact path="/doctor/faq-page" render={(props) => <FAQPage currentuserInfo={currentLoggedInUser} {...props} />} />
         <Route
           exact
           path="/doctor/chat"
