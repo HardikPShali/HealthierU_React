@@ -77,6 +77,11 @@ const PaypalMob = Loadable({
     loading: () => <div></div>
 });
 
+const FAQPage = Loadable({
+    loader: () => import('../components/CommonModule/FAQ/FAQ'),
+    loading: () => <div></div>
+})
+
 const MainRoute = () => (
     <Switch>
         <UnprotectedRoutes exact path="/" component={Homepage} />
@@ -90,6 +95,7 @@ const MainRoute = () => (
         <UnprotectedRoutes exact path="/article/:id" component={ViewArticle} />
         <UnprotectedRoutes exact path="/privacy-policy" component={PrivacyPolicyPage} />
         <UnprotectedRoutes exact path="/terms-and-conditions" component={TermsAndConditionsPage} />
+        <UnprotectedRoutes exact path="/faq-page" component={FAQPage} />
         <UnprotectedRoutes exact path="/help-and-support" component={HelpAndSupportPage} />
         <UnprotectedRoutes exact path="/licenses" component={LicensesPage} />
         <UnprotectedRoutes exact path="/partners" component={PartnersPage} />
