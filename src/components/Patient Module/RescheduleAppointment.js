@@ -325,7 +325,6 @@ const RescheduleAppointment = (props) => {
   };
 
   let params = useParams();
-  console.log({ params });
   const [oldAppointmentID, setOldAppointmentID] = useState(0);
 
   const bookappointment = async (orderData) => {
