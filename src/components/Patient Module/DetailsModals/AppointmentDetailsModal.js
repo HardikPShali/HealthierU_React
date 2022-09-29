@@ -70,6 +70,7 @@ const AppointmentDetailsModal = ({
                                         {selectedAppointment.doctor.firstName}{' '}
                                         {selectedAppointment.doctor.lastName || ''}
                                     </h2>
+                                    <p style={{ fontSize: '12px' }}>APID: {selectedAppointment.id}</p>
                                     <span>
                                         <ul
                                             // style={{ fontSize: 12, display: 'block' }}

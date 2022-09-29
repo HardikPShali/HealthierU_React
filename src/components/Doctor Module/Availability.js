@@ -48,7 +48,10 @@ const Availability = () => {
   //saving time value into newTimeObj as Object,
   const saveTimeHandler = () => {
     const newTimeObj = { ...times };
-    newTimeObj.time.push({ startTime: value[0], endTime: value[1] });
+    if (newTimeObj.time.length == 0) {
+      newTimeObj.time.push({ startTime: value[0], endTime: value[1] });
+    }
+    // newTimeObj.time.push({ startTime: value[0], endTime: value[1] });
     // newTimeObj.time.push({ startTime: state.startTime, endTime: state.endTime });
     if (state.startTime < state.endTime) {
       setTimes({

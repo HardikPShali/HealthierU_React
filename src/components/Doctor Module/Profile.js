@@ -236,7 +236,7 @@ const Profile = ({ currentDoctor }) => {
     const maxDate = {
         max: moment(newDate).format('YYYY-MM-DD'),
         min: moment(now)
-            .subtract(100, 'years')
+            .subtract(120, 'years')
             .format('YYYY-MM-DD'),
     };
 

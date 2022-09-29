@@ -379,7 +379,11 @@ const Welcome = ({ currentuserInfo }) => {
                 }
             } else {
                 toast.error(
-                    'Please add license/registration number and subsequent documents!'
+                    'Please add license/reference number and subsequent documents!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    toastId: 'getUpdatedCurrentUserData'
+                }
                 );
             }
         }
