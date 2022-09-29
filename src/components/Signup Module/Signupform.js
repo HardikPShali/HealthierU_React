@@ -40,8 +40,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { activateOtp } from '../../service/AccountService';
 import Typography from '@material-ui/core/Typography';
 import './loginCode.css';
-import comingSoonImage from '../../images/svg/coming_soon_svg.svg';
-import { truncate } from 'lodash';
+import comingSoonImage from '../../images/comin_soon_png.png';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
