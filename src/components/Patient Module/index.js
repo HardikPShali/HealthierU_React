@@ -7,7 +7,7 @@ import LocalStorageService from "./../../util/LocalStorageService";
 import { getCurrentPatientInfo } from "../../service/AccountService";
 //import { checkAccessToken } from '../../service/RefreshTokenService';
 //import Cookies from 'universal-cookie';
-import Header from "./Header";
+import Header from "./Header/Header";
 import Footer from "./Footer";
 import { firestoreService, chatAndVideoService, getFirebaseToken, getPermissions, onMessageListener } from "../../util";
 import Loader from '../Loader/Loader'
@@ -49,6 +49,7 @@ const TermsAndConditionsPage = React.lazy(() => import("../CommonModule/TermsAnd
 const HelpAndSupportPage = React.lazy(() => import("../CommonModule/HelpAndSupport"));
 const LicensesPage = React.lazy(() => import("../CommonModule/Licenses"));
 const PartnersPage = React.lazy(() => import("../CommonModule/Partners"));
+const FAQPage = React.lazy(() => import("../CommonModule/FAQ/FAQ"));
 
 const RescheduleFromPatient = React.lazy(() => import("../Patient Module/RescheduleFromPatient/RescheduleFromPatient"));
 
@@ -148,7 +149,7 @@ const PatientRoute = () => {
       <Switch>
         <Route exact path="/patient" render={(props) => <Homepage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/mydoctor" render={(props) => <Mydoctor currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
-        <Route exact path="/patient/rescheduleappointment/:id/:type/:unifiedAppt" render={(props) => <RescheduleAppointment currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
+        <Route exact path="/patient/rescheduleappointment/:id/:type/:docId/:unifiedAppt" render={(props) => <RescheduleAppointment currentPatient={currentPatient} chatGroupList={chatGroupList} {...props} />} />
         <Route exact path="/patient/profile" component={Profile} />
         <Route exact path="/patient/myappointment" render={(props) => <Myappointment currentPatient={currentPatient} doctorDetailsList={doctorDetailsList} {...props} />} />
         <Route exact path="/patient/questionnaire/:new" component={Questionnaire} />
@@ -199,6 +200,7 @@ const PatientRoute = () => {
         <Route exact path="/patient/help-and-support" render={(props) => <HelpAndSupportPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/licenses" render={(props) => <LicensesPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/partners" render={(props) => <PartnersPage currentuserInfo={currentuserInfo} {...props} />} />
+        <Route exact path="/patient/faq-page" render={(props) => <FAQPage currentuserInfo={currentuserInfo} {...props} />} />
         <Route exact path="/patient/logout" component={Logout} />
       </Switch>
       <Footer />

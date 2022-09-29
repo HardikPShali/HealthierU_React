@@ -1,12 +1,11 @@
 import React from 'react'
-import home2 from '../../images/home-2.png'
-import sleep from '../../images/svg/sleep-icon.svg'
-import nutrient from '../../images/svg/nutrient-icon.svg'
-import fitness from '../../images/svg/fitness-icon.svg'
-import fertility from '../../images/svg/fertility-icon.svg'
-import mentalHealth from '../../images/svg/mental-health-icon.svg'
-
-import immunity from '../../images/svg/immunity-icon.svg'
+import sleep from '../../../images/svg/sleep-icon.svg'
+import nutrient from '../../../images/svg/nutrient-icon.svg'
+import fitness from '../../../images/svg/fitness-icon.svg'
+import fertility from '../../../images/svg/fertility-icon.svg'
+import mentalHealth from '../../../images/svg/mental-health-icon.svg'
+import immunity from '../../../images/svg/immunity-icon.svg'
+import './SpecialitiesSection.css'
 import { useHistory } from 'react-router'
 
 const SpecialititesData = [

@@ -57,20 +57,14 @@ a.nav-link.active {
   color: var(--primary) !important;
 }
 
-.patient-card_how-healthy-wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .headerNavbar {
   margin: 0;
 }
 
 .headerNavbar > button {
   color: #fff;
-  font-size: 14px;
+  font-size: 17px;
+  font-weight: 500;
 }
 
 .headerNavbar > button:hover {

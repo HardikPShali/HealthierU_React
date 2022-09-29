@@ -59,6 +59,11 @@ const HelpAndSupportPage = Loadable({
   loading: () => <Loader />
 });
 
+const FAQPage = Loadable({
+  loader: () => import('./components/CommonModule/FAQ/FAQ'),
+  loading: () => <Loader />
+})
+
 const LicensesPage = Loadable({
   loader: () => import('./components/CommonModule/Licenses'),
   loading: () => <Loader />
@@ -128,6 +133,11 @@ const TermsAndConditionsMobile = Loadable({
   loader: () => import('./components/CommonModule/MobilePages/TermsAndConditionsMobile'),
   loading: () => <Loader />
 });
+
+const FAQPageMobile = Loadable({
+  loader: () => import('./components/CommonModule/MobilePages/FAQMobile'),
+  loading: () => <Loader />
+})
 
 const Routes = () => {
   // const [currentUser, setCurrentUser] = useState(false);
@@ -199,6 +209,7 @@ const Routes = () => {
           <UnprotectedRoutes exact path="/privacy-policy" component={PrivacyPolicyPage} />
           <UnprotectedRoutes exact path="/terms-and-conditions" component={TermsAndConditionsPage} />
           <UnprotectedRoutes exact path="/help-and-support" component={HelpAndSupportPage} />
+          <UnprotectedRoutes exact path="/faq-page" component={FAQPage} />
           <UnprotectedRoutes exact path="/licenses" component={LicensesPage} />
           <UnprotectedRoutes exact path="/partners" component={PartnersPage} />
           <UnprotectedRoutes exact path="/select-role" component={SelectRolePage} />
@@ -207,6 +218,7 @@ const Routes = () => {
           <UnprotectedRoutes exact path='/help-us-mobile' component={() => <HelpUsMobile />} />
           <UnprotectedRoutes exact path='/privacy-security-mobile' component={() => <PrivacySecurityMobile />} />
           <UnprotectedRoutes exact path='/terms-and-conditions-mobile' component={() => <TermsAndConditionsMobile />} />
+          <UnprotectedRoutes exact path='/faq-mobile' component={() => <FAQPageMobile />} />
           {/* {authorities.some((user) => user === "ROLE_ADMIN" || user === "ROLE_USER") && (<> */}
           <ProtectedRoutes path="/admin" role="ROLE_ADMIN" component={AdminRoutes} />
           {/* <Route exact path="(/|/signin)" component={Logout} /> */}

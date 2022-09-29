@@ -40,7 +40,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
                 <img
                   src={appointment.doctor.picture}
                   alt={`${appointment.doctor.firstName}-image`}
-                  className="img-circle ml-3 mt-3"
+                  className="upcoming_img-circle ml-3 mt-3"
                 />
               </div>
 
@@ -53,7 +53,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
                   (appointment.doctor.lastName || "")
                 }
                 size={60}
-                className="my-appointments-avatar"
+                className="upcoming-appointments-avatar"
               />
             )
           }
@@ -70,7 +70,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
                 <img
                   src={appointment.patient.picture}
                   alt={`${appointment.patient.firstName}-image`}
-                  className="img-circle ml-3 mt-3"
+                  className="upcoming_img-circle ml-3 mt-3"
                 />
               </div>
 
@@ -83,7 +83,7 @@ const UpcomingAppointmentCard = ({ appointment }) => {
                   (appointment.patient.lastName || "")
                 }
                 size={60}
-                className="my-appointments-avatar"
+                className="upcoming-appointments-avatar"
               />
             )
           }

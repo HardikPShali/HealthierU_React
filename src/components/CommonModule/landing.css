@@ -911,13 +911,6 @@ div.card-box {
   display: none;
 }
 
-.patient-card_how-healthy-wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 h2#signin-title {
   font-size: 2rem;
   font-weight: 500;

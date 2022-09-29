@@ -5,10 +5,18 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import { useHistory } from 'react-router';
 
-
 const PaypalCheckoutButton = (props) => {
-
-    const { bookappointment, email, firstName, lastName, rate, halfRate, userId, appointmentId, appointmentMode } = props;
+    const {
+        bookappointment,
+        email,
+        firstName,
+        lastName,
+        rate,
+        halfRate,
+        userId,
+        appointmentId,
+        appointmentMode,
+    } = props;
 
     // ON CANCEL FALLBACK---- STARTS
     const history = useHistory();
@@ -34,7 +42,6 @@ const PaypalCheckoutButton = (props) => {
                 //     return actions.resolve();
                 // }}
                 createOrder={(data, actions) => {
-
                     return actions.order.create({
                         intent: 'CAPTURE',
 

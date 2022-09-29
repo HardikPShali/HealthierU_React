@@ -1296,12 +1296,6 @@ sup {
   top: -1px !important;
   left: 2px;
 }
-.patient-card_how-healthy-wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 /*Footer anchor css*/
 
 #copyright-text a,
