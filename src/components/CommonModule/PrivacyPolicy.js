@@ -66,7 +66,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
                             <p className="static-pages">
                               HealthierU (“HealthierU”) is a limited liability
                               company licenced in the United Arab Emirates and
-                              is a the one-of-a-kind wellness and prevention
+                              a one-of-a-kind wellness and prevention
                               platform(“HealthierU”).
                               <br />
                               HealthierU is a telehealth platform that offers
