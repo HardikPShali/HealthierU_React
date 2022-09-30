@@ -734,7 +734,8 @@ const Healthassessment = (props) => {
                                                         {console.log("docData1", docData)}
                                                         <PrescriptionLabCardDoctor
                                                             filetype={getFileExtension(docData.documentUrl)}
-                                                            name={"Treatment"}
+                                                            name={docData.name}
+                                                            type={'Treatment'}
                                                             apid={appointmentID}
                                                             date={docData.docUploadTime}
                                                             time={docData.docUploadTime}

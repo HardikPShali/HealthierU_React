@@ -65,7 +65,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
                             </h5>
                             <p className="static-pages">
                               HealthierU (“HealthierU”) is a limited liability
-                              company licenced in the United Arab Emirates and
+                              company licensed in the United Arab Emirates and
                               a one-of-a-kind wellness and prevention
                               platform(“HealthierU”).
                               <br />
@@ -80,7 +80,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
                               from anywhere in the world, in addition to access
                               to advanced diagnostic services, health
                               assessments, health monitoring and educational
-                              resources. HealthierU provides personalised,
+                              resources. HealthierU provides personalized,
                               comprehensive solutions and health support such as
                               fitness training and wellness plans, tailored to
                               the user's needs and lifestyle.
@@ -271,7 +271,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
                                   you;
                                 </li>
                                 <li>
-                                  to personalise your experience of using our
+                                  to personalize your experience of using our
                                   Platforms and offer content that is relevant
                                   to you and your geographic region (such as
                                   offers or promotions); and provide you with
@@ -288,7 +288,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
                                 </li>
                                 <li>to comply with our legal obligations. </li>
                                 <li>
-                                  to understand and analyse how you use our
+                                  to understand and analyze how you use our
                                   Services and to develop new products,
                                   services, features, and functionality.
                                 </li>
@@ -307,7 +307,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
                                   advertising materials that may be relevant,
                                   valuable, or otherwise of interest to you.
                                   Using information will assist in advertising
-                                  on third party websites.{' '}
+                                  on third-party websites.{' '}
                                 </li>
                               </ul>
                             </p>
@@ -438,7 +438,7 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
                               We request your browser to store a cookie when you
                               access our Platforms and may request your browser
                               to store one or more cookies when you make
-                              purchases, request or personalise information, or
+                              purchases, request or personalize information, or
                               request certain Services.
                               <br />
                               Our Platforms may use certain first party Cookies

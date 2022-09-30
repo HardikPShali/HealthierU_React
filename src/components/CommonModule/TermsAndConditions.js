@@ -42,7 +42,7 @@ const TermsAndConditions = ({ currentuserInfo }) => {
         <>
           {' '}
           {authorities.length > 0 &&
-          authorities.some((user) => user === 'ROLE_PATIENT') ? (
+            authorities.some((user) => user === 'ROLE_PATIENT') ? (
             <> </>
           ) : authorities.length > 0 &&
             authorities.some((user) => user === 'ROLE_DOCTOR') ? (
@@ -703,7 +703,7 @@ const TermsAndConditions = ({ currentuserInfo }) => {
                                 <li>
                                   Functionality cookies: these are used to
                                   recognise you when you return to use any of
-                                  our Platform. This enables us to personalise
+                                  our Platform. This enables us to personalize
                                   our content for you (greet you by name) and
                                   remember your preferences (for example, your
                                   choice of language), and Services history; and
@@ -1045,7 +1045,7 @@ const TermsAndConditions = ({ currentuserInfo }) => {
             </Row>{' '}
           </Container>{' '}
           {authorities.length > 0 &&
-          authorities.some((user) => user === 'ROLE_PATIENT') ? (
+            authorities.some((user) => user === 'ROLE_PATIENT') ? (
             <> </>
           ) : authorities.length > 0 &&
             authorities.some((user) => user === 'ROLE_DOCTOR') ? (

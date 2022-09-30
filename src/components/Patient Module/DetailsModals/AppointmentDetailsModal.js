@@ -229,8 +229,8 @@ const AppointmentDetailsModal = ({
 
                     <button
                         onClick={() => handleChat(selectedAppointment)}
-                        className="btn btn-primary"
-                        id="close-btn"
+                        className="btn btn-primary close-btn"
+
                     >
                         <img
                             src={chatButtonIcon}
@@ -243,8 +243,8 @@ const AppointmentDetailsModal = ({
                         from === 'completedAndCancelledAppointmentTab' && (
                             <button
                                 onClick={handleAppointmentInfoClose}
-                                className="btn btn-primary"
-                                id="close-btn"
+                                className="btn btn-primary close-btn"
+
                             >
                                 OK
                             </button>
@@ -255,7 +255,6 @@ const AppointmentDetailsModal = ({
                             <button
                                 onClick={() => handleClickOpen(selectedAppointment)}
                                 className="btn btn-primary"
-                                id="close-btn"
                             >
                                 Cancel Appointment
                             </button>

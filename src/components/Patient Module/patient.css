@@ -4477,3 +4477,8 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
   padding: 5px;
   border-radius: 10px;
 }
+
+/* APPOINTMENT DETAILS MODAL */
+.close-btn {
+  width: 125px;
+}

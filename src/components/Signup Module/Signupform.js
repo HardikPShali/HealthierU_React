@@ -40,7 +40,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { activateOtp } from '../../service/AccountService';
 import Typography from '@material-ui/core/Typography';
 import './loginCode.css';
-import { truncate } from 'lodash';
+import comingSoonImage from '../../images/comin_soon_png.png';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const isnum = '(?=.*[0-9]|.*[~`!@#$%^&*()--+={}[]|\\:;"\'<>,.?/_₹])';
 const islow = '(?=.*[a-z])';
@@ -164,9 +166,10 @@ const Signupform = () => {
 
     if (response.status === 200 && response.data.status === true) {
       setLoginCodeFromApi(response.data.data.preLoginCode);
-      setPreLoginAuthicationEnabled(response.data.data.isPreLoginAuthenticationEnabled);
-    }
-    else {
+      setPreLoginAuthicationEnabled(
+        response.data.data.isPreLoginAuthenticationEnabled
+      );
+    } else {
       setPreLoginAuthicationEnabled(false);
     }
   };
@@ -187,7 +190,6 @@ const Signupform = () => {
         // if authorities>0 is there then pop the array and push the new value
         authorities.push(value);
         setShowLoginCode(true);
-
       } else if (preLoginAuthicationEnabled === false) {
         console.log('handleSignup Reached');
         setShowLoginCode(false);
@@ -363,9 +365,13 @@ const Signupform = () => {
 
       const response = await signupWithEmail(user).catch((error) => {
         setTransparentLoading(false);
-        setDisplay({ ...display, signupForm: "block", whoyouAre: "none" });
+        setDisplay({ ...display, signupForm: 'block', whoyouAre: 'none' });
 
-        if (error.response && error.response.status === 500 && error.response.data.message === "Login name already used!") {
+        if (
+          error.response &&
+          error.response.status === 500 &&
+          error.response.data.message === 'Login name already used!'
+        ) {
           setErrorMsg({
             ...errorMsg,
             userNameExistance:
@@ -386,8 +392,7 @@ const Signupform = () => {
       });
 
       console.log({ response });
-      console.log({ authorities })
-
+      console.log({ authorities });
 
       if (response && response.status === 200) {
         setTransparentLoading(false);
@@ -451,15 +456,15 @@ const Signupform = () => {
 
   // cookie removal function ----> 25072022
   const clearEveryCookie = () => {
-    cookies.remove("refresh_token", { path: '/' });
-    cookies.remove("currentUser", { path: '/' });
-    cookies.remove("access_token", { path: '/' });
-    cookies.remove("GOOGLE_ACCESS_TOKEN", { path: '/' });
-    cookies.remove("GOOGLE_PROFILE_DATA", { path: '/' });
-    cookies.remove("authorities", { path: '/' });
-    cookies.remove("userProfileCompleted", { path: '/' });
-    cookies.remove("profileDetails", { path: '/' });
-  }
+    cookies.remove('refresh_token', { path: '/' });
+    cookies.remove('currentUser', { path: '/' });
+    cookies.remove('access_token', { path: '/' });
+    cookies.remove('GOOGLE_ACCESS_TOKEN', { path: '/' });
+    cookies.remove('GOOGLE_PROFILE_DATA', { path: '/' });
+    cookies.remove('authorities', { path: '/' });
+    cookies.remove('userProfileCompleted', { path: '/' });
+    cookies.remove('profileDetails', { path: '/' });
+  };
 
   //CODSE FOR OTP PART
   //LOGIC FOR OTP BOXES
@@ -884,7 +889,7 @@ const Signupform = () => {
         aria-labelledby="customized-dialog-title"
         open={showLoginCode}
         onClose={(e) => setShowLoginCode(false)}
-        maxWidth='xs'
+        maxWidth="xs"
         fullWidth={true}
       >
         <DialogTitle id="customized-dialog-title">Enter Login Code</DialogTitle>
@@ -925,11 +930,24 @@ const Signupform = () => {
 
       <Footer />
       <Dialog aria-labelledby="customized-dialog-title" open={comingSoon}>
-        <DialogTitle id="customized-dialog-title">Coming Soon!</DialogTitle>
+        {/* <DialogTitle id="customized-dialog-title">Coming Soon!</DialogTitle> */}
+        <DialogContent dividers>
+          <div>
+            {/* <img  /> */}
+            <LazyLoadImage
+              src={comingSoonImage}
+              alt="coming soon"
+              height={443}
+              width={375}
+              effect="blur"
+            />
+            <p className="coming-soon-para">Coming Soon</p>
+          </div>
+        </DialogContent>
         <DialogActions>
           <button
             onClick={handleComingSoonClose}
-            className="btn btn-primary sign-btn w-100"
+            className="btn btn-primary coming-soon-btn w-100"
             id="close-btn"
           >
             OK

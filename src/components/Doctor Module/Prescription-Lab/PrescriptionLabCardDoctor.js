@@ -1,58 +1,107 @@
-import React from 'react'
-import download from '../../../images/icons used/download.svg'
-import download1 from '../../../images/icons used/document icon@2x.png'
-import pdf_filetype_icon from '../../../images/icons used/pdf_filetype_icon.svg'
-import jpg_filetype_icon from '../../../images/icons used/jpg_filetype_icon.svg'
-import download2 from '../../../images/icons used/textfile.png'
-import deleteIcon from "../../../images/icons used/id_delete_doc.svg"
-import moment from "moment";
+import React from 'react';
+import download from '../../../images/icons used/download.svg';
+import download1 from '../../../images/icons used/document icon@2x.png';
+import pdf_filetype_icon from '../../../images/icons used/pdf_filetype_icon.svg';
+import jpg_filetype_icon from '../../../images/icons used/jpg_filetype_icon.svg';
+import download2 from '../../../images/icons used/textfile.png';
+import deleteIcon from '../../../images/icons used/id_delete_doc.svg';
+import moment from 'moment';
 
 const PrescriptionLabCardDoctor = (props) => {
-    let imageExtensions = ["png", "jpg", "jpeg", "GIF", "TIFF"]
-    let docExtensions = ["doc", "docx", "PSD"]
+    let imageExtensions = ['png', 'jpg', 'jpeg', 'GIF', 'TIFF'];
+    let docExtensions = ['doc', 'docx', 'PSD'];
     return (
         <div className="row align-items-start">
-
-            <div className='col-md-2'>
-                <h5 className='prescription-lab-card__common-date1'> <b>{moment(props.date).format("DD")}</b></h5>
-                <span className='prescription-lab-card__common-span1'>{moment(props.time).format("HH:mm A")}</span>
-
+            <div className="col-md-2">
+                <h5 className="prescription-lab-card__common-date1">
+                    {' '}
+                    <b>{moment(props.date).format('DD')}</b>
+                </h5>
+                <span className="prescription-lab-card__common-span1">
+                    {moment(props.time).format('HH:mm A')}
+                </span>
             </div>
-            <div className='col-md-2'>
+            <div className="col-md-2">
+                {props.filetype === 'txt' && (
+                    <img
+                        width={'70px'}
+                        height={'70px'}
+                        src={download2}
+                        alt={download1}
+                        className="prescription-lab-card__img-wrapper"
+                    />
+                )}
 
-                {props.filetype === "txt" && <img width={'70px'} height={'70px'} src={download2} alt={download1} className='prescription-lab-card__img-wrapper' />}
-
-                {props.filetype === "pdf" && <img width={'70px'} height={'70px'} src={pdf_filetype_icon} alt={download1} className='prescription-lab-card__img-wrapper' />}
+                {props.filetype === 'pdf' && (
+                    <img
+                        width={'70px'}
+                        height={'70px'}
+                        src={pdf_filetype_icon}
+                        alt={download1}
+                        className="prescription-lab-card__img-wrapper"
+                    />
+                )}
 
                 {imageExtensions.map((a) => {
                     if (props.filetype === a) {
-                        return <img src={jpg_filetype_icon} width={'70px'} height={'70px'} alt={download1} className='prescription-lab-card__img-wrapper' />
+                        return (
+                            <img
+                                src={jpg_filetype_icon}
+                                width={'70px'}
+                                height={'70px'}
+                                alt={download1}
+                                className="prescription-lab-card__img-wrapper"
+                            />
+                        );
                     }
-                })
-                }
+                })}
                 {docExtensions.map((a) => {
                     if (props.filetype === a) {
-                        return <img src={download1} width={'70px'} height={'70px'} alt={download1} className='prescription-lab-card__img-wrapper' />
+                        return (
+                            <img
+                                src={download1}
+                                width={'70px'}
+                                height={'70px'}
+                                alt={download1}
+                                className="prescription-lab-card__img-wrapper"
+                            />
+                        );
                     }
-                })
-                }
+                })}
             </div>
-            <div className='col-md-4'>
-                <h5 className='prescription-lab-card__common-name1'><b>{props.name}</b></h5>
-                <span className='prescription-lab-card__common-span1'><b>{props.name === "Treatment" ? "APID : " : "Lab Name : "}</b>{props.name === "Treatment" ? props.apid : props.labname}</span>
-
+            <div className="col-md-4">
+                <h5 className="prescription-lab-card__common-name1">
+                    <b>{props.name}</b>
+                </h5>
+                <span className="prescription-lab-card__common-span1">
+                    <b>{props.type === 'Treatment' ? 'APID : ' : 'Lab Name : '}</b>
+                    {props.type === 'Treatment' ? props.apid : props.labname}
+                </span>
             </div>
-            <div style={{ textAlign: "center", paddingTop: '15px' }} className='col-md-2'>
-
-                <button className='prescription-lab-card__download' onClick={(e) => props.download(props.data)}><img width={'22px'} height={'22px'} src={download} /></button>
+            <div
+                style={{ textAlign: 'center', paddingTop: '15px' }}
+                className="col-md-2"
+            >
+                <button
+                    className="prescription-lab-card__download"
+                    onClick={(e) => props.download(props.data)}
+                >
+                    <img width={'22px'} height={'22px'} src={download} />
+                </button>
             </div>
-            <div style={{ textAlign: "center", paddingTop: '15px' }} className='col-md-2'>
-
-                <button className='prescription-lab-card__download' onClick={(e) => props.delete(props.data)}><img width={'22px'} height={'22px'} src={deleteIcon} /></button>
+            <div
+                style={{ textAlign: 'center', paddingTop: '15px' }}
+                className="col-md-2"
+            >
+                <button
+                    className="prescription-lab-card__download"
+                    onClick={(e) => props.delete(props.data)}
+                >
+                    <img width={'22px'} height={'22px'} src={deleteIcon} />
+                </button>
             </div>
         </div>
+    );
+};
 
-    )
-}
-
-export default PrescriptionLabCardDoctor
+export default PrescriptionLabCardDoctor;

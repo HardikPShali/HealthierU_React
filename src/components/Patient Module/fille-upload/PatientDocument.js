@@ -734,6 +734,7 @@ const PatientDocument = (props) => {
                                 medicalRecordData.map(
                                     (dataItem, subIndex) => {
                                         return (
+
                                             <div className="prescription-lab__card-box" key={subIndex}>
                                                 <h3 className="prescription-lab--month-header mb-3 mt-2">
                                                     {moment(dataItem.docUploadTime).format("MMM")}
@@ -757,7 +758,8 @@ const PatientDocument = (props) => {
                                                                 filetype={getFileExtension(
                                                                     dataItem.documentUrl
                                                                 )}
-                                                                name={"Treatment"}
+                                                                name={dataItem.name}
+                                                                type={"Treatment"}
                                                                 docName={dataItem.doctorName}
                                                                 date={dataItem.docUploadTime}
                                                                 time={dataItem.docUploadTime}
