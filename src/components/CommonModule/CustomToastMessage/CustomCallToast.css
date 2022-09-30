@@ -10,7 +10,7 @@
   margin: 15px;
   font-size: 14px;
   color: #3e4543;
-  width: 125px
+  width: 125px;
 }
 
 .call-actions {
@@ -23,7 +23,7 @@
   cursor: pointer;
   border-radius: 50%;
   box-shadow: 1px 1px 2px #dedede;
-  transition: .2s;
+  transition: 0.2s;
   width: 40px;
   height: 40px;
 }
@@ -33,7 +33,6 @@
   box-shadow: 1px 1px 2px rgb(0 0 0 / 15%) !important;
   /* background: #e5e5e5; */
   border-radius: 50%;
-  
 }
 
 .call-decline__wrapper {
@@ -45,7 +44,7 @@
   width: 40px;
   height: 40px;
   box-shadow: 1px 1px 2px #dedede;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .call-decline__wrapper:hover {
@@ -91,7 +90,7 @@
 }
 
 .msg-name {
-  width: 200px;
+  width: 210px;
 }
 
 .msg-text {
