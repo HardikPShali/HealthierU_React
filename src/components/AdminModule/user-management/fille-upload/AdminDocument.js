@@ -527,16 +527,12 @@ const AdminDocument = (props) => {
                             {/* <td width="150">{dataItem.duration}</td> */}
                             <td width="150">
                               {dataItem?.patient
-                                ? dataItem?.patient?.firstName +
-                                " " +
-                                (dataItem?.patient?.lastName || "")
+                                ? dataItem?.patient?.firstName
                                 : ""}
                             </td>
                             <td width="150">
                               {dataItem?.doctor
-                                ? dataItem?.doctor?.firstName +
-                                " " +
-                                (dataItem?.patient?.lastName || "")
+                                ? dataItem?.doctor?.firstName
                                 : ""}
                             </td>
                           </tr>
@@ -684,9 +680,7 @@ const AdminDocument = (props) => {
                           {/* <td width="250">{dataItem.description}</td> */}
                           <td width="150">
                             {dataItem?.patient
-                              ? dataItem?.patient?.firstName +
-                              " " +
-                              (dataItem?.patient?.lastName || "")
+                              ? dataItem?.patient?.firstName
                               : ""}
                           </td>
                           {/* <td width="150">
@@ -896,7 +890,7 @@ const AdminDocument = (props) => {
                     <span>
                       Doctor Name:{" "}
                       <b>
-                        {doctor?.firstName + " " + (doctor?.lastName || "")}
+                        {doctor?.firstName}
                         <input
                           hidden={true}
                           id="doctorId"
@@ -934,7 +928,7 @@ const AdminDocument = (props) => {
                     <span>
                       Patient Name:{" "}
                       <b>
-                        {patient?.firstName + " " + (patient?.lastName || "")}
+                        {patient?.firstName}
                         <input
                           hidden={true}
                           id="patientId"
@@ -1194,7 +1188,7 @@ const AdminDocument = (props) => {
                     <span>
                       Patient Name:{" "}
                       <b>
-                        {patient?.firstName + " " + (patient?.lastName | "")}
+                        {patient?.firstName}
                         <input
                           hidden={true}
                           id="patientId"
@@ -1270,7 +1264,7 @@ const AdminDocument = (props) => {
                     <span>
                       Doctor Name:{" "}
                       <b>
-                        {doctor?.firstName + " " + (doctor?.lastName || "")}
+                        {doctor?.firstName}
                         <input
                           hidden={true}
                           id="doctorId"
@@ -1308,7 +1302,7 @@ const AdminDocument = (props) => {
                     <span>
                       Patient Name:{" "}
                       <b>
-                        {patient?.firstName + " " + (patient?.lastName || "")}
+                        {patient?.firstName}
                         <input
                           hidden={true}
                           id="patientId"
