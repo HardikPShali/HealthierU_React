@@ -1549,8 +1549,8 @@ const Myappointment = (props) => {
                         <div className="firefox-helper" style={{ display: "flex", alignItem: "center" }}>
                           <div style={{ width: "100%" }}>
                             <img
-                              width="40"
-                              height="40"
+                              width="30"
+                              height="30"
                               src={HealthAssessment}
                               // onClick='${pathname}'
                               alt=""
@@ -1574,8 +1574,8 @@ const Myappointment = (props) => {
                         <div className="firefox-helper" style={{ display: "flex", alignItem: "center" }}>
                           <div style={{ width: "100%" }}>
                             <img
-                              width="40"
-                              height="40"
+                              width="30"
+                              height="30"
                               src={MedicalRecord}
                               // onClick='${pathname}'
                               alt=""
@@ -1593,8 +1593,8 @@ const Myappointment = (props) => {
                       <div style={{ display: "flex", alignItem: "center", cursor: 'pointer' }}>
                         <div style={{ width: "100%" }} onClick={() => openMorePatientInfo()}>
                           <img
-                            width="40"
-                            height="40"
+                            width="30"
+                            height="30"
                             src={infoIcon}
                             alt=""
                             style={{ marginLeft: "5%", marginRight: "5%" }}
