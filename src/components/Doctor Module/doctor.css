@@ -3817,7 +3817,7 @@ input:checked + .slider:before {
 
 .profile-menu > .MuiMenu-paper {
   top: 80px !important;
-  left: 1175px !important;
+  left: 1150px !important;
 }
 
 @media (max-width: 1180px) {
