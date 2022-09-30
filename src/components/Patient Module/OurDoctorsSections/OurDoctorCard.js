@@ -9,6 +9,8 @@ import experienceIcon from '../../../images/svg/experience-yellow-icon.svg';
 import languageIcon from '../../../images/svg/languages-yellow-icon.svg';
 import aboutIcon from '../../../images/svg/about-icon.svg';
 import defaultDoctorImage from '../../../images/default_image.png';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
 const OurDoctorCard = ({ doctor }) => {
@@ -66,7 +68,12 @@ const OurDoctorCard = ({ doctor }) => {
                                 <div className="details-content__doc-info">
                                     {
                                         doctor.picture ? (
-                                            <img src={doctor.picture} alt="" />
+                                            // <img src={doctor.picture} alt="" />
+                                            <LazyLoadImage
+                                                src={doctor.picture}
+                                                alt="doc-pic"
+                                                effect='blur'
+                                            />
                                         ) :
                                             (
                                                 <img src={defaultDoctorImage} alt="" />
@@ -100,6 +107,7 @@ const OurDoctorCard = ({ doctor }) => {
                                     <span>About</span>
                                     <div className="details-body__payment">
                                         <div className="d-flex align-items-center mb-3">
+
                                             <img
                                                 src={educationIcon}
                                                 alt="icons"
