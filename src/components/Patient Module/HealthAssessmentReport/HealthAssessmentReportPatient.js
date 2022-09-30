@@ -49,7 +49,10 @@ const HealthAssessmentReportPatient = () => {
                                                 (answer.answers.length > 0 && answer.answers.every((ans) => ans != undefined && ans != null && ans !== "") == true &&
                                                     <AnswersCardDetails key={index + 1}>
                                                         <AnswersCardQuestionTitle>
-                                                            {answer.questionTitle}
+                                                            {answer.questionTitle.split(' ').slice(0, 10).join(' ')}{' '}
+                                                            <span style={{ fontWeight: 400 }}>
+                                                                {answer.questionTitle.substring(57, 200)}
+                                                            </span>
                                                         </AnswersCardQuestionTitle>
                                                         {answer.answers.map((answer, index) => (
                                                             <AnswersCardQuestionAnswer key={index}>
