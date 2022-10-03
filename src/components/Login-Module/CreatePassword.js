@@ -160,6 +160,9 @@ const CreatePassword = () => {
     if (element.nextSibling) {
       element.nextSibling.focus();
     }
+
+    setErrorMessage('');
+    setOtpValidation('');
   };
 
   const handleOTPSubmit = async () => {
