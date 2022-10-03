@@ -999,7 +999,7 @@ const MyAppointments = (props) => {
                       }}
                     >
                       <p className="text-center">
-                        No Patient Datacard Selected ...
+                        No Patient Data card Selected ...
                       </p>
                     </div>
                   </>

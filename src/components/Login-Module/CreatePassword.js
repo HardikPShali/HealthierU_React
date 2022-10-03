@@ -81,6 +81,13 @@ const CreatePassword = () => {
         lowcase: passvalue.match(islow) ? true : false,
         upcase: passvalue.match(isup) ? true : false,
       });
+      ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
+        if (value !== confirmPassword) {
+          return false;
+        } else if (value === confirmPassword) {
+          return true;
+        }
+      });
     } else if (e.target.name === "confirmPassword") {
       ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
         if (value !== newPassword) {
@@ -110,7 +117,7 @@ const CreatePassword = () => {
       },
     };
     if (newPassword !== confirmPassword) {
-      toast.error("New password and confirm passowrd should be same")
+      toast.error("New password and confirm password should be same")
     }
     else {
       axios(payload).then((response) => {
@@ -164,11 +171,11 @@ const CreatePassword = () => {
     // console.log({ response });
 
 
-    if (response.data.message === 'Otp mismatch') {
+    if (response.data.message === 'OTP mismatch') {
       setOtpValidation('Incorrect OTP entered. Please try again');
       setOtpBox(new Array(4).fill(""));
     }
-    else if (response.data.message === 'Otp verified') {
+    else if (response.data.message === 'OTP verified') {
       setOtpValidation('');
       setDisplay({
         otpPage: "none",

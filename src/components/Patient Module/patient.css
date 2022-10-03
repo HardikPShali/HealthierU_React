@@ -4371,27 +4371,21 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .profile-menu > .MuiMenu-paper {
   top: 80px !important;
-  left: 1150px !important;
+  /* left: 1150px !important; */
+  transform-origin: 82.5px 39px;
 }
 
 @media (max-width: 1180px) {
   .profile-menu > .MuiMenu-paper {
     top: 10% !important;
-    left: 83% !important;
+    /* left: 83% !important; */
   }
 }
-
-/* @media screen and (max-width: 480px) {
-  .profile-menu > .MuiMenu-paper {
-    top: 75% !important;
-    left: 7% !important;
-  }
-} */
 
 @media screen and (max-width: 990px) {
   .profile-menu > .MuiMenu-paper {
     top: 25% !important;
-    left: 10% !important;
+    /* left: 10% !important; */
   }
 }
 
