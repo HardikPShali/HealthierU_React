@@ -550,6 +550,7 @@ const Welcome = ({ currentuserInfo }) => {
                             setPhoneError('This field is required');
                         } else if (err.response.status === 500 && state.phone !== '') {
                             setPhoneError('Phone number should have max range of lenth 15');
+
                         }
                     }
                 );
