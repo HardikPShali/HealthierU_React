@@ -31,7 +31,7 @@ export const Checkbox = ({ question, followQuestion, isError }) => {
                 setAnswer(answers.filter(item => item !== e));
             }
         }
-        if(e) {
+        if (e) {
             question.isError = false;
         }
 
@@ -41,7 +41,11 @@ export const Checkbox = ({ question, followQuestion, isError }) => {
     return (
         <div className={`form-check mb-1 pb-2 ${isError ? 'error-field' : ''}`}>
             <label className="form-check-label col-form-label col-sm-12">
-                {question.questionTitle}
+                {/* {question.questionTitle} */}
+                {question.questionTitle.split(' ').slice(0, 10).join(' ')}{' '}
+                <span style={{ fontWeight: 400 }}>
+                    {question.questionTitle.substring(57, 200)}
+                </span>
             </label>
             {question.choices.map((choice, index) => (
                 <div key={index} className="col-sm-12" style={{ marginLeft: '20px' }}>
