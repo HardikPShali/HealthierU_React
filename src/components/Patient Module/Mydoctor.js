@@ -369,11 +369,14 @@ const MyDoctor = (props) => {
       // }
     }
   };
-
+  const [checkLoadMoreDoctors, setCheckLoadMoreDoctors] = useState(true)
   const loadMore = async () => {
     if (searchText) {
       setTransparentLoading(true);
       const res = await getSearchData(searchText, offset, doctorListLimit);
+      if (res.data.currentPage == res.data.totalPages) {
+        setCheckLoadMoreDoctors(false)
+      }
       if (
         res.status === 200 &&
         res.data?.doctors &&
@@ -422,6 +425,9 @@ const MyDoctor = (props) => {
           setLoading(false);
         }
       });
+      if (result.data.data.currentPage == result.data.data.totalPages) {
+        setCheckLoadMoreDoctors(false)
+      }
       if (
         result &&
         result.data &&
@@ -1918,7 +1924,9 @@ const MyDoctor = (props) => {
                       <center>No Doctor Found ...</center>
                     </div>
                   )}
-                  {filterData && (filterData.length !== totalDoctors || totalDoctors !== 0) && !isFiltered && (
+                  {/* {filterData && (filterData.length !== totalDoctors || totalDoctors !== 0) && !isFiltered && checkLoadMoreDoctors && ( */}
+                  {filterData && !isFiltered && checkLoadMoreDoctors && (
+
                     <>
                       <div
                         className="text-center"
