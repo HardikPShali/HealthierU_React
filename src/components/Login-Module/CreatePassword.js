@@ -160,6 +160,9 @@ const CreatePassword = () => {
     if (element.nextSibling) {
       element.nextSibling.focus();
     }
+
+    setErrorMessage('');
+    setOtpValidation('');
   };
 
   const handleOTPSubmit = async () => {
@@ -171,11 +174,11 @@ const CreatePassword = () => {
     // console.log({ response });
 
 
-    if (response.data.message === 'OTP mismatch') {
+    if (response.data.message === 'OTP mismatch' || response.data.message === 'Otp mismatch') {
       setOtpValidation('Incorrect OTP entered. Please try again');
       setOtpBox(new Array(4).fill(""));
     }
-    else if (response.data.message === 'OTP verified') {
+    else if (response.data.message === 'OTP verified' || response.data.message === 'Otp verified') {
       setOtpValidation('');
       setDisplay({
         otpPage: "none",
