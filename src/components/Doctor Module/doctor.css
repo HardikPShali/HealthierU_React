@@ -3817,13 +3817,13 @@ input:checked + .slider:before {
 
 .profile-menu > .MuiMenu-paper {
   top: 80px !important;
-  left: 1150px !important;
+  /* left: 1150px !important; */
 }
 
 @media (max-width: 1180px) {
   .profile-menu > .MuiMenu-paper {
     top: 10% !important;
-    left: 83% !important;
+    /* left: 83% !important; */
   }
 }
 
@@ -3837,7 +3837,7 @@ input:checked + .slider:before {
 @media screen and (max-width: 990px) {
   .profile-menu > .MuiMenu-paper {
     top: 25% !important;
-    left: 10% !important;
+    /* left: 10% !important; */
   }
 }
 

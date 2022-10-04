@@ -280,6 +280,9 @@ const Signin = () => {
     //if (captchaVerify) {
     setLoader(true);
     const accountCheckResponse = await accountActivationCheckBeforeTokenGeneration(email).catch(err => console.log({ err }))
+
+    console.log({ accountCheckResponse })
+
     if (accountCheckResponse.data.status === true) {
       handleSigninHandler();
     }
@@ -294,7 +297,15 @@ const Signin = () => {
         history.push('/signup');
       }, 3000);
     }
-    else if (accountCheckResponse.data.data.registerAgain === false && accountCheckResponse.data.message === "Your account has been deactivated. Please contact administrator") {
+    else if (accountCheckResponse.data.data.registerAgain === false && accountCheckResponse.data.message === "Your account has been deactivated") {
+      setLoader(false);
+      toast.error('Your account has been deactivated. Please contact the administrator.', {
+        autoClose: 5000,
+        hideProgressBar: true,
+        toastId: "accountDeactivated",
+      });
+    }
+    else if (accountCheckResponse.data.message === "Your account has been deactivated. Please contact administrator") {
       setLoader(false);
       toast.error('Your account has been deactivated. Please contact the administrator.', {
         autoClose: 5000,
