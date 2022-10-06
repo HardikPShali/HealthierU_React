@@ -870,7 +870,7 @@ const RescheduleAppointment = (props) => {
                                 </label>
                             </div>
                             <button
-                                className="btn btn-primary continue-btn"
+                                className="btn btn-primary continue-btn-reschedule"
                                 onClick={async () => {
                                     checkSlot();
                                 }}
