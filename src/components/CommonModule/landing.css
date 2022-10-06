@@ -1476,7 +1476,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
 .profile-edit-icon-welcome {
   position: absolute;
   /* margin: 200px 0 0 280px; */
-  margin: 210px 0 0 315px;
+  margin: 185px 0 0 320px;
 }
 .profile-edit-icon-doctor {
   position: absolute;
@@ -1484,7 +1484,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
 }
 .profile-edit-icon-patient {
   position: absolute;
-  margin: 145px 0 0 -15px;
+  margin: 195px 0 0 345px;
 }
 
 /* SAFARI ONLY CSS */
