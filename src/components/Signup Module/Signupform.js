@@ -641,6 +641,7 @@ const Signupform = () => {
                   disabled={
                     googleAccessToken && googleAccessToken ? true : false
                   }
+                  autoComplete="new-password"
                   validators={[
                     'required',
                     'maxStringLength:50',
@@ -672,6 +673,7 @@ const Signupform = () => {
                   disabled={
                     googleAccessToken && googleAccessToken ? true : false
                   }
+                  autoComplete="new-password"
                   variant="filled"
                 />
                 <br />
@@ -696,6 +698,7 @@ const Signupform = () => {
                   disabled={
                     googleAccessToken && googleAccessToken ? true : false
                   }
+                  autoComplete="new-password"
                   validators={[
                     'isValidEmail',
                     'required',
