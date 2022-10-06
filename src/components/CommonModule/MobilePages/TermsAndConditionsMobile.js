@@ -24,9 +24,9 @@ const TermsAndConditionsMobile = () => {
                                             <Col md={12}>
                                                 <p className="static-pages">
                                                     Thank you for using our website{' '}
-                                                    <a href="http://www.healthieru.ae/">
+                                                    <a href="https://healthieru.ae/">
                                                         {' '}
-                                                        http: //www.healthieru.ae/
+                                                        https://healthieru.ae/
                                                     </a>
                                                     , as well as our mobile application or any other
                                                     electronic application software made available by
