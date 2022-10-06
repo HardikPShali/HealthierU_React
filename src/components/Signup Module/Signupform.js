@@ -153,12 +153,14 @@ const Signupform = () => {
   );
   const [loginCodeFromApi, setLoginCodeFromApi] = useState('');
   const [loginCodeError, setLoginCodeError] = useState(false);
+  const [loginCodeBlankError, setLoginCodeBlankError] = useState(false);
   const [loginCodeMatch, setLoginCodeMatch] = useState(false);
 
   const handleLoginCodeInput = (e) => {
     setLoginCode(e.target.value);
     setLoginCodeError(false);
     setLoginCodeMatch(false);
+    setLoginCodeBlankError(false);
   };
 
   const preLoginCodeDetailsHandler = async () => {
@@ -211,7 +213,17 @@ const Signupform = () => {
       authorities.push(value);
       // if matched then call handleSignup
       handleSignup();
-    } else {
+    } else if (loginCode === '') {
+      // if not matched then show error
+      setLoginCodeBlankError(true);
+      setLoginCodeError(false);
+      console.log('login code not matched');
+      setUser({ ...user, authorities: [] });
+
+      setLoginCode('');
+      setLoginCodeMatch(false);
+    }
+    else {
       // if not matched then show error
       setLoginCodeError(true);
       console.log('login code not matched');
@@ -221,6 +233,14 @@ const Signupform = () => {
       setLoginCodeMatch(false);
     }
   };
+
+  const onPreloginModalClode = () => {
+    setShowLoginCode(false);
+    setLoginCode('');
+    setLoginCodeError(false);
+    setLoginCodeMatch(false);
+    setLoginCodeBlankError(false);
+  }
 
   useEffect(() => {
     preLoginCodeDetailsHandler();
@@ -399,7 +419,11 @@ const Signupform = () => {
 
         if (authorities.some((user) => user === 'ROLE_PATIENT')) {
           toast.success(
-            'OTP is sent to your email. Please check your email and verify OTP.'
+            'OTP is sent to your email. Please check your email and verify OTP.', {
+            autoClose: 3000,
+            hideProgressBar: true,
+            toastId: "otpSent",
+          }
           );
           setDisplay({
             ...display,
@@ -410,7 +434,11 @@ const Signupform = () => {
         }
         if (authorities.some((user) => user === 'ROLE_DOCTOR')) {
           toast.success(
-            'OTP is sent to your email. Please check your email and verify OTP.'
+            'OTP is sent to your email. Please check your email and verify OTP.', {
+            autoClose: 3000,
+            hideProgressBar: true,
+            toastId: "otpSent",
+          }
           );
           setDisplay({
             ...display,
@@ -542,7 +570,11 @@ const Signupform = () => {
       res.data.status === true
     ) {
       setOtpBox(new Array(4).fill(''));
-      toast.success('Account activated successfully. Please log in.');
+      toast.success('Account activated successfully. Please log in.', {
+        autoClose: 3000,
+        hideProgressBar: true,
+        toastId: "activateAccount",
+      });
       clearEveryCookie();
       history.push('/signin');
     } else {
@@ -609,6 +641,7 @@ const Signupform = () => {
                   disabled={
                     googleAccessToken && googleAccessToken ? true : false
                   }
+                  autoComplete="new-password"
                   validators={[
                     'required',
                     'maxStringLength:50',
@@ -640,6 +673,7 @@ const Signupform = () => {
                   disabled={
                     googleAccessToken && googleAccessToken ? true : false
                   }
+                  autoComplete="new-password"
                   variant="filled"
                 />
                 <br />
@@ -664,6 +698,7 @@ const Signupform = () => {
                   disabled={
                     googleAccessToken && googleAccessToken ? true : false
                   }
+                  autoComplete="new-password"
                   validators={[
                     'isValidEmail',
                     'required',
@@ -888,7 +923,7 @@ const Signupform = () => {
       <Dialog
         aria-labelledby="customized-dialog-title"
         open={showLoginCode}
-        onClose={(e) => setShowLoginCode(false)}
+        onClose={onPreloginModalClode}
         maxWidth="xs"
         fullWidth={true}
       >
@@ -909,6 +944,12 @@ const Signupform = () => {
               Pre-login code does not match
             </span>
           )}
+          {
+            loginCodeBlankError && (
+              <span style={{ color: 'red', fontSize: '14px' }}>
+                Pre-login code cannot be blank. Please enter code.
+              </span>
+            )}
           {loginCodeMatch && (
             <span style={{ color: 'green', fontSize: '14px' }}>
               Pre-login code matched

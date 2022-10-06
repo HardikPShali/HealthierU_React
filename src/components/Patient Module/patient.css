@@ -570,6 +570,17 @@ button.continue-btn {
   margin-top: 20px;
 }
 
+button.continue-btn-reschedule {
+  background-color: var(--primary) !important;
+  width: 100% !important;
+  border-radius: 30px;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  margin-top: 40px;
+}
+
 button.continue-btn-profile {
   background-color: var(--primary) !important;
   width: 35% !important;
@@ -3970,7 +3981,7 @@ div#bmi-gender.fixingRadioIssues .MuiIconButton-label svg.MuiSvgIcon-root {
 
 .rbc-time-header.rbc-overflowing {
   border-right: 1px solid #ddd;
-  margin-right: 4px !important;
+  margin-right: 4.8px !important;
 }
 
 /* APPOINTMENT DETAILS CSS */
