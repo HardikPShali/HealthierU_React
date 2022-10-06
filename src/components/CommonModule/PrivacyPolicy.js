@@ -88,8 +88,8 @@ const PrivacyPolicy = ({ currentuserInfo }) => {
                               HealthierU respects your privacy and is committed
                               to protecting it. This Privacy Policy applies to
                               your access to our website{' '}
-                              <a href="http://www.healthieru.ae/">
-                                http://www.healthieru.ae/
+                              <a href="https://healthieru.ae/">
+                                https://healthieru.ae/
                               </a>
                               , as well as our mobile application which is
                               accessible through smartphone or tablet (“Our
