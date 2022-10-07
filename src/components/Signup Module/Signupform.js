@@ -544,9 +544,9 @@ const Signupform = () => {
     });
 
     if (
-      res.data.message ===
+      res.message ===
       'Your account has been blocked. Please try after some time.' &&
-      res.data.status === false
+      res.status === false
     ) {
       setOtpUser({
         ...otpUser,
@@ -557,8 +557,8 @@ const Signupform = () => {
         history.push('/signin');
       }, 3000);
     } else if (
-      res.data.message === 'Otp mismatch' &&
-      res.data.status === false
+      res.message === 'Otp mismatch' &&
+      res.status === false
     ) {
       setOtpUser({
         ...otpUser,
@@ -566,8 +566,8 @@ const Signupform = () => {
       });
       setOtpBox(new Array(4).fill(''));
     } else if (
-      res.data.message === 'Account activated' &&
-      res.data.status === true
+      res.message === 'Account activated' &&
+      res.status === true
     ) {
       setOtpBox(new Array(4).fill(''));
       toast.success('Account activated successfully. Please log in.', {
