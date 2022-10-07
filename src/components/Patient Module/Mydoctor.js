@@ -490,13 +490,13 @@ const MyDoctor = (props) => {
     const response = await postUnlikedDoctor(likeId);
     // //console.log(response.status);
     if (response.status === 200 || response.status === 204) {
-
-      toast.success('Successfully removed from your favourites');
-
+      toast.success('Successfully removed from your favourites', {
+        autoClose: 5000,
+        hideProgressBar: true,
+        toastId: "createUnlikedDoctor",
+      });
       if (display.like === 'block' && display.unlike === 'none') {
         getAllLikedDoctors();
-
-
       }
       else if (display.like === 'none' && display.unlike === 'block') {
         loadUsers(currentPatient.id);
@@ -504,10 +504,6 @@ const MyDoctor = (props) => {
       else {
         loadUsers(currentPatient.id);
       }
-
-      // setTransparentLoading(false);
-
-      //loadUsers(currentPatient.id);
     }
   };
   const loadSpeciality = async () => {
