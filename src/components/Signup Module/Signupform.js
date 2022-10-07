@@ -566,7 +566,7 @@ const Signupform = () => {
       });
       setOtpBox(new Array(4).fill(''));
     } else if (
-      res.data.message === 'account activated' &&
+      res.data.message === 'Account activated' &&
       res.data.status === true
     ) {
       setOtpBox(new Array(4).fill(''));
