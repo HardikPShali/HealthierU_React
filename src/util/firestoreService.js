@@ -18,6 +18,7 @@ import soundSrcCall from '../images/svg/call-notification-sound.wav';
 import CustomCallNotification from '../components/CommonModule/CustomToastMessage/CustomCallNotification';
 import CustomCallRejectNotification from '../components/CommonModule/CustomToastMessage/CustomCallRejectNotification';
 import CustomPushNotifications from '../components/CommonModule/CustomToastMessage/CustomPushNotifications';
+import LocalStorageService from './LocalStorageService';
 
 // import '@firebase/messaging';
 
@@ -141,6 +142,10 @@ let soundCall = new Howl({
 const toastMessage = (payload) => {
   // return ({ payloadInToast: payload })
   const topicFromPayload = payload?.data?.topic;
+  const loggedInUser = LocalStorageService.getCurrentUser();
+  const roles = [loggedInUser.authorities];
+
+  console.log({ roles })
 
   if (
     topicFromPayload === 'CHAT' &&
@@ -149,7 +154,7 @@ const toastMessage = (payload) => {
     messageToast(payload);
   }
 
-  if (topicFromPayload === 'CALL') {
+  if (topicFromPayload === 'CALL' && roles[0].includes("ROLE_PATIENT")) {
     callToast(payload);
   }
 

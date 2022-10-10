@@ -68,6 +68,7 @@ const PromoCodeForPatient = ({
 
     const applyPromoCodeHandler = async (e, apptMode) => {
         setLoading(true);
+        setErrorText('');
         const textEntered = promoCodeEnteredText;
         const coupons = couponsFromApi;
 
@@ -185,6 +186,9 @@ const PromoCodeForPatient = ({
                         className="promo-code-input"
                         autoComplete='off'
                         disabled={disableInput}
+                        onPaste={(e) => {
+                            handlePromoEnteredText(e);
+                        }}
                     />
                     {
                         disableInput === true && (
