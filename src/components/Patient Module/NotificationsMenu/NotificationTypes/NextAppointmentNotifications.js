@@ -26,6 +26,7 @@ const NextAppointmentNotifications = ({
     createdAtDisplayStyle,
 }) => {
     const [clickModal, setClickModal] = useState(false);
+    const [loading, setLoading] = useState(false);
     const cookies = new Cookies();
     const currentPatient = cookies.get('profileDetails');
 
@@ -75,7 +76,7 @@ const NextAppointmentNotifications = ({
     };
 
     const handleFreeCouponTransactions = async () => {
-        // setLoading(true);
+        setLoading(true);
         let finalAppointmentDataArray = {};
         if (
             promoCodeApplied === true &&
@@ -103,6 +104,7 @@ const NextAppointmentNotifications = ({
                 notificationId: notificationIdForPayment,
                 couponId: couponIdState,
             };
+            setLoading(false);
         } else if (
             promoCodeApplied === true &&
             promoCodeEntered === 'HEALTHIERUAE' &&
@@ -128,6 +130,7 @@ const NextAppointmentNotifications = ({
                 notificationId: notificationIdForPayment,
                 couponId: couponIdState,
             };
+            setLoading(false);
         }
 
         const freePaymentPayload = {
@@ -456,7 +459,9 @@ const NextAppointmentNotifications = ({
                                 if (promoCodeEntered === 'HEALTHIERUAE') {
                                     handleFreeCouponTransactions();
                                 }
+                                setLoading(true);
                             }}
+                            disabled={loading}
                         >
                             Pay Now
                         </button>
