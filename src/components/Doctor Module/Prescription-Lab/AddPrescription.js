@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import TransparentLoader from '../../Loader/transparentloader';
+import Loader from '../../Loader/Loader';
 // import Footer from './Footer';
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 // import Dropdown from 'react-bootstrap/Dropdown';
@@ -45,6 +47,8 @@ import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router';
 const AddPrescription = (props) => {
     const history = useHistory();
+    const [loading, setLoading] = useState(false);
+    const [transparentLoading, setTransparentLoading] = useState(false);
     let params = useParams();
     const cookies = new Cookies();
     const [prescriptionResult, setPrescriptionResult] = useState({
@@ -145,32 +149,25 @@ const AddPrescription = (props) => {
         }
 
     }
-
     useEffect(() => {
         loadData();
-    }, [patient], [isSave]);
-
-
-
-
+    }, [patient]);
     const handlePrescriptionUploadShow = () => {
         // setDate(0);
         setShowPrescriptionUpload(true);
         setPrescriptionResult(null);
     }
-
     const [showPrescriptionUpload, setShowPrescriptionUpload] = useState(false);
     const { DurationStartDate, DurationEndDate } = date;
     const [errorMsg, setErrorMsg] = useState('');
-    const [isValidDays, setIsValidDays] = useState(false)
     const handlePrescriptionSubmission = async (e) => {
-        setIsSaveModal(false)
         e.preventDefault();
         let medicineData;
         let doseData;
         let durationData;
         let noOfDaysData;
         let intervalData;
+        setIsSaveModal(false)
         if (prescriptionList) {
             prescriptionList.forEach((p) => {
                 medicineData = p.medicineName
@@ -182,24 +179,23 @@ const AddPrescription = (props) => {
 
             if (medicineData === '' || doseData === '' || noOfDaysData === '' || intervalData === '') {
                 { !prescriptionResult.prescriptionDocument && toast.error("All Fields are Required!") }
+                setTransparentLoading(false)
             }
             else {
+                let isValidDays;
                 // document.getElementById('prescriptionSave').disabled = true;
                 var reg = new RegExp('^[0-9]{0,3}$');
                 prescriptionList.forEach((p) => {
                     if (reg.test(p.numberOfDays) == false) {
-                        // setTimeout(() => {
-                        //     toast.error('Please enter valid Days.');
-                        // }, 3000)
+                        setTransparentLoading(false)
                         toast.error('Please enter valid Days', {
                             position: "top-right",
                             autoClose: 5000,
                             toastId: 'isValidDaysToast'
                         });
-                        return false;
                     }
                     else {
-                        setIsValidDays(true)
+                        isValidDays = true
                     }
                 })
                 if (isValidDays === true) {
@@ -222,18 +218,17 @@ const AddPrescription = (props) => {
                     formData.append("medicalDocumentInfo", new Blob([JSON.stringify(medicalDocumentInfo)], {
                         type: "application/json"
                     }));
-                    // {
-                    //     prescriptionResult.prescriptionDocument &&
-                    //         formData.append("file", (prescriptionResult?.prescriptionDocument))
-                    // }
+                    setTransparentLoading(true)
                     const response = await postDocumentAddPrescriptionLabResult(
                         formData
                     ).catch((err) => {
+                        setTransparentLoading(false)
                         if (err.response.data.status === false) {
                             toast.error("Something went wrong! Please try again.");
                         }
                     });
                     if (response.status === true) {
+                        setTransparentLoading(false)
                         toast.success("Document successfully Uploaded.");
                         const patientInfo = params.patientID;
                         const apID = params.apid;
@@ -259,15 +254,17 @@ const AddPrescription = (props) => {
                 prescriptionResult.prescriptionDocument &&
                     formData.append("file", (prescriptionResult?.prescriptionDocument))
             }
-
+            setTransparentLoading(true)
             const response = await postDocumentAddPrescriptionLabResult(
                 formData
             ).catch((err) => {
+                setTransparentLoading(false)
                 if (err.response.data.status === false) {
                     toast.error("Something went wrong! Please try again.");
                 }
             });
             if (response) {
+                setTransparentLoading(false)
                 toast.success("Document successfully Uploaded.");
                 const patientInfo = params.patientID;
                 const apID = params.apid;
@@ -300,13 +297,13 @@ const AddPrescription = (props) => {
                 ...prescriptionResult,
                 [e.target.name]: e.target.value,
             });
-            // setIsSave(true);
         }
     };
 
     return (
-
         <div>
+            {loading && <Loader />}
+            {transparentLoading && <TransparentLoader />}
             <h3 className="prescription-lab--main-header mb-3 mt-2" style={{ paddingTop: '2%' }}>
                 Add Treatment
             </h3>
@@ -487,7 +484,6 @@ const AddPrescription = (props) => {
                             onClick={(e) => handlePrescriptionSubmission(e)}
                             type='submit'
                             variant="primary"
-                            id="prescriptionSave"
                         >
                             Save
                         </Button>
