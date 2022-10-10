@@ -26,7 +26,6 @@ const PromoCodeForPatient = ({
     const [loading, setLoading] = useState(false);
 
     const handlePromoEnteredText = (e) => {
-        console.log('handlePromoEnteredText', e.target.value);
         setErrorText('');
         setPromoCodeEnteredText(e.target.value);
         if (e.target.value === '') {
@@ -188,7 +187,6 @@ const PromoCodeForPatient = ({
                         autoComplete='off'
                         disabled={disableInput}
                         onPaste={(e) => {
-                            console.log('onPaste', e.target.value);
                             handlePromoEnteredText(e);
                         }}
                     />

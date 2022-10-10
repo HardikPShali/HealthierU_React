@@ -1323,7 +1323,20 @@ const MyDoctor = (props) => {
     //   ...data2[0]
     // }
     const res = await setNextAppointmentDoctor(data[0]).catch((err) => {
-      if (err.res.status === 500 || err.res.status === 504) {
+      if (err.response.status === 500 && err.response.data.message === 'Invalid id and doctorId  and PatientId are required') {
+        toast.error('Please select date and time to book slot', {
+          toastId: 'nextAppointmentErrorToast',
+          autoClose: 3000,
+          hideProgressBar: true,
+        })
+        setLoading(false);
+      }
+      else {
+        toast.error('Something went wrong. Please try again', {
+          toastId: 'nextAppointmentErrorToast',
+          autoClose: 3000,
+          hideProgressBar: true,
+        })
         setLoading(false);
       }
     });
