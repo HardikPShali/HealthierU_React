@@ -176,6 +176,10 @@ const PaypalMobile = () => {
             };
         }
 
+        if (notificationId) {
+            finalAppointmentDataArray.notificationId = notificationId;
+        }
+
         const freePaymentPayload = {
             ...finalAppointmentDataArray,
         };
