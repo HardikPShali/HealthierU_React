@@ -144,6 +144,11 @@ const MyDoctor = (props) => {
   const [nextAppDetails, setNextAppDetails] = useState(null);
   const getCurrentPatient = async () => {
     if (getRoleName() === "doctor") {
+      console.log({ stateData: props.location.state });
+      // if no stateDtat is present then redirect to prev page
+      if (!props.location.state) {
+        history.go(-1);
+      }
       setNextAppDetails(props.location.state);
       const patientInfo = props.location.state;
       if (patientInfo) {
