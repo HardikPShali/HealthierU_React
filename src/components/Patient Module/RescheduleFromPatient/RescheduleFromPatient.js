@@ -546,7 +546,7 @@ const RescheduleAppointment = (props) => {
                                                         fontWeight: '400',
                                                     }}
                                                 >
-                                                    {doctor.experience} years of experience
+                                                    {doctor.experienceWithMonths} years of experience
                                                 </p>
                                             </div>
                                         </Col>
@@ -682,7 +682,7 @@ const RescheduleAppointment = (props) => {
                                                         <b>Experience : </b>
                                                     </span>
                                                     <br />
-                                                    <span>{doctor.experience} yrs</span>
+                                                    <span>{doctor.experienceWithMonths} yrs</span>
                                                 </>
                                             )}
                                         </p>
@@ -937,7 +937,7 @@ const RescheduleAppointment = (props) => {
                                                 fontWeight: '600',
                                             }}
                                         >
-                                            {doctor.experience} years of experience
+                                            {doctor.experienceWithMonths} years of experience
                                         </p>
                                     </div>
                                 </Col>

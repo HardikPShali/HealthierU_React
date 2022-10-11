@@ -136,7 +136,7 @@ const OurDoctorCard = ({ doctor }) => {
                                             <div className="d-flex flex-column align-items-start">
                                                 <div className="doctor-info-title">Experience</div>
                                                 <div className="doctor-info-new">
-                                                    {doctor.experience}
+                                                    {doctor.experienceWithMonths}
                                                 </div>
                                             </div>
                                         </div>

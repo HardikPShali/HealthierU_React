@@ -70,6 +70,7 @@ const Home = () => {
   const handleClickOpen = async (userData) => {
     setSelectedUserData(userData);
     const currentUserData = await getDoctorByUserID(userData);
+    console.log({ currentUserData });
     setSelectedUser(currentUserData.doctors[0]);
     if (
       currentUserData &&
@@ -185,7 +186,7 @@ const Home = () => {
   // };
   const approveDoctor = async (userData) => {
     // setTransparentLoading(true);
-    console.log(userData);
+    console.log({ userData });
     userData.approved = true;
     const doctorData = {
       userId: userData.id,
@@ -205,6 +206,11 @@ const Home = () => {
   const handleDetails = async (e) => {
     var bodyFormData = new FormData();
     const updatedSelectedUser = { ...selectedUser };
+
+    const experienceWithMonths = updatedSelectedUser.experienceWithMonths;
+    updatedSelectedUser.experience = experienceWithMonths;
+    const updatedNewSelectedUser = { ...updatedSelectedUser };
+
     // delete updatedSelectedUser.salutation;
     bodyFormData.append("profileData", JSON.stringify(updatedSelectedUser));
     // console.log({ formData: [...bodyFormData] });

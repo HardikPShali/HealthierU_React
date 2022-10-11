@@ -114,7 +114,7 @@ const MoreInfoAboutDoctor = ({
 
                                         {/* <div className="d-flex flex-column align-items-start"> */}
                                         <div className="doctor-info-value">
-                                            {selectedAppointment.doctor.experience}
+                                            {selectedAppointment.doctor.experienceWithMonths}
                                         </div>
                                         {/* </div> */}
                                     </div>
@@ -143,22 +143,27 @@ const MoreInfoAboutDoctor = ({
                                     </div>
                                 </div>
 
-                                <div className="details-body__payment">
-                                    <div className="d-flex align-items-start flex-column mb-3">
-                                        <div className="doctor-info-icon-title">
-                                            <img
-                                                src={aboutIcon}
-                                                alt="icons"
-                                                className="doctor-info-icon"
-                                            />
-                                            <div className="doctor-info-title">About</div>
-                                        </div>
+                                {
+                                    selectedAppointment.doctor.bio && (
+                                        <div className="details-body__payment">
+                                            <div className="d-flex align-items-start flex-column mb-3">
+                                                <div className="doctor-info-icon-title">
+                                                    <img
+                                                        src={aboutIcon}
+                                                        alt="icons"
+                                                        className="doctor-info-icon"
+                                                    />
+                                                    <div className="doctor-info-title">About</div>
+                                                </div>
 
-                                        <div className="doctor-info-value">
-                                            {selectedAppointment.doctor.bio}
+                                                <div className="doctor-info-value">
+                                                    {selectedAppointment.doctor.bio}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    )
+                                }
+
                             </div>
                             <hr />
                         </div>
