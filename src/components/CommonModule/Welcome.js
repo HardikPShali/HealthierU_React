@@ -549,7 +549,7 @@ const Welcome = ({ currentuserInfo }) => {
                         } else if (err.response.status === 500 && state.phone === '') {
                             setPhoneError('This field is required');
                         } else if (err.response.status === 500 && state.phone !== '') {
-                            setPhoneError('Phone number should have max range of lenth 15');
+                            setPhoneError('Phone number should have max range of length 15');
 
                         }
                     }
@@ -884,8 +884,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 "Please Enter Valid Height"]}
                                                             variant="filled"
                                                             inputProps={{
-                                                                min: 30,
-                                                                max: 250,
+                                                                min: 48,
+                                                                max: 300,
                                                                 step: 0.1,
                                                             }}
                                                             required
@@ -904,8 +904,8 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 "Please Enter Valid Weight"]}
                                                             variant="filled"
                                                             inputProps={{
-                                                                min: 5.0,
-                                                                max: 999.0,
+                                                                min: 1.0,
+                                                                max: 500.0,
                                                                 step: 0.1,
                                                             }}
                                                             required
@@ -928,7 +928,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 "Please Enter Valid Systolic/High Rate"]}
                                                             variant="filled"
                                                             inputProps={{
-                                                                min: 50,
+                                                                min: 1,
                                                                 max: 300,
                                                                 step: 0.1,
                                                             }}
@@ -949,7 +949,7 @@ const Welcome = ({ currentuserInfo }) => {
                                                                 "Please Enter Valid Diastolic/Low Rate"]}
                                                             variant="filled"
                                                             inputProps={{
-                                                                min: 50,
+                                                                min: 1,
                                                                 max: 200,
                                                                 step: 0.1,
                                                             }}
