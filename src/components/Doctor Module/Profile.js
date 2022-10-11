@@ -99,6 +99,7 @@ const Profile = ({ currentDoctor }) => {
         languages,
         educationalQualifications,
         experience,
+        experienceWithMonths,
         specialities,
         bio,
     } = currentDoctorData ? currentDoctorData : currentDoctor;
@@ -208,12 +209,44 @@ const Profile = ({ currentDoctor }) => {
             setUploadOpen(false);
         }
     };
+    const [updatedExperience, setUpdatedExperience] = useState(experienceWithMonths)
     // HANDLERS FOR EDIT PAGE
     const handleInputChange = (e) => {
-        setCurrentDoctorData({
-            ...currentDoctorData,
-            [e.target.name]: e.target.value,
-        });
+        if (e.target.name === "experience") {
+            const experienceValue = e.target.value
+            const convertedValue = experienceValue.split('.')
+            if (convertedValue[1]) {
+                if (convertedValue[1] > 0 && convertedValue[1] <= 11) {
+                    setCurrentDoctorData({
+                        ...currentDoctorData,
+                        [e.target.name]: e.target.value,
+
+                    });
+                    setUpdatedExperience(e.target.value)
+                }
+                else {
+                    setUpdatedExperience(experienceWithMonths)
+                    toast.error("Please enter valid experience", {
+                        toastId: 'experienceValue'
+                    })
+                }
+            }
+            else {
+                setCurrentDoctorData({
+                    ...currentDoctorData,
+                    [e.target.name]: e.target.value,
+
+                });
+                setUpdatedExperience(e.target.value)
+            }
+        } else {
+            setCurrentDoctorData({
+                ...currentDoctorData,
+                [e.target.name]: e.target.value,
+
+            });
+        }
+
     };
     const handleLanguages = (selectedItem) => {
         selectedItem.forEach((e) => {
@@ -524,7 +557,7 @@ const Profile = ({ currentDoctor }) => {
                                                         <ProfileRow
                                                             icon={experienceIcon}
                                                             title="Experience"
-                                                            value={currentDoctor.experience}
+                                                            value={currentDoctor.experienceWithMonths}
                                                         />
                                                         <ProfileRow
                                                             icon={specialityIcon}
@@ -876,7 +909,7 @@ const Profile = ({ currentDoctor }) => {
                                                                 type="number"
                                                                 name="experience"
                                                                 onChange={(e) => handleInputChange(e)}
-                                                                value={experience}
+                                                                value={updatedExperience}
                                                                 variant="filled"
                                                                 validators={[
                                                                     'required',
