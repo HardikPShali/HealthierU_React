@@ -537,7 +537,7 @@ const Signupform = () => {
 
     console.log({ otp });
     if (otp === '') {
-      setOtpUser({ ...otpUser, msg: 'Please enter a valid OTP.' });
+      setOtpUser({ ...otpUser, msg: 'OTP cannot be blank. Please enter a valid OTP.' });
     }
     else {
       const res = await activateOtp(data).catch((err) => {
