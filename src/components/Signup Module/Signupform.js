@@ -222,8 +222,7 @@ const Signupform = () => {
 
       setLoginCode('');
       setLoginCodeMatch(false);
-    }
-    else {
+    } else {
       // if not matched then show error
       setLoginCodeError(true);
       console.log('login code not matched');
@@ -240,7 +239,7 @@ const Signupform = () => {
     setLoginCodeError(false);
     setLoginCodeMatch(false);
     setLoginCodeBlankError(false);
-  }
+  };
 
   useEffect(() => {
     preLoginCodeDetailsHandler();
@@ -419,11 +418,12 @@ const Signupform = () => {
 
         if (authorities.some((user) => user === 'ROLE_PATIENT')) {
           toast.success(
-            'OTP is sent to your email. Please check your email and verify OTP.', {
-            autoClose: 3000,
-            hideProgressBar: true,
-            toastId: "otpSent",
-          }
+            'OTP is sent to your email. Please check your email and verify OTP.',
+            {
+              autoClose: 3000,
+              hideProgressBar: true,
+              toastId: 'otpSent',
+            }
           );
           setDisplay({
             ...display,
@@ -434,11 +434,12 @@ const Signupform = () => {
         }
         if (authorities.some((user) => user === 'ROLE_DOCTOR')) {
           toast.success(
-            'OTP is sent to your email. Please check your email and verify OTP.', {
-            autoClose: 3000,
-            hideProgressBar: true,
-            toastId: "otpSent",
-          }
+            'OTP is sent to your email. Please check your email and verify OTP.',
+            {
+              autoClose: 3000,
+              hideProgressBar: true,
+              toastId: 'otpSent',
+            }
           );
           setDisplay({
             ...display,
@@ -533,56 +534,63 @@ const Signupform = () => {
       email: user.email,
       key: otp,
     };
-    const res = await activateOtp(data).catch((err) => {
-      if (err.response && err.response.status === 406) {
+
+    console.log({ otp });
+    if (otp === '') {
+      setOtpUser({ ...otpUser, msg: 'Please enter a valid OTP.' });
+    }
+    else {
+      const res = await activateOtp(data).catch((err) => {
+        if (err.response && err.response.status === 406) {
+          setOtpUser({
+            ...otpUser,
+            msg: 'Invalid OTP. Please generate new OTP and try again!',
+          });
+          setOtpBox(new Array(4).fill(''));
+        }
+      });
+
+      if (
+        res.data.message ===
+        'Your account has been blocked. Please try after some time.' &&
+        res.data.status === false
+      ) {
         setOtpUser({
           ...otpUser,
-          msg: 'Invalid OTP. Please generate new OTP and try again!',
+          msg: res.data.message,
+        });
+        setOtpBox(new Array(4).fill(''));
+        setTimeout(() => {
+          history.push('/signin');
+        }, 3000);
+      } else if (
+        res.data.message === 'OTP mismatch' &&
+        res.data.status === false
+      ) {
+        setOtpUser({
+          ...otpUser,
+          msg: 'Invalid OTP. Please enter the correct OTP.',
+        });
+        setOtpBox(new Array(4).fill(''));
+      } else if (
+        res.data.message === 'Account activated' &&
+        res.data.status === true
+      ) {
+        setOtpBox(new Array(4).fill(''));
+        toast.success('Account activated successfully. Please log in.', {
+          autoClose: 3000,
+          hideProgressBar: true,
+          toastId: 'activateAccount',
+        });
+        clearEveryCookie();
+        history.push('/signin');
+      } else {
+        setOtpUser({
+          ...otpUser,
+          msg: 'Something went wrong. Please try again!',
         });
         setOtpBox(new Array(4).fill(''));
       }
-    });
-
-    if (
-      res.data.message ===
-      'Your account has been blocked. Please try after some time.' &&
-      res.data.status === false
-    ) {
-      setOtpUser({
-        ...otpUser,
-        msg: res.data.message,
-      });
-      setOtpBox(new Array(4).fill(''));
-      setTimeout(() => {
-        history.push('/signin');
-      }, 3000);
-    } else if (
-      res.data.message === 'Otp mismatch' &&
-      res.data.status === false
-    ) {
-      setOtpUser({
-        ...otpUser,
-        msg: 'Invalid OTP. Please enter the correct OTP.',
-      });
-      setOtpBox(new Array(4).fill(''));
-    } else if (
-      res.data.message === 'Account activated' &&
-      res.data.status === true
-    ) {
-      setOtpBox(new Array(4).fill(''));
-      toast.success('Account activated successfully. Please log in.', {
-        autoClose: 3000,
-        hideProgressBar: true,
-        toastId: "activateAccount",
-      });
-      clearEveryCookie();
-      history.push('/signin');
-    } else {
-      setOtpUser({
-        ...otpUser,
-        msg: 'Something went wrong. Please try again!',
-      });
-      setOtpBox(new Array(4).fill(''));
     }
   };
 
@@ -944,12 +952,11 @@ const Signupform = () => {
               Pre-login code does not match
             </span>
           )}
-          {
-            loginCodeBlankError && (
-              <span style={{ color: 'red', fontSize: '14px' }}>
-                Pre-login code cannot be blank. Please enter code.
-              </span>
-            )}
+          {loginCodeBlankError && (
+            <span style={{ color: 'red', fontSize: '14px' }}>
+              Pre-login code cannot be blank. Please enter code.
+            </span>
+          )}
           {loginCodeMatch && (
             <span style={{ color: 'green', fontSize: '14px' }}>
               Pre-login code matched
