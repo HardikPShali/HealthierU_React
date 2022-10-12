@@ -8,22 +8,17 @@ import deleteIcon from "../../../images/icons used/id_delete_doc.svg"
 import moment from "moment";
 
 const PrescriptionLabCardPatient = (props) => {
-    let imageExtensions = ["png", "jpg", "jpeg", "GIF", "TIFF"]
-    let docExtensions = ["doc", "docx", "PSD"]
+    let imageExtensions = ["png", "jpg", "jpeg", "GIF", "TIFF", "JPEG", "JPG", "Jpeg", "PNG"]
+    let docExtensions = ["doc", "docx", "PSD", "txt"]
     return (
         <div className="row align-items-start">
-
             <div className='col-md-2'>
                 <h5 className='prescription-lab-card__common-date1'> <b>{moment(props.date).format("DD")}</b></h5>
                 <span className='prescription-lab-card__common-span1'>{moment(props.time).format("HH:mm A")}</span>
-
             </div>
             <div className='col-md-2'>
-
                 {props.filetype === "txt" && <img width={'70px'} height={'70px'} src={download2} alt={download1} className='prescription-lab-card__img-wrapper' />}
-
                 {props.filetype === "pdf" && <img width={'70px'} height={'70px'} src={pdf_filetype_icon} alt={download1} className='prescription-lab-card__img-wrapper' />}
-
                 {imageExtensions.map((a) => {
                     if (props.filetype === a) {
                         return <img src={jpg_filetype_icon} width={'70px'} height={'70px'} alt={download1} className='prescription-lab-card__img-wrapper' />
@@ -40,7 +35,6 @@ const PrescriptionLabCardPatient = (props) => {
             <div className='col-md-4'>
                 <h5 className='prescription-lab-card__common-name1'><b>{props.name}</b></h5>
                 <span className='prescription-lab-card__common-span1'><b>{props.name === "Treatment" ? "APID : " : "Lab Name : "}</b>{props.name === "Treatment" ? props.apid : props.labname}</span>
-
             </div>
             <div style={{ textAlign: "center", paddingTop: '15px' }} className='col-md-2'>
 

@@ -8,8 +8,8 @@ import deleteIcon from '../../../images/icons used/id_delete_doc.svg';
 import moment from 'moment';
 
 const PrescriptionLabCardDoctor = (props) => {
-    let imageExtensions = ['png', 'jpg', 'jpeg', 'GIF', 'TIFF'];
-    let docExtensions = ['doc', 'docx', 'PSD'];
+    let imageExtensions = ["png", "jpg", "jpeg", "GIF", "TIFF", "JPEG", "JPG", "Jpeg", "PNG"]
+    let docExtensions = ["doc", "docx", "PSD", "txt"]
     return (
         <div className="row align-items-start">
             <div className="col-md-2">
