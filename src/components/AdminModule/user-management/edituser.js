@@ -89,7 +89,7 @@ const EditUser = (props) => {
   const [educationList, setEducationList] = useState([
     { institution: '', educationalQualification: '' },
   ]);
-
+  const [updatedExperience, setUpdatedExperience] = useState(0)
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -105,6 +105,7 @@ const EditUser = (props) => {
     specialities: [],
     salutation: '',
     experience: '',
+    experienceWithMonths: '',
     languages: [],
     certificates: '',
     awards: '',
@@ -135,7 +136,6 @@ const EditUser = (props) => {
     loadLanguage();
 
   }, []);
-
   useEffect(() => {
 
     if (user.salutation === '') {
@@ -159,7 +159,7 @@ const EditUser = (props) => {
       } else if (authorityName === 'doctors') {
         setUser(res.data.doctors[0]);
         setDoctorId(res.data.doctors[0])
-
+        setUpdatedExperience(res.data.doctors[0].experienceWithMonths)
       }
       setTimeout(() => setTransparentLoading(false), 1000);
     }
@@ -195,6 +195,7 @@ const EditUser = (props) => {
     specialities,
     salutation,
     experience,
+    experienceWithMonths,
     languages,
     certificates,
     awards,
@@ -270,10 +271,30 @@ const EditUser = (props) => {
         toast.error("Invalid Rate or Half rate!")
       }
     }
+    else if (e.target.name === "experience") {
+      const experienceValue = e.target.value
+      const convertedValue = experienceValue.split('.')
+      if (convertedValue[1]) {
+        if (convertedValue[1] > 0 && convertedValue[1] <= 11) {
+          setUser({ ...user, [e.target.name]: e.target.value });
+          setUpdatedExperience(e.target.value)
+        }
+        else {
+          setUpdatedExperience(experienceWithMonths)
+          toast.error("Please enter valid experience", {
+            toastId: 'experienceValue'
+          })
+        }
+      }
+      else {
+        setUser({ ...user, [e.target.name]: e.target.value });
+        setUpdatedExperience(e.target.value)
+      }
+    }
     else {
       value = e.target.value;
+      setUser({ ...user, [e.target.name]: value });
     }
-    setUser({ ...user, [e.target.name]: value });
   };
 
   const handlePhone = (e) => {
@@ -819,14 +840,18 @@ const EditUser = (props) => {
                     <p>Years of experience</p>
                     <TextValidator id="standard-basic" type="number" name="experience"
                       onChange={e => handleInputChange(e)}
-                      value={experience ? experience : ''}
-                      validators={['required']}
-                      errorMessages={['This field is required']}
-                      inputProps={{
-                        min: 0,
-                        max: 65
-                      }}
+                      value={updatedExperience}
                       variant="filled"
+                      validators={[
+                        'required',
+                        'minNumber:0',
+                        'maxNumber:50',
+                      ]}
+                      errorMessages={[
+                        'This field is required',
+                        'Invalid Experience',
+                        'Invalid Experience',
+                      ]}
                       placeholder='Years of experience' />
                   </Col>
                   <Col md={6}>

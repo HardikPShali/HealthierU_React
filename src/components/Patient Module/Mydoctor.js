@@ -2021,7 +2021,7 @@ const MyDoctor = (props) => {
                               fontWeight: '400',
                             }}
                           >
-                            {doctor.experience} years of experience
+                            {doctor.experienceWithMonths} years of experience
                           </p>
                         </div>
                       </Col>
@@ -2163,7 +2163,7 @@ const MyDoctor = (props) => {
                               <b>Experience : </b>
                             </span>
                             <br />
-                            <span>{doctor.experience} yrs</span>
+                            <span>{doctor.experienceWithMonths} yrs</span>
                           </>
                         )}
                       </p>
@@ -2250,7 +2250,7 @@ const MyDoctor = (props) => {
                               fontWeight: '400',
                             }}
                           >
-                            {doctor.experience} years of experience
+                            {doctor.experienceWithMonths} years of experience
                           </p>
                         </div>
                       </Col>
@@ -2389,7 +2389,7 @@ const MyDoctor = (props) => {
                               <b>Experience : </b>
                             </span>
                             <br />
-                            <span>{doctor.experience} yrs</span>
+                            <span>{doctor.experienceWithMonths} yrs</span>
                           </>
                         )}
                       </p>
@@ -2904,7 +2904,7 @@ const MyDoctor = (props) => {
                           fontWeight: '600',
                         }}
                       >
-                        {doctor?.experience} years of experience
+                        {doctor?.experienceWithMonths} years of experience
                       </p>
                     </div>
                   </Col>
@@ -3054,7 +3054,7 @@ const MyDoctor = (props) => {
                             fontWeight: '600',
                           }}
                         >
-                          {doctor.experience} years of experience
+                          {doctor.experienceWithMonths} years of experience
                         </p>
                       </div>
                     </Col>

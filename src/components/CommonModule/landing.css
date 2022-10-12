@@ -1475,8 +1475,7 @@ button.btn.btn-outline-primary.sign-btn:hover {
 
 .profile-edit-icon-welcome {
   position: absolute;
-  /* margin: 200px 0 0 280px; */
-  margin: 185px 0 0 285px;
+  margin: 185px 0 0 320px;
 }
 .profile-edit-icon-doctor {
   position: absolute;
@@ -1503,5 +1502,13 @@ button.btn.btn-outline-primary.sign-btn:hover {
       -webkit-margin-before: 103px;
       -webkit-margin-start: 330px;
     }
+  }
+}
+
+/* FIREFOX ONLY CSS */
+@-moz-document url-prefix() {
+  .profile-edit-icon-welcome {
+    position: absolute;
+    margin: 210px 0 0 320px;
   }
 }
