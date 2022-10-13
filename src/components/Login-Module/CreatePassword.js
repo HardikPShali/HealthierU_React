@@ -20,7 +20,8 @@ import qs from "qs";
 import { getCreatePasswordOtpApi } from "../../service/frontendapiservices";
 import { toast } from "react-toastify";
 
-const isnum = /\d/;
+const isNumberOnly = '(?=.*[0-9])';
+const isSpecialChar = '(?=[~`!@#$%^&*()--+={}[]|\\:;"\'<>,.?/_₹])';
 const islow = "(?=.*[a-z])";
 const isup = "(?=.*[A-Z])";
 
@@ -77,7 +78,7 @@ const CreatePassword = () => {
       }
       setpasswordValidity({
         minchar: passvalue.length >= 8 ? true : false,
-        num: passvalue.match(isnum) ? true : false,
+        num: passvalue.match(isNumberOnly) && passvalue.match(isSpecialChar) ? true : false,
         lowcase: passvalue.match(islow) ? true : false,
         upcase: passvalue.match(isup) ? true : false,
       });
@@ -276,18 +277,22 @@ const CreatePassword = () => {
                     onChange={(e) => handleInputchange(e)}
                     value={newPassword}
                     validators={[
-                      "required",
-                      "matchRegexp:(?=.*[a-z])",
-                      "matchRegexp:(?=.*[A-Z])",
-                      "matchRegexp:(?=.*[0-9].*|.*[~`!@#$%^&*()--+={}\[\]|\\:;\"\'<>,.?/_₹])",
-                      "minStringLength:8",
+                      'required',
+                      'matchRegexp:(?=.*[a-z])',
+                      'matchRegexp:(?=.*[A-Z])',
+                      'matchRegexp:(?=.*[0-9])',
+                      'matchRegexp:(?=[~`!@#$%^&*()--+={}[]|\\:;"\'<>,.?/_₹])',
+                      'minStringLength:8',
+                      'maxStringLength:30',
                     ]}
                     errorMessages={[
-                      "This field is required",
-                      "Include at least 1 lower case",
-                      "Include at least 1 upper case",
-                      "Include at least 1 number or 1 special character",
-                      "Minimum of 8 characters",
+                      'This field is required',
+                      'Include at least 1 lower case alpbhabet',
+                      'Include at least 1 upper case alpbhabet',
+                      'Include at least 1 number',
+                      'Include at least 1 special character',
+                      'Minimum of 8 characters',
+                      'Password should not exceed 30 characters',
                     ]}
                     variant="filled"
                     InputProps={{
@@ -344,16 +349,16 @@ const CreatePassword = () => {
 
                   <div className="signup-text left pass-validation">
                     <input type="radio" required checked={minchar} />
-                    <span>Minimum of 8 characters</span>
+                    <span>Minimum 8 characters</span>
                     <br />
                     <input type="radio" required checked={upcase} />
-                    <span>Include at least 1 upper case</span>
+                    <span>At least 1 upper case alphabet</span>
                     <br />
                     <input type="radio" required checked={lowcase} />
-                    <span>Include at least 1 lower case</span>
+                    <span>At least 1 lower case alphabet</span>
                     <br />
                     <input type="radio" required checked={num} />
-                    <span>At least 1 number OR 1 special character</span>
+                    <span>Minimum 1 number and 1 special character</span>
                   </div>
 
 
