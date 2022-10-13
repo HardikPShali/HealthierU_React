@@ -3,13 +3,14 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { uploadNote } from "../../../service/frontendapiservices";
 import backIcon from '../../../images/svg/close-btn.svg';
 import { ToastContainer, toast } from "react-toastify";
-
+import moment from 'moment'
 
 import './Notes.css'
+import { getCurrentAppointment } from '../../../util/chatAndCallValidations';
 
 const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
 
-    const { patientInfo, doctorInfo, latestAppointment } = selectedChatNote;
+    const { patientInfo, doctorInfo, appointments } = selectedChatNote;
 
     const [disableButton, setDisableButton] = useState(false);
 
@@ -54,6 +55,21 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
         setDisableButton(true);
         // setToastShow(false);
 
+        const appointment = getCurrentAppointment(appointments);
+
+
+        if (!appointment) {
+            toast.error("No appointment found", {
+                autoClose: 3000,
+                hideProgressBar: true,
+                toastId: "noAppointmentFound",
+            });
+            setDisableButton(false);
+            return;
+        }
+
+        console.log({ appointment })
+
         const note = {
             chiefComplaint: notes.chiefComplaint,
             presentIllness: notes.presentIllness,
@@ -62,7 +78,7 @@ const Notes = ({ notes, setNotes, onClose, selectedChatNote }) => {
             planAssessment: notes.planAssessment,
             patientId: patientInfo.id,
             doctorId: doctorInfo.id,
-            appointmentId: latestAppointment.id
+            appointmentId: appointment.id
         }
 
         const noteResponse = await uploadNote(note).catch(err => {

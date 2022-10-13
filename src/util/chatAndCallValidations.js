@@ -1,83 +1,86 @@
 import moment from "moment";
 
 export const getAppointmentTime = (appointment) => {
-    const currentTime = moment(new Date());
-    const appointmentStartTime = moment(new Date(appointment.startTime));
-    const appointmentEndTime = moment(
-      new Date(appointment.endTime)
-    );
+  const currentTime = moment(new Date());
+  const appointmentStartTime = moment(new Date(appointment.startTime));
+  const appointmentEndTime = moment(
+    new Date(appointment.endTime)
+  );
 
-    return { currentTime, appointmentStartTime, appointmentEndTime };
-  };
+  return { currentTime, appointmentStartTime, appointmentEndTime };
+};
 
 export const videoCallEndCheck = (appointment) => {
-    const {
-      currentTime,
-      appointmentStartTime,
-      appointmentEndTime,
-    } = getAppointmentTime(appointment);
+  const {
+    currentTime,
+    appointmentStartTime,
+    appointmentEndTime,
+  } = getAppointmentTime(appointment);
 
-    const videoDisableTime = appointmentEndTime.clone().subtract(5, "minutes");
-  
-    if (
-      currentTime.isBefore(appointmentEndTime) && 
-      currentTime.isSameOrAfter(videoDisableTime)
-    ) {
-      return true;
-    }
+  const videoDisableTime = appointmentEndTime.clone().subtract(5, "minutes");
 
-    return false;
+  if (
+    currentTime.isBefore(appointmentEndTime) &&
+    currentTime.isSameOrAfter(videoDisableTime)
+  ) {
+    return true;
   }
+
+  return false;
+}
 
 export const isVideoGoingToEnd = (appointments) => {
   return appointments.some(videoCallEndCheck);
 }
- 
- export const videoEnableCheck = (appointment) => {
-    const {
-      currentTime,
-      appointmentStartTime,
-      appointmentEndTime,
-    } = getAppointmentTime(appointment);
 
-    const videoEnableTime = appointmentStartTime.clone().subtract(5, "minutes");
+export const videoEnableCheck = (appointment) => {
+  const {
+    currentTime,
+    appointmentStartTime,
+    appointmentEndTime,
+  } = getAppointmentTime(appointment);
 
-    if (
-      currentTime.isSameOrAfter(videoEnableTime) &&
-      currentTime.isBefore(appointmentEndTime)
-    ) {
-      return true;
-    }
+  const videoEnableTime = appointmentStartTime.clone().subtract(5, "minutes");
 
-    return false;
-  };
+  if (
+    currentTime.isSameOrAfter(videoEnableTime) &&
+    currentTime.isBefore(appointmentEndTime)
+  ) {
+    return true;
+  }
 
- export const chatEnableCheck = (appointment) => {
-    const {
-      currentTime,
-      appointmentStartTime,
-      appointmentEndTime,
-    } = getAppointmentTime(appointment);
+  return false;
+};
 
-    const chatEnableTime = appointmentStartTime.clone().subtract(2, "days");
+export const chatEnableCheck = (appointment) => {
+  const {
+    currentTime,
+    appointmentStartTime,
+    appointmentEndTime,
+  } = getAppointmentTime(appointment);
 
-    const chatEndCondition = appointmentEndTime.clone().add(3, "days");
+  const chatEnableTime = appointmentStartTime.clone().subtract(2, "days");
 
-    if (
-      currentTime.isSameOrAfter(chatEnableTime) &&
-      currentTime.isBefore(chatEndCondition)
-    ) {
-      return true
-    }
+  const chatEndCondition = appointmentEndTime.clone().add(3, "days");
 
-    return false
-  };
+  if (
+    currentTime.isSameOrAfter(chatEnableTime) &&
+    currentTime.isBefore(chatEndCondition)
+  ) {
+    return true
+  }
+
+  return false
+};
 
 export const videoValiation = (appointments) => {
-    return appointments.some(videoEnableCheck);
+  return appointments.some(videoEnableCheck);
 }
 
 export const chatValidation = (appointments) => {
-    return appointments.some(chatEnableCheck);
+  return appointments.some(chatEnableCheck);
 }
 
+export const getCurrentAppointment = (appointments) => {
+  return appointments.find(videoEnableCheck)
+}
