@@ -614,7 +614,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
                             value={licenseNumber}
                             validators={[
                                 "required",
-                                "matchRegexp:(^[a-zA-Z0-9 ]+$)",
+                                "matchRegexp:(^[a-zA-Z0-9  /-]+$)",
                             ]}
                             errorMessages={['This field is required',
                                 "Please Enter Valid License Number"]}
