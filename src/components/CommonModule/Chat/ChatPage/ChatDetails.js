@@ -288,7 +288,7 @@ const ChatDetails = ({
           >
             Send
           </button>
-          {roles.some((role) => role === ROLES.ROLE_DOCTOR) && (
+          {enableVideo && roles.some((role) => role === ROLES.ROLE_DOCTOR) && (
             <button
               onClick={handleNoteToggle}
               className="notes-btn"
