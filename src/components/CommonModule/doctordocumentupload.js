@@ -152,9 +152,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
     const [errorCertiBody, SetErrorCertiBody] = useState("")
     const [isValidlicense, setIsValidlicense] = useState(false)
     const [isValidcertifyingBody, setIsValidcertifyingBody] = useState(false)
-    const handleUpload = async (e, data) => {
+    const handleUpload = async (e) => {
+        e.preventDefault();
         // setLoading(true);
-        //document.getElementById("uploadBtn").disabled = true;
         const info = {
             doctorId: currentDoctor.id,
             doctor_email: currentDoctor.email,
@@ -169,8 +169,9 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             referencePhoneNumber: state.referencePhoneNumber,
             certifyingBody: state.certifyingBody
         }
-        var regLicenseNo = new RegExp('^[a-zA-Z0-9 ]+$');
+        var regLicenseNo = new RegExp('^[a-zA-Z0-9 /-]+$');
         var regCertifyingBody = new RegExp('^[a-zA-Z0-9 {}]+$');
+        let isValidLicense, isvalidCertyBody
         if (regLicenseNo.test(state.licenseNumber) == false) {
             setLoading(false);
             setUploadOpen(false)
@@ -182,7 +183,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             return false;
         }
         else {
-            setIsValidlicense(true)
+            //setIsValidlicense(true)
+            isValidLicense = true
         }
         if (regCertifyingBody.test(state.certifyingBody) == false) {
             setLoading(false);
@@ -195,7 +197,8 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             return false;
         }
         else {
-            setIsValidcertifyingBody(true)
+            //setIsValidcertifyingBody(true)
+            isvalidCertyBody = true
         }
         if (!documentFile) {
             setLoading(false);
@@ -209,7 +212,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             SetErrorCertiBody("")
             setPhoneError("")
         }
-        if (isValidlicense == true && isValidcertifyingBody == true) {
+        if (isValidLicense == true && isvalidCertyBody == true) {
             if (documentFile && info.licenseNumber !== null && info.referencePhoneNumber !== null && info.certifyingBody !== null) {
                 SetError("")
                 SetErrorLicense("")
@@ -605,7 +608,7 @@ const DoctorDocumentUpload = ({ currentDoctor, isDoctor, setDocumentinfo, setDoc
             {loading && (
                 <TransparentLoader />
             )}
-            <ValidatorForm onSubmit={handleUpload} onError={(err) => console.log(err)}>
+            <ValidatorForm onSubmit={(e) => handleUpload(e)} onError={(err) => console.log(err)}>
                 <Row>
                     <Col md={6}>
                         <p>License Number<sup>*</sup></p>
