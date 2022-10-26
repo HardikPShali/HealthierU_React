@@ -185,6 +185,7 @@ const Signin = () => {
         setLoading(false);
       }
     });
+    console.log({ currentUserInformation });
     setCurrentUser(currentUserInformation.data.userInfo);
     // cookies.set('currentUser', currentUserInformation);
     // const fcmToken = getFirebaseToken(currentUserInformation.id);
@@ -196,6 +197,13 @@ const Signin = () => {
     // if (!currentUserInformation) {
     //   window.location.assign("/");
     // }
+
+    delete currentUserInformation.data.role.languages;
+    delete currentUserInformation.data.role.bio;
+    delete currentUserInformation.data.role.specialities;
+    delete currentUserInformation.data.role.specialitiesList;
+    delete currentUserInformation.data.role.educationalQualifications;
+
     cookies.set("currentUser", currentUserInformation.data.userInfo, { path: '/' });
     currentUserInformation.data.role.firebasePwd =
       currentUserInformation.data.firebasePwd;
