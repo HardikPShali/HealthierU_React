@@ -12,6 +12,10 @@ export const PROMOCODE_LISTING_TABLE_HEADERS = [
         key: "patientId",
     },
     {
+        label: "Patient Email",
+        key: "email",
+    },
+    {
         label: "Promocode Type",
         key: "promocodeType",
     },
@@ -45,6 +49,10 @@ export const PROMOCODE_USER_TABLE_HEADERS = [
     {
         label: "Patient Id",
         key: "patientId",
+    },
+    {
+        label: "Patient Email",
+        key: "email",
     },
     {
         label: "Enable/Disable Patient",
