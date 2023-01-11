@@ -39,6 +39,7 @@ const PromoCode = () => {
                         id: data.slNo,
                         patientName: data.patientName,
                         patientId: data.patientId,
+                        email: data.email,
                         promocodeType: data.promoCodeType,
                         doctorName: data.doctorName,
                         appointmentType: data.appointmentType,
@@ -70,6 +71,7 @@ const PromoCode = () => {
                         id: index + 1,
                         patientName: data.firstName,
                         patientId: data.id,
+                        email: data.email,
                         couponToggle: data.couponToggle
                     })
                 })
@@ -117,6 +119,7 @@ const PromoCode = () => {
                             id: data.slNo,
                             patientName: data.patientName,
                             patientId: data.patientId,
+                            email: data.email,
                             promocodeType: data.promoCodeType,
                             doctorName: data.doctorName,
                             appointmentType: data.appointmentType,
@@ -142,6 +145,7 @@ const PromoCode = () => {
                             id: index + 1,
                             patientName: data.firstName,
                             patientId: data.id,
+                            email: data.email,
                             couponToggle: data.couponToggle
                         })
                     })
@@ -170,6 +174,7 @@ const PromoCode = () => {
                             id: index + 1,
                             patientName: data.firstName,
                             patientId: data.id,
+                            email: data.email,
                             couponToggle: data.couponToggle
                         })
                     })
@@ -192,6 +197,7 @@ const PromoCode = () => {
                             id: data.slNo,
                             patientName: data.patientName,
                             patientId: data.patientId,
+                            email: data.email,
                             promocodeType: data.promoCodeType,
                             doctorName: data.doctorName,
                             appointmentType: data.appointmentType,
