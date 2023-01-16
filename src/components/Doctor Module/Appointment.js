@@ -414,7 +414,7 @@ const Myappointment = (props) => {
     clickTabEvent();
   }, [tomorrowAppointment]);
   const newStartDate = new Date().setDate(new Date().getDate() - 30);
-  const newEndDate = new Date().setDate(new Date().getDate() + 28);
+  const newEndDate = new Date().setDate(new Date().getDate() + 180);
   const loadAppointment = async (startTime, endTime, doctorId) => {
     const docId = cookies.get("profileDetails");
     setTransparentLoading(true);
