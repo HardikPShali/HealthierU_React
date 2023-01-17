@@ -631,13 +631,13 @@ const Myappointment = (props) => {
         });
       if (
         slots[0].toISOString() >
-        new Date(new Date().setDate(new Date().getDate() + 28)).toISOString()
+        new Date(new Date().setDate(new Date().getDate() + 180)).toISOString()
       ) {
         duplicateFlag = 1;
         setWarningMsg({
           ...warningMsg,
           message:
-            "You cannot make the slots available for booking more than 28 days from current day!",
+            "You cannot make the slots available for booking more than 180 days from current day!",
         });
       }
       if (duplicateFlag === 0) {
