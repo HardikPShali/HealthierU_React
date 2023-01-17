@@ -604,131 +604,134 @@ const MyPatients = (props) => {
                                                     }
                                                 </div>
                                                 <br />
-                                                <Link to={{ pathname: `/doctor/consultationhistory/${SelectedPatient.patientId}` }}>
-                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
-                                                        <div style={{ width: '100%' }}>
+                                                <div>
+                                                    <Link to={{ pathname: `/doctor/consultationhistory/${SelectedPatient.patientId}` }}>
+                                                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                            <div style={{ width: '100%' }}>
+                                                                <img
+                                                                    width="40"
+                                                                    height="40"
+                                                                    fontWeight="300"
+                                                                    src={conHistory}
+                                                                    alt=""
+                                                                    style={{ marginLeft: '5%', marginRight: '5%', paddingBottom: '5px' }}
+                                                                />
+                                                                Consultation History
+                                                            </div>
                                                             <img
-                                                                width="40"
-                                                                height="40"
-                                                                fontWeight="300"
-                                                                src={conHistory}
-                                                                alt=""
-                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                                src={rightIcon}
+                                                                alt="right-icon"
+                                                                style={{ marginRight: '35px' }}
                                                             />
-                                                            Consultation History
                                                         </div>
-                                                        <img
-                                                            src={rightIcon}
-                                                            alt="right-icon"
-                                                            style={{ marginRight: '35px' }}
-                                                        />
-                                                    </div>
-                                                </Link>
+                                                    </Link>
 
-                                                <Link
-                                                    to={{
-                                                        pathname: `/doctor/healthassesment-report/${SelectedPatient.patientId}`,
-                                                        state: SelectedPatient.patient,
-                                                    }}
-                                                >
-                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
-                                                        <div style={{ width: '100%' }}>
+                                                    <Link
+                                                        to={{
+                                                            pathname: `/doctor/healthassesment-report/${SelectedPatient.patientId}`,
+                                                            state: SelectedPatient.patient,
+                                                        }}
+                                                    >
+                                                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                            <div style={{ width: '100%' }}>
+                                                                <img
+                                                                    width="40"
+                                                                    height="40"
+                                                                    src={HealthAssessment}
+                                                                    alt=""
+                                                                    style={{ marginLeft: '5%', marginRight: '5%', paddingBottom: '5px' }}
+                                                                />
+                                                                Health Assessment Report
+                                                            </div>
                                                             <img
-                                                                width="40"
-                                                                height="40"
-                                                                src={HealthAssessment}
-                                                                alt=""
-                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                                src={rightIcon}
+                                                                alt="right-icon"
+                                                                style={{ marginRight: '35px' }}
                                                             />
-                                                            Health Assessment Report
                                                         </div>
-                                                        <img
-                                                            src={rightIcon}
-                                                            alt="right-icon"
-                                                            style={{ marginRight: '35px' }}
-                                                        />
-                                                    </div>
-                                                </Link>
-                                                <Link
-                                                    to={{
-                                                        pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}/${SelectedPatient.id}`
+                                                    </Link>
+                                                    <Link
+                                                        to={{
+                                                            pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}/${SelectedPatient.id}`
 
-                                                    }}
-                                                >
-                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
-                                                        <div style={{ width: '100%' }}>
+                                                        }}
+                                                    >
+                                                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                            <div style={{ width: '100%' }}>
+                                                                <img
+                                                                    width="40"
+                                                                    height="40"
+                                                                    src={MedicalRecord}
+                                                                    // onClick='${pathname}'
+                                                                    alt=""
+                                                                    style={{ marginLeft: '5%', marginRight: '5%', paddingBottom: '5px' }}
+                                                                />
+                                                                Medical Record
+                                                            </div>
                                                             <img
-                                                                width="40"
-                                                                height="40"
-                                                                src={MedicalRecord}
-                                                                // onClick='${pathname}'
-                                                                alt=""
-                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                                src={rightIcon}
+                                                                alt="right-icon"
+                                                                style={{ marginRight: '35px' }}
                                                             />
-                                                            Medical Record
                                                         </div>
-                                                        <img
-                                                            src={rightIcon}
-                                                            alt="right-icon"
-                                                            style={{ marginRight: '35px' }}
-                                                        />
-                                                    </div>
-                                                </Link>
+                                                    </Link>
 
-                                                {/* <Link
+                                                    {/* <Link
                                                     to={{
                                                         // pathname: `/doctor/setNextAppointment/appointmentID=${appointmentDets.id}`,
                                                         // state: appointmentDets,
                                                         onClick={(e) => setNextAppointment(SelectedPatient.id)}
                                                     }}
                                                 > */}
-                                                <a
-                                                    onClick={(e) =>
-                                                        setNextAppointment(SelectedPatient.id)
-                                                    }
-                                                    className="set-next"
-                                                >
-                                                    <div style={{ display: "flex", alignItem: "center" }}>
-                                                        <div style={{ width: "100%" }}>
-                                                            <img
-                                                                width="40"
-                                                                height="40"
-                                                                src={calendar}
-                                                                // onClick='${pathname}'
-                                                                alt=""
-                                                                style={{ marginLeft: "5%", marginRight: "5%" }}
-                                                            />
-                                                            Set Next Appointment
-                                                        </div>
-                                                        <img
-                                                            src={rightIcon}
-                                                            alt="right-icon"
-                                                            style={{ marginRight: "35px" }}
-                                                        />
-                                                    </div>
-                                                    {/* </Link> */}
-                                                </a>
-
-                                            </div>
-                                            <Row>
-                                                <Col className="profile-btn">
-                                                    <Link
-                                                        to={`/doctor/chat?chatgroup=P${SelectedPatient?.patient?.id}_D${doctorId}`}
-                                                        title="Chat"
+                                                    <a
+                                                        onClick={(e) =>
+                                                            setNextAppointment(SelectedPatient.id)
+                                                        }
+                                                        className="set-next"
                                                     >
-                                                        <button className="btn btn-primary view-btn">
+                                                        <div style={{ display: "flex", alignItem: "center" }}>
+                                                            <div style={{ width: "100%" }}>
+                                                                <img
+                                                                    width="40"
+                                                                    height="40"
+                                                                    src={calendar}
+                                                                    // onClick='${pathname}'
+                                                                    alt=""
+                                                                    style={{ marginLeft: "5%", marginRight: "5%", paddingBottom: '5px' }}
+                                                                />
+                                                                Set Next Appointment
+                                                            </div>
                                                             <img
-                                                                src={chatButtonIcon}
-                                                                alt="chat-button-icon"
-                                                                style={{ marginRight: 10, marginLeft: -10 }}
+                                                                src={rightIcon}
+                                                                alt="right-icon"
+                                                                style={{ marginRight: "35px" }}
                                                             />
-                                                            Chat
-                                                        </button>
+                                                        </div>
+                                                        {/* </Link> */}
+                                                    </a>
 
-                                                    </Link>
-                                                </Col>
-                                            </Row>
+                                                </div>
+                                                <Row>
+                                                    <Col className="profile-btn">
+                                                        <Link
+                                                            to={`/doctor/chat?chatgroup=P${SelectedPatient?.patient?.id}_D${doctorId}`}
+                                                            title="Chat"
+                                                        >
+                                                            <button className="btn btn-primary view-btn">
+                                                                <img
+                                                                    src={chatButtonIcon}
+                                                                    alt="chat-button-icon"
+                                                                    style={{ marginRight: 10, marginLeft: -10 }}
+                                                                />
+                                                                Chat
+                                                            </button>
+
+                                                        </Link>
+                                                    </Col>
+                                                </Row>
+                                            </div>
                                         </div>
+                                        {/* </div> */}
                                     </>
                                 ) : (
                                     <>
