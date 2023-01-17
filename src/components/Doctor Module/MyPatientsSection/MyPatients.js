@@ -606,7 +606,7 @@ const MyPatients = (props) => {
                                                 <br />
                                                 <div>
                                                     <Link to={{ pathname: `/doctor/consultationhistory/${SelectedPatient.patientId}` }}>
-                                                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div className='apptDetailsBox' style={{ display: 'flex', alignItem: 'center', color: '#000' }}>
                                                             <div style={{ width: '100%' }}>
                                                                 <img
                                                                     width="40"
@@ -632,7 +632,7 @@ const MyPatients = (props) => {
                                                             state: SelectedPatient.patient,
                                                         }}
                                                     >
-                                                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div className='apptDetailsBox' style={{ display: 'flex', alignItem: 'center', color: '#000' }}>
                                                             <div style={{ width: '100%' }}>
                                                                 <img
                                                                     width="40"
@@ -656,7 +656,7 @@ const MyPatients = (props) => {
 
                                                         }}
                                                     >
-                                                        <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div className='apptDetailsBox' style={{ display: 'flex', alignItem: 'center', color: '#000' }}>
                                                             <div style={{ width: '100%' }}>
                                                                 <img
                                                                     width="40"
@@ -689,7 +689,7 @@ const MyPatients = (props) => {
                                                         }
                                                         className="set-next"
                                                     >
-                                                        <div style={{ display: "flex", alignItem: "center" }}>
+                                                        <div className='apptDetailsBox' style={{ display: "flex", alignItem: "center", color: '#000' }}>
                                                             <div style={{ width: "100%" }}>
                                                                 <img
                                                                     width="40"
