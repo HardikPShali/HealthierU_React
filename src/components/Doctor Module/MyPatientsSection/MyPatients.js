@@ -19,7 +19,8 @@ import HealthAssessment from '../../../images/icons used/Component 16.svg';
 import calendarSmall from '../../../images/svg/calendar-white.svg';
 import timeSmall from '../../../images/svg/time-white.svg';
 import chatButtonIcon from '../../../images/svg/chat-button-icon.svg';
-
+import MedicalRecord from "../../../images/icons used/Component 17.svg";
+import calendar from "../../../images/icons used/Component 12.svg";
 
 const MyPatients = (props) => {
 
@@ -198,6 +199,27 @@ const MyPatients = (props) => {
         consultationHistoryArray.push(res.data.data)
         setNotesData(res.data.data[0])
     }
+    const setNextAppointment = (id) => {
+        const apID = id;
+        let stateData = [];
+        let aID;
+        //console.log("appointmentDets",appointmentDets);
+        appointmentDets.map((a, i) => {
+            if (a.id == apID) {
+                aID = a.id;
+                stateData = a;
+
+                setTimeout(
+                    () =>
+                        props.history.push({
+                            pathname: `/doctor/setNextAppointment`,
+                            state: stateData,
+                        }),
+                    500
+                );
+            }
+        });
+    };
 
     return (
         <div className="bg-grey">
@@ -627,6 +649,66 @@ const MyPatients = (props) => {
                                                         />
                                                     </div>
                                                 </Link>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/doctor/medicalrecord/${SelectedPatient.patientId}/${SelectedPatient.id}`
+
+                                                    }}
+                                                >
+                                                    <div style={{ display: 'flex', alignItem: 'center' }}>
+                                                        <div style={{ width: '100%' }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={MedicalRecord}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: '5%', marginRight: '5%' }}
+                                                            />
+                                                            Medical Record
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: '35px' }}
+                                                        />
+                                                    </div>
+                                                </Link>
+
+                                                {/* <Link
+                                                    to={{
+                                                        // pathname: `/doctor/setNextAppointment/appointmentID=${appointmentDets.id}`,
+                                                        // state: appointmentDets,
+                                                        onClick={(e) => setNextAppointment(SelectedPatient.id)}
+                                                    }}
+                                                > */}
+                                                <a
+                                                    onClick={(e) =>
+                                                        setNextAppointment(SelectedPatient.id)
+                                                    }
+                                                    className="set-next"
+                                                >
+                                                    <div style={{ display: "flex", alignItem: "center" }}>
+                                                        <div style={{ width: "100%" }}>
+                                                            <img
+                                                                width="40"
+                                                                height="40"
+                                                                src={calendar}
+                                                                // onClick='${pathname}'
+                                                                alt=""
+                                                                style={{ marginLeft: "5%", marginRight: "5%" }}
+                                                            />
+                                                            Set Next Appointment
+                                                        </div>
+                                                        <img
+                                                            src={rightIcon}
+                                                            alt="right-icon"
+                                                            style={{ marginRight: "35px" }}
+                                                        />
+                                                    </div>
+                                                    {/* </Link> */}
+                                                </a>
+
                                             </div>
                                             <Row>
                                                 <Col className="profile-btn">
