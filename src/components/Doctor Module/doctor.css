@@ -3250,7 +3250,7 @@ button.reset-btn {
 
 /* MY PATIENTS PAGE */
 .diagnosis-description {
-  max-height: 190px;
+  max-height: 150px;
   overflow-y: scroll;
 }
 
