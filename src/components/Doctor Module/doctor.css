@@ -3249,6 +3249,10 @@ button.reset-btn {
 }
 
 /* MY PATIENTS PAGE */
+.apptDetailsBox > div:hover{
+  color: #007bff;
+}
+
 .diagnosis-description {
   max-height: 150px;
   overflow-y: scroll;
